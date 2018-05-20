@@ -8,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
       <ngx-sketch-dropzone (changed)="onFileSelected($event)"></ngx-sketch-dropzone>
     </ng-template>
     
-    <ngx-sketch-viewer *ngIf="data else noData"  [data]="data"></ngx-sketch-viewer>
+    <ngx-sketch-preview *ngIf="data else noData"  [data]="data"></ngx-sketch-preview>
   `,
   styles: [
     `
@@ -25,15 +25,15 @@ export class SketchContainerComponent implements OnInit {
 
   constructor(private service: SketchService) {}
 
-  data: SketchContent;
+  public data: SketchContent;
 
   ngOnInit() {}
 
   async onFileSelected(file: File) {
     try {
-      this.data = await this.service.processSketchFile(file);
+      this.data = await this.service.process(file);
     } catch {
-      this.error = 'Only .sketch files that were saved using the new Sketch 43 are supported.';
+      alert('Only .sketch files that were saved using Sketch v43 and above are supported.');
     }
   }
 }

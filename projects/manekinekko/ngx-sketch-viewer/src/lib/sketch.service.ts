@@ -11,8 +11,10 @@ export interface SketchContent {
 export class SketchService {
   constructor() {}
 
-  async processSketchFile(file: File) {
+  async process(file: File) {
     const json = await this.parse(file);
+    console.log(json);
+
     return json;
   }
 

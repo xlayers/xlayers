@@ -3,13 +3,13 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 
 import { SketchContainerComponent } from './sketch-container.component';
-import { SketchViewerComponent } from './sketch-viewer.component';
+import { SketchPreviewComponent } from './sketch-preview.component';
 import { SketchDropzoneComponent } from './sketch-dropzone.component';
 import { CommonModule } from '@angular/common';
 
 @NgModule({
   imports: [CommonModule, MatIconModule, MatButtonModule],
-  declarations: [SketchViewerComponent, SketchDropzoneComponent, SketchContainerComponent],
-  exports: [SketchContainerComponent]
+  declarations: [SketchPreviewComponent, SketchDropzoneComponent, SketchContainerComponent],
+  exports: [SketchPreviewComponent, SketchDropzoneComponent, SketchContainerComponent]
 })
 export class AngularSketchModule {}

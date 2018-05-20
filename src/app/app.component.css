@@ -1,3 +1,19 @@
+:host,
+mat-drawer-container {
+  display: block;
+  min-height: 100%;
+  height: 100%;
+}
+
+mat-drawer-container {
+  background-color: transparent;
+}
+
 mat-drawer {
   width: 250px;
+}
+
+.mat-header {
+  display: flex;
+  width: 100%;
 }

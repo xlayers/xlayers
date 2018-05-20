@@ -1,15 +1,21 @@
-import { Component, OnInit, EventEmitter, Output, ViewChild, ElementRef, NgZone } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, ViewChild, ElementRef, NgZone, Input } from '@angular/core';
 
 @Component({
   selector: 'ngx-sketch-dropzone',
   template: `
-  <section (drop)="onFileDrop($event)" (dragover)="dragOverHandler($event)">
-    <mat-icon>upload</mat-icon>
+
+  <mat-icon class="mode__mini" *ngIf="mode === 'mini' else large" (drop)="onFileDrop($event)" (dragover)="dragOverHandler($event)" (click)="openFileBrowser()">cloud_upload</mat-icon>
+
+  <ng-template #large>
+    <section (drop)="onFileDrop($event)" (dragover)="dragOverHandler($event)">
+    <mat-icon class="mode__large">cloud_upload</mat-icon>
     <h2 class="mat-headline">Drag&Drop your Sketch file here</h2>
     <span class="mat-subheading-1">Or</span>
     <button color="accent" class="mat-headline" mat-button (click)="openFileBrowser()">BROWSE FILES</button>
-    <input #fileBrowserRef type="file" (change)="onFileChange($event)" accept=".sketch">
-  </section>
+    </section>
+  </ng-template>
+  
+  <input #fileBrowserRef type="file" (change)="onFileChange($event)" accept=".sketch">
   `,
   styles: [
     `
@@ -30,10 +36,22 @@ import { Component, OnInit, EventEmitter, Output, ViewChild, ElementRef, NgZone 
   input[type="file"] {
     display: none;
   }
+
+  .mode__large {
+    font-size: 7em;
+    color: #b0b0b0;
+    width: 200px;
+    height: 120px;
+  }
+
+  .mode__mini {
+    cursor: pointer;
+  }
   `
   ]
 })
 export class SketchDropzoneComponent implements OnInit {
+  @Input() mode: 'mini|large';
   @Output() changed: EventEmitter<File>;
   @ViewChild('fileBrowserRef') fileBrowserRef: ElementRef;
   constructor() {
