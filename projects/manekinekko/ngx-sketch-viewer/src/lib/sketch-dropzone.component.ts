@@ -1,7 +1,7 @@
 import { Component, OnInit, EventEmitter, Output, ViewChild, ElementRef, NgZone } from '@angular/core';
 
 @Component({
-  selector: 'ngx-dropzone',
+  selector: 'ngx-sketch-dropzone',
   template: `
   <section (drop)="onFileDrop($event)" (dragover)="dragOverHandler($event)">
     <mat-icon>upload</mat-icon>
@@ -33,10 +33,10 @@ import { Component, OnInit, EventEmitter, Output, ViewChild, ElementRef, NgZone 
   `
   ]
 })
-export class NgxDropzoneComponent implements OnInit {
+export class SketchDropzoneComponent implements OnInit {
   @Output() changed: EventEmitter<File>;
   @ViewChild('fileBrowserRef') fileBrowserRef: ElementRef;
-  constructor(private zone: NgZone) {
+  constructor() {
     this.changed = new EventEmitter();
   }
 

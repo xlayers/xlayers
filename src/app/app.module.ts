@@ -7,13 +7,13 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 
 import { AppComponent } from './app.component';
-import { AngularSketchViewerModule } from 'projects/manekinekko/ngx-sketch-viewer/src/public_api';
+import { AngularSketchModule } from 'projects/manekinekko/ngx-sketch-viewer/src/public_api';
 
 const MatModules = [MatSidenavModule, MatIconModule, MatButtonModule, MatToolbarModule];
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [BrowserModule, BrowserAnimationsModule, MatModules, AngularSketchViewerModule],
+  imports: [BrowserModule, BrowserAnimationsModule, MatModules, AngularSketchModule],
   providers: [],
   bootstrap: [AppComponent]
 })

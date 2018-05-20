@@ -1,10 +1,14 @@
-import { NgxSketchViewerService, SketchContent } from './ngx-sketch-viewer.service';
+import { SketchService, SketchContent } from './sketch.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'ngx-sketch-viewer',
+  selector: 'ngx-sketch-container',
   template: `
-    <ngx-dropzone (changed)="onFileSelected($event)"></ngx-dropzone>
+    <ng-template #noData>
+      <ngx-sketch-dropzone (changed)="onFileSelected($event)"></ngx-sketch-dropzone>
+    </ng-template>
+    
+    <ngx-sketch-viewer *ngIf="data else noData"  [data]="data"></ngx-sketch-viewer>
   `,
   styles: [
     `
@@ -16,10 +20,10 @@ import { Component, OnInit } from '@angular/core';
   `
   ]
 })
-export class NgxSketchViewerComponent implements OnInit {
+export class SketchContainerComponent implements OnInit {
   error: string;
 
-  constructor(private service: NgxSketchViewerService) {}
+  constructor(private service: SketchService) {}
 
   data: SketchContent;
 

@@ -8,7 +8,7 @@ export interface SketchContent {
 @Injectable({
   providedIn: 'root'
 })
-export class NgxSketchViewerService {
+export class SketchService {
   constructor() {}
 
   async processSketchFile(file: File) {
@@ -31,7 +31,7 @@ export class NgxSketchViewerService {
           const content = await zipEntry.async('base64');
 
           try {
-            output.previews.push(content);
+            output.previews.push(`data:image/png;base64,${content}`);
           } catch (e) {
             throw new Error('Could not load a Sketch preview');
           }
