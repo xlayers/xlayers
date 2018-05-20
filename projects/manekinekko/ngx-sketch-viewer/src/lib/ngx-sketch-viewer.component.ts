@@ -3,11 +3,17 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'ngx-sketch-viewer',
   template: `
-    <p>
-      ngx-sketch-viewer works!
-    </p>
+    <ngx-dropzone></ngx-dropzone>
   `,
-  styles: []
+  styles: [
+    `
+  :host {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+  `
+  ]
 })
 export class NgxSketchViewerComponent implements OnInit {
   constructor() {}

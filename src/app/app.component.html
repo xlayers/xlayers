@@ -1,1 +1,18 @@
-<ngx-sketch-viewer></ngx-sketch-viewer>
+<mat-drawer-container autosize>
+
+  <mat-toolbar color="primary">
+    <button mat-icon-button (click)="snav.toggle()">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <h1>Sketch Viewer</h1>
+  </mat-toolbar>
+
+  <mat-drawer #snav mode="side">
+    <h1>Hi</h1>
+  </mat-drawer>
+
+  <div>
+    <ngx-sketch-viewer></ngx-sketch-viewer>
+  </div>
+
+</mat-drawer-container>
