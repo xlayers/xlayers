@@ -23,6 +23,9 @@
               "src/assets"
             ],
             "styles": [
+              {
+                "input": "node_modules/@angular/material/prebuilt-themes/indigo-pink.css"
+              },
               "src/styles.css"
             ],
             "scripts": []
@@ -72,6 +75,9 @@
             "tsConfig": "src/tsconfig.spec.json",
             "karmaConfig": "src/karma.conf.js",
             "styles": [
+              {
+                "input": "node_modules/@angular/material/prebuilt-themes/indigo-pink.css"
+              },
               "src/styles.css"
             ],
             "scripts": [],
@@ -110,6 +116,46 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": "e2e/tsconfig.e2e.json",
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "angular-sketch-viewer": {
+      "root": "projects/angular-sketch-viewer",
+      "sourceRoot": "projects/angular-sketch-viewer/src",
+      "projectType": "library",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/angular-sketch-viewer/tsconfig.lib.json",
+            "project": "projects/angular-sketch-viewer/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "project": "projects/angular-sketch-viewer/ng-package.prod.json"
+            }
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/angular-sketch-viewer/src/test.ts",
+            "tsConfig": "projects/angular-sketch-viewer/tsconfig.spec.json",
+            "karmaConfig": "projects/angular-sketch-viewer/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/angular-sketch-viewer/tsconfig.lib.json",
+              "projects/angular-sketch-viewer/tsconfig.spec.json"
+            ],
             "exclude": [
               "**/node_modules/**"
             ]
