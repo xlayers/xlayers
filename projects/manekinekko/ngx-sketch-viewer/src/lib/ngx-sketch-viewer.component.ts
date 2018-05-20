@@ -1,9 +1,10 @@
+import { NgxSketchViewerService, SketchContent } from './ngx-sketch-viewer.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'ngx-sketch-viewer',
   template: `
-    <ngx-dropzone></ngx-dropzone>
+    <ngx-dropzone (changed)="onFileSelected($event)"></ngx-dropzone>
   `,
   styles: [
     `
@@ -16,7 +17,19 @@ import { Component, OnInit } from '@angular/core';
   ]
 })
 export class NgxSketchViewerComponent implements OnInit {
-  constructor() {}
+  error: string;
+
+  constructor(private service: NgxSketchViewerService) {}
+
+  data: SketchContent;
 
   ngOnInit() {}
+
+  async onFileSelected(file: File) {
+    try {
+      this.data = await this.service.processSketchFile(file);
+    } catch {
+      this.error = 'Only .sketch files that were saved using the new Sketch 43 are supported.';
+    }
+  }
 }
