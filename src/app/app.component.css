@@ -17,3 +17,10 @@ mat-drawer {
   display: flex;
   width: 100%;
 }
+
+h1 span {
+  font-size: 12px;
+  display: block;
+  margin-top: -5px;
+  margin-left: 5px;
+}

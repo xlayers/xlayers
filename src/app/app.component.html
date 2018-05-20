@@ -4,7 +4,9 @@
     <button mat-icon-button (click)="snav.toggle()">
       <mat-icon>menu</mat-icon>
     </button>
-    <h1 class="mat-header">Sketch Viewer</h1>
+    <h1 class="mat-header">Sketch Viewer
+      <span>BETA</span>
+    </h1>
 
     <ngx-sketch-dropzone (changed)="sketchContainerRef.onFileSelected($event)" mode="mini"></ngx-sketch-dropzone>
   </mat-toolbar>
