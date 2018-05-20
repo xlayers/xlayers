@@ -18,10 +18,7 @@
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "src/tsconfig.app.json",
-            "assets": [
-              "src/favicon.ico",
-              "src/assets"
-            ],
+            "assets": ["src/favicon.ico", "src/assets"],
             "styles": [
               {
                 "input": "node_modules/@angular/material/prebuilt-themes/indigo-pink.css"
@@ -81,22 +78,14 @@
               "src/styles.css"
             ],
             "scripts": [],
-            "assets": [
-              "src/favicon.ico",
-              "src/assets"
-            ]
+            "assets": ["src/favicon.ico", "src/assets"]
           }
         },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "src/tsconfig.app.json",
-              "src/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "tsConfig": ["src/tsconfig.app.json", "src/tsconfig.spec.json"],
+            "exclude": ["**/node_modules/**"]
           }
         }
       }
@@ -116,49 +105,45 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": "e2e/tsconfig.e2e.json",
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         }
       }
     },
-    "angular-sketch-viewer": {
-      "root": "projects/angular-sketch-viewer",
-      "sourceRoot": "projects/angular-sketch-viewer/src",
+    "@manekinekko/ngx-sketch-viewer": {
+      "root": "projects/manekinekko/ngx-sketch-viewer",
+      "sourceRoot": "projects/manekinekko/ngx-sketch-viewer/src",
       "projectType": "library",
       "prefix": "lib",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {
-            "tsConfig": "projects/angular-sketch-viewer/tsconfig.lib.json",
-            "project": "projects/angular-sketch-viewer/ng-package.json"
+            "tsConfig": "projects/manekinekko/ngx-sketch-viewer/tsconfig.lib.json",
+            "project": "projects/manekinekko/ngx-sketch-viewer/ng-package.json"
           },
           "configurations": {
             "production": {
-              "project": "projects/angular-sketch-viewer/ng-package.prod.json"
+              "project": "projects/manekinekko/ngx-sketch-viewer/ng-package.prod.json"
             }
           }
         },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "main": "projects/angular-sketch-viewer/src/test.ts",
-            "tsConfig": "projects/angular-sketch-viewer/tsconfig.spec.json",
-            "karmaConfig": "projects/angular-sketch-viewer/karma.conf.js"
+            "main": "projects/manekinekko/ngx-sketch-viewer/src/test.ts",
+            "tsConfig": "projects/manekinekko/ngx-sketch-viewer/tsconfig.spec.json",
+            "karmaConfig": "projects/manekinekko/ngx-sketch-viewer/karma.conf.js"
           }
         },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "projects/angular-sketch-viewer/tsconfig.lib.json",
-              "projects/angular-sketch-viewer/tsconfig.spec.json"
+              "projects/manekinekko/ngx-sketch-viewer/tsconfig.lib.json",
+              "projects/manekinekko/ngx-sketch-viewer/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         }
       }

@@ -1,6 +1,6 @@
 {
   "name": "angular-sketch",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -11,10 +11,10 @@
   },
   "private": true,
   "dependencies": {
-    "@angular/animations": "^6.0.2",
     "@angular/common": "^6.0.2",
-    "@angular/compiler": "^6.0.2",
     "@angular/core": "^6.0.2",
+    "@angular/compiler": "^6.0.2",
+    "@angular/animations": "^6.0.2",
     "@angular/forms": "^6.0.2",
     "@angular/http": "^6.0.2",
     "@angular/material": "^6.0.2",

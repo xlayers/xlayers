@@ -17,8 +17,8 @@
       "dom"
     ],
     "paths": {
-      "angular-sketch-viewer": [
-        "dist/angular-sketch-viewer"
+      "@manekinekko/ngx-sketch-viewer": [
+        "dist/manekinekko/ngx-sketch-viewer"
       ]
     }
   }
