@@ -1,31 +1,52 @@
-import { SketchService, SketchContent } from './sketch.service';
-import { Component, OnInit } from '@angular/core';
+import { SketchService, SketchData } from './sketch.service';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
-  selector: 'ngx-sketch-container',
+  selector: 'sketch-container',
   template: `
-    <ng-template #noData>
-      <ngx-sketch-dropzone (changed)="onFileSelected($event)"></ngx-sketch-dropzone>
+    <ng-template #noDataRef>
+      <sketch-dropzone (changed)="onFileSelected($event)"></sketch-dropzone>
     </ng-template>
-    
-    <ngx-sketch-preview *ngIf="data else noData"  [data]="data"></ngx-sketch-preview>
+
+    <div class="layers-container" *ngIf="data else noDataRef" >
+      <sketch-canvas [data]="data" [currentPage]="page"></sketch-canvas>
+    </div>
   `,
   styles: [
     `
   :host {
-    display: block;
     width: 100%;
     height: 100%;
+    justify-content: center;
+    top: 64px;
+    position: absolute;
+  }
+
+  .layers-container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    min-height: 100%;
+    position: absolute;
+  }
+
+  sketch-layer {
+    top: 0;
+    left: 0;
+    position: absolute;
   }
   `
   ]
 })
 export class SketchContainerComponent implements OnInit {
-  error: string;
+  @Input() page: SketchMSPage;
 
   constructor(private service: SketchService) {}
 
-  public data: SketchContent;
+  public data: SketchData;
+
+  wireframe = true;
 
   ngOnInit() {}
 
@@ -35,5 +56,13 @@ export class SketchContainerComponent implements OnInit {
     } catch {
       alert('Only .sketch files that were saved using Sketch v43 and above are supported.');
     }
+  }
+
+  toggleWireframe() {
+    this.wireframe = !this.wireframe;
+  }
+
+  getPages() {
+    return this.service.getPages();
   }
 }

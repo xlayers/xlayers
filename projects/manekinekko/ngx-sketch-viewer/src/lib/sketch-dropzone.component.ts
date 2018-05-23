@@ -1,10 +1,14 @@
 import { Component, OnInit, EventEmitter, Output, ViewChild, ElementRef, NgZone, Input } from '@angular/core';
 
 @Component({
-  selector: 'ngx-sketch-dropzone',
+  selector: 'sketch-dropzone',
   template: `
 
-  <mat-icon class="mode__mini" *ngIf="mode === 'mini' else large" (drop)="onFileDrop($event)" (dragover)="dragOverHandler($event)" (click)="openFileBrowser()">cloud_upload</mat-icon>
+  <mat-icon class="mode__mini"
+    *ngIf="mode === 'mini' else large"
+    (drop)="onFileDrop($event)"
+    (dragover)="dragOverHandler($event)"
+    (click)="openFileBrowser()">cloud_upload</mat-icon>
 
   <ng-template #large>
     <section (drop)="onFileDrop($event)" (dragover)="dragOverHandler($event)">
@@ -14,39 +18,47 @@ import { Component, OnInit, EventEmitter, Output, ViewChild, ElementRef, NgZone,
     <button color="accent" class="mat-headline" mat-button (click)="openFileBrowser()">BROWSE FILES</button>
     </section>
   </ng-template>
-  
-  <input #fileBrowserRef type="file" (change)="onFileChange($event)" accept=".sketch">
+
+  <input #fileBrowserRef type="file" (input)="onFileChange($event)" accept=".sketch">
   `,
   styles: [
     `
-  section {
-    width: 600px;
-    height: 400px;
-    border-radius: 2px;
-    border: 1px solid #bcbcbc;
-    background: #eaeaea;
-    text-align: center;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    margin: 20px auto;
-  }
+    :host {
+      display: flex;
+      height: 100%;
+      min-height: 100%;
+      position: relative;
+      align-items: center;
+      justify-content: center;
+    }
+    section {
+      width: 500px;
+      height: 500px;
+      border-radius: 50%;
+      border: 1px solid #bcbcbc;
+      background: #eaeaea;
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      margin: 20px auto;
+    }
 
-  input[type="file"] {
-    display: none;
-  }
+    input[type="file"] {
+      display: none;
+    }
 
-  .mode__large {
-    font-size: 7em;
-    color: #b0b0b0;
-    width: 200px;
-    height: 120px;
-  }
+    .mode__large {
+      font-size: 7em;
+      color: #b0b0b0;
+      width: 200px;
+      height: 120px;
+    }
 
-  .mode__mini {
-    cursor: pointer;
-  }
+    .mode__mini {
+      cursor: pointer;
+    }
   `
   ]
 })
@@ -65,9 +77,6 @@ export class SketchDropzoneComponent implements OnInit {
   }
 
   onFileDrop(event) {
-    console.log('File(s) dropped');
-
-    // Prevent default behavior (Prevent file from being opened)
     event.preventDefault();
 
     if (event.dataTransfer.items) {
@@ -76,7 +85,7 @@ export class SketchDropzoneComponent implements OnInit {
         // If dropped items aren't files, reject them
         if (event.dataTransfer.items[i].kind === 'file') {
           const file = event.dataTransfer.items[i].getAsFile() as File;
-          this.changed.emit(file);
+          this.onFileChange(file);
 
           // we only accept one file (for now)
           return true;
@@ -86,7 +95,7 @@ export class SketchDropzoneComponent implements OnInit {
       // Use DataTransfer interface to access the file(s)
       for (let i = 0; i < event.dataTransfer.files.length; i++) {
         const file = event.dataTransfer.files[i];
-        this.changed.emit(file);
+        this.onFileChange(file);
 
         // we only accept one file (for now)
         return true;
@@ -99,20 +108,27 @@ export class SketchDropzoneComponent implements OnInit {
 
   dragOverHandler(event) {
     event.preventDefault();
+    event.dataTransfer.dropEffect = 'move';
   }
 
-  onFileChange(e) {
-    const files = e.target.files || e.dataTransfer.files;
-    if (!files.length) {
-      return;
+  onFileChange(inputEvent: any | File) {
+    let file;
+    if (!inputEvent.target) {
+      file = inputEvent as File;
+    } else {
+      const files = inputEvent.target.files || inputEvent.dataTransfer.files;
+      if (!files.length) {
+        return;
+      }
+      file = files[0];
     }
-    const file = files[0];
-    this.changed.emit(file);
+
+    if (file.name.endsWith('.sketch')) {
+      this.changed.emit(file);
+    }
   }
 
   private removeDragData(event) {
-    console.log('Removing drag data');
-
     if (event.dataTransfer.items) {
       // Use DataTransferItemList interface to remove the drag data
       event.dataTransfer.items.clear();

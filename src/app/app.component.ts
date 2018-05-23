@@ -6,5 +6,12 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'angular-sketch';
+  currentPage: SketchMSPage;
+  setCurrentPage(page: SketchMSPage) {
+    this.currentPage = page;
+  }
+
+  pageName(page: SketchMSPage) {
+    return page && page.name;
+  }
 }
