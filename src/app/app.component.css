@@ -10,12 +10,21 @@ mat-drawer-container {
 }
 
 mat-drawer {
-  width: 250px;
+  width: 150px;
+}
+
+mat-drawer mat-expansion-panel {
+  top: 66px;
+  position: relative;
+}
+
+mat-toolbar {
+  position: fixed;
+  z-index: 9;
 }
 
 .mat-header {
   display: flex;
-  width: 100%;
 }
 
 h1 span {
@@ -23,4 +32,11 @@ h1 span {
   display: block;
   margin-top: -5px;
   margin-left: 5px;
+}
+
+sketch-dropzone {
+  right: 140px;
+  position: absolute;
+  width: 100px;
+  display: flex;
 }

@@ -1,24 +1,43 @@
 <mat-drawer-container autosize>
 
   <mat-toolbar color="primary">
-    <button mat-icon-button (click)="snav.toggle()">
-      <mat-icon>menu</mat-icon>
-    </button>
-    <h1 class="mat-header">Sketch Viewer
-      <span>BETA</span>
-    </h1>
+    <mat-toolbar-row>
+      <h1 class="mat-header">
+        <button mat-button (click)="sketchContainerRef.toggleWireframe()">
+          <mat-icon>visibility</mat-icon>
+        </button>
+        <button mat-button (click)="sketchContainerRef.toggleWireframe()">
+          <mat-icon>border_outer</mat-icon>
+        </button>
+      </h1>
+      <sketch-dropzone (changed)="sketchContainerRef.onFileSelected($event)" mode="mini"></sketch-dropzone>
+    </mat-toolbar-row>
 
-    <ngx-sketch-dropzone (changed)="sketchContainerRef.onFileSelected($event)" mode="mini"></ngx-sketch-dropzone>
   </mat-toolbar>
+  <mat-drawer #snav mode="side" [opened]="true">
 
-  <mat-drawer #snav mode="side">
     <mat-toolbar color="primary">
-      <h1>Sketch Viewer</h1>
+      <h1 class="mat-header">xLayers
+        <span>ALPHA</span>
+      </h1>
     </mat-toolbar>
+
+
+
+    <mat-expansion-panel expanded="true">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+            Pages
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+
+      <mat-nav-list>
+        <mat-list-item *ngFor="let page of sketchContainerRef.getPages(); trackBy:pageName" (click)="setCurrentPage(page)"> {{ page.name }} </mat-list-item>
+      </mat-nav-list>
+    </mat-expansion-panel>
+
   </mat-drawer>
 
-  <div>
-    <ngx-sketch-container #sketchContainerRef></ngx-sketch-container>
-  </div>
+  <sketch-container [page]="currentPage" #sketchContainerRef></sketch-container>
 
 </mat-drawer-container>
