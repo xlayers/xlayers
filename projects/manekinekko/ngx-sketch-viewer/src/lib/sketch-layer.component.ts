@@ -1,13 +1,19 @@
+import { CurrentLayer } from './../../../../../src/app/state/ui.state';
+import { Store } from '@ngxs/store';
 import { Component, ViewChild, ElementRef, Renderer2, Input, ViewChildren, AfterContentInit, OnChanges } from '@angular/core';
+import { UiState } from 'src/app/state/ui.state';
 
 @Component({
   selector: 'sketch-layer',
   template: `
     <sketch-layer
+      sketchStopEventPropagation
+      (click)="setCurrentLayer(layer)"
       *ngFor="let layer of layer?.layers"
+      class="layer"
       [layer]="layer"
       [wireframe]="wireframe"
-      class="layer"
+      [ngClass]="{ 'wireframe': wireframe }"
       [attr.data-id]="layer.do_objectID"
       [attr.data-name]="layer.name"
       [attr.data-class]="layer._class"
@@ -20,19 +26,19 @@ import { Component, ViewChild, ElementRef, Renderer2, Input, ViewChildren, After
       border: 1px solid transparent;
       position: absolute;
       box-sizing: border-box;
-      transition: border-color 0.2s linear;
+      transition: border-color 0.1s linear;
     }
 
     :host(:hover) {
       border-color: #51C1F8 !important;
     }
     :host(.wireframe) {
-      border-color: gray;
+      border-color: black;
     }
   `
   ]
 })
-export class SketchLayerComponent implements AfterContentInit, OnChanges {
+export class SketchLayerComponent {
   @Input() layer: SketchMSSymbolMaster;
   @Input() wireframe = true;
   artboardFactor = 1;
@@ -40,17 +46,23 @@ export class SketchLayerComponent implements AfterContentInit, OnChanges {
 
   tooltipInfo = '';
 
-  constructor(private renderer: Renderer2, private el: ElementRef<HTMLElement>) {}
+  constructor(public renderer: Renderer2, public el: ElementRef<HTMLElement>, public store: Store) {}
 
-  ngOnChanges(record) {
-    if (record.wireframe && record.wireframe.currentValue !== 'undefined') {
-      if (record.wireframe.currentValue === true) {
-        this.el.nativeElement.classList.add('wireframe');
-      } else {
-        this.el.nativeElement.classList.remove('wireframe');
-      }
-    }
+  ngOnInit() {
+    this.store.select(UiState.isWireframe).subscribe(isWireframe => {
+      this.wireframe = isWireframe;
+    });
   }
+
+  // ngOnChanges(record) {
+  //   if (record.wireframe && record.wireframe.currentValue !== 'undefined') {
+  //     if (record.wireframe.currentValue === true) {
+  //       this.el.nativeElement.classList.add('wireframe');
+  //     } else {
+  //       this.el.nativeElement.classList.remove('wireframe');
+  //     }
+  //   }
+  // }
 
   ngAfterContentInit() {
     if (!this.layer) {
@@ -72,5 +84,9 @@ export class SketchLayerComponent implements AfterContentInit, OnChanges {
       left: ${this.layer.frame.x | 0},
       width: ${this.layer.frame.width | 0},
       height: ${this.layer.frame.height | 0}`;
+  }
+
+  setCurrentLayer(layer: SketchMSSymbolMaster) {
+    this.store.dispatch(new CurrentLayer(layer));
   }
 }

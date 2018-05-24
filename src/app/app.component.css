@@ -7,13 +7,16 @@ mat-drawer-container {
 
 mat-drawer-container {
   background-color: transparent;
+  background-image: url(/assets/transparent-square-tiles.png);
+  background-repeat: repeat;
+  background-size: 130px;
 }
 
 mat-drawer {
-  width: 150px;
+  width: 200px;
 }
 
-mat-drawer mat-expansion-panel {
+mat-drawer section {
   top: 66px;
   position: relative;
 }
@@ -27,6 +30,10 @@ mat-toolbar {
   display: flex;
 }
 
+h1[hidden] {
+  display: none;
+}
+
 h1 span {
   font-size: 12px;
   display: block;
@@ -35,8 +42,40 @@ h1 span {
 }
 
 sketch-dropzone {
-  right: 140px;
+  right: 180px;
   position: absolute;
   width: 100px;
   display: flex;
+}
+
+sketch-container {
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  top: 64px;
+  overflow: scroll;
+  position: absolute;
+}
+
+mat-list-item.selected-page {
+  background-color: #ee4743;
+}
+
+button[mat-button] {
+  min-width: 48px;
+}
+
+:host ::ng-deep .mat-expansion-panel-body {
+  padding: 0 !important;
+}
+
+mat-form-field {
+  padding: 14px;
+  width: 70px;
+}
+
+.current-layer-settings {
+  display: flex;
+  width: 200px;
+  flex-flow: wrap;
 }

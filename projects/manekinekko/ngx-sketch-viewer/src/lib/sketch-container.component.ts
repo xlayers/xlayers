@@ -1,5 +1,7 @@
+import { CurrentPage, AvailablePages, SettingsEnabled, ShowPreview, ShowWireframe } from './../../../../../src/app/state/ui.state';
 import { SketchService, SketchData } from './sketch.service';
 import { Component, OnInit, Input } from '@angular/core';
+import { Store } from '@ngxs/store';
 
 @Component({
   selector: 'sketch-container',
@@ -41,18 +43,24 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class SketchContainerComponent implements OnInit {
   @Input() page: SketchMSPage;
+  @Input() wireframe = true;
 
-  constructor(private service: SketchService) {}
+  constructor(private service: SketchService, private store: Store) {}
 
   public data: SketchData;
 
-  wireframe = true;
 
   ngOnInit() {}
 
   async onFileSelected(file: File) {
     try {
       this.data = await this.service.process(file);
+      this.store.dispatch(new AvailablePages(this.data.pages));
+      this.store.dispatch(new CurrentPage(this.data.pages[0]));
+      this.store.dispatch(new SettingsEnabled());
+      this.store.dispatch(new ShowPreview());
+      this.store.dispatch(new ShowWireframe());
+
     } catch {
       alert('Only .sketch files that were saved using Sketch v43 and above are supported.');
     }
@@ -60,9 +68,5 @@ export class SketchContainerComponent implements OnInit {
 
   toggleWireframe() {
     this.wireframe = !this.wireframe;
-  }
-
-  getPages() {
-    return this.service.getPages();
   }
 }

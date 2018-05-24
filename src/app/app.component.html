@@ -1,13 +1,13 @@
 <mat-drawer-container autosize>
 
-  <mat-toolbar color="primary">
+  <mat-toolbar>
     <mat-toolbar-row>
-      <h1 class="mat-header">
-        <button mat-button (click)="sketchContainerRef.toggleWireframe()">
+      <h1 class="mat-header" [hidden]="!enabled">
+        <button [color]=" preview ? 'warn':'' " mat-button (click)="togglePreview()">
           <mat-icon>visibility</mat-icon>
         </button>
-        <button mat-button (click)="sketchContainerRef.toggleWireframe()">
-          <mat-icon>border_outer</mat-icon>
+        <button [color]=" wireframe ? 'warn':'' " mat-button (click)="toggleWireframe()">
+          <mat-icon>layers</mat-icon>
         </button>
       </h1>
       <sketch-dropzone (changed)="sketchContainerRef.onFileSelected($event)" mode="mini"></sketch-dropzone>
@@ -22,22 +22,46 @@
       </h1>
     </mat-toolbar>
 
-
-
-    <mat-expansion-panel expanded="true">
-      <mat-expansion-panel-header>
-        <mat-panel-title>
+    <section>
+      <mat-expansion-panel #expansionPanelRef [hidden]="!currentPage">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
             Pages
-        </mat-panel-title>
-      </mat-expansion-panel-header>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
 
-      <mat-nav-list>
-        <mat-list-item *ngFor="let page of sketchContainerRef.getPages(); trackBy:pageName" (click)="setCurrentPage(page)"> {{ page.name }} </mat-list-item>
-      </mat-nav-list>
-    </mat-expansion-panel>
+        <mat-nav-list>
+          <mat-list-item [ngClass]="{ 'selected-page': currentPage?.id === page.id }" *ngFor="let page of sketchPages" (click)="setCurrentPage(page)">
+            {{ page.name }} </mat-list-item>
+        </mat-nav-list>
+      </mat-expansion-panel>
+    </section>
 
   </mat-drawer>
 
-  <sketch-container [page]="currentPage" #sketchContainerRef></sketch-container>
+  <mat-drawer #snav mode="side" [opened]="true" [position]="'end'" *ngIf="currentLayer">
+
+    <mat-toolbar>
+      <h1 class="mat-header">{{ currentLayer.name }}</h1>
+    </mat-toolbar>
+
+    <section class="current-layer-settings">
+      <mat-form-field>
+        <input matInput type="number" placeholder="Height" [ngModel]="currentLayer.frame.height.toFixed(2)">
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput type="number" placeholder="Width" [ngModel]="currentLayer.frame.width.toFixed(2)">
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput type="number" placeholder="Left" [ngModel]="currentLayer.frame.x.toFixed(2)">
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput type="number" placeholder="Top" [ngModel]="currentLayer.frame.y.toFixed(2)">
+      </mat-form-field>
+    </section>
+
+  </mat-drawer>
+
+  <sketch-container [wireframe]="wireframe" [page]="currentPage" #sketchContainerRef></sketch-container>
 
 </mat-drawer-container>

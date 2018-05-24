@@ -1,3 +1,4 @@
+import { SketchStopEventPropagationDirective } from './sketch-stop-event-propagation.directive';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
@@ -12,7 +13,14 @@ import { SketchPageComponent } from './sketch-page.component';
 
 @NgModule({
   imports: [CommonModule, MatTooltipModule, MatIconModule, MatButtonModule],
-  declarations: [SketchCanvasComponent, SketchDropzoneComponent, SketchContainerComponent, SketchPageComponent, SketchLayerComponent],
+  declarations: [
+    SketchCanvasComponent,
+    SketchDropzoneComponent,
+    SketchContainerComponent,
+    SketchPageComponent,
+    SketchLayerComponent,
+    SketchStopEventPropagationDirective
+  ],
   exports: [SketchCanvasComponent, SketchDropzoneComponent, SketchContainerComponent]
 })
 export class AngularSketchModule {}
