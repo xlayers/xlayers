@@ -34,8 +34,6 @@ export class SketchService {
 
   async process(file: File) {
     this._data = await this.parse(file);
-    console.log(this._data);
-
     return this._data;
   }
 
@@ -77,6 +75,7 @@ export class SketchService {
 
             try {
               const page = JSON.parse(content) as SketchMSPage;
+              page.id = page.objectID;
               _data.pages.push(page);
             } catch (e) {
               reject('Could not load page');
@@ -97,10 +96,9 @@ export class SketchService {
             image.onerror = error => {
               reject('Could not load a Sketch preview');
             };
-            
+
             // @todo deal with SafeResourceUrl!!
             image.src = this.sanitizer.bypassSecurityTrustResourceUrl(objectUrl).toString();
-
           } else {
             // document.json
             // user.json
@@ -111,7 +109,9 @@ export class SketchService {
           }
         });
 
-        resolve(_data);
+        // reschedule the resolve. Other the promise will be
+        // resolved too early.
+        setTimeout(_ => resolve(_data), 0);
       };
       reader.readAsArrayBuffer(file);
     });
