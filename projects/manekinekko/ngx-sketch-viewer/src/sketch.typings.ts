@@ -238,6 +238,7 @@ declare interface SketchMSPage {
   includeInCloudUpload: number;
   exportOptions: SketchMSExportOptions;
   objectID: string;
+  id: string;
   rotation: number;
   layerListExpandedType: number;
   verticalRulerData: SketchMSRulerData;
