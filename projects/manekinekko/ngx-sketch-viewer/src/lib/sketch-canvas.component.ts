@@ -34,8 +34,12 @@ import { Store } from '@ngxs/store';
     user-select: none;
     position: relative;
   }
-  div.hidden img {
-    visibility: hidden;
+  .canvas img {
+    opacity: 1;
+    transition: opacity 0.1s linear;
+  }
+  .canvas .hidden img {
+    opacity: 0;
   }
   `
   ]
