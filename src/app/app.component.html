@@ -3,10 +3,10 @@
   <mat-toolbar>
     <mat-toolbar-row>
       <h1 class="mat-header" [hidden]="!enabled">
-        <button [color]=" preview ? 'warn':'' " mat-button (click)="togglePreview()">
+        <button matTooltip="Toggle Wireframe Mode" [color]=" preview ? 'warn':'' " mat-button (click)="togglePreview()">
           <mat-icon>visibility</mat-icon>
         </button>
-        <button [color]=" wireframe ? 'warn':'' " mat-button (click)="toggleWireframe()">
+        <button matTooltip="Toggle Preview Mode" [color]=" wireframe ? 'warn':'' " mat-button (click)="toggleWireframe()">
           <mat-icon>layers</mat-icon>
         </button>
       </h1>
@@ -14,7 +14,7 @@
     </mat-toolbar-row>
 
   </mat-toolbar>
-  <mat-drawer #snav mode="side" [opened]="true">
+  <mat-drawer mode="side" opened="true">
 
     <mat-toolbar color="primary">
       <h1 class="mat-header">xLayers
@@ -23,7 +23,7 @@
     </mat-toolbar>
 
     <section>
-      <mat-expansion-panel #expansionPanelRef [hidden]="!currentPage">
+      <mat-expansion-panel #expansionPanelRef [disabled]="!currentPage">
         <mat-expansion-panel-header>
           <mat-panel-title>
             Pages
@@ -31,33 +31,53 @@
         </mat-expansion-panel-header>
 
         <mat-nav-list>
-          <mat-list-item [ngClass]="{ 'selected-page': currentPage?.id === page.id }" *ngFor="let page of sketchPages" (click)="setCurrentPage(page)">
-            {{ page.name }} </mat-list-item>
+          <mat-list-item [ngClass]="{ 'selected-page': currentPage?.name === page.name }" *ngFor="let page of sketchPages; trackBy: pageId(page)" (click)="setCurrentPage(page)">
+            {{ page.name }}
+          </mat-list-item>
         </mat-nav-list>
       </mat-expansion-panel>
     </section>
 
   </mat-drawer>
 
-  <mat-drawer #snav mode="side" [opened]="true" [position]="'end'" *ngIf="currentLayer">
+  <mat-drawer mode="side" opened="false" position="end" #currentLayerNavRef>
 
     <mat-toolbar>
-      <h1 class="mat-header">{{ currentLayer.name }}</h1>
+      <h1 class="mat-header">{{ currentLayer?.name }}</h1>
     </mat-toolbar>
 
     <section class="current-layer-settings">
-      <mat-form-field>
-        <input matInput type="number" placeholder="Height" [ngModel]="currentLayer.frame.height.toFixed(2)">
-      </mat-form-field>
-      <mat-form-field>
-        <input matInput type="number" placeholder="Width" [ngModel]="currentLayer.frame.width.toFixed(2)">
-      </mat-form-field>
-      <mat-form-field>
-        <input matInput type="number" placeholder="Left" [ngModel]="currentLayer.frame.x.toFixed(2)">
-      </mat-form-field>
-      <mat-form-field>
-        <input matInput type="number" placeholder="Top" [ngModel]="currentLayer.frame.y.toFixed(2)">
-      </mat-form-field>
+      <mat-expansion-panel expanded="true">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Size
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <mat-form-field>
+          <input matInput type="number" placeholder="Height" [ngModel]="currentLayer?.frame.height.toFixed(2)">
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput type="number" placeholder="Width" [ngModel]="currentLayer?.frame.width.toFixed(2)">
+        </mat-form-field>
+      </mat-expansion-panel>
+
+
+      <mat-expansion-panel expanded="true">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Position
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <mat-form-field>
+          <input matInput type="number" placeholder="Left" [ngModel]="currentLayer?.frame.x.toFixed(2)">
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput type="number" placeholder="Top" [ngModel]="currentLayer?.frame.y.toFixed(2)">
+        </mat-form-field>
+      </mat-expansion-panel>
+
     </section>
 
   </mat-drawer>

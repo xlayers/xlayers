@@ -4,6 +4,7 @@ import { Store, Select } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { HideWireframe, ShowWireframe, UiState, UiSettings, HidePreview, ShowPreview } from './state/ui.state';
 import { MatExpansionPanel } from '@angular/material/expansion';
+import { MatDrawerContainer } from '@angular/material/sidenav';
 
 @Component({
   selector: 'app-root',
@@ -19,11 +20,9 @@ export class AppComponent {
   enabled: boolean;
 
   @ViewChild('expansionPanelRef') expansionPanelRef: MatExpansionPanel;
+  @ViewChild('currentLayerNavRef') currentLayerNavRef: MatDrawerContainer;
 
   constructor(private store: Store) {}
-  setCurrentPage(page: SketchMSPage) {
-    this.store.dispatch(new CurrentPage(page));
-  }
 
   ngOnInit() {
     this.store.select(UiState.availablePages).subscribe(availablePages => {
@@ -43,6 +42,9 @@ export class AppComponent {
       });
       this.store.select(UiState.currentLayer).subscribe(currentLayer => {
         this.currentLayer = currentLayer;
+        if (this.currentLayer) {
+          this.currentLayerNavRef.open();
+        }
       });
       this.store.select(UiState.isSettingsEnabled).subscribe(isEnbaledSettings => {
         this.enabled = isEnbaledSettings;
@@ -64,5 +66,13 @@ export class AppComponent {
     } else {
       this.store.dispatch(new ShowPreview());
     }
+  }
+
+  setCurrentPage(page: SketchMSPage) {
+    this.store.dispatch(new CurrentPage(page));
+  }
+
+  pageId(page: SketchMSPage) {
+    return page && page.id;
   }
 }
