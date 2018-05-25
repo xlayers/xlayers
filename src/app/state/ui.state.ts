@@ -123,7 +123,6 @@ export class UiState {
 
   @Action(CurrentPage)
   currentPage({ getState, patchState }: StateContext<UiSettings>, action: CurrentPage) {
-    debugger;
     patchState({
       currentPage: action.page
     });
