@@ -31,7 +31,10 @@
         </mat-expansion-panel-header>
 
         <mat-nav-list>
-          <mat-list-item [ngClass]="{ 'selected-page': currentPage?.name === page.name }" *ngFor="let page of sketchPages; trackBy: pageId(page)" (click)="setCurrentPage(page)">
+          <mat-list-item 
+            [ngClass]="{ 'selected-page': currentPage?.name === page.name }" 
+            *ngFor="let page of sketchPages; trackBy: pageName(page)" 
+            (click)="setCurrentPage(page)">
             {{ page.name }}
           </mat-list-item>
         </mat-nav-list>
@@ -62,7 +65,6 @@
         </mat-form-field>
       </mat-expansion-panel>
 
-
       <mat-expansion-panel expanded="true">
         <mat-expansion-panel-header>
           <mat-panel-title>
@@ -77,11 +79,16 @@
           <input matInput type="number" placeholder="Top" [ngModel]="currentLayer?.frame.y.toFixed(2)">
         </mat-form-field>
       </mat-expansion-panel>
-
     </section>
+
+    <mat-nav-list class="side-nav-bottom">
+      <mat-list-item (click)="closeLayerSettings()">
+        <mat-icon>keyboard_arrow_right</mat-icon>
+      </mat-list-item>
+    </mat-nav-list>
 
   </mat-drawer>
 
-  <sketch-container [wireframe]="wireframe" [page]="currentPage" #sketchContainerRef></sketch-container>
+  <sketch-container #sketchContainerRef></sketch-container>
 
 </mat-drawer-container>

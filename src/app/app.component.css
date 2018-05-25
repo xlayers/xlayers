@@ -79,3 +79,8 @@ mat-form-field {
   width: 200px;
   flex-flow: wrap;
 }
+
+.side-nav-bottom {
+  position: absolute;
+  bottom: 0;
+}

@@ -11,7 +11,7 @@ import { Store } from '@ngxs/store';
     </ng-template>
 
     <div class="layers-container" *ngIf="data else noDataRef" >
-      <sketch-canvas [data]="data" [currentPage]="page"></sketch-canvas>
+      <sketch-canvas [data]="data"></sketch-canvas>
     </div>
   `,
   styles: [
@@ -42,18 +42,16 @@ import { Store } from '@ngxs/store';
   ]
 })
 export class SketchContainerComponent implements OnInit {
-  @Input() page: SketchMSPage;
-  @Input() wireframe = true;
 
   constructor(private service: SketchService, private store: Store) {}
 
   public data: SketchData;
 
-
   ngOnInit() {}
 
   async onFileSelected(file: File) {
     try {
+
       this.data = await this.service.process(file);
       this.store.dispatch(new AvailablePages(this.data.pages));
       this.store.dispatch(new CurrentPage(this.data.pages[0]));
@@ -64,9 +62,5 @@ export class SketchContainerComponent implements OnInit {
     } catch {
       alert('Only .sketch files that were saved using Sketch v43 and above are supported.');
     }
-  }
-
-  toggleWireframe() {
-    this.wireframe = !this.wireframe;
   }
 }
