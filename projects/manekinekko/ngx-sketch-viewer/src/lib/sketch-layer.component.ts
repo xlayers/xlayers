@@ -31,6 +31,7 @@ import { UiState } from 'src/app/state/ui.state';
 
     :host(:hover) {
       border-color: #51C1F8 !important;
+      background-color: rgba(81, 193, 248, 0.2);
     }
     :host(.wireframe) {
       border-color: black;
