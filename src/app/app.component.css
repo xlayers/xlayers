@@ -69,17 +69,6 @@ button[mat-button] {
   padding: 0 !important;
 }
 
-mat-form-field {
-  padding: 14px;
-  width: 70px;
-}
-
-.current-layer-settings {
-  display: flex;
-  width: 200px;
-  flex-flow: wrap;
-}
-
 .side-nav-bottom {
   position: absolute;
   bottom: 0;

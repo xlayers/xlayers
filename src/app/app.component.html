@@ -51,41 +51,7 @@
 
   <mat-drawer mode="side" opened="false" position="end" hasBackdrop="false" #currentLayerNavRef>
 
-    <mat-toolbar>
-      <h1 class="mat-header">{{ currentLayer?.name }}</h1>
-    </mat-toolbar>
-
-    <section class="current-layer-settings">
-      <mat-expansion-panel expanded="true">
-        <mat-expansion-panel-header>
-          <mat-panel-title>
-            Size
-          </mat-panel-title>
-        </mat-expansion-panel-header>
-
-        <mat-form-field>
-          <input matInput type="number" placeholder="Height" [ngModel]="currentLayer?.frame.height.toFixed(2)">
-        </mat-form-field>
-        <mat-form-field>
-          <input matInput type="number" placeholder="Width" [ngModel]="currentLayer?.frame.width.toFixed(2)">
-        </mat-form-field>
-      </mat-expansion-panel>
-
-      <mat-expansion-panel expanded="true">
-        <mat-expansion-panel-header>
-          <mat-panel-title>
-            Position
-          </mat-panel-title>
-        </mat-expansion-panel-header>
-
-        <mat-form-field>
-          <input matInput type="number" placeholder="Left" [ngModel]="currentLayer?.frame.x.toFixed(2)">
-        </mat-form-field>
-        <mat-form-field>
-          <input matInput type="number" placeholder="Top" [ngModel]="currentLayer?.frame.y.toFixed(2)">
-        </mat-form-field>
-      </mat-expansion-panel>
-    </section>
+    <sketch-settings-container></sketch-settings-container>
 
     <mat-nav-list class="side-nav-bottom">
       <mat-list-item (click)="closeLayerSettings()">
