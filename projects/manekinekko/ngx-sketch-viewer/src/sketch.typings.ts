@@ -218,7 +218,7 @@ declare interface SketchMSSymbolMaster {
   _class: 'MSSymbolMaster';
   name: string;
   layers: Array<any>;
-  isVisible: number;
+  isVisible: boolean;
   nameIsFixed: number;
   grid: SketchMSSimpleGrid;
   resizingType: number;
@@ -247,7 +247,7 @@ declare interface SketchMSPage {
   do_objectID?: string;
   _class: 'MSPage';
   layers: Array<SketchMSSymbolMaster>;
-  isVisible: number;
+  isVisible: boolean;
   nameIsFixed: number;
   name: string;
   isLocked: number;
