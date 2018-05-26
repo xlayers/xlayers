@@ -8,8 +8,8 @@ import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
 import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
 
 import { AppComponent } from './app.component';
-import { AngularSketchModule } from 'projects/manekinekko/ngx-sketch-viewer/src/public_api';
 import { CoreModule } from './core/core.module';
+import { AngularSketchModule } from './viewer/lib/sketch.module';
 
 @NgModule({
   declarations: [AppComponent],

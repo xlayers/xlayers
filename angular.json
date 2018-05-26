@@ -121,44 +121,6 @@
           }
         }
       }
-    },
-    "@manekinekko/ngx-sketch-viewer": {
-      "root": "projects/manekinekko/ngx-sketch-viewer",
-      "sourceRoot": "projects/manekinekko/ngx-sketch-viewer/src",
-      "projectType": "library",
-      "prefix": "lib",
-      "architect": {
-        "build": {
-          "builder": "@angular-devkit/build-ng-packagr:build",
-          "options": {
-            "tsConfig": "projects/manekinekko/ngx-sketch-viewer/tsconfig.lib.json",
-            "project": "projects/manekinekko/ngx-sketch-viewer/ng-package.json"
-          },
-          "configurations": {
-            "production": {
-              "project": "projects/manekinekko/ngx-sketch-viewer/ng-package.prod.json"
-            }
-          }
-        },
-        "test": {
-          "builder": "@angular-devkit/build-angular:karma",
-          "options": {
-            "main": "projects/manekinekko/ngx-sketch-viewer/src/test.ts",
-            "tsConfig": "projects/manekinekko/ngx-sketch-viewer/tsconfig.spec.json",
-            "karmaConfig": "projects/manekinekko/ngx-sketch-viewer/karma.conf.js"
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "projects/manekinekko/ngx-sketch-viewer/tsconfig.lib.json",
-              "projects/manekinekko/ngx-sketch-viewer/tsconfig.spec.json"
-            ],
-            "exclude": ["**/node_modules/**"]
-          }
-        }
-      }
     }
   },
   "defaultProject": "angular-sketch"

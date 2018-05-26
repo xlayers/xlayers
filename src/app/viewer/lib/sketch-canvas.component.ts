@@ -1,7 +1,7 @@
-import { UiState } from './../../../../../src/app/state/ui.state';
 import { Component, OnInit, Input, ElementRef, Renderer2, ViewChildren, AfterViewInit } from '@angular/core';
-import { SketchData } from '../public_api';
 import { Store } from '@ngxs/store';
+import { UiState } from '../../state/ui.state';
+import { SketchData } from './sketch.service';
 
 @Component({
   selector: 'sketch-canvas',

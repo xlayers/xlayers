@@ -1,4 +1,4 @@
-import { CurrentLayer } from './../../../../../src/app/state/ui.state';
+import { CurrentLayer } from '../../state/ui.state';
 import { Store } from '@ngxs/store';
 import { Component, ViewChild, ElementRef, Renderer2, Input, ViewChildren, AfterContentInit, OnChanges, OnInit } from '@angular/core';
 import { UiState } from 'src/app/state/ui.state';

@@ -1,4 +1,4 @@
-import { CurrentPage, AvailablePages, SettingsEnabled, ShowPreview, ShowWireframe, UiState } from './../../../../../src/app/state/ui.state';
+import { CurrentPage, AvailablePages, SettingsEnabled, ShowPreview, ShowWireframe, UiState } from '../../state/ui.state';
 import { SketchService, SketchData } from './sketch.service';
 import { Component, OnInit, Input } from '@angular/core';
 import { Store } from '@ngxs/store';

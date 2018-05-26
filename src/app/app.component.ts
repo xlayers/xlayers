@@ -13,7 +13,7 @@ import {
 } from './state/ui.state';
 import { MatExpansionPanel } from '@angular/material/expansion';
 import { MatDrawerContainer } from '@angular/material/sidenav';
-import { SketchContainerComponent } from 'projects/manekinekko/ngx-sketch-viewer/src/public_api';
+import { SketchContainerComponent } from './viewer/lib/sketch-container.component';
 
 @Component({
   selector: 'app-root',
