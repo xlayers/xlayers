@@ -56,9 +56,6 @@ export class SketchCanvasComponent implements OnInit, AfterViewInit {
     this.store.select(UiState.isPreview).subscribe(isPreview => {
       this.isPreview = isPreview;
     });
-    this.store.select(UiState.currentPage).subscribe(currentPage => {
-      this.currentPage = currentPage;
-    });
   }
 
   ngAfterViewInit() {

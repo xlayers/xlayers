@@ -10,6 +10,8 @@ import { MatListModule } from '@angular/material/list';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatInputModule } from '@angular/material/input';
+import { ScrollDispatchModule } from '@angular/cdk/scrolling';
+import { MatSnackBarModule, MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
 
 import { NgxsModule } from '@ngxs/store';
 import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
@@ -20,6 +22,7 @@ import { AngularSketchModule } from 'projects/manekinekko/ngx-sketch-viewer/src/
 import { FormsModule } from '@angular/forms';
 
 const MatModules = [
+  MatSnackBarModule,
   MatExpansionModule,
   MatSlideToggleModule,
   MatListModule,
@@ -27,7 +30,8 @@ const MatModules = [
   MatIconModule,
   MatButtonModule,
   MatToolbarModule,
-  MatInputModule
+  MatInputModule,
+  ScrollDispatchModule
 ];
 
 @NgModule({
@@ -42,7 +46,9 @@ const MatModules = [
     NgxsReduxDevtoolsPluginModule.forRoot(),
     AngularSketchModule
   ],
-  providers: [],
+  providers: [
+    // {provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {duration: 3000}}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

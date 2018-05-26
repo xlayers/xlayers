@@ -1,4 +1,4 @@
-import { CurrentPage, AvailablePages, SettingsEnabled, ShowPreview, ShowWireframe } from './../../../../../src/app/state/ui.state';
+import { CurrentPage, AvailablePages, SettingsEnabled, ShowPreview, ShowWireframe, UiState } from './../../../../../src/app/state/ui.state';
 import { SketchService, SketchData } from './sketch.service';
 import { Component, OnInit, Input } from '@angular/core';
 import { Store } from '@ngxs/store';
@@ -11,7 +11,7 @@ import { Store } from '@ngxs/store';
     </ng-template>
 
     <div class="layers-container" *ngIf="data else noDataRef" >
-      <sketch-canvas [data]="data"></sketch-canvas>
+      <sketch-canvas [currentPage]="currentPage" [data]="data"></sketch-canvas>
     </div>
   `,
   styles: [
@@ -42,23 +42,27 @@ import { Store } from '@ngxs/store';
   ]
 })
 export class SketchContainerComponent implements OnInit {
-
   constructor(private service: SketchService, private store: Store) {}
 
   public data: SketchData;
+  public currentPage: SketchMSPage;
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.store.select(UiState.currentPage).subscribe(currentPage => {
+      this.currentPage = currentPage;
+    });
+  }
 
   async onFileSelected(file: File) {
     try {
-
       this.data = await this.service.process(file);
+      this.currentPage = this.data.pages[0];
+
       this.store.dispatch(new AvailablePages(this.data.pages));
-      this.store.dispatch(new CurrentPage(this.data.pages[0]));
+      this.store.dispatch(new CurrentPage(this.currentPage));
       this.store.dispatch(new SettingsEnabled());
       this.store.dispatch(new ShowPreview());
       this.store.dispatch(new ShowWireframe());
-
     } catch {
       alert('Only .sketch files that were saved using Sketch v43 and above are supported.');
     }

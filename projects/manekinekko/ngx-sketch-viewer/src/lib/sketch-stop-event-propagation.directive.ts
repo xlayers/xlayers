@@ -9,4 +9,10 @@ export class SketchStopEventPropagationDirective {
     event.stopPropagation();
     console.log('stopped');
   }
+
+  @HostListener('mouseover', ['$event'])
+  public onMouseover(event: any): void {
+    event.stopPropagation();
+    console.log('hover');
+  }
 }

@@ -75,7 +75,7 @@ export class SketchService {
 
             try {
               const page = JSON.parse(content) as SketchMSPage;
-              page.id = page.objectID;
+              page.id = page.do_objectID;
               _data.pages.push(page);
             } catch (e) {
               reject('Could not load page');

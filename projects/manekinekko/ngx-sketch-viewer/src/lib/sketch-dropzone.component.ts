@@ -12,10 +12,10 @@ import { Component, OnInit, EventEmitter, Output, ViewChild, ElementRef, NgZone,
 
   <ng-template #large>
     <section (drop)="onFileDrop($event)" (dragover)="dragOverHandler($event)">
-    <mat-icon class="mode__large">cloud_upload</mat-icon>
-    <h2 class="mat-headline">Drag&Drop your Sketch file here</h2>
-    <span class="mat-subheading-1">Or</span>
-    <button color="accent" class="mat-headline" mat-button (click)="openFileBrowser()">BROWSE FILES</button>
+      <mat-icon class="mode__large">cloud_upload</mat-icon>
+      <h2 class="mat-headline">Drag&Drop your Sketch file here</h2>
+      <span class="mat-subheading-1">Or</span>
+      <button color="primary" class="mat-headline" mat-button (click)="openFileBrowser()">BROWSE FILES</button>
     </section>
   </ng-template>
 
@@ -30,13 +30,12 @@ import { Component, OnInit, EventEmitter, Output, ViewChild, ElementRef, NgZone,
       position: relative;
       align-items: center;
       justify-content: center;
+      color: #B0B0B0;
     }
     section {
-      width: 500px;
-      height: 500px;
-      border-radius: 50%;
-      border: 1px solid #bcbcbc;
-      background: #eaeaea;
+      width: 100%;
+      height: 100%;
+      background: white;
       text-align: center;
       display: flex;
       align-items: center;

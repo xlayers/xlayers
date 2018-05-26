@@ -1,16 +1,26 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, OnInit } from '@angular/core';
 import { Store, Select } from '@ngxs/store';
 import { Observable } from 'rxjs';
-import { HideWireframe, ShowWireframe, UiState, UiSettings, HidePreview, ShowPreview, CurrentLayer, CurrentPage } from './state/ui.state';
+import {
+  HideWireframe,
+  ShowWireframe,
+  UiState,
+  HidePreview,
+  ShowPreview,
+  CurrentLayer,
+  CurrentPage,
+  AutoFixCurrentPagePosition
+} from './state/ui.state';
 import { MatExpansionPanel } from '@angular/material/expansion';
 import { MatDrawerContainer } from '@angular/material/sidenav';
+import { SketchContainerComponent } from 'projects/manekinekko/ngx-sketch-viewer/src/public_api';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   currentPage: SketchMSPage;
   currentLayer: SketchMSSymbolMaster;
   sketchPages: Array<SketchMSPage>;
@@ -20,14 +30,16 @@ export class AppComponent {
 
   @ViewChild('expansionPanelRef') expansionPanelRef: MatExpansionPanel;
   @ViewChild('currentLayerNavRef') currentLayerNavRef: MatDrawerContainer;
+  @ViewChild('sketchContainerRef') sketchContainerRef: SketchContainerComponent;
 
   constructor(private store: Store) {}
 
   ngOnInit() {
     this.store.select(UiState.availablePages).subscribe(availablePages => {
       this.sketchPages = availablePages;
+
       if (availablePages.length > 0) {
-        this.expansionPanelRef.open();
+        setTimeout(_ => this.expansionPanelRef.open(), 0);
       }
 
       this.store.select(UiState.isWireframe).subscribe(isWireframe => {
@@ -69,12 +81,20 @@ export class AppComponent {
     }
   }
 
+  toggleCodeEditor() {
+    throw Error('not implemented');
+  }
+
   setCurrentPage(page: SketchMSPage) {
     this.store.dispatch(new CurrentPage(page));
   }
 
   closeLayerSettings() {
     this.store.dispatch(new CurrentLayer(null));
+  }
+
+  autoFixLayersPosition() {
+    this.store.dispatch(new AutoFixCurrentPagePosition(this.currentPage));
   }
 
   pageName(page: SketchMSPage) {

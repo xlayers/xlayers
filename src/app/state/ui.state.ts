@@ -1,4 +1,7 @@
 import { State, Action, StateContext, Selector } from '@ngxs/store';
+import { MatSnackBar, MatSnackBarRef, SimpleSnackBar } from '@angular/material/snack-bar';
+import { merge } from 'rxjs';
+import { tap, map, takeUntil, mergeMap } from 'rxjs/operators';
 
 export interface UiSettings {
   currentPage?: SketchMSPage;
@@ -11,21 +14,17 @@ export interface UiSettings {
 
 export class ShowWireframe {
   static readonly type = '[UiSettings] Show Wireframe';
-  constructor() {}
 }
 
 export class HideWireframe {
   static readonly type = '[UiSettings] Hide Wireframe';
-  constructor() {}
 }
 export class ShowPreview {
   static readonly type = '[UiSettings] Show Preview';
-  constructor() {}
 }
 
 export class HidePreview {
   static readonly type = '[UiSettings] Hide Preview';
-  constructor() {}
 }
 export class AvailablePages {
   static readonly type = '[UiSettings] Available Pages';
@@ -44,7 +43,10 @@ export class CurrentLayer {
 
 export class SettingsEnabled {
   static readonly type = '[UiSettings] Enable Settings';
-  constructor() {}
+}
+export class AutoFixCurrentPagePosition {
+  static readonly type = '[UiSettings] Auto Fix Current Page Position';
+  constructor(public page: SketchMSPage) {}
 }
 
 @State<UiSettings>({
@@ -56,6 +58,8 @@ export class SettingsEnabled {
   }
 })
 export class UiState {
+  constructor(private snackBar: MatSnackBar) {}
+
   @Selector()
   static isWireframe(ui: UiSettings) {
     return ui.wireframe;
@@ -68,6 +72,11 @@ export class UiState {
 
   @Selector()
   static currentPage(ui: UiSettings) {
+    return ui.currentPage;
+  }
+
+  @Selector()
+  static autoFixCurrentPagePosition(ui: UiSettings) {
     return ui.currentPage;
   }
 
@@ -140,5 +149,35 @@ export class UiState {
     patchState({
       settingsEnabled: true
     });
+  }
+
+  @Action(AutoFixCurrentPagePosition)
+  autoFixLayersPosition({ getState, patchState, dispatch }: StateContext<UiSettings>, action: AutoFixCurrentPagePosition) {
+    const currentPage = {...action.page};
+
+    // reset the top/left position of the current page
+    // and the root layers
+    currentPage.frame.x = 0;
+    currentPage.frame.y = 0;
+    // currentPage.layers.map(layer => {
+    //   layer.frame.x = 0;
+    //   layer.frame.y = 0;
+    //   return layer;
+    // });
+
+    patchState({
+      currentPage
+    });
+
+    // dispatch(new CurrentPage(currentPage));
+
+    this.snackBar
+      .open('Fixed Layers Positions', 'Undo', {
+        duration: 3000
+      })
+      .onAction()
+      .subscribe(() => {
+        console.log('todo: The UNDO action was triggered!');
+      });
   }
 }

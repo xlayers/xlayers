@@ -30,7 +30,7 @@ mat-toolbar {
   display: flex;
 }
 
-h1[hidden] {
+[hidden] {
   display: none;
 }
 
