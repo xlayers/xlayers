@@ -16,7 +16,7 @@ import { MatDrawerContainer } from '@angular/material/sidenav';
 import { SketchContainerComponent } from './viewer/lib/sketch-container.component';
 
 @Component({
-  selector: 'app-root',
+  selector: 'sketch-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
