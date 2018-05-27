@@ -215,6 +215,7 @@ declare interface SketchMSSymbolMaster {
   verticalRulerData: SketchMSRulerData;
   isFlippedVertical: number;
   do_objectID?: string;
+  id?: string;
   _class: 'MSSymbolMaster';
   name: string;
   layers: Array<any>;
@@ -223,7 +224,7 @@ declare interface SketchMSSymbolMaster {
   grid: SketchMSSimpleGrid;
   resizingType: number;
   userInfo: any;
-  isLocked: number;
+  isLocked: boolean;
   layout: SketchMSLayoutGrid;
   shouldBreakMaskChain: number;
   resizingConstraint: 63 | number;
@@ -250,7 +251,7 @@ declare interface SketchMSPage {
   isVisible: boolean;
   nameIsFixed: number;
   name: string;
-  isLocked: number;
+  isLocked: boolean;
   shouldBreakMaskChain: number;
   resizingConstraint: number;
 }
