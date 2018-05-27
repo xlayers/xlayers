@@ -100,4 +100,8 @@ export class AppComponent implements OnInit {
   pageName(page: SketchMSPage) {
     return page && page.name;
   }
+
+  clearSelection() {
+    this.store.dispatch(new CurrentLayer(null));
+  }
 }
