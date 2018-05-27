@@ -23,6 +23,7 @@
     "@angular/platform-browser-dynamic": "^6.0.2",
     "@angular/router": "^6.0.2",
     "@ngxs/store": "^3.0.1",
+    "angular-resizable-element": "^3.0.0",
     "core-js": "^2.5.4",
     "jszip": "^3.1.5",
     "rxjs": "^6.0.0",

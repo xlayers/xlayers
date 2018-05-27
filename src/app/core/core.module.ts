@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
+import { ResizableModule } from 'angular-resizable-element';
+
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
@@ -32,9 +34,14 @@ const MatModules = [
   MatButtonToggleModule
 ];
 
+const ExtraModules = [
+  ResizableModule,
+  FormsModule
+];
+
 @NgModule({
-  imports: [CommonModule, MatModules, FormsModule],
-  exports: [...MatModules, FormsModule],
+  imports: [CommonModule, ...MatModules, ...ExtraModules],
+  exports: [...MatModules, ...ExtraModules],
   declarations: []
 })
 export class CoreModule {}

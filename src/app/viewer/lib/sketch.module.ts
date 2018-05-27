@@ -1,3 +1,4 @@
+import { CoreModule } from './../../core/core.module';
 import { SketchStopEventPropagationDirective } from './sketch-stop-event-propagation.directive';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -12,7 +13,7 @@ import { SketchLayerComponent } from './sketch-layer.component';
 import { SketchPageComponent } from './sketch-page.component';
 
 @NgModule({
-  imports: [CommonModule, MatTooltipModule, MatIconModule, MatButtonModule],
+  imports: [CommonModule, CoreModule],
   declarations: [
     SketchCanvasComponent,
     SketchDropzoneComponent,

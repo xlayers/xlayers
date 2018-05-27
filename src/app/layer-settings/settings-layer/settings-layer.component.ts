@@ -1,4 +1,4 @@
-import { UiState } from './../../state/ui.state';
+import { UiState, AutoFixCurrentPagePosition } from './../../state/ui.state';
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngxs/store';
 
@@ -33,6 +33,10 @@ import { Store } from '@ngxs/store';
     <mat-form-field>
       <input matInput type="number" placeholder="Top" [ngModel]="currentLayer?.frame.y.toFixed(2)">
     </mat-form-field>
+
+    <button mat-stroked-button (click)="autoFixLayersPosition()" *ngIf="showAutoFixButton()">
+      <mat-icon>assistant</mat-icon> Fix Layer Position
+    </button>
   </mat-expansion-panel>
   `,
   styles: [`
@@ -40,11 +44,15 @@ import { Store } from '@ngxs/store';
     width: 70px;
     padding: 14px;
   }
+
+  button {
+    margin: 14px;
+  }
   `]
 })
 export class SettingsLayerComponent implements OnInit {
 
-  currentLayer;
+  currentLayer: SketchMSSymbolMaster;
 
   constructor(private store: Store) { }
 
@@ -52,6 +60,17 @@ export class SettingsLayerComponent implements OnInit {
     this.store.select(UiState.currentLayer).subscribe(currentLayer => {
       this.currentLayer = currentLayer;
     });
+  }
+
+  autoFixLayersPosition() {
+    this.store.dispatch(new AutoFixCurrentPagePosition(this.currentLayer));
+  }
+
+  showAutoFixButton() {
+    if (!this.currentLayer) {
+      return false;
+    }
+    return this.currentLayer.frame.x !== 0 || this.currentLayer.frame.y !== 0;
   }
 
 }
