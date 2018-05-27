@@ -9,7 +9,8 @@ import {
   ShowPreview,
   CurrentLayer,
   CurrentPage,
-  AutoFixCurrentPagePosition
+  AutoFixCurrentPagePosition,
+  SketchMSLayer
 } from './state/ui.state';
 import { MatExpansionPanel } from '@angular/material/expansion';
 import { MatDrawerContainer } from '@angular/material/sidenav';
@@ -21,7 +22,7 @@ import { SketchContainerComponent } from './viewer/lib/sketch-container.componen
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  currentPage: SketchMSPage;
+  currentPage: SketchMSLayer;
   currentLayer: SketchMSSymbolMaster;
   sketchPages: Array<SketchMSPage>;
   wireframe: boolean;
@@ -91,10 +92,6 @@ export class AppComponent implements OnInit {
 
   closeLayerSettings() {
     this.store.dispatch(new CurrentLayer(null));
-  }
-
-  autoFixLayersPosition() {
-    this.store.dispatch(new AutoFixCurrentPagePosition(this.currentPage));
   }
 
   pageName(page: SketchMSPage) {

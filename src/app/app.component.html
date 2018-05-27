@@ -12,9 +12,6 @@
         <button matTooltip="Toggle Code Mode" [color]=" wireframe ? 'warn':'' " mat-button (click)="toggleCodeEditor()">
           <mat-icon>code</mat-icon>
         </button>
-        <button matTooltip="Auto Fix Layers Position" mat-button (click)="autoFixLayersPosition()">
-          <mat-icon>assistant</mat-icon>
-        </button>
       </h1>
       <sketch-dropzone (changed)="sketchContainerRef.onFileSelected($event)" mode="mini"></sketch-dropzone>
     </mat-toolbar-row>
@@ -61,6 +58,6 @@
 
   </mat-drawer>
 
-  <sketch-container (click)="clearSelection()" #sketchContainerRef></sketch-container>
+  <sketch-container (mouseup)="clearSelection()" #sketchContainerRef></sketch-container>
 
 </mat-drawer-container>
