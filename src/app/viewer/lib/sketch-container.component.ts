@@ -1,4 +1,4 @@
-import { CurrentPage, AvailablePages, SettingsEnabled, ShowPreview, ShowWireframe, UiState } from '../../state/ui.state';
+import { CurrentPage, AvailablePages, SettingsEnabled, ShowPreview, ShowWireframe, UiState, SketchMSLayer } from '../../state/ui.state';
 import { SketchService, SketchData } from './sketch.service';
 import { Component, OnInit, Input } from '@angular/core';
 import { Store } from '@ngxs/store';
@@ -45,7 +45,7 @@ export class SketchContainerComponent implements OnInit {
   constructor(private service: SketchService, private store: Store) {}
 
   public data: SketchData;
-  public currentPage: SketchMSPage;
+  public currentPage: SketchMSLayer;
 
   ngOnInit() {
     this.store.select(UiState.currentPage).subscribe(currentPage => {
