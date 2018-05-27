@@ -3,8 +3,10 @@ import { MatSnackBar, MatSnackBarRef, SimpleSnackBar } from '@angular/material/s
 import { merge } from 'rxjs';
 import { tap, map, takeUntil, mergeMap } from 'rxjs/operators';
 
+export type SketchMSLayer = SketchMSPage | SketchMSSymbolMaster;
+
 export interface UiSettings {
-  currentPage?: SketchMSPage;
+  currentPage?: SketchMSLayer;
   currentLayer?: SketchMSSymbolMaster;
   availablePages?: Array<SketchMSPage>;
   wireframe?: boolean;
@@ -46,7 +48,7 @@ export class SettingsEnabled {
 }
 export class AutoFixCurrentPagePosition {
   static readonly type = '[UiSettings] Auto Fix Current Page Position';
-  constructor(public page: SketchMSPage) {}
+  constructor(public page: SketchMSLayer) {}
 }
 
 @State<UiSettings>({
@@ -159,17 +161,10 @@ export class UiState {
     // and the root layers
     currentPage.frame.x = 0;
     currentPage.frame.y = 0;
-    // currentPage.layers.map(layer => {
-    //   layer.frame.x = 0;
-    //   layer.frame.y = 0;
-    //   return layer;
-    // });
 
     patchState({
       currentPage
     });
-
-    // dispatch(new CurrentPage(currentPage));
 
     this.snackBar
       .open('Fixed Layers Positions', 'Undo', {
