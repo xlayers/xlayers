@@ -15,9 +15,7 @@ import { Component, ViewChild, ElementRef, Renderer2, Input, ViewChildren, After
     [ngClass]="{ 'wireframe': wireframe }"
     [attr.data-id]="layer.do_objectID"
     [attr.data-name]="layer.name"
-    [attr.data-class]="layer._class"
-    [matTooltip]="tooltipInfo"
-    [ngStyle]="layerStyle"></sketch-layer>
+    [attr.data-class]="layer._class"></sketch-layer>
   `,
   styles: [
     `
