@@ -1,3 +1,4 @@
+import { PageState } from './state/page.state';
 import { LayerSettingsModule } from './layer-settings/layer-settings.module';
 import { UiState } from './state/ui.state';
 import { BrowserModule } from '@angular/platform-browser';
@@ -17,7 +18,7 @@ import { AngularSketchModule } from './viewer/lib/sketch.module';
     BrowserModule,
     CoreModule,
     BrowserAnimationsModule,
-    NgxsModule.forRoot([UiState]),
+    NgxsModule.forRoot([UiState, PageState]),
     NgxsLoggerPluginModule.forRoot(),
     NgxsReduxDevtoolsPluginModule.forRoot(),
     AngularSketchModule,

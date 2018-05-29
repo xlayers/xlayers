@@ -1,4 +1,4 @@
-<mat-drawer-container autosize>
+<mat-drawer-container autosize [class.transparent-bg]="colors?.background === 'transparent'" [style.background]="colors?.background">
 
   <mat-toolbar>
     <mat-toolbar-row>
@@ -9,8 +9,14 @@
         <button matTooltip="Toggle Preview Mode" [color]=" wireframe ? 'warn':'' " mat-button (click)="toggleWireframe()">
           <mat-icon>layers</mat-icon>
         </button>
-        <button matTooltip="Toggle Code Mode" [color]=" wireframe ? 'warn':'' " mat-button (click)="toggleCodeEditor()">
+        <button disabled matTooltip="Toggle Code Mode" [color]=" wireframe ? 'warn':'' " mat-button (click)="toggleCodeEditor()">
           <mat-icon>code</mat-icon>
+        </button>
+        <button [disabled]="zoomLevel >= 3" matTooltip="Zoom In" mat-button (click)="ZoomIn()">
+          <mat-icon>zoom_in</mat-icon>
+        </button>
+        <button [disabled]="zoomLevel <= 0.1" matTooltip="Zoom Out" mat-button (click)="ZoomOut()">
+          <mat-icon>zoom_out</mat-icon>
         </button>
       </h1>
       <sketch-dropzone (changed)="sketchContainerRef.onFileSelected($event)" mode="mini"></sketch-dropzone>
@@ -26,6 +32,27 @@
     </mat-toolbar>
 
     <section>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Settings
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <mat-nav-list>
+          <mat-list-item [matMenuTriggerFor]="menuColor">
+            <span 
+              class="color-preview" 
+              [class.transparent-bg]="colors?.background === 'transparent'"
+              [style.backgroundColor]="colors?.background"
+            ></span> Canvas Color
+
+            <mat-menu #menuColor="matMenu" class="menu-color-panel" [overlapTrigger]="false">
+              <color-sketch [color]="colors.background" (onChangeComplete)="backgroundColor($event)"></color-sketch>
+            </mat-menu>
+          </mat-list-item>
+        </mat-nav-list>
+      </mat-expansion-panel>
       <mat-expansion-panel #expansionPanelRef [hidden]="!currentPage">
         <mat-expansion-panel-header>
           <mat-panel-title>
@@ -34,9 +61,7 @@
         </mat-expansion-panel-header>
 
         <mat-nav-list>
-          <mat-list-item 
-            [ngClass]="{ 'selected-page': currentPage?.name === page.name }" 
-            *ngFor="let page of sketchPages; trackBy: pageName(page)" 
+          <mat-list-item [ngClass]="{ 'selected-page': currentPage?.name === page.name }" *ngFor="let page of sketchPages; trackBy: pageName(page)"
             (click)="setCurrentPage(page)">
             {{ page.name }}
           </mat-list-item>
@@ -58,6 +83,6 @@
 
   </mat-drawer>
 
-  <sketch-container (mouseup)="clearSelection()" #sketchContainerRef></sketch-container>
+  <sketch-container #sketchContainerRef></sketch-container>
 
 </mat-drawer-container>

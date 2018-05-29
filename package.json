@@ -26,6 +26,7 @@
     "angular-resizable-element": "^3.0.0",
     "core-js": "^2.5.4",
     "jszip": "^3.1.5",
+    "ngx-color": "^1.4.0",
     "rxjs": "^6.0.0",
     "zone.js": "^0.8.26"
   },

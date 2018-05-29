@@ -10,7 +10,9 @@ import {
   CurrentLayer,
   CurrentPage,
   AutoFixCurrentPagePosition,
-  SketchMSLayer
+  SketchMSLayer,
+  ZoomOut,
+  ZoomIn
 } from './state/ui.state';
 import { MatExpansionPanel } from '@angular/material/expansion';
 import { MatDrawerContainer } from '@angular/material/sidenav';
@@ -23,11 +25,16 @@ import { SketchContainerComponent } from './viewer/lib/sketch-container.componen
 })
 export class AppComponent implements OnInit {
   currentPage: SketchMSLayer;
-  currentLayer: SketchMSSymbolMaster;
+  currentLayer: SketchMSLayer;
   sketchPages: Array<SketchMSPage>;
   wireframe: boolean;
   preview: boolean;
   enabled: boolean;
+  colors: {
+    background: string;
+  };
+
+  zoomLevel: number;
 
   @ViewChild('expansionPanelRef') expansionPanelRef: MatExpansionPanel;
   @ViewChild('currentLayerNavRef') currentLayerNavRef: MatDrawerContainer;
@@ -36,6 +43,10 @@ export class AppComponent implements OnInit {
   constructor(private store: Store) {}
 
   ngOnInit() {
+    this.colors = {
+      background: 'transparent'
+    };
+
     this.store.select(UiState.availablePages).subscribe(availablePages => {
       this.sketchPages = availablePages;
 
@@ -45,6 +56,9 @@ export class AppComponent implements OnInit {
 
       this.store.select(UiState.isWireframe).subscribe(isWireframe => {
         this.wireframe = isWireframe;
+      });
+      this.store.select(UiState.zoomLevel).subscribe(zoomLevel => {
+        this.zoomLevel = zoomLevel;
       });
       this.store.select(UiState.isPreview).subscribe(isPreview => {
         this.preview = isPreview;
@@ -98,7 +112,19 @@ export class AppComponent implements OnInit {
     return page && page.name;
   }
 
-  clearSelection() {
-    this.store.dispatch(new CurrentLayer(null));
+  backgroundColor(event) {
+    const c = event.color.rgb;
+    if (c.a === 0) {
+      this.colors.background = 'transparent';
+    } else {
+      this.colors.background = `rgba(${c.r},${c.g},${c.b},${c.a})`;
+    }
+  }
+
+  ZoomIn() {
+    this.store.dispatch(new ZoomIn());
+  }
+  ZoomOut() {
+    this.store.dispatch(new ZoomOut());
   }
 }

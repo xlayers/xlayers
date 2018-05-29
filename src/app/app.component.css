@@ -5,7 +5,7 @@ mat-drawer-container {
   height: 100%;
 }
 
-mat-drawer-container {
+.transparent-bg {
   background-color: transparent;
   background-image: url(/assets/transparent-square-tiles.png);
   background-repeat: repeat;
@@ -72,4 +72,20 @@ button[mat-button] {
 .side-nav-bottom {
   position: absolute;
   bottom: 0;
+}
+
+.color-preview {
+  background-color: transparent;
+  display: inline-block;
+  width: 26px;
+  height: 26px;
+  border: 1px solid white;
+  border-radius: 50%;
+  margin: 0 10px;
+}
+
+.menu-color-panel, .mat-menu-content {
+  box-shadow: none;
+  background-color: transparent;
+  padding: 0;
 }

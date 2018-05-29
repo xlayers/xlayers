@@ -8,6 +8,9 @@ import { Component, OnInit } from '@angular/core';
   <mat-form-field class="large">
     <input matInput type="text" placeholder="Name" [ngModel]="currentLayer?.name">
   </mat-form-field>
+  <mat-form-field class="large">
+    <input disabled matInput type="text" placeholder="Kind" [ngModel]="currentLayer?._class">
+  </mat-form-field>
   `,
   styles: [`
   mat-form-field {

@@ -1,6 +1,8 @@
+import { SketchMSLayer, CurrentLayer } from './../../state/ui.state';
 import { Store } from '@ngxs/store';
 import { SketchLayerComponent } from './sketch-layer.component';
 import { Component, ViewChild, ElementRef, Renderer2, Input, ViewChildren, AfterContentInit, OnChanges, OnInit } from '@angular/core';
+import { UiState } from '../../state/ui.state';
 
 @Component({
   selector: 'sketch-page',
@@ -13,9 +15,9 @@ import { Component, ViewChild, ElementRef, Renderer2, Input, ViewChildren, After
     [layer]="layer"
     [wireframe]="wireframe"
     [ngClass]="{ 'wireframe': wireframe }"
-    [attr.data-id]="layer.do_objectID"
-    [attr.data-name]="layer.name"
-    [attr.data-class]="layer._class"></sketch-layer>
+    [attr.data-id]="layer?.id"
+    [attr.data-name]="layer?.name"
+    [attr.data-class]="layer?._class"></sketch-layer>
   `,
   styles: [
     `
@@ -28,12 +30,20 @@ import { Component, ViewChild, ElementRef, Renderer2, Input, ViewChildren, After
 })
 export class SketchPageComponent extends SketchLayerComponent implements OnInit, AfterContentInit {
   @Input() page: SketchMSPage;
+
+  currentLayer: SketchMSLayer;
+
   constructor(public store: Store, public renderer: Renderer2, public element: ElementRef<HTMLElement>) {
     super(store, renderer, element);
   }
 
   ngOnInit() {
     super.ngOnInit();
+
+    this.store.select(UiState.currentLayer).subscribe(currentLayer => {
+      this.currentLayer = currentLayer;
+    });
+    this.store.dispatch(new CurrentLayer(this.currentLayer));
   }
 
   ngAfterContentInit() {

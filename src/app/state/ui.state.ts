@@ -1,3 +1,4 @@
+import { PageState } from './page.state';
 import { State, Action, StateContext, Selector } from '@ngxs/store';
 import { MatSnackBar, MatSnackBarRef, SimpleSnackBar } from '@angular/material/snack-bar';
 import { merge } from 'rxjs';
@@ -7,11 +8,12 @@ export type SketchMSLayer = SketchMSPage | SketchMSSymbolMaster;
 
 export interface UiSettings {
   currentPage?: SketchMSLayer;
-  currentLayer?: SketchMSSymbolMaster;
+  currentLayer?: SketchMSLayer;
   availablePages?: Array<SketchMSPage>;
   wireframe?: boolean;
   preview?: boolean;
   settingsEnabled?: boolean;
+  zoomLevel: number;
 }
 
 export class ShowWireframe {
@@ -40,7 +42,7 @@ export class CurrentPage {
 
 export class CurrentLayer {
   static readonly type = '[UiSettings] Current Layer';
-  constructor(public layer: SketchMSSymbolMaster) {}
+  constructor(public layer: SketchMSLayer) {}
 }
 
 export class SettingsEnabled {
@@ -50,14 +52,28 @@ export class AutoFixCurrentPagePosition {
   static readonly type = '[UiSettings] Auto Fix Current Page Position';
   constructor(public page: SketchMSLayer) {}
 }
+export class ZoomIn {
+  static readonly type = '[UiSettings] Zoom In';
+  constructor(public value: number = 0.1) {}
+}
+export class ZoomOut {
+  static readonly type = '[UiSettings] Zoom Out';
+  constructor(public value: number = 0.1) {}
+}
 
 @State<UiSettings>({
   name: 'ui',
   defaults: {
     wireframe: true,
     preview: true,
-    availablePages: []
-  }
+    availablePages: [],
+    currentLayer: null,
+    currentPage: null,
+    zoomLevel: 1
+  },
+  children: [
+    PageState
+  ]
 })
 export class UiState {
   constructor(private snackBar: MatSnackBar) {}
@@ -96,6 +112,10 @@ export class UiState {
   static isSettingsEnabled(ui: UiSettings) {
     return ui.settingsEnabled;
   }
+  @Selector()
+  static zoomLevel(ui: UiSettings) {
+    return ui.zoomLevel;
+  }
 
   @Action(ShowPreview)
   showPreview({ getState, patchState }: StateContext<UiSettings>) {
@@ -128,21 +148,27 @@ export class UiState {
   @Action(AvailablePages)
   setAvailablePages({ getState, patchState }: StateContext<UiSettings>, action: AvailablePages) {
     patchState({
-      availablePages: action.pages
+      availablePages: [...action.pages]
     });
   }
 
   @Action(CurrentPage)
-  currentPage({ getState, patchState }: StateContext<UiSettings>, action: CurrentPage) {
+  currentPage({ getState, patchState, dispatch }: StateContext<UiSettings>, action: CurrentPage) {
     patchState({
-      currentPage: action.page
+      currentPage: action.page ? {...action.page} : null
     });
+
+    if (action.page.name === 'Symbols') {
+      dispatch(new HidePreview());
+    } else {
+      dispatch(new ShowPreview());
+    }
   }
 
   @Action(CurrentLayer)
   currentLayer({ getState, patchState }: StateContext<UiSettings>, action: CurrentLayer) {
     patchState({
-      currentLayer: action.layer
+      currentLayer: action.layer ? {...action.layer} : null
     });
   }
 
@@ -167,12 +193,29 @@ export class UiState {
     });
 
     this.snackBar
-      .open('Fixed Layers Positions', 'Undo', {
+      .open('Fixed Layers Positions', '', {
         duration: 3000
       })
       .onAction()
       .subscribe(() => {
         console.log('todo: The UNDO action was triggered!');
       });
+  }
+
+  @Action(ZoomIn)
+  zoomIn({ getState, setState }: StateContext<UiSettings>, action: ZoomIn) {
+    const ui = {...getState()};
+    ui.zoomLevel = parseFloat((ui.zoomLevel + action.value).toFixed(2));
+    if (ui.zoomLevel <= 3) {
+      setState(ui);
+    }
+  }
+  @Action(ZoomOut)
+  zoomOut({ getState, setState }: StateContext<UiSettings>, action: ZoomOut) {
+    const ui = {...getState()};
+    ui.zoomLevel = parseFloat((ui.zoomLevel - action.value).toFixed(2));
+    if (ui.zoomLevel >= 0.1) {
+      setState(ui);
+    }
   }
 }

@@ -1,6 +1,7 @@
+import { CurrentLayer, HidePreview, HideWireframe } from './../../state/ui.state';
 import { CurrentPage, AvailablePages, SettingsEnabled, ShowPreview, ShowWireframe, UiState, SketchMSLayer } from '../../state/ui.state';
 import { SketchService, SketchData } from './sketch.service';
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ElementRef, ViewChild } from '@angular/core';
 import { Store } from '@ngxs/store';
 
 @Component({
@@ -11,7 +12,7 @@ import { Store } from '@ngxs/store';
     </ng-template>
 
     <div class="layers-container" *ngIf="data else noDataRef" >
-      <sketch-canvas [currentPage]="currentPage" [data]="data"></sketch-canvas>
+      <sketch-canvas (click)="clearSelection()" [currentPage]="currentPage" [data]="data"></sketch-canvas>
     </div>
   `,
   styles: [
@@ -22,6 +23,8 @@ import { Store } from '@ngxs/store';
     justify-content: center;
     top: 64px;
     position: absolute;
+    transform: scale(1);
+    transform-origin: center;
   }
 
   .layers-container {
@@ -58,13 +61,21 @@ export class SketchContainerComponent implements OnInit {
       this.data = await this.service.process(file);
       this.currentPage = this.data.pages[0];
 
-      this.store.dispatch(new AvailablePages(this.data.pages));
-      this.store.dispatch(new CurrentPage(this.currentPage));
-      this.store.dispatch(new SettingsEnabled());
-      this.store.dispatch(new ShowPreview());
-      this.store.dispatch(new ShowWireframe());
+      this.store.dispatch([
+        new AvailablePages(this.data.pages),
+        new CurrentPage(this.currentPage),
+        new SettingsEnabled(),
+        new ShowPreview(),
+        new HideWireframe()
+      ]);
     } catch {
       alert('Only .sketch files that were saved using Sketch v43 and above are supported.');
+    }
+  }
+
+  clearSelection() {
+    if (this.currentPage) {
+      this.store.dispatch(new CurrentLayer(null));
     }
   }
 }

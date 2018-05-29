@@ -4,6 +4,8 @@ import { FormsModule } from '@angular/forms';
 
 import { ResizableModule } from 'angular-resizable-element';
 
+import { ColorSketchModule } from 'ngx-color/sketch';
+
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
@@ -17,6 +19,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatMenuModule } from '@angular/material/menu';
 
 const MatModules = [
   MatSnackBarModule,
@@ -31,13 +34,11 @@ const MatModules = [
   ScrollDispatchModule,
   MatCardModule,
   MatTabsModule,
-  MatButtonToggleModule
+  MatButtonToggleModule,
+  MatMenuModule
 ];
 
-const ExtraModules = [
-  ResizableModule,
-  FormsModule
-];
+const ExtraModules = [ResizableModule, FormsModule, ColorSketchModule];
 
 @NgModule({
   imports: [CommonModule, ...MatModules, ...ExtraModules],

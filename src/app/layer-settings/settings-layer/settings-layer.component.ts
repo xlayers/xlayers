@@ -1,4 +1,4 @@
-import { UiState, AutoFixCurrentPagePosition } from './../../state/ui.state';
+import { UiState, AutoFixCurrentPagePosition, CurrentLayer, SketchMSLayer } from './../../state/ui.state';
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngxs/store';
 
@@ -13,10 +13,18 @@ import { Store } from '@ngxs/store';
     </mat-expansion-panel-header>
 
     <mat-form-field>
-      <input matInput type="number" placeholder="Height" [ngModel]="currentLayer?.frame.height.toFixed(2)">
+      <input matInput
+        type="number"
+        placeholder="Height"
+        (ngModelChange)="updateCurrentLayerHeight($event)"
+        [ngModel]="currentLayer?.frame.height.toFixed(0)">
     </mat-form-field>
     <mat-form-field>
-      <input matInput type="number" placeholder="Width" [ngModel]="currentLayer?.frame.width.toFixed(2)">
+      <input matInput
+        type="number"
+        placeholder="Width"
+        (ngModelChange)="updateCurrentLayerWidth($event)"
+        [ngModel]="currentLayer?.frame.width.toFixed(0)">
     </mat-form-field>
   </mat-expansion-panel>
 
@@ -28,10 +36,18 @@ import { Store } from '@ngxs/store';
     </mat-expansion-panel-header>
 
     <mat-form-field>
-      <input matInput type="number" placeholder="Left" [ngModel]="currentLayer?.frame.x.toFixed(2)">
+      <input matInput
+        type="number"
+        placeholder="Left"
+        (ngModelChange)="updateCurrentLayerX($event)"
+        [ngModel]="currentLayer?.frame.x.toFixed(0)">
     </mat-form-field>
     <mat-form-field>
-      <input matInput type="number" placeholder="Top" [ngModel]="currentLayer?.frame.y.toFixed(2)">
+      <input matInput
+      type="number"
+      placeholder="Top"
+      (ngModelChange)="updateCurrentLayerY($event)"
+      [ngModel]="currentLayer?.frame.y.toFixed(0)">
     </mat-form-field>
 
     <button mat-stroked-button (click)="autoFixLayersPosition()" *ngIf="showAutoFixButton()">
@@ -52,7 +68,7 @@ import { Store } from '@ngxs/store';
 })
 export class SettingsLayerComponent implements OnInit {
 
-  currentLayer: SketchMSSymbolMaster;
+  currentLayer: SketchMSLayer;
 
   constructor(private store: Store) { }
 
@@ -63,7 +79,26 @@ export class SettingsLayerComponent implements OnInit {
   }
 
   autoFixLayersPosition() {
-    this.store.dispatch(new AutoFixCurrentPagePosition(this.currentLayer));
+    this.currentLayer.frame.x = 0;
+    this.currentLayer.frame.y = 0;
+    this.store.dispatch(new CurrentLayer(this.currentLayer));
+  }
+
+  updateCurrentLayerHeight(value: number) {
+    this.currentLayer.frame.height = value;
+    this.store.dispatch(new CurrentLayer(this.currentLayer));
+  }
+  updateCurrentLayerWidth(value: number) {
+    this.currentLayer.frame.width = value;
+    this.store.dispatch(new CurrentLayer(this.currentLayer));
+  }
+  updateCurrentLayerY(value: number) {
+    this.currentLayer.frame.y = value;
+    this.store.dispatch(new CurrentLayer(this.currentLayer));
+  }
+  updateCurrentLayerX(value: number) {
+    this.currentLayer.frame.x = value;
+    this.store.dispatch(new CurrentLayer(this.currentLayer));
   }
 
   showAutoFixButton() {
