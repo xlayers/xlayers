@@ -215,7 +215,6 @@ declare interface SketchMSSymbolMaster {
   verticalRulerData: SketchMSRulerData;
   isFlippedVertical: number;
   do_objectID?: string;
-  id?: string;
   _class: 'MSSymbolMaster';
   name: string;
   layers: Array<any>;
