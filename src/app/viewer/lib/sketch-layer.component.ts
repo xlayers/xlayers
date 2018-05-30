@@ -26,6 +26,7 @@ import { CurrentLayer, SketchMSLayer } from './../../state/ui.state';
       *ngFor="let layer of layer?.layers"
       class="layer"
       [layer]="layer"
+      [level]="level + 1"
       [wireframe]="wireframe"
       [ngClass]="{ 'wireframe': wireframe }"
       [attr.data-id]="layer?.do_objectID"
@@ -41,6 +42,9 @@ import { CurrentLayer, SketchMSLayer } from './../../state/ui.state';
       position: absolute;
       box-sizing: border-box;
       transition: border-color 0.1s linear;
+      transform-origin: 0 0;
+      transform-style: preserve-3d;
+      transition: transform 1s;
     }
 
     :host(:hover), :host(.isCurrentLayer) {
@@ -57,17 +61,32 @@ export class SketchLayerComponent implements OnInit, AfterContentInit {
   @Input() layer: SketchMSLayer;
   @Input() wireframe = false;
 
+  @Input() level = 0;
+
   artboardFactor = 1;
   borderWidth = 1;
   nativeElement: HTMLElement;
 
+  offset3d = 20;
+
   constructor(public store: Store, public renderer: Renderer2, public element: ElementRef<HTMLElement>) {}
 
   ngOnInit() {
+    this.nativeElement = this.element.nativeElement;
     this.store.select(UiState.isWireframe).subscribe(isWireframe => {
       this.wireframe = isWireframe;
     });
-    this.nativeElement = this.element.nativeElement;
+    this.store.select(UiState.is3dView).subscribe(is3dView => {
+      if (this.nativeElement) {
+        if (is3dView === true) {
+          if (this.level > 0) {
+            this.renderer.setStyle(this.nativeElement, 'transform', `translateZ(${(this.level * this.offset3d).toFixed(3)}px)`);
+          }
+        } else {
+          this.renderer.setStyle(this.nativeElement, 'transform', `none`);
+        }
+      }
+    });
   }
 
   ngAfterContentInit() {

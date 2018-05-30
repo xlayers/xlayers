@@ -9,15 +9,18 @@
         <button matTooltip="Toggle Preview Mode" [color]=" wireframe ? 'warn':'' " mat-button (click)="toggleWireframe()">
           <mat-icon>layers</mat-icon>
         </button>
-        <button disabled matTooltip="Toggle Code Mode" [color]=" wireframe ? 'warn':'' " mat-button (click)="toggleCodeEditor()">
-          <mat-icon>code</mat-icon>
-        </button>
         <button [disabled]="zoomLevel >= 3" matTooltip="Zoom In" mat-button (click)="ZoomIn()">
           <mat-icon>zoom_in</mat-icon>
         </button>
         <button [disabled]="zoomLevel <= 0.1" matTooltip="Zoom Out" mat-button (click)="ZoomOut()">
           <mat-icon>zoom_out</mat-icon>
         </button>
+        <button matTooltip="Toggle 3D" mat-button [color]=" is3dView ? 'warn':'' " (click)="toggle3d()">
+          <mat-icon>3d_rotation</mat-icon>
+        </button>
+        <button disabled matTooltip="Toggle Code Mode" [color]=" wireframe ? 'warn':'' " mat-button (click)="toggleCodeEditor()">
+            <mat-icon>code</mat-icon>
+          </button>
       </h1>
       <sketch-dropzone (changed)="sketchContainerRef.onFileSelected($event)" mode="mini"></sketch-dropzone>
     </mat-toolbar-row>
@@ -26,7 +29,9 @@
   <mat-drawer mode="side" opened="true" disableClose="true">
 
     <mat-toolbar>
-      <h1 class="mat-header">xLayers
+      <h1 class="mat-header">
+        <mat-icon class="logo">layers</mat-icon>
+        xLayers
         <span>ALPHA</span>
       </h1>
     </mat-toolbar>

@@ -55,9 +55,9 @@ export class FileFlatNode {
           <mat-icon class="kind-icon">
             {{ getNodeIcon(node) }}
           </mat-icon>
-        </button>
 
-        {{node.name}}
+          {{node.name}}
+        </button>
 
       </mat-tree-node>
     </mat-tree>
@@ -164,7 +164,8 @@ export class TreeViewComponent implements OnInit {
     switch (kind) {
       case 'rectangle':
       case 'rect':
-        return 'crop_square';
+      case 'shapePath':
+        return 'gesture';
       case 'group':
       case 'shapeGroup':
         return 'folder';

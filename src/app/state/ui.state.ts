@@ -13,6 +13,7 @@ export interface UiSettings {
   preview?: boolean;
   settingsEnabled?: boolean;
   zoomLevel: number;
+  is3dView: boolean;
 }
 
 export class ShowWireframe {
@@ -59,6 +60,10 @@ export class ZoomOut {
   static readonly type = '[UiSettings] Zoom Out';
   constructor(public value: number = 0.1) {}
 }
+export class Toggle3D {
+  static readonly type = '[UiSettings] Toggle 3D';
+  constructor(public value: boolean) {}
+}
 
 @State<UiSettings>({
   name: 'ui',
@@ -69,11 +74,10 @@ export class ZoomOut {
     currentLayer: null,
     previousLayer: null,
     currentPage: null,
-    zoomLevel: 1
+    zoomLevel: 1,
+    is3dView: false
   },
-  children: [
-    PageState
-  ]
+  children: [PageState]
 })
 export class UiState {
   constructor(private snackBar: MatSnackBar) {}
@@ -116,46 +120,50 @@ export class UiState {
   static zoomLevel(ui: UiSettings) {
     return ui.zoomLevel;
   }
+  @Selector()
+  static is3dView(ui: UiSettings) {
+    return ui.is3dView;
+  }
 
   @Action(ShowPreview)
-  showPreview({ getState, patchState }: StateContext<UiSettings>) {
+  showPreview({ patchState }: StateContext<UiSettings>) {
     patchState({
       preview: true
     });
   }
 
   @Action(HidePreview)
-  hidePreview({ getState, patchState }: StateContext<UiSettings>) {
+  hidePreview({ patchState }: StateContext<UiSettings>) {
     patchState({
       preview: false
     });
   }
 
   @Action(ShowWireframe)
-  showWireframe({ getState, patchState }: StateContext<UiSettings>) {
+  showWireframe({ patchState }: StateContext<UiSettings>) {
     patchState({
       wireframe: true
     });
   }
 
   @Action(HideWireframe)
-  hideWireframe({ getState, patchState }: StateContext<UiSettings>) {
+  hideWireframe({ patchState }: StateContext<UiSettings>) {
     patchState({
       wireframe: false
     });
   }
 
   @Action(AvailablePages)
-  setAvailablePages({ getState, patchState }: StateContext<UiSettings>, action: AvailablePages) {
+  setAvailablePages({ patchState }: StateContext<UiSettings>, action: AvailablePages) {
     patchState({
       availablePages: [...action.pages]
     });
   }
 
   @Action(CurrentPage)
-  currentPage({ getState, patchState, dispatch }: StateContext<UiSettings>, action: CurrentPage) {
+  currentPage({ patchState, dispatch }: StateContext<UiSettings>, action: CurrentPage) {
     patchState({
-      currentPage: action.page ? {...action.page} : null
+      currentPage: action.page ? { ...action.page } : null
     });
 
     if (action.page.name === 'Symbols') {
@@ -168,21 +176,21 @@ export class UiState {
   @Action(CurrentLayer)
   currentLayer({ getState, patchState }: StateContext<UiSettings>, action: CurrentLayer) {
     patchState({
-      currentLayer: action.layer ? {...action.layer} : null,
-      previousLayer: {...getState().currentLayer}
+      currentLayer: action.layer ? { ...action.layer } : null,
+      previousLayer: { ...getState().currentLayer }
     });
   }
 
   @Action(SettingsEnabled)
-  enableSettings({ getState, patchState }: StateContext<UiSettings>, action: SettingsEnabled) {
+  enableSettings({ patchState }: StateContext<UiSettings>, action: SettingsEnabled) {
     patchState({
       settingsEnabled: true
     });
   }
 
   @Action(AutoFixCurrentPagePosition)
-  autoFixLayersPosition({ getState, patchState, dispatch }: StateContext<UiSettings>, action: AutoFixCurrentPagePosition) {
-    const currentPage = {...action.page};
+  autoFixLayersPosition({ patchState }: StateContext<UiSettings>, action: AutoFixCurrentPagePosition) {
+    const currentPage = { ...action.page };
 
     // reset the top/left position of the current page
     // and the root layers
@@ -205,7 +213,7 @@ export class UiState {
 
   @Action(ZoomIn)
   zoomIn({ getState, setState }: StateContext<UiSettings>, action: ZoomIn) {
-    const ui = {...getState()};
+    const ui = { ...getState() };
     ui.zoomLevel = parseFloat((ui.zoomLevel + action.value).toFixed(2));
     if (ui.zoomLevel <= 3) {
       setState(ui);
@@ -213,10 +221,21 @@ export class UiState {
   }
   @Action(ZoomOut)
   zoomOut({ getState, setState }: StateContext<UiSettings>, action: ZoomOut) {
-    const ui = {...getState()};
+    const ui = { ...getState() };
     ui.zoomLevel = parseFloat((ui.zoomLevel - action.value).toFixed(2));
     if (ui.zoomLevel >= 0.1) {
       setState(ui);
     }
+  }
+  @Action(Toggle3D)
+  toggle3D({ patchState, dispatch }: StateContext<UiSettings>, action: Toggle3D) {
+    if (action.value) {
+      dispatch([new ShowPreview(), new ShowWireframe()]);
+    }
+
+    patchState({
+      is3dView: action.value
+    });
+
   }
 }

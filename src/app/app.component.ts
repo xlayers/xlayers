@@ -12,7 +12,8 @@ import {
   SketchMSLayer,
   UiState,
   ZoomIn,
-  ZoomOut
+  ZoomOut,
+  Toggle3D
 } from './state/ui.state';
 import { SketchContainerComponent } from './viewer/lib/sketch-container.component';
 
@@ -33,6 +34,8 @@ export class AppComponent implements OnInit {
   };
 
   zoomLevel: number;
+
+  is3dView: boolean;
 
   @ViewChild('pagesPanelRef') pagesPanelRef: MatExpansionPanel;
   @ViewChild('layersPanelRef') layersPanelRef: MatExpansionPanel;
@@ -61,6 +64,9 @@ export class AppComponent implements OnInit {
       });
       this.store.select(UiState.zoomLevel).subscribe(zoomLevel => {
         this.zoomLevel = zoomLevel;
+      });
+      this.store.select(UiState.is3dView).subscribe(is3dView => {
+        this.is3dView = is3dView;
       });
       this.store.select(UiState.isPreview).subscribe(isPreview => {
         this.preview = isPreview;
@@ -128,5 +134,10 @@ export class AppComponent implements OnInit {
   }
   ZoomOut() {
     this.store.dispatch(new ZoomOut());
+  }
+
+  toggle3d() {
+    this.is3dView = !this.is3dView;
+    this.store.dispatch(new Toggle3D(this.is3dView));
   }
 }

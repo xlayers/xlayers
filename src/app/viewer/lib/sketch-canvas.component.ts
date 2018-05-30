@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild, Renderer2 } from '@angular/core';
 import { Store } from '@ngxs/store';
 import { UiState } from '../../state/ui.state';
 import { SketchData } from './sketch.service';
@@ -24,6 +24,14 @@ import { SketchData } from './sketch.service';
   :host {
     width: 100%;
     height: 100%;
+    transform: none;
+    overflow: visible;
+    transform-style: preserve-3d;
+    transition: transform 1s;
+  }
+  :host(.is-3d-view) {
+    perspective: 9000px;
+    transform: rotateY(22deg) rotateX(30deg);
   }
   img {
     left: 2px;
@@ -31,10 +39,11 @@ import { SketchData } from './sketch.service';
   }
   .canvas {
     user-select: none;
-    transform: translate3d(-50%, 50%, 0px) scale(1);
-    transform-origin: center;
     left: 50%;
     position: absolute;
+    transform-style: preserve-3d;
+    transform-origin: 0 0;
+    transform: translate3d(-50%, 50%, 0px) scale(1);
   }
   .canvas img {
     opacity: 1;
@@ -53,11 +62,21 @@ export class SketchCanvasComponent implements OnInit, AfterViewInit {
   @ViewChild('canvasRef') canvasRef: ElementRef<HTMLElement>;
 
   isPreview: boolean;
-  constructor(private store: Store) {}
+  constructor(private store: Store, private renderer: Renderer2, private element: ElementRef<HTMLElement>) {}
 
   ngOnInit() {
     this.store.select(UiState.isPreview).subscribe(isPreview => {
       this.isPreview = isPreview;
+    });
+    this.store.select(UiState.is3dView).subscribe(is3dView => {
+      const ne = this.element.nativeElement;
+      if (ne) {
+        if (is3dView === true) {
+          this.renderer.addClass(ne, 'is-3d-view');
+        } else {
+          this.renderer.removeClass(ne, 'is-3d-view');
+        }
+      }
     });
     this.store.select(UiState.zoomLevel).subscribe(zoomLevel => {
       if (this.canvasRef && this.canvasRef.nativeElement) {

@@ -84,8 +84,15 @@ button[mat-button] {
   margin: 0 10px;
 }
 
-.menu-color-panel, .mat-menu-content {
+.menu-color-panel,
+.mat-menu-content {
   box-shadow: none;
   background-color: transparent;
   padding: 0;
+}
+
+.logo {
+  font-size: 1.7em;
+  left: -11px;
+  position: relative;
 }

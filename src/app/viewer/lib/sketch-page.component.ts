@@ -11,6 +11,7 @@ import { SketchLayerComponent } from './sketch-layer.component';
     *ngFor="let layer of page?.layers"
     class="layer"
     [layer]="layer"
+    [level]="1"
     [wireframe]="wireframe"
     [ngClass]="{ 'wireframe': wireframe }"
     [attr.data-id]="layer?.do_objectID"
@@ -23,7 +24,10 @@ import { SketchLayerComponent } from './sketch-layer.component';
       display: block;
       position: static;
       box-sizing: border-box;
-    }`
+      overflow: visible;
+      transition: transform 1s;
+    }
+    `
   ]
 })
 export class SketchPageComponent extends SketchLayerComponent implements OnInit, AfterContentInit {
