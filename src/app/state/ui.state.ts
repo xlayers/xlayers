@@ -1,14 +1,13 @@
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Action, Selector, State, StateContext } from '@ngxs/store';
 import { PageState } from './page.state';
-import { State, Action, StateContext, Selector } from '@ngxs/store';
-import { MatSnackBar, MatSnackBarRef, SimpleSnackBar } from '@angular/material/snack-bar';
-import { merge } from 'rxjs';
-import { tap, map, takeUntil, mergeMap } from 'rxjs/operators';
 
 export type SketchMSLayer = SketchMSPage | SketchMSSymbolMaster;
 
 export interface UiSettings {
   currentPage?: SketchMSLayer;
   currentLayer?: SketchMSLayer;
+  previousLayer?: SketchMSLayer;
   availablePages?: Array<SketchMSPage>;
   wireframe?: boolean;
   preview?: boolean;
@@ -68,6 +67,7 @@ export class ZoomOut {
     preview: true,
     availablePages: [],
     currentLayer: null,
+    previousLayer: null,
     currentPage: null,
     zoomLevel: 1
   },
@@ -168,7 +168,8 @@ export class UiState {
   @Action(CurrentLayer)
   currentLayer({ getState, patchState }: StateContext<UiSettings>, action: CurrentLayer) {
     patchState({
-      currentLayer: action.layer ? {...action.layer} : null
+      currentLayer: action.layer ? {...action.layer} : null,
+      previousLayer: {...getState().currentLayer}
     });
   }
 

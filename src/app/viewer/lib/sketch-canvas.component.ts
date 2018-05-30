@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ElementRef, Renderer2, ViewChildren, AfterViewInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { Store } from '@ngxs/store';
 import { UiState } from '../../state/ui.state';
 import { SketchData } from './sketch.service';
@@ -12,7 +12,7 @@ import { SketchData } from './sketch.service';
       </div>
       <div>
         <sketch-page *ngIf="currentPage"
-          [attr.data-id]="currentPage?.id"
+          [attr.data-id]="currentPage?.do_objectID"
           [attr.data-name]="currentPage?.name"
           [attr.data-class]="currentPage?._class"
           [page]="currentPage"></sketch-page>

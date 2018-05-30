@@ -6,13 +6,11 @@ import { Directive, HostListener } from '@angular/core';
 export class SketchStopEventPropagationDirective {
   @HostListener('click', ['$event'])
   public onClick(event: any): void {
-    event.stopPropagation();
-    console.log('stopped');
+    // event.stopPropagation();
   }
 
   @HostListener('mouseover', ['$event'])
   public onMouseover(event: any): void {
     event.stopPropagation();
-    console.log('hover');
   }
 }

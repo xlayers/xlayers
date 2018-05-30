@@ -1,21 +1,19 @@
-import { Component, ViewChild, OnInit } from '@angular/core';
-import { Store, Select } from '@ngxs/store';
-import { Observable } from 'rxjs';
-import {
-  HideWireframe,
-  ShowWireframe,
-  UiState,
-  HidePreview,
-  ShowPreview,
-  CurrentLayer,
-  CurrentPage,
-  AutoFixCurrentPagePosition,
-  SketchMSLayer,
-  ZoomOut,
-  ZoomIn
-} from './state/ui.state';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatExpansionPanel } from '@angular/material/expansion';
 import { MatDrawerContainer } from '@angular/material/sidenav';
+import { Store } from '@ngxs/store';
+import {
+  CurrentLayer,
+  CurrentPage,
+  HidePreview,
+  HideWireframe,
+  ShowPreview,
+  ShowWireframe,
+  SketchMSLayer,
+  UiState,
+  ZoomIn,
+  ZoomOut
+} from './state/ui.state';
 import { SketchContainerComponent } from './viewer/lib/sketch-container.component';
 
 @Component({
@@ -36,7 +34,8 @@ export class AppComponent implements OnInit {
 
   zoomLevel: number;
 
-  @ViewChild('expansionPanelRef') expansionPanelRef: MatExpansionPanel;
+  @ViewChild('pagesPanelRef') pagesPanelRef: MatExpansionPanel;
+  @ViewChild('layersPanelRef') layersPanelRef: MatExpansionPanel;
   @ViewChild('currentLayerNavRef') currentLayerNavRef: MatDrawerContainer;
   @ViewChild('sketchContainerRef') sketchContainerRef: SketchContainerComponent;
 
@@ -51,7 +50,10 @@ export class AppComponent implements OnInit {
       this.sketchPages = availablePages;
 
       if (availablePages.length > 0) {
-        setTimeout(_ => this.expansionPanelRef.open(), 0);
+        setTimeout(_ => {
+          this.pagesPanelRef.open();
+          this.layersPanelRef.open();
+        }, 0);
       }
 
       this.store.select(UiState.isWireframe).subscribe(isWireframe => {

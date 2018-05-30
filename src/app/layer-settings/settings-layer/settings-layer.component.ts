@@ -1,6 +1,6 @@
-import { UiState, AutoFixCurrentPagePosition, CurrentLayer, SketchMSLayer } from './../../state/ui.state';
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngxs/store';
+import { CurrentLayer, SketchMSLayer, UiState } from './../../state/ui.state';
 
 @Component({
   selector: 'sketch-settings-layer',
@@ -49,13 +49,10 @@ import { Store } from '@ngxs/store';
       (ngModelChange)="updateCurrentLayerY($event)"
       [ngModel]="currentLayer?.frame.y.toFixed(0)">
     </mat-form-field>
-
-    <button mat-stroked-button (click)="autoFixLayersPosition()" *ngIf="showAutoFixButton()">
-      <mat-icon>assistant</mat-icon> Fix Layer Position
-    </button>
   </mat-expansion-panel>
   `,
-  styles: [`
+  styles: [
+    `
   mat-form-field {
     width: 70px;
     padding: 14px;
@@ -64,24 +61,18 @@ import { Store } from '@ngxs/store';
   button {
     margin: 14px;
   }
-  `]
+  `
+  ]
 })
 export class SettingsLayerComponent implements OnInit {
-
   currentLayer: SketchMSLayer;
 
-  constructor(private store: Store) { }
+  constructor(private store: Store) {}
 
   ngOnInit() {
     this.store.select(UiState.currentLayer).subscribe(currentLayer => {
       this.currentLayer = currentLayer;
     });
-  }
-
-  autoFixLayersPosition() {
-    this.currentLayer.frame.x = 0;
-    this.currentLayer.frame.y = 0;
-    this.store.dispatch(new CurrentLayer(this.currentLayer));
   }
 
   updateCurrentLayerHeight(value: number) {
@@ -100,12 +91,4 @@ export class SettingsLayerComponent implements OnInit {
     this.currentLayer.frame.x = value;
     this.store.dispatch(new CurrentLayer(this.currentLayer));
   }
-
-  showAutoFixButton() {
-    if (!this.currentLayer) {
-      return false;
-    }
-    return this.currentLayer.frame.x !== 0 || this.currentLayer.frame.y !== 0;
-  }
-
 }

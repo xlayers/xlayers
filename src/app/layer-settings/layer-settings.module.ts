@@ -7,11 +7,8 @@ import { SettingsLayerPropertiesComponent } from './settings-layer-properties/se
 import { SettingsLayerColorsComponent } from './settings-layer-colors/settings-layer-colors.component';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    CoreModule
-  ],
+  imports: [CommonModule, CoreModule],
   declarations: [SettingsContainerComponent, SettingsLayerComponent, SettingsLayerPropertiesComponent, SettingsLayerColorsComponent],
   exports: [SettingsContainerComponent]
 })
-export class LayerSettingsModule { }
+export class LayerSettingsModule {}

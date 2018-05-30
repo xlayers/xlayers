@@ -1,8 +1,9 @@
-import { CurrentLayer, HidePreview, HideWireframe } from './../../state/ui.state';
-import { CurrentPage, AvailablePages, SettingsEnabled, ShowPreview, ShowWireframe, UiState, SketchMSLayer } from '../../state/ui.state';
-import { SketchService, SketchData } from './sketch.service';
-import { Component, OnInit, Input, ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Store } from '@ngxs/store';
+import { AvailablePages, CurrentPage, SettingsEnabled, ShowPreview, SketchMSLayer, UiState } from '../../state/ui.state';
+import { CurrentLayer, HideWireframe } from './../../state/ui.state';
+import { SketchSelectedLayerDirective } from './selected-layer.directive';
+import { SketchData, SketchService } from './sketch.service';
 
 @Component({
   selector: 'sketch-container',
@@ -12,7 +13,7 @@ import { Store } from '@ngxs/store';
     </ng-template>
 
     <div class="layers-container" *ngIf="data else noDataRef" >
-      <sketch-canvas (click)="clearSelection()" [currentPage]="currentPage" [data]="data"></sketch-canvas>
+      <sketch-canvas #ref sketchSelectedLayer (click)="clearSelection()" [currentPage]="currentPage" [data]="data"></sketch-canvas>
     </div>
   `,
   styles: [
@@ -50,9 +51,17 @@ export class SketchContainerComponent implements OnInit {
   public data: SketchData;
   public currentPage: SketchMSLayer;
 
+  @ViewChild(SketchSelectedLayerDirective) ref: SketchSelectedLayerDirective;
+
   ngOnInit() {
     this.store.select(UiState.currentPage).subscribe(currentPage => {
       this.currentPage = currentPage;
+    });
+
+    this.store.select(UiState.currentLayer).subscribe(currentLayer => {
+      if (this.ref) {
+        this.ref.selectDomNode(currentLayer);
+      }
     });
   }
 

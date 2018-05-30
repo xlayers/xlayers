@@ -1,9 +1,8 @@
-import { SketchMSLayer, CurrentLayer } from './../../state/ui.state';
+import { AfterContentInit, Component, ElementRef, Input, OnInit, Renderer2 } from '@angular/core';
 import { Store } from '@ngxs/store';
-import { Component, ViewChild, ElementRef, Renderer2, Input, ViewChildren, AfterContentInit, OnChanges, OnInit } from '@angular/core';
-import { UiState } from 'src/app/state/ui.state';
 import { ResizeEvent } from 'angular-resizable-element';
-
+import { UiState } from 'src/app/state/ui.state';
+import { CurrentLayer, SketchMSLayer } from './../../state/ui.state';
 
 @Component({
   selector: 'sketch-layer',
@@ -22,14 +21,14 @@ import { ResizeEvent } from 'angular-resizable-element';
     [style.top.px]="layer?.frame?.y"
     >
     <sketch-layer
-      sketchStopEventPropagation
-      (click)="setCurrentLayer(layer)"
+      sketchSelectedLayer
+      (selectedLayer)="selectLayer($event)"
       *ngFor="let layer of layer?.layers"
       class="layer"
       [layer]="layer"
       [wireframe]="wireframe"
-      [ngClass]="{ 'wireframe': wireframe, 'currentLayer': layer?.id === currentLayer?.id }"
-      [attr.data-id]="layer?.id"
+      [ngClass]="{ 'wireframe': wireframe }"
+      [attr.data-id]="layer?.do_objectID"
       [attr.data-name]="layer?.name"
       [attr.data-class]="layer?._class"></sketch-layer>
   </div>
@@ -44,7 +43,7 @@ import { ResizeEvent } from 'angular-resizable-element';
       transition: border-color 0.1s linear;
     }
 
-    :host(:hover), :host(.currentLayer) {
+    :host(:hover), :host(.isCurrentLayer) {
       border-color: #51C1F8 !important;
       background-color: rgba(81, 193, 248, 0.2);
     }
@@ -56,7 +55,8 @@ import { ResizeEvent } from 'angular-resizable-element';
 })
 export class SketchLayerComponent implements OnInit, AfterContentInit {
   @Input() layer: SketchMSLayer;
-  @Input() wireframe = true;
+  @Input() wireframe = false;
+
   artboardFactor = 1;
   borderWidth = 1;
   nativeElement: HTMLElement;
@@ -67,9 +67,6 @@ export class SketchLayerComponent implements OnInit, AfterContentInit {
     this.store.select(UiState.isWireframe).subscribe(isWireframe => {
       this.wireframe = isWireframe;
     });
-    this.store.select(UiState.currentLayer).subscribe(currentLayer => {
-      this.updateLayerStyle();
-    });
     this.nativeElement = this.element.nativeElement;
   }
 
@@ -79,14 +76,8 @@ export class SketchLayerComponent implements OnInit, AfterContentInit {
     }
   }
 
-  setCurrentLayer(layer: SketchMSSymbolMaster) {
-    this.store.dispatch(new CurrentLayer(layer));
-  }
-
   updateLayerStyle() {
     if (this.layer && this.nativeElement) {
-      console.log('updating styles');
-
       this.renderer.setStyle(this.nativeElement, 'border-width', `${this.borderWidth}px`);
       this.renderer.setStyle(this.nativeElement, 'left', `${this.layer.frame.x * this.artboardFactor - this.borderWidth}px`);
       this.renderer.setStyle(this.nativeElement, 'top', `${this.layer.frame.y * this.artboardFactor - this.borderWidth}px`);
@@ -113,5 +104,9 @@ export class SketchLayerComponent implements OnInit, AfterContentInit {
   }
   resizeEnd(event: ResizeEvent) {
     this.store.dispatch(new CurrentLayer(this.layer));
+  }
+
+  selectLayer(layer: SketchMSLayer) {
+    this.store.dispatch(new CurrentLayer(layer));
   }
 }

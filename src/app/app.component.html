@@ -53,7 +53,8 @@
           </mat-list-item>
         </mat-nav-list>
       </mat-expansion-panel>
-      <mat-expansion-panel #expansionPanelRef [hidden]="!currentPage">
+
+      <mat-expansion-panel #pagesPanelRef [hidden]="!currentPage">
         <mat-expansion-panel-header>
           <mat-panel-title>
             Pages
@@ -67,6 +68,17 @@
           </mat-list-item>
         </mat-nav-list>
       </mat-expansion-panel>
+
+      <mat-expansion-panel #layersPanelRef [hidden]="!currentPage">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Layers
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+  
+          <sketch-tree-view></sketch-tree-view>
+        </mat-expansion-panel>
+      
     </section>
 
   </mat-drawer>

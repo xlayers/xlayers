@@ -11,9 +11,10 @@ import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
 import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
 import { AngularSketchModule } from './viewer/lib/sketch.module';
+import { TreeViewComponent } from './tree-view/tree-view.component';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, TreeViewComponent],
   imports: [
     BrowserModule,
     CoreModule,
