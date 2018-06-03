@@ -2,8 +2,6 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Action, Selector, State, StateContext } from '@ngxs/store';
 import { PageState } from './page.state';
 
-export type SketchMSLayer = SketchMSPage | SketchMSSymbolMaster;
-
 export interface UiSettings {
   currentPage?: SketchMSLayer;
   currentLayer?: SketchMSLayer;
@@ -179,6 +177,8 @@ export class UiState {
       currentLayer: action.layer ? { ...action.layer } : null,
       previousLayer: { ...getState().currentLayer }
     });
+
+    console.log(action.layer);
   }
 
   @Action(SettingsEnabled)

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngxs/store';
-import { CurrentLayer, SketchMSLayer, UiState } from './../../state/ui.state';
+import { CurrentLayer, UiState } from './../../state/ui.state';
 
 @Component({
   selector: 'sketch-settings-layer',

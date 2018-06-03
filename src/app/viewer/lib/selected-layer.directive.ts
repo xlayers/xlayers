@@ -1,5 +1,4 @@
 import { Directive, ElementRef, EventEmitter, HostListener, Injector, OnDestroy, OnInit, Output, Renderer2 } from '@angular/core';
-import { SketchMSLayer } from './../../state/ui.state';
 import { SketchLayerComponent } from './sketch-layer.component';
 
 @Directive({

@@ -2,7 +2,7 @@ import { AfterContentInit, Component, ElementRef, Input, OnInit, Renderer2 } fro
 import { Store } from '@ngxs/store';
 import { ResizeEvent } from 'angular-resizable-element';
 import { UiState } from 'src/app/state/ui.state';
-import { CurrentLayer, SketchMSLayer } from './../../state/ui.state';
+import { CurrentLayer } from './../../state/ui.state';
 
 @Component({
   selector: 'sketch-layer',
@@ -47,9 +47,13 @@ import { CurrentLayer, SketchMSLayer } from './../../state/ui.state';
       transition: transform 1s;
     }
 
-    :host(:hover), :host(.isCurrentLayer) {
+    :host(:hover) {
       border-color: #51C1F8 !important;
       background-color: rgba(81, 193, 248, 0.2);
+    }
+    :host(.isCurrentLayer) {
+      border-color: #EE4743 !important;
+      background-color: rgba(238, 71, 67, 0.2);
     }
     :host(.wireframe) {
       border-color: black;

@@ -9,7 +9,6 @@ import {
   HideWireframe,
   ShowPreview,
   ShowWireframe,
-  SketchMSLayer,
   UiState,
   ZoomIn,
   ZoomOut,

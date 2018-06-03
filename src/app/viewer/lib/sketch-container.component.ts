@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Store } from '@ngxs/store';
-import { AvailablePages, CurrentPage, SettingsEnabled, ShowPreview, SketchMSLayer, UiState } from '../../state/ui.state';
+import { AvailablePages, CurrentPage, SettingsEnabled, ShowPreview, UiState } from '../../state/ui.state';
 import { CurrentLayer, HideWireframe } from './../../state/ui.state';
 import { SketchSelectedLayerDirective } from './selected-layer.directive';
 import { SketchData, SketchService } from './sketch.service';
@@ -77,8 +77,9 @@ export class SketchContainerComponent implements OnInit {
         new ShowPreview(),
         new HideWireframe()
       ]);
-    } catch {
-      alert('Only .sketch files that were saved using Sketch v43 and above are supported.');
+    } catch (e) {
+      console.error(e);
+      // alert('Only .sketch files that were saved using Sketch v43 and above are supported.');
     }
   }
 
