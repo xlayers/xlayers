@@ -398,6 +398,7 @@ declare interface SketchMSPage {
   isLocked: boolean;
   shouldBreakMaskChain: number;
   resizingConstraint: number;
+  fixedRadius: number;
 }
 declare interface SketchMSSharedTextStyleContainer {
   do_objectID?: string;
