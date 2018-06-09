@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SettingsLayerComponent } from './settings-layer.component';
+import { SettingsLayerPositionComponent } from './settings-layer-position.component';
 
 describe('SettingsLayerComponent', () => {
-  let component: SettingsLayerComponent;
-  let fixture: ComponentFixture<SettingsLayerComponent>;
+  let component: SettingsLayerPositionComponent;
+  let fixture: ComponentFixture<SettingsLayerPositionComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SettingsLayerComponent ]
+      declarations: [ SettingsLayerPositionComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SettingsLayerComponent);
+    fixture = TestBed.createComponent(SettingsLayerPositionComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

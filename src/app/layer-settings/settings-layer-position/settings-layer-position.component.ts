@@ -3,7 +3,7 @@ import { Store } from '@ngxs/store';
 import { CurrentLayer, UiState } from './../../state/ui.state';
 
 @Component({
-  selector: 'sketch-settings-layer',
+  selector: 'sketch-settings-layer-position',
   template: `
   <mat-expansion-panel expanded="true">
     <mat-expansion-panel-header>
@@ -64,7 +64,7 @@ import { CurrentLayer, UiState } from './../../state/ui.state';
   `
   ]
 })
-export class SettingsLayerComponent implements OnInit {
+export class SettingsLayerPositionComponent implements OnInit {
   currentLayer: SketchMSLayer;
 
   constructor(private store: Store) {}
