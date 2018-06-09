@@ -17,9 +17,12 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTreeModule } from '@angular/material/tree';
 import { ResizableModule } from 'angular-resizable-element';
+import { MatSliderModule } from '@angular/material/slider';
+
 import { ColorSketchModule } from 'ngx-color/sketch';
 
 const MatModules = [
+  MatSliderModule,
   MatTreeModule,
   MatSnackBarModule,
   MatExpansionModule,

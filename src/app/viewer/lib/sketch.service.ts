@@ -1,3 +1,4 @@
+import { SketchStyleParserService } from './parsers/sketch-style-parser.service';
 import { Injectable } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 
@@ -22,7 +23,7 @@ export interface SketchData {
 })
 export class SketchService {
   _data: SketchData;
-  constructor(private sanitizer: DomSanitizer) {
+  constructor(private sanitizer: DomSanitizer, private sketchColorParser: SketchStyleParserService) {
     this._data = {
       pages: [],
       previews: [],
@@ -33,11 +34,16 @@ export class SketchService {
   }
 
   async process(file: File) {
-    this._data = await this.parse(file);
+    this._data = await this.sktech2Json(file);
+    this.parseColors(this._data.pages);
     return this._data;
   }
 
-  async parse(file) {
+  parseColors(pages: Array<SketchMSPage>) {
+    this.sketchColorParser.visit(pages);
+  }
+
+  async sktech2Json(file) {
     return new Promise<SketchData>((resolve, reject) => {
       const _data: SketchData = {
         pages: [],
