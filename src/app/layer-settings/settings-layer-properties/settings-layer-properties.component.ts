@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   selector: 'sketch-settings-layer-properties',
   template: `
   <mat-form-field class="large">
-    <input matInput type="text" placeholder="Name" [ngModel]="currentLayer?.name">
+    <input disabled matInput type="text" placeholder="Name" [ngModel]="currentLayer?.name">
   </mat-form-field>
   <mat-form-field class="large">
     <input disabled matInput type="text" placeholder="Kind" [ngModel]="currentLayer?._class">
