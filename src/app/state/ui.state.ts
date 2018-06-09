@@ -1,8 +1,21 @@
+import { SketchData } from './../viewer/lib/sketch.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Action, Selector, State, StateContext } from '@ngxs/store';
 import { PageState } from './page.state';
+import { TemplateRef } from '@angular/core';
+
+export interface LayerCSS {
+  transform: string;
+  'border-radius': number;
+  opacity: number;
+  filter: string;
+  'box-shadow': string;
+  'background-color': string;
+  background: string;
+}
 
 export interface UiSettings {
+  currentFile: SketchData;
   currentPage?: SketchMSLayer;
   currentLayer?: SketchMSLayer;
   previousLayer?: SketchMSLayer;
@@ -14,6 +27,10 @@ export interface UiSettings {
   is3dView: boolean;
 }
 
+export class CurrentFile {
+  static readonly type = '[UiSettings] Current File';
+  constructor(public data: SketchData) {}
+}
 export class ShowWireframe {
   static readonly type = '[UiSettings] Show Wireframe';
 }
@@ -46,7 +63,7 @@ export class CurrentLayer {
 export class SettingsEnabled {
   static readonly type = '[UiSettings] Enable Settings';
 }
-export class AutoFixCurrentPagePosition {
+export class AutoFixPagePosition {
   static readonly type = '[UiSettings] Auto Fix Current Page Position';
   constructor(public page: SketchMSLayer) {}
 }
@@ -71,6 +88,7 @@ export class Toggle3D {
     availablePages: [],
     currentLayer: null,
     previousLayer: null,
+    currentFile: null,
     currentPage: null,
     zoomLevel: 1,
     is3dView: false
@@ -80,6 +98,10 @@ export class Toggle3D {
 export class UiState {
   constructor(private snackBar: MatSnackBar) {}
 
+  @Selector()
+  static currentFile(ui: UiSettings) {
+    return ui.currentFile;
+  }
   @Selector()
   static isWireframe(ui: UiSettings) {
     return ui.wireframe;
@@ -123,6 +145,23 @@ export class UiState {
     return ui.is3dView;
   }
 
+  // Actions
+
+  @Action(CurrentFile)
+  currentFile({ patchState, dispatch }: StateContext<UiSettings>, action: CurrentFile) {
+    const page = action.data.pages[0];
+    const shouldFixTopLeftPosition =
+      page.frame.x !== 0 || page.frame.y !== 0 || (page.layers && (page.layers[0].frame.x !== 0 || page.layers[0].frame.y !== 0));
+
+    if (shouldFixTopLeftPosition) {
+      dispatch(new AutoFixPagePosition(page));
+    }
+
+    dispatch([new AvailablePages(action.data.pages), new CurrentPage(page), new SettingsEnabled(), new HidePreview(), new ShowWireframe()]);
+    patchState({
+      currentFile: { ...action.data }
+    });
+  }
   @Action(ShowPreview)
   showPreview({ patchState }: StateContext<UiSettings>) {
     patchState({
@@ -188,27 +227,26 @@ export class UiState {
     });
   }
 
-  @Action(AutoFixCurrentPagePosition)
-  autoFixLayersPosition({ patchState }: StateContext<UiSettings>, action: AutoFixCurrentPagePosition) {
+  @Action(AutoFixPagePosition)
+  autoFixLayersPosition({ patchState }: StateContext<UiSettings>, action: AutoFixPagePosition) {
     const currentPage = { ...action.page };
 
     // reset the top/left position of the current page
-    // and the root layers
+    // and the root layer
     currentPage.frame.x = 0;
     currentPage.frame.y = 0;
+    if (currentPage.layers[0]) {
+      currentPage.layers[0].frame.x = 0;
+      currentPage.layers[0].frame.y = 0;
+    }
 
     patchState({
       currentPage
     });
 
-    this.snackBar
-      .open('Fixed Layers Positions', '', {
-        duration: 3000
-      })
-      .onAction()
-      .subscribe(() => {
-        console.log('todo: The UNDO action was triggered!');
-      });
+    this.snackBar.open('Auto Fixed Top/Left Position', 'CLOSE', {
+      duration: 5000
+    });
   }
 
   @Action(ZoomIn)
@@ -230,12 +268,11 @@ export class UiState {
   @Action(Toggle3D)
   toggle3D({ patchState, dispatch }: StateContext<UiSettings>, action: Toggle3D) {
     if (action.value) {
-      dispatch([new ShowPreview(), new ShowWireframe()]);
+      dispatch(new ShowWireframe());
     }
 
     patchState({
       is3dView: action.value
     });
-
   }
 }
