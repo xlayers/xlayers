@@ -36,6 +36,11 @@ export class AppComponent implements OnInit {
 
   is3dView: boolean;
 
+  /**
+   * @todo This feauture is not ready.
+   */
+  shouldEnableCanvasSettings = false;
+
   @ViewChild('pagesPanelRef') pagesPanelRef: MatExpansionPanel;
   @ViewChild('layersPanelRef') layersPanelRef: MatExpansionPanel;
   @ViewChild('currentLayerNavRef') currentLayerNavRef: MatDrawerContainer;
@@ -119,7 +124,7 @@ export class AppComponent implements OnInit {
     return page && page.name;
   }
 
-  backgroundColor(event) {
+  changeBackgroundColor(event) {
     const c = event.color.rgb;
     if (c.a === 0) {
       this.colors.background = 'transparent';

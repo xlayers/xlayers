@@ -1,4 +1,4 @@
-<mat-drawer-container autosize [class.transparent-bg]="colors?.background === 'transparent'" [style.background]="colors?.background">
+<mat-drawer-container autosize [class.transparent-bg]="colors?.background === 'transparent'">
 
   <mat-toolbar>
     <mat-toolbar-row>
@@ -37,7 +37,7 @@
     </mat-toolbar>
 
     <section>
-      <mat-expansion-panel>
+      <mat-expansion-panel *ngIf="shouldEnableCanvasSettings">
         <mat-expansion-panel-header>
           <mat-panel-title>
             Settings
@@ -53,7 +53,7 @@
             ></span> Canvas Color
 
             <mat-menu #menuColor="matMenu" class="menu-color-panel" [overlapTrigger]="false">
-              <color-sketch [color]="colors.background" (onChangeComplete)="backgroundColor($event)"></color-sketch>
+              <color-sketch [color]="colors.background" (onChangeComplete)="changeBackgroundColor($event)"></color-sketch>
             </mat-menu>
           </mat-list-item>
         </mat-nav-list>
@@ -98,6 +98,10 @@
       </mat-list-item>
     </mat-nav-list>
 
+  </mat-drawer>
+
+  <mat-drawer mode="side" opened="false" position="end" hasBackdrop="false" #editorRef>
+    <sketch-editor></sketch-editor>
   </mat-drawer>
 
   <sketch-container #sketchContainerRef></sketch-container>
