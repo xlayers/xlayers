@@ -1,5 +1,5 @@
 const Buffer = require('buffer/').Buffer;
-const BigInteger = require('big-integer');
+const BigInt = window['BigInt'] || require('big-integer');
 import { Injectable } from '@angular/core';
 type BufferEncoding = 'hex' | 'utf8' | 'utf-8' | 'ascii' | 'latin1' | 'binary' | 'base64' | 'ucs2' | 'ucs-2' | 'utf16le' | 'utf-16le';
 
@@ -40,6 +40,8 @@ export class UID {
 }
 
 /*
+Resource: https://opensource.apple.com/source/CF/CF-550/
+
 HEADER
 	magic number ("bplist")
 	file format version
@@ -48,25 +50,25 @@ OBJECT TABLE
 	variable-sized objects
 
 	Object Formats (marker byte followed by additional info in some cases)
-	null	  0000 0000
-	bool	  0000 1000			                    // false
-	bool	  0000 1001			                    // true
-	fill	  0000 1111			                    // fill byte
-	int	    0001 nnnn	...		                  // # of bytes is 2^nnnn, big-endian bytes
-	real	  0010 nnnn	...		                  // # of bytes is 2^nnnn, big-endian bytes
-	date	  0011 0011	...		                  // 8 byte float follows, big-endian bytes
-	data	  0100 nnnn	[int]	...	              // nnnn is number of bytes unless 1111 then int count follows, followed by bytes
-	string	0101 nnnn	[int]	...	              // ASCII string, nnnn is # of chars, else 1111 then int count, then bytes
-	string	0110 nnnn	[int]	...	              // Unicode string, nnnn is # of chars, else 1111 then int count, then big-endian 2-byte uint16_t
-		      0111 xxxx			                    // unused
-	uid	    1000 nnnn	...		                  // nnnn+1 is # of bytes
-		      1001 xxxx			                    // unused
-	array	  1010 nnnn	[int]	objref*	          // nnnn is count, unless '1111', then int count follows
-		      1011 xxxx			                    // unused
-	set	    1100 nnnn	[int]	objref*           // nnnn is count, unless '1111', then int count follows
-	dict	  1101 nnnn	[int]	keyref* objref*	  // nnnn is count, unless '1111', then int count follows
-		      1110 xxxx			                    // unused
-		      1111 xxxx			                    // unused
+	null    0000 0000
+	bool    0000 1000			                    // false
+	bool    0000 1001			                    // true
+	fill    0000 1111			                    // fill byte
+	int     0001 nnnn	...		                  // # of bytes is 2^nnnn, big-endian bytes
+	real    0010 nnnn	...		                  // # of bytes is 2^nnnn, big-endian bytes
+	date    0011 0011	...		                  // 8 byte float follows, big-endian bytes
+	data    0100 nnnn	[int]	...	              // nnnn is number of bytes unless 1111 then int count follows, followed by bytes
+	string  0101 nnnn	[int]	...	              // ASCII string, nnnn is # of chars, else 1111 then int count, then bytes
+	string  0110 nnnn	[int]	...	              // Unicode string, nnnn is # of chars, else 1111 then int count, then big-endian 2-byte uint16_t
+          0111 xxxx			                    // unused
+	uid     1000 nnnn	...		                  // nnnn+1 is # of bytes
+          1001 xxxx			                    // unused
+	array   1010 nnnn	[int]	objref*	          // nnnn is count, unless '1111', then int count follows
+          1011 xxxx			                    // unused
+	ser     1100 nnnn	[int]	objref*           // nnnn is count, unless '1111', then int count follows
+	dict    1101 nnnn	[int]	keyref* objref*	  // nnnn is count, unless '1111', then int count follows
+          1110 xxxx			                    // unused
+          1111 xxxx			                    // unused
 
 OFFSET TABLE
 	list of ints, byte size of which is given in trailer
@@ -102,7 +104,7 @@ export class BinaryPropertyListParserService {
   /**
    * The table holding the information at which offset each object is found
    */
-  private offsetTable: Buffer;
+  private offsetTable: Array<number>;
 
   /**
    * Parses a binary property list from a binary base64 string.
@@ -187,7 +189,7 @@ export class BinaryPropertyListParserService {
     /*
        * Handle offset table
        */
-    this.offsetTable = new Buffer(numObjects);
+    this.offsetTable = new Array(numObjects);
 
     for (let i = 0; i < numObjects; i++) {
       this.offsetTable[i] = this.parseUnsignedInt(this.bytes, offsetTableOffset + i * offsetSize, offsetTableOffset + (i + 1) * offsetSize);
@@ -294,7 +296,7 @@ export class BinaryPropertyListParserService {
       if (intLength < 3) {
         lengthValue = this.parseUnsignedInt(this.bytes, offset + 2, offset + 2 + intLength);
       } else {
-        lengthValue = new BigInteger(this.copyOfRange(this.bytes, offset + 2, offset + 2 + intLength)).intValue();
+        lengthValue = new BigInt(this.copyOfRange(this.bytes, offset + 2, offset + 2 + intLength)).intValue();
       }
     }
     return [lengthValue, offsetValue];
@@ -379,8 +381,8 @@ export class BinaryPropertyListParserService {
       }
       case 0x1: {
         // integer
-        const length = Math.pow(2, objInfo);
-        const value = this.buffer2String(this.bytes, offset + 1, offset + 1 + length);
+        const len = Math.pow(2, objInfo);
+        const value = this.buffer2String(this.bytes, offset + 1, offset + 1 + len);
 
         console.log('case 0x1:', value);
         return {
@@ -390,8 +392,8 @@ export class BinaryPropertyListParserService {
       }
       case 0x2: {
         // real
-        const length = Math.pow(2, objInfo);
-        const value = this.buffer2String(this.bytes, offset + 1, offset + 1 + length);
+        const len = Math.pow(2, objInfo);
+        const value = this.buffer2String(this.bytes, offset + 1, offset + 1 + len);
 
         console.log('case 0x2:', value);
         return {
@@ -412,11 +414,11 @@ export class BinaryPropertyListParserService {
         };
       }
       case 0x4: {
-        // Data
+        // Data: interpreted as Base-64 encoded
         const lengthAndOffset: number[] = this.readLengthAndOffset(objInfo, offset);
-        const length = lengthAndOffset[0];
+        const len = lengthAndOffset[0];
         const dataOffset = lengthAndOffset[1];
-        const value = this.buffer2String(this.bytes, offset + dataOffset, offset + dataOffset + length);
+        const value = this.buffer2String(this.bytes, offset + dataOffset, offset + dataOffset + len);
         console.log('case 0x4:', value);
 
         return {
@@ -427,9 +429,9 @@ export class BinaryPropertyListParserService {
       case 0x5: {
         // ASCII string
         const lengthAndOffset: number[] = this.readLengthAndOffset(objInfo, offset);
-        const length = lengthAndOffset[0]; // Each character is 1 byte
+        const len = lengthAndOffset[0]; // Each character is 1 byte
         const strOffset = lengthAndOffset[1];
-        const value = this.buffer2String(this.bytes, offset + strOffset, offset + strOffset + length, 'ascii');
+        const value = this.buffer2String(this.bytes, offset + strOffset, offset + strOffset + len, 'ascii');
 
         console.log('case 0x5:', value);
         return {
@@ -445,9 +447,9 @@ export class BinaryPropertyListParserService {
         // UTF-16 characters can have variable length, but the Core Foundation reference implementation
         // assumes 2 byte characters, thus only covering the Basic Multilingual Plane
 
-        const length = characters * 2;
+        const len = characters * 2;
         const startIndex = strOffset;
-        const endIndex = offset + strOffset + length;
+        const endIndex = offset + strOffset + len;
         const value = this.buffer2String(this.bytes, startIndex, (startIndex + offset) * 2 ** 8 + endIndex, 'base64');
         // const value = this.buffer2String(this.bytes, offset + strOffset, offset + strOffset + length, 'base64');
 
@@ -468,8 +470,8 @@ export class BinaryPropertyListParserService {
         const characters = lengthAndOffset[0];
         // UTF-8 characters can have variable length, so we need to calculate the byte length dynamically
         // by reading the UTF-8 characters one by one
-        const length = this.calculateUtf8StringLength(this.bytes, offset + strOffset, characters);
-        const value = this.buffer2String(this.bytes, offset + strOffset, offset + strOffset + length);
+        const len = this.calculateUtf8StringLength(this.bytes, offset + strOffset, characters);
+        const value = this.buffer2String(this.bytes, offset + strOffset, offset + strOffset + len);
 
         console.log('case 0x7:', value);
         return {
@@ -479,11 +481,11 @@ export class BinaryPropertyListParserService {
       }
       case 0x8: {
         // UID (v1.0 and later)
-        const length = objInfo + 1;
+        const len = objInfo + 1;
         const value = new UID(
           obj.valueOf(),
-          this.copyOfRange(this.bytes, offset + 1, offset + 1 + length),
-          this.buffer2String(this.bytes, offset + 1, offset + 1 + length)
+          this.copyOfRange(this.bytes, offset + 1, offset + 1 + len),
+          this.buffer2String(this.bytes, offset + 1, offset + 1 + len)
         );
 
         console.log('case 0x8:', value);
@@ -495,11 +497,11 @@ export class BinaryPropertyListParserService {
       case 0xa: {
         // Array
         const lengthAndOffset: number[] = this.readLengthAndOffset(objInfo, offset);
-        const length = lengthAndOffset[0];
+        const len = lengthAndOffset[0];
         const arrayOffset = lengthAndOffset[1];
 
-        const value = new Array(length);
-        for (let i = 0; i < length; i++) {
+        const value = new Array(len);
+        for (let i = 0; i < len; i++) {
           const objRef = this.parseUnsignedInt(
             this.bytes,
             offset + arrayOffset + i * this.objectRefSize,
@@ -517,11 +519,11 @@ export class BinaryPropertyListParserService {
       case 0xb: {
         // Ordered set (v1.0 and later)
         const lengthAndOffset: number[] = this.readLengthAndOffset(objInfo, offset);
-        const length = lengthAndOffset[0];
+        const len = lengthAndOffset[0];
         const contentOffset = lengthAndOffset[1];
 
         const value = new Set();
-        for (let i = 0; i < length; i++) {
+        for (let i = 0; i < len; i++) {
           const objRef = this.parseUnsignedInt(
             this.bytes,
             offset + contentOffset + i * this.objectRefSize,
@@ -539,11 +541,11 @@ export class BinaryPropertyListParserService {
       case 0xc: {
         // Set (v1.0 and later)
         const lengthAndOffset: number[] = this.readLengthAndOffset(objInfo, offset);
-        const length = lengthAndOffset[0];
+        const len = lengthAndOffset[0];
         const contentOffset = lengthAndOffset[1];
 
         const value = new Set();
-        for (let i = 0; i < length; i++) {
+        for (let i = 0; i < len; i++) {
           const objRef = this.parseUnsignedInt(
             this.bytes,
             offset + contentOffset + i * this.objectRefSize,
@@ -561,11 +563,11 @@ export class BinaryPropertyListParserService {
       case 0xd: {
         // Dictionary
         const lengthAndOffset: number[] = this.readLengthAndOffset(objInfo, offset);
-        const length = lengthAndOffset[0];
+        const len = lengthAndOffset[0];
         const contentOffset = lengthAndOffset[1];
 
         const value = new Map();
-        for (let i = 0; i < length; i++) {
+        for (let i = 0; i < len; i++) {
           const keyRef = this.parseUnsignedInt(
             this.bytes,
             offset + contentOffset + i * this.objectRefSize,
@@ -573,8 +575,8 @@ export class BinaryPropertyListParserService {
           );
           const valRef = this.parseUnsignedInt(
             this.bytes,
-            offset + contentOffset + length * this.objectRefSize + i * this.objectRefSize,
-            offset + contentOffset + length * this.objectRefSize + (i + 1) * this.objectRefSize
+            offset + contentOffset + len * this.objectRefSize + i * this.objectRefSize,
+            offset + contentOffset + len * this.objectRefSize + (i + 1) * this.objectRefSize
           );
           const key = this.visit(keyRef);
           const val = this.visit(valRef);
