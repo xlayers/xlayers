@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Store } from '@ngxs/store';
-import { AvailablePages, CurrentPage, SettingsEnabled, ShowPreview, UiState } from '../../state/ui.state';
+import { AvailablePages, CurrentPage, SettingsEnabled, ShowPreview, UiState, CurrentFile } from '../../state/ui.state';
 import { CurrentLayer, HideWireframe } from './../../state/ui.state';
 import { SketchSelectedLayerDirective } from './selected-layer.directive';
 import { SketchData, SketchService } from './sketch.service';
@@ -68,15 +68,7 @@ export class SketchContainerComponent implements OnInit {
   async onFileSelected(file: File) {
     try {
       this.data = await this.service.process(file);
-      this.currentPage = this.data.pages[0];
-
-      this.store.dispatch([
-        new AvailablePages(this.data.pages),
-        new CurrentPage(this.currentPage),
-        new SettingsEnabled(),
-        new ShowPreview(),
-        new HideWireframe()
-      ]);
+      this.store.dispatch(new CurrentFile(this.data));
     } catch (e) {
       console.error(e);
       // alert('Only .sketch files that were saved using Sketch v43 and above are supported.');
