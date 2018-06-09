@@ -24,7 +24,7 @@ import { UiState } from '../../state/ui.state';
     </mat-toolbar>
 
     <section [ngSwitch]="currentSettingView">
-      <sketch-settings-layer *ngSwitchCase="1"></sketch-settings-layer>
+      <sketch-settings-layer-position *ngSwitchCase="1"></sketch-settings-layer-position>
       <sketch-settings-layer-colors *ngSwitchCase="2"></sketch-settings-layer-colors>
       <sketch-settings-layer-properties *ngSwitchCase="3"></sketch-settings-layer-properties>
     </section>
