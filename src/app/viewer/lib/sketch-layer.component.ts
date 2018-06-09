@@ -20,6 +20,9 @@ import { CurrentLayer } from './../../state/ui.state';
     [style.left.px]="layer?.frame?.x"
     [style.top.px]="layer?.frame?.y"
     >
+
+    <span *ngIf="textContent">{{textContent}}</span>
+
     <sketch-layer
       sketchSelectedLayer
       (selectedLayer)="selectLayer($event)"
@@ -36,29 +39,28 @@ import { CurrentLayer } from './../../state/ui.state';
   `,
   styles: [
     `
-    :host {
-      display: block;
-      border: 1px solid transparent;
-      position: absolute;
-      box-sizing: border-box;
-      transition: border-color 0.1s linear;
-      transform-origin: 0 0;
-      transform-style: preserve-3d;
-      transition: transform 1s;
-    }
+      :host {
+        display: block;
+        border: 1px solid transparent;
+        position: absolute;
+        box-sizing: border-box;
+        transition: border-color 0.1s linear, transform 1s;
+        transform-origin: 0 0;
+        transform-style: preserve-3d;
+      }
 
-    :host(:hover) {
-      border-color: #51C1F8 !important;
-      background-color: rgba(81, 193, 248, 0.2);
-    }
-    :host(.isCurrentLayer) {
-      border-color: #EE4743 !important;
-      background-color: rgba(238, 71, 67, 0.2);
-    }
-    :host(.wireframe) {
-      border-color: black;
-    }
-  `
+      :host(:hover) {
+        border-color: #51c1f8 !important;
+        background-color: rgba(81, 193, 248, 0.2);
+      }
+      :host(.isCurrentLayer) {
+        border-color: #ee4743 !important;
+        background-color: rgba(238, 71, 67, 0.2);
+      }
+      :host(.wireframe) {
+        border-color: black;
+      }
+    `
   ]
 })
 export class SketchLayerComponent implements OnInit, AfterContentInit {
@@ -72,6 +74,8 @@ export class SketchLayerComponent implements OnInit, AfterContentInit {
   nativeElement: HTMLElement;
 
   offset3d = 20;
+
+  textContent;
 
   constructor(public store: Store, public renderer: Renderer2, public element: ElementRef<HTMLElement>) {}
 
@@ -96,6 +100,13 @@ export class SketchLayerComponent implements OnInit, AfterContentInit {
   ngAfterContentInit() {
     if (this.layer) {
       this.updateLayerStyle();
+      this.isTextContent();
+    }
+  }
+
+  isTextContent() {
+    if (this.layer._class as 'text' === 'text') {
+      this.textContent = this.layer.name;
     }
   }
 
@@ -107,10 +118,23 @@ export class SketchLayerComponent implements OnInit, AfterContentInit {
       this.renderer.setStyle(this.nativeElement, 'width', `${this.layer.frame.width * this.artboardFactor}px`);
       this.renderer.setStyle(this.nativeElement, 'height', `${this.layer.frame.height * this.artboardFactor}px`);
       this.renderer.setStyle(this.nativeElement, 'visibility', this.layer.isVisible ? 'visibile' : 'hidden');
+
+      this.applyDefaultStyles();
     }
   }
 
   toggleSelected(layer: SketchMSSymbolMaster) {}
+
+  applyDefaultStyles() {
+    const css = (this.layer as any).css as { [key: string]: string };
+    if (css) {
+      for (const property in css) {
+        if (css.hasOwnProperty(property)) {
+          this.renderer.setStyle(this.nativeElement, property, css[property]);
+        }
+      }
+    }
+  }
 
   resizeStart(event: ResizeEvent) {}
   resizing(event: ResizeEvent) {
