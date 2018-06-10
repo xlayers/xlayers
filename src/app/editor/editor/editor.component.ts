@@ -1,14 +1,15 @@
 import { AfterContentInit, Component, OnInit } from '@angular/core';
 import { SourceCodeService } from '../source-code.service';
+import { NgxEditorModel } from 'ngx-monaco-editor';
 
 @Component({
   selector: 'sketch-editor',
   template: `
   <mat-tab-group dynamicHeight="true">
-    <mat-tab [label]="file.fileName" *ngFor="let file of files">
+    <mat-tab [label]="file.uri" *ngFor="let file of files; let idx = index">
       <ngx-monaco-editor
         [options]="editorOptions"
-        [(ngModel)]="file.content"
+        [(ngModel)]="files[idx].value"
         (onInit)="onEditorInit($event)"></ngx-monaco-editor>
     </mat-tab>
   </mat-tab-group>
@@ -46,45 +47,28 @@ export class EditorComponent implements OnInit, AfterContentInit {
   editorOptions: monaco.editor.IEditorConstructionOptions; // { [key: string]: string | boolean | number };
   code: string;
   currentFileType = SourceCodeService.TYPE.MODULE;
-  files;
+  files: Array<NgxEditorModel>;
   constructor(private sourceCode: SourceCodeService) {}
 
   ngOnInit() {
     this.files = [
       {
-        fileName: 'xlayer.module.ts',
-        content: this.sourceCode.generate(SourceCodeService.TYPE.MODULE)
+        uri: 'xlayer.module.ts',
+        value: this.sourceCode.generate(SourceCodeService.TYPE.MODULE)
       },
       {
-        fileName: 'xlayer.component.ts',
-        content: this.sourceCode.generate(SourceCodeService.TYPE.COMPONENT)
+        uri: 'xlayer.component.ts',
+        value: this.sourceCode.generate(SourceCodeService.TYPE.COMPONENT)
       },
       {
-        fileName: 'xlayer.component.spec.ts',
-        content: this.sourceCode.generate(SourceCodeService.TYPE.COMPONENT_SPEC)
+        uri: 'xlayer.component.spec.ts',
+        value: this.sourceCode.generate(SourceCodeService.TYPE.COMPONENT_SPEC)
       }
     ];
   }
 
-  ngAfterContentInit() {
-    this.editorOptions = {
-      theme: 'vs-dark',
-      language: 'typescript',
-      automaticLayout: true, // Warning: this might have a severe performance impact,
-      // fontFamily: 'Open Sans',
-      fontSize: 15,
-      fontLigatures: true,
-      formatOnPaste: false,
-      scrollBeyondLastLine: false,
-    };
-  }
+  ngAfterContentInit() {}
   onEditorInit(editor: monaco.editor.ICodeEditor) {
-
-    monaco.languages.typescript.javascriptDefaults.addExtraLib(`declare module '@angular/core' {}`);
-    monaco.languages.typescript.javascriptDefaults.addExtraLib(`declare module '@angular/common' {}`);
-    monaco.languages.typescript.javascriptDefaults.addExtraLib(`declare module '@angular/core/testing' {}`);
-    monaco.languages.typescript.javascriptDefaults.addExtraLib(`declare module './xlayer.component' {}`);
-
     setTimeout(_ => editor.render(), 500);
   }
 }
