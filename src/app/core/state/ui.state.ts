@@ -1,8 +1,6 @@
-import { SketchData } from './../viewer/lib/sketch.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Action, Selector, State, StateContext } from '@ngxs/store';
-import { PageState } from './page.state';
-import { TemplateRef } from '@angular/core';
+import { SketchData } from './../../viewer/lib/sketch.service';
 
 export interface LayerCSS {
   transform: string;
@@ -25,25 +23,20 @@ export interface UiSettings {
   settingsEnabled?: boolean;
   zoomLevel: number;
   is3dView: boolean;
+  isCodeEditor: boolean;
 }
 
 export class CurrentFile {
   static readonly type = '[UiSettings] Current File';
   constructor(public data: SketchData) {}
 }
-export class ShowWireframe {
-  static readonly type = '[UiSettings] Show Wireframe';
+export class ToggleWireframe {
+  static readonly type = '[UiSettings] Toggle Wireframe';
+  constructor(public value: boolean) {}
 }
-
-export class HideWireframe {
-  static readonly type = '[UiSettings] Hide Wireframe';
-}
-export class ShowPreview {
-  static readonly type = '[UiSettings] Show Preview';
-}
-
-export class HidePreview {
-  static readonly type = '[UiSettings] Hide Preview';
+export class TogglePreview {
+  static readonly type = '[UiSettings] Toggle Preview';
+  constructor(public value: boolean) {}
 }
 export class AvailablePages {
   static readonly type = '[UiSettings] Available Pages';
@@ -79,6 +72,10 @@ export class Toggle3D {
   static readonly type = '[UiSettings] Toggle 3D';
   constructor(public value: boolean) {}
 }
+export class ToggleCodeEditor {
+  static readonly type = '[UiSettings] Toggle Code Editor';
+  constructor(public value: boolean) {}
+}
 
 @State<UiSettings>({
   name: 'ui',
@@ -91,9 +88,9 @@ export class Toggle3D {
     currentFile: null,
     currentPage: null,
     zoomLevel: 1,
-    is3dView: false
-  },
-  children: [PageState]
+    is3dView: false,
+    isCodeEditor: false
+  }
 })
 export class UiState {
   constructor(private snackBar: MatSnackBar) {}
@@ -144,6 +141,10 @@ export class UiState {
   static is3dView(ui: UiSettings) {
     return ui.is3dView;
   }
+  @Selector()
+  static isCodeEditor(ui: UiSettings) {
+    return ui.isCodeEditor;
+  }
 
   // Actions
 
@@ -157,36 +158,30 @@ export class UiState {
       dispatch(new AutoFixPagePosition(page));
     }
 
-    dispatch([new AvailablePages(action.data.pages), new CurrentPage(page), new SettingsEnabled(), new HidePreview(), new ShowWireframe()]);
+    dispatch([
+      new AvailablePages(action.data.pages),
+      new CurrentPage(page),
+      new SettingsEnabled(),
+      new TogglePreview(false),
+      new ToggleWireframe(false),
+      new Toggle3D(false),
+      new ToggleCodeEditor(false)
+    ]);
     patchState({
       currentFile: { ...action.data }
     });
   }
-  @Action(ShowPreview)
-  showPreview({ patchState }: StateContext<UiSettings>) {
+  @Action(TogglePreview)
+  showPreview({ patchState }: StateContext<UiSettings>, action: TogglePreview) {
     patchState({
-      preview: true
+      preview: action.value
     });
   }
 
-  @Action(HidePreview)
-  hidePreview({ patchState }: StateContext<UiSettings>) {
+  @Action(ToggleWireframe)
+  showWireframe({ patchState }: StateContext<UiSettings>, action: ToggleWireframe) {
     patchState({
-      preview: false
-    });
-  }
-
-  @Action(ShowWireframe)
-  showWireframe({ patchState }: StateContext<UiSettings>) {
-    patchState({
-      wireframe: true
-    });
-  }
-
-  @Action(HideWireframe)
-  hideWireframe({ patchState }: StateContext<UiSettings>) {
-    patchState({
-      wireframe: false
+      wireframe: action.value
     });
   }
 
@@ -204,9 +199,9 @@ export class UiState {
     });
 
     if (action.page.name === 'Symbols') {
-      dispatch(new HidePreview());
+      dispatch(new TogglePreview(false));
     } else {
-      dispatch(new ShowPreview());
+      dispatch(new TogglePreview(true));
     }
   }
 
@@ -268,11 +263,18 @@ export class UiState {
   @Action(Toggle3D)
   toggle3D({ patchState, dispatch }: StateContext<UiSettings>, action: Toggle3D) {
     if (action.value) {
-      dispatch(new ShowWireframe());
+      dispatch(new ToggleWireframe(true));
     }
 
     patchState({
       is3dView: action.value
+    });
+  }
+  @Action(ToggleCodeEditor)
+  toggleCodeEditor({ patchState, dispatch }: StateContext<UiSettings>, action: ToggleCodeEditor) {
+    dispatch(new CurrentLayer(null));
+    patchState({
+      isCodeEditor: action.value
     });
   }
 }
