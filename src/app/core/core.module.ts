@@ -1,3 +1,4 @@
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ScrollDispatchModule } from '@angular/cdk/scrolling';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
@@ -12,13 +13,12 @@ import { MatListModule } from '@angular/material/list';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatSliderModule } from '@angular/material/slider';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTreeModule } from '@angular/material/tree';
 import { ResizableModule } from 'angular-resizable-element';
-import { MatSliderModule } from '@angular/material/slider';
-
 import { ColorSketchModule } from 'ngx-color/sketch';
 
 const MatModules = [
@@ -43,8 +43,7 @@ const MatModules = [
 const ExtraModules = [ResizableModule, FormsModule, ColorSketchModule];
 
 @NgModule({
-  imports: [CommonModule, ...MatModules, ...ExtraModules],
-  exports: [...MatModules, ...ExtraModules],
-  declarations: []
+  imports: [...MatModules, ...ExtraModules],
+  exports: [CommonModule, ...MatModules, ...ExtraModules]
 })
 export class CoreModule {}

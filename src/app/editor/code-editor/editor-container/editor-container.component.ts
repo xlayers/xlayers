@@ -43,7 +43,7 @@ import { NgxEditorModel } from 'ngx-monaco-editor';
     `
   ]
 })
-export class EditorComponent implements OnInit, AfterContentInit {
+export class EditorContainerComponent implements OnInit, AfterContentInit {
   editorOptions: monaco.editor.IEditorConstructionOptions; // { [key: string]: string | boolean | number };
   code: string;
   currentFileType = SourceCodeService.TYPE.MODULE;

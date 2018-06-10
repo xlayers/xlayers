@@ -1,6 +1,5 @@
-import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { CoreModule } from './../../core/core.module';
+import { CoreModule } from 'src/app/core/core.module';
 import { SketchSelectedLayerDirective } from './selected-layer.directive';
 import { SketchCanvasComponent } from './sketch-canvas.component';
 import { SketchContainerComponent } from './sketch-container.component';
@@ -11,7 +10,7 @@ import { SketchStopEventPropagationDirective } from './sketch-stop-event-propaga
 
 
 @NgModule({
-  imports: [CommonModule, CoreModule],
+  imports: [CoreModule],
   declarations: [
     SketchCanvasComponent,
     SketchDropzoneComponent,

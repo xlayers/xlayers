@@ -1,0 +1,56 @@
+:host {
+  display: block;
+  height: 100%;
+  position: relative;
+}
+
+header {
+  background: url('/assets/tiles-cubes.png') repeat,
+    linear-gradient(217deg, #ff6c5f, #ff4f81 70.71%), linear-gradient(127deg, #3369e7, #b84592 70.71%),
+    linear-gradient(336deg, #ff4f81, #ffc168 70.71%);
+  height: 572px;
+  margin-top: -40px;
+}
+
+header h1 {
+  text-align: center;
+  font-weight: 100;
+  font-size: 3em;
+}
+
+header h1 sup {
+  font-size: 20px;
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+}
+header img {
+  width: 844px;
+  display: block;
+  margin: auto;
+}
+
+.try-it {
+  padding: 40px;
+  text-align: center;
+  background-color: white;
+}
+
+.try-it a {
+  color: #ff4f81;
+  padding: 10px 30px;
+  text-decoration: none;
+  border: 1px solid;
+  border-radius: 50px;
+  font-size: 1.2em;
+}
+
+footer {
+  bottom: 0;
+  position: absolute;
+  background: #F95583;
+  width: 100%;
+  padding: 0 5px;
+}
