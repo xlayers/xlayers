@@ -1,5 +1,5 @@
 :host,
-mat-drawer-container {
+.mat-drawer-container {
   display: block;
   min-height: 100%;
   height: 100%;
@@ -12,40 +12,29 @@ mat-drawer-container {
   background-size: 130px;
 }
 
-mat-drawer {
+.mat-drawer {
   width: 200px;
 }
 
-mat-drawer section {
-  top: 66px;
-  position: relative;
-}
-
-mat-toolbar {
+.mat-toolbar {
   position: fixed;
   z-index: 9;
-}
-
-.mat-header {
-  display: flex;
 }
 
 [hidden] {
   display: none;
 }
 
-h1 span {
-  font-size: 12px;
+.mat-header {
+  display: flex;
+  width: 100%;
+}
+
+.mat-header span {
+  font-size: 10px;
   display: block;
   margin-top: -5px;
   margin-left: 5px;
-}
-
-sketch-dropzone {
-  right: 180px;
-  position: absolute;
-  width: 100px;
-  display: flex;
 }
 
 sketch-container {
@@ -57,7 +46,7 @@ sketch-container {
   position: absolute;
 }
 
-mat-list-item.selected-page {
+.mat-list-item.selected-page {
   background-color: #ee4743;
 }
 
@@ -92,7 +81,23 @@ button[mat-button] {
 }
 
 .logo {
-  font-size: 1.7em;
-  left: -11px;
+  font-size: 1.2em;
+  left: -5px;
   position: relative;
+  top: 5px;
+}
+
+.mat-drawer-content {
+  overflow: hidden;
+}
+
+.mat-drawer {
+  top: 94px;
+}
+
+.row-header {
+  height: 30px;
+}
+.row-settings {
+  justify-content: center;
 }

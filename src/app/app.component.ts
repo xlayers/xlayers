@@ -5,15 +5,14 @@ import { Store } from '@ngxs/store';
 import {
   CurrentLayer,
   CurrentPage,
-  HidePreview,
-  HideWireframe,
-  ShowPreview,
-  ShowWireframe,
   UiState,
   ZoomIn,
   ZoomOut,
-  Toggle3D
-} from './state/ui.state';
+  Toggle3D,
+  ToggleWireframe,
+  TogglePreview,
+  ToggleCodeEditor
+} from 'src/app/core/state';
 import { SketchContainerComponent } from './viewer/lib/sketch-container.component';
 
 @Component({
@@ -35,6 +34,7 @@ export class AppComponent implements OnInit {
   zoomLevel: number;
 
   is3dView: boolean;
+  isCodeEditor: boolean;
 
   /**
    * @todo This feauture is not ready.
@@ -44,6 +44,7 @@ export class AppComponent implements OnInit {
   @ViewChild('pagesPanelRef') pagesPanelRef: MatExpansionPanel;
   @ViewChild('layersPanelRef') layersPanelRef: MatExpansionPanel;
   @ViewChild('currentLayerNavRef') currentLayerNavRef: MatDrawerContainer;
+  @ViewChild('settingNavRef') settingNavRef: MatDrawerContainer;
   @ViewChild('sketchContainerRef') sketchContainerRef: SketchContainerComponent;
 
   constructor(private store: Store) {}
@@ -60,6 +61,7 @@ export class AppComponent implements OnInit {
         setTimeout(_ => {
           this.pagesPanelRef.open();
           this.layersPanelRef.open();
+          this.settingNavRef.open();
         }, 0);
       }
 
@@ -71,6 +73,14 @@ export class AppComponent implements OnInit {
       });
       this.store.select(UiState.is3dView).subscribe(is3dView => {
         this.is3dView = is3dView;
+      });
+      this.store.select(UiState.isCodeEditor).subscribe(isCodeEditor => {
+        this.isCodeEditor = isCodeEditor;
+        if (this.isCodeEditor) {
+          this.settingNavRef.close();
+        } else {
+          this.settingNavRef.open();
+        }
       });
       this.store.select(UiState.isPreview).subscribe(isPreview => {
         this.preview = isPreview;
@@ -93,23 +103,18 @@ export class AppComponent implements OnInit {
   }
 
   toggleWireframe() {
-    if (this.wireframe === true) {
-      this.store.dispatch(new HideWireframe());
-    } else {
-      this.store.dispatch(new ShowWireframe());
-    }
+    this.wireframe = !this.wireframe;
+    this.store.dispatch(new ToggleWireframe(this.wireframe));
   }
 
   togglePreview() {
-    if (this.preview === true) {
-      this.store.dispatch(new HidePreview());
-    } else {
-      this.store.dispatch(new ShowPreview());
-    }
+    this.preview = !this.preview;
+    this.store.dispatch(new TogglePreview(this.preview));
   }
 
   toggleCodeEditor() {
-    throw Error('not implemented');
+    this.isCodeEditor = !this.isCodeEditor;
+    this.store.dispatch(new ToggleCodeEditor(this.isCodeEditor));
   }
 
   setCurrentPage(page: SketchMSPage) {
