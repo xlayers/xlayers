@@ -28,6 +28,7 @@
 .mat-header {
   display: flex;
   width: 100%;
+  font-weight: 100;
 }
 
 .mat-header span {
