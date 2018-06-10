@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material/tree';
 import { Store } from '@ngxs/store';
 import { Observable, of } from 'rxjs';
-import { CurrentLayer, UiState } from './../state/ui.state';
+import { CurrentLayer, UiState } from 'src/app/core/state';
 
 export class FileFlatNode {
   name: string;
@@ -77,6 +77,14 @@ export class FileFlatNode {
 
     .kind-icon {
       font-size: 20px;
+    }
+
+    .mat-button-wrapper {
+      text-overflow: ellipsis;
+      overflow: hidden;
+      width: 150px;
+      white-space: nowrap;
+      display: inline-block;
     }
   `
   ]

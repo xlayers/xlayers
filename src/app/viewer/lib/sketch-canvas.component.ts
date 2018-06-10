@@ -1,6 +1,6 @@
-import { AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild, Renderer2 } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Input, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { Store } from '@ngxs/store';
-import { UiState } from '../../state/ui.state';
+import { UiState } from 'src/app/core/state';
 import { SketchData } from './sketch.service';
 
 @Component({

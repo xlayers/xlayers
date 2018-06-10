@@ -1,4 +1,4 @@
-import { Directive, HostListener, ElementRef, Input, Renderer2 } from '@angular/core';
+import { Directive, ElementRef, HostListener, Input, Renderer2 } from '@angular/core';
 
 @Directive({
   selector: '[sketchTooltilp]'

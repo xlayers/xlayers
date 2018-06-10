@@ -14,7 +14,7 @@ import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild }
     <section (drop)="onFileDrop($event)" (dragover)="dragOverHandler($event)">
       <mat-icon class="mode__large">cloud_upload</mat-icon>
       <h2 class="mat-headline">Drag&Drop your Sketch file here</h2>
-      <span class="mat-subheading-1">Or</span>
+      <span class="mat-subheading-1">OR</span>
       <button color="primary" class="mat-headline" mat-button (click)="openFileBrowser()">BROWSE FILES</button>
     </section>
   </ng-template>

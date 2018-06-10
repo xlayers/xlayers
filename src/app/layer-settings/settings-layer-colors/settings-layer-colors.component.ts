@@ -1,11 +1,10 @@
 import { Store } from '@ngxs/store';
 import { Component, OnInit } from '@angular/core';
-import { UiState, LayerCSS } from '../../state/ui.state';
+import { UiState, LayerCSS } from 'src/app/core/state';
 
 @Component({
   selector: 'sketch-settings-layer-colors',
   template: `
-  
   <ng-template #noStyleRef>
     <p class="no-styling">
       <mat-icon>info</mat-icon>

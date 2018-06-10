@@ -1,8 +1,7 @@
 import { AfterContentInit, Component, ElementRef, Input, OnInit, Renderer2 } from '@angular/core';
 import { Store } from '@ngxs/store';
 import { ResizeEvent } from 'angular-resizable-element';
-import { UiState } from 'src/app/state/ui.state';
-import { CurrentLayer } from './../../state/ui.state';
+import { UiState, CurrentLayer } from 'src/app/core/state/ui.state';
 
 @Component({
   selector: 'sketch-layer',
@@ -47,6 +46,7 @@ import { CurrentLayer } from './../../state/ui.state';
         transition: border-color 0.1s linear, transform 1s;
         transform-origin: 0 0;
         transform-style: preserve-3d;
+        will-change: transform, transition;
       }
 
       :host(:hover) {

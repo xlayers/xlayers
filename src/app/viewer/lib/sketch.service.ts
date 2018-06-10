@@ -1,6 +1,6 @@
-import { SketchStyleParserService } from './parsers/sketch-style-parser.service';
 import { Injectable } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
+import { SketchStyleParserService } from './parsers/sketch-style-parser.service';
 
 export interface SketchUser {
   [key: string]: {

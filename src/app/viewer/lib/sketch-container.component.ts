@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Store } from '@ngxs/store';
-import { AvailablePages, CurrentPage, SettingsEnabled, ShowPreview, UiState, CurrentFile } from '../../state/ui.state';
-import { CurrentLayer, HideWireframe } from './../../state/ui.state';
+import { CurrentFile, UiState, CurrentLayer } from 'src/app/core/state';
 import { SketchSelectedLayerDirective } from './selected-layer.directive';
 import { SketchData, SketchService } from './sketch.service';
 
