@@ -211,8 +211,6 @@ export class UiState {
       currentLayer: action.layer ? { ...action.layer } : null,
       previousLayer: { ...getState().currentLayer }
     });
-
-    console.log(action.layer);
   }
 
   @Action(SettingsEnabled)

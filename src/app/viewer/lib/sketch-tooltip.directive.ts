@@ -14,7 +14,6 @@ export class SketchTooltilDirective {
   @HostListener('mouseover', ['$event'])
   public onMouseOver(event: any): void {
     event.stopPropagation();
-    console.log('hover');
 
     const clientRect = this.element.nativeElement.getBoundingClientRect();
 
