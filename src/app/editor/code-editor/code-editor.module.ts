@@ -25,7 +25,7 @@ export const monacoConfig: NgxMonacoEditorConfig = {
   defaultOptions: {
     theme: 'vs-dark',
     language: 'typescript',
-    automaticLayout: false, // Warning: this might have a severe performance impact,
+    automaticLayout: true, // Warning: this might have a severe performance impact,
     fontSize: 15,
     fontLigatures: true,
     formatOnPaste: false,
@@ -38,7 +38,7 @@ export const monacoConfig: NgxMonacoEditorConfig = {
 };
 
 @NgModule({
-  imports: [CommonModule, FormsModule, CoreModule, NoopAnimationsModule, MonacoEditorModule.forRoot(monacoConfig)],
+  imports: [CoreModule, MonacoEditorModule.forRoot(monacoConfig)],
   declarations: [EditorContainerComponent],
   exports: [EditorContainerComponent],
   providers: [SourceCodeService]

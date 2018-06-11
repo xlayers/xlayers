@@ -5,17 +5,16 @@
 }
 
 header {
-  background: url('/assets/tiles-cubes.png') repeat,
-    linear-gradient(217deg, #ff6c5f, #ff4f81 70.71%), linear-gradient(127deg, #3369e7, #b84592 70.71%),
-    linear-gradient(336deg, #ff4f81, #ffc168 70.71%);
-  height: 572px;
+  height: auto;
   margin-top: -40px;
+  border-bottom: 1px solid rgba(255, 108, 95, 0.7);
 }
 
 header h1 {
   text-align: center;
   font-weight: 100;
   font-size: 3em;
+  padding: 30px 0 0;
 }
 
 header h1 sup {
@@ -33,24 +32,76 @@ header img {
 }
 
 .try-it {
-  padding: 40px;
+  padding: 90px;
   text-align: center;
-  background-color: white;
+  border-top: 1px solid rgba(255, 108, 95, 0.31);
 }
 
 .try-it a {
-  color: #ff4f81;
+  color: white;
   padding: 10px 30px;
   text-decoration: none;
-  border: 1px solid;
   border-radius: 50px;
   font-size: 1.2em;
+  background: linear-gradient(217deg, #ff6c5f, #ff4f81 70.71%), linear-gradient(127deg, #3369e7, #b84592 70.71%),
+  linear-gradient(336deg, #ff4f81, #ffc168 70.71%);
 }
 
 footer {
-  bottom: 0;
+  padding: 30px;
+  text-align: center;
+  color: white;
+}
+
+footer a {
+  color: white;
+}
+
+footer i {
+  font-size: 10px;
+}
+
+.bg {
+  padding: 30px 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.bg p {
+  padding: 0px 60px;
+}
+
+.bg-2:before {
+  content: '';
+  display: block;
+  width: 200px;
+  height: 200px;
   position: absolute;
-  background: #F95583;
-  width: 100%;
-  padding: 0 5px;
+  background: url(/assets/xlayers-bg-2.png);
+  border-radius: 50%;
+  border: 1px solid white;
+  margin-top: -106px;
+  background-position: -270px -80px;
+  margin-left: 80px;
+  background-size: 680px;
+  background-repeat: no-repeat;
+}
+
+.bg-3:before {
+  content: '';
+  display: block;
+  width: 200px;
+  height: 200px;
+  position: absolute;
+  background: url(/assets/xlayers-bg-3.png);
+  border-radius: 50%;
+  border: 1px solid white;
+  margin-top: -66px;
+  background-position: -60px -80px;
+  margin-left: -80px;
+  background-size: 680px;
+  background-repeat: no-repeat;
 }

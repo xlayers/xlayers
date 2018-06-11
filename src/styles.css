@@ -8,7 +8,16 @@ html {
   min-height: 100%;
   position: relative;
   font-family: 'Roboto', sans-serif;
-  overflow: hidden;
+}
+
+.bg-pattern {
+  background: url('/assets/tiles-cubes.png') repeat;
+}
+
+.bg-pattern-color {
+  background: url('/assets/tiles-cubes.png') repeat,
+  linear-gradient(217deg, #ff6c5f, #ff4f81 70.71%), linear-gradient(127deg, #3369e7, #b84592 70.71%),
+  linear-gradient(336deg, #ff4f81, #ffc168 70.71%);
 }
 
 button {

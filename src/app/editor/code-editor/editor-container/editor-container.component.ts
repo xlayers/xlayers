@@ -3,7 +3,7 @@ import { SourceCodeService } from '../source-code.service';
 import { NgxEditorModel } from 'ngx-monaco-editor';
 
 @Component({
-  selector: 'sketch-editor',
+  selector: 'sketch-editor-container',
   template: `
   <mat-tab-group dynamicHeight="true">
     <mat-tab [label]="file.uri" *ngFor="let file of files; let idx = index">
@@ -69,6 +69,6 @@ export class EditorContainerComponent implements OnInit, AfterContentInit {
 
   ngAfterContentInit() {}
   onEditorInit(editor: monaco.editor.ICodeEditor) {
-    setTimeout(_ => editor.render(), 500);
+    editor.layout();
   }
 }

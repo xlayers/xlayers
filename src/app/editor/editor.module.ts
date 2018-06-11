@@ -1,16 +1,15 @@
+import { NgModule } from '@angular/core';
 import { Route, RouterModule } from '@angular/router';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { CoreModule } from './../core/core.module';
-import { TreeViewComponent } from './tree-view/tree-view.component';
-import { LayerSettingsModule } from './layer-settings/layer-settings.module';
-import { AngularSketchModule } from './viewer/lib/sketch.module';
 import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
 import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
-import { UiState } from 'src/app/core/state/ui.state';
 import { NgxsModule } from '@ngxs/store';
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { UiState } from 'src/app/core/state/ui.state';
+import { CodeEditorModule } from 'src/app/editor/code-editor/code-editor.module';
+import { CoreModule } from './../core/core.module';
 import { EditorComponent } from './editor.component';
+import { LayerSettingsModule } from './layer-settings/layer-settings.module';
+import { TreeViewComponent } from './tree-view/tree-view.component';
+import { AngularSketchModule } from './viewer/lib/sketch.module';
 
 export const routes: Route[] = [
   {
@@ -27,7 +26,8 @@ export const routes: Route[] = [
     NgxsReduxDevtoolsPluginModule.forRoot(),
     RouterModule.forChild(routes),
     AngularSketchModule,
-    LayerSettingsModule
+    LayerSettingsModule,
+    CodeEditorModule
   ],
   declarations: [EditorComponent, TreeViewComponent]
 })
