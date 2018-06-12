@@ -1,0 +1,10 @@
+{
+  "hosting": {
+    "public": "dist/angular-sketch",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ]
+  }
+}
