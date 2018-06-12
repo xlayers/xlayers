@@ -81,14 +81,11 @@ footer i {
   width: 200px;
   height: 200px;
   position: absolute;
-  background: url(/assets/xlayers-bg-2.png);
+  background: url(/assets/xlayers-bg-2.png) -270px -80px/680px no-repeat;
   border-radius: 50%;
-  border: 1px solid white;
-  margin-top: -106px;
-  background-position: -270px -80px;
-  margin-left: 80px;
-  background-size: 680px;
-  background-repeat: no-repeat;
+  border: 1px solid #fff;
+  margin-top: -186px;
+  margin-left: 60px;
 }
 
 .bg-3:before {
@@ -97,12 +94,9 @@ footer i {
   width: 200px;
   height: 200px;
   position: absolute;
-  background: url(/assets/xlayers-bg-3.png);
+  background: url(/assets/xlayers-bg-3.png) -60px -80px/680px no-repeat;
   border-radius: 50%;
-  border: 1px solid white;
-  margin-top: -66px;
-  background-position: -60px -80px;
-  margin-left: -80px;
-  background-size: 680px;
-  background-repeat: no-repeat;
+  border: 1px solid #fff;
+  margin-top: -156px;
+  margin-left: -30px;
 }
