@@ -84,7 +84,7 @@ footer i {
   background: url(/assets/xlayers-bg-2.png) -270px -80px/680px no-repeat;
   border-radius: 50%;
   border: 1px solid #fff;
-  margin-top: -186px;
+  margin-top: -156px;
   margin-left: 60px;
 }
 
@@ -99,4 +99,10 @@ footer i {
   border: 1px solid #fff;
   margin-top: -156px;
   margin-left: -30px;
+}
+
+@media (min-width: 500px) {
+  .bg-2:before, .bg-3:before {
+    margin-top: -106px;
+  }
 }
