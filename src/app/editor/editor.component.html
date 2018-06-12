@@ -62,7 +62,9 @@
         </mat-expansion-panel-header>
 
         <mat-nav-list>
-          <mat-list-item [ngClass]="{ 'selected-page': currentPage?.name === page.name }" *ngFor="let page of sketchPages; trackBy: pageName(page)"
+          <mat-list-item
+            [ngClass]="{ 'selected-page': currentPage?.name === sketchPages[idx]?.name }"
+            *ngFor="let page of sketchPages;trackBy:pageName;let idx=index"
             (click)="setCurrentPage(page)">
             {{ page.name }}
           </mat-list-item>

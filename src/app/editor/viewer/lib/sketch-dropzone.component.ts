@@ -1,11 +1,11 @@
-import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild, SimpleChanges } from '@angular/core';
 
 @Component({
   selector: 'sketch-dropzone',
   template: `
 
   <mat-icon class="mode__mini"
-    *ngIf="mode === 'mini' else large"
+    *ngIf="isModeMini else large"
     (drop)="onFileDrop($event)"
     (dragover)="dragOverHandler($event)"
     (click)="openFileBrowser()">cloud_upload</mat-icon>
@@ -65,11 +65,19 @@ export class SketchDropzoneComponent implements OnInit {
   @Input() mode: 'mini|large';
   @Output() changed: EventEmitter<File>;
   @ViewChild('fileBrowserRef') fileBrowserRef: ElementRef;
+
+  isModeMini = false;
   constructor() {
     this.changed = new EventEmitter();
   }
 
   ngOnInit() {}
+
+  nOnChanges(records: SimpleChanges) {
+    if (records.mode) {
+      this.isModeMini = (records.mode.currentValue as string) === 'mini';
+    }
+  }
 
   openFileBrowser() {
     this.fileBrowserRef.nativeElement.click();
