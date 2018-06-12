@@ -26,9 +26,10 @@ nav a {
   text-decoration: none;
 }
 header img {
-  width: 844px;
+  max-width: 844px;
   display: block;
   margin: auto;
+  width: 100%;
 }
 
 .try-it {
