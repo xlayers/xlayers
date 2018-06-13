@@ -27,15 +27,15 @@ export class SourceCodeService {
     return `
     import { NgModule } from '@angular/core';
     import { CommonModule } from '@angular/common';
-    import { XLayerComponent } from './xlayer.component';
+    import { XLayersComponent } from './xlayers.component';
 
     @NgModule({
       imports: [
         CommonModule,
       ],
-      declarations: [XLayerComponent]
+      declarations: [XLayersComponent]
     })
-    export class XLayerModule { }
+    export class XLayersModule { }
     `;
   }
   generateComponent() {
@@ -43,7 +43,7 @@ export class SourceCodeService {
     import { Component, OnInit } from '@angular/core';
 
     @Component({
-      selector: 'xlayer-component',
+      selector: 'xly-component',
       template: \`
         <span *ngIf="textContent">{{textContent}}</span>
         <sketch-layer
@@ -60,7 +60,7 @@ export class SourceCodeService {
       \`,
       styles: []
     })
-    export class XLayerComponent implements OnInit {
+    export class XLayersComponent implements OnInit {
 
       constructor() {}
 
@@ -71,21 +71,21 @@ export class SourceCodeService {
   generateComponentSpec() {
     return `
     import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-    import { XLayerComponent } from './xlayer.component';
+    import { XLayersComponent } from './xlayers.component';
 
-    describe('XLayerComponent', () => {
-      let component: XLayerComponent;
-      let fixture: ComponentFixture<XLayerComponent>;
+    describe('XLayersComponent', () => {
+      let component: XLayersComponent;
+      let fixture: ComponentFixture<XLayersComponent>;
 
       beforeEach(async(() => {
         TestBed.configureTestingModule({
-          declarations: [ XLayerComponent ]
+          declarations: [ XLayersComponent ]
         })
         .compileComponents();
       }));
 
       beforeEach(() => {
-        fixture = TestBed.createComponent(XLayerComponent);
+        fixture = TestBed.createComponent(XLayersComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
       });

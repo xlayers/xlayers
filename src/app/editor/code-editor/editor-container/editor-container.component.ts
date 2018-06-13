@@ -53,15 +53,15 @@ export class EditorContainerComponent implements OnInit, AfterContentInit {
   ngOnInit() {
     this.files = [
       {
-        uri: 'xlayer.module.ts',
+        uri: 'xlayers.module.ts',
         value: this.sourceCode.generate(SourceCodeService.TYPE.MODULE)
       },
       {
-        uri: 'xlayer.component.ts',
+        uri: 'xlayers.component.ts',
         value: this.sourceCode.generate(SourceCodeService.TYPE.COMPONENT)
       },
       {
-        uri: 'xlayer.component.spec.ts',
+        uri: 'xlayers.component.spec.ts',
         value: this.sourceCode.generate(SourceCodeService.TYPE.COMPONENT_SPEC)
       }
     ];
