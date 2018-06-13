@@ -73,7 +73,7 @@ export class SketchDropzoneComponent implements OnInit {
 
   ngOnInit() {}
 
-  nOnChanges(records: SimpleChanges) {
+  ngOnChanges(records: SimpleChanges) {
     if (records.mode) {
       this.isModeMini = (records.mode.currentValue as string) === 'mini';
     }
