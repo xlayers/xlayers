@@ -21,6 +21,13 @@ header h1 sup {
   font-size: 20px;
 }
 
+header img.logo {
+  margin-bottom: -100px;
+  margin-top: -50px;
+  width: 250px;
+  height: 250px;
+}
+
 nav a {
   color: white;
   text-decoration: none;
