@@ -1,3 +1,5 @@
+[![buddy pipeline](https://app.buddy.works/manekinekko-1/xlayers/pipelines/pipeline/149790/badge.svg?token=cee6a291d42aeeb701176104f8623d429614bf77cb0c7d7b68bc5a342e49ffe9 "buddy pipeline")](https://app.buddy.works/manekinekko-1/xlayers/pipelines/pipeline/149790)
+
 # xLayers
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.0.3.
