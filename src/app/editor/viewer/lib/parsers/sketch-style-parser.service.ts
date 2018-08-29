@@ -212,7 +212,21 @@ export class SketchStyleParserService {
     }
   }
 
-  private parseColors(color: SketchMSColor) {
+  private parseColors(color: SketchMSColor | undefined) {
+
+    if (typeof color === 'undefined') {
+      return {
+        hex: '#00FFFFFF',
+        rgba: 'rgba(255,255,255,1)',
+        raw: {
+          red: 255,
+          green: 255,
+          blue: 255,
+          alpha: 1
+        }
+      };
+    }
+
     const styles = {};
     const { red, green, blue, alpha } = color;
 
