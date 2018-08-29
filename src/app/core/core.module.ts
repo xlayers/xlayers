@@ -1,4 +1,3 @@
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ScrollDispatchModule } from '@angular/cdk/scrolling';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
@@ -18,6 +17,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTreeModule } from '@angular/material/tree';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { ResizableModule } from 'angular-resizable-element';
 import { ColorSketchModule } from 'ngx-color/sketch';
 
@@ -37,7 +37,8 @@ const MatModules = [
   MatCardModule,
   MatTabsModule,
   MatButtonToggleModule,
-  MatMenuModule
+  MatMenuModule,
+  MatTooltipModule
 ];
 
 const ExtraModules = [ResizableModule, FormsModule, ColorSketchModule];
