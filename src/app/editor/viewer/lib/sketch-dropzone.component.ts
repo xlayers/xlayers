@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild, SimpleChanges } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild, SimpleChanges, OnChanges } from '@angular/core';
 
 @Component({
   selector: 'sketch-dropzone',
@@ -61,7 +61,7 @@ import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild, 
   `
   ]
 })
-export class SketchDropzoneComponent implements OnInit {
+export class SketchDropzoneComponent implements OnInit, OnChanges {
   @Input() mode: 'mini|large';
   @Output() changed: EventEmitter<File>;
   @ViewChild('fileBrowserRef') fileBrowserRef: ElementRef;
