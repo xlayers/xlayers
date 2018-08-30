@@ -1,4 +1,5 @@
 [![buddy pipeline](https://app.buddy.works/manekinekko-1/xlayers/pipelines/pipeline/149790/badge.svg?token=cee6a291d42aeeb701176104f8623d429614bf77cb0c7d7b68bc5a342e49ffe9 "buddy pipeline")](https://app.buddy.works/manekinekko-1/xlayers/pipelines/pipeline/149790)
+![Gitter chat](https://badges.gitter.im/xlayers/gitter.png)
 
 # xLayers
 
