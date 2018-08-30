@@ -77,20 +77,26 @@ export class ToggleCodeEditor {
   constructor(public value: boolean) {}
 }
 
+export class ResetUiSettings {
+  static readonly type = '[UiSettings] Reset UI Settings';
+}
+
+const DEFAULT_UI_STATE = {
+  wireframe: true,
+  preview: true,
+  availablePages: [],
+  currentLayer: null,
+  previousLayer: null,
+  currentFile: null,
+  currentPage: null,
+  zoomLevel: 1,
+  is3dView: false,
+  isCodeEditor: false
+};
+
 @State<UiSettings>({
   name: 'ui',
-  defaults: {
-    wireframe: true,
-    preview: true,
-    availablePages: [],
-    currentLayer: null,
-    previousLayer: null,
-    currentFile: null,
-    currentPage: null,
-    zoomLevel: 1,
-    is3dView: false,
-    isCodeEditor: false
-  }
+  defaults: DEFAULT_UI_STATE
 })
 export class UiState {
   constructor(private snackBar: MatSnackBar) {}
@@ -274,5 +280,9 @@ export class UiState {
     patchState({
       isCodeEditor: action.value
     });
+  }
+  @Action(ResetUiSettings)
+  resetUiSettings({ patchState }: StateContext<UiSettings>, action: ResetUiSettings) {
+    patchState(DEFAULT_UI_STATE);
   }
 }
