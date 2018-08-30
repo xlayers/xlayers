@@ -6,10 +6,11 @@
       </a>
     </h4>
     <sketch-dropzone matTooltip="Browse files" (changed)="sketchContainerRef.onFileSelected($event)" mode="mini"></sketch-dropzone>
-    <a matTooltip="Feedback" mat-button target="__blank" href="https://github.com/manekinekko/xlayers/issues">
+    <a matTooltip="Feedback" mat-icon-button target="__blank" href="https://github.com/manekinekko/xlayers/issues">
       <mat-icon>bug_report</mat-icon>
     </a>
   </mat-toolbar-row>
+
   <mat-toolbar-row class="row-settings" *ngIf="currentPage">
     <section [hidden]="!enabled">
       <button [disabled]="isCodeEditor" matTooltip="Toggle Wireframe Mode" [color]=" preview ? 'warn':'' " mat-button (click)="togglePreview()">
@@ -83,6 +84,10 @@
 
         <sketch-tree-view></sketch-tree-view>
       </mat-expansion-panel>
+
+      <footer>
+        <span>Build: {{ version }}</span>
+      </footer>
 
     </section>
 
