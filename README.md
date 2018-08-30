@@ -1,29 +1,9 @@
 [![buddy pipeline](https://app.buddy.works/manekinekko-1/xlayers/pipelines/pipeline/149790/badge.svg?token=cee6a291d42aeeb701176104f8623d429614bf77cb0c7d7b68bc5a342e49ffe9 "buddy pipeline")](https://app.buddy.works/manekinekko-1/xlayers/pipelines/pipeline/149790)
+[![Gitter chat](https://badges.gitter.im/xlayers/gitter.png)](https://gitter.im/xlayers)
 
-# xLayers
+<h1 align="center"><a href="https://xlayers.app">Welcome to xLayers</a></h1>
+<p align="center">View and generate code from Sketch files online</p>
+<img align="center" src="https://github.com/manekinekko/xlayers/blob/master/src/assets/xlayers-ui-1.png?raw=true"/>
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.0.3.
-
-## Development server
-
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
-
-## Code scaffolding
-
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+## Want to help?
+Want to file a bug, contribute some code, or improve documentation? Excellent! Read up on our guidelines for contributing and then check out one of our issues in the hotlist: community-help.

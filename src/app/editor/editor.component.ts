@@ -11,7 +11,8 @@ import {
   Toggle3D,
   ToggleWireframe,
   TogglePreview,
-  ToggleCodeEditor
+  ToggleCodeEditor,
+  ResetUiSettings
 } from 'src/app/core/state';
 import { SketchContainerComponent } from './viewer/lib/sketch-container.component';
 
@@ -53,6 +54,8 @@ export class EditorComponent implements OnInit {
     this.colors = {
       background: 'transparent'
     };
+
+    this.store.dispatch(new ResetUiSettings());
 
     this.store.select(UiState.availablePages).subscribe(availablePages => {
       this.sketchPages = availablePages;
