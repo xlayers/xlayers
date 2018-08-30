@@ -1,5 +1,6 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngxs/store';
+import { UiState } from '../../../core/state';
 
 @Component({
   selector: 'sketch-settings-container',
@@ -11,7 +12,7 @@ import { Store } from '@ngxs/store';
         [value]="currentSettingView">
 
         <mat-button-toggle value="1">
-          <mat-icon>open_with</mat-icon>
+          <mat-icon [class.mat-button-toggle-checked]="currentSettingView === 1">open_with</mat-icon>
         </mat-button-toggle>
         <mat-button-toggle value="2">
           <mat-icon>format_paint</mat-icon>
@@ -29,22 +30,31 @@ import { Store } from '@ngxs/store';
     </section>
   `,
   styles: [
+      `
+      .mat-elevation-z0 {
+        box-shadow: none;
+      }
+
+      .mat-button-toggle-checked {
+        color: #EE4743;
+      }
     `
-    .mat-elevation-z0 {
-      box-shadow: none;
-    }
-    .mat-button-toggle-checked {
-      color: #EE4743;
-    }
-  `
   ]
 })
 export class SettingsContainerComponent implements OnInit {
-  currentSettingView;
+  currentSettingView: number;
+  previousLayout: any = null;
 
   constructor(private store: Store) {}
 
   ngOnInit() {
-    this.currentSettingView = 1;
+    this.store.select(UiState.currentLayer).subscribe(currentLayer => {
+      if (currentLayer) {
+        if (!this.previousLayout || this.previousLayout.do_objectID !== currentLayer.do_objectID) {
+          this.currentSettingView = 1;
+          this.previousLayout = currentLayer;
+        }
+      }
+    });
   }
 }
