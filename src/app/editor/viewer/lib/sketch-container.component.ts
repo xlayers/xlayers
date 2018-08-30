@@ -34,6 +34,7 @@ import { SketchData, SketchService } from './sketch.service';
     height: 100%;
     min-height: 100%;
     position: absolute;
+    overflow: scroll;
   }
 
   sketch-layer {
