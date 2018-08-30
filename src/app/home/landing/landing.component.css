@@ -28,6 +28,16 @@ header img.logo {
   height: 250px;
 }
 
+img.logo {
+  animation: rotate 10s linear infinite;
+}
+
+header h3 {
+  text-align: center;
+  font-weight: 100;
+  color: white;
+}
+
 nav a {
   color: white;
   text-decoration: none;
@@ -40,9 +50,10 @@ header img {
 }
 
 .try-it {
-  padding: 90px;
+  padding: 0px 10px 60px;
   text-align: center;
   border-top: 1px solid rgba(255, 108, 95, 0.31);
+  margin-bottom: 20px;
 }
 
 .try-it a {
@@ -50,9 +61,27 @@ header img {
   padding: 10px 30px;
   text-decoration: none;
   border-radius: 50px;
+  font-size: 2em;
+  background: linear-gradient(217deg, #ff6c5f, #ff4f81 70.71%),
+    linear-gradient(127deg, #3369e7, #b84592 70.71%),
+    linear-gradient(336deg, #ff4f81, #ffc168 70.71%);
+  margin-top: -20px;
+  text-transform: uppercase;
+}
+
+.try-it .button {
+  margin-top: -20px;
+}
+
+.try-it.outline a {
   font-size: 1.2em;
-  background: linear-gradient(217deg, #ff6c5f, #ff4f81 70.71%), linear-gradient(127deg, #3369e7, #b84592 70.71%),
-  linear-gradient(336deg, #ff4f81, #ffc168 70.71%);
+  background: white;
+  color: #ff4f81;
+  border: 1px solid #ff4f81;
+}
+
+.try-it.outline .button {
+  margin-top: 0;
 }
 
 footer {
@@ -109,7 +138,19 @@ footer i {
 }
 
 @media (min-width: 500px) {
-  .bg-2:before, .bg-3:before {
+  .bg-2:before,
+  .bg-3:before {
     margin-top: -106px;
+  }
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+    -webkit-transform-origin-y: 96px;
+  }
+  to {
+    transform: rotate(360deg);
+    -webkit-transform-origin-y: 96px;
   }
 }
