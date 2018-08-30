@@ -54,7 +54,6 @@ sketch-container {
   height: 100%;
   justify-content: center;
   top: 64px;
-  overflow: scroll;
   position: absolute;
 }
 
