@@ -4,6 +4,13 @@
 
 b=`git rev-parse --abbrev-ref HEAD`
 v=`git rev-parse --short HEAD`
-vv="$b@$v"
+version="$b@$v"
 
-find dist -type f -iname "main.*.js" -exec sed -i '' "s/_BUILD_HASH_/$vv/g" {} +
+perl -i -pe "s/_BUILD_HASH_/$version/g" dist/*/main.*.js > /dev/null
+
+status=$?
+if [ $status -eq 0 ];then
+   echo "Build was tagged: $version"
+else
+   echo "Could not tag a build!"
+fi
