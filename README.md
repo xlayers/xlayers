@@ -41,4 +41,4 @@
 <img align="center" src="https://github.com/manekinekko/xlayers/blob/master/src/assets/xlayers-ui-1.png?raw=true"/>
 
 ## Want to help?
-Want to file a bug, contribute some code, or improve documentation? Excellent! Read up on our guidelines for contributing and then check out one of our issues in the hotlist: community-help.
+Want to file a bug, contribute some code, or improve documentation? Excellent! Read up on our guidelines for contributing and then check out one of our issues in the hotlist: [community-help](https://github.com/manekinekko/xlayers/issues).
