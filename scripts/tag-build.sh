@@ -4,7 +4,7 @@
 
 b=`git rev-parse --abbrev-ref HEAD`
 v=`git rev-parse --short HEAD`
-version="$b@$v"
+version="$b+sha.$v"
 
 perl -i -pe "s/_BUILD_HASH_/$version/g" dist/*/main.*.js > /dev/null
 
