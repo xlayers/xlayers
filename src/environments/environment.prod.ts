@@ -1,4 +1,5 @@
 export const environment = {
   production: true,
-  hmr: false
+  hmr: false,
+  version: '_BUILD_HASH_'
 };

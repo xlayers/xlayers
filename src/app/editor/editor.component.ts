@@ -15,6 +15,7 @@ import {
   ResetUiSettings
 } from 'src/app/core/state';
 import { SketchContainerComponent } from './viewer/lib/sketch-container.component';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'sketch-editor',
@@ -36,6 +37,8 @@ export class EditorComponent implements OnInit {
 
   is3dView: boolean;
   isCodeEditor: boolean;
+
+  version = environment.version;
 
   /**
    * @todo This feauture is not ready.
