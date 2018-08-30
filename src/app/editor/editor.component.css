@@ -19,10 +19,6 @@
 .mat-toolbar {
   position: fixed;
   z-index: 9;
-  background-image: url(/assets/contributions/Centigrade-GmbH/xLayersBlack.svg);
-  background-position: -27px -10px;
-  background-size: 100px;
-  background-repeat: no-repeat;
 }
 
 [hidden] {
@@ -38,15 +34,22 @@
 .mat-header a {
   color: rgba(255,255,255,0.7);
   text-decoration: none;
-  margin-left: 25px;
+  margin-left: -5px;
   margin-top: 25px;
 }
 
 .mat-header span {
-  font-size: 10px;
-  margin-top: -38px;
-  margin-left: 60px;
+  font-size: 11px;
+  margin-top: -34px;
+  margin-left: 118px;
   display: block;
+  color: black;
+  background: white;
+  padding: 2px;
+  border-radius: 1px;
+  height: 12px;
+  line-height: 13px;
+  font-weight: 500;
 }
 
 sketch-container {
