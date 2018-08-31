@@ -40,5 +40,13 @@
 <p align="center">View and generate code from Sketch files online</p>
 <img align="center" src="https://github.com/manekinekko/xlayers/blob/master/src/assets/xlayers-ui-1.png?raw=true"/>
 
-## Want to help?
-Want to file a bug, contribute some code, or improve documentation? Excellent! Read up on our guidelines for contributing and then check out one of our issues in the hotlist: [community-help](https://github.com/manekinekko/xlayers/issues).
+## Want to help? [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/xlayers/xlayers/issues)
+Want to file a bug, contribute some code, or improve documentation? Excellent! Read up on our guidelines for [contributing](https://github.com/xlayers/xlayers/blob/master/CONTRIBUTING.md) and then check out one of our issues in the hotlist: [community-help](https://github.com/xlayers/xlayers/issues).
+
+
+### Contributors
+
+[<img alt="wassim chegham" src="https://avatars3.githubusercontent.com/u/1699357?s=60&v=4">](https://github.com/manekinekko)
+[<img alt="Dmitriy Danilov" src="https://avatars0.githubusercontent.com/u/13692220?s=60&v=4">](https://github.com/daniloff200)
+[<img alt="Maciej" src="https://avatars0.githubusercontent.com/u/6870499?s=60&v=4">](https://github.com/mchmielarski)
+
