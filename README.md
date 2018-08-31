@@ -26,7 +26,7 @@
     <img src="https://img.shields.io/website-up-down-ff69b4-ff69b4/http/shields.io.svg?label=xlayers.app"/>
   </a>
 
-  <a href="https://twitter.comt/manekinekko">
+  <a href="https://twitter.com/manekinekko">
     <img src="https://img.shields.io/badge/say-thanks-ff69b4.svg"/>
   </a>
   
