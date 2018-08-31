@@ -27,6 +27,7 @@
 
 .mat-header {
   display: flex;
+  align-items: center;
   width: 100%;
   font-weight: 100;
 }
@@ -35,7 +36,7 @@
   color: rgba(255,255,255,0.7);
   text-decoration: none;
   margin-left: -5px;
-  margin-top: 25px;
+  margin-top: -8px;
 }
 
 .mat-header span {
@@ -96,7 +97,6 @@ button[mat-button] {
 
 .logo {
   font-size: 1.2em;
-  left: -5px;
   position: relative;
   top: 5px;
 }
@@ -110,8 +110,21 @@ button[mat-button] {
 }
 
 .row-header {
-  height: 30px;
+  /* height: 30px; */
+  align-items: stretch;
+  display: flex;
 }
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  flex-flow: row;
+}
+
+.header-actions > *:not(:first-child) {
+  margin-left: 8px;
+}
+
 .row-settings {
   justify-content: center;
 }
