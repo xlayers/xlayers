@@ -59,7 +59,7 @@ export class SketchCanvasComponent implements OnInit, AfterViewInit {
   @Input() data: SketchData;
   @Input() currentPage: SketchMSPage = null;
 
-  @ViewChild('canvasRef') canvasRef: ElementRef<HTMLElement>;
+  @ViewChild('canvas') canvasRef: ElementRef<HTMLElement>;
 
   isPreview: boolean;
   constructor(private store: Store, private renderer: Renderer2, private element: ElementRef<HTMLElement>) {}
