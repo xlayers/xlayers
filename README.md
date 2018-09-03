@@ -44,7 +44,7 @@
 Want to file a bug, contribute some code, or improve documentation? Excellent! Read up on our guidelines for [contributing](https://github.com/xlayers/xlayers/blob/master/CONTRIBUTING.md) and then check out one of our issues in the hotlist: [community-help](https://github.com/xlayers/xlayers/issues).
 
 
-### Contributors
+## Contributors
 
 [<img alt="wassim chegham" src="https://avatars3.githubusercontent.com/u/1699357?s=60&v=4">](https://github.com/manekinekko)
 [<img alt="Dmitriy Danilov" src="https://avatars0.githubusercontent.com/u/13692220?s=60&v=4">](https://github.com/daniloff200)
