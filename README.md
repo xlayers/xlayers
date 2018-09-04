@@ -51,6 +51,7 @@ Want to file a bug, contribute some code, or improve documentation? Excellent! R
 ## Contributors
 
 [<img alt="wassim chegham" src="https://avatars3.githubusercontent.com/u/1699357?s=60&v=4">](https://github.com/manekinekko)
+[<img alt="Vitaliy Bobrov" src="https://avatars3.githubusercontent.com/u/6780441?s=60&v=4">](https://github.com/vitaliy-bobrov)
 [<img alt="Dmitriy Danilov" src="https://avatars0.githubusercontent.com/u/13692220?s=60&v=4">](https://github.com/daniloff200)
 [<img alt="Maciej" src="https://avatars0.githubusercontent.com/u/6870499?s=60&v=4">](https://github.com/mchmielarski)
 
