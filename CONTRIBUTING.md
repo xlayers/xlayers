@@ -66,7 +66,7 @@ Before you submit your Pull Request (PR) consider the following guidelines:
 * Make your changes in a new git branch:
 
      ```shell
-     git checkout -b my-fix-branch master
+     git checkout -b my-fix-branch develop
      ```
 
 * Create your patch, **including appropriate test cases**.
@@ -95,7 +95,7 @@ Before you submit your Pull Request (PR) consider the following guidelines:
   * Rebase your branch and force push to your GitHub repository (this will update your Pull Request):
 
     ```shell
-    git rebase master -i
+    git rebase develop -i
     git push -f
     ```
 
@@ -112,10 +112,10 @@ from the main (upstream) repository:
     git push origin --delete my-fix-branch
     ```
 
-* Check out the master branch:
+* Check out the develop branch:
 
     ```shell
-    git checkout master -f
+    git checkout develop -f
     ```
 
 * Delete the local branch:
@@ -124,10 +124,10 @@ from the main (upstream) repository:
     git branch -D my-fix-branch
     ```
 
-* Update your master with the latest upstream version:
+* Update your develop with the latest upstream version:
 
     ```shell
-    git pull --ff upstream master
+    git pull --ff upstream develop
     ```
 
 ## <a name="rules"></a> Coding Rules
