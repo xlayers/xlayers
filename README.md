@@ -14,11 +14,11 @@
     <img src="https://img.shields.io/gitter/room/xlayers/Lobby.svg"/>
   </a>
   
-  <a href="https://github.com/manekinekko/xlayers/compare/master...develop">
+  <a href="https://github.com/xlayers/xlayers/compare/master...develop">
     <img src="https://img.shields.io/github/commits-since/manekinekko/xlayers/master.svg?label=commits%20to%20deploy"/>
   </a>
   
- <a href="https://github.com/manekinekko/xlayers">
+ <a href="https://github.com/xlayers/xlayers">
     <img src="https://img.shields.io/github/contributors/manekinekko/xlayers.svg"/>
   </a>
   
@@ -32,6 +32,10 @@
   
   <a href="https://angular.io">
     <img src="https://img.shields.io/badge/Made%20with-Angular-E13137.svg"/>
+  </a>
+  
+  <a href="https://github.com/xlayers/xlayers/issues">
+    <img src="http://isitmaintained.com/badge/resolution/xlayers/xlayers.svg"/>
   </a>
   
 </p>
