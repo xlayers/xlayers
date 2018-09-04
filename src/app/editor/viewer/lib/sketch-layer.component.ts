@@ -10,7 +10,7 @@ import { UiState, CurrentLayer } from 'src/app/core/state/ui.state';
     *ngIf="!layer?.isLocked"
     mwlResizable
     [resizeSnapGrid]="{ left: 1, right: 1 }"
-    [resizeEdges]="{bottom: true, right: true, top: false, left: false}"
+    [resizeEdges]="{bottom: true, right: true, top: true, left: true}"
     (resizeStart)="resizeStart($event)"
     (resizing)="resizing($event)"
     (resizeEnd)="resizeEnd($event)"
@@ -138,13 +138,20 @@ export class SketchLayerComponent implements OnInit, AfterContentInit {
 
   resizeStart(event: ResizeEvent) {}
   resizing(event: ResizeEvent) {
-    if (event.rectangle.width) {
+    if (event.rectangle.width && (event.edges.left || event.edges.right)) {
       this.layer.frame.width = event.rectangle.width;
-      this.renderer.setStyle(this.nativeElement, 'width', `${this.layer.frame.width * this.artboardFactor}px`);
+
+      if (typeof event.edges.left === 'number') {
+        this.layer.frame.x = event.edges.left;
+      }
     }
-    if (event.rectangle.height) {
+
+    if (event.rectangle.height && (event.edges.top || event.edges.bottom)) {
       this.layer.frame.height = event.rectangle.height;
-      this.renderer.setStyle(this.nativeElement, 'height', `${this.layer.frame.height * this.artboardFactor}px`);
+
+      if (typeof event.edges.top === 'number') {
+        this.layer.frame.y = event.edges.top;
+      }
     }
 
     this.updateLayerStyle();
