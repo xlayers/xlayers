@@ -14,21 +14,27 @@ header h1 {
   text-align: center;
   font-weight: 100;
   font-size: 3em;
-  padding: 30px 0 0;
+  padding: 22px 0 0;
 }
 
 header h1 sup {
   font-size: 20px;
 }
 
-header img.logo {
-  margin-bottom: -100px;
-  margin-top: -50px;
-  width: 250px;
-  height: 250px;
+.logo-wrapper {
+  position: relative;
+  width: 121px;
+  height: 108px;
+  margin: 0 auto;
 }
 
-img.logo {
+header img.logo {
+  margin: 0;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
   animation: rotate 10s linear infinite;
 }
 
@@ -147,10 +153,8 @@ footer i {
 @keyframes rotate {
   from {
     transform: rotate(0deg);
-    -webkit-transform-origin-y: 96px;
   }
   to {
     transform: rotate(360deg);
-    -webkit-transform-origin-y: 96px;
   }
 }
