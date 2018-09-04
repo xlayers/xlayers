@@ -42,7 +42,7 @@ import { SketchData } from './sketch.service';
     left: 50%;
     position: absolute;
     transform-style: preserve-3d;
-    transform-origin: 0 0;
+    transform-origin: 50% 50%;
     transform: translate3d(-50%, 50%, 0px) scale(1);
   }
   .canvas img {
