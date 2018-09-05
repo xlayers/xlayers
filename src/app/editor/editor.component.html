@@ -5,10 +5,12 @@
         Cross Layers<span>ALPHA</span>
       </a>
     </h4>
-    <sketch-dropzone matTooltip="Browse files" (changed)="sketchContainerRef.onFileSelected($event)" mode="mini"></sketch-dropzone>
-    <a matTooltip="Feedback" mat-icon-button target="__blank" href="https://github.com/manekinekko/xlayers/issues">
-      <mat-icon>bug_report</mat-icon>
-    </a>
+    <div class="header-actions">
+      <sketch-dropzone matTooltip="Browse files" (changed)="sketchContainerRef.onFileSelected($event)" mode="mini"></sketch-dropzone>
+      <a matTooltip="Feedback" mat-icon-button target="__blank" href="https://github.com/manekinekko/xlayers/issues">
+        <mat-icon>bug_report</mat-icon>
+      </a>
+    </div>
   </mat-toolbar-row>
 
   <mat-toolbar-row class="row-settings" *ngIf="currentPage">
