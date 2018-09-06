@@ -44,7 +44,6 @@ import { Component, EventEmitter, Input, OnInit, Output, ViewEncapsulation } fro
 export class SketchSelectDemoFilesComponent implements OnInit {
   public selectedDemoFile = '';
   public demoFiles = [
-    'md-components-notifications-he',
     'md-components-notifications-heads-up',
     'md-components-cards-welcome-back',
     'md-components-keyboards',
@@ -61,9 +60,9 @@ export class SketchSelectDemoFilesComponent implements OnInit {
   @Input() public error: boolean;
   @Output() private changed: EventEmitter<string> = new EventEmitter();
 
-  constructor() {}
+  constructor() { }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   confirmSelectedDemoFile() {
     this.changed.emit(this.selectedDemoFile);
