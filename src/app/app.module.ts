@@ -1,11 +1,11 @@
+import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Route, RouterModule } from '@angular/router';
-import { AppComponent } from './app.component';
-import { CoreModule } from './core/core.module';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
+import { AppComponent } from './app.component';
 
 export const routes: Route[] = [{
   path: '', redirectTo: '/home', pathMatch: 'full'
@@ -21,10 +21,11 @@ export const routes: Route[] = [{
   declarations: [AppComponent],
   imports: [
     BrowserModule,
+    HttpClientModule,
     NoopAnimationsModule,
-    RouterModule.forRoot(routes, {useHash: true}),
+    RouterModule.forRoot(routes, { useHash: true }),
     ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production })
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }
