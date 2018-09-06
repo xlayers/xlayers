@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { SketchStyleParserService } from './parsers/sketch-style-parser.service';
@@ -23,7 +24,7 @@ export interface SketchData {
 })
 export class SketchService {
   _data: SketchData;
-  constructor(private sanitizer: DomSanitizer, private sketchColorParser: SketchStyleParserService) {
+  constructor(private sanitizer: DomSanitizer, private sketchColorParser: SketchStyleParserService, private http: HttpClient) {
     this._data = {
       pages: [],
       previews: [],
@@ -124,5 +125,10 @@ export class SketchService {
 
   getPages(): SketchMSPage[] {
     return this._data.pages;
+  }
+
+  getSketchDemoFile(filename: string) {
+    const repoUrl = 'https://xlayers.app/assets/demos/sketchapp/';
+    return this.http.get(`${repoUrl}${filename}.sketch`, { responseType: 'blob' });
   }
 }
