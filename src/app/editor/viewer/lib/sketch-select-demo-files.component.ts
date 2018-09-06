@@ -3,7 +3,7 @@ import { Component, EventEmitter, Input, OnInit, Output, ViewEncapsulation } fro
 @Component({
   selector: 'sketch-select-demo-files',
   template: `
-    <p class="sketch-select-demo-files-label">or</p>
+    <p class="sketch-select-demo-files-label">OR</p>
     <mat-form-field>
       <mat-select [(value)]="selectedDemoFile">
         <mat-option value="">Select a demo file</mat-option>
@@ -22,10 +22,12 @@ import { Component, EventEmitter, Input, OnInit, Output, ViewEncapsulation } fro
       }
       .sketch-select-demo-files-label {
         margin-bottom: 5px;
+        font-size: 15px;
       }
       .sketch-select-demo-files-label-error {
         margin: 0;
         color: #c2185b;
+        font-size: 15px;
       }
       .mat-select-value {
         color: #b0b0b0;
