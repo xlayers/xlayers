@@ -37,9 +37,12 @@
   <a href="https://github.com/xlayers/xlayers/issues">
     <img src="http://isitmaintained.com/badge/resolution/xlayers/xlayers.svg"/>
   </a>
+  <br/>
+  <a href="https://waffle.io/xlayers/xlayers">
+    <img src="https://badge.waffle.io/xlayers/xlayers.svg?columns=all"/>
+  </a>
   
 </p>
-
 
 <p align="center">View and generate code from Sketch files online</p>
 <img align="center" src="https://github.com/manekinekko/xlayers/blob/master/src/assets/xlayers-ui-1.png?raw=true"/>
