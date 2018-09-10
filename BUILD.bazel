@@ -1,0 +1,41 @@
+package(default_visibility = ["//visibility:public"])
+
+alias(
+    name = "install",
+    actual = "@nodejs//:yarn",
+)
+
+# This export allows targets in other packages to reference files that live
+# in this package.
+exports_files([
+    "tsconfig.json",
+    # Let devserver and testing targets reference zone.js distro
+    "node_modules/zone.js/dist/zone.min.js",
+    "node_modules/zone.js/dist/zone-testing-bundle.js",
+])
+
+filegroup(
+    name = "node_modules",
+    srcs = glob(
+        [
+            # Include only .js, .json & .d.ts files to reduce the number of
+            # files in the //:node_modules filegroup
+            "node_modules/**/*.js",
+            "node_modules/**/*.json",
+            "node_modules/**/*.d.ts",
+            # All the files in the protractor package are necesssary
+            "node_modules/protractor/**",
+            # Also include all files in node_modules/.bin
+            "node_modules/.bin/*",
+        ],
+        exclude = [
+            # Exclude files with spaces which are illegal bazel labels
+            "node_modules/**/* *",
+            "node_modules/@angular/**",
+        ],
+    ) + ["@build_bazel_rules_typescript//:node_modules"],
+    # "@build_bazel_rules_typescript//:node_modules" is incluced
+    # in `//:node_modules` so that npm dependencies that are hoisted to
+    # node_modules/@bazel/typescript/node_modules because of conflicting
+    # versions can be resolved correctly
+)

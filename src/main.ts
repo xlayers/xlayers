@@ -1,9 +1,9 @@
 import './sketch.typings';
 
 import { enableProdMode } from '@angular/core';
-import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+import { platformBrowser } from '@angular/platform-browser';
 
-import { AppModule } from './app/app.module';
+import { AppModuleNgFactory } from './app/app.module.ngfactory';
 import { environment } from './environments/environment';
 
 import { hmrBootstrap } from './hmr';
@@ -12,7 +12,7 @@ if (environment.production) {
   enableProdMode();
 }
 
-const bootstrap = () => platformBrowserDynamic().bootstrapModule(AppModule);
+const bootstrap = () => platformBrowser().bootstrapModule(AppModuleNgFactory);
 
 if (environment.hmr) {
   if (module['hot']) {
