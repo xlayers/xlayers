@@ -1,13 +1,15 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { EditorContainerComponent } from './editor-container.component';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 
-describe('EditorComponent', () => {
+describe('EditorContainerComponent', () => {
   let component: EditorContainerComponent;
   let fixture: ComponentFixture<EditorContainerComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      schemas: [NO_ERRORS_SCHEMA],
       declarations: [ EditorContainerComponent ]
     })
     .compileComponents();
