@@ -1,12 +1,16 @@
-# Stage 0, "build-stage", based on the official NgContainer docker image
-FROM angular/ngcontainer:latest as build-stage
+FROM angular/ngcontainer as build-stage
 
-WORKDIR /xlayers
+COPY package*.json ./
 
-COPY package*.json /xlayers/
+COPY . .
+
+USER root
+
 RUN npm install
-COPY ./ /xlayers/
-
 RUN npm run test:ci
-
 RUN npm run build
+
+FROM nginx:1.15
+COPY --from=build-stage ./dist/xlayers/ /usr/share/nginx/html
+
+COPY --from=build-stage ./scripts/cloudbuild/ngcontainer/nginx.conf /etc/nginx/conf.d/default.conf
