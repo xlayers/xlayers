@@ -9,7 +9,8 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "deploy": "ng build --prod && firebase deploy"
+    "deploy": "ng build --prod && firebase deploy",
+    "postinstall": "opencollective-postinstall"
   },
   "private": true,
   "dependencies": {
@@ -34,8 +35,10 @@
     "jszip": "^3.1.5",
     "ngx-color": "^1.4.0",
     "ngx-monaco-editor": "^6.0.0",
+    "opencollective-postinstall": "^2.0.0",
     "rxjs": "^6.0.0",
-    "zone.js": "^0.8.26"
+    "zone.js": "^0.8.26",
+    "opencollective": "^1.0.3"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.6.3",
@@ -64,5 +67,9 @@
     "tslib": "^1.7.1",
     "tslint": "~5.9.1",
     "typescript": "~2.7.2"
+  },
+  "collective": {
+    "type": "opencollective",
+    "url": "https://opencollective.com/xlayers"
   }
 }
