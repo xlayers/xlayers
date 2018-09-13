@@ -3,9 +3,9 @@ FROM angular/ngcontainer:latest as build-stage
 
 WORKDIR /xlayers
 
-COPY package*.json /xlayers
+COPY package*.json /xlayers/
 RUN npm install
-COPY ./ /xlayers
+COPY ./ /xlayers/
 
 RUN npm run test:ci
 
