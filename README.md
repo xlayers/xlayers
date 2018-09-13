@@ -37,6 +37,8 @@
   <a href="https://github.com/xlayers/xlayers/issues">
     <img src="http://isitmaintained.com/badge/resolution/xlayers/xlayers.svg"/>
   </a>
+  
+  <a href="#backers" alt="sponsors on Open Collective"><img src="https://opencollective.com/xlayers/backers/badge.svg" /></a> <a href="#sponsors" alt="Sponsors on Open Collective"><img src="https://opencollective.com/xlayers/sponsors/badge.svg" /></a> 
   <br/>
   <a href="https://waffle.io/xlayers/xlayers">
     <img src="https://badge.waffle.io/xlayers/xlayers.svg?columns=all"/>
@@ -60,3 +62,33 @@ Want to file a bug, contribute some code, or improve documentation? Excellent! R
 
 ## They are supporting xLayers
 [<img alt="sfeir" src="https://www.sfeir.com/img/logo-SFEIR-normal.png" width="100">](http://sfeir.com)
+
+## Contributors
+
+This project exists thanks to all the people who contribute. [[Contribute](CONTRIBUTING.md)].
+<a href="https://github.com/undefined/undefinedgraphs/contributors"><img src="https://opencollective.com/xlayers/contributors.svg?width=890&button=false" /></a>
+
+
+## Backers
+
+Thank you to all our backers! 🙏 [[Become a backer](https://opencollective.com/xlayers#backer)]
+
+<a href="https://opencollective.com/xlayers#backers" target="_blank"><img src="https://opencollective.com/xlayers/backers.svg?width=890"></a>
+
+
+## Sponsors
+
+Support this project by becoming a sponsor. Your logo will show up here with a link to your website. [[Become a sponsor](https://opencollective.com/xlayers#sponsor)]
+
+<a href="https://opencollective.com/xlayers/sponsor/0/website" target="_blank"><img src="https://opencollective.com/xlayers/sponsor/0/avatar.svg"></a>
+<a href="https://opencollective.com/xlayers/sponsor/1/website" target="_blank"><img src="https://opencollective.com/xlayers/sponsor/1/avatar.svg"></a>
+<a href="https://opencollective.com/xlayers/sponsor/2/website" target="_blank"><img src="https://opencollective.com/xlayers/sponsor/2/avatar.svg"></a>
+<a href="https://opencollective.com/xlayers/sponsor/3/website" target="_blank"><img src="https://opencollective.com/xlayers/sponsor/3/avatar.svg"></a>
+<a href="https://opencollective.com/xlayers/sponsor/4/website" target="_blank"><img src="https://opencollective.com/xlayers/sponsor/4/avatar.svg"></a>
+<a href="https://opencollective.com/xlayers/sponsor/5/website" target="_blank"><img src="https://opencollective.com/xlayers/sponsor/5/avatar.svg"></a>
+<a href="https://opencollective.com/xlayers/sponsor/6/website" target="_blank"><img src="https://opencollective.com/xlayers/sponsor/6/avatar.svg"></a>
+<a href="https://opencollective.com/xlayers/sponsor/7/website" target="_blank"><img src="https://opencollective.com/xlayers/sponsor/7/avatar.svg"></a>
+<a href="https://opencollective.com/xlayers/sponsor/8/website" target="_blank"><img src="https://opencollective.com/xlayers/sponsor/8/avatar.svg"></a>
+<a href="https://opencollective.com/xlayers/sponsor/9/website" target="_blank"><img src="https://opencollective.com/xlayers/sponsor/9/avatar.svg"></a>
+
+
