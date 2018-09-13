@@ -7,7 +7,7 @@
     "build": "ng build --prod",
     "postbuild": "sh scripts/tag-build.sh",
     "test": "ng test",
-    "test:ci": "ng test --watch=false --sourceMap=false",
+    "test:ci": "xvfb-run -a ng test --watch=false --sourceMap=false",
     "lint": "ng lint",
     "e2e": "ng e2e",
     "deploy": "ng build --prod && firebase deploy"
