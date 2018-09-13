@@ -65,15 +65,13 @@ Want to file a bug, contribute some code, or improve documentation? Excellent! R
   <img src="https://opencollective.com/xlayers/contributors.svg?width=890&button=false" />
 </a>
 
-## They are supporting xLayers
-[<img alt="sfeir" src="https://www.sfeir.com/img/logo-SFEIR-normal.png" width="100">](http://sfeir.com)
-
 ## Backers
  Thank you to all our backers! 🙏 [[Become a backer](https://opencollective.com/xlayers#backer)]
  <a href="https://opencollective.com/xlayers#backers" target="_blank"><img src="https://opencollective.com/xlayers/backers.svg?width=890"></a>
 
 ## Sponsors
  Support this project by becoming a sponsor. Your logo will show up here with a link to your website. [[Become a sponsor](https://opencollective.com/xlayers#sponsor)]
+ [<img alt="sfeir" src="https://www.sfeir.com/img/logo-SFEIR-normal.png" width="100">](http://sfeir.com)
  <a href="https://opencollective.com/xlayers/sponsor/0/website" target="_blank"><img src="https://opencollective.com/xlayers/sponsor/0/avatar.svg"></a>
 <a href="https://opencollective.com/xlayers/sponsor/1/website" target="_blank"><img src="https://opencollective.com/xlayers/sponsor/1/avatar.svg"></a>
 <a href="https://opencollective.com/xlayers/sponsor/2/website" target="_blank"><img src="https://opencollective.com/xlayers/sponsor/2/avatar.svg"></a>
