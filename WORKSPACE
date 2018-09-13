@@ -76,3 +76,4 @@ sass_repositories()
 load("@angular//:index.bzl", "ng_setup_workspace")
 
 ng_setup_workspace()
+
