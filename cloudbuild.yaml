@@ -1,17 +1,10 @@
 steps:
-- name: 'angular/ngcontainer:0.5.0'
-  args: ['npm', 'install']
-- name: 'angular/ngcontainer:0.5.0'
-  args: 
-  - 'xvfb-run'
-  - '-a'
-  - 'npm'
-  - 'run'
-  - 'test:ci'
-- name: 'angular/ngcontainer:0.5.0'
+- name: 'gcr.io/cloud-builders/npm'
+  args: ['install']
+- name: 'gcr.io/cloud-builders/npm'
+  args: ['run', 'test:ci']
+- name: 'gcr.io/cloud-builders/npm'
   args: ['npm', 'run', 'build']
-  env:
-    - 'ENV=production'
 - name: 'gcr.io/cloud-builders/docker'
   args: ["build", "-t", "gcr.io/$PROJECT_ID/$REPO_NAME:$SHORT_SHA", "."]
 - name: 'gcr.io/cloud-builders/docker'
