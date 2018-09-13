@@ -1,25 +1,30 @@
 steps:
-- name: 'gcr.io/cloud-builders/npm'
-  args: ['install']
-- name: 'gcr.io/cloud-builders/npm'
-  args: ['run', 'test:ci']
-- name: 'gcr.io/cloud-builders/npm'
-  args: ['run', 'build']
+- name: 'angular/ngcontainer:latest'
+  args: ['npm', 'install']
+- name: 'angular/ngcontainer:latest'
+  args: 
+  - 'xvfb-run'
+  - '-a'
+  - 'npm'
+  - 'run'
+  - 'test:ci'
+- name: 'angular/ngcontainer:latest'
+  args: ['npm', 'run', 'build']
   env:
     - 'ENV=production'
 - name: 'gcr.io/cloud-builders/docker'
-  args: ["build", "-t", "gcr.io/$PROJECT_ID/$REPO_NAME:$REVISION_ID", "."]
+  args: ["build", "-t", "gcr.io/$PROJECT_ID/$REPO_NAME:$SHORT_SHA", "."]
 - name: 'gcr.io/cloud-builders/docker'
-  args: ["push", "gcr.io/$PROJECT_ID/$REPO_NAME:$REVISION_ID"]
+  args: ["push", "gcr.io/$PROJECT_ID/$REPO_NAME:$SHORT_SHA"]
 - name: 'gcr.io/cloud-builders/kubectl'
   args:
   - 'set'
   - 'image'
-  - 'deployment/$PROJECT_ID-deploy'
-  - 'my-container=gcr.io/$PROJECT_ID/$REPO_NAME:$REVISION_ID'
+  - 'deployment/$PROJECT_ID-staging'
+  - 'xlayers=gcr.io/$PROJECT_ID/$REPO_NAME:$SHORT_SHA'
   env:
   - 'CLOUDSDK_COMPUTE_ZONE=us-east4-b'
-  - 'CLOUDSDK_CONTAINER_CLUSTER=my-cluster'
+  - 'CLOUDSDK_CONTAINER_CLUSTER=xlayers'
 images:
-  - 'gcr.io/$PROJECT_ID/$REPO_NAME:$COMMIT_SHA'
+  - 'gcr.io/$PROJECT_ID/$REPO_NAME:$SHORT_SHA'
   - 'gcr.io/$PROJECT_ID/$REPO_NAME:latest'
