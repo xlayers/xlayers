@@ -1,6 +1,10 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TreeViewComponent } from './tree-view.component';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { MatTreeModule } from '@angular/material/tree';
+import { Store, NgxsModule, State } from '@ngxs/store';
+import { XStore } from '../../core/state/state.mock';
 
 describe('TreeViewComponent', () => {
   let component: TreeViewComponent;
@@ -8,6 +12,8 @@ describe('TreeViewComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      schemas: [NO_ERRORS_SCHEMA],
+      imports: [MatTreeModule, NgxsModule.forRoot([XStore])],
       declarations: [ TreeViewComponent ]
     })
     .compileComponents();

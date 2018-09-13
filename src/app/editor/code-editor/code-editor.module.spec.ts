@@ -1,13 +1,13 @@
 import { CodeEditorModule } from './code-editor.module';
 
-describe('EditorModule', () => {
-  let editorModule: CodeEditorModule;
+describe('CodeEditorModule', () => {
+  let codeEditorModule: CodeEditorModule;
 
   beforeEach(() => {
-    editorModule = new CodeEditorModule();
+    codeEditorModule = new CodeEditorModule();
   });
 
   it('should create an instance', () => {
-    expect(editorModule).toBeTruthy();
+    expect(codeEditorModule).toBeTruthy();
   });
 });
