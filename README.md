@@ -58,7 +58,5 @@ Want to file a bug, contribute some code, or improve documentation? Excellent! R
 [<img alt="Dmitriy Danilov" src="https://avatars0.githubusercontent.com/u/13692220?s=60&v=4">](https://github.com/daniloff200)
 [<img alt="Maciej" src="https://avatars0.githubusercontent.com/u/6870499?s=60&v=4">](https://github.com/mchmielarski)
 
-## Companies supporting xLayers
-[<img alt="sfeir" src="https://www.sfeir.com/img/logo-SFEIR-normal.png">](http://sfeir.com)
-
-
+## They are supporting xLayers
+[<img alt="sfeir" src="https://www.sfeir.com/img/logo-SFEIR-normal.png" width="100">](http://sfeir.com)
