@@ -55,8 +55,7 @@ load("@io_bazel_rules_webtesting//web:repositories.bzl", "browser_repositories",
 
 web_test_repositories()
 browser_repositories(
-    chromium = True,
-    firefox = False,
+    chromium = True
 )
 
 load("@build_bazel_rules_typescript//:defs.bzl", "ts_setup_workspace", "check_rules_typescript_version")

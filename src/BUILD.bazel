@@ -73,7 +73,6 @@ ts_web_test_suite(
     ],
     browsers = [
         "@io_bazel_rules_webtesting//browsers:chromium-local",
-        "@io_bazel_rules_webtesting//browsers:firefox-local",
     ],
     deps = [
         ":test_lib",
