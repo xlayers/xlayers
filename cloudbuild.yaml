@@ -1,14 +1,14 @@
 steps:
-- name: 'angular/ngcontainer:latest'
+- name: 'angular/ngcontainer:0.5.0'
   args: ['npm', 'install']
-- name: 'angular/ngcontainer:latest'
+- name: 'angular/ngcontainer:0.5.0'
   args: 
   - 'xvfb-run'
   - '-a'
   - 'npm'
   - 'run'
   - 'test:ci'
-- name: 'angular/ngcontainer:latest'
+- name: 'angular/ngcontainer:0.5.0'
   args: ['npm', 'run', 'build']
   env:
     - 'ENV=production'
