@@ -8,7 +8,7 @@ steps:
     - '-c'
     - |
     - buildifier -mode=check $(find . -type f \( -name "*.bzl" -or -name BUILD.bazel -or -name BUILD \)) || 
-        (echo "BUILD files not formatted. Please run ''yarn buildifier''" ; exit 1'
+        (echo "BUILD files not formatted." ; exit 1'
 
 - name: 'gcr.io/cross-xlayers/ngcontainer'
   entrypoint: 'bash'
