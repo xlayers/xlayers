@@ -1,29 +1,55 @@
-# Based on https://github.com/angular/angular/blob/master/tools/ngcontainer/Dockerfile
+# Based on: https://github.com/angular/angular/blob/master/tools/ngcontainer/Dockerfile
+FROM circleci/node:10.9.0-browsers
 
-FROM node:10.5 as build-stage
+USER root
 
-# See https://crbug.com/795759
-RUN apt-get update && apt-get install -yq libgconf-2-4
+###
+# Bazel install
+# See https://bazel.build/versions/master/docs/install-ubuntu.html#using-bazel-custom-apt-repository-recommended
+RUN BAZEL_VERSION="0.17.1" \
+ && wget -q -O - https://bazel.build/bazel-release.pub.gpg | apt-key add - \
+ && echo "deb [arch=amd64] http://storage.googleapis.com/bazel-apt stable jdk1.8" > /etc/apt/sources.list.d/bazel.list \
+ && apt-get update \
+ && apt-get install -y bazel=$BAZEL_VERSION \
+ && rm -rf /var/lib/apt/lists/*
 
-# Install latest chrome dev package
-# Note: this installs the necessary libs to make the bundled version of Chromium that Puppeteer
-# installs, work.
-RUN apt-get update && apt-get install -y wget --no-install-recommends \
-    && wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - \
-    && sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list' \
-    && apt-get update \
-    && apt-get install -y google-chrome-unstable ttf-freefont xvfb \
-    --no-install-recommends \
-    && rm -rf /var/lib/apt/lists/* \
-    && apt-get purge --auto-remove -y curl \
-    && rm -rf /src/*.deb
+###
+# Brotli compression
+# Not available on backports so we have to pull from Debian 9
+# See https://packages.debian.org/search?keywords=brotli
+RUN echo "deb http://deb.debian.org/debian stretch main contrib" > /etc/apt/sources.list.d/stretch.list \
+ && apt-get update \
+ && apt-get install -y --no-install-recommends brotli/stretch
+
+###
+# Buildifier
+# BUILD file formatter
+# 'bazel clean --expunge' conserves size of the image
+RUN git clone https://github.com/bazelbuild/buildtools.git \
+ && (cd buildtools \
+  && bazel build //buildifier \
+  && cp bazel-bin/buildifier/linux_amd64_stripped/buildifier /usr/local/bin/ \
+  && bazel clean --expunge \
+  ) && rm -rf buildtools
+
+###
+# Skylint
+# .bzl file linter
+# Follows readme at https://github.com/bazelbuild/bazel/blob/master/site/docs/skylark/skylint.md#building-the-linter
+# 'bazel clean --expunge' conserves size of the image
+RUN git clone https://github.com/bazelbuild/bazel.git \
+ && (cd bazel \
+  && bazel build //src/tools/skylark/java/com/google/devtools/skylark/skylint:Skylint_deploy.jar \
+  && cp bazel-bin/src/tools/skylark/java/com/google/devtools/skylark/skylint/Skylint_deploy.jar /usr/local/bin \
+  && bazel clean --expunge \
+  ) && rm -rf bazel
 
 ###
 # Fix up npm global installation
 # See https://docs.npmjs.com/getting-started/fixing-npm-permissions
 RUN mkdir ~/.npm-global \
-    && npm config set prefix '~/.npm-global' \
-    && echo "export PATH=~/.npm-global/bin:$PATH" >> ~/.profile
+ && npm config set prefix '~/.npm-global' \
+ && echo "export PATH=~/.npm-global/bin:$PATH" >> ~/.profile
 
 ###
 # This version of ChromeDriver works with the Chrome version included
@@ -31,7 +57,3 @@ RUN mkdir ~/.npm-global \
 # This variable is intended to be used by passing it as an argument to
 # "postinstall": "webdriver-manager update ..."
 ENV CHROMEDRIVER_VERSION_ARG "--versions.chrome 2.41"
-
-RUN npm install -g @angular/cli@latest
-
-WORKDIR /xlayers
