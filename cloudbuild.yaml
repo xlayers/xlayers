@@ -1,14 +1,46 @@
 steps:
-# - name: 'gcr.io/$PROJECT_ID/ngcontainer'
-#   args: ['npm', 'install']
-# - name: 'gcr.io/$PROJECT_ID/ngcontainer'
-#   args: ['npm', 'run', 'test:ci']
-# - name: 'gcr.io/$PROJECT_ID/ngcontainer'
-#   args: ['npm', 'run', 'build']
+- name: 'gcr.io/cross-xlayers/ngcontainer'
+  entrypoint: 'bash'
+  
+  # Check BUILD.bazel formatting before we have a node_modules directory
+  # Then we don't need any exclude pattern to avoid checking those files
+  args: 
+    - '-c'
+    - |
+    - buildifier -mode=check $(find . -type f \( -name "*.bzl" -or -name BUILD.bazel -or -name BUILD \)) || 
+        (echo "BUILD files not formatted. Please run ''yarn buildifier''" ; exit 1'
+
+- name: 'gcr.io/cross-xlayers/ngcontainer'
+  entrypoint: 'bash'
+  
+  # Run the skylark linter to check our Bazel rules
+  # deprecated-api is disabled because we use actions.new_file(genfiles_dir)
+  # which has no replacement, see https://github.com/bazelbuild/bazel/issues/4858
+  args: 
+    - '-c'
+    - |
+    - find . -type f -name "*.bzl" |
+              xargs java -jar /usr/local/bin/Skylint_deploy.jar --disable-checks=deprecated-api || 
+              (echo -e "\n.bzl files have lint errors. Please run ''yarn skylint''"; exit 1)
+
+- name: 'gcr.io/cross-xlayers/ngcontainer'
+  entrypoint: 'npm'
+  args: ['install']
+
+- name: 'gcr.io/cross-xlayers/ngcontainer'
+  entrypoint: 'npm'
+  args: ['run', 'test:ci']
+
+- name: 'gcr.io/cross-xlayers/ngcontainer'
+  entrypoint: 'npm'
+  args: ['run', 'build']
+
 - name: 'gcr.io/cloud-builders/docker'
-  args: ['build', '-t', 'gcr.io/$PROJECT_ID/xlayers', '.']
+  args: ['build', '-t', 'gcr.io/$PROJECT_ID/xlayers:$SHORT_SHA', '.']
+
 - name: 'gcr.io/cloud-builders/docker'
-  args: ['push', 'gcr.io/$PROJECT_ID/xlayers']
+  args: ['push', 'gcr.io/$PROJECT_ID/xlayers:$SHORT_SHA']
+
 - name: 'gcr.io/cloud-builders/kubectl'
   args:
   - 'set'
@@ -17,7 +49,8 @@ steps:
   - 'xlayers=gcr.io/$PROJECT_ID/xlayers'
   env:
   - 'CLOUDSDK_COMPUTE_ZONE=europe-north1-a'
-  - 'CLOUDSDK_CONTAINER_CLUSTER=xlayers'
+  - 'CLOUDSDK_CONTAINER_CLUSTER=xlayers-staging'
+
 images:
+  - 'gcr.io/$PROJECT_ID/xlayers:$SHORT_SHA'
   - 'gcr.io/$PROJECT_ID/xlayers'
-  - 'gcr.io/$PROJECT_ID/xlayers:latest'
