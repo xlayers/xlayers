@@ -1,6 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SettingsLayerPositionComponent } from './settings-layer-position.component';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { NgxsModule } from '@ngxs/store';
+import { XStore } from '../../../core/state/state.mock';
 
 import {BrowserDynamicTestingModule, platformBrowserDynamicTesting} from '@angular/platform-browser-dynamic/testing';
  // TODO: this helper should be in @angular/platform-browser-dynamic/testing
@@ -10,12 +13,15 @@ try {
   // Ignore exceptions when calling it multiple times.
 }
 
-describe('SettingsLayerComponent', () => {
+describe('SettingsLayerPositionComponent', () => {
+
   let component: SettingsLayerPositionComponent;
   let fixture: ComponentFixture<SettingsLayerPositionComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      schemas: [NO_ERRORS_SCHEMA],
+      imports: [NgxsModule.forRoot([XStore])],
       declarations: [ SettingsLayerPositionComponent ]
     })
     .compileComponents();

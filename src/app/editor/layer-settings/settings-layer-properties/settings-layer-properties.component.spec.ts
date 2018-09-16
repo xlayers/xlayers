@@ -1,6 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SettingsLayerPropertiesComponent } from './settings-layer-properties.component';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { XStore } from '../../../core/state/state.mock';
+import { NgxsModule } from '@ngxs/store';
 
 import {BrowserDynamicTestingModule, platformBrowserDynamicTesting} from '@angular/platform-browser-dynamic/testing';
  // TODO: this helper should be in @angular/platform-browser-dynamic/testing
@@ -16,6 +19,8 @@ describe('SettingsLayerPropertiesComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      schemas: [NO_ERRORS_SCHEMA],
+      imports: [NgxsModule.forRoot([XStore])],
       declarations: [ SettingsLayerPropertiesComponent ]
     })
     .compileComponents();

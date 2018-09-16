@@ -9,14 +9,14 @@ try {
   // Ignore exceptions when calling it multiple times.
 }
 
-describe('EditorModule', () => {
+describe('CodeEditorModule', () => {
   let editorModule: CodeEditorModule;
 
   beforeEach(() => {
-    editorModule = new CodeEditorModule();
+    codeEditorModule = new CodeEditorModule();
   });
 
   it('should create an instance', () => {
-    expect(editorModule).toBeTruthy();
+    expect(codeEditorModule).toBeTruthy();
   });
 });
