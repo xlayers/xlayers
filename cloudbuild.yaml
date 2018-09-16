@@ -24,11 +24,11 @@ steps:
               (echo -e "\n.bzl files have lint errors. Please run ''yarn skylint''"; exit 1)
 
 - name: gcr.io/cross-xlayers/ngcontainer
-  args: ['run', '@yarn//:yarn']
+  args: ['bazel', 'run', '@yarn//:yarn']
 - name: gcr.io/cross-xlayers/ngcontainer
-  args: ['build', '//...']
+  args: ['bazel', 'build', '//...']
 # - name: gcr.io/cross-xlayers/ngcontainer
-#   args: ['test', '//...']
+#   args: ['bazel', 'test', '//...']
 
 ## TODO: enable an Ingress controller for k8s in order to preview each new build   
 
