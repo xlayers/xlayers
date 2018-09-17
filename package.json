@@ -4,13 +4,23 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve --configuration hmr",
-    "build": "ng build --prod",
+    "build": "bazel build //src:bundle",
     "postbuild": "sh scripts/tag-deploy.sh",
     "test": "ng test",
     "test:ci": "ng test --watch=false --sourceMap=false",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "deploy": "ng build --prod && firebase deploy"
+    "deploy": "ng build --prod && firebase deploy",
+    "####": "##### BAZEL SCRIPTS ####",
+    "postinstall": "ngc -p tsconfig.post.json",
+    "bazel:build": "bazel build -s //src:bundle",
+    "postbazel:build": "sh scripts/tag-deploy.sh",
+    "bazel:start": "ibazel run //src:devserver",
+    "bazel:start:prod": "bazel run //src:prodserver",
+    "bazel:e2e": "bazel test //e2e:all",
+    "bazel:test": "bazel test //src/...",
+    "prebazel:buildifier": "bazel build @com_github_bazelbuild_buildtools//buildifier",
+    "bazel:buildifier": "find . -type f \\( -name BUILD -or -name BUILD.bazel \\) ! -path \"./node_modules/*\" | xargs $(bazel info bazel-bin)/external/com_github_bazelbuild_buildtools/buildifier/*/buildifier"
   },
   "private": true,
   "dependencies": {
@@ -71,6 +81,6 @@
     "tsickle": ">=0.25.5",
     "tslib": "^1.7.1",
     "tslint": "~5.9.1",
-    "typescript": "^2.9.2"
+    "typescript": "2.9.2"
   }
 }
