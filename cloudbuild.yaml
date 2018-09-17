@@ -15,6 +15,8 @@ steps:
               (echo -e "\n.bzl files have lint errors. Please run ''yarn skylint''"; exit 1)
 
 - name: gcr.io/cross-xlayers/ngcontainer
+  args: ['yarn']
+- name: gcr.io/cross-xlayers/ngcontainer
   args: ['bazel', 'run', '@yarn//:yarn']
 - name: gcr.io/cross-xlayers/ngcontainer
   args: ['yarn', 'bazel:build']
