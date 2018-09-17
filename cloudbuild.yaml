@@ -1,15 +1,6 @@
 steps:
-- name: 'gcr.io/cross-xlayers/ngcontainer'
-  entrypoint: 'bash'
-  
-  # Check BUILD.bazel formatting before we have a node_modules directory
-  # Then we don't need any exclude pattern to avoid checking those files
-  args: 
-    - '-c'
-    - |
-    - buildifier -mode=check $(find . -type f \( -name "*.bzl" -or -name BUILD.bazel -or -name BUILD \)) || 
-        (echo "BUILD files not formatted." ; exit 1'
-
+- name: gcr.io/cross-xlayers/ngcontainer
+  args: ['yarn', 'bazel:buildifier']
 - name: 'gcr.io/cross-xlayers/ngcontainer'
   entrypoint: 'bash'
   
@@ -26,9 +17,9 @@ steps:
 - name: gcr.io/cross-xlayers/ngcontainer
   args: ['bazel', 'run', '@yarn//:yarn']
 - name: gcr.io/cross-xlayers/ngcontainer
-  args: ['bazel', 'build', '//...']
+  args: ['yarn', 'bazel:build']
 # - name: gcr.io/cross-xlayers/ngcontainer
-#   args: ['bazel', 'test', '//...']
+#   args: ['yarn', 'bazel:test']
 
 ## TODO: enable an Ingress controller for k8s in order to preview each new build   
 
