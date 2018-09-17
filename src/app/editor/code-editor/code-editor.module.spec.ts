@@ -10,7 +10,7 @@ try {
 }
 
 describe('CodeEditorModule', () => {
-  let editorModule: CodeEditorModule;
+  let codeEditorModule: CodeEditorModule;
 
   beforeEach(() => {
     codeEditorModule = new CodeEditorModule();
