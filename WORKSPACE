@@ -1,8 +1,31 @@
+# The WORKSPACE file tells Bazel that this directory is a "workspace", which is like a project root.
+# The content of this file specifies all the external dependencies Bazel needs to perform a build.
+
+####################################
+# ESModule imports (and TypeScript imports) can be absolute starting with the workspace name.
+# The name of the workspace should match the npm package where we publish, so that these
+# imports also make sense when referencing the published package.
+workspace(name = "xlayers")
+
+# The Bazel buildtools repo contains tools like the BUILD file formatter, buildifier
+# This commit matches the version of buildifier in angular/ngcontainer
+# If you change this, also check if it matches the version in the angular/ngcontainer
+# version in /.circleci/config.yml
+BAZEL_BUILDTOOLS_VERSION = "82b21607e00913b16fe1c51bec80232d9d6de31c"
+
+http_archive(
+    name = "com_github_bazelbuild_buildtools",
+    url = "https://github.com/bazelbuild/buildtools/archive/%s.zip" % BAZEL_BUILDTOOLS_VERSION,
+    strip_prefix = "buildtools-%s" % BAZEL_BUILDTOOLS_VERSION,
+    sha256 = "edb24c2f9c55b10a820ec74db0564415c0cf553fa55e9fc709a6332fb6685eff",
+)
+
+# Provides nodejs rules like rollup_bundle
 http_archive(
     name = "build_bazel_rules_nodejs",
-    urls = ["https://github.com/bazelbuild/rules_nodejs/archive/0.12.2.zip"],
-    strip_prefix = "rules_nodejs-0.12.2",
-    sha256 = "b691443ee5877214bfce3b006204528ef92ee57c2c5d21aec6a757bc6f58a7b8",
+    url = "https://github.com/bazelbuild/rules_nodejs/archive/0.12.4.zip",
+    strip_prefix = "rules_nodejs-0.12.4",
+    sha256 = "c482700e032b4df60425cb9a6f8f28152fb1c4c947a9d61e6132fc59ce332b16",
 )
 
 # Runs the TypeScript compiler
@@ -55,13 +78,14 @@ load("@io_bazel_rules_webtesting//web:repositories.bzl", "browser_repositories",
 
 web_test_repositories()
 browser_repositories(
-    chromium = True
+    chromium = True,
 )
 
 load("@build_bazel_rules_typescript//:defs.bzl", "ts_setup_workspace", "check_rules_typescript_version")
 
 ts_setup_workspace()
 
+# Enforce that the version of @bazel/typescript installed by npm is compatible with the rules.
 # 0.16.0: tsc_wrapped uses user's typescript version & check_rules_typescript_version
 check_rules_typescript_version("0.16.0")
 
@@ -76,4 +100,3 @@ sass_repositories()
 load("@angular//:index.bzl", "ng_setup_workspace")
 
 ng_setup_workspace()
-

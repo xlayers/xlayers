@@ -1,22 +1,17 @@
-# Use the Angular 6 compiler
-build --define=compile=legacy
-
-# Don't create any symlinks in the project directory.
-# Ideally we'd create a symlink from dist -> $(bazel info bazel-bin)
-# so that the dist/ folder gets populated approx. the same as before
-# but there are two problems:
-# - Bazel will still create a /bazel-out symlink, which needs to be carefully ignored in the editor
-# - You'll get dist/bin/ instead of just dist/
-build --symlink_prefix=/
-
 # Make TypeScript and Angular compilation fast, by keeping a few copies of the
 # compiler running as daemons, and cache SourceFile AST's to reduce parse time.
-build --strategy=TypeScriptCompile=worker --strategy=AngularTemplateCompile=worker
+build --strategy=TypeScriptCompile=worker
+build --strategy=AngularTemplateCompile=worker
 
-# Don't print any results of running builds.
-# The paths will be absolute (due to --symlink_prefix=/)
-# and we want the output to be quiet by default
-build --show_result=0
+# Don't create bazel-* symlinks in the WORKSPACE directory.
+# These require .gitignore and may scare users.
+# Also, it's a workaround for https://github.com/bazelbuild/rules_typescript/issues/12
+# which affects the common case of having `tsconfig.json` in the WORKSPACE directory.
+#
+# Instead, you should run `bazel info bazel-bin` to find out where the outputs went.
+build --symlink_prefix=dist/
 
-# Be more like other parts of JavaScript toolchain: print failing test results
 test --test_output=errors
+
+# Use the Angular 6 compiler
+build --define=compile=legacy

@@ -5,11 +5,19 @@ alias(
     actual = "@nodejs//:yarn",
 )
 
+# ts_library and ng_module use the `//:tsconfig.json` target
+# by default. This alias allows omitting explicit tsconfig
+# attribute.
+alias(
+    name = "tsconfig.json",
+    actual = "//src:tsconfig.app.json",
+)
+
 # This export allows targets in other packages to reference files that live
 # in this package.
 exports_files([
-    "tsconfig.json",
-    # Let devserver and testing targets reference zone.js distro
+    # Let devserver and testing targets reference systemjs & zone.js distros
+    "node_modules/systemjs/dist/system.js",
     "node_modules/zone.js/dist/zone.min.js",
     "node_modules/zone.js/dist/zone-testing-bundle.js",
 ])
@@ -31,7 +39,6 @@ filegroup(
         exclude = [
             # Exclude files with spaces which are illegal bazel labels
             "node_modules/**/* *",
-            "node_modules/@angular/**",
         ],
     ) + ["@build_bazel_rules_typescript//:node_modules"],
     # "@build_bazel_rules_typescript//:node_modules" is incluced

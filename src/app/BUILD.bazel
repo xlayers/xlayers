@@ -1,0 +1,17 @@
+package(default_visibility = ["//visibility:public"])
+
+load("@angular//:index.bzl", "ng_module")
+
+ng_module(
+    name = "app",
+    srcs = [
+        "app.component.ts",
+        "app.module.ts",
+    ],
+    tsconfig = ":tsconfig.app.json",
+    deps = [
+        "//src/app/home",
+        "//src/app/editor",
+        "//src/app/core"
+    ],
+)
