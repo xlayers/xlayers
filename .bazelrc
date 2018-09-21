@@ -15,3 +15,11 @@ test --test_output=errors
 
 # Use the Angular 6 compiler
 build --define=compile=legacy
+
+# More details on failures
+build --verbose_failures=true
+
+# Print all the options that apply to the build.
+# This helps us diagnose which options override others
+# (e.g. /etc/bazel.bazelrc vs. tools/bazel.rc)
+build --announce_rc
