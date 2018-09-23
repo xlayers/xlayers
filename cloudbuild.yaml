@@ -63,6 +63,8 @@ steps:
   env:
   - 'CLOUDSDK_COMPUTE_ZONE=europe-north1-a'
   - 'CLOUDSDK_CONTAINER_CLUSTER=xlayers-staging'
+  - 'SHORT_SHA=$SHORT_SHA'
+  - 'BRANCH_NAME=$BRANCH_NAME'
 
 images:
   - 'gcr.io/$PROJECT_ID/xlayers:$SHORT_SHA'
