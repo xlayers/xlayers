@@ -53,18 +53,25 @@ steps:
   - 'CLOUDSDK_COMPUTE_ZONE=europe-north1-a'
   - 'CLOUDSDK_CONTAINER_CLUSTER=cluster-1'
 
+# Patch a new Ingress ressource for the build $SHORT_SHA
+
+- name: 'gcr.io/cross-xlayers/ngcontainer'
+  entrypoint: 'sh'
+  args: 
+    - '-c'
+    - |
+        perl -pe "s/SHORT_SHA/$SHORT_SHA/g" scripts/cloudbuild/xlayers.template.yaml > xlayers.$SHORT_SHA.yaml
+
 # # Apply a new Ingress ressource for the build $SHORT_SHA
 
 - name: 'gcr.io/cloud-builders/kubectl'
   args:
     - 'apply'
     - '-f' 
-    - 'xlayers.yaml'
+    - 'xlayers.$SHORT_SHA.yaml'
   env:
   - 'CLOUDSDK_COMPUTE_ZONE=europe-north1-a'
   - 'CLOUDSDK_CONTAINER_CLUSTER=xlayers-staging'
-  - 'SHORT_SHA=$SHORT_SHA'
-  - 'BRANCH_NAME=$BRANCH_NAME'
 
 images:
   - 'gcr.io/$PROJECT_ID/xlayers:$SHORT_SHA'
