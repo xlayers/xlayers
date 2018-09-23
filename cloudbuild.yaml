@@ -115,12 +115,12 @@ steps:
 
 # Patch a new Ingress ressource for the build $SHORT_SHA
 
-- name: 'gcr.io/cross-xlayers/ngcontainer'
-  entrypoint: 'sh'
-  args: 
-    - '-c'
-    - |
-        perl -pe "s/SHORT_SHA/$SHORT_SHA/g" scripts/cloudbuild/xlayers.template.yaml > xlayers.$SHORT_SHA.yaml
+# - name: 'gcr.io/cross-xlayers/ngcontainer'
+#   entrypoint: 'sh'
+#   args: 
+#     - '-c'
+#     - |
+#         perl -pe "s/SHORT_SHA/$SHORT_SHA/g" scripts/cloudbuild/xlayers.template.yaml > xlayers.$SHORT_SHA.yaml
 
 # Apply a new Ingress ressource for the build $SHORT_SHA
 
@@ -128,7 +128,7 @@ steps:
   args:
     - 'apply'
     - '-f' 
-    - 'xlayers.$SHORT_SHA.yaml'
+    - 'xlayers.yaml'
   env:
   - 'CLOUDSDK_COMPUTE_ZONE=europe-north1-a'
   - 'CLOUDSDK_CONTAINER_CLUSTER=xlayers-staging'

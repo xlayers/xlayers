@@ -1,11 +1,11 @@
-#!/bin/bash
+#!/bin/sh
 
 if [[ -z "${SHORT_SHA}" ]]; then
     b=`git rev-parse --abbrev-ref HEAD`
     v=`git rev-parse --short HEAD`
     version="$b+sha.$v"
 else
-    version="${BRANCH_NAME}+sha.${SHORT_SHA}"
+    version="${BRANCH_NAME}+sha.${SHORT_SHA} (preview)"
 fi
 
 ## replease _BUILD_HASH_ with the current build number
