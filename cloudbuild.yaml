@@ -60,7 +60,7 @@ steps:
   args: 
     - '-c'
     - |
-        perl -pe "s/SHORT_SHA/$SHORT_SHA/g" scripts/cloudbuild/xlayers.template.yaml > xlayers.$SHORT_SHA.yaml
+        perl -pe "s/_SHORT_SHA_/$SHORT_SHA/g" scripts/cloudbuild/xlayers.template.yaml > xlayers.$SHORT_SHA.yaml
 
 # # Apply a new Ingress ressource for the build $SHORT_SHA
 

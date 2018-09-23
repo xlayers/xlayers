@@ -1,7 +1,7 @@
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  name: ingress-$SHORT_SHA
+  name: ingress-_SHORT_SHA_
   annotations:
     kubernetes.io/ingress.class: "nginx"
     ingress.kubernetes.io/ssl-redirect: "true"
@@ -10,12 +10,12 @@ metadata:
     kubernetes.io/tls-acme: "true"
 spec:
   rules:
-  - host: xlayer-$BRANCH_NAME-$SHORT_SHA.angular.run
+  - host: xlayer-_SHORT_SHA_.angular.run
     http:
       paths:
         - path: /
           backend:
-            serviceName: xlayers-$SHORT_SHA
+            serviceName: xlayers-_SHORT_SHA_
             servicePort: 80
   tls:
   - secretName: nginx-ingress-nginx-secret
@@ -25,29 +25,29 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: xlayers-$SHORT_SHA
+  name: xlayers-_SHORT_SHA_
 spec:
   type: NodePort
   ports:
     - port: 80
   selector:
-    app: xlayers-$SHORT_SHA
+    app: xlayers-_SHORT_SHA_
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: xlayers-$SHORT_SHA
+  name: xlayers-_SHORT_SHA_
 spec:
   selector:
     matchLabels:
-      app: xlayers-$SHORT_SHA
+      app: xlayers-_SHORT_SHA_
   template:
     metadata:
       labels:
-        app: xlayers-$SHORT_SHA
+        app: xlayers-_SHORT_SHA_
     spec:
       containers:
         - name: xlayers
-          image: gcr.io/cross-xlayers/xlayers:$SHORT_SHA
+          image: gcr.io/cross-xlayers/xlayers:_SHORT_SHA_
           ports:
           - containerPort: 80
