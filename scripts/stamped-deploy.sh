@@ -5,7 +5,7 @@ if [[ -z "${SHORT_SHA}" ]]; then
     v=`git rev-parse --short HEAD`
     version="$b+sha.$v"
 else
-    version="${DEPLOY_ENV}"
+    version="${BRANCH_NAME}+sha.${SHORT_SHA}"
 fi
 
 ## replease _BUILD_HASH_ with the current build number
