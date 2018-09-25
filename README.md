@@ -4,22 +4,18 @@
 
 <p align="center" >
 
-  <img src="https://img.shields.io/github/license/manekinekko/xlayers.svg"/>
-  
-  <a href="https://app.buddy.works/manekinekko-1/xlayers/pipelines/pipeline/149790">
-    <img src="https://app.buddy.works/manekinekko-1/xlayers/pipelines/pipeline/149790/badge.svg?token=cee6a291d42aeeb701176104f8623d429614bf77cb0c7d7b68bc5a342e49ffe9"/>
-  </a>
-  
+  <img src="https://img.shields.io/github/license/xlayers/xlayers.svg"/>
+
   <a href="https://gitter.im/xlayers">
     <img src="https://img.shields.io/gitter/room/xlayers/Lobby.svg"/>
   </a>
   
   <a href="https://github.com/xlayers/xlayers/compare/master...develop">
-    <img src="https://img.shields.io/github/commits-since/manekinekko/xlayers/master.svg?label=commits%20to%20deploy"/>
+    <img src="https://img.shields.io/github/commits-since/xlayers/xlayers/master.svg?label=commits%20to%20deploy"/>
   </a>
   
  <a href="https://github.com/xlayers/xlayers">
-    <img src="https://img.shields.io/github/contributors/manekinekko/xlayers.svg"/>
+    <img src="https://img.shields.io/github/contributors/xlayers/xlayers.svg"/>
   </a>
   
  <a href="https://xlayers.app">
@@ -54,7 +50,7 @@
 </p>
 
 <p align="center">View and generate code from Sketch files online</p>
-<img align="center" src="https://github.com/manekinekko/xlayers/blob/master/src/assets/xlayers-ui-1.png?raw=true"/>
+<img align="center" src="https://github.com/xlayers/xlayers/blob/master/src/assets/xlayers-ui-1.png?raw=true"/>
 
 ## Want to help? [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/xlayers/xlayers/issues)
 Want to file a bug, contribute some code, or improve documentation? Excellent! Read up on our guidelines for [contributing](https://github.com/xlayers/xlayers/blob/master/CONTRIBUTING.md) and then check out one of our issues in the hotlist: [community-help](https://github.com/xlayers/xlayers/issues).
