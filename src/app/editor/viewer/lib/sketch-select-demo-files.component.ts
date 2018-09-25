@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output, ViewEncapsulation } from '@angular/core';
+import { SketchService } from './sketch.service';
 
 @Component({
   selector: 'sketch-select-demo-files',
@@ -7,7 +8,7 @@ import { Component, EventEmitter, Input, OnInit, Output, ViewEncapsulation } fro
     <mat-form-field>
       <mat-select [(value)]="selectedDemoFile">
         <mat-option value="">Select a demo file</mat-option>
-        <mat-option *ngFor="let file of demoFiles" value="{{file}}">{{file}}</mat-option>
+        <mat-option *ngFor="let file of sketchService.getDemoFiles()" value="{{file}}">{{file}}</mat-option>
       </mat-select>
     </mat-form-field>
     <button mat-icon-button class="confirm-button" *ngIf="selectedDemoFile" (click)="confirmSelectedDemoFile()">
@@ -45,24 +46,11 @@ import { Component, EventEmitter, Input, OnInit, Output, ViewEncapsulation } fro
 })
 export class SketchSelectDemoFilesComponent implements OnInit {
   public selectedDemoFile = '';
-  public demoFiles = [
-    'md-components-notifications-heads-up',
-    'md-components-cards-welcome-back',
-    'md-components-keyboards',
-    'md-components-tabs-status-bar',
-    'md-components-cards-safari',
-    'md-components-date-picker',
-    'md-components-chips-open-chip',
-    'md-components-cards-homes',
-    'md-components-buttons-lights',
-    'md-components-cards-pooch',
-    'md-components-buttons-fabs-light'
-  ];
 
   @Input() public error: boolean;
   @Output() private changed: EventEmitter<string> = new EventEmitter();
 
-  constructor() { }
+  constructor(public sketchService: SketchService) { }
 
   ngOnInit() { }
 
