@@ -5,7 +5,8 @@
 export const environment = {
   production: false,
   hmr: false,
-  version: '_BUILD_HASH_'
+  version: '_BUILD_HASH_',
+  baseUrl: 'http://localhost:4200'
 };
 
 /*

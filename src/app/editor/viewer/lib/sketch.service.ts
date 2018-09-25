@@ -1,6 +1,8 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { SketchStyleParserService } from './parsers/sketch-style-parser.service';
+import { environment } from 'src/environments/environment';
 
 export interface SketchUser {
   [key: string]: {
@@ -23,7 +25,22 @@ export interface SketchData {
 })
 export class SketchService {
   _data: SketchData;
-  constructor(private sanitizer: DomSanitizer, private sketchColorParser: SketchStyleParserService) {
+
+  public demoFiles = [
+    'md-components-notifications-heads-up',
+    'md-components-cards-welcome-back',
+    'md-components-keyboards',
+    'md-components-tabs-status-bar',
+    'md-components-cards-safari',
+    'md-components-date-picker',
+    'md-components-chips-open-chip',
+    'md-components-cards-homes',
+    'md-components-buttons-lights',
+    'md-components-cards-pooch',
+    'md-components-buttons-fabs-light'
+  ];
+
+  constructor(private sanitizer: DomSanitizer, private sketchColorParser: SketchStyleParserService, private http: HttpClient) {
     this._data = {
       pages: [],
       previews: [],
@@ -124,5 +141,14 @@ export class SketchService {
 
   getPages(): SketchMSPage[] {
     return this._data.pages;
+  }
+
+  getDemoFiles() {
+    return this.demoFiles;
+  }
+
+  getSketchDemoFile(filename: string) {
+    const repoUrl = `${environment.baseUrl}/assets/demos/sketchapp/`;
+    return this.http.get(`${repoUrl}${filename}.sketch`, { responseType: 'blob' });
   }
 }

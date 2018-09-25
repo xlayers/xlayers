@@ -110,7 +110,7 @@ export class SettingsLayerColorsComponent implements OnInit {
   computeBackgourndGradient() {
     if (this.componentStyle) {
       if (this.isBackgroundGradient()) {
-        this.gradients = this.componentStyle['background-color'].match(/(rgba[\d,()% ]+)/gsu).map(match => {
+        this.gradients = this.componentStyle['background-color'].match(/(rgba[ %\(\),0-9]+)/gu).map(match => {
           const m = match.split(' ');
           return {
             backgroundColor: m[0],
