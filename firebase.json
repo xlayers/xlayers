@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "public": "dist/angular-sketch",
+    "public": "dist/xlayers",
     "ignore": [
       "firebase.json",
       "**/.*",

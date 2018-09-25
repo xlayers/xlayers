@@ -10,7 +10,7 @@
     "test:ci": "ng test --watch=false --sourceMap=false",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "deploy": "ng build --prod && firebase deploy"
+    "deploy": "npm run build && firebase deploy"
   },
   "private": true,
   "dependencies": {
