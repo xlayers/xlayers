@@ -19,6 +19,13 @@
 .mat-toolbar {
   position: fixed;
   z-index: 9;
+  min-width: 1000px;
+}
+
+@media (max-width: 599px) {
+  .mat-toolbar-row, .mat-toolbar-single-row {
+      height: 64px;
+  }
 }
 
 [hidden] {
@@ -110,7 +117,6 @@ button[mat-button] {
 }
 
 .row-header {
-  /* height: 30px; */
   align-items: stretch;
   display: flex;
 }
