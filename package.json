@@ -41,8 +41,8 @@
   "devDependencies": {
     "@angular-devkit/build-angular": "angular/angular-devkit-build-angular-builds#master",
     "@angular-devkit/build-ng-packagr": "angular/angular-devkit-build-ng-packagr-builds#master",
-    "@angular-devkit/build-webpack": "angular/angular-devkit-build-webpack-builds#master",
     "@angular-devkit/build-optimizer": "angular/angular-devkit-build-optimizer-builds#master",
+    "@angular-devkit/build-webpack": "angular/angular-devkit-build-webpack-builds#master",
     "@angular/cli": "angular/cli-builds#master",
     "@angular/compiler-cli": "angular/compiler-cli-builds#master",
     "@angular/language-service": "angular/language-service-builds#master",
@@ -65,6 +65,7 @@
     "ng-packagr": "^3.0.0-rc.2",
     "protractor": "^5.4.0",
     "puppeteer": "^1.8.0",
+    "speed-measure-webpack-plugin": "^1.2.3",
     "ts-node": "~5.0.1",
     "tsickle": ">=0.25.5",
     "tslib": "^1.7.1",
