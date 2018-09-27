@@ -1,27 +1,4 @@
 steps:
-- name: 'gcr.io/cross-xlayers/ngcontainer'
-  entrypoint: 'bash'
-  
-  # Check BUILD.bazel formatting before we have a node_modules directory
-  # Then we don't need any exclude pattern to avoid checking those files
-  args: 
-    - '-c'
-    - |
-    - buildifier -mode=check $(find . -type f \( -name "*.bzl" -or -name BUILD.bazel -or -name BUILD \)) || 
-        (echo "BUILD files not formatted." ; exit 1'
-
-- name: 'gcr.io/cross-xlayers/ngcontainer'
-  entrypoint: 'bash'
-  
-  # Run the skylark linter to check our Bazel rules
-  # deprecated-api is disabled because we use actions.new_file(genfiles_dir)
-  # which has no replacement, see https://github.com/bazelbuild/bazel/issues/4858
-  args: 
-    - '-c'
-    - |
-    - find . -type f -name "*.bzl" |
-              xargs java -jar /usr/local/bin/Skylint_deploy.jar --disable-checks=deprecated-api || 
-              (echo -e "\n.bzl files have lint errors. Please run ''yarn skylint''"; exit 1)
 
 - name: 'gcr.io/cross-xlayers/ngcontainer'
   entrypoint: 'npm'
@@ -33,24 +10,75 @@ steps:
 
 - name: 'gcr.io/cross-xlayers/ngcontainer'
   entrypoint: 'npm'
-  args: ['run', 'build']
+  args: ['run', 'build', '--', '--output-path', 'dist/html']
 
-## TODO: enable an Ingress controller for k8s in order to preview each new build   
+# Build new snapshot images and push them to Cloud Registry
 
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['build', '-t', 'gcr.io/$PROJECT_ID/xlayers:$SHORT_SHA', '.']
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['push', 'gcr.io/$PROJECT_ID/xlayers:$SHORT_SHA']
 # - name: 'gcr.io/cloud-builders/docker'
-#   args: ['build', '-t', 'gcr.io/$PROJECT_ID/xlayers:$SHORT_SHA', '.']
-# - name: 'gcr.io/cloud-builders/docker'
-#   args: ['push', 'gcr.io/$PROJECT_ID/xlayers:$SHORT_SHA']
+#   args: ['pull', 'gcr.io/$PROJECT_ID/xlayers:latest']
+- name: 'gcr.io/cloud-builders/docker'
+  args: 
+    - 'build'
+    - '-t'
+    - 'gcr.io/$PROJECT_ID/xlayers:latest'
+    # - '--cache-from'
+    # - 'gcr.io/$PROJECT_ID/xlayers:latest'
+    - '.'
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['push', 'gcr.io/$PROJECT_ID/xlayers:latest']
+
+# Patch a new Ingress ressource for the build $SHORT_SHA
+
+- name: 'gcr.io/cross-xlayers/ngcontainer'
+  entrypoint: 'sh'
+  args: 
+    - '-c'
+    - |
+        perl -pe "s/{{SHORT_SHA}}/$SHORT_SHA/g" scripts/cloudbuild/xlayers.template.yaml > xlayers.$SHORT_SHA.yaml
+
+# Apply a new Ingress ressource for the build $SHORT_SHA
+
+- name: 'gcr.io/cloud-builders/kubectl'
+  args:
+    - 'apply'
+    - '-f' 
+    - 'xlayers.$SHORT_SHA.yaml'
+  env:
+  - 'CLOUDSDK_COMPUTE_ZONE=europe-north1-a'
+  - 'CLOUDSDK_CONTAINER_CLUSTER=cluster-1'
+
+# Copy the content of dist directory to the Persistent Volume
+
 # - name: 'gcr.io/cloud-builders/kubectl'
-#   args:
-#   - 'set'
-#   - 'image'
-#   - 'deployment/$PROJECT_ID-staging'
-#   - 'xlayers=gcr.io/$PROJECT_ID/xlayers'
+#   args: 
+#     - 'cp'
+#     - './dist/html'
+#     - 'nginx-ingress-nginx-0:/usr/share/nginx/html'
+
 #   env:
 #   - 'CLOUDSDK_COMPUTE_ZONE=europe-north1-a'
-#   - 'CLOUDSDK_CONTAINER_CLUSTER=xlayers-staging'
+#   - 'CLOUDSDK_CONTAINER_CLUSTER=cluster-1'
 
-# images:
-#   - 'gcr.io/$PROJECT_ID/xlayers:$SHORT_SHA'
-#   - 'gcr.io/$PROJECT_ID/xlayers'
+# # Set permissions so NGINX server has access to the newly uploaded html directory
+
+# - name: 'gcr.io/cloud-builders/kubectl'
+#   args: 
+#     - 'exec'
+#     - 'nginx-ingress-nginx-0'
+#     - '--'
+#     - 'chmod'
+#     - '-R'
+#     - 'a+r'
+#     - '/usr/share/nginx/html'
+
+#   env:
+#   - 'CLOUDSDK_COMPUTE_ZONE=europe-north1-a'
+#   - 'CLOUDSDK_CONTAINER_CLUSTER=cluster-1'
+
+images:
+  - 'gcr.io/$PROJECT_ID/xlayers:$SHORT_SHA'
+  - 'gcr.io/$PROJECT_ID/xlayers:latest'
