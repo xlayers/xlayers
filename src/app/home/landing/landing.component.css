@@ -13,7 +13,7 @@ header {
 header h1 {
   text-align: center;
   font-weight: 100;
-  font-size: 3em;
+  font-size: 2.5em;
   padding: 22px 0 0;
 }
 
@@ -67,7 +67,7 @@ header img {
   padding: 10px 30px;
   text-decoration: none;
   border-radius: 50px;
-  font-size: 2em;
+  font-size: 1.5em;
   background: linear-gradient(217deg, #ff6c5f, #ff4f81 70.71%),
     linear-gradient(127deg, #3369e7, #b84592 70.71%),
     linear-gradient(336deg, #ff4f81, #ffc168 70.71%);
@@ -113,6 +113,11 @@ footer i {
   text-align: center;
 }
 
+.bg img {
+  width: 600px;
+  max-width: 100%;
+}
+
 .bg p {
   padding: 0px 60px;
 }
@@ -120,8 +125,8 @@ footer i {
 .bg-2:before {
   content: '';
   display: block;
-  width: 200px;
-  height: 200px;
+  width: 150px;
+  height: 150px;
   position: absolute;
   background: url(/assets/xlayers-bg-2.png) -270px -80px/680px no-repeat;
   border-radius: 50%;
@@ -133,8 +138,8 @@ footer i {
 .bg-3:before {
   content: '';
   display: block;
-  width: 200px;
-  height: 200px;
+  width: 150px;
+  height: 150px;
   position: absolute;
   background: url(/assets/xlayers-bg-3.png) -60px -80px/680px no-repeat;
   border-radius: 50%;
@@ -144,8 +149,22 @@ footer i {
 }
 
 @media (min-width: 500px) {
+  header h1 {
+    font-size: 3em;
+  }
+
+  .try-it a {
+    font-size: 2em;
+  }
+
+  .bg p {
+    font-size: 24px;
+  }
+
   .bg-2:before,
   .bg-3:before {
+    width: 200px;
+    height: 200px;
     margin-top: -106px;
   }
 }
