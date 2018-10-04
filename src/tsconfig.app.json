@@ -4,9 +4,10 @@
     "outDir": "../out-tsc/app",
     "module": "es2015",
     "types": ["node"],
-    "paths": {
-      "@manekinekko/ngx-sketch-viewer": ["dist/manekinekko/ngx-sketch-viewer"]
-    }
+    "lib": [
+      "es2017",
+      "dom"
+    ]
   },
   "exclude": ["src/test.ts", "**/*.spec.ts"]
 }
