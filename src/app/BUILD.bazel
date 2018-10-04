@@ -8,7 +8,7 @@ ng_module(
         "app.component.ts",
         "app.module.ts",
     ],
-    tsconfig = ":tsconfig.app.json",
+    tsconfig = "//src:tsconfig.app.json",
     deps = [
         "//src/app/home",
         "//src/app/editor",

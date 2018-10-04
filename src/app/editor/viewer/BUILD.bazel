@@ -9,6 +9,7 @@ ng_module(
         "viewer.module.ts",
     ],
     deps = [
+        "//src/app/editor/viewer/lib",
     ],
 )
 

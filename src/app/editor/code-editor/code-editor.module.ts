@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MonacoEditorModule, NgxMonacoEditorConfig } from 'ngx-monaco-editor';
-import { CoreModule } from 'src/app/core/core.module';
+import { CoreModule } from '../../core/core.module';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 export function onMonacoLoad() {
