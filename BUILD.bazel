@@ -37,7 +37,13 @@ filegroup(
             "node_modules/.bin/*",
         ],
         exclude = [
-            # Exclude files with spaces which are illegal bazel labels
+            # Files under test & docs may contain file names that
+            # are not legal Bazel labels (e.g.,
+            # node_modules/ecstatic/test/public/中文/檔案.html)
+            "node_modules/**/test/**",
+            "node_modules/**/docs/**",
+            # Files with spaces in the name are not legal Bazel labels
+            "node_modules/**/* */**",
             "node_modules/**/* *",
         ],
     ) + ["@build_bazel_rules_typescript//:node_modules"],

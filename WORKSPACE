@@ -11,21 +11,13 @@ workspace(name = "xlayers")
 # This commit matches the version of buildifier in angular/ngcontainer
 # If you change this, also check if it matches the version in the angular/ngcontainer
 # version in /.circleci/config.yml
-BAZEL_BUILDTOOLS_VERSION = "82b21607e00913b16fe1c51bec80232d9d6de31c"
+BAZEL_BUILDTOOLS_VERSION = "49a6c199e3fbf5d94534b2771868677d3f9c6de9"
 
 http_archive(
     name = "com_github_bazelbuild_buildtools",
     url = "https://github.com/bazelbuild/buildtools/archive/%s.zip" % BAZEL_BUILDTOOLS_VERSION,
     strip_prefix = "buildtools-%s" % BAZEL_BUILDTOOLS_VERSION,
-    sha256 = "edb24c2f9c55b10a820ec74db0564415c0cf553fa55e9fc709a6332fb6685eff",
-)
-
-# Provides nodejs rules like rollup_bundle
-http_archive(
-    name = "build_bazel_rules_nodejs",
-    url = "https://github.com/bazelbuild/rules_nodejs/archive/0.12.4.zip",
-    strip_prefix = "rules_nodejs-0.12.4",
-    sha256 = "c482700e032b4df60425cb9a6f8f28152fb1c4c947a9d61e6132fc59ce332b16",
+    sha256 = "edf39af5fc257521e4af4c40829fffe8fba6d0ebff9f4dd69a6f8f1223ae047b",
 )
 
 # Runs the TypeScript compiler
@@ -48,9 +40,9 @@ http_archive(
 # The @angular repo contains rule for building Angular applications
 http_archive(
     name = "angular",
-    url = "https://github.com/angular/angular/archive/6.1.7.zip",
-    strip_prefix = "angular-6.1.7",
-    sha256 = "bd6bd47b8b65254da78158b354c4b0ffc18b9591bcc82863e359fc8d3e1cc609",
+    url = "https://github.com/angular/angular/archive/6.1.8.zip",
+    strip_prefix = "angular-6.1.8",
+    sha256 = "5ac6694f7c694afe34767aff4a0dd0408e25b0493cea675c2bb075c123adc46a",
 )
 
 # The @rxjs repo contains targets for building rxjs with bazel
@@ -67,6 +59,8 @@ load("@build_bazel_rules_nodejs//:defs.bzl", "node_repositories", "yarn_install"
 node_repositories(
     package_json = ["//:package.json"],
     preserve_symlinks = True,
+    node_version = "10.9.0",
+    yarn_version = "1.9.2",
 )
 
 load("@io_bazel_rules_go//go:def.bzl", "go_rules_dependencies", "go_register_toolchains")
