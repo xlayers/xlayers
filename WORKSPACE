@@ -45,6 +45,14 @@ http_archive(
     sha256 = "5ac6694f7c694afe34767aff4a0dd0408e25b0493cea675c2bb075c123adc46a",
 )
 
+# The @angular-material repo contains rule for building Angular applications with MD
+http_archive(
+    name = "angular_material",
+    url = "https://github.com/angular/material2/archive/6.4.7.zip",
+    strip_prefix = "material2-6.4.7",
+    sha256 = "bf85cc4040a359e0e5a16ec395a96d26eb48934df8919895c81a2a0d85f16299"
+)
+
 # The @rxjs repo contains targets for building rxjs with bazel
 local_repository(
     name = "rxjs",
