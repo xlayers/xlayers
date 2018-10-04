@@ -9,7 +9,7 @@ build --strategy=AngularTemplateCompile=worker
 # which affects the common case of having `tsconfig.json` in the WORKSPACE directory.
 #
 # Instead, you should run `bazel info bazel-bin` to find out where the outputs went.
-build --symlink_prefix=dist/
+build --symlink_prefix=dist/html/
 
 test --test_output=errors
 
@@ -23,3 +23,9 @@ build --verbose_failures=true
 # This helps us diagnose which options override others
 # (e.g. /etc/bazel.bazelrc vs. tools/bazel.rc)
 build --announce_rc
+
+# Show which actions are running under which workers and print all
+# the actions running in parallel. This shows that Bazel runs on all
+# cores of a CPU.
+build --experimental_ui
+test --experimental_ui
