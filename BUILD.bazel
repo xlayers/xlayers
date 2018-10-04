@@ -52,3 +52,8 @@ filegroup(
     # node_modules/@bazel/typescript/node_modules because of conflicting
     # versions can be resolved correctly
 )
+
+filegroup(
+  name = "hammerjs_bundle",
+  srcs = glob(["node_modules/hammerjs/hammerjs.min.js"]),
+)
