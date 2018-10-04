@@ -7,7 +7,9 @@ ng_module(
     name = "code-editor",
     srcs = glob(["**/*.ts"], exclude=["**/*.spec.ts"]),
     assets = [],
-    deps = [],
+    deps = [
+        "//src/app/core"
+    ],
 )
 
 ts_library(

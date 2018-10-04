@@ -12,6 +12,6 @@ ng_module(
     deps = [
         "//src/app/home",
         "//src/app/editor",
-        "//src/app/core"
+        "//src/app/core",
     ],
 )

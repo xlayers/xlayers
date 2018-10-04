@@ -5,5 +5,10 @@ load("@angular//:index.bzl", "ng_module")
 ng_module(
     name = "core",
     srcs = glob(["**/*.ts"]),
-    deps = [],
+    deps = [
+        "@angular_material//src/lib/slider"
+    ],
+    data = [
+        "//:node_modules/zone.js/dist/zone.min.js",
+    ]
 )

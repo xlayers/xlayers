@@ -1,6 +1,6 @@
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Action, Selector, State, StateContext } from '@ngxs/store';
-import { SketchData } from 'src/app/editor/viewer/lib/sketch.service';
+import { SketchData } from '../../editor/viewer/lib/sketch.service';
 
 export interface LayerCSS {
   transform: string;

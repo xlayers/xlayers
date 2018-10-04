@@ -13,9 +13,12 @@ ng_module(
         ":landing/landing.component.html",
         ":landing/landing.component.css",
     ],
-    deps = [],
     data = [
-        "//src/environments:environment.ts"
+        "//:hammerjs_bundle",
+    ],
+    deps = [
+        "//src/environments",
+        "@angular//packages/router",
     ]
 )
 

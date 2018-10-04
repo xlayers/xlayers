@@ -4,8 +4,9 @@ load("@angular//:index.bzl", "ng_module")
 
 ng_module(
     name = "lib",
-    srcs = glob(["*.ts"]),
+    srcs = glob(["**/*.ts"]),
+    tsconfig = "//:tsconfig.json",
     deps = [
-        "//src/app/editor/viewer/lib/parsers",
+        "//src/app/core"
     ],
 )
