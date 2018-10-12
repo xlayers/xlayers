@@ -165,7 +165,7 @@ export class SketchStyleParserService {
     if (fills.length > 0) {
       // we only support one fill: take the first one!
       // ignore the other fills
-      const firstFill = fills.pop();
+      const firstFill = fills[0];
 
       this.setStyle(obj, root, {
         'background-color': `${this.parseColors(firstFill.color).rgba}`
