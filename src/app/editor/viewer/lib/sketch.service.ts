@@ -51,7 +51,7 @@ export class SketchService {
   }
 
   async process(file: File) {
-    this._data = await this.sktech2Json(file);
+    this._data = await this.sketch2Json(file);
     this.parseColors(this._data.pages);
     return this._data;
   }
@@ -60,8 +60,37 @@ export class SketchService {
     this.sketchColorParser.visit(pages);
   }
 
-  async sktech2Json(file) {
-    return new Promise<SketchData>((resolve, reject) => {
+  async readZipEntries(file) {
+    return new Promise<any>((resolve) => {
+      const reader = new FileReader();
+      reader.onload = async readerEvent => {
+        const data = (readerEvent.target as FileReader).result;
+        const zip = await window['JSZip'].loadAsync(data);
+        const zips = [];
+        zip.forEach((relativePath, zipEntry) => {
+          zips.push({relativePath, zipEntry});
+        });
+        resolve(zips);
+      };
+      reader.readAsArrayBuffer(file);
+    });
+  }
+
+  async computeImage(source) {
+    return new Promise<HTMLImageElement>((resolve, reject) => {
+      const image = new Image();
+      image.onload = _imageLoadEvent => {
+        resolve(image);
+      };
+      image.onerror = _error => {
+        reject('Could not load a Sketch preview');
+      };
+      image.src = source;
+    });
+  }
+
+  async sketch2Json(file) {
+    return new Promise<SketchData>(async (resolve, reject) => {
       const _data: SketchData = {
         pages: [],
         previews: [],
@@ -69,73 +98,48 @@ export class SketchService {
         user: {},
         meta: {}
       } as any;
-      const reader = new FileReader();
-      reader.onload = async readerEvent => {
-        const data = (readerEvent.target as FileReader).result;
+      const zips = await this.readZipEntries(file);
 
-        const zip = await window['JSZip'].loadAsync(data);
+      await Promise.all(zips.map(async ({relativePath, zipEntry}) => {
+        if (relativePath === 'previews/preview.png') {
+          const content = await zipEntry.async('base64');
+          const source = `data:image/png;base64,${content}`;
+          const image = await this.computeImage(source);
+          _data.previews.push({
+            source,
+            width: image.width,
+            height: image.height
+          });
+        } else if (relativePath.startsWith('pages/')) {
+          const content = await zipEntry.async('string');
 
-        zip.forEach(async (relativePath, zipEntry) => {
-          if (relativePath === 'previews/preview.png') {
-            const content = await zipEntry.async('base64');
-            const source = `data:image/png;base64,${content}`;
-
-            // compute the image preview size
-            const image = new Image();
-            image.onload = imageLoadEvent => {
-              _data.previews.push({
-                source,
-                width: image.width,
-                height: image.height
-              });
-            };
-            image.onerror = error => {
-              reject('Could not load a Sketch preview');
-            };
-            image.src = source;
-          } else if (relativePath.startsWith('pages/')) {
-            const content = await zipEntry.async('string');
-
-            try {
-              const page = JSON.parse(content) as SketchMSPage;
-              _data.pages.push(page);
-            } catch (e) {
-              reject('Could not load page');
-            }
-          } else if (relativePath.startsWith('images/')) {
-            const blob = await zipEntry.async('blob');
-            const objectUrl = URL.createObjectURL(blob);
-
-            // compute the image preview size
-            const image = new Image();
-            image.onload = imageLoadEvent => {
-              _data.previews.push({
-                source: objectUrl,
-                width: image.width,
-                height: image.height
-              });
-            };
-            image.onerror = error => {
-              reject('Could not load a Sketch preview');
-            };
-
-            // @todo deal with SafeResourceUrl!!
-            image.src = this.sanitizer.bypassSecurityTrustResourceUrl(objectUrl).toString();
-          } else {
-            // document.json
-            // user.json
-            // meta.json
-            const content = await zipEntry.async('string');
-            const json = JSON.parse(content);
-            _data[relativePath.replace('.json', '')] = json;
+          try {
+            const page = JSON.parse(content) as SketchMSPage;
+            _data.pages.push(page);
+          } catch (e) {
+            reject('Could not load page');
           }
-        });
+        } else if (relativePath.startsWith('images/')) {
+          const blob = await zipEntry.async('blob');
+          const objectUrl = URL.createObjectURL(blob);
+          // @todo deal with SafeResourceUrl!!
+          const source = this.sanitizer.bypassSecurityTrustResourceUrl(objectUrl).toString();
+          const image = await this.computeImage(source);
+          _data.previews.push({
+            source: objectUrl,
+            width: image.width,
+            height: image.height
+          });
+        } else {
+          // document.json
+          // user.json
+          // meta.json
+          const content = await zipEntry.async('string');
+          _data[relativePath.replace('.json', '')] = JSON.parse(content);
+        }
+      }));
 
-        // reschedule the resolve. Other the promise will be
-        // resolved too early.
-        setTimeout(_ => resolve(_data), 0);
-      };
-      reader.readAsArrayBuffer(file);
+      resolve(_data);
     });
   }
 
