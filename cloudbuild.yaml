@@ -1,12 +1,4 @@
 steps:
-- name: 'gcr.io/cross-xlayers/kubectl:1.10'
-  args: 
-    - get
-    - all
-  env:
-  - 'CLOUDSDK_COMPUTE_ZONE=europe-north1-a'
-  - 'CLOUDSDK_CONTAINER_CLUSTER=xlayers-staging'
-
 # - name: 'gcr.io/cross-xlayers/ngcontainer'
 #   entrypoint: 'bash'
   
@@ -31,28 +23,28 @@ steps:
 #               xargs java -jar /usr/local/bin/Skylint_deploy.jar --disable-checks=deprecated-api || 
 #               (echo -e "\n.bzl files have lint errors. Please run ''yarn skylint''"; exit 1)
 
-# - name: 'gcr.io/cross-xlayers/ngcontainer'
-#   entrypoint: 'npm'
-#   args: ['install']
+- name: 'gcr.io/cross-xlayers/ngcontainer'
+  entrypoint: 'npm'
+  args: ['install']
 
-# - name: 'gcr.io/cross-xlayers/ngcontainer'
-#   entrypoint: 'npm'
-#   args: ['run', 'test:ci']
+- name: 'gcr.io/cross-xlayers/ngcontainer'
+  entrypoint: 'npm'
+  args: ['run', 'test:ci']
 
-# - name: 'gcr.io/cross-xlayers/ngcontainer'
-#   entrypoint: 'npm'
-#   args: ['run', 'build', '--', '--output-path', 'dist/html']
+- name: 'gcr.io/cross-xlayers/ngcontainer'
+  entrypoint: 'npm'
+  args: ['run', 'build', '--', '--output-path', 'dist/html']
 
-# # Build snapshot images and push them to Cloud Registry
+# Build snapshot images and push them to Cloud Registry
 
-# # - name: 'gcr.io/cloud-builders/docker'
-# #   args: ['build', '-t', 'gcr.io/$PROJECT_ID/xlayers:$SHORT_SHA', '.']
-# # - name: 'gcr.io/cloud-builders/docker'
-# #   args: ['push', 'gcr.io/$PROJECT_ID/xlayers:$SHORT_SHA']
-# # - name: 'gcr.io/cloud-builders/docker'
-# #   args: ['build', '-t', 'gcr.io/$PROJECT_ID/xlayers:latest', '.']
-# # - name: 'gcr.io/cloud-builders/docker'
-# #   args: ['push', 'gcr.io/$PROJECT_ID/xlayers:latest']
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['build', '-t', 'gcr.io/$PROJECT_ID/xlayers:$SHORT_SHA', '.']
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['push', 'gcr.io/$PROJECT_ID/xlayers:$SHORT_SHA']
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['build', '-t', 'gcr.io/$PROJECT_ID/xlayers:latest', '.']
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['push', 'gcr.io/$PROJECT_ID/xlayers:latest']
 
 # # Copy the content of dist directory to the Persistent Volume
 
@@ -70,8 +62,8 @@ steps:
 # #         done
   
 # #   env:
-# #   - 'CLOUDSDK_COMPUTE_ZONE=europe-north1-a'
-# #   - 'CLOUDSDK_CONTAINER_CLUSTER=xlayers-staging'
+# #   - 'CLOUDSDK_COMPUTE_ZONE=-central1-a'
+# #   - 'CLOUDSDK_CONTAINER_CLUSTER=cluster-small'
 
 # # Set permissions so NGINX server has access to the newly uploaded html directory
 
@@ -89,8 +81,8 @@ steps:
 # #         done
   
 # #   env:
-# #   - 'CLOUDSDK_COMPUTE_ZONE=europe-north1-a'
-# #   - 'CLOUDSDK_CONTAINER_CLUSTER=xlayers-staging'
+# #   - 'CLOUDSDK_COMPUTE_ZONE=-central1-a'
+# #   - 'CLOUDSDK_CONTAINER_CLUSTER=cluster-small'
 
 # # Copy the content of dist directory to the Persistent Volume
 
@@ -101,8 +93,8 @@ steps:
 #     - 'ingress-$SHORT_SHA:/usr/share/nginx/html'
 
 #   env:
-#   - 'CLOUDSDK_COMPUTE_ZONE=europe-north1-a'
-#   - 'CLOUDSDK_CONTAINER_CLUSTER=xlayers-staging'
+#   - 'CLOUDSDK_COMPUTE_ZONE=-central1-a'
+#   - 'CLOUDSDK_CONTAINER_CLUSTER=cluster-small'
 
 # # Set permissions so NGINX server has access to the newly uploaded html directory
 
@@ -117,27 +109,27 @@ steps:
 #     - '/usr/share/nginx/html'
 
 #   env:
-#   - 'CLOUDSDK_COMPUTE_ZONE=europe-north1-a'
-#   - 'CLOUDSDK_CONTAINER_CLUSTER=xlayers-staging'
+#   - 'CLOUDSDK_COMPUTE_ZONE=-central1-a'
+#   - 'CLOUDSDK_CONTAINER_CLUSTER=cluster-small'
 
-# # Patch a new Ingress ressource for the build $SHORT_SHA
+# Patch a new Ingress ressource for the build $SHORT_SHA
 
-# - name: 'gcr.io/cross-xlayers/ngcontainer'
-#   entrypoint: 'sh'
-#   args: 
-#     - '-c'
-#     - |
-#         perl -pe "s/SHORT_SHA/$SHORT_SHA/g" scripts/cloudbuild/xlayers.template.yaml > xlayers.$SHORT_SHA.yaml
+- name: 'gcr.io/cross-xlayers/ngcontainer'
+  entrypoint: 'sh'
+  args: 
+    - '-c'
+    - |
+        perl -pe "s/SHORT_SHA/$SHORT_SHA/g" scripts/cloudbuild/xlayers.template.yaml > xlayers.$SHORT_SHA.yaml
 
-# # Apply a new Ingress ressource for the build $SHORT_SHA
+# Apply a new Ingress ressource for the build $SHORT_SHA
 
-# - name: 'gcr.io/cloud-builders/kubectl'
-#   args: |
-#     apply -f xlayers.$SHORT_SHA.yaml
-#   env:
-#   - 'CLOUDSDK_COMPUTE_ZONE=europe-north1-a'
-#   - 'CLOUDSDK_CONTAINER_CLUSTER=xlayers-staging'
+- name: 'gcr.io/cloud-builders/kubectl'
+  args: |
+    apply -f xlayers.$SHORT_SHA.yaml
+  env:
+  - 'CLOUDSDK_COMPUTE_ZONE=-central1-a'
+  - 'CLOUDSDK_CONTAINER_CLUSTER=cluster-small'
 
-# # images:
-# #   - 'gcr.io/$PROJECT_ID/xlayers:$SHORT_SHA'
-# #   - 'gcr.io/$PROJECT_ID/xlayers:latest'
+images:
+  - 'gcr.io/$PROJECT_ID/xlayers:$SHORT_SHA'
+  - 'gcr.io/$PROJECT_ID/xlayers:latest'
