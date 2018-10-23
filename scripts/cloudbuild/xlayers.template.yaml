@@ -4,13 +4,21 @@ metadata:
   name: ingress-_SHORT_SHA_
   annotations:
     kubernetes.io/ingress.class: "nginx"
+
+    # make sure the controller redirects (301) to HTTPS
     ingress.kubernetes.io/ssl-redirect: "true"
+
     nginx.org/hsts: "true"
     nginx.org/hsts-include-subdomains: "true"
+
+    # will check the TLS configuration and make sure that the specified secret:
+    # - Exists and contains a valid private/public key pair;
+    # - The certificate is not expired;
+    # - The certificate covers all domain names specified in the ingress config.
     kubernetes.io/tls-acme: "true"
 spec:
   rules:
-  - host: xlayer-_SHORT_SHA_.angular.run
+  - host: xlayers-_SHORT_SHA_.angular.run
     http:
       paths:
         - path: /
@@ -27,7 +35,6 @@ kind: Service
 metadata:
   name: xlayers-_SHORT_SHA_
 spec:
-  type: NodePort
   ports:
     - port: 80
   selector:
