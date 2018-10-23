@@ -1,27 +1,4 @@
 steps:
-# - name: 'gcr.io/cross-xlayers/ngcontainer'
-#   entrypoint: 'bash'
-  
-# #   Check BUILD.bazel formatting before we have a node_modules directory
-# #   Then we don't need any exclude pattern to avoid checking those files
-#   args: 
-#     - '-c'
-#     - |
-#     - buildifier -mode=check $(find . -type f \( -name "*.bzl" -or -name BUILD.bazel -or -name BUILD \)) || 
-#         (echo "BUILD files not formatted." ; exit 1)
-
-# - name: 'gcr.io/cross-xlayers/ngcontainer'
-#   entrypoint: 'bash'
-  
-# #   Run the skylark linter to check our Bazel rules
-# #   deprecated-api is disabled because we use actions.new_file(genfiles_dir)
-# #   which has no replacement, see https://github.com/bazelbuild/bazel/issues/4858
-#   args: 
-#     - '-c'
-#     - |
-#     - find . -type f -name "*.bzl" |
-#               xargs java -jar /usr/local/bin/Skylint_deploy.jar --disable-checks=deprecated-api || 
-#               (echo -e "\n.bzl files have lint errors. Please run ''yarn skylint''"; exit 1)
 
 - name: 'gcr.io/cross-xlayers/ngcontainer'
   entrypoint: 'npm'
@@ -34,6 +11,8 @@ steps:
 - name: 'gcr.io/cross-xlayers/ngcontainer'
   entrypoint: 'npm'
   args: ['run', 'build', '--', '--output-path', 'dist/html']
+  env:
+    - 'BUILD_ID=$BUILD_ID'
 
 # Build snapshot images and push them to Cloud Registry
 
@@ -46,72 +25,6 @@ steps:
 - name: 'gcr.io/cloud-builders/docker'
   args: ['push', 'gcr.io/$PROJECT_ID/xlayers:latest']
 
-# # Copy the content of dist directory to the Persistent Volume
-
-# # - name: 'gcr.io/cross-xlayers/ngcontainer'
-# #   entrypoint: 'sh'
-# #   args: 
-# #     - '-c'
-# #     - |
-# #         PODS=$(kubectl get pods --namespace default -l app.kubernetes.io/name=nginx-ingress | awk 'FNR>1 {print $1}')
-# #         for i in ${PODS[@]}; do
-# #             echo "Updating Pod: $i..."
-# #             cp -R dist nginx-ingress-nginx-$i:/usr/share/nginx/html -n default
-# #             echo "Sleeping for 10 seconds..."
-# #             sleep 10
-# #         done
-  
-# #   env:
-# #   - 'CLOUDSDK_COMPUTE_ZONE=-central1-a'
-# #   - 'CLOUDSDK_CONTAINER_CLUSTER=cluster-small'
-
-# # Set permissions so NGINX server has access to the newly uploaded html directory
-
-# # - name: 'gcr.io/cross-xlayers/ngcontainer'
-# #   entrypoint: 'bash'
-# #   args: 
-# #     - '-c'
-# #     - |
-# #         PODS=$(kubectl get pods --namespace default -l app.kubernetes.io/name=nginx-ingress | awk 'FNR>1 {print $1}')
-# #         for i in ${PODS[@]}; do
-# #             echo "Setting permissions for Pod: $i..."
-# #             kubectl exec nginx-ingress-nginx-$i -n default -- chmod -R a+r /usr/share/nginx/html
-# #             echo "Sleeping for 10 seconds..."
-# #             sleep 10
-# #         done
-  
-# #   env:
-# #   - 'CLOUDSDK_COMPUTE_ZONE=-central1-a'
-# #   - 'CLOUDSDK_CONTAINER_CLUSTER=cluster-small'
-
-# # Copy the content of dist directory to the Persistent Volume
-
-# - name: 'gcr.io/cloud-builders/kubectl'
-#   args: 
-#     - 'cp'
-#     - './dist/html'
-#     - 'ingress-$SHORT_SHA:/usr/share/nginx/html'
-
-#   env:
-#   - 'CLOUDSDK_COMPUTE_ZONE=-central1-a'
-#   - 'CLOUDSDK_CONTAINER_CLUSTER=cluster-small'
-
-# # Set permissions so NGINX server has access to the newly uploaded html directory
-
-# - name: 'gcr.io/cloud-builders/kubectl'
-#   args: 
-#     - 'exec'
-#     - 'ingress-$SHORT_SHA'
-#     - '--'
-#     - 'chmod'
-#     - '-R'
-#     - 'a+r'
-#     - '/usr/share/nginx/html'
-
-#   env:
-#   - 'CLOUDSDK_COMPUTE_ZONE=-central1-a'
-#   - 'CLOUDSDK_CONTAINER_CLUSTER=cluster-small'
-
 # Patch a new Ingress ressource for the build $SHORT_SHA
 
 - name: 'gcr.io/cross-xlayers/ngcontainer'
@@ -119,15 +32,17 @@ steps:
   args: 
     - '-c'
     - |
-        perl -pe "s/SHORT_SHA/$SHORT_SHA/g" scripts/cloudbuild/xlayers.template.yaml > xlayers.$SHORT_SHA.yaml
+        perl -pe "s/_SHORT_SHA_/$SHORT_SHA/g" scripts/cloudbuild/xlayers.template.yaml > xlayers.$SHORT_SHA.yaml
 
 # Apply a new Ingress ressource for the build $SHORT_SHA
 
 - name: 'gcr.io/cloud-builders/kubectl'
-  args: |
-    apply -f xlayers.$SHORT_SHA.yaml
+  args:
+    - 'apply'
+    - '-f' 
+    - 'xlayers.$SHORT_SHA.yaml'
   env:
-  - 'CLOUDSDK_COMPUTE_ZONE=-central1-a'
+  - 'CLOUDSDK_COMPUTE_ZONE=us-central1-a'
   - 'CLOUDSDK_CONTAINER_CLUSTER=cluster-small'
 
 images:
