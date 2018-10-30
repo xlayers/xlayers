@@ -7,7 +7,7 @@ import { UiState } from '../../../core/state';
   template: `
     <mat-toolbar>
       <mat-button-toggle-group
-        class="mat-elevation-z0"
+        class="mat-elevation-z0 mat-button-toggle-appearance-standard"
         [(ngModel)]="currentSettingView"
         [value]="currentSettingView">
 
@@ -34,7 +34,9 @@ import { UiState } from '../../../core/state';
       .mat-elevation-z0 {
         box-shadow: none;
       }
-
+      .mat-button-toggle-appearance-standard {
+        background-color: #212121
+      }
       .mat-button-toggle-checked {
         color: #EE4743;
       }
