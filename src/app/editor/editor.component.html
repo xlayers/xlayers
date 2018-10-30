@@ -39,7 +39,17 @@
 </mat-toolbar>
 <mat-drawer-container autosize [class.transparent-bg]="colors?.background === 'transparent'">
 
-  <mat-drawer mode="side" opened="false" disableClose="true" #settingNavRef>
+  <mat-drawer
+    mwlResizable
+    class="sidebar"
+    [enableGhostResize]="true"
+    [resizeEdges]="{right: true}"
+    mode="side"
+    opened="false"
+    disableClose="true"
+    (resizeEnd)="onResizeTreeViwerEnd($event)"
+    [style.width.px]="settingTreeViewerWidth"
+    #settingNavRef>
 
     <section>
       <mat-expansion-panel *ngIf="shouldEnableCanvasSettings">
@@ -95,7 +105,18 @@
 
   </mat-drawer>
 
-  <mat-drawer mode="side" opened="false" position="end" hasBackdrop="false" #currentLayerNavRef>
+  <mat-drawer
+    mwlResizable
+    class="sidebar"
+    [enableGhostResize]="true"
+    [resizeEdges]="{left: true}"
+    mode="side"
+    opened="false"
+    position="end"
+    hasBackdrop="false"
+    (resizeEnd)="onResizeSettingMenuEnd($event)"
+    [style.width.px]="settingMenuWidth"
+    #currentLayerNavRef>
 
     <sketch-settings-container></sketch-settings-container>
 

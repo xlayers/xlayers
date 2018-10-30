@@ -68,6 +68,10 @@ sketch-container {
   position: absolute;
 }
 
+.sidebar {
+  min-width: 200px;
+}
+
 .mat-list-item.selected-page {
   background-color: #ee4743;
 }
