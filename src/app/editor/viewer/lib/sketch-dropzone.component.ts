@@ -1,4 +1,5 @@
-import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild, SimpleChanges, OnChanges } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
+import { SketchService } from './sketch.service';
 
 @Component({
   selector: 'sketch-dropzone',
@@ -16,6 +17,7 @@ import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild, 
       <h2 class="mat-headline">Drag&Drop your Sketch file here</h2>
       <span class="mat-subheading-1">OR</span>
       <button color="primary" class="mat-headline" mat-button (click)="openFileBrowser()">BROWSE FILES</button>
+      <sketch-select-demo-files [error]="selectedDemoFileError" (changed)="openSelectedDemoFile($event)"></sketch-select-demo-files>
     </section>
   </ng-template>
 
@@ -23,55 +25,55 @@ import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild, 
   `,
   styles: [
     `
-    :host {
-      display: flex;
-      height: 100%;
-      min-height: 100%;
-      position: relative;
-      align-items: center;
-      justify-content: center;
-      color: #B0B0B0;
-    }
-    section {
-      width: 100%;
-      height: 100%;
-      background: white;
-      text-align: center;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-      margin: 20px auto;
-    }
+      :host {
+        display: flex;
+        height: 100%;
+        min-height: 100%;
+        position: relative;
+        align-items: center;
+        justify-content: center;
+        color: #B0B0B0;
+      }
+      section {
+        width: 100%;
+        height: 100%;
+        background: white;
+        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        margin: 20px auto;
+      }
 
-    input[type="file"] {
-      display: none;
-    }
+      input[type="file"] {
+        display: none;
+      }
 
-    .mode__large {
-      font-size: 7em;
-      color: #b0b0b0;
-      width: 200px;
-      height: 120px;
-    }
+      .mode__large {
+        font-size: 7em;
+        color: #b0b0b0;
+        width: 200px;
+        height: 120px;
+      }
 
-    .mode__mini {
-      cursor: pointer;
-    }
-  `
+      .mode__mini {
+        cursor: pointer;
+      }
+    `
   ]
 })
 export class SketchDropzoneComponent implements OnInit, OnChanges {
   @Input() mode: 'mini|large';
-  @Output() changed: EventEmitter<File>;
+  @Output() changed: EventEmitter<File> = new EventEmitter();
   @ViewChild('fileBrowserRef') fileBrowserRef: ElementRef;
 
-  isModeMini = false;
-  constructor() {
-    this.changed = new EventEmitter();
-  }
+  public isModeMini = false;
+  public selectedDemoFileError = false;
 
-  ngOnInit() {}
+  constructor(private service: SketchService) { }
+
+  ngOnInit() { }
 
   ngOnChanges(records: SimpleChanges) {
     if (records.mode) {
@@ -81,6 +83,23 @@ export class SketchDropzoneComponent implements OnInit, OnChanges {
 
   openFileBrowser() {
     this.fileBrowserRef.nativeElement.click();
+  }
+
+  openSelectedDemoFile(fileName: string) {
+    this.selectedDemoFileError = false;
+    this.service.getSketchDemoFile(fileName).subscribe(
+      (file: Blob) => {
+        this.onFileChange(new File([file], `${fileName}.sketch`));
+      },
+      err => {
+        console.log(err);
+        // include this status in the store for me it's an overkill
+        this.selectedDemoFileError = true;
+        setTimeout(() => {
+          this.selectedDemoFileError = false;
+        }, 3000);
+      }
+    );
   }
 
   onFileDrop(event) {
