@@ -70,6 +70,7 @@
     "tsickle": ">=0.25.5",
     "tslib": "^1.7.1",
     "tslint": "~5.9.1",
-    "typescript": "~3.0.3"
+    "typescript": "^3.1.4",
+    "wepback": "^1.0.0"
   }
 }
