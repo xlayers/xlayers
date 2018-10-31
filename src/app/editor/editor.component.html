@@ -1,10 +1,11 @@
 <mat-toolbar>
   <mat-toolbar-row class="row-header">
-    <h4 class="mat-header">
+    <div class="header-title">
       <a routerLink="/">
         Cross Layers<span>ALPHA</span>
       </a>
-    </h4>
+    </div>
+    <div class="header-spacer"></div>
     <div class="header-actions">
       <sketch-dropzone matTooltip="Browse files" (changed)="sketchContainerRef.onFileSelected($event)" mode="mini"></sketch-dropzone>
       <a matTooltip="Feedback" mat-icon-button target="__blank" href="https://github.com/xlayers/xlayers/issues">
@@ -14,7 +15,7 @@
   </mat-toolbar-row>
 
   <mat-toolbar-row class="row-settings" *ngIf="currentPage">
-    <section [hidden]="!enabled">
+    <div [hidden]="!enabled">
       <button [disabled]="isCodeEditor" matTooltip="Toggle Wireframe Mode" [color]=" preview ? 'warn':'' " mat-button (click)="togglePreview()">
         <mat-icon>visibility</mat-icon>
       </button>
@@ -33,7 +34,7 @@
       <button matTooltip="Code generation will be available soon" color="accent" mat-button>
         <mat-icon>code</mat-icon>
       </button>
-    </section>
+    </div>
   </mat-toolbar-row>
 
 </mat-toolbar>

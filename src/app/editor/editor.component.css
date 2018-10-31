@@ -1,3 +1,64 @@
+.mat-drawer {
+  width: 200px;
+}
+
+[hidden] {
+  display: none;
+}
+
+/* Toolbar */
+
+.mat-toolbar {
+  position: fixed;
+  z-index: 9;
+}
+
+@media (max-width: 599px) {
+  .mat-toolbar-row, .mat-toolbar-single-row {
+      height: 64px;
+  }
+}
+
+/* Header */
+
+.header-title {
+  display: flex;
+  font-weight: 100;
+}
+
+.header-title a {
+  color: rgba(255,255,255,0.7);
+  text-decoration: none;
+  margin-left: -5px;
+  margin-top: -8px;
+}
+
+.header-title span {
+  font-size: 11px;
+  margin-top: -34px;
+  margin-left: 118px;
+  display: block;
+  color: black;
+  background: white;
+  padding: 2px;
+  border-radius: 1px;
+  height: 12px;
+  line-height: 13px;
+  font-weight: 500;
+}
+
+.header-spacer {
+  flex: 1 1 auto;
+}
+
+/* Setting */
+
+.row-settings {
+  justify-content: center;
+}
+
+/* Container */
+
 :host,
 .mat-drawer-container {
   display: block;
@@ -10,54 +71,6 @@
   background-image: url(/assets/transparent-square-tiles.png);
   background-repeat: repeat;
   background-size: 130px;
-}
-
-.mat-drawer {
-  width: 200px;
-}
-
-.mat-toolbar {
-  position: fixed;
-  z-index: 9;
-  min-width: 1000px;
-}
-
-@media (max-width: 599px) {
-  .mat-toolbar-row, .mat-toolbar-single-row {
-      height: 64px;
-  }
-}
-
-[hidden] {
-  display: none;
-}
-
-.mat-header {
-  display: flex;
-  align-items: center;
-  width: 100%;
-  font-weight: 100;
-}
-
-.mat-header a {
-  color: rgba(255,255,255,0.7);
-  text-decoration: none;
-  margin-left: -5px;
-  margin-top: -8px;
-}
-
-.mat-header span {
-  font-size: 11px;
-  margin-top: -34px;
-  margin-left: 118px;
-  display: block;
-  color: black;
-  background: white;
-  padding: 2px;
-  border-radius: 1px;
-  height: 12px;
-  line-height: 13px;
-  font-weight: 500;
 }
 
 sketch-container {
@@ -116,11 +129,6 @@ button[mat-button] {
   top: 128px;
 }
 
-.row-header {
-  align-items: stretch;
-  display: flex;
-}
-
 .header-actions {
   display: flex;
   align-items: center;
@@ -129,10 +137,6 @@ button[mat-button] {
 
 .header-actions > *:not(:first-child) {
   margin-left: 8px;
-}
-
-.row-settings {
-  justify-content: center;
 }
 
 footer {

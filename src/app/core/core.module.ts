@@ -21,6 +21,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatTreeModule } from '@angular/material/tree';
 import { ResizableModule } from 'angular-resizable-element';
 import { ColorSketchModule } from 'ngx-color/sketch';
+import { DragAndDropModule } from 'angular-draggable-droppable';
 
 const MatModules = [
   MatSliderModule,
@@ -43,7 +44,12 @@ const MatModules = [
   MatSelectModule
 ];
 
-const ExtraModules = [ResizableModule, FormsModule, ColorSketchModule];
+const ExtraModules = [
+  DragAndDropModule,
+  ResizableModule,
+  FormsModule,
+  ColorSketchModule
+];
 
 @NgModule({
   imports: [...MatModules, ...ExtraModules],
