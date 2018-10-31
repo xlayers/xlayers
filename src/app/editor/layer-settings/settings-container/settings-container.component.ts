@@ -6,21 +6,17 @@ import { UiState } from '../../../core/state';
   selector: 'sketch-settings-container',
   template: `
     <mat-toolbar>
-      <mat-button-toggle-group
-        class="mat-elevation-z0 mat-button-toggle-appearance-standard"
-        [(ngModel)]="currentSettingView"
-        [value]="currentSettingView">
-
-        <mat-button-toggle value="1">
+      <mat-toolbar-row class="mat-button-toggle-appearance-standard">
+        <button matTooltip="Size"  [color]=" currentSettingView === 1 ? 'warn':'' " mat-button (click)="changeSettingView(1)">
           <mat-icon [class.mat-button-toggle-checked]="currentSettingView === 1">open_with</mat-icon>
-        </mat-button-toggle>
-        <mat-button-toggle value="2">
+        </button>
+        <button matTooltip="Style" [color]=" currentSettingView === 2 ? 'warn':'' " mat-button (click)="changeSettingView(2)">
           <mat-icon>format_paint</mat-icon>
-        </mat-button-toggle>
-        <mat-button-toggle value="3">
+        </button>
+        <button matTooltip="Description" [color]=" currentSettingView === 3 ? 'warn':'' " mat-button (click)="changeSettingView(3)">
           <mat-icon>ballot</mat-icon>
-        </mat-button-toggle>
-      </mat-button-toggle-group>
+        </button>
+      </mat-toolbar-row>
     </mat-toolbar>
 
     <section [ngSwitch]="currentSettingView">
@@ -31,8 +27,8 @@ import { UiState } from '../../../core/state';
   `,
   styles: [
       `
-      .mat-elevation-z0 {
-        box-shadow: none;
+      :host, mat-toolbar {
+        justify-content: center;
       }
       .mat-button-toggle-appearance-standard {
         background-color: #212121
@@ -58,5 +54,9 @@ export class SettingsContainerComponent implements OnInit {
         }
       }
     });
+  }
+
+  changeSettingView(index) {
+    this.currentSettingView = index;
   }
 }
