@@ -6,12 +6,22 @@ import { SketchData } from './sketch.service';
 @Component({
   selector: 'sketch-canvas',
   template: `
-    <div class="canvas" #canvas>
+    <div
+      class="canvas"
+      mwlDraggable
+      (dragStart)="dragStart($event)"
+      (dragEnd)="dragEnd($event)"
+      (dragging)="dragging($event)"
+      [ghostDragEnabled]="false"
+      [style.left.px]="positionX"
+      [style.top.px]="positionY"
+      #canvas>
       <div [ngClass]="{ 'hidden': !isPreview }">
         <img *ngFor="let image of data.previews" [src]="image.source" [width]="image.width" [height]="image.height"/>
       </div>
       <div>
-        <sketch-page *ngIf="currentPage"
+        <sketch-page
+          *ngIf="currentPage"
           [attr.data-id]="currentPage?.do_objectID"
           [attr.data-name]="currentPage?.name"
           [attr.data-class]="currentPage?._class"
@@ -38,7 +48,7 @@ import { SketchData } from './sketch.service';
     top: 2px;
   }
   .canvas {
-    user-select: none;
+    cursor: move;
     left: 50%;
     position: absolute;
     transform-style: preserve-3d;
@@ -60,6 +70,11 @@ export class SketchCanvasComponent implements OnInit, AfterViewInit {
   @Input() currentPage: SketchMSPage = null;
 
   @ViewChild('canvas') canvasRef: ElementRef<HTMLElement>;
+
+  positionX: number;
+  positionY: number;
+  originPositionX: number;
+  originPositionY: number;
 
   isPreview: boolean;
   constructor(private store: Store, private renderer: Renderer2, private element: ElementRef<HTMLElement>) {}
@@ -83,6 +98,9 @@ export class SketchCanvasComponent implements OnInit, AfterViewInit {
         this.canvasRef.nativeElement.style.transform = `translate3d(-50%, 50%, 0px) scale(${zoomLevel})`;
       }
     });
+    const current = this.canvasRef.nativeElement.getBoundingClientRect();
+    this.positionX = current.left - 100;
+    this.positionY = current.top;
   }
 
   ngAfterViewInit() {
@@ -94,5 +112,20 @@ export class SketchCanvasComponent implements OnInit, AfterViewInit {
     //     this.canvasRef.nativeElement.style.transform = `translate3d(-50%, 50%, 0px) scale(${zoomLevel})`;
     //   }
     // });
+  }
+
+  dragStart(event) {
+    this.originPositionX = this.positionX;
+    this.originPositionY = this.positionY;
+  }
+
+  dragging(event) {
+    this.positionX = this.originPositionX + event.x;
+    this.positionY = this.originPositionY + event.y;
+  }
+
+  dragEnd(event) {
+    this.originPositionX += event.x;
+    this.originPositionY += event.y;
   }
 }
