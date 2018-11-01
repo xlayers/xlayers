@@ -21,7 +21,7 @@ subject_id=`curl \
     python -c 'import sys, json; print json.load(sys.stdin)["data"]["search"]["nodes"][0]["id"]'`
 
 echo ">> Sending the Preview Link on issue $subject_id (access_token=$access_token)"
-mutate_query='{
+mutation_query='{
     mutation AddCommentToIssue {
         addComment(input: {subjectId: "$subject_id", body: "$body"}) {
             clientMutationId
@@ -32,4 +32,4 @@ body='Preview: $PREVIEW_BUILD_URL'
 curl \
     --url "https://api.github.com/graphql?access_token=$access_token" \
     --header 'content-type: application/json' \
-    --data '{ "query": "$(mutate_query)" }'
+    --data '{ "query": "$mutation_query" }'
