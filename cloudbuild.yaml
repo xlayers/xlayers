@@ -44,15 +44,31 @@ steps:
       - 'CLOUDSDK_COMPUTE_ZONE=us-central1-a'
       - 'CLOUDSDK_CONTAINER_CLUSTER=cluster-small'
 
+    # Send the preview domain to the issue thread on GitHub
+
   - name: 'gcr.io/cross-xlayers/ngcontainer'
     args:
       - |
-        curl --request POST \
-            --url 'https://api.github.com/repos/xlayers/xlayers/issues/60/comments?access_token=$$GITHUB_ACCESS_TOKEN' \
-            --header 'accept: application/vnd.github.v3+json' \
-            --header 'cache-control: no-cache' \
+        query='{
+            search(first: 1, type: ISSUE, query: "type:pr repo:xlayers/xlayers $COMMIT_SHA") {
+                nodes {
+                ... on PullRequest {
+                    id
+                    }
+                }
+            }
+        }'
+        body='Preview: https://xlayers-$SHORT_SHA.angular.run'
+        subjectId=$(curl -s -X POST \
+            --url 'https://api.github.com/graphql?access_token=$$GITHUB_ACCESS_TOKEN' \
             --header 'content-type: application/json' \
-            --data '{\n"body": "Preview: https://xlayers-$SHORT_SHA.angular.run"\n}'
+            --data '{ "query": "$query" }' | python -c 'import sys, json; print json.load(sys.stdin)["data"]["search"]["nodes"][0]["id"]')
+
+        curl -X POST \
+            --url 'https://api.github.com/graphql?access_token=$$GITHUB_ACCESS_TOKEN' \
+            --header 'content-type: application/json' \
+            --data '{ "query": "mutation AddCommentToIssue { addComment(input: { subjectId: \"$subjectId\",body: \"$body\"}) { clientMutationId }}" }'
+
     secretEnv: ['GITHUB_ACCESS_TOKEN']
 
 images:
