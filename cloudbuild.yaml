@@ -48,7 +48,8 @@ steps:
 
 - name: 'eamonwoortman/alpine-python-curl-zip'
   id: 'Push Preview URL'
-  args: ['bash', './scripts/github-create-comment.bash']
+  entrypoint: "/bin/bash"
+  args: ['./scripts/github-create-comment.bash']
   secretEnv: ['GITHUB_ACCESS_TOKEN']
   env:
   - 'PREVIEW_BUILD_URL=https://xlayers-$SHORT_SHA.angular.run'
