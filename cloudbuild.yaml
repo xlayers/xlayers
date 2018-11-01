@@ -51,7 +51,6 @@ steps:
   args: ['bash', './scripts/github-create-comment.bash']
   secretEnv: ['GITHUB_ACCESS_TOKEN']
   env:
-  - 'ACCESS_TOKEN=$GITHUB_ACCESS_TOKEN'
   - 'PREVIEW_BUILD_URL=https://xlayers-$SHORT_SHA.angular.run'
 
 # images:
