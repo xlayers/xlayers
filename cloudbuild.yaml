@@ -47,6 +47,7 @@ steps:
     # Send the preview domain to the issue thread on GitHub
 
 - name: 'ubuntu'
+  id: 'Push Preview URL'
   args: ['bash', './scripts/githu-create-comment.bash']
   secretEnv: ['GITHUB_ACCESS_TOKEN']
   env:
@@ -58,6 +59,6 @@ steps:
 #   - 'gcr.io/$PROJECT_ID/xlayers:latest'
 
 secrets:
-- kmsKeyName: projects/$PROJECT_ID/locations/global/keyRings/GITHUB_ACCESS_TOKEN/cryptoKeys/GITHUB_ACCESS_TOKEN
+- kmsKeyName: projects/cross-xlayers/locations/global/keyRings/GITHUB_ACCESS_TOKEN/cryptoKeys/GITHUB_ACCESS_TOKEN
   secretEnv: 
     GITHUB_ACCESS_TOKEN: CiQAIttKJCkxPmE0ERPWC8ZmeCFu+FhzcLQofsCCU1Mb9LMDKS8SUQCXwYbhw8R19NiubGBr6xNfWuSht5aQRY53ICIJc2/y0bMKTtlLhk5FptsBNeEW6pbpv0itfQMwcWa+ts+gUw8VWzBUmrSPz76N5MpjFqsJxQ==
