@@ -14,7 +14,7 @@ search_query='{
         }
     }
 }'
-subject_id=`curl -v \
+subject_id=`curl \
     --url "https://api.github.com/graphql?access_token=$access_token" \
     --header 'content-type: application/json' \
     --data '{ "query": "$search_query" }' | \
@@ -29,7 +29,7 @@ mutate_query='{
     }
 }'
 body='Preview: $PREVIEW_BUILD_URL'
-curl -v \
+curl \
     --url "https://api.github.com/graphql?access_token=$access_token" \
     --header 'content-type: application/json' \
     --data '{ "query": "$(mutate_query)" }'
