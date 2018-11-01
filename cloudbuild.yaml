@@ -1,53 +1,54 @@
 steps:
-  - name: 'gcr.io/cross-xlayers/ngcontainer'
-    entrypoint: 'npm'
-    args: ['install']
+#   - name: 'gcr.io/cross-xlayers/ngcontainer'
+#     entrypoint: 'npm'
+#     args: ['install']
+
+#   - name: 'gcr.io/cross-xlayers/ngcontainer'
+#     entrypoint: 'npm'
+#     args: ['run', 'test:ci']
+
+#   - name: 'gcr.io/cross-xlayers/ngcontainer'
+#     entrypoint: 'npm'
+#     args: ['run', 'build', '--', '--output-path', 'dist/html']
+#     env:
+#       - 'BUILD_ID=$BUILD_ID'
+
+# Build snapshot images and push them to Cloud Registry
+
+#   - name: 'gcr.io/cloud-builders/docker'
+#     args: ['build', '-t', 'gcr.io/$PROJECT_ID/xlayers:$SHORT_SHA', '.']
+#   - name: 'gcr.io/cloud-builders/docker'
+#     args: ['push', 'gcr.io/$PROJECT_ID/xlayers:$SHORT_SHA']
+#   - name: 'gcr.io/cloud-builders/docker'
+#     args: ['build', '-t', 'gcr.io/$PROJECT_ID/xlayers:latest', '.']
+#   - name: 'gcr.io/cloud-builders/docker'
+#     args: ['push', 'gcr.io/$PROJECT_ID/xlayers:latest']
+
+# Patch a new Ingress ressource for the build $SHORT_SHA
+
+#   - name: 'gcr.io/cross-xlayers/ngcontainer'
+#     entrypoint: 'sh'
+#     args:
+#       - '-c'
+#       - |
+#         perl -pe "s/_SHORT_SHA_/$SHORT_SHA/g" scripts/cloudbuild/xlayers.template.yaml > xlayers.$SHORT_SHA.yaml
+
+# Apply a new Ingress ressource for the build $SHORT_SHA
+
+#   - name: 'gcr.io/cloud-builders/kubectl'
+#     args:
+#       - 'apply'
+#       - '-f'
+#       - 'xlayers.$SHORT_SHA.yaml'
+#     env:
+#       - 'CLOUDSDK_COMPUTE_ZONE=us-central1-a'
+#       - 'CLOUDSDK_CONTAINER_CLUSTER=cluster-small'
+
+# Send the preview domain to the issue thread on GitHub
 
   - name: 'gcr.io/cross-xlayers/ngcontainer'
-    entrypoint: 'npm'
-    args: ['run', 'test:ci']
-
-  - name: 'gcr.io/cross-xlayers/ngcontainer'
-    entrypoint: 'npm'
-    args: ['run', 'build', '--', '--output-path', 'dist/html']
-    env:
-      - 'BUILD_ID=$BUILD_ID'
-
-  # Build snapshot images and push them to Cloud Registry
-
-  - name: 'gcr.io/cloud-builders/docker'
-    args: ['build', '-t', 'gcr.io/$PROJECT_ID/xlayers:$SHORT_SHA', '.']
-  - name: 'gcr.io/cloud-builders/docker'
-    args: ['push', 'gcr.io/$PROJECT_ID/xlayers:$SHORT_SHA']
-  - name: 'gcr.io/cloud-builders/docker'
-    args: ['build', '-t', 'gcr.io/$PROJECT_ID/xlayers:latest', '.']
-  - name: 'gcr.io/cloud-builders/docker'
-    args: ['push', 'gcr.io/$PROJECT_ID/xlayers:latest']
-
-  # Patch a new Ingress ressource for the build $SHORT_SHA
-
-  - name: 'gcr.io/cross-xlayers/ngcontainer'
-    entrypoint: 'sh'
     args:
       - '-c'
-      - |
-        perl -pe "s/_SHORT_SHA_/$SHORT_SHA/g" scripts/cloudbuild/xlayers.template.yaml > xlayers.$SHORT_SHA.yaml
-
-  # Apply a new Ingress ressource for the build $SHORT_SHA
-
-  - name: 'gcr.io/cloud-builders/kubectl'
-    args:
-      - 'apply'
-      - '-f'
-      - 'xlayers.$SHORT_SHA.yaml'
-    env:
-      - 'CLOUDSDK_COMPUTE_ZONE=us-central1-a'
-      - 'CLOUDSDK_CONTAINER_CLUSTER=cluster-small'
-
-    # Send the preview domain to the issue thread on GitHub
-
-  - name: 'gcr.io/cross-xlayers/ngcontainer'
-    args:
       - |
         query='{
             search(first: 1, type: ISSUE, query: "type:pr repo:xlayers/xlayers $COMMIT_SHA") {
@@ -71,9 +72,9 @@ steps:
 
     secretEnv: ['GITHUB_ACCESS_TOKEN']
 
-images:
-  - 'gcr.io/$PROJECT_ID/xlayers:$SHORT_SHA'
-  - 'gcr.io/$PROJECT_ID/xlayers:latest'
+# images:
+#   - 'gcr.io/$PROJECT_ID/xlayers:$SHORT_SHA'
+#   - 'gcr.io/$PROJECT_ID/xlayers:latest'
 
 secrets:
   - kmsKeyName: projects/$PROJECT_ID/locations/global/keyRings/GITHUB_ACCESS_TOKEN/cryptoKeys/GITHUB_ACCESS_TOKEN
