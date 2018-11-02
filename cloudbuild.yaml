@@ -1,13 +1,16 @@
 steps:
   - name: 'gcr.io/cross-xlayers/ngcontainer'
+    id: 'Install dependencies'
     entrypoint: 'npm'
     args: ['install']
 
   - name: 'gcr.io/cross-xlayers/ngcontainer'
+    id: 'Test'
     entrypoint: 'npm'
     args: ['run', 'test:ci']
 
   - name: 'gcr.io/cross-xlayers/ngcontainer'
+    id: 'Build'
     entrypoint: 'npm'
     args: ['run', 'build', '--', '--output-path', 'dist/html']
     env:
@@ -16,17 +19,22 @@ steps:
   # Build snapshot images and push them to Cloud Registry
 
   - name: 'gcr.io/cloud-builders/docker'
+    id: 'Build deployable image (commit tag)'
     args: ['build', '-t', 'gcr.io/$PROJECT_ID/xlayers:$SHORT_SHA', '.']
   - name: 'gcr.io/cloud-builders/docker'
+    id: 'Push deployable image (commit tag)'
     args: ['push', 'gcr.io/$PROJECT_ID/xlayers:$SHORT_SHA']
   - name: 'gcr.io/cloud-builders/docker'
+    id: 'Build deployable image (latest tag)'
     args: ['build', '-t', 'gcr.io/$PROJECT_ID/xlayers:latest', '.']
   - name: 'gcr.io/cloud-builders/docker'
+    id: 'Push deployable image (latest tag)'
     args: ['push', 'gcr.io/$PROJECT_ID/xlayers:latest']
 
   # Patch a new Ingress ressource for the build $SHORT_SHA
 
   - name: 'gcr.io/cross-xlayers/ngcontainer'
+    id: 'Generate a new Ingress Ressource, Service and Deployment'
     entrypoint: 'sh'
     args:
       - '-c'
@@ -36,6 +44,7 @@ steps:
   # Apply a new Ingress ressource for the build $SHORT_SHA
 
   - name: 'gcr.io/cloud-builders/kubectl'
+    id: 'Apply Kubectl configuration'
     args:
       - 'apply'
       - '-f'
@@ -47,7 +56,7 @@ steps:
   # Send the preview domain to the issue thread on GitHub
 
   - name: 'google/cloud-sdk:alpine'
-    id: 'Push Preview URL'
+    id: 'Push Preview URL to GitHub'
     entrypoint: "/bin/bash"
     args: ['./scripts/github-create-comment.bash']
     secretEnv: ['GITHUB_ACCESS_TOKEN']
