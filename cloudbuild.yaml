@@ -46,8 +46,8 @@ steps:
 
     # Send the preview domain to the issue thread on GitHub
 
-- name: 'gcr.io/cross-xlayers/ngcontainer@sha256:438924a024cf9425332a9e5bc8c60aed2e7d6f68d08f1e98d12a4c338db58ebc'
-  id: 'Push Preview URL: https://xlayers-$SHORT_SHA.angular.run'
+- name: 'google/cloud-sdk:latest-alpine'
+  id: 'Push Preview URL'
   entrypoint: "/bin/bash"
   args: ['./scripts/github-create-comment.bash']
   secretEnv: ['GITHUB_ACCESS_TOKEN']
