@@ -53,6 +53,7 @@ steps:
   secretEnv: ['GITHUB_ACCESS_TOKEN']
   env:
   - 'PREVIEW_BUILD_URL=https://xlayers-$SHORT_SHA.angular.run'
+  - 'COMMIT_SHA=$COMMIT_SHA'
 
 # images:
 #   - 'gcr.io/$PROJECT_ID/xlayers:$SHORT_SHA'
