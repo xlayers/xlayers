@@ -1,22 +1,18 @@
 steps:
-  - name: 'gcr.io/cross-xlayers/ngcontainer'
+  - name: 'gcr.io/cloud-builders/npm'
     id: 'Install dependencies'
-    entrypoint: 'npm'
     args: ['install']
 
-  - name: 'gcr.io/cross-xlayers/ngcontainer'
+  - name: 'gcr.io/cloud-builders/npm'
     id: 'Lint'
-    entrypoint: 'npm'
     args: ['run', 'lint']
 
-  - name: 'gcr.io/cross-xlayers/ngcontainer'
+  - name: 'gcr.io/cloud-builders/npm'
     id: 'Test'
-    entrypoint: 'npm'
     args: ['run', 'test:ci']
 
-  - name: 'gcr.io/cross-xlayers/ngcontainer'
+  - name: 'gcr.io/cloud-builders/npm'
     id: 'Build'
-    entrypoint: 'npm'
     args: ['run', 'build', '--', '--output-path', 'dist/html']
     env:
       - 'BUILD_ID=$BUILD_ID'
@@ -38,7 +34,7 @@ steps:
 
   # Patch a new Ingress ressource for the build $SHORT_SHA
 
-  - name: 'gcr.io/cross-xlayers/ngcontainer'
+  - name: 'google/cloud-sdk:alpine'
     id: 'Generate a new Ingress Ressource, Service and Deployment'
     entrypoint: 'sh'
     args:
