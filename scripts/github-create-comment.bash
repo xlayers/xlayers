@@ -22,7 +22,7 @@ if [ $? -eq 1 ]; then
 fi
 
 echo ">> Sending the Preview Link on issue $subject_id (access_token=$access_token)"
-body='Preview: $PREVIEW_BUILD_URL'
+body="Preview: $PREVIEW_BUILD_URL"
 
 curl --url "https://api.github.com/graphql?access_token=$access_token" \
   --header 'content-type: application/json' \
