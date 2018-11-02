@@ -38,18 +38,6 @@ import { UiState, LayerCSS } from 'src/app/core/state';
       </mat-list-item>
     </mat-nav-list>
 
-    <mat-list>
-      <mat-list-item>
-        Opacity
-        <mat-slider
-          thumbLabel
-          [displayWith]="formatOpacityLabel"
-          [value]="componentStyle.opacity"
-          tickInterval="1000"
-          min="0" max="1" step="0.1"></mat-slider>
-      </mat-list-item>
-    </mat-list>
-
   </mat-expansion-panel>
   `,
   styles: [
@@ -88,18 +76,6 @@ export class SettingsLayerColorsComponent implements OnInit {
         this.gradients = [];
       }
     });
-  }
-
-  formatOpacityLabel(value: number | null) {
-    if (!value) {
-      return 0;
-    }
-
-    if (value >= 100) {
-      return Math.round(value / 100);
-    }
-
-    return value;
   }
 
   isBackgroundGradient() {
