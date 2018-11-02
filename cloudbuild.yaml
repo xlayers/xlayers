@@ -46,7 +46,7 @@ steps:
 
     # Send the preview domain to the issue thread on GitHub
 
-- name: 'google/cloud-sdk:latest-alpine'
+- name: 'google/cloud-sdk:alpine'
   id: 'Push Preview URL'
   entrypoint: "/bin/bash"
   args: ['./scripts/github-create-comment.bash']
