@@ -66,7 +66,6 @@ import { SketchData } from './sketch.service';
   ]
 })
 export class SketchCanvasComponent implements OnInit, AfterViewInit {
-  @Input() data: SketchData;
   @Input() currentPage: SketchMSPage = null;
 
   @ViewChild('canvas') canvasRef: ElementRef<HTMLElement>;
@@ -77,11 +76,13 @@ export class SketchCanvasComponent implements OnInit, AfterViewInit {
   originPositionY: number;
 
   isPreview: boolean;
+  data: SketchData;
+
   constructor(private store: Store, private renderer: Renderer2, private element: ElementRef<HTMLElement>) {}
 
   ngOnInit() {
-    this.store.select(UiState.isPreview).subscribe(isPreview => {
-      this.isPreview = isPreview;
+    this.store.select(UiState.currentFile).subscribe(currentFile => {
+      this.data = currentFile;
     });
     this.store.select(UiState.is3dView).subscribe(is3dView => {
       const ne = this.element.nativeElement;
