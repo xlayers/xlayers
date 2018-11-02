@@ -5,6 +5,11 @@ steps:
     args: ['install']
 
   - name: 'gcr.io/cross-xlayers/ngcontainer'
+    id: 'Lint'
+    entrypoint: 'npm'
+    args: ['run', 'lint']
+
+  - name: 'gcr.io/cross-xlayers/ngcontainer'
     id: 'Test'
     entrypoint: 'npm'
     args: ['run', 'test:ci']
