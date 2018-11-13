@@ -7,9 +7,9 @@ steps:
     id: 'Lint'
     args: ['run', 'lint']
 
-  - name: 'gcr.io/cloud-builders/npm'
+  - name: 'gcr.io/cross-xlayers/ngcontainer'
     id: 'Test'
-    args: ['run', 'test:ci']
+    args: ['npm', 'run', 'test:ci']
 
   - name: 'gcr.io/cloud-builders/npm'
     id: 'Build'
