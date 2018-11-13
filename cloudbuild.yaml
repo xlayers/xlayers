@@ -34,7 +34,7 @@ steps:
 
   # Patch a new Ingress ressource for the build $SHORT_SHA
 
-  - name: 'google/cloud-sdk:alpine'
+  - name: 'google/cloud-sdk:slim'
     id: 'Generate a new Ingress Ressource, Service and Deployment'
     entrypoint: 'sh'
     args:
