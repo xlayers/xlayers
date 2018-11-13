@@ -1,19 +1,19 @@
 steps:
-  - name: 'gcr.io/cross-xlayers/ngcontainer'
+  - name: 'gcr.io/cloud-builders/npm'
     id: 'Install dependencies'
-    args: ['npm', 'install']
+    args: ['install']
 
-  - name: 'gcr.io/cross-xlayers/ngcontainer'
+  - name: 'gcr.io/cloud-builders/npm'
     id: 'Lint'
-    args: ['npm', 'run', 'lint']
+    args: ['run', 'lint']
 
-  - name: 'gcr.io/cross-xlayers/ngcontainer'
+  - name: 'gcr.io/cloud-builders/npm'
     id: 'Test'
-    args: ['npm', 'run', 'test:ci']
+    args: ['run', 'test:ci']
 
-  - name: 'gcr.io/cross-xlayers/ngcontainer'
+  - name: 'gcr.io/cloud-builders/npm'
     id: 'Build'
-    args: ['npm', 'run', 'build', '--', '--output-path', 'dist/html']
+    args: ['run', 'build', '--', '--output-path', 'dist/html']
     env:
       - 'BUILD_ID=$BUILD_ID'
 
