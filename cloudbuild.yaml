@@ -3,13 +3,13 @@ steps:
     id: 'Install dependencies'
     args: ['install']
 
-  # - name: 'gcr.io/cloud-builders/npm'
-  #   id: 'Lint'
-  #   args: ['run', 'lint']
+  - name: 'gcr.io/cloud-builders/npm'
+    id: 'Lint'
+    args: ['run', 'lint']
 
-  # - name: 'gcr.io/cloud-builders/npm'
-  #   id: 'Test'
-  #   args: ['run', 'test:ci']
+  - name: 'gcr.io/cloud-builders/npm'
+    id: 'Test'
+    args: ['run', 'test:ci']
 
   - name: 'gcr.io/cloud-builders/npm'
     id: 'Build'
