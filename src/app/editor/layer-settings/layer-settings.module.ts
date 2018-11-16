@@ -4,6 +4,7 @@ import { SettingsContainerComponent } from './settings-container/settings-contai
 import { SettingsLayerColorsComponent } from './settings-layer-colors/settings-layer-colors.component';
 import { SettingsLayerPositionComponent } from './settings-layer-position/settings-layer-position.component';
 import { SettingsLayerPropertiesComponent } from './settings-layer-properties/settings-layer-properties.component';
+import { SettingsPreviewComponent } from './settings-preview/settings-preview.component';
 
 @NgModule({
   imports: [CoreModule],
@@ -11,7 +12,8 @@ import { SettingsLayerPropertiesComponent } from './settings-layer-properties/se
     SettingsContainerComponent,
     SettingsLayerPositionComponent,
     SettingsLayerPropertiesComponent,
-    SettingsLayerColorsComponent
+    SettingsLayerColorsComponent,
+    SettingsPreviewComponent
   ],
   exports: [SettingsContainerComponent]
 })
