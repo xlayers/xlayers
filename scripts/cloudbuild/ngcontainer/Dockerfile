@@ -1,4 +1,3 @@
-# Based on: https://github.com/angular/angular/blob/master/tools/ngcontainer/Dockerfile
 FROM circleci/node:10.9.0-browsers
 
 USER root
@@ -6,7 +5,8 @@ USER root
 ###
 # Bazel install
 # See https://bazel.build/versions/master/docs/install-ubuntu.html#using-bazel-custom-apt-repository-recommended
-RUN BAZEL_VERSION="0.17.1" \
+# Note, only the latest release is available, see https://github.com/bazelbuild/bazel/issues/4947
+RUN BAZEL_VERSION="0.18.0" \
  && wget -q -O - https://bazel.build/bazel-release.pub.gpg | apt-key add - \
  && echo "deb [arch=amd64] http://storage.googleapis.com/bazel-apt stable jdk1.8" > /etc/apt/sources.list.d/bazel.list \
  && apt-get update \
@@ -23,6 +23,7 @@ RUN echo "deb http://deb.debian.org/debian stretch main contrib" > /etc/apt/sour
 
 ###
 # Buildifier
+# TODO(alexeagle): remove this when all users use their locally built buildifier
 # BUILD file formatter
 # 'bazel clean --expunge' conserves size of the image
 RUN git clone https://github.com/bazelbuild/buildtools.git \
@@ -34,6 +35,7 @@ RUN git clone https://github.com/bazelbuild/buildtools.git \
 
 ###
 # Skylint
+# TODO(alexeagle): remove this when all users use their locally built skylint
 # .bzl file linter
 # Follows readme at https://github.com/bazelbuild/bazel/blob/master/site/docs/skylark/skylint.md#building-the-linter
 # 'bazel clean --expunge' conserves size of the image
@@ -43,6 +45,8 @@ RUN git clone https://github.com/bazelbuild/bazel.git \
   && cp bazel-bin/src/tools/skylark/java/com/google/devtools/skylark/skylint/Skylint_deploy.jar /usr/local/bin \
   && bazel clean --expunge \
   ) && rm -rf bazel
+
+USER circleci
 
 ###
 # Fix up npm global installation
