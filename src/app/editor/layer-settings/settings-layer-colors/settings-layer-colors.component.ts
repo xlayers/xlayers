@@ -8,7 +8,7 @@ import { UiState, LayerCSS } from 'src/app/core/state';
   <ng-template #noStyleRef>
     <p class="no-styling">
       <mat-icon>info</mat-icon>
-      The current layer doesn't have styling properties
+      No styles defined.
     </p>
   </ng-template>
 
