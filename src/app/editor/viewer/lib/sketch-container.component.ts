@@ -12,7 +12,7 @@ import { SketchData, SketchService } from './sketch.service';
     </ng-template>
 
     <div class="layers-container" *ngIf="data else noDataRef" >
-      <sketch-canvas #ref sketchSelectedLayer (click)="clearSelection()" [currentPage]="currentPage" [data]="data"></sketch-canvas>
+      <sketch-canvas #ref sketchSelectedLayer (click)="clearSelection()" [currentPage]="currentPage"></sketch-canvas>
     </div>
   `,
   styles: [
