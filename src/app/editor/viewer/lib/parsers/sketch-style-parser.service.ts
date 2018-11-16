@@ -32,7 +32,11 @@ export class SketchStyleParserService {
       if (obj.hasOwnProperty(property)) {
         if (typeof obj[property] === 'object') {
           // visit child
-          this.visitObject(obj[property], obj, root);
+          if (obj[property].frame && obj[property].frame._class === 'rect') {
+            this.visitObject(obj[property], obj, obj[property]);
+          } else {
+            this.visitObject(obj[property], obj, root);
+          }
         } else if (property === '_class') {
           switch (obj[property]) {
             case 'color':
@@ -58,35 +62,35 @@ export class SketchStyleParserService {
                * The current implementation is a little bit hacky!
                */
               if (root.style.textStyle) {
-                console.log('=======MSAttributedStringFontAttribute=======');
-                const MSAttributedStringFontAttribute = root.style.textStyle.encodedAttributes.MSAttributedStringFontAttribute
-                  ._archive as string;
-                console.log(MSAttributedStringFontAttribute);
-                const parsedMSAttributedStringFontAttribute = this.binaryPlistParser.parse64Content(MSAttributedStringFontAttribute);
+                // console.log('=======MSAttributedStringFontAttribute=======');
+                // const MSAttributedStringFontAttribute = root.style.textStyle.encodedAttributes.MSAttributedStringFontAttribute
+                //   ._archive as string;
+                // console.log(MSAttributedStringFontAttribute);
+                // const parsedMSAttributedStringFontAttribute = this.binaryPlistParser.parse64Content(MSAttributedStringFontAttribute);
 
-                console.log('=======archivedAttributedString=======');
-                const archivedAttributedString = root.attributedString.archivedAttributedString._archive as string;
-                const parsedArchivedAttributedString = this.binaryPlistParser.parse64Content(archivedAttributedString);
-                console.log(archivedAttributedString);
-                console.log(parsedArchivedAttributedString);
+                // console.log('=======archivedAttributedString=======');
+                // const archivedAttributedString = root.attributedString.archivedAttributedString._archive as string;
+                // const parsedArchivedAttributedString = this.binaryPlistParser.parse64Content(archivedAttributedString);
+                // console.log(archivedAttributedString);
+                // console.log(parsedArchivedAttributedString);
 
-                console.log('=======NSParagraphStyle=======');
-                const NSParagraphStyle = root.style.textStyle.encodedAttributes.NSParagraphStyle._archive as string;
-                const parsedNSParagraphStyle = this.binaryPlistParser.parse64Content(NSParagraphStyle);
-                console.log(NSParagraphStyle);
-                console.log(parsedNSParagraphStyle);
+                // console.log('=======NSParagraphStyle=======');
+                // const NSParagraphStyle = root.style.textStyle.encodedAttributes.NSParagraphStyle._archive as string;
+                // const parsedNSParagraphStyle = this.binaryPlistParser.parse64Content(NSParagraphStyle);
+                // console.log(NSParagraphStyle);
+                // console.log(parsedNSParagraphStyle);
 
-                console.log('=======NSColor=======');
-                const NSColor = root.style.textStyle.encodedAttributes.NSColor._archive as string;
-                const parsedNSColor = this.binaryPlistParser.parse64Content(NSColor);
-                console.log(NSColor);
-                console.log(parsedNSColor);
+                // console.log('=======NSColor=======');
+                // const NSColor = root.style.textStyle.encodedAttributes.NSColor._archive as string;
+                // const parsedNSColor = this.binaryPlistParser.parse64Content(NSColor);
+                // console.log(NSColor);
+                // console.log(parsedNSColor);
 
-                (root.style.textStyle.encodedAttributes
-                  .MSAttributedStringFontAttribute as any)._transformed = parsedMSAttributedStringFontAttribute;
-                (root.attributedString.archivedAttributedString as any)._transformed = parsedArchivedAttributedString;
-                (root.style.textStyle.encodedAttributes.NSParagraphStyle as any)._transformed = parsedNSParagraphStyle;
-                (root.style.textStyle.encodedAttributes.NSColor as any)._transformed = parsedNSColor;
+                // (root.style.textStyle.encodedAttributes
+                //   .MSAttributedStringFontAttribute as any)._transformed = parsedMSAttributedStringFontAttribute;
+                // (root.attributedString.archivedAttributedString as any)._transformed = parsedArchivedAttributedString;
+                // (root.style.textStyle.encodedAttributes.NSParagraphStyle as any)._transformed = parsedNSParagraphStyle;
+                // (root.style.textStyle.encodedAttributes.NSColor as any)._transformed = parsedNSColor;
               }
               break;
 

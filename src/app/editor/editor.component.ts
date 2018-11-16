@@ -33,6 +33,9 @@ export class EditorComponent implements OnInit {
     background: string;
   };
 
+  settingMenuWidth: number;
+  settingTreeViewerWidth: number;
+
   zoomLevel: number;
 
   is3dView: boolean;
@@ -154,5 +157,13 @@ export class EditorComponent implements OnInit {
   toggle3d() {
     this.is3dView = !this.is3dView;
     this.store.dispatch(new Toggle3D(this.is3dView));
+  }
+
+  onResizeSettingMenuEnd(event) {
+    this.settingMenuWidth = event.rectangle.width;
+  }
+
+  onResizeTreeViewerEnd(event) {
+    this.settingTreeViewerWidth = event.rectangle.width;
   }
 }
