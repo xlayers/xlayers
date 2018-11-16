@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngxs/store';
-import { CurrentLayer, UiState } from 'src/app/core/state';
+import { UiState } from 'src/app/core/state';
 
 @Component({
   selector: 'sketch-settings-layer-position',
@@ -14,16 +14,16 @@ import { CurrentLayer, UiState } from 'src/app/core/state';
 
     <mat-form-field>
       <input matInput
+        disabled
         type="number"
         placeholder="Height"
-        (ngModelChange)="updateCurrentLayerHeight($event)"
         [ngModel]="currentLayer?.frame.height.toFixed(0)">
     </mat-form-field>
     <mat-form-field>
       <input matInput
+        disabled
         type="number"
         placeholder="Width"
-        (ngModelChange)="updateCurrentLayerWidth($event)"
         [ngModel]="currentLayer?.frame.width.toFixed(0)">
     </mat-form-field>
   </mat-expansion-panel>
@@ -37,17 +37,17 @@ import { CurrentLayer, UiState } from 'src/app/core/state';
 
     <mat-form-field>
       <input matInput
+        disabled
         type="number"
         placeholder="Left"
-        (ngModelChange)="updateCurrentLayerX($event)"
         [ngModel]="currentLayer?.frame.x.toFixed(0)">
     </mat-form-field>
     <mat-form-field>
       <input matInput
-      type="number"
-      placeholder="Top"
-      (ngModelChange)="updateCurrentLayerY($event)"
-      [ngModel]="currentLayer?.frame.y.toFixed(0)">
+        disabled
+        type="number"
+        placeholder="Top"
+        [ngModel]="currentLayer?.frame.y.toFixed(0)">
     </mat-form-field>
   </mat-expansion-panel>
   `,
@@ -73,22 +73,5 @@ export class SettingsLayerPositionComponent implements OnInit {
     this.store.select(UiState.currentLayer).subscribe(currentLayer => {
       this.currentLayer = currentLayer;
     });
-  }
-
-  updateCurrentLayerHeight(value: number) {
-    this.currentLayer.frame.height = value;
-    this.store.dispatch(new CurrentLayer(this.currentLayer));
-  }
-  updateCurrentLayerWidth(value: number) {
-    this.currentLayer.frame.width = value;
-    this.store.dispatch(new CurrentLayer(this.currentLayer));
-  }
-  updateCurrentLayerY(value: number) {
-    this.currentLayer.frame.y = value;
-    this.store.dispatch(new CurrentLayer(this.currentLayer));
-  }
-  updateCurrentLayerX(value: number) {
-    this.currentLayer.frame.x = value;
-    this.store.dispatch(new CurrentLayer(this.currentLayer));
   }
 }
