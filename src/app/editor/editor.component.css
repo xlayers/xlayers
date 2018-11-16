@@ -1,12 +1,10 @@
-.mat-drawer {
-  width: 200px;
-}
-
 [hidden] {
   display: none;
 }
 
-/* Toolbar */
+.mat-drawer {
+  width: 220px;
+}
 
 .mat-toolbar {
   position: fixed;
