@@ -6,26 +6,19 @@ import { SketchData } from '../../viewer/lib/sketch.service';
 @Component({
   selector: 'sketch-settings-preview',
   template: `
-  <mat-expansion-panel expanded="true">
-    <mat-expansion-panel-header>
-      <mat-panel-title>
-        Preview
-      </mat-panel-title>
-    </mat-expansion-panel-header>
-
-    <div class="preview-image">
-      <img *ngFor="let image of data?.previews" [src]="image.source" [width]="image.width" [height]="image.height"/>
-    </div>
-  </mat-expansion-panel>
+  <div class="preview-image">
+    <img *ngFor="let image of data?.previews" [src]="image.source" [width]="image.width" [height]="image.height"/>
+  </div>
   `,
-  styles: [
-    `
+  styles: [`
+    .preview-image {
+      padding: 10px;
+    }
     .preview-image img {
       width: 100%;
       height: auto;
     }
-  `
-  ]
+  `]
 })
 export class SettingsPreviewComponent implements OnInit {
   currentLayer: SketchMSLayer;

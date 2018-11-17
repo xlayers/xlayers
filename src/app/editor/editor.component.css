@@ -83,6 +83,10 @@ sketch-container {
   min-width: 200px;
 }
 
+.sidebar.settings {
+  min-width: 290px;
+}
+
 .mat-list-item.selected-page {
   background-color: #ee4743;
 }

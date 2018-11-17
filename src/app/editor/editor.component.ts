@@ -10,7 +10,6 @@ import {
   ZoomOut,
   Toggle3D,
   ToggleWireframe,
-  TogglePreview,
   ToggleCodeEditor,
   ResetUiSettings
 } from 'src/app/core/state';
@@ -93,6 +92,11 @@ export class EditorComponent implements OnInit {
       });
       this.store.select(UiState.isPreview).subscribe(isPreview => {
         this.preview = isPreview;
+        if (this.preview) {
+          this.currentLayerNavRef.open();
+        } else {
+          this.currentLayerNavRef.close();
+        }
       });
       this.store.select(UiState.currentPage).subscribe(currentPage => {
         this.currentPage = currentPage;
@@ -114,11 +118,6 @@ export class EditorComponent implements OnInit {
   toggleWireframe() {
     this.wireframe = !this.wireframe;
     this.store.dispatch(new ToggleWireframe(this.wireframe));
-  }
-
-  togglePreview() {
-    this.preview = !this.preview;
-    this.store.dispatch(new TogglePreview(this.preview));
   }
 
   toggleCodeEditor() {

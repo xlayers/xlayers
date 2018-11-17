@@ -16,9 +16,6 @@
 
   <mat-toolbar-row class="row-settings" *ngIf="currentPage">
     <div [hidden]="!enabled">
-      <button [disabled]="isCodeEditor" matTooltip="Toggle Wireframe Mode" [color]=" preview ? 'warn':'' " mat-button (click)="togglePreview()">
-        <mat-icon>visibility</mat-icon>
-      </button>
       <button [disabled]="isCodeEditor" matTooltip="Toggle Preview Mode" [color]=" wireframe ? 'warn':'' " mat-button (click)="toggleWireframe()">
         <mat-icon>layers</mat-icon>
       </button>
@@ -108,7 +105,7 @@
 
   <mat-drawer
     mwlResizable
-    class="sidebar"
+    class="sidebar settings"
     [enableGhostResize]="true"
     [resizeEdges]="{left: true}"
     mode="side"
