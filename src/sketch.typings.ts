@@ -17,7 +17,7 @@ declare interface SketchMSNestedSymbolOverride {
 }
 declare interface SketchMSAttributedString {
   _class: 'attributedString';
-  archivedAttributedString: SketchMSKeyValueArchive;
+  string: string;
 }
 declare interface SketchMSKeyValueArchive {
   _archive: SketchMSEncodedBase64BinaryPlist;
@@ -317,6 +317,7 @@ declare interface SketchMSSymbolMaster {
   isFlippedVertical: number;
   do_objectID?: string;
   _class: 'symbolMaster';
+  attributedString: SketchMSAttributedString;
   name: string;
   layers: Array<SketchMSLayer>;
   isVisible: boolean;
@@ -395,6 +396,7 @@ declare interface SketchMSPage {
   isVisible: boolean;
   nameIsFixed: number;
   name: string;
+  attributedString: SketchMSAttributedString;
   isLocked: boolean;
   shouldBreakMaskChain: number;
   resizingConstraint: number;

@@ -1,20 +1,29 @@
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  name: ingress-{{SHORT_SHA}}
+  name: ingress-_SHORT_SHA_
   annotations:
     kubernetes.io/ingress.class: "nginx"
-    ingress.kubernetes.io/ssl-redirect: "false"
+
+    # make sure the controller redirects (301) to HTTPS
+    ingress.kubernetes.io/ssl-redirect: "true"
+
     nginx.org/hsts: "true"
     nginx.org/hsts-include-subdomains: "true"
+
+    # will check the TLS configuration and make sure that the specified secret:
+    # - Exists and contains a valid private/public key pair;
+    # - The certificate is not expired;
+    # - The certificate covers all domain names specified in the ingress config.
+    kubernetes.io/tls-acme: "true"
 spec:
   rules:
-  - host: {{SHORT_SHA}}.angular.run
+  - host: xlayers-_SHORT_SHA_.angular.run
     http:
       paths:
         - path: /
           backend:
-            serviceName: xlayers-{{SHORT_SHA}}
+            serviceName: xlayers-_SHORT_SHA_
             servicePort: 80
   tls:
   - secretName: nginx-ingress-nginx-secret
@@ -24,32 +33,28 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: xlayers-{{SHORT_SHA}}
+  name: xlayers-_SHORT_SHA_
 spec:
-  type: NodePort
   ports:
     - port: 80
   selector:
-    app: xlayers-{{SHORT_SHA}}
+    app: xlayers-_SHORT_SHA_
 ---
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: xlayers-{{SHORT_SHA}}
+  name: xlayers-_SHORT_SHA_
 spec:
-  replicas: 1
   selector:
     matchLabels:
-      app: xlayers-{{SHORT_SHA}}
+      app: xlayers-_SHORT_SHA_
   template:
     metadata:
       labels:
-        app: xlayers-{{SHORT_SHA}}
+        app: xlayers-_SHORT_SHA_
     spec:
-      terminationGracePeriodSeconds: 60
       containers:
         - name: xlayers
-          image: gcr.io/cross-xlayers/xlayers:{{SHORT_SHA}}
+          image: gcr.io/cross-xlayers/xlayers:_SHORT_SHA_
           ports:
           - containerPort: 80
-          imagePullPolicy: Always

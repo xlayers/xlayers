@@ -34,10 +34,7 @@ export class ToggleWireframe {
   static readonly type = '[UiSettings] Toggle Wireframe';
   constructor(public value: boolean) {}
 }
-export class TogglePreview {
-  static readonly type = '[UiSettings] Toggle Preview';
-  constructor(public value: boolean) {}
-}
+
 export class AvailablePages {
   static readonly type = '[UiSettings] Available Pages';
   constructor(public pages: SketchMSPage[]) {}
@@ -168,19 +165,12 @@ export class UiState {
       new AvailablePages(action.data.pages),
       new CurrentPage(page),
       new SettingsEnabled(),
-      new TogglePreview(false),
       new ToggleWireframe(false),
       new Toggle3D(false),
       new ToggleCodeEditor(false)
     ]);
     patchState({
       currentFile: { ...action.data }
-    });
-  }
-  @Action(TogglePreview)
-  showPreview({ patchState }: StateContext<UiSettings>, action: TogglePreview) {
-    patchState({
-      preview: action.value
     });
   }
 
@@ -199,16 +189,10 @@ export class UiState {
   }
 
   @Action(CurrentPage)
-  currentPage({ patchState, dispatch }: StateContext<UiSettings>, action: CurrentPage) {
+  currentPage({ patchState }: StateContext<UiSettings>, action: CurrentPage) {
     patchState({
       currentPage: action.page ? { ...action.page } : null
     });
-
-    if (action.page.name === 'Symbols') {
-      dispatch(new TogglePreview(false));
-    } else {
-      dispatch(new TogglePreview(true));
-    }
   }
 
   @Action(CurrentLayer)
@@ -220,7 +204,7 @@ export class UiState {
   }
 
   @Action(SettingsEnabled)
-  enableSettings({ patchState }: StateContext<UiSettings>, action: SettingsEnabled) {
+  enableSettings({ patchState }: StateContext<UiSettings>) {
     patchState({
       settingsEnabled: true
     });
@@ -282,7 +266,7 @@ export class UiState {
     });
   }
   @Action(ResetUiSettings)
-  resetUiSettings({ patchState }: StateContext<UiSettings>, action: ResetUiSettings) {
+  resetUiSettings({ patchState }: StateContext<UiSettings>) {
     patchState(DEFAULT_UI_STATE);
   }
 }
