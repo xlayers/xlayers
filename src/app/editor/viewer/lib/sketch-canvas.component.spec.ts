@@ -7,11 +7,12 @@ import { getSketchDataMock } from './sketch.service.mock';
 import { UiState, CurrentFile } from 'src/app/core/state';
 import { PageState } from 'src/app/core/state/page.state';
 import { getFlatLayerMock } from './sketch-layer.component.mock';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 const renderer2Value = {
-  addClass(k,v) {},
-  removeClass(k,v) {},
-}
+  addClass(k, v) {},
+  removeClass(k, v) {},
+};
 
 describe('SketchCanvasComponent', () => {
   let component: SketchCanvasComponent;
@@ -24,6 +25,7 @@ describe('SketchCanvasComponent', () => {
       imports: [
         NgxsModule.forRoot([UiState, PageState]),
         MatSnackBarModule,
+        NoopAnimationsModule
       ],
       declarations: [SketchCanvasComponent],
       providers: [{
@@ -44,19 +46,15 @@ describe('SketchCanvasComponent', () => {
     await fixture.whenStable();
   });
 
-  fit('should create', () => {
+  it('should create', () => {
     expect(component).toBeTruthy();
   });
 
-  it('it toggles currentFile', async(() => {
+  it('it toggles currentFile', () => {
     store.dispatch(new CurrentFile(getSketchDataMock()));
     store.selectOnce(UiState.currentFile).subscribe(currentFile => {
-      expect(currentFile).toBe(true);
+      expect(currentFile).toBeTruthy();
     });
-  }));
-
-  it('should be a preview', () => {
-    expect(component.isPreview).toBeTruthy();
   });
 
   it('should have current page', () => {
