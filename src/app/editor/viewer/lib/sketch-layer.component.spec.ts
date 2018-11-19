@@ -31,8 +31,8 @@ describe('SketchLayerComponent', () => {
     store = fixture.debugElement.injector.get(Store);
     component = fixture.componentInstance;
     mockLayer = getFlatLayerMock();
-    mockNegativeResizeEvent = getResizeEventMock();
-    mockPositiveResizeEvent = getResizeEventMock({positive: true});
+    mockNegativeResizeEvent = getResizeEventMock({ positive: false });
+    mockPositiveResizeEvent = getResizeEventMock();
     component.layer = mockLayer;
     fixture.detectChanges();
   });
