@@ -16,9 +16,6 @@ import { SketchData } from './sketch.service';
       [style.left.px]="positionX"
       [style.top.px]="positionY"
       #canvas>
-      <div [ngClass]="{ 'hidden': !isPreview }">
-        <img *ngFor="let image of data.previews" [src]="image.source" [width]="image.width" [height]="image.height"/>
-      </div>
       <div>
         <sketch-page
           *ngIf="currentPage"
@@ -75,7 +72,6 @@ export class SketchCanvasComponent implements OnInit, AfterViewInit {
   originPositionX: number;
   originPositionY: number;
 
-  isPreview: boolean;
   data: SketchData;
 
   constructor(private store: Store, private renderer: Renderer2, private element: ElementRef<HTMLElement>) {}
