@@ -65,18 +65,6 @@ export function sketchBorderToString(mockBorder: SketchMSStyleBorder) {
   return `0 0 0 ${mockBorder.thickness}px ${sketchColorMockToString(sketchColorMockToRGBA(mockBorder.color))} ${borderType}`;
 }
 
-export function getSketchFillMock(number: number = 1) {
-  return Array(number).fill({
-    color: getSketchColorMock(),
-    gradient: {
-      stops: Array(getIntegerMock(0, 5)).fill({
-        color: getSketchColorMock(),
-        position: getFloatMock(15)
-      })
-    }
-  } as SketchMSStyleFill);
-}
-
 export function sketchFillToString(mockFill: SketchMSStyleFill) {
   const gradient = mockFill.gradient.stops.map((element) => {
     return `${sketchColorMockToString(sketchColorMockToRGBA(element.color))} ${element.position * 100}%`;

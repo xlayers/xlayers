@@ -108,11 +108,6 @@ export class SketchCanvasComponent implements OnInit, AfterViewInit {
     if (!this.currentPage) {
       this.currentPage = this.data.pages[0];
     }
-    // this.store.select(UiState.zoomLevel).subscribe(zoomLevel => {
-    //   if (this.canvasRef && this.canvasRef.nativeElement) {
-    //     this.canvasRef.nativeElement.style.transform = `translate3d(-50%, 50%, 0px) scale(${zoomLevel})`;
-    //   }
-    // });
   }
 
   dragStart(event) {
