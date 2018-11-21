@@ -113,6 +113,18 @@ export class SketchStyleParserService {
                 });
               }
           }
+
+          if ((obj as SketchMSLayer).frame) {
+            this.setStyle(obj, root, {
+              'display': 'block',
+              'position': 'absolute',
+              'left': `${obj.frame.x}px`,
+              'top': `${obj.frame.y}px`,
+              'width': `${obj.frame.width}px`,
+              'height': `${obj.frame.height}px`,
+              'visibility': obj.isVisible ? 'visibile' : 'hidden'
+            });
+          }
         }
       }
     }
