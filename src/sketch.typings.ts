@@ -15,12 +15,39 @@ declare type SketchMSLayer = SketchMSPage | SketchMSSymbolMaster;
 declare interface SketchMSNestedSymbolOverride {
   symbolID: string;
 }
+declare interface SketchMSStringAttribute {
+  _class: 'stringAttribute';
+  attributes: {
+    MSAttributedStringFontAttribute: {
+      _class: 'fontDescriptor';
+      attributes: {
+        name: 'Roboto-Regular';
+        size: 80;
+      }
+    };
+    paragraphStyle: {
+      _class: 'paragraphStyle',
+      allowsDefaultTighteningForTruncation: number
+    },
+    foregroundColor: SketchMSKeyValueArchive
+  };
+}
 declare interface SketchMSAttributedString {
   _class: 'attributedString';
   string: string;
+  attributes: Array<SketchMSStringAttribute>;
+  archivedAttributedString?: SketchMSKeyValueArchive;
 }
 declare interface SketchMSKeyValueArchive {
   _archive: SketchMSEncodedBase64BinaryPlist;
+}
+declare interface SketchMSFontAttribute {
+  _class: 'fontDescriptor';
+  _archive?: string;
+  attributes: {
+    name: string;
+    size: number;
+  };
 }
 declare interface SketchMSBorder {
   _class: 'border';
@@ -167,8 +194,9 @@ declare interface SketchMSSharedStyle {
 declare interface SketchMSTextStyle {
   _class: 'textStyle';
   encodedAttributes: {
+    MSAttributedStringColorAttribute?: SketchMSColor;
     NSColor: SketchMSKeyValueArchive;
-    MSAttributedStringFontAttribute?: SketchMSKeyValueArchive;
+    MSAttributedStringFontAttribute?: SketchMSFontAttribute;
     NSParagraphStyle?: SketchMSKeyValueArchive;
     NSKern: number;
   };
@@ -314,6 +342,7 @@ declare interface SketchMSSymbolMaster {
   rotation: number;
   style: SketchMSStyle;
   verticalRulerData: SketchMSRulerData;
+  constrainProportions: boolean;
   isFlippedVertical: number;
   do_objectID?: string;
   _class: 'symbolMaster';
@@ -396,6 +425,7 @@ declare interface SketchMSPage {
   isVisible: boolean;
   nameIsFixed: number;
   name: string;
+  constrainProportions: boolean;
   attributedString: SketchMSAttributedString;
   isLocked: boolean;
   shouldBreakMaskChain: number;
