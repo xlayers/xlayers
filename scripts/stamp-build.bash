@@ -1,6 +1,5 @@
 #!/bin/bash
 
-set -u
 
 if [[ -n "$BUILD_ID" ]]; then
     echo "Cloud Build environment detected!"
