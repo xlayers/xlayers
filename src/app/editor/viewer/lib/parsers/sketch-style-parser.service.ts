@@ -131,35 +131,33 @@ export class SketchStyleParserService {
 
   parseBlur(obj: any, root: any) {
     const blur = (obj as SketchMSStyle).blur;
-    if (blur) {
+    if (blur && blur.radius > 0) {
       this.setStyle(obj, root, {
         filter: `blur(${blur.radius}px);`
       });
     }
   }
 
-  parseBorders(obj: any, root: any) {
-    const borders = (obj as SketchMSStyle).borders || [];
+  private parseBorders(obj: any, root: any) {
+    const borders = (obj as SketchMSStyle).borders;
     if (borders && borders.length > 0) {
-      const bordersStyles: string[] = [];
-      borders.forEach(border => {
-        let borderType = '';
-        if (border.position === BorderType.CENTER) {
-          // centered borders are not supported in CSS
-          // fallback to the default value
-          borderType = '';
-        } else if (border.position === BorderType.INSIDE) {
-          borderType = 'inset';
-        } else if (border.position === BorderType.OUTSIDE) {
-          borderType = '';
+      const bordersStyles = borders.reduce((acc, border) => {
+        if (border.thickness > 0) {
+          const color = this.parseColors(border.color);
+          let shadow = `0 0 0 ${border.thickness}px ${color.rgba}`;
+          if (border.position === BorderType.INSIDE) {
+            shadow += ' inset';
+          }
+          return [shadow, ...acc];
         }
-        const color = this.parseColors(border.color);
-        bordersStyles.push(`0 0 0 ${border.thickness}px ${color.rgba} ${borderType}`);
-      });
+        return acc;
+      }, []);
 
-      this.setStyle(obj, root, {
-        'box-shadow': bordersStyles.join(',')
-      });
+      if (bordersStyles.length > 0) {
+        this.setStyle(obj, root, {
+          'box-shadow': bordersStyles.join(',')
+        });
+      }
     }
   }
 
@@ -180,7 +178,11 @@ export class SketchStyleParserService {
 
         const fillsStyles: string[] = [];
         firstFill.gradient.stops.forEach(stop => {
-          fillsStyles.push(`${this.parseColors(stop.color).rgba} ${stop.position * 100}%`);
+          let fill = `${this.parseColors(stop.color).rgba}`;
+          if (stop.position >= 0 && stop.position <= 1) {
+            fill += ` ${stop.position * 100}%`;
+          }
+          fillsStyles.push(fill);
         });
 
         console.log(`fillsStyles`, fillsStyles);
@@ -252,7 +254,8 @@ export class SketchStyleParserService {
   }
 
   rgba(v: number) {
-    return Math.round(v * 255);
+    const color = Math.round(v * 255);
+    return color > 0 ? color : 0;
   }
 
   sketch2rgba(r: number, g: number, b: number, a: number) {
