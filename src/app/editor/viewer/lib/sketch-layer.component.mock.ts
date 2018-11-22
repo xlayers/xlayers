@@ -1,5 +1,4 @@
 import { ResizeEvent } from 'angular-resizable-element';
-import { getIntegerMock } from './sketch.service.mock';
 
 export function getResizeEventMock({
   positive = true,
@@ -16,12 +15,12 @@ export function getResizeEventMock({
 } = {}) {
   return {
     rectangle: {
-      width: right && getIntegerMock(0, 500),
-      height: bottom && getIntegerMock(0, 500)
+      width: right && 38,
+      height: bottom && 98
     },
     edges: {
-      top:  top && (positive ? getIntegerMock(0, 500) : getIntegerMock(-500, 0)),
-      left: left && (positive ? getIntegerMock(0, 500) : getIntegerMock(-500, 0))
+      top:  top && (positive ? 917 : -67),
+      left: left && (positive ? 578 : -346)
     }
   } as ResizeEvent;
 }
@@ -39,12 +38,12 @@ export function getFlatLayerMock(layer_number: number = 1) {
     _class: 'page',
     layers: Array.from(Array(layer_number).keys()).map((index) => ({
       do_objectID: `layer-${index}-id`,
-      _class: 'page',
+      _class: 'layer',
       layers: [],
-      frame: getFrameMock(getIntegerMock(10), getIntegerMock(10)),
+      frame: getFrameMock(index, index),
       name: `layer-${index}`
     })),
-    frame: getFrameMock(getIntegerMock(10), getIntegerMock(10)),
+    frame: getFrameMock(824, 918),
     name: `page-layer`
   } as SketchMSPage;
 }

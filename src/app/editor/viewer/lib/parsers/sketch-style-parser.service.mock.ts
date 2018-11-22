@@ -1,4 +1,3 @@
-import { getIntegerMock, getFloatMock } from '../sketch.service.mock';
 import { BorderType } from './sketch-style-parser.service';
 
 export function sketchColorMockToRGBA(mockColor: SketchMSColor) {
@@ -24,10 +23,10 @@ export function sketchColorMockToHex(mockColor: SketchMSColor) {
 
 export function getSketchColorMock() {
   return {
-    red: getFloatMock(),
-    green: getFloatMock(),
-    blue: getFloatMock(),
-    alpha: getFloatMock(),
+    red: 0.2,
+    green: 0.3,
+    blue: 0.1,
+    alpha: 0.4,
   } as SketchMSColor;
 }
 
@@ -38,23 +37,23 @@ export function sketchShadowToString(mockShadow: SketchMSShadow) {
 
 export function getSketchShadowMock(color: SketchMSColor, number: number = 1) {
   return Array(number).fill({
-    offsetX: getIntegerMock(0, 500),
-    offsetY: getIntegerMock(0, 500),
-    blurRadius: getIntegerMock(0, 500),
-    spread: getIntegerMock(0, 500),
+    offsetX: 873,
+    offsetY: 349,
+    blurRadius: 98,
+    spread: 49,
     color
   } as SketchMSShadow);
 }
 
 export function getSketchBlurMock() {
   return {
-    radius: getIntegerMock(0, 500)
+    radius: 181
   } as SketchMSStyleBlur;
 }
 
 export function getSketchBorderMock(boderType: BorderType, number: number = 1) {
   return Array(number).fill({
-    thickness: getFloatMock(),
+    thickness: 0.2342112394,
     position: boderType,
     color: getSketchColorMock()
   } as SketchMSBorder);
@@ -63,6 +62,18 @@ export function getSketchBorderMock(boderType: BorderType, number: number = 1) {
 export function sketchBorderToString(mockBorder: SketchMSStyleBorder) {
   const borderType = mockBorder.position === BorderType.INSIDE ? 'inet' : '';
   return `0 0 0 ${mockBorder.thickness}px ${sketchColorMockToString(sketchColorMockToRGBA(mockBorder.color))} ${borderType}`;
+}
+
+export function getSketchFillMock(number: number = 1) {
+  return Array(number).fill({
+    color: getSketchColorMock(),
+    gradient: {
+      stops: Array(4).fill({
+        color: getSketchColorMock(),
+        position: 0.275915839018395
+      })
+    }
+  } as SketchMSStyleFill);
 }
 
 export function sketchFillToString(mockFill: SketchMSStyleFill) {
