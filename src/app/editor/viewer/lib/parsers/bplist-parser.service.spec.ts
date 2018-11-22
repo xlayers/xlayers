@@ -19,13 +19,13 @@ describe('BPListParserService', () => {
   });
 
   it('should parse 64 content', () => {
-    spyOn<any>(binaryPropertyListParserService, 'doParse').and.stub();
+    spyOn<any>(binaryPropertyListParserService, 'doParse').and.returnValue('parsed content');
     const content = binaryPropertyListParserService.parse64Content('YnBsaXN0MDDUAQIDBAUGFxhYJHZlcnNpb25YJG9iamVjdHNZJGFyY2'
     + 'hpdmVyVCR0b3ASAAGGoKMHCBFVJG51bGzUCQoLDA0ODxBaTlNUYWJTdG9wc1tOU0FsaWdubWVudF8QH05TQWxsb3dzVGlnaHRlb'
     + 'mluZ0ZvclRydW5jYXRpb25WJGNsYXNzgAAQBBABgALSEhMUFVokY2xhc3NuYW1lWCRjbGFzc2VzXxAQTlNQYXJhZ3JhcGhTdHls'
     + 'ZaIUFlhOU09iamVjdF8QD05TS2V5ZWRBcmNoaXZlctEZGlRyb290gAEIERojLTI3O0FKVWGDioyOkJKXoqu+wcrc3+QAAAAAAAA'
     + 'BAQAAAAAAAAAbAAAAAAAAAAAAAAAAAAAA5g==');
-    expect(binaryPropertyListParserService['content']).toEqual(undefined);
+    expect(binaryPropertyListParserService['content']).toEqual('parsed content');
   });
 
   it('should fail on non base64 string', () => {
