@@ -15,10 +15,10 @@ export class SketchSelectedLayerDirective implements OnInit, OnDestroy {
 
   @HostListener('click', ['$event'])
   onclick(event: MouseEvent) {
-    const path = (event as any).path as Array<HTMLElement>;
+    const path = event.composedPath();
     let element: HTMLElement = null;
     for (let i = 0; i < path.length; i++) {
-      element = path[i];
+      element = path[i] as HTMLElement;
       if (element && element.nodeName === this.element.nativeElement.nodeName) {
         this.unselectSelectedLayer();
         this.highlightSelectedLayer(element);
