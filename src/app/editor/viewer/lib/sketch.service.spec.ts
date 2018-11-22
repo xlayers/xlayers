@@ -1,18 +1,11 @@
-import { SketchService, SketchData } from './sketch.service';
+import { SketchService } from './sketch.service';
 import { TestBed, async } from '@angular/core/testing';
 import { HttpClientModule } from '@angular/common/http';
-import { getFileMock } from './sketch-container.component.mock';
 import { CommonModule } from '@angular/common';
-import { getSketchDataMock } from './sketch.service.mock';
-
-const sketchStyleParserService = {
-  visit() {}
-};
+import { getFrameMock } from './sketch-layer.component.mock';
 
 describe('SketchService', () => {
   let sketchService: SketchService;
-  let mockFile: File;
-  let mockSketchData: SketchData;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -25,16 +18,36 @@ describe('SketchService', () => {
 
   beforeEach(() => {
     sketchService = TestBed.get(SketchService);
-    mockFile = getFileMock();
-    mockSketchData = getSketchDataMock();
   });
 
   it('should process file', (done: DoneFn) => {
+    const file = {
+      lastModified: new Date('2018-11-21T15:52:43.644Z').valueOf(),
+      name: 'mock-file'
+    } as File;
+    const data = {
+      previews: [{}],
+      pages: [
+        {
+          do_objectID: `page-layer`,
+          _class: 'page',
+          layers: [{
+            do_objectID: `layer-0-id`,
+            _class: 'layer',
+            layers: [],
+            frame: getFrameMock(982, 240),
+            name: `layer-0`
+          }],
+          frame: getFrameMock(824, 918),
+          name: `page-layer`
+        }
+      ]
+    } as SketchData;
     spyOn(sketchService, 'sketch2Json').and.returnValue(
-      Promise.resolve(mockSketchData)
+      Promise.resolve(data)
     );
-    sketchService.process(mockFile).then(element => {
-      expect(element).toBe(mockSketchData);
+    sketchService.process(file).then(element => {
+      expect(element).toBe(data);
       done();
     });
   });

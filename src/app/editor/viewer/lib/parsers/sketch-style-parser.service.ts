@@ -24,10 +24,9 @@ export class SketchStyleParserService {
         page.layers.map(layer => this.visitObject(layer, page, layer));
       }
     });
-    console.log(pages);
   }
 
-  private visitObject(obj: any, parent: any, root: any) {
+  visitObject(obj: any, parent: any, root: any) {
     for (const property in obj) {
       if (obj.hasOwnProperty(property)) {
         if (typeof obj[property] === 'object') {
@@ -136,7 +135,7 @@ export class SketchStyleParserService {
     return parent;
   }
 
-  private parseStyleInformation(obj: any, root: any) {
+  parseStyleInformation(obj: any, root: any) {
     // blur
     this.parseBlur(obj, root);
     // borders
@@ -147,9 +146,9 @@ export class SketchStyleParserService {
     this.parseShadows(obj, root);
   }
 
-  private parseBlur(obj: any, root: any) {
+  parseBlur(obj: any, root: any) {
     const blur = (obj as SketchMSStyle).blur;
-    if (blur) {
+    if (blur && blur.radius > 0) {
       this.setStyle(obj, root, {
         filter: `blur(${blur.radius}px);`
       });
@@ -157,46 +156,54 @@ export class SketchStyleParserService {
   }
 
   private parseBorders(obj: any, root: any) {
-    const borders = (obj as SketchMSStyle).borders || [];
+    const borders = (obj as SketchMSStyle).borders;
     if (borders && borders.length > 0) {
-      const bordersStyles: string[] = [];
-      borders.forEach(border => {
-        let borderType = '';
-        if (border.position === BorderType.CENTER) {
-          // centered borders are not supported in CSS
-          // fallback to the default value
-          borderType = '';
-        } else if (border.position === BorderType.INSIDE) {
-          borderType = 'inset';
-        } else if (border.position === BorderType.OUTSIDE) {
-          borderType = '';
+      const bordersStyles = borders.reduce((acc, border) => {
+        if (border.thickness > 0) {
+          const color = this.parseColors(border.color);
+          let shadow = `0 0 0 ${border.thickness}px ${color.rgba}`;
+          if (border.position === BorderType.INSIDE) {
+            shadow += ' inset';
+          }
+          return [shadow, ...acc];
         }
-        const color = this.parseColors(border.color);
-        bordersStyles.push(`0 0 0 ${border.thickness}px ${color.rgba} ${borderType}`);
-      });
+        return acc;
+      }, []);
 
-      this.setStyle(obj, root, {
-        'box-shadow': bordersStyles.join(',')
-      });
+      if (bordersStyles.length > 0) {
+        this.setStyle(obj, root, {
+          'box-shadow': bordersStyles.join(',')
+        });
+      }
     }
   }
 
-  private parseFills(obj: any, root: any) {
+  parseFills(obj: any, root: any) {
     const fills = (obj as SketchMSStyle).fills || [];
     if (fills.length > 0) {
       // we only support one fill: take the first one!
       // ignore the other fills
       const firstFill = fills[0];
+      console.log(`firstFill`, firstFill);
 
       this.setStyle(obj, root, {
         'background-color': `${this.parseColors(firstFill.color).rgba}`
       });
 
       if (firstFill.gradient) {
+        console.log(`firstFill.gradient`, firstFill.gradient);
+
         const fillsStyles: string[] = [];
         firstFill.gradient.stops.forEach(stop => {
-          fillsStyles.push(`${this.parseColors(stop.color).rgba} ${stop.position * 100}%`);
+          let fill = `${this.parseColors(stop.color).rgba}`;
+          if (stop.position >= 0 && stop.position <= 1) {
+            fill += ` ${stop.position * 100}%`;
+          }
+          fillsStyles.push(fill);
         });
+
+        console.log(`fillsStyles`, fillsStyles);
+
         if (fillsStyles.length > 0) {
           // apply gradient, if multiple fills
           // default angle is 90deg
@@ -208,7 +215,7 @@ export class SketchStyleParserService {
     }
   }
 
-  private parseShadows(obj: any, root: any) {
+  parseShadows(obj: any, root: any) {
     const innerShadows = (obj as SketchMSStyle).innerShadows || [];
     const shadows = (obj as SketchMSStyle).shadows || [];
     const shadowsStyles: string[] = [];
@@ -233,7 +240,7 @@ export class SketchStyleParserService {
     }
   }
 
-  private parseColors(color: SketchMSColor | undefined) {
+  parseColors(color: SketchMSColor | undefined) {
 
     if (typeof color === 'undefined') {
       return {
@@ -263,15 +270,16 @@ export class SketchStyleParserService {
     };
   }
 
-  private rgba(v: number) {
-    return Math.round(v * 255);
+  rgba(v: number) {
+    const color = Math.round(v * 255);
+    return color > 0 ? color : 0;
   }
 
-  private sketch2rgba(r: number, g: number, b: number, a: number) {
+  sketch2rgba(r: number, g: number, b: number, a: number) {
     return `rgba(${this.rgba(r)},${this.rgba(g)},${this.rgba(b)},${a})`;
   }
 
-  private setStyle(obj: any, root: any, style: { [key: string]: string }) {
+  setStyle(obj: any, root: any, style: { [key: string]: string }) {
     root.css = root.css || {};
     obj.css = obj.css || {};
     for (const property in style) {
@@ -282,7 +290,7 @@ export class SketchStyleParserService {
     }
   }
 
-  private sketch2hex(r: number, g: number, b: number, a: number) {
+  sketch2hex(r: number, g: number, b: number, a: number) {
     if (r > 255 || g > 255 || b > 255 || a > 255) {
       return '';
     }

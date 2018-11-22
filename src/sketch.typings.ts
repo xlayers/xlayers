@@ -391,7 +391,7 @@ declare interface SketchMSPage {
   isFlippedVertical: number;
   resizingType: number;
   do_objectID?: string;
-  _class: 'page';
+  _class: 'page' | 'layer';
   layers: Array<SketchMSLayer>;
   isVisible: boolean;
   nameIsFixed: number;
