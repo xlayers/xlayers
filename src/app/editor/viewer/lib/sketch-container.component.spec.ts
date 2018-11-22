@@ -59,7 +59,7 @@ fdescribe('SketchContainerComponent', () => {
   });
 
   describe('should clear current page', () => {
-  it('currentPage is truthy', async(() => {
+    it('currentPage is truthy', async(() => {
       component.currentPage = {} as any;
       component.clearSelection();
       store.select(UiState.currentLayer).subscribe((element) => {
