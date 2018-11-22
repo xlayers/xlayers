@@ -113,8 +113,8 @@ export class SketchLayerComponent implements OnInit, AfterContentInit {
   updateLayerStyle() {
     if (this.layer && this.nativeElement) {
       this.renderer.setStyle(this.nativeElement, 'border-width', `${this.borderWidth}px`);
-      this.renderer.setStyle(this.nativeElement, 'left', `${this.layer.frame.x * this.artboardFactor - this.borderWidth}px`);
-      this.renderer.setStyle(this.nativeElement, 'top', `${this.layer.frame.y * this.artboardFactor - this.borderWidth}px`);
+      this.renderer.setStyle(this.nativeElement, 'left', `${this.layer.frame.x * this.artboardFactor - (this.borderWidth * 2)}px`);
+      this.renderer.setStyle(this.nativeElement, 'top', `${this.layer.frame.y * this.artboardFactor - (this.borderWidth * 2)}px`);
       this.renderer.setStyle(this.nativeElement, 'width', `${this.layer.frame.width * this.artboardFactor}px`);
       this.renderer.setStyle(this.nativeElement, 'height', `${this.layer.frame.height * this.artboardFactor}px`);
       this.renderer.setStyle(this.nativeElement, 'visibility', this.layer.isVisible ? 'visibile' : 'hidden');
