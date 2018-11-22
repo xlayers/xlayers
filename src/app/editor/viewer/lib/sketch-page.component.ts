@@ -40,12 +40,10 @@ export class SketchPageComponent extends SketchLayerComponent implements OnInit,
   ngAfterContentInit() {
     super.ngAfterContentInit();
 
+    const elementPosition = this.nativeElement.getBoundingClientRect();
     const ne = this.element.nativeElement;
     this.renderer.setStyle(ne, 'border-width', `${this.borderWidth}px`);
-    this.renderer.setStyle(ne, 'left', `${this.page.frame.x * this.artboardFactor - this.borderWidth}px`);
-    this.renderer.setStyle(ne, 'top', `${this.page.frame.y * this.artboardFactor - this.borderWidth}px`);
-    this.renderer.setStyle(ne, 'width', `${this.page.frame.width * this.artboardFactor}px`);
-    this.renderer.setStyle(ne, 'height', `${this.page.frame.height * this.artboardFactor}px`);
-    this.renderer.setStyle(ne, 'visibility', this.page.isVisible ? 'visibile' : 'hidden');
+    this.renderer.setStyle(ne, 'left', `${elementPosition.left - this.borderWidth}px`);
+    this.renderer.setStyle(ne, 'top', `${elementPosition.top - this.borderWidth}px`);
   }
 }
