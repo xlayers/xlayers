@@ -6,15 +6,12 @@ import { NgxsModule, Store } from '@ngxs/store';
 import { ResizeEvent } from 'angular-resizable-element';
 import { UiState } from '../../../core/state';
 import { PageState } from '../../../core/state/page.state';
-import { getFlatLayerMock, getResizeEventMock } from './sketch-layer.component.mock';
+import { getFlatLayerMock, getResizeEventMock, getFrameMock } from './sketch-layer.component.mock';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 describe('SketchLayerComponent', () => {
   let component: SketchLayerComponent;
   let fixture: ComponentFixture<SketchLayerComponent>;
-  let mockPositiveResizeEvent: ResizeEvent;
-  let mockNegativeResizeEvent: ResizeEvent;
-  let mockLayer: SketchMSLayer;
   let store: Store;
 
   beforeEach(async(() => {
@@ -30,10 +27,19 @@ describe('SketchLayerComponent', () => {
     fixture = TestBed.createComponent(SketchLayerComponent);
     store = fixture.debugElement.injector.get(Store);
     component = fixture.componentInstance;
-    mockLayer = getFlatLayerMock();
-    mockNegativeResizeEvent = getResizeEventMock({ positive: false });
-    mockPositiveResizeEvent = getResizeEventMock();
-    component.layer = mockLayer;
+    component.layer = {
+      do_objectID: `page-layer`,
+      _class: 'page',
+      layers: [{
+        do_objectID: `layer-0-id`,
+        _class: 'layer',
+        layers: [],
+        frame: getFrameMock(412, 422),
+        name: `layer-0`
+      }],
+      frame: getFrameMock(824, 918),
+      name: `page-layer`
+    } as SketchMSLayer;
     fixture.detectChanges();
   });
 
@@ -41,39 +47,61 @@ describe('SketchLayerComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should resize in positive', (done: DoneFn) => {
-    component.resizeStart(mockPositiveResizeEvent);
-    component.resizing(mockPositiveResizeEvent);
-    component.resizeEnd(mockPositiveResizeEvent);
-    store.select(UiState.currentLayer).subscribe((element) => {
-      expect(element.frame.x).toBe(mockPositiveResizeEvent.edges.left as number);
-      expect(element.frame.y).toBe(mockPositiveResizeEvent.edges.top as number);
-      done();
+  describe('when resize', () => {
+    it('should work for positive left and top', (done: DoneFn) => {
+      const resizeEvent = {
+        rectangle: {
+          width: 238,
+          height: 218,
+          top: 0,
+          left: 0,
+          bottom: 0,
+          right: 0
+        },
+        edges: {
+          top:  917,
+          left: 578,
+        }
+      };
+      component.resizeStart(resizeEvent);
+      component.resizing(resizeEvent);
+      component.resizeEnd(resizeEvent);
+      store.select(UiState.currentLayer).subscribe((element) => {
+        expect(element.frame.x).toBe(resizeEvent.edges.left);
+        expect(element.frame.y).toBe(resizeEvent.edges.top);
+        done();
+      });
     });
-    expect(component.layer.frame.x).toBe(mockPositiveResizeEvent.edges.left as number);
-    expect(component.layer.frame.y).toBe(mockPositiveResizeEvent.edges.top as number);
-  });
 
-  it('should resize in negative', (done: DoneFn) => {
-    component.resizeStart(mockNegativeResizeEvent);
-    component.resizing(mockNegativeResizeEvent);
-    component.resizeEnd(mockNegativeResizeEvent);
-    store.select(UiState.currentLayer).subscribe((element) => {
-      expect(element.frame.x).toBe(mockNegativeResizeEvent.edges.left as number);
-      expect(element.frame.y).toBe(mockNegativeResizeEvent.edges.top as number);
-      done();
+    it('should work for negative left and top', (done: DoneFn) => {
+      const resizeEvent = {
+        rectangle: {
+          width: 45,
+          height: 435
+        },
+        edges: {
+          top:  -424,
+          left: -745,
+        }
+      } as ResizeEvent;
+      component.resizeStart(resizeEvent);
+      component.resizing(resizeEvent);
+      component.resizeEnd(resizeEvent);
+      store.select(UiState.currentLayer).subscribe((element) => {
+        expect(element.frame.x).toBe(resizeEvent.edges.left);
+        expect(element.frame.y).toBe(resizeEvent.edges.top);
+        done();
+      });
     });
-    expect(component.layer.frame.x).toBe(mockNegativeResizeEvent.edges.left as number);
-    expect(component.layer.frame.y).toBe(mockNegativeResizeEvent.edges.top as number);
   });
 
   it('should select layer', (done: DoneFn) => {
     store.select(UiState.currentLayer).subscribe((element) => {
       if (element !== null) {
-        expect(element).toEqual(mockLayer);
+        expect(element).toEqual(component.layer);
         done();
       }
     });
-    component.selectLayer(mockLayer);
+    component.selectLayer(component.layer);
   });
 });
