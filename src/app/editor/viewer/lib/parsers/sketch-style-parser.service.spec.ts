@@ -19,6 +19,91 @@ describe('SketchStyleParserService', () => {
     expect(sketchStyleParserService).toBeTruthy();
   });
 
+  describe('when parse text', () => {
+    it('should parse text font', () => {
+      const obj = {
+        style: {
+          textStyle: {
+            encodedAttributes: {
+              MSAttributedStringFontAttribute: {
+                _class: 'fontDescriptor',
+                attributes: {
+                  name: 'Roboto-Medium',
+                  size: 14
+                }
+              }
+            }
+          }
+        }
+      } as any;
+      const root = {};
+      sketchStyleParserService.parseTextFont(obj, root);
+      expect(root).toEqual({
+        css: {
+          'font-family': 'Roboto-Medium, \'Roboto\', sans-serif',
+          'font-size': '14px',
+        },
+      });
+    });
+
+    it('should not parse not configured font', () => {
+      const obj = {
+        style: {
+          textStyle: {
+            encodedAttributes: {
+              MSAttributedStringFontAttribute: {
+              }
+            }
+          }
+        }
+      } as SketchMSLayer;
+      const root = {};
+      sketchStyleParserService.parseTextFont(obj, root);
+      expect(root).toEqual({});
+    });
+
+    it('should parse color', () => {
+      const obj = {
+        style: {
+          textStyle: {
+            encodedAttributes: {
+              MSAttributedStringColorAttribute: {
+                alpha: 0.4,
+                blue: 0.65,
+                green: 0.321,
+                red: 1
+              }
+            }
+          }
+        }
+      } as SketchMSLayer;
+      const root = {};
+      sketchStyleParserService.parseTextColor(obj, root);
+      expect(root).toEqual({
+        css: {
+          color: 'rgba(255,82,166,0.4)'
+        },
+      });
+    });
+
+    it('should fallback to black for unknow color', () => {
+      const obj = {
+        style: {
+          textStyle: {
+            encodedAttributes: {}
+          }
+        }
+      } as SketchMSLayer;
+      const root = {};
+      sketchStyleParserService.parseTextColor(obj, root);
+      expect(root).toEqual({
+        css: {
+          color: 'black'
+        },
+      });
+    });
+  });
+
   describe('when parse color', () => {
     it('should parse', () => {
       const color = {
@@ -74,8 +159,8 @@ describe('SketchStyleParserService', () => {
         blurRadius: 12,
         spread: 23,
         color: getSketchColorMock()
-      }] as Array<SketchMSStyleShadow>
-    };
+      }]
+    } as SketchMSStyle;
     const root = {};
     sketchStyleParserService.parseShadows(obj, root);
     const color = sketchStyleParserService['parseColors'](obj.shadows[0].color);
@@ -84,28 +169,28 @@ describe('SketchStyleParserService', () => {
 
   describe('when parse blur', () => {
     it('should parse positive radius blur', () => {
-      const obj = {blur: {radius: 96}};
+      const obj = {blur: {radius: 96}} as SketchMSStyle;
       const root = {};
       sketchStyleParserService.parseBlur(obj, root);
       expect(root).toEqual({ css: { filter: `blur(${obj.blur.radius}px);` } });
     });
 
     it('should skip for negative blur radius', () => {
-      const obj = {blur: {radius: -123}};
+      const obj = {blur: {radius: -123}} as SketchMSStyle;
       const root = {};
       sketchStyleParserService['parseBlur'](obj, root);
       expect(root).toEqual({});
     });
 
     it('should skip for 0 blur radius', () => {
-      const obj = {blur: {radius: 0}};
+      const obj = {blur: {radius: 0}} as SketchMSStyle;
       const root = {};
       sketchStyleParserService['parseBlur'](obj, root);
       expect(root).toEqual({});
     });
 
     it('should skip on undefined blur', () => {
-      const obj = {};
+      const obj = {} as SketchMSStyle;
       const root = {};
       sketchStyleParserService['parseBlur'](obj, root);
       expect(root).toEqual({});
@@ -119,8 +204,8 @@ describe('SketchStyleParserService', () => {
           thickness: 129,
           position: BorderType.CENTER,
           color: getSketchColorMock()
-        }] as Array<SketchMSStyleBorder>
-      };
+        }]
+      } as SketchMSStyle;
       const root = {};
       sketchStyleParserService['parseBorders'](obj, root);
       const color = sketchStyleParserService['parseColors'](obj.borders[0].color);
@@ -133,8 +218,8 @@ describe('SketchStyleParserService', () => {
           thickness: -38,
           position: BorderType.CENTER,
           color: getSketchColorMock()
-        }] as Array<SketchMSStyleBorder>
-      };
+        }]
+      } as SketchMSStyle;
       const root = {};
       sketchStyleParserService['parseBorders'](obj, root);
       expect(root).toEqual({});
@@ -146,8 +231,8 @@ describe('SketchStyleParserService', () => {
           thickness: 129,
           position: BorderType.INSIDE,
           color: getSketchColorMock()
-        }] as Array<SketchMSStyleBorder>
-      };
+        }]
+      } as SketchMSStyle;
       const root = {};
       sketchStyleParserService['parseBorders'](obj, root);
       const color = sketchStyleParserService['parseColors'](obj.borders[0].color);
@@ -160,8 +245,8 @@ describe('SketchStyleParserService', () => {
           thickness: 129,
           position: BorderType.CENTER,
           color: getSketchColorMock()
-        }] as Array<SketchMSStyleBorder>
-      };
+        }]
+      } as SketchMSStyle;
       const root = {};
       sketchStyleParserService['parseBorders'](obj, root);
       const color = sketchStyleParserService['parseColors'](obj.borders[0].color);
@@ -174,8 +259,8 @@ describe('SketchStyleParserService', () => {
           thickness: 129,
           position: BorderType.OUTSIDE,
           color: getSketchColorMock()
-        }] as Array<SketchMSStyleBorder>
-      };
+        }]
+      } as SketchMSStyle;
       const root = {};
       sketchStyleParserService['parseBorders'](obj, root);
       const color = sketchStyleParserService['parseColors'](obj.borders[0].color);
@@ -183,14 +268,14 @@ describe('SketchStyleParserService', () => {
     });
 
     it('should skip on empty border', () => {
-      const obj = {borders: []};
+      const obj = {borders: []} as SketchMSStyle;
       const root = {};
       sketchStyleParserService['parseBorders'](obj, root);
       expect(root).toEqual({});
     });
 
     it('should skip on undefined border', () => {
-      const obj = {};
+      const obj = {} as SketchMSStyle;
       const root = {};
       sketchStyleParserService['parseBorders'](obj, root);
       expect(root).toEqual({});
@@ -208,8 +293,8 @@ describe('SketchStyleParserService', () => {
               position: 0.835923120242395
             }]
           }
-        }] as Array<SketchMSStyleFill>,
-      };
+        }]
+      } as SketchMSStyle;
       const root = {};
       sketchStyleParserService.parseFills(obj, root);
       const color = sketchStyleParserService['parseColors'](obj.fills[0].color);
@@ -232,8 +317,8 @@ describe('SketchStyleParserService', () => {
               position: 154
             }]
           }
-        }] as Array<SketchMSStyleFill>,
-      };
+        }]
+      } as SketchMSStyle;
       const root = {};
       sketchStyleParserService.parseFills(obj, root);
       const color = sketchStyleParserService['parseColors'](obj.fills[0].color);
@@ -256,8 +341,8 @@ describe('SketchStyleParserService', () => {
               position: -0.123125345387423
             }]
           }
-        }] as Array<SketchMSStyleFill>,
-      };
+        }]
+      } as SketchMSStyle;
       const root = {};
       sketchStyleParserService.parseFills(obj, root);
       const color = sketchStyleParserService['parseColors'](obj.fills[0].color);
