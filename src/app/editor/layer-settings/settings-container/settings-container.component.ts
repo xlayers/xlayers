@@ -5,7 +5,7 @@ import { UiState } from '../../../core/state';
 @Component({
   selector: 'sketch-settings-container',
   template: `
-    <section [ngSwitch]="currentSettingView">
+    <section>
       <sketch-settings-preview></sketch-settings-preview>
       <sketch-settings-layer-position></sketch-settings-layer-position>
       <sketch-settings-layer-colors></sketch-settings-layer-colors>
