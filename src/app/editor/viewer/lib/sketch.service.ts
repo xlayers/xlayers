@@ -26,20 +26,6 @@ export interface SketchData {
 export class SketchService {
   _data: SketchData;
 
-  public demoFiles = [
-    'md-components-notifications-heads-up',
-    'md-components-cards-welcome-back',
-    'md-components-keyboards',
-    'md-components-tabs-status-bar',
-    'md-components-cards-safari',
-    'md-components-date-picker',
-    'md-components-chips-open-chip',
-    'md-components-cards-homes',
-    'md-components-buttons-lights',
-    'md-components-cards-pooch',
-    'md-components-buttons-fabs-light'
-  ];
-
   constructor(
     private sanitizer: DomSanitizer,
     private sketchColorParser: SketchStyleParserService,
@@ -156,7 +142,7 @@ export class SketchService {
   }
 
   getDemoFiles() {
-    return this.demoFiles;
+    return environment.demoFiles;
   }
 
   getSketchDemoFile(filename: string) {
