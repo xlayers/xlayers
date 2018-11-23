@@ -5,17 +5,10 @@ import { UiState, LayerCSS } from 'src/app/core/state';
 @Component({
   selector: 'sketch-settings-layer-colors',
   template: `
-  <ng-template #noStyleRef>
-    <p class="no-styling">
-      <mat-icon>info</mat-icon>
-      No styles defined.
-    </p>
-  </ng-template>
-
-  <mat-expansion-panel expanded="true" *ngIf="componentStyle else noStyleRef" >
+  <mat-expansion-panel expanded="true" [disabled]="gradients.length === 0">
     <mat-expansion-panel-header>
       <mat-panel-title>
-        Style Properties
+        Style & Colors
       </mat-panel-title>
     </mat-expansion-panel-header>
 
@@ -42,6 +35,9 @@ import { UiState, LayerCSS } from 'src/app/core/state';
   `,
   styles: [
     `
+      :host {
+        text-align: center;
+      }
       .gradient-color {
         display: block;
         width: 24px;

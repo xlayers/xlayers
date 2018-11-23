@@ -24,10 +24,9 @@ export class SketchStyleParserService {
         page.layers.map(layer => this.visitObject(layer, page, layer));
       }
     });
-    console.log(pages);
   }
 
-  private visitObject(obj: any, parent: any, root: any) {
+  visitObject(obj: any, parent: any, root: any) {
     for (const property in obj) {
       if (obj.hasOwnProperty(property)) {
         if (typeof obj[property] === 'object') {
@@ -53,45 +52,7 @@ export class SketchStyleParserService {
               this.parseStyleInformation(obj, root);
               break;
             case 'text':
-              this.setStyle(obj, root, {
-                color: 'black' // default for now
-              });
-
-              /**
-               * @todo make the Binary Property List parser stable.
-               * The current implementation is a little bit hacky!
-               */
-              if (root.style.textStyle) {
-                // console.log('=======MSAttributedStringFontAttribute=======');
-                // const MSAttributedStringFontAttribute = root.style.textStyle.encodedAttributes.MSAttributedStringFontAttribute
-                //   ._archive as string;
-                // console.log(MSAttributedStringFontAttribute);
-                // const parsedMSAttributedStringFontAttribute = this.binaryPlistParser.parse64Content(MSAttributedStringFontAttribute);
-
-                // console.log('=======archivedAttributedString=======');
-                // const archivedAttributedString = root.attributedString.archivedAttributedString._archive as string;
-                // const parsedArchivedAttributedString = this.binaryPlistParser.parse64Content(archivedAttributedString);
-                // console.log(archivedAttributedString);
-                // console.log(parsedArchivedAttributedString);
-
-                // console.log('=======NSParagraphStyle=======');
-                // const NSParagraphStyle = root.style.textStyle.encodedAttributes.NSParagraphStyle._archive as string;
-                // const parsedNSParagraphStyle = this.binaryPlistParser.parse64Content(NSParagraphStyle);
-                // console.log(NSParagraphStyle);
-                // console.log(parsedNSParagraphStyle);
-
-                // console.log('=======NSColor=======');
-                // const NSColor = root.style.textStyle.encodedAttributes.NSColor._archive as string;
-                // const parsedNSColor = this.binaryPlistParser.parse64Content(NSColor);
-                // console.log(NSColor);
-                // console.log(parsedNSColor);
-
-                // (root.style.textStyle.encodedAttributes
-                //   .MSAttributedStringFontAttribute as any)._transformed = parsedMSAttributedStringFontAttribute;
-                // (root.attributedString.archivedAttributedString as any)._transformed = parsedArchivedAttributedString;
-                // (root.style.textStyle.encodedAttributes.NSParagraphStyle as any)._transformed = parsedNSParagraphStyle;
-                // (root.style.textStyle.encodedAttributes.NSColor as any)._transformed = parsedNSColor;
-              }
+              this.parseText(obj, root);
               break;
 
             default:
@@ -113,13 +74,107 @@ export class SketchStyleParserService {
                 });
               }
           }
+
+          if ((obj as SketchMSLayer).frame) {
+            this.setStyle(obj, root, {
+              'display': 'block',
+              'position': 'absolute',
+              'left': `${obj.frame.x}px`,
+              'top': `${obj.frame.y}px`,
+              'width': `${obj.frame.width}px`,
+              'height': `${obj.frame.height}px`,
+              'visibility': obj.isVisible ? 'visibile' : 'hidden'
+            });
+          }
         }
       }
     }
     return parent;
   }
 
-  private parseStyleInformation(obj: any, root: any) {
+  parseText(obj: any, root: any) {
+    this.parseTextColor(obj, root);
+    this.parseParagraphStyle(obj, root);
+    this.parseTextFont(obj, root);
+    this.parseAttributeString(obj, root);
+  }
+
+  /**
+   * Parse text font if nothing is found
+   * fallback to current page font.
+   *
+   * @param obj   The current layer
+   * @param root  The root layer
+   */
+  parseTextFont(obj: SketchMSLayer, root: any) {
+    const MSAttributedStringFontAttribute = obj.style.textStyle.encodedAttributes.MSAttributedStringFontAttribute;
+    if (MSAttributedStringFontAttribute.hasOwnProperty('_archive')) {
+      const parsedMSAttributedStringFontAttribute = this.binaryPlistParser.parse64Content(MSAttributedStringFontAttribute._archive);
+      (root.style.textStyle.encodedAttributes
+        .MSAttributedStringFontAttribute as any)._transformed = parsedMSAttributedStringFontAttribute;
+    } else if (MSAttributedStringFontAttribute.hasOwnProperty('_class') && MSAttributedStringFontAttribute._class === 'fontDescriptor') {
+      this.setStyle(obj, root, {
+        'font-family': `${MSAttributedStringFontAttribute.attributes.name}, 'Roboto', sans-serif`,
+        'font-size': `${MSAttributedStringFontAttribute.attributes.size}px`
+      });
+    }
+  }
+
+  /**
+   * Parse attibutes (not used at the moment)
+   *
+   * @param obj   The current layer
+   * @param root  The root layer
+   */
+  parseAttributeString(obj: SketchMSLayer, root: any) {
+    const attributedString = obj.attributedString;
+    if (attributedString.hasOwnProperty('archivedAttributedString')) {
+      const archivedAttributedString = attributedString.archivedAttributedString._archive as string;
+      const parsedArchivedAttributedString = this.binaryPlistParser.parse64Content(archivedAttributedString);
+      (root.attributedString.archivedAttributedString as any)._transformed = parsedArchivedAttributedString;
+    }
+  }
+
+  /**
+   * Parse paragraph alignment (not used at the moment)
+   *
+   * @param obj   The current layer
+   * @param root  The root layer
+   */
+  parseParagraphStyle(obj: SketchMSLayer, root: any) {
+    const encodedAttributes = obj.style.textStyle.encodedAttributes;
+    if (encodedAttributes.hasOwnProperty('NSParagraphStyle')) {
+      const NSParagraphStyle = root.style.textStyle.encodedAttributes.NSParagraphStyle._archive as string;
+      const parsedNSParagraphStyle = this.binaryPlistParser.parse64Content(NSParagraphStyle);
+      (root.style.textStyle.encodedAttributes.NSParagraphStyle as any)._transformed = parsedNSParagraphStyle;
+    }
+  }
+
+  /**
+   * Parse text colors, if nothing is found
+   * fallback to black color
+   *
+   * @param obj   The current layer
+   * @param root  The root layer
+   */
+  parseTextColor(obj: SketchMSLayer, root: any) {
+    const encodedAttributes = obj.style.textStyle.encodedAttributes;
+    if (encodedAttributes.hasOwnProperty('MSAttributedStringColorAttribute')) {
+      this.setStyle(obj, root, {
+        color: this.parseColors(encodedAttributes.MSAttributedStringColorAttribute).rgba
+      });
+    } else if (encodedAttributes.hasOwnProperty('NSColor')) {
+      const NSColor = encodedAttributes.NSColor._archive as string;
+      const parsedNSColor = this.binaryPlistParser.parse64Content(NSColor);
+      (root.style.textStyle.encodedAttributes.NSColor as any)._transformed = parsedNSColor;
+    } else {
+      this.setStyle(obj, root, {
+        color: 'black'
+      });
+    }
+  }
+
+  parseStyleInformation(obj: any, root: any) {
     // blur
     this.parseBlur(obj, root);
     // borders
@@ -130,56 +185,64 @@ export class SketchStyleParserService {
     this.parseShadows(obj, root);
   }
 
-  private parseBlur(obj: any, root: any) {
-    const blur = (obj as SketchMSStyle).blur;
-    if (blur) {
+  parseBlur(obj: SketchMSStyle, root: any) {
+    const blur = obj.blur;
+    if (blur && blur.radius > 0) {
       this.setStyle(obj, root, {
         filter: `blur(${blur.radius}px);`
       });
     }
   }
 
-  private parseBorders(obj: any, root: any) {
-    const borders = (obj as SketchMSStyle).borders || [];
+  parseBorders(obj: SketchMSStyle, root: any) {
+    const borders = obj.borders;
     if (borders && borders.length > 0) {
-      const bordersStyles: string[] = [];
-      borders.forEach(border => {
-        let borderType = '';
-        if (border.position === BorderType.CENTER) {
-          // centered borders are not supported in CSS
-          // fallback to the default value
-          borderType = '';
-        } else if (border.position === BorderType.INSIDE) {
-          borderType = 'inset';
-        } else if (border.position === BorderType.OUTSIDE) {
-          borderType = '';
+      const bordersStyles = borders.reduce((acc, border) => {
+        if (border.thickness > 0) {
+          const color = this.parseColors(border.color);
+          let shadow = `0 0 0 ${border.thickness}px ${color.rgba}`;
+          if (border.position === BorderType.INSIDE) {
+            shadow += ' inset';
+          }
+          return [shadow, ...acc];
         }
-        const color = this.parseColors(border.color);
-        bordersStyles.push(`0 0 0 ${border.thickness}px ${color.rgba} ${borderType}`);
-      });
+        return acc;
+      }, []);
 
-      this.setStyle(obj, root, {
-        'box-shadow': bordersStyles.join(',')
-      });
+      if (bordersStyles.length > 0) {
+        this.setStyle(obj, root, {
+          'box-shadow': bordersStyles.join(',')
+        });
+      }
     }
   }
 
-  private parseFills(obj: any, root: any) {
-    const fills = (obj as SketchMSStyle).fills || [];
+  parseFills(obj: SketchMSStyle, root: any) {
+    const fills = obj.fills || [];
     if (fills.length > 0) {
       // we only support one fill: take the first one!
       // ignore the other fills
       const firstFill = fills[0];
+      console.log(`firstFill`, firstFill);
 
       this.setStyle(obj, root, {
         'background-color': `${this.parseColors(firstFill.color).rgba}`
       });
 
       if (firstFill.gradient) {
+        console.log(`firstFill.gradient`, firstFill.gradient);
+
         const fillsStyles: string[] = [];
         firstFill.gradient.stops.forEach(stop => {
-          fillsStyles.push(`${this.parseColors(stop.color).rgba} ${stop.position * 100}%`);
+          let fill = `${this.parseColors(stop.color).rgba}`;
+          if (stop.position >= 0 && stop.position <= 1) {
+            fill += ` ${stop.position * 100}%`;
+          }
+          fillsStyles.push(fill);
         });
+
+        console.log(`fillsStyles`, fillsStyles);
+
         if (fillsStyles.length > 0) {
           // apply gradient, if multiple fills
           // default angle is 90deg
@@ -191,9 +254,9 @@ export class SketchStyleParserService {
     }
   }
 
-  private parseShadows(obj: any, root: any) {
-    const innerShadows = (obj as SketchMSStyle).innerShadows || [];
-    const shadows = (obj as SketchMSStyle).shadows || [];
+  parseShadows(obj: SketchMSStyle, root: any) {
+    const innerShadows = obj.innerShadows || [];
+    const shadows = obj.shadows || [];
     const shadowsStyles: string[] = [];
     if (innerShadows) {
       innerShadows.forEach(innerShadow => {
@@ -216,7 +279,7 @@ export class SketchStyleParserService {
     }
   }
 
-  private parseColors(color: SketchMSColor | undefined) {
+  parseColors(color: SketchMSColor | undefined) {
 
     if (typeof color === 'undefined') {
       return {
@@ -246,15 +309,16 @@ export class SketchStyleParserService {
     };
   }
 
-  private rgba(v: number) {
-    return Math.round(v * 255);
+  rgba(v: number) {
+    const color = Math.round(v * 255);
+    return color > 0 ? color : 0;
   }
 
-  private sketch2rgba(r: number, g: number, b: number, a: number) {
+  sketch2rgba(r: number, g: number, b: number, a: number) {
     return `rgba(${this.rgba(r)},${this.rgba(g)},${this.rgba(b)},${a})`;
   }
 
-  private setStyle(obj: any, root: any, style: { [key: string]: string }) {
+  setStyle(obj: any, root: any, style: { [key: string]: string }) {
     root.css = root.css || {};
     obj.css = obj.css || {};
     for (const property in style) {
@@ -265,7 +329,7 @@ export class SketchStyleParserService {
     }
   }
 
-  private sketch2hex(r: number, g: number, b: number, a: number) {
+  sketch2hex(r: number, g: number, b: number, a: number) {
     if (r > 255 || g > 255 || b > 255 || a > 255) {
       return '';
     }

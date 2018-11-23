@@ -26,21 +26,11 @@ export interface SketchData {
 export class SketchService {
   _data: SketchData;
 
-  public demoFiles = [
-    'md-components-notifications-heads-up',
-    'md-components-cards-welcome-back',
-    'md-components-keyboards',
-    'md-components-tabs-status-bar',
-    'md-components-cards-safari',
-    'md-components-date-picker',
-    'md-components-chips-open-chip',
-    'md-components-cards-homes',
-    'md-components-buttons-lights',
-    'md-components-cards-pooch',
-    'md-components-buttons-fabs-light'
-  ];
-
-  constructor(private sanitizer: DomSanitizer, private sketchColorParser: SketchStyleParserService, private http: HttpClient) {
+  constructor(
+    private sanitizer: DomSanitizer,
+    private sketchColorParser: SketchStyleParserService,
+    private http: HttpClient
+  ) {
     this._data = {
       pages: [],
       previews: [],
@@ -61,14 +51,14 @@ export class SketchService {
   }
 
   async readZipEntries(file) {
-    return new Promise<any>((resolve) => {
+    return new Promise<any>(resolve => {
       const reader = new FileReader();
       reader.onload = async readerEvent => {
         const data = (readerEvent.target as FileReader).result;
         const zip = await window['JSZip'].loadAsync(data);
         const zips = [];
         zip.forEach((relativePath, zipEntry) => {
-          zips.push({relativePath, zipEntry});
+          zips.push({ relativePath, zipEntry });
         });
         resolve(zips);
       };
@@ -100,44 +90,48 @@ export class SketchService {
       } as any;
       const zips = await this.readZipEntries(file);
 
-      await Promise.all(zips.map(async ({relativePath, zipEntry}) => {
-        if (relativePath === 'previews/preview.png') {
-          const content = await zipEntry.async('base64');
-          const source = `data:image/png;base64,${content}`;
-          const image = await this.computeImage(source);
-          _data.previews.push({
-            source,
-            width: image.width,
-            height: image.height
-          });
-        } else if (relativePath.startsWith('pages/')) {
-          const content = await zipEntry.async('string');
+      await Promise.all(
+        zips.map(async ({ relativePath, zipEntry }) => {
+          if (relativePath === 'previews/preview.png') {
+            const content = await zipEntry.async('base64');
+            const source = `data:image/png;base64,${content}`;
+            const image = await this.computeImage(source);
+            _data.previews.push({
+              source,
+              width: image.width,
+              height: image.height
+            });
+          } else if (relativePath.startsWith('pages/')) {
+            const content = await zipEntry.async('string');
 
-          try {
-            const page = JSON.parse(content) as SketchMSPage;
-            _data.pages.push(page);
-          } catch (e) {
-            reject('Could not load page');
+            try {
+              const page = JSON.parse(content) as SketchMSPage;
+              _data.pages.push(page);
+            } catch (e) {
+              reject('Could not load page');
+            }
+          } else if (relativePath.startsWith('images/')) {
+            const blob = await zipEntry.async('blob');
+            const objectUrl = URL.createObjectURL(blob);
+            // @todo deal with SafeResourceUrl!!
+            const source = this.sanitizer
+              .bypassSecurityTrustResourceUrl(objectUrl)
+              .toString();
+            const image = await this.computeImage(source);
+            _data.previews.push({
+              source: objectUrl,
+              width: image.width,
+              height: image.height
+            });
+          } else {
+            // document.json
+            // user.json
+            // meta.json
+            const content = await zipEntry.async('string');
+            _data[relativePath.replace('.json', '')] = JSON.parse(content);
           }
-        } else if (relativePath.startsWith('images/')) {
-          const blob = await zipEntry.async('blob');
-          const objectUrl = URL.createObjectURL(blob);
-          // @todo deal with SafeResourceUrl!!
-          const source = this.sanitizer.bypassSecurityTrustResourceUrl(objectUrl).toString();
-          const image = await this.computeImage(source);
-          _data.previews.push({
-            source: objectUrl,
-            width: image.width,
-            height: image.height
-          });
-        } else {
-          // document.json
-          // user.json
-          // meta.json
-          const content = await zipEntry.async('string');
-          _data[relativePath.replace('.json', '')] = JSON.parse(content);
-        }
-      }));
+        })
+      );
 
       resolve(_data);
     });
@@ -148,11 +142,13 @@ export class SketchService {
   }
 
   getDemoFiles() {
-    return this.demoFiles;
+    return environment.demoFiles;
   }
 
   getSketchDemoFile(filename: string) {
-    const repoUrl = `${environment.baseUrl}/assets/demos/sketchapp/`;
-    return this.http.get(`${repoUrl}${filename}.sketch`, { responseType: 'blob' });
+    const repoUrl = `${window.location.origin || environment.baseUrl}/assets/demos/sketchapp/`;
+    return this.http.get(`${repoUrl}${filename}.sketch`, {
+      responseType: 'blob'
+    });
   }
 }

@@ -12,7 +12,6 @@ import { getDataTransfertMock } from './sketch-dropzone.component.mock';
 describe('SketchDropZone', () => {
   let component: SketchDropzoneComponent;
   let fixture: ComponentFixture<SketchDropzoneComponent>;
-  let mockDataTransfert: any;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -33,7 +32,6 @@ describe('SketchDropZone', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(SketchDropzoneComponent);
     component = fixture.componentInstance;
-    mockDataTransfert = getDataTransfertMock();
     fixture.detectChanges();
   });
 
@@ -41,11 +39,52 @@ describe('SketchDropZone', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should emit file change', (done: DoneFn) => {
-    component.changed.subscribe((element) => {
-      expect(element).toEqual(mockDataTransfert.dataTransfer.items[0].getAsFile());
-      done();
+  describe('when drop file', () => {
+    it('should emit file change', (done: DoneFn) => {
+      const dataTransfer = {
+        preventDefault() {},
+        dataTransfer: {
+          items: [{
+            kind: 'file',
+            getAsFile: () => ({
+              name: 'mock.sketch'
+            })
+          }]
+        }
+      };
+      component.changed.subscribe((element) => {
+        expect(element).toEqual(dataTransfer.dataTransfer.items[0].getAsFile());
+        done();
+      });
+      component.onFileDrop(dataTransfer);
     });
-    component.onFileDrop(mockDataTransfert);
+
+    it('should do nothing for no item', () => {
+      const dataTransfer = {
+        preventDefault() {},
+        dataTransfer: {
+          items: []
+        }
+      };
+      spyOn<any>(component, 'removeDragData').and.stub();
+      const res = component.onFileDrop(dataTransfer);
+      expect(res).toEqual(undefined);
+    });
+
+    it('should fallback to file when no items', (done: DoneFn) => {
+      const dataTransfer = {
+        preventDefault() {},
+        dataTransfer: {
+          files: [{
+            name: 'mock.sketch'
+          }]
+        }
+      };
+      component.changed.subscribe((element) => {
+        expect(element).toEqual(dataTransfer.dataTransfer.files[0]);
+        done();
+      });
+      component.onFileDrop(dataTransfer);
+    });
   });
 });
