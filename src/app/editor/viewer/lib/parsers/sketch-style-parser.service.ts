@@ -99,6 +99,13 @@ export class SketchStyleParserService {
     this.parseAttributeString(obj, root);
   }
 
+  /**
+   * Parse text font if nothing is found
+   * fallback to current page font.
+   *
+   * @param obj   The current layer
+   * @param root  The root layer
+   */
   parseTextFont(obj: SketchMSLayer, root: any) {
     const MSAttributedStringFontAttribute = obj.style.textStyle.encodedAttributes.MSAttributedStringFontAttribute;
     if (MSAttributedStringFontAttribute.hasOwnProperty('_archive')) {
@@ -113,6 +120,12 @@ export class SketchStyleParserService {
     }
   }
 
+  /**
+   * Parse attibutes (not used at the moment)
+   *
+   * @param obj   The current layer
+   * @param root  The root layer
+   */
   parseAttributeString(obj: SketchMSLayer, root: any) {
     const attributedString = obj.attributedString;
     if (attributedString.hasOwnProperty('archivedAttributedString')) {
@@ -122,6 +135,12 @@ export class SketchStyleParserService {
     }
   }
 
+  /**
+   * Parse paragraph alignment (not used at the moment)
+   *
+   * @param obj   The current layer
+   * @param root  The root layer
+   */
   parseParagraphStyle(obj: SketchMSLayer, root: any) {
     const encodedAttributes = obj.style.textStyle.encodedAttributes;
     if (encodedAttributes.hasOwnProperty('NSParagraphStyle')) {
@@ -131,6 +150,13 @@ export class SketchStyleParserService {
     }
   }
 
+  /**
+   * Parse text colors, if nothing is found
+   * fallback to black color
+   *
+   * @param obj   The current layer
+   * @param root  The root layer
+   */
   parseTextColor(obj: SketchMSLayer, root: any) {
     const encodedAttributes = obj.style.textStyle.encodedAttributes;
     if (encodedAttributes.hasOwnProperty('MSAttributedStringColorAttribute')) {
