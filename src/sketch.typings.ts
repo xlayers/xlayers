@@ -254,6 +254,7 @@ declare interface SketchMSStyle {
   endDecorationType: number;
   contextSettings: SketchMSGraphicsContextSettings;
   blur: SketchMSStyleBlur;
+  textStyle: SketchMSTextStyle;
   reflection: SketchMSStyleReflection;
   do_objectID?: string;
   _class: 'style';
