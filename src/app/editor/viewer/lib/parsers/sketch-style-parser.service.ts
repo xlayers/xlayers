@@ -85,11 +85,6 @@ export class SketchStyleParserService {
               'height': `${obj.frame.height}px`,
               'visibility': obj.isVisible ? 'visibile' : 'hidden'
             });
-            if ((obj as any)._class === 'text') {
-              this.setStyle(obj, root, {
-                'width': `${obj.frame.width + 1}px`
-              });
-            }
           }
         }
       }
