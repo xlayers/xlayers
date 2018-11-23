@@ -8,11 +8,11 @@ import { getSketchDataMock } from './sketch.service.mock';
 import { UiState } from 'src/app/core/state';
 import { PageState } from 'src/app/core/state/page.state';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { getFileMock } from './sketch-container.component.mock';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
-describe('SketchContainerComponent', () => {
+fdescribe('SketchContainerComponent', () => {
   let component: SketchContainerComponent;
   let fixture: ComponentFixture<SketchContainerComponent>;
   let sketchService: SketchService;
@@ -26,8 +26,9 @@ describe('SketchContainerComponent', () => {
       imports: [
         NgxsModule.forRoot([UiState, PageState]),
         MatSnackBarModule,
-        HttpClientModule,
-        BrowserAnimationsModule
+        // HttpClientModule,
+        HttpClientTestingModule,
+        NoopAnimationsModule
       ],
       providers: [
         SketchService
@@ -35,13 +36,13 @@ describe('SketchContainerComponent', () => {
       declarations: [SketchContainerComponent]
     })
       .compileComponents();
+      store = TestBed.get(Store);
+      sketchService = TestBed.get(SketchService);
   }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(SketchContainerComponent);
     component = fixture.componentInstance;
-    sketchService = fixture.debugElement.injector.get(SketchService);
-    store = fixture.debugElement.injector.get(Store);
     mockFile = getFileMock();
     mockSketchData = getSketchDataMock();
     fixture.detectChanges();
@@ -51,21 +52,27 @@ describe('SketchContainerComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should process selected file', (done: DoneFn) => {
+  it('should process selected file', async() => {
     spyOn(sketchService, 'process').and.returnValue(Promise.resolve(mockSketchData));
-    component.onFileSelected(mockFile);
-    store.select(UiState.currentFile).subscribe((element) => {
-      if (element != null) {
-        expect(element).toEqual(mockSketchData);
-        done();
-      }
-    });
+    await component.onFileSelected(mockFile);
+    expect(component.data).toBe(mockSketchData);
   });
 
-  it('should clear current page', () => {
-    component.clearSelection();
-    store.select(UiState.currentLayer).subscribe((element) => {
-      expect(element).toBe(null);
-    });
+  describe('should clear current page', () => {
+    it('currentPage is truthy', async(() => {
+      component.currentPage = {} as any;
+      component.clearSelection();
+      store.select(UiState.currentLayer).subscribe((element) => {
+        expect(element).toBe(null);
+      });
+    }));
+
+    it('currentPage is falsy', async(() => {
+      component.currentPage = null;
+      component.clearSelection();
+      store.select(UiState.currentLayer).subscribe((element) => {
+        expect(element).toBe(null);
+      });
+    }));
   });
 });

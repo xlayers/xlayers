@@ -39,9 +39,7 @@ import { UiState, CurrentLayer } from 'src/app/core/state/ui.state';
   styles: [
     `
       :host {
-        display: block;
         border: 1px solid transparent;
-        position: absolute;
         box-sizing: border-box;
         transition: border-color 0.1s linear, transform 1s;
         transform-origin: 0 0;
@@ -69,7 +67,6 @@ export class SketchLayerComponent implements OnInit, AfterContentInit {
 
   @Input() level = 0;
 
-  artboardFactor = 1;
   borderWidth = 1;
   nativeElement: HTMLElement;
 
@@ -112,13 +109,10 @@ export class SketchLayerComponent implements OnInit, AfterContentInit {
 
   updateLayerStyle() {
     if (this.layer && this.nativeElement) {
+      const elementPosition = this.nativeElement.getBoundingClientRect();
       this.renderer.setStyle(this.nativeElement, 'border-width', `${this.borderWidth}px`);
-      this.renderer.setStyle(this.nativeElement, 'left', `${this.layer.frame.x * this.artboardFactor - (this.borderWidth * 2)}px`);
-      this.renderer.setStyle(this.nativeElement, 'top', `${this.layer.frame.y * this.artboardFactor - (this.borderWidth * 2)}px`);
-      this.renderer.setStyle(this.nativeElement, 'width', `${this.layer.frame.width * this.artboardFactor}px`);
-      this.renderer.setStyle(this.nativeElement, 'height', `${this.layer.frame.height * this.artboardFactor}px`);
-      this.renderer.setStyle(this.nativeElement, 'visibility', this.layer.isVisible ? 'visibile' : 'hidden');
-
+      this.renderer.setStyle(this.nativeElement, 'left', `${elementPosition.left - this.borderWidth}px`);
+      this.renderer.setStyle(this.nativeElement, 'top', `${elementPosition.top - this.borderWidth}px`);
       this.applyDefaultStyles();
     }
   }
