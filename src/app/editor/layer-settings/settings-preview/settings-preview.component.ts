@@ -6,9 +6,18 @@ import { SketchData } from '../../viewer/lib/sketch.service';
 @Component({
   selector: 'sketch-settings-preview',
   template: `
-  <div class="preview-image">
-    <img *ngFor="let image of data?.previews" [src]="image.source" [width]="image.width" [height]="image.height"/>
-  </div>
+  <mat-expansion-panel expanded="true">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Preview
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+
+    <div class="preview-image">
+      <img *ngFor="let image of data?.previews" [src]="image.source" [width]="image.width" [height]="image.height"/>
+    </div>
+
+  </mat-expansion-panel>
   `,
   styles: [`
     .preview-image {
@@ -17,6 +26,9 @@ import { SketchData } from '../../viewer/lib/sketch.service';
     .preview-image img {
       width: 100%;
       height: auto;
+    }
+    .mat-expansion-panel-body {
+      text -align: center;
     }
   `]
 })

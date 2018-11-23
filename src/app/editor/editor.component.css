@@ -84,7 +84,7 @@ sketch-container {
 }
 
 .sidebar.settings {
-  min-width: 290px;
+  min-width: 200px;
 }
 
 .mat-list-item.selected-page {

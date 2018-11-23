@@ -5,7 +5,7 @@ import { UiState } from 'src/app/core/state';
 @Component({
   selector: 'sketch-settings-layer-position',
   template: `
-  <mat-expansion-panel expanded="true">
+  <mat-expansion-panel expanded="false" [disabled]="!currentLayer?.frame.height">
     <mat-expansion-panel-header>
       <mat-panel-title>
         Size
@@ -15,20 +15,20 @@ import { UiState } from 'src/app/core/state';
     <mat-form-field>
       <input matInput
         disabled
-        type="number"
+        type="text"
         placeholder="Height"
-        [ngModel]="currentLayer?.frame.height.toFixed(0)">
+        [ngModel]="currentLayer?.frame.height.toFixed(0) + 'px'">
     </mat-form-field>
     <mat-form-field>
       <input matInput
         disabled
-        type="number"
+        type="text"
         placeholder="Width"
-        [ngModel]="currentLayer?.frame.width.toFixed(0)">
+        [ngModel]="currentLayer?.frame.width.toFixed(0) + 'px'">
     </mat-form-field>
   </mat-expansion-panel>
 
-  <mat-expansion-panel expanded="true">
+  <mat-expansion-panel expanded="false">
     <mat-expansion-panel-header>
       <mat-panel-title>
         Position
@@ -38,29 +38,34 @@ import { UiState } from 'src/app/core/state';
     <mat-form-field>
       <input matInput
         disabled
-        type="number"
+        type="text"
         placeholder="Left"
-        [ngModel]="currentLayer?.frame.x.toFixed(0)">
+        [ngModel]="currentLayer?.frame.x.toFixed(0) + 'px'">
     </mat-form-field>
     <mat-form-field>
       <input matInput
         disabled
-        type="number"
+        type="text"
         placeholder="Top"
-        [ngModel]="currentLayer?.frame.y.toFixed(0)">
+        [ngModel]="currentLayer?.frame.y.toFixed(0) + 'px'">
     </mat-form-field>
   </mat-expansion-panel>
   `,
   styles: [
     `
+  :host {
+    text-align: center;
+  }
+
   mat-form-field {
-    width: 70px;
+    width: 40px;
     padding: 14px;
   }
 
   button {
     margin: 14px;
   }
+
   `
   ]
 })
