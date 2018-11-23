@@ -52,45 +52,7 @@ export class SketchStyleParserService {
               this.parseStyleInformation(obj, root);
               break;
             case 'text':
-              this.setStyle(obj, root, {
-                color: 'black' // default for now
-              });
-
-              /**
-               * @todo make the Binary Property List parser stable.
-               * The current implementation is a little bit hacky!
-               */
-              if (root.style.textStyle) {
-                // console.log('=======MSAttributedStringFontAttribute=======');
-                // const MSAttributedStringFontAttribute = root.style.textStyle.encodedAttributes.MSAttributedStringFontAttribute
-                //   ._archive as string;
-                // console.log(MSAttributedStringFontAttribute);
-                // const parsedMSAttributedStringFontAttribute = this.binaryPlistParser.parse64Content(MSAttributedStringFontAttribute);
-
-                // console.log('=======archivedAttributedString=======');
-                // const archivedAttributedString = root.attributedString.archivedAttributedString._archive as string;
-                // const parsedArchivedAttributedString = this.binaryPlistParser.parse64Content(archivedAttributedString);
-                // console.log(archivedAttributedString);
-                // console.log(parsedArchivedAttributedString);
-
-                // console.log('=======NSParagraphStyle=======');
-                // const NSParagraphStyle = root.style.textStyle.encodedAttributes.NSParagraphStyle._archive as string;
-                // const parsedNSParagraphStyle = this.binaryPlistParser.parse64Content(NSParagraphStyle);
-                // console.log(NSParagraphStyle);
-                // console.log(parsedNSParagraphStyle);
-
-                // console.log('=======NSColor=======');
-                // const NSColor = root.style.textStyle.encodedAttributes.NSColor._archive as string;
-                // const parsedNSColor = this.binaryPlistParser.parse64Content(NSColor);
-                // console.log(NSColor);
-                // console.log(parsedNSColor);
-
-                // (root.style.textStyle.encodedAttributes
-                //   .MSAttributedStringFontAttribute as any)._transformed = parsedMSAttributedStringFontAttribute;
-                // (root.attributedString.archivedAttributedString as any)._transformed = parsedArchivedAttributedString;
-                // (root.style.textStyle.encodedAttributes.NSParagraphStyle as any)._transformed = parsedNSParagraphStyle;
-                // (root.style.textStyle.encodedAttributes.NSColor as any)._transformed = parsedNSColor;
-              }
+              this.parseText(obj, root);
               break;
 
             default:
@@ -130,6 +92,62 @@ export class SketchStyleParserService {
     return parent;
   }
 
+  parseText(obj: any, root: any) {
+    this.parseTextColor(obj, root);
+    this.parseParagraphStyle(obj, root);
+    this.parseTextFont(obj, root);
+    this.parseAttributeString(obj, root);
+  }
+
+  parseTextFont(obj: any, root: any) {
+    const MSAttributedStringFontAttribute = (obj.style.textStyle as SketchMSTextStyle).encodedAttributes.MSAttributedStringFontAttribute;
+    if (MSAttributedStringFontAttribute.hasOwnProperty('_archive')) {
+      const parsedMSAttributedStringFontAttribute = this.binaryPlistParser.parse64Content(MSAttributedStringFontAttribute._archive);
+      (root.style.textStyle.encodedAttributes
+        .MSAttributedStringFontAttribute as any)._transformed = parsedMSAttributedStringFontAttribute;
+    } else if (MSAttributedStringFontAttribute.hasOwnProperty('_class') && MSAttributedStringFontAttribute._class === 'fontDescriptor') {
+      this.setStyle(obj, root, {
+        'font-family': `${MSAttributedStringFontAttribute.attributes.name}, 'Roboto', sans-serif`,
+        'font-size': `${MSAttributedStringFontAttribute.attributes.size}px`
+      });
+    }
+  }
+
+  parseAttributeString(obj: any, root: any) {
+    const attributedString = (obj as SketchMSLayer).attributedString;
+    if (attributedString.hasOwnProperty('archivedAttributedString')) {
+      const archivedAttributedString = attributedString.archivedAttributedString._archive as string;
+      const parsedArchivedAttributedString = this.binaryPlistParser.parse64Content(archivedAttributedString);
+      (root.attributedString.archivedAttributedString as any)._transformed = parsedArchivedAttributedString;
+    }
+  }
+
+  parseParagraphStyle(obj: any, root: any) {
+    const encodedAttributes = (obj.style.textStyle as SketchMSTextStyle).encodedAttributes;
+    if (encodedAttributes.hasOwnProperty('NSParagraphStyle')) {
+      const NSParagraphStyle = root.style.textStyle.encodedAttributes.NSParagraphStyle._archive as string;
+      const parsedNSParagraphStyle = this.binaryPlistParser.parse64Content(NSParagraphStyle);
+      (root.style.textStyle.encodedAttributes.NSParagraphStyle as any)._transformed = parsedNSParagraphStyle;
+    }
+  }
+
+  parseTextColor(obj: any, root: any) {
+    const encodedAttributes = (obj.style.textStyle as SketchMSTextStyle).encodedAttributes;
+    if (encodedAttributes.hasOwnProperty('MSAttributedStringColorAttribute')) {
+      this.setStyle(obj, root, {
+        color: this.parseColors(encodedAttributes.MSAttributedStringColorAttribute).rgba
+      });
+    } else if (encodedAttributes.hasOwnProperty('NSColor')) {
+      const NSColor = encodedAttributes.NSColor._archive as string;
+      const parsedNSColor = this.binaryPlistParser.parse64Content(NSColor);
+      (root.style.textStyle.encodedAttributes.NSColor as any)._transformed = parsedNSColor;
+    } else {
+      this.setStyle(obj, root, {
+        color: 'black'
+      });
+    }
+  }
+
   parseStyleInformation(obj: any, root: any) {
     // blur
     this.parseBlur(obj, root);
@@ -150,7 +168,7 @@ export class SketchStyleParserService {
     }
   }
 
-  private parseBorders(obj: any, root: any) {
+  parseBorders(obj: any, root: any) {
     const borders = (obj as SketchMSStyle).borders;
     if (borders && borders.length > 0) {
       const bordersStyles = borders.reduce((acc, border) => {
