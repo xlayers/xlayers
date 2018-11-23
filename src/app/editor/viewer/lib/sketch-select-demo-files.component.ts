@@ -1,28 +1,41 @@
-import { Component, EventEmitter, Input, OnInit, Output, ViewEncapsulation } from '@angular/core';
+import { Component, EventEmitter, Input, Output, ViewEncapsulation } from '@angular/core';
 import { SketchService } from './sketch.service';
 
 @Component({
   selector: 'sketch-select-demo-files',
   template: `
     <p class="sketch-select-demo-files-label">OR</p>
-    <mat-form-field>
-      <mat-select [(value)]="selectedDemoFile">
-        <mat-option value="">Select a demo file</mat-option>
-        <mat-option *ngFor="let file of sketchService.getDemoFiles()" value="{{file}}">{{file}}</mat-option>
-      </mat-select>
-    </mat-form-field>
-    <button mat-icon-button class="confirm-button" *ngIf="selectedDemoFile" (click)="confirmSelectedDemoFile()">
-      <mat-icon>done</mat-icon>
-    </button>
+    <mat-expansion-panel color="secondary">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Select a demo file
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+
+      <mat-nav-list>
+      <ng-container *ngFor="let group of sketchService.getDemoFiles()">
+        <h3 mat-subheader>SketchApp v{{group.value}}</h3>
+
+        <a mat-list-item *ngFor="let file of group.files" color="warn" (click)="confirmSelectedDemoFile(group.value+'/'+file)">
+          <mat-icon mat-list-icon>note</mat-icon>
+          <h4 mat-line><b>{{file}}</b></h4>
+          <p mat-line>SketchApp v{{group.value}}</p>
+        </a>
+
+      </ng-container>
+    </mat-nav-list>
+
+    </mat-expansion-panel>
     <p class="sketch-select-demo-files-label-error" *ngIf="error">Error: please choose different file</p>
   `,
   styles: [
     `
       :host {
         padding: 0 20px;
+        min-width: 460px;
       }
       .sketch-select-demo-files-label {
-        margin-bottom: 5px;
+        margin-bottom: 25px;
         font-size: 15px;
       }
       .sketch-select-demo-files-label-error {
@@ -30,31 +43,34 @@ import { SketchService } from './sketch.service';
         color: #c2185b;
         font-size: 15px;
       }
-      .mat-select-value {
-        color: #b0b0b0;
-        text-align: center;
+      .mat-nav-list {
+        display: block;
+        height: 400px;
+        overflow: auto;
+        color: black;
+        background: white;
       }
-      mat-select {
-        margin-left: 10px;
+      .mat-list-icon, .mat-list-item, h3 {
+        color: rgba(0, 0, 0, 0.54);
+        text-align: left;
       }
-      .confirm-button {
-        margin-left: 20px;
+      .mat-list-item:hover {
+        background-color: rgba(194, 24, 91, 0.4);
+      }
+      .mat-subheader {
+        color: rgba(0, 0, 0, 1);
       }
     `
-  ],
-  encapsulation: ViewEncapsulation.None
+  ]
 })
-export class SketchSelectDemoFilesComponent implements OnInit {
-  public selectedDemoFile = '';
+export class SketchSelectDemoFilesComponent {
 
   @Input() public error: boolean;
   @Output() private changed: EventEmitter<string> = new EventEmitter();
 
   constructor(public sketchService: SketchService) { }
 
-  ngOnInit() { }
-
-  confirmSelectedDemoFile() {
-    this.changed.emit(this.selectedDemoFile);
+  confirmSelectedDemoFile(file: string) {
+    this.changed.emit(file);
   }
 }
