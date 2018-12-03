@@ -1,19 +1,51 @@
 import { AfterContentInit, Component, OnInit } from '@angular/core';
-import { NgxEditorModel } from 'ngx-monaco-editor';
-import { CodeGenService } from './codegen/codegen.service';
+import { CodeGenService, XlayersNgxEditorModel } from './codegen/codegen.service';
 
 @Component({
   selector: 'sketch-editor-container',
   template: `
-    <mat-tab-group animationDuration="0ms" dynamicHeight="true">
-      <mat-tab [label]="file.uri" *ngFor="let file of files; let idx = index">
+  <section class="meu-container">
+    <button mat-icon-button [matMenuTriggerFor]="menu" title="Choose framework">
+      <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item (click)="generateAngular()">
+        <mat-icon svgIcon="angular"></mat-icon>
+        <span>Angular</span>
+      </button>
+      <button mat-menu-item (click)="generateReact()">
+        <mat-icon svgIcon="react"></mat-icon>
+        <span>React</span>
+      </button>
+      <button mat-menu-item (click)="generateVue()">
+        <mat-icon svgIcon="vue"></mat-icon>
+        <span>Vue</span>
+      </button>
+      <button mat-menu-item (click)="generateWc()">
+        <mat-icon svgIcon="wc"></mat-icon>
+        <span>Web Component</span>
+      </button>
+    </mat-menu>
+  </section>
+
+  <mat-tab-group selectedIndex="0" disableRipple="true" animationDuration="0ms" dynamicHeight="false">
+    <mat-tab *ngFor="let file of files">
+
+      <ng-template mat-tab-label>
+        <mat-icon [svgIcon]="file.kind"></mat-icon>
+        {{ file.uri }}
+      </ng-template>
+      
+      <ng-template matTabContent>
         <ngx-monaco-editor
           [options]="editorOptions"
-          [(ngModel)]="files[idx].value"
+          [ngModel]="file.value"
           (onInit)="onEditorInit($event)"
         ></ngx-monaco-editor>
-      </mat-tab>
-    </mat-tab-group>
+      </ng-template>
+    </mat-tab>
+
+  </mat-tab-group>
   `,
   styles: [
     `
@@ -22,7 +54,6 @@ import { CodeGenService } from './codegen/codegen.service';
         position: absolute;
         right: 0;
         z-index: 9;
-        background-image: url('assets/lg.flip-circle-google-loader.gif');
         background-repeat: no-repeat;
         background-size: 56px 56px;
         background-position: center center;
@@ -31,6 +62,7 @@ import { CodeGenService } from './codegen/codegen.service';
       :host,
       ngx-monaco-editor {
         height: 100%;
+        min-height: 300px;
         width: 100%;
         background-color: #1e1e1e;
         min-height: 100%;
@@ -41,22 +73,53 @@ import { CodeGenService } from './codegen/codegen.service';
         min-height: 100%;
         position: relative;
       }
+      :host mat-icon {
+        margin: 0 4px;
+      }
+      .meu-container {
+        position: absolute;
+        right: 15px;
+        z-index: 999;
+      }
     `
   ]
 })
 export class EditorContainerComponent implements OnInit, AfterContentInit {
-  editorOptions: monaco.editor.IEditorConstructionOptions; // { [key: string]: string | boolean | number };
-  files: Array<NgxEditorModel>;
+  editorOptions: monaco.editor.IEditorConstructionOptions;
+  files: Array<XlayersNgxEditorModel>;
 
-  constructor(private codegen: CodeGenService) {}
+  frameworks: Array<{
+    title: string;
+    logo: FunctionStringCallback;
+  }>;
+
+  constructor(private codegen: CodeGenService) { }
 
   ngOnInit() {
   }
 
   ngAfterContentInit() {
-    this.files = this.codegen.generate(CodeGenService.Kind.Angular);
+    this.generateAngular();
   }
+
   onEditorInit(editor: monaco.editor.ICodeEditor) {
     editor.layout();
   }
+
+  generateAngular() {
+    this.files = this.codegen.generate(CodeGenService.Kind.Angular);
+  }
+
+  generateReact() {
+    this.files = this.codegen.generate(CodeGenService.Kind.React);
+  }
+
+  generateVue() {
+    this.files = this.codegen.generate(CodeGenService.Kind.Vue);
+  }
+
+  generateWc() {
+    this.files = this.codegen.generate(CodeGenService.Kind.WC);
+  }
+
 }

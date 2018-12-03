@@ -5,8 +5,12 @@ import { VueCodeGenService } from './vue/vue.service';
 import { WCCodeGenService } from './wc/wc.service';
 import { NgxEditorModel } from 'ngx-monaco-editor';
 
+export interface XlayersNgxEditorModel extends NgxEditorModel {
+  kind: 'angular' | 'react' | 'vue' | 'wc' | 'html' | 'text';
+}
+
 export interface CodeGenFacade {
-  generate(): Array<NgxEditorModel>;
+  generate(): Array<XlayersNgxEditorModel>;
 }
 
 @Injectable({
@@ -27,7 +31,7 @@ export class CodeGenService {
     private readonly wc: WCCodeGenService,
   ) {}
 
-  generate(kind: number): Array<NgxEditorModel> {
+  generate(kind: number): Array<XlayersNgxEditorModel> {
     switch (kind) {
       case CodeGenService.Kind.Angular:
         return this.angular.generate();
