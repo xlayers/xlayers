@@ -66,11 +66,9 @@ export class EditorComponent implements OnInit {
       this.sketchPages = availablePages;
 
       if (availablePages.length > 0) {
-        setTimeout(_ => {
-          this.pagesPanelRef.open();
-          this.layersPanelRef.open();
-          this.settingNavRef.open();
-        }, 0);
+        this.pagesPanelRef.open();
+        this.layersPanelRef.open();
+        this.settingNavRef.open();
       }
 
       this.store.select(UiState.isWireframe).subscribe(isWireframe => {

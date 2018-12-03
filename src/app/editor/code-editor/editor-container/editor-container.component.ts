@@ -18,7 +18,7 @@ import { CodeGenService } from './codegen/codegen.service';
   styles: [
     `
       :host {
-        margin-top: 128px;
+        margin-top: 64px;
         position: absolute;
         right: 0;
         z-index: 9;
@@ -51,10 +51,11 @@ export class EditorContainerComponent implements OnInit, AfterContentInit {
   constructor(private codegen: CodeGenService) {}
 
   ngOnInit() {
-    this.files = this.codegen.generate(CodeGenService.Kind.Angular);
   }
 
-  ngAfterContentInit() {}
+  ngAfterContentInit() {
+    this.files = this.codegen.generate(CodeGenService.Kind.Angular);
+  }
   onEditorInit(editor: monaco.editor.ICodeEditor) {
     editor.layout();
   }
