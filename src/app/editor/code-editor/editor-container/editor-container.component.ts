@@ -5,7 +5,7 @@ import { CodeGenService } from './codegen/codegen.service';
 @Component({
   selector: 'sketch-editor-container',
   template: `
-    <mat-tab-group dynamicHeight="true">
+    <mat-tab-group animationDuration="0ms" dynamicHeight="true">
       <mat-tab [label]="file.uri" *ngFor="let file of files; let idx = index">
         <ngx-monaco-editor
           [options]="editorOptions"
