@@ -1,23 +1,24 @@
 import { AfterContentInit, Component, OnInit } from '@angular/core';
-import { SourceCodeService } from '../source-code.service';
 import { NgxEditorModel } from 'ngx-monaco-editor';
+import { CodeGenService } from './codegen/codegen.service';
 
 @Component({
   selector: 'sketch-editor-container',
   template: `
-  <mat-tab-group dynamicHeight="true">
-    <mat-tab [label]="file.uri" *ngFor="let file of files; let idx = index">
-      <ngx-monaco-editor
-        [options]="editorOptions"
-        [(ngModel)]="files[idx].value"
-        (onInit)="onEditorInit($event)"></ngx-monaco-editor>
-    </mat-tab>
-  </mat-tab-group>
+    <mat-tab-group dynamicHeight="true">
+      <mat-tab [label]="file.uri" *ngFor="let file of files; let idx = index">
+        <ngx-monaco-editor
+          [options]="editorOptions"
+          [(ngModel)]="files[idx].value"
+          (onInit)="onEditorInit($event)"
+        ></ngx-monaco-editor>
+      </mat-tab>
+    </mat-tab-group>
   `,
   styles: [
     `
       :host {
-        top: 90px;
+        margin-top: 128px;
         position: absolute;
         right: 0;
         z-index: 9;
@@ -45,26 +46,12 @@ import { NgxEditorModel } from 'ngx-monaco-editor';
 })
 export class EditorContainerComponent implements OnInit, AfterContentInit {
   editorOptions: monaco.editor.IEditorConstructionOptions; // { [key: string]: string | boolean | number };
-  code: string;
-  currentFileType = SourceCodeService.TYPE.MODULE;
   files: Array<NgxEditorModel>;
-  constructor(private sourceCode: SourceCodeService) {}
+
+  constructor(private codegen: CodeGenService) {}
 
   ngOnInit() {
-    this.files = [
-      {
-        uri: 'xlayers.module.ts',
-        value: this.sourceCode.generate(SourceCodeService.TYPE.MODULE)
-      },
-      {
-        uri: 'xlayers.component.ts',
-        value: this.sourceCode.generate(SourceCodeService.TYPE.COMPONENT)
-      },
-      {
-        uri: 'xlayers.component.spec.ts',
-        value: this.sourceCode.generate(SourceCodeService.TYPE.COMPONENT_SPEC)
-      }
-    ];
+    this.files = this.codegen.generate(CodeGenService.Kind.Angular);
   }
 
   ngAfterContentInit() {}

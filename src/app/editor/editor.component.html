@@ -28,7 +28,7 @@
       <button [disabled]="isCodeEditor" matTooltip="Toggle 3D" mat-button [color]=" is3dView ? 'warn':'' " (click)="toggle3d()">
         <mat-icon>3d_rotation</mat-icon>
       </button>
-      <button matTooltip="Code generation will be available soon" color="accent" mat-button>
+      <button matTooltip="Code generation" color="accent" mat-button (click)="toggleCodeEditor()">
         <mat-icon>code</mat-icon>
       </button>
     </div>

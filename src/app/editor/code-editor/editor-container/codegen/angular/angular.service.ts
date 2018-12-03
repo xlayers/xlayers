@@ -1,9 +1,11 @@
-import { Injectable, Component } from '@angular/core';
+import { Injectable } from '@angular/core';
+import { CodeGenFacade } from '../codegen.service';
+import { NgxEditorModel } from 'ngx-monaco-editor';
 
 @Injectable({
   providedIn: 'root'
 })
-export class SourceCodeService {
+export class AngularCodeGenService implements CodeGenFacade {
   static TYPE = {
     MODULE: 1,
     COMPONENT: 2,
@@ -12,18 +14,26 @@ export class SourceCodeService {
 
   constructor() {}
 
-  generate(type: number) {
-    switch (type) {
-      case SourceCodeService.TYPE.MODULE:
-        return this.generateModule();
-      case SourceCodeService.TYPE.COMPONENT:
-        return this.generateComponent();
-      case SourceCodeService.TYPE.COMPONENT_SPEC:
-        return this.generateComponentSpec();
-    }
+  generate(): Array<NgxEditorModel> {
+    return [{
+      uri: 'xlayers.module.ts',
+      value: this.generateModule(),
+      language: 'typescript'
+    }, {
+      uri: 'xlayers.component.ts',
+      value: this.generateComponent(),
+      language: 'typescript'
+    }, {
+      uri: 'xlayers.component.spec.ts',
+      value: this.generateComponentSpec(),
+      language: 'typescript'
+    }];
   }
 
-  generateModule() {
+  /**
+   * @todo make this dynamic
+   */
+  private generateModule() {
     return `
     import { NgModule } from '@angular/core';
     import { CommonModule } from '@angular/common';
@@ -38,7 +48,11 @@ export class SourceCodeService {
     export class XLayersModule { }
     `;
   }
-  generateComponent() {
+
+  /**
+   * @todo make this dynamic
+   */
+  private generateComponent() {
     return `
     import { Component, OnInit } from '@angular/core';
 
@@ -68,7 +82,11 @@ export class SourceCodeService {
     }
 `;
   }
-  generateComponentSpec() {
+
+  /**
+   * @todo make this dynamic
+   */
+  private generateComponentSpec() {
     return `
     import { async, ComponentFixture, TestBed } from '@angular/core/testing';
     import { XLayersComponent } from './xlayers.component';
