@@ -1,21 +1,26 @@
-declare type SketchMSBorderPositionEnum = 0 | 1 | 2 | 3;
-declare type SketchMSBorderLineCapStyle = 0 | 1 | 2;
-declare type SketchMSBorderLineJoinStyle = 0 | 1 | 2;
-declare type SketchMSFillTypeEnum = 0 | 1 | 4 | 5;
-declare type SketchMSPatternFillTypeEnum = 0 | 1 | 2 | 3;
-declare type SketchMSBlendModeEnum = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15;
-declare type SketchMSLineDecorationTypeEnum = 0 | 1 | 2 | 3;
-declare type SketchMSBooleanOperation = -1 | 0 | 1 | 2 | 3;
-declare type SketchMSCurveMode = 0 | 1 | 2 | 3 | 4;
-declare type SketchMSResizingType = 0 | 1 | 2 | 3;
-declare type SketchMSLayerListExpandedType = 0 | 1 | 2;
-declare type SketchMSEncodedBase64BinaryPlist = string;
-declare type SketchMSNSColorArchive = SketchMSKeyValueArchive;
-declare type SketchMSLayer = SketchMSPage | SketchMSSymbolMaster;
-declare interface SketchMSNestedSymbolOverride {
+// Type definitions for the SketchApp 1.0
+// Project: https://github.com/xlayers/xlayers
+// Definitions by: Wassim Chegham <https://github.com/manekinekko>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
+type SketchMSBorderPositionEnum = 0 | 1 | 2 | 3;
+type SketchMSBorderLineCapStyle = 0 | 1 | 2;
+type SketchMSBorderLineJoinStyle = 0 | 1 | 2;
+type SketchMSFillTypeEnum = 0 | 1 | 4 | 5;
+type SketchMSPatternFillTypeEnum = 0 | 1 | 2 | 3;
+type SketchMSBlendModeEnum = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15;
+type SketchMSLineDecorationTypeEnum = 0 | 1 | 2 | 3;
+type SketchMSBooleanOperation = -1 | 0 | 1 | 2 | 3;
+type SketchMSCurveMode = 0 | 1 | 2 | 3 | 4;
+type SketchMSResizingType = 0 | 1 | 2 | 3;
+type SketchMSLayerListExpandedType = 0 | 1 | 2;
+type SketchMSEncodedBase64BinaryPlist = string;
+type SketchMSNSColorArchive = SketchMSKeyValueArchive;
+type SketchMSLayer = SketchMSPage | SketchMSSymbolMaster;
+interface SketchMSNestedSymbolOverride {
   symbolID: string;
 }
-declare interface SketchMSStringAttribute {
+interface SketchMSStringAttribute {
   _class: 'stringAttribute';
   attributes: {
     MSAttributedStringFontAttribute: {
@@ -32,16 +37,16 @@ declare interface SketchMSStringAttribute {
     foregroundColor: SketchMSKeyValueArchive
   };
 }
-declare interface SketchMSAttributedString {
+interface SketchMSAttributedString {
   _class: 'attributedString';
   string: string;
-  attributes: Array<SketchMSStringAttribute>;
+  attributes: SketchMSStringAttribute[];
   archivedAttributedString?: SketchMSKeyValueArchive;
 }
-declare interface SketchMSKeyValueArchive {
+interface SketchMSKeyValueArchive {
   _archive: SketchMSEncodedBase64BinaryPlist;
 }
-declare interface SketchMSFontAttribute {
+interface SketchMSFontAttribute {
   _class: 'fontDescriptor';
   _archive?: string;
   attributes: {
@@ -49,7 +54,7 @@ declare interface SketchMSFontAttribute {
     size: number;
   };
 }
-declare interface SketchMSBorder {
+interface SketchMSBorder {
   _class: 'border';
   isEnabled: boolean;
   color: SketchMSColor;
@@ -57,15 +62,15 @@ declare interface SketchMSBorder {
   position: SketchMSBorderPositionEnum;
   thickness: number;
 }
-declare interface SketchMSBorderOptions {
+interface SketchMSBorderOptions {
   _class: 'borderOptions';
   isEnabled: boolean;
-  dashPattern: Array<number>;
+  dashPattern: number[];
   lineCapStyle: SketchMSBorderLineCapStyle;
   lineJoinStyle: SketchMSBorderLineJoinStyle;
 }
 
-declare interface SketchMSImageDataReference {
+interface SketchMSImageDataReference {
   _class: 'jSONOriginalDataReference';
   _ref: string;
   _ref_class: 'imageData';
@@ -76,13 +81,13 @@ declare interface SketchMSImageDataReference {
     _data: string;
   };
 }
-declare type SketchMSPointString = string;
-declare interface SketchMSPath {
+type SketchMSPointString = string;
+interface SketchMSPath {
   _class: 'path';
   isClosed: boolean;
-  points: Array<SketchMSCurvePoint>;
+  points: SketchMSCurvePoint[];
 }
-declare interface SketchMSCurvePoint {
+interface SketchMSCurvePoint {
   _class: 'curvePoint';
   cornerRadius: number;
   curveFrom: SketchMSPointString;
@@ -93,7 +98,7 @@ declare interface SketchMSCurvePoint {
   point: SketchMSPointString;
 }
 
-declare interface SketchMSFill {
+interface SketchMSFill {
   _class: 'fill';
   isEnabled: boolean;
   color?: SketchMSColor;
@@ -104,7 +109,7 @@ declare interface SketchMSFill {
   patternFillType: SketchMSPatternFillTypeEnum;
   patternTileScale: number;
 }
-declare interface SketchMSShadow {
+interface SketchMSShadow {
   _class: 'shadow' | 'MSInnerShadow';
   isEnabled: boolean;
   blurRadius: number;
@@ -114,20 +119,20 @@ declare interface SketchMSShadow {
   offsetY: number;
   spread: number;
 }
-declare interface SketchMSImageCollection {
+interface SketchMSImageCollection {
   do_objectID?: string;
   _class: 'imageCollection';
-  images: Array<any>;
+  images: any[];
 }
-declare interface SketchMSAssetCollection {
+interface SketchMSAssetCollection {
   do_objectID?: string;
   _class: 'assetCollection';
-  gradients: Array<any>;
-  colors: Array<any>;
+  gradients: any[];
+  colors: any[];
   imageCollection: SketchMSImageCollection;
-  images: Array<any>;
+  images: any[];
 }
-declare interface SketchMSStyleBorder {
+interface SketchMSStyleBorder {
   position: number;
   color: SketchMSColor;
   do_objectID?: string;
@@ -138,13 +143,13 @@ declare interface SketchMSStyleBorder {
   contextSettings: SketchMSGraphicsContextSettings;
   isEnabled: number;
 }
-declare interface SketchMSGradientStop {
+interface SketchMSGradientStop {
   do_objectID?: string;
   _class: 'gradientStop';
   color: SketchMSColor;
   position: number;
 }
-declare interface SketchMSGradient {
+interface SketchMSGradient {
   from: {
     x: number;
     y: number;
@@ -153,14 +158,14 @@ declare interface SketchMSGradient {
   gradientType: number;
   do_objectID?: string;
   _class: 'gradient';
-  stops: Array<SketchMSGradientStop>;
+  stops: SketchMSGradientStop[];
   to: {
     x: number;
     y: number;
   };
   elipseLength: number;
 }
-declare interface SketchMSStyleFill {
+interface SketchMSStyleFill {
   contextSettings: SketchMSGraphicsContextSettings;
   color: SketchMSColor;
   do_objectID?: string;
@@ -173,7 +178,7 @@ declare interface SketchMSStyleFill {
   noiseIndex: number;
   isEnabled: number;
 }
-declare interface SketchMSStyleShadow {
+interface SketchMSStyleShadow {
   spread: number;
   color: SketchMSColor;
   offsetY: number;
@@ -184,14 +189,14 @@ declare interface SketchMSStyleShadow {
   contextSettings: SketchMSGraphicsContextSettings;
   isEnabled: number;
 }
-declare interface SketchMSSharedStyle {
+interface SketchMSSharedStyle {
   do_objectID?: string;
   _class: 'sharedStyle';
   value: SketchMSStyle;
   objectID: string;
   name: string;
 }
-declare interface SketchMSTextStyle {
+interface SketchMSTextStyle {
   _class: 'textStyle';
   encodedAttributes: {
     MSAttributedStringColorAttribute?: SketchMSColor;
@@ -201,26 +206,26 @@ declare interface SketchMSTextStyle {
     NSKern: number;
   };
 }
-declare interface SketchMSSharedStyleContainer {
+interface SketchMSSharedStyleContainer {
   do_objectID?: string;
   _class: 'sharedStyleContainer';
-  objects: Array<SketchMSSharedStyle>;
+  objects: SketchMSSharedStyle[];
 }
-declare interface SketchMSStyleBorderOptions {
+interface SketchMSStyleBorderOptions {
   lineJoinStyle: number;
   do_objectID?: string;
   _class: 'styleBorderOptions';
   isEnabled: number;
   lineCapStyle: number;
-  dashPattern: Array<any>;
+  dashPattern: any[];
 }
-declare interface SketchMSGraphicsContextSettings {
+interface SketchMSGraphicsContextSettings {
   do_objectID?: string;
   _class: 'graphicsContextSettings';
   opacity: number;
   blendMode: number;
 }
-declare interface SketchMSStyleBlur {
+interface SketchMSStyleBlur {
   radius: number;
   do_objectID?: string;
   _class: 'styleBlur';
@@ -232,14 +237,14 @@ declare interface SketchMSStyleBlur {
     y: number;
   };
 }
-declare interface SketchMSStyleReflection {
+interface SketchMSStyleReflection {
   do_objectID?: string;
   _class: 'styleReflection';
   strength: number;
   isEnabled: number;
   distance: number;
 }
-declare interface SketchMSStyleColorControls {
+interface SketchMSStyleColorControls {
   hue: number;
   do_objectID?: string;
   _class: 'styleColorControls';
@@ -248,7 +253,7 @@ declare interface SketchMSStyleColorControls {
   isEnabled: number;
   saturation: number;
 }
-declare interface SketchMSStyle {
+interface SketchMSStyle {
   startDecorationType: number;
   borderOptions: SketchMSStyleBorderOptions;
   endDecorationType: number;
@@ -260,18 +265,18 @@ declare interface SketchMSStyle {
   _class: 'style';
   miterLimit: number;
   colorControls: SketchMSStyleColorControls;
-  fills: Array<SketchMSStyleFill>;
-  borders: Array<SketchMSStyleBorder>;
-  innerShadows: Array<SketchMSStyleShadow>;
-  shadows: Array<SketchMSStyleShadow>;
+  fills: SketchMSStyleFill[];
+  borders: SketchMSStyleBorder[];
+  innerShadows: SketchMSStyleShadow[];
+  shadows: SketchMSStyleShadow[];
 }
-declare interface SketchMSRulerData {
+interface SketchMSRulerData {
   do_objectID?: string;
   _class: 'rulerData';
   base: number;
-  guides: Array<any>;
+  guides: any[];
 }
-declare interface SketchMSRect {
+interface SketchMSRect {
   y: number;
   do_objectID?: string;
   _class: 'rect';
@@ -280,15 +285,15 @@ declare interface SketchMSRect {
   width: number;
   x: number;
 }
-declare interface SketchMSExportOptions {
+interface SketchMSExportOptions {
   shouldTrim: boolean;
   do_objectID?: string;
   _class: 'exportOptions';
-  includedLayerIds: Array<any>;
+  includedLayerIds: any[];
   layerOptions: number;
-  exportFormats: Array<any>;
+  exportFormats: any[];
 }
-declare interface SketchMSColor {
+interface SketchMSColor {
   do_objectID?: string;
   _class: 'color';
 
@@ -302,7 +307,7 @@ declare interface SketchMSColor {
   blue: number;
   alpha: number;
 }
-declare interface SketchMSSimpleGrid {
+interface SketchMSSimpleGrid {
   do_objectID?: string;
   _class: 'simpleGrid';
   thickGridTimes: number;
@@ -310,7 +315,7 @@ declare interface SketchMSSimpleGrid {
   isEnabled: number;
   gridSize: number;
 }
-declare interface SketchMSLayoutGrid {
+interface SketchMSLayoutGrid {
   columnWidth: number;
   totalWidth: number;
   drawHorizontalLines: number;
@@ -327,7 +332,7 @@ declare interface SketchMSLayoutGrid {
   drawVertical: number;
   rowHeightMultiplication: number;
 }
-declare interface SketchMSSymbolMaster {
+interface SketchMSSymbolMaster {
   isFlippedHorizontal: number;
   includeBackgroundColorInInstance: number;
   objectID: string;
@@ -349,7 +354,7 @@ declare interface SketchMSSymbolMaster {
   _class: 'symbolMaster';
   attributedString: SketchMSAttributedString;
   name: string;
-  layers: Array<SketchMSLayer>;
+  layers: SketchMSLayer[];
   isVisible: boolean;
   nameIsFixed: boolean;
   grid: SketchMSSimpleGrid;
@@ -361,8 +366,12 @@ declare interface SketchMSSymbolMaster {
   resizingConstraint: 63 | number;
   includeBackgroundColorInExport: number;
   flow?: SketchMSImmutableFlowConnection;
+
+  // add this property to hold all CSS properties
+  // of the current layer
+  css?: { [key: string]: string };
 }
-declare interface SketchMSSymbolInstanceLayer {
+interface SketchMSSymbolInstanceLayer {
   _class: 'symbolInstance';
   frame: SketchMSRect;
   horizontalSpacing: number;
@@ -392,7 +401,7 @@ declare interface SketchMSSymbolInstanceLayer {
   isFlippedVertical: number;
   do_objectID?: string;
   name: string;
-  layers: Array<SketchMSLayer>;
+  layers: SketchMSLayer[];
   isVisible: boolean;
   nameIsFixed: boolean;
   grid: SketchMSSimpleGrid;
@@ -405,7 +414,7 @@ declare interface SketchMSSymbolInstanceLayer {
   includeBackgroundColorInExport: number;
   flow?: SketchMSImmutableFlowConnection;
 }
-declare interface SketchMSPage {
+interface SketchMSPage {
   isFlippedHorizontal: number;
   style: SketchMSStyle;
   horizontalRulerData: SketchMSRulerData;
@@ -422,7 +431,7 @@ declare interface SketchMSPage {
   resizingType: number;
   do_objectID?: string;
   _class: 'page' | 'layer';
-  layers: Array<SketchMSLayer>;
+  layers: SketchMSLayer[];
   isVisible: boolean;
   nameIsFixed: number;
   name: string;
@@ -432,23 +441,27 @@ declare interface SketchMSPage {
   shouldBreakMaskChain: number;
   resizingConstraint: number;
   fixedRadius: number;
+
+  // add this property to hold all CSS properties
+  // of the current layer
+  css?: { [key: string]: string };
 }
-declare interface SketchMSSharedTextStyleContainer {
+interface SketchMSSharedTextStyleContainer {
   do_objectID?: string;
   _class: 'sharedTextStyleContainer';
-  objects: Array<any>;
+  objects: any[];
 }
-declare interface SketchMSSymbolContainers {
+interface SketchMSSymbolContainers {
   do_objectID?: string;
   _class: 'symbolContainer';
-  objects: Array<any>;
+  objects: any[];
 }
-declare interface SketchMSDocumentData {
+interface SketchMSDocumentData {
   assets: SketchMSAssetCollection;
   currentPageIndex: number;
-  foreignSymbols: Array<any>;
+  foreignSymbols: any[];
   layerStyles: SketchMSSharedStyleContainer;
-  pages: Array<SketchMSPage>;
+  pages: SketchMSPage[];
   enableSliceInteraction: number;
   do_objectID?: string;
   _class: 'documentData';
@@ -457,11 +470,11 @@ declare interface SketchMSDocumentData {
   layerSymbols: SketchMSSymbolContainers;
   objectID: string;
 }
-declare interface SketchMSArtboards {
+interface SketchMSArtboards {
   name: string;
   artboards: SketchMSArtboard;
 }
-declare interface SketchMSArtboard {
+interface SketchMSArtboard {
   frame: SketchMSRect;
   backgroundColor: SketchMSColor;
   hasBackgroundColor: boolean;
@@ -471,14 +484,14 @@ declare interface SketchMSArtboard {
   includeInCloudUpload?: boolean;
   isFlowHome?: boolean;
 }
-declare interface SketchMSPagesAndArtboards {
+interface SketchMSPagesAndArtboards {
   [key: string]: SketchMSArtboards;
 }
-declare interface SketchMSMetadata {
+interface SketchMSMetadata {
   commit: string;
   pagesAndArtboards: SketchMSPagesAndArtboards;
   version: number;
-  fonts: Array<string>;
+  fonts: string[];
   compatibilityVersion: number;
   app: string;
   autosaved: number;
@@ -492,11 +505,11 @@ declare interface SketchMSMetadata {
     version: number;
     variant: string;
   };
-  saveHistory: Array<string>;
+  saveHistory: string[];
   appVersion: string;
   build: number;
 }
-declare interface SketchMSImmutableFlowConnection {
+interface SketchMSImmutableFlowConnection {
   _class: 'immutableFlowConnection';
   animationType: number;
   destinationArtboardID?: string | 'back';
