@@ -21,7 +21,6 @@ export function onMonacoLoad() {
 export const monacoConfig: NgxMonacoEditorConfig = {
   defaultOptions: {
     theme: 'vs-dark',
-    language: 'typescript',
     automaticLayout: true, // Warning: this might have a severe performance impact,
     fontSize: 15,
     fontLigatures: true,
