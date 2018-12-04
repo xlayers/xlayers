@@ -58,20 +58,28 @@ import { CodeGenService, XlayersNgxEditorModel } from './codegen/codegen.service
         background-size: 56px 56px;
         background-position: center center;
         display: block;
+        min-height: 100%; 
+        height: 100%; 
+        box-sizing: border-box;
       }
       :host,
       ngx-monaco-editor {
         height: 100%;
-        min-height: 300px;
         width: 100%;
         background-color: #1e1e1e;
         min-height: 100%;
+        padding-bottom: 104px;
       }
       .mat-tab-group,
       .mat-tab-group ::ng-deep .mat-tab-body-wrapper {
         height: 100%;
-        min-height: 100%;
         position: relative;
+      }
+      .mat-tab-group ::ng-deep .mat-tab-body-wrapper {
+        padding-top: 5px;
+      }
+      .mat-tab-group ::ng-deep .mat-tab-header {
+        width: calc(100% - 60px);
       }
       :host mat-icon {
         margin: 0 4px;
@@ -104,6 +112,7 @@ export class EditorContainerComponent implements OnInit, AfterContentInit {
 
   onEditorInit(editor: monaco.editor.ICodeEditor) {
     editor.layout();
+    editor.focus();
   }
 
   generateAngular() {
