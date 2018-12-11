@@ -1,5 +1,7 @@
 import { AfterContentInit, Component, OnInit } from '@angular/core';
 import { CodeGenService, XlayersNgxEditorModel } from './codegen/codegen.service';
+import { CodeGen } from 'src/app/core/state/page.state';
+import { Store } from '@ngxs/store';
 
 @Component({
   selector: 'sketch-editor-container',
@@ -38,7 +40,7 @@ import { CodeGenService, XlayersNgxEditorModel } from './codegen/codegen.service
       
       <ng-template matTabContent>
         <ngx-monaco-editor
-          [options]="editorOptions"
+          [options]="{ language: file.language }"
           [ngModel]="file.value"
           (onInit)="onEditorInit($event)"
         ></ngx-monaco-editor>
@@ -93,7 +95,7 @@ import { CodeGenService, XlayersNgxEditorModel } from './codegen/codegen.service
   ]
 })
 export class EditorContainerComponent implements OnInit, AfterContentInit {
-  editorOptions: monaco.editor.IEditorConstructionOptions;
+  editorOptions: monaco.editor.IEditorConstructionOptions = {};
   files: Array<XlayersNgxEditorModel>;
 
   frameworks: Array<{
@@ -101,7 +103,10 @@ export class EditorContainerComponent implements OnInit, AfterContentInit {
     logo: FunctionStringCallback;
   }>;
 
-  constructor(private codegen: CodeGenService) { }
+  constructor(
+    private codegen: CodeGenService,
+    private readonly store: Store
+  ) { }
 
   ngOnInit() {
   }
@@ -117,18 +122,26 @@ export class EditorContainerComponent implements OnInit, AfterContentInit {
 
   generateAngular() {
     this.files = this.codegen.generate(CodeGenService.Kind.Angular);
+    this.updateState();
   }
 
   generateReact() {
     this.files = this.codegen.generate(CodeGenService.Kind.React);
+    this.updateState();
   }
 
   generateVue() {
     this.files = this.codegen.generate(CodeGenService.Kind.Vue);
+    this.updateState();
   }
 
   generateWc() {
     this.files = this.codegen.generate(CodeGenService.Kind.WC);
+    this.updateState();
+  }
+
+  updateState() {
+    this.store.dispatch(new CodeGen(this.files));
   }
 
 }
