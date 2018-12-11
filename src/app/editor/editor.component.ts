@@ -15,6 +15,9 @@ import {
 } from 'src/app/core/state';
 import { SketchContainerComponent } from './viewer/lib/sketch-container.component';
 import { environment } from '../../environments/environment';
+import { ExportStackblitzService } from './exports/stackblitz.service';
+import { PageState } from '../core/state/page.state';
+import { XlayersNgxEditorModel } from './code-editor/editor-container/codegen/codegen.service';
 
 @Component({
   selector: 'sketch-editor',
@@ -39,12 +42,10 @@ export class EditorComponent implements OnInit {
 
   is3dView: boolean;
   isCodeEditor: boolean;
+  codegen: XlayersNgxEditorModel[];
 
   version = environment.version;
 
-  /**
-   * @todo This feauture is not ready.
-   */
   shouldEnableCanvasSettings = false;
 
   @ViewChild('pagesPanelRef') pagesPanelRef: MatExpansionPanel;
@@ -53,7 +54,10 @@ export class EditorComponent implements OnInit {
   @ViewChild('settingNavRef') settingNavRef: MatDrawerContainer;
   @ViewChild('sketchContainerRef') sketchContainerRef: SketchContainerComponent;
 
-  constructor(private store: Store) {}
+  constructor(
+    private readonly store: Store,
+    private readonly exporter: ExportStackblitzService
+  ) {}
 
   ngOnInit() {
     this.colors = {
@@ -110,6 +114,10 @@ export class EditorComponent implements OnInit {
       this.store.select(UiState.isSettingsEnabled).subscribe(isEnbaledSettings => {
         this.enabled = isEnbaledSettings;
       });
+
+      this.store.select(PageState.codegen).subscribe(codegen => {
+        this.codegen = codegen;
+      });
     });
   }
 
@@ -162,5 +170,9 @@ export class EditorComponent implements OnInit {
 
   onResizeTreeViewerEnd(event) {
     this.settingTreeViewerWidth = event.rectangle.width;
+  }
+
+  async share() {
+    await this.exporter.export(this.codegen);
   }
 }
