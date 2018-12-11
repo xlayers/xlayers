@@ -6,6 +6,8 @@ import { CodeGenFacade, XlayersNgxEditorModel } from '../codegen.service';
 })
 export class AngularCodeGenService implements CodeGenFacade {
 
+  private indentationSymbol = '  '; // 2 spaces ftw
+
   constructor() { }
 
   generate(ast: SketchMSLayer): Array<XlayersNgxEditorModel> {
@@ -27,7 +29,7 @@ export class AngularCodeGenService implements CodeGenFacade {
     }, {
       uri: 'xlayers.component.css',
       value: this.generateComponentStyles(ast),
-      language: 'css',
+      language: 'less',
       kind: 'angular'
     }, {
       uri: 'xlayers.component.spec.ts',
@@ -45,46 +47,44 @@ export class AngularCodeGenService implements CodeGenFacade {
   private generateReadme() {
     return ``;
   }
-
-  /**
-   * @todo make this dynamic
-   */
+  
   private generateModule() {
-    return ''+
-`
+    return '' +
+      `
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { XLayersComponent } from './xlayers.component';
 
 @NgModule({
-  imports: [
-    CommonModule,
+  declarations: [
+    XLayersComponent
   ],
-  declarations: [XLayersComponent]
+  imports: [
+    CommonModule
+  ]
 })
-export class XLayersModule { }
+export class XlayersModule { }
     `;
   }
 
-  /**
-   * @todo make this dynamic
-   */
   private generateComponent(ast: SketchMSLayer) {
-    console.log(ast);
 
-    return ''+
-`import { Component, OnInit } from '@angular/core';
+    return '' +
+`
+import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'xly-component',
-  templateUrl: 'xlayers.component.html',
-  styleUrls: ['xlayers.component.css']
+  selector: 'app-xlayers',
+  templateUrl: './xlayers.component.html',
+  styleUrls: ['./xlayers.component.css']
 })
-export class XLayersComponent implements OnInit {
+export class XlayersComponent implements OnInit {
 
-  constructor() {}
+  constructor() { }
 
-  ngOnInit() {}
+  ngOnInit() {
+  }
+
 }
 `;
   }
@@ -93,24 +93,24 @@ export class XLayersComponent implements OnInit {
    * @todo make this dynamic
    */
   private generateComponentSpec() {
-    return ''+
+    return '' +
 `
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { XLayersComponent } from './xlayers.component';
+import { XlayersComponent } from './xlayers.component';
 
-describe('XLayersComponent', () => {
-  let component: XLayersComponent;
-  let fixture: ComponentFixture<XLayersComponent>;
+describe('XlayersComponent', () => {
+  let component: XlayersComponent;
+  let fixture: ComponentFixture<XlayersComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ XLayersComponent ]
+      declarations: [ XlayersComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(XLayersComponent);
+    fixture = TestBed.createComponent(XlayersComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
@@ -122,28 +122,30 @@ describe('XLayersComponent', () => {
     `;
   }
 
-  /**
-   * @todo make this dynamic
-   */
   private generateComponentStyles(ast: SketchMSLayer) {
 
-    let styles: Array<string> = [];
+    const styles: Array<string> = [
+      [
+        ':host {',
+        `${this.indentationSymbol}display: block;`,
+        `${this.indentationSymbol}position: relative;`,
+        '}', ''
+      ].join('\n')
+    ];
 
-    // iife
-    (function computeStyle(ast: SketchMSLayer, styles) {
+    (function computeStyle(ast: SketchMSLayer, styles, indentationSymbol) {
       if (ast.layers && ast.layers.length > 0) {
-        ast.layers.forEach(layer => styles.push(computeStyle(layer, styles)));
+        ast.layers.forEach(layer => styles.push(computeStyle(layer, styles, indentationSymbol)));
       } else {
         if (ast.css) {
           const rules: string[] = [];
-          const indentation = '  '; // 2 spaces FTW!!
           for (let prop in ast.css) {
             rules.push(`${prop}: ${ast.css[prop]};`);
           }
 
           return [
-            `.${ast.do_objectID} {`,
-            rules.map(rule => indentation + rule).join('\n'),
+            `.${(ast as any).css__className} {`,
+            rules.map(rule => indentationSymbol + rule).join('\n'),
             '}'
           ].join('\n');
         }
@@ -152,27 +154,66 @@ describe('XLayersComponent', () => {
         }
       }
 
-    })(ast, styles);
+    })(ast, styles, this.indentationSymbol);
 
-    return [
-      ':host { display: block; }',
-      styles.join('\n')
-    ].join('\n');
+    return styles.join('\n');
   }
-  /**
-   * @todo make this dynamic
-   */
-  private generateComponentTemplate(ast: SketchMSLayer) {
 
+  private generateComponentTemplate(ast: SketchMSLayer) {
     let template: Array<string> = [];
-    
-    (function computeTemplate(ast: SketchMSLayer, template) {
-      if (ast.layers && ast.layers.length > 0) {
-        ast.layers.forEach(layer => template.push(computeTemplate(layer, template)));
+
+    // indentation
+    const i = (n: number) => !!n ? this.indentationSymbol.repeat(n) : '';
+
+    const openTag = (tag = 'div', node: SketchMSLayer, depth: number) => {
+      console.log(depth);
+      template.push(
+        i(depth) +
+        ([
+          `<${tag}`,
+          `class="${(node as any).css__className}"`,
+          `role="${node._class}"`,
+          `aria-label="${node.name}"`
+        ].join(' ')) +
+        `>`);
+    }
+
+    const closeTag = (tag = 'div', node: SketchMSLayer, depth: number) => {
+      template.push(`${i(depth)}</${tag}>`);
+    }
+
+    const content = (data: string, depth: number) => {
+      if (data) {
+        template.push(i(depth) + data);
+      }
+    }
+
+
+    (function computeTemplate(ast: SketchMSLayer, template, depth = 0) {
+
+      if (ast.layers && Array.isArray(ast.layers)) {
+
+        ast.layers.forEach(layer => {
+          if (layer.css) {
+            openTag('div', layer, depth);
+          }
+
+          content(computeTemplate(layer, template, depth + 1), depth + 1);
+
+          if (layer.css) {
+            closeTag('div', layer, depth);
+          }
+
+        });
+
       } else {
-        return [
-          `<div class="${ ast.do_objectID }">${ ast._class === 'text' ? ast.name : '' }</div>`
-        ].join('\n');
+
+        let innerText = '';
+        if ((ast as any)._class === 'text') {
+          innerText = `<span>${ast.attributedString.string}</span>`;
+        }
+
+        return innerText;
       }
 
     })(ast, template);
