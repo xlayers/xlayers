@@ -47,7 +47,7 @@ export class AngularCodeGenService implements CodeGenFacade {
   private generateReadme() {
     return ``;
   }
-  
+
   private generateModule() {
     return '' +
       `
@@ -166,7 +166,6 @@ describe('XlayersComponent', () => {
     const i = (n: number) => !!n ? this.indentationSymbol.repeat(n) : '';
 
     const openTag = (tag = 'div', node: SketchMSLayer, depth: number) => {
-      console.log(depth);
       template.push(
         i(depth) +
         ([
