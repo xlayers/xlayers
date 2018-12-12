@@ -55,7 +55,8 @@ export class CodeGenService {
         comment.end = '-->';
       }
       else if (file.language.includes('css')) {
-        comment.start = '#';
+        comment.start = '/*';
+        comment.end = '*/';
       }
 
       file.value = [
