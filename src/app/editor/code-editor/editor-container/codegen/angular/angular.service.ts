@@ -53,11 +53,14 @@ export class AngularCodeGenService implements CodeGenFacade {
       `
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { XLayersComponent } from './xlayers.component';
+import { XlayersComponent } from './xlayers.component';
 
 @NgModule({
   declarations: [
-    XLayersComponent
+    XlayersComponent
+  ],
+  exports: [
+    XlayersComponent
   ],
   imports: [
     CommonModule
