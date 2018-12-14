@@ -165,9 +165,7 @@ export class UiState {
       new AvailablePages(action.data.pages),
       new CurrentPage(page),
       new SettingsEnabled(),
-      new ToggleWireframe(false),
-      new Toggle3D(false),
-      new ToggleCodeEditor(false)
+      new ToggleCodeEditor(true)
     ]);
     patchState({
       currentFile: { ...action.data }

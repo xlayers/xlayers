@@ -10,7 +10,7 @@ export const environment = {
   demoFiles: [
     {
       value: '49',
-      disabled: false,
+      disabled: true,
       files: [
         'md-components-notifications-heads-up',
         'md-components-cards-welcome-back',

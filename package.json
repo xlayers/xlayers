@@ -32,6 +32,7 @@
     "@angular/router": "^7.1.0",
     "@angular/service-worker": "^7.1.0",
     "@ngxs/store": "^3.3.0",
+    "@stackblitz/sdk": "^1.2.0",
     "angular-draggable-droppable": "^4.0.2",
     "angular-resizable-element": "^3.2.2",
     "big-integer": "^1.6.36",

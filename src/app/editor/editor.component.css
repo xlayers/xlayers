@@ -13,7 +13,7 @@
 
 @media (max-width: 599px) {
   .mat-toolbar-row, .mat-toolbar-single-row {
-      height: 64px;
+    height: 64px;
   }
 }
 
@@ -22,6 +22,7 @@
 .header-title {
   display: flex;
   font-weight: 100;
+  z-index: 1;
 }
 
 .header-title a {
@@ -53,6 +54,11 @@
 
 .row-settings {
   justify-content: center;
+  display: flex;
+  position: absolute;
+  width: 100%;
+  left: 0;
+  top: 15px;
 }
 
 /* Container */
@@ -132,7 +138,7 @@ button[mat-button] {
 }
 
 .mat-drawer {
-  top: 128px;
+  top: 64px;
 }
 
 .header-actions {
