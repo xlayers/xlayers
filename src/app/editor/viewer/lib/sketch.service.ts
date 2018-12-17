@@ -142,7 +142,7 @@ export class SketchService {
   }
 
   getDemoFiles() {
-    return environment.demoFiles.filter(meta => !meta.disabled);
+    return environment.demoFiles.filter(meta => !meta.disabled).sort((m1, m2) => m2.value - m1.value);
   }
 
   getSketchDemoFile(filename: string) {

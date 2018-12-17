@@ -13,8 +13,11 @@ import { SketchService } from './sketch.service';
       </mat-expansion-panel-header>
 
       <mat-nav-list>
-      <ng-container *ngFor="let group of sketchService.getDemoFiles()">
-        <h3 mat-subheader>SketchApp v{{group.value}}</h3>
+      <ng-container *ngFor="let group of sketchService.getDemoFiles(); let i=index">
+        <h3 mat-subheader>
+          SketchApp v{{group.value}}
+          <span *ngIf="i > 0">(legacy support)</span>
+        </h3>
 
         <a mat-list-item *ngFor="let file of group.files" color="warn" (click)="confirmSelectedDemoFile(group.value+'/'+file)">
           <mat-icon mat-list-icon>note</mat-icon>
@@ -53,6 +56,11 @@ import { SketchService } from './sketch.service';
       .mat-list-icon, .mat-list-item, h3 {
         color: rgba(0, 0, 0, 0.54);
         text-align: left;
+      }
+      h3 span {
+        display: inline-block;
+        margin-left: 5px;
+        color: gray;
       }
       .mat-list-item:hover {
         background-color: rgba(194, 24, 91, 0.4);

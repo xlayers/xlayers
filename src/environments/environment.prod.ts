@@ -5,7 +5,7 @@ export const environment = {
   baseUrl: 'https://xlayers.app',
   demoFiles: [
     {
-      value: '49',
+      value: 49,
       disabled: true,
       files: [
         'md-components-notifications-heads-up',
@@ -22,7 +22,7 @@ export const environment = {
       ]
     },
     {
-      value: '50',
+      value: 50,
       disabled: false,
       files: [
         'md-components-notifications-heads-up',
@@ -39,7 +39,7 @@ export const environment = {
       ]
     },
     {
-      value: '51',
+      value: 51,
       disabled: false,
       files: [
         'md-components-notifications-heads-up',
@@ -56,7 +56,7 @@ export const environment = {
       ]
     },
     {
-      value: '52',
+      value: 52,
       disabled: false,
       files: [
         'md-components-notifications-heads-up',
@@ -74,3 +74,4 @@ export const environment = {
     }
   ]
 };
+
