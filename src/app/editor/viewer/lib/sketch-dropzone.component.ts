@@ -51,10 +51,10 @@ import { SketchService } from './sketch.service';
       }
 
       .mode__large {
-        font-size: 7em;
-        color: #b0b0b0;
+        font-size: 4em;
+        color: #b0b0b06b;
         width: 200px;
-        height: 120px;
+        height: 70px;
       }
 
       .mode__mini {

@@ -79,8 +79,8 @@ export class ResetUiSettings {
 }
 
 const DEFAULT_UI_STATE = {
-  wireframe: true,
-  preview: true,
+  wireframe: false,
+  preview: false,
   availablePages: [],
   currentLayer: null,
   previousLayer: null,
@@ -166,7 +166,6 @@ export class UiState {
       new CurrentPage(page),
       new SettingsEnabled(),
       new ToggleWireframe(false),
-      new Toggle3D(false),
       new ToggleCodeEditor(false)
     ]);
     patchState({

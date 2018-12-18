@@ -1,11 +1,8 @@
 import { EditorContainerComponent } from './editor-container/editor-container.component';
-import { SourceCodeService } from './source-code.service';
-import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { MonacoEditorModule, NgxMonacoEditorConfig } from 'ngx-monaco-editor';
 import { CoreModule } from 'src/app/core/core.module';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { CodeGenModule } from './editor-container/codegen/codegen.module';
 
 export function onMonacoLoad() {
   monaco.languages.typescript.typescriptDefaults.setDiagnosticsOptions({
@@ -24,12 +21,11 @@ export function onMonacoLoad() {
 export const monacoConfig: NgxMonacoEditorConfig = {
   defaultOptions: {
     theme: 'vs-dark',
-    language: 'typescript',
     automaticLayout: true, // Warning: this might have a severe performance impact,
     fontSize: 15,
     fontLigatures: true,
     formatOnPaste: false,
-    scrollBeyondLastLine: false,
+    scrollBeyondLastLine: true,
     miniMap: {
       enabled: false
     }
@@ -38,9 +34,8 @@ export const monacoConfig: NgxMonacoEditorConfig = {
 };
 
 @NgModule({
-  imports: [CoreModule, MonacoEditorModule.forRoot(monacoConfig)],
+  imports: [CoreModule, CodeGenModule, MonacoEditorModule.forRoot(monacoConfig)],
   declarations: [EditorContainerComponent],
-  exports: [EditorContainerComponent],
-  providers: [SourceCodeService]
+  exports: [EditorContainerComponent]
 })
 export class CodeEditorModule {}
