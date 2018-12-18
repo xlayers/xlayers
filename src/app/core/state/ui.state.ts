@@ -79,8 +79,8 @@ export class ResetUiSettings {
 }
 
 const DEFAULT_UI_STATE = {
-  wireframe: true,
-  preview: true,
+  wireframe: false,
+  preview: false,
   availablePages: [],
   currentLayer: null,
   previousLayer: null,
@@ -165,7 +165,8 @@ export class UiState {
       new AvailablePages(action.data.pages),
       new CurrentPage(page),
       new SettingsEnabled(),
-      new ToggleCodeEditor(true)
+      new ToggleWireframe(false),
+      new ToggleCodeEditor(false)
     ]);
     patchState({
       currentFile: { ...action.data }
