@@ -83,7 +83,7 @@ export class SketchStyleParserService {
               'top': `${obj.frame.y}px`,
               'width': `${obj.frame.width}px`,
               'height': `${obj.frame.height}px`,
-              'visibility': obj.isVisible ? 'visibile' : 'hidden'
+              'visibility': obj.isVisible ? 'visible' : 'hidden'
             });
           }
         }
