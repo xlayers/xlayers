@@ -16,13 +16,8 @@ import { SketchData, SketchService } from './sketch.service';
       <sketch-dropzone (changed)="onFileSelected($event)"></sketch-dropzone>
     </ng-template>
 
-    <div class="layers-container" *ngIf="data; else noDataRef">
-      <sketch-canvas
-        #ref
-        sketchSelectedLayer
-        (click)="clearSelection()"
-        [currentPage]="currentPage"
-      ></sketch-canvas>
+    <div class="layers-container" *ngIf="currentPage else noDataRef" >
+      <sketch-canvas #ref sketchSelectedLayer (click)="clearSelection()" [currentPage]="currentPage"></sketch-canvas>
     </div>
   `,
   styles: [
@@ -59,7 +54,6 @@ import { SketchData, SketchService } from './sketch.service';
 export class SketchContainerComponent implements OnInit {
   constructor(private service: SketchService, private store: Store) {}
 
-  public data: SketchData;
   public currentPage: SketchMSLayer;
 
   @ViewChild(SketchSelectedLayerDirective) ref: SketchSelectedLayerDirective;
@@ -78,8 +72,8 @@ export class SketchContainerComponent implements OnInit {
 
   async onFileSelected(file: File) {
     try {
-      this.data = await this.service.process(file);
-      this.store.dispatch(new CurrentFile(this.data));
+      const data = await this.service.process(file);
+      this.store.dispatch(new CurrentFile(data));
     } catch (e) {
       this.store.dispatch(
         new InformUser(
