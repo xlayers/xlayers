@@ -69,12 +69,6 @@ export class EditorComponent implements OnInit {
     this.store.select(UiState.availablePages).subscribe(availablePages => {
       this.sketchPages = availablePages;
 
-      if (availablePages.length > 0) {
-        this.pagesPanelRef.open();
-        this.layersPanelRef.open();
-        this.settingNavRef.open();
-      }
-
       this.store.select(UiState.isWireframe).subscribe(isWireframe => {
         this.wireframe = isWireframe;
       });
@@ -118,6 +112,16 @@ export class EditorComponent implements OnInit {
       this.store.select(PageState.codegen).subscribe(codegen => {
         this.codegen = codegen;
       });
+
+      if (availablePages.length > 0) {
+        this.pagesPanelRef.open();
+        this.layersPanelRef.open();
+        this.settingNavRef.open();
+      } else {
+        this.pagesPanelRef.close();
+        this.layersPanelRef.close();
+        this.settingNavRef.close();
+      }
     });
   }
 
@@ -174,5 +178,9 @@ export class EditorComponent implements OnInit {
 
   async share() {
     await this.exporter.export(this.codegen);
+  }
+
+  close() {
+    this.store.dispatch(new ResetUiSettings());
   }
 }
