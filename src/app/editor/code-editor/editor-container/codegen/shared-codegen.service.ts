@@ -4,48 +4,54 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class SharedCodegen {
-
   private indentationSymbol = '  '; // 2 spaces ftw
 
   generateComponentStyles(ast: SketchMSLayer) {
-
     const styles: Array<string> = [
       [
         ':host {',
         `${this.indentationSymbol}display: block;`,
         `${this.indentationSymbol}position: relative;`,
-        '}', ''
+        '}',
+        ''
       ].join('\n')
     ];
 
-    (function computeStyle(ast: SketchMSLayer, styles, indentationSymbol) {
-      if (ast.layers && ast.layers.length > 0) {
-        ast.layers.forEach(layer => styles.push(computeStyle(layer, styles, indentationSymbol)));
-      } else {
-        if (ast.css) {
-          const rules: string[] = [];
-          for (let prop in ast.css) {
-            rules.push(`${prop}: ${ast.css[prop]};`);
+    (function computeStyle(_ast: SketchMSLayer, _styles, indentationSymbol) {
+      const content = (data: string) => {
+        if (data) {
+          _styles.push(data);
+        }
+      };
+      if (_ast.layers && Array.isArray(_ast.layers)) {
+        _ast.layers.forEach(layer => {
+          if (layer.css) {
+            const rules: string[] = [];
+            // tslint:disable-next-line:forin
+            for (const prop in layer.css) {
+              rules.push(`${prop}: ${layer.css[prop]};`);
+            }
+            content(
+              [
+                `.${(layer as any).css__className} {`,
+                rules.map(rule => indentationSymbol + rule).join('\n'),
+                '}'
+              ].join('\n')
+            );
           }
 
-          return [
-            `.${(ast as any).css__className} {`,
-            rules.map(rule => indentationSymbol + rule).join('\n'),
-            '}'
-          ].join('\n');
-        }
-        else {
-          return null;
-        }
+          computeStyle(layer, styles, indentationSymbol);
+        });
       }
-
     })(ast, styles, this.indentationSymbol);
 
     return styles.join('\n');
   }
 
   openTag(tag = 'div', attributes = []) {
-    return `<${tag}${attributes.length !== 0 ? ' ' + attributes.join(' ') : ''}>`;
+    return `<${tag}${
+      attributes.length !== 0 ? ' ' + attributes.join(' ') : ''
+    }>`;
   }
 
   closeTag(tag = 'div') {
@@ -65,13 +71,12 @@ export class SharedCodegen {
 
   private computeTemplate(ast: SketchMSLayer, template = [], depth = 0) {
     if (ast.layers && Array.isArray(ast.layers)) {
-
       ast.layers.forEach(layer => {
         if (layer.css) {
           const attributes = [
             `class="${(layer as any).css__className}"`,
             `role="${layer._class}"`,
-            `aria-label="${layer.name}"`,
+            `aria-label="${layer.name}"`
           ];
           template.push(this.indent(depth, this.openTag('div', attributes)));
         }
@@ -85,9 +90,7 @@ export class SharedCodegen {
           template.push(this.indent(depth, this.closeTag('div')));
         }
       });
-
     } else {
-
       const innerText = [];
 
       if ((ast as any)._class === 'text') {
