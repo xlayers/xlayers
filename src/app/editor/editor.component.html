@@ -29,7 +29,7 @@
       <a matTooltip="Feedback" mat-icon-button target="__blank" href="https://github.com/xlayers/xlayers/issues">
         <mat-icon>bug_report</mat-icon>
       </a>
-      <button (click)="share()" matTooltip="Export project" mat-icon-button target="__blank" rel="noopener noreferrer">
+      <button *ngIf="!!codegen" (click)="share()" matTooltip="Export project" mat-icon-button target="__blank" rel="noopener noreferrer">
         <mat-icon>share</mat-icon>
       </button>
     </div>
