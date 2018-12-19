@@ -13,6 +13,7 @@ import {
   ToggleCodeEditor,
   ResetUiSettings
 } from 'src/app/core/state';
+import * as FileSaver from 'file-saver';
 import { SketchContainerComponent } from './viewer/lib/sketch-container.component';
 import { environment } from '../../environments/environment';
 import { ExportStackblitzService } from './exports/stackblitz.service';
@@ -180,6 +181,15 @@ export class EditorComponent implements OnInit {
     await this.exporter.export(this.codegen);
   }
 
+  async download() {
+    const zip = new window['JSZip']();
+    this.codegen.forEach(file => {
+      zip.file(file.uri, file.value);
+    });
+    const content = await zip.generateAsync({type: 'blob'});
+    FileSaver.saveAs(content, 'xLayers.zip');
+  }
+  
   close() {
     this.store.dispatch(new ResetUiSettings());
   }
