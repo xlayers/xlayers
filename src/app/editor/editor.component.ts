@@ -189,7 +189,7 @@ export class EditorComponent implements OnInit {
     const content = await zip.generateAsync({type: 'blob'});
     FileSaver.saveAs(content, 'xLayers.zip');
   }
-
+  
   close() {
     this.store.dispatch(new ResetUiSettings());
   }

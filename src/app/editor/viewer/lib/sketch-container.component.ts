@@ -1,6 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Store } from '@ngxs/store';
-import { CurrentFile, UiState, CurrentLayer } from 'src/app/core/state';
+import {
+  CurrentFile,
+  UiState,
+  CurrentLayer,
+  InformUser
+} from 'src/app/core/state';
 import { SketchSelectedLayerDirective } from './selected-layer.directive';
 import { SketchData, SketchService } from './sketch.service';
 
@@ -16,7 +21,7 @@ import { SketchData, SketchService } from './sketch.service';
     </div>
   `,
   styles: [
-    `
+  `
   :host {
     width: 100%;
     height: 100%;
@@ -70,8 +75,11 @@ export class SketchContainerComponent implements OnInit {
       const data = await this.service.process(file);
       this.store.dispatch(new CurrentFile(data));
     } catch (e) {
-      console.error(e);
-      // alert('Only .sketch files that were saved using Sketch v43 and above are supported.');
+      this.store.dispatch(
+        new InformUser(
+          'Only .sketch files that were saved using Sketch v43 and above are supported.'
+        )
+      );
     }
   }
 
