@@ -32,6 +32,9 @@
       <button *ngIf="!!codegen" (click)="share()" matTooltip="Export project" mat-icon-button target="__blank" rel="noopener noreferrer">
         <mat-icon>share</mat-icon>
       </button>
+      <button *ngIf="currentPage" (click)="close()" matTooltip="Close project" mat-icon-button target="__blank" rel="noopener noreferrer">
+        <mat-icon>exit_to_app</mat-icon>
+      </button>
     </div>
   </mat-toolbar-row>
 
