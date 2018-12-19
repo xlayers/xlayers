@@ -37,7 +37,9 @@ export class CodeGenService {
     private readonly store: Store
   ) {
     this.store.select(UiState.currentPage).subscribe((currentPage: SketchMSLayer) => {
-      this.ast = this.generateCssClassNames(currentPage);
+      if (currentPage) {
+        this.ast = this.generateCssClassNames(currentPage);
+      }
     });
   }
 
@@ -72,7 +74,7 @@ export class CodeGenService {
   }
 
   private generateCssClassNames(ast: SketchMSLayer) {
-    
+
     function randomString() {
       return Math.random().toString(36).substring(2, 6);
     }
