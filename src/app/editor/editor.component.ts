@@ -70,46 +70,6 @@ export class EditorComponent implements OnInit {
     this.store.select(UiState.availablePages).subscribe(availablePages => {
       this.sketchPages = availablePages;
 
-      this.store.select(UiState.isWireframe).subscribe(isWireframe => {
-        this.wireframe = isWireframe;
-      });
-      this.store.select(UiState.zoomLevel).subscribe(zoomLevel => {
-        this.zoomLevel = zoomLevel;
-      });
-      this.store.select(UiState.is3dView).subscribe(is3dView => {
-        this.is3dView = is3dView;
-      });
-      this.store.select(UiState.isCodeEditor).subscribe(isCodeEditor => {
-        this.isCodeEditor = isCodeEditor;
-        if (this.isCodeEditor) {
-          this.settingNavRef.close();
-        }
-      });
-      this.store.select(UiState.isPreview).subscribe(isPreview => {
-        this.preview = isPreview;
-        if (this.preview) {
-          this.currentLayerNavRef.open();
-        }
-      });
-      this.store.select(UiState.currentPage).subscribe(currentPage => {
-        this.currentPage = currentPage;
-      });
-      this.store.select(UiState.currentLayer).subscribe(currentLayer => {
-        this.currentLayer = currentLayer;
-        if (this.currentLayer) {
-          this.currentLayerNavRef.open();
-        } else {
-          this.currentLayerNavRef.close();
-        }
-      });
-      this.store.select(UiState.isSettingsEnabled).subscribe(isEnbaledSettings => {
-        this.enabled = isEnbaledSettings;
-      });
-
-      this.store.select(PageState.codegen).subscribe(codegen => {
-        this.codegen = codegen;
-      });
-
       if (availablePages.length > 0) {
         this.pagesPanelRef.open();
         this.layersPanelRef.open();
@@ -119,6 +79,50 @@ export class EditorComponent implements OnInit {
         this.layersPanelRef.close();
         this.settingNavRef.close();
       }
+    });
+
+    this.store.select(UiState.isWireframe).subscribe(isWireframe => {
+      this.wireframe = isWireframe;
+    });
+    this.store.select(UiState.zoomLevel).subscribe(zoomLevel => {
+      this.zoomLevel = zoomLevel;
+    });
+    this.store.select(UiState.is3dView).subscribe(is3dView => {
+      this.is3dView = is3dView;
+    });
+    this.store.select(UiState.isCodeEditor).subscribe(isCodeEditor => {
+      this.isCodeEditor = isCodeEditor;
+      if (this.sketchPages.length > 0) {
+        if (this.isCodeEditor) {
+          this.settingNavRef.close();
+        } else {
+          this.settingNavRef.open();
+        }
+      }
+    });
+    this.store.select(UiState.isPreview).subscribe(isPreview => {
+      this.preview = isPreview;
+      if (this.preview) {
+        this.currentLayerNavRef.open();
+      }
+    });
+    this.store.select(UiState.currentPage).subscribe(currentPage => {
+      this.currentPage = currentPage;
+    });
+    this.store.select(UiState.currentLayer).subscribe(currentLayer => {
+      this.currentLayer = currentLayer;
+      if (this.currentLayer) {
+        this.currentLayerNavRef.open();
+      } else {
+        this.currentLayerNavRef.close();
+      }
+    });
+    this.store.select(UiState.isSettingsEnabled).subscribe(isEnbaledSettings => {
+      this.enabled = isEnbaledSettings;
+    });
+
+    this.store.select(PageState.codegen).subscribe(codegen => {
+      this.codegen = codegen;
     });
   }
 
