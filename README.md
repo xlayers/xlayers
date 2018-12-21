@@ -34,14 +34,10 @@
     <img src="http://isitmaintained.com/badge/resolution/xlayers/xlayers.svg"/>
   </a>
   
-  <a href="#backers" alt="sponsors on Open Collective">
-    <img src="https://opencollective.com/xlayers/backers/badge.svg" />
+  <a href="https://circleci.com/gh/xlayers/xlayers">
+    <img src="https://circleci.com/gh/xlayers/xlayers/tree/develop.svg?style=svg" />
   </a>
   
-  <a href="#sponsors" alt="Sponsors on Open Collective">
-    <img src="https://opencollective.com/xlayers/sponsors/badge.svg" />
-  </a> 
-
   <br/>
   <a href="https://waffle.io/xlayers/xlayers">
     <img src="https://badge.waffle.io/xlayers/xlayers.svg?columns=all"/>
