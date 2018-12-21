@@ -1,13 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Store } from '@ngxs/store';
-import {
-  CurrentFile,
-  UiState,
-  CurrentLayer,
-  InformUser
-} from 'src/app/core/state';
+import { CurrentFile, CurrentLayer, InformUser, UiState } from 'src/app/core/state';
 import { SketchSelectedLayerDirective } from './selected-layer.directive';
-import { SketchData, SketchService } from './sketch.service';
+import { SketchService } from './sketch.service';
 
 @Component({
   selector: 'sketch-container',
@@ -39,7 +34,6 @@ import { SketchData, SketchService } from './sketch.service';
     height: 100%;
     min-height: 100%;
     position: absolute;
-    overflow: scroll;
     top: 64px;
   }
 
