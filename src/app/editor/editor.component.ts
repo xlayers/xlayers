@@ -2,23 +2,13 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatExpansionPanel } from '@angular/material/expansion';
 import { MatDrawerContainer } from '@angular/material/sidenav';
 import { Store } from '@ngxs/store';
-import {
-  CurrentLayer,
-  CurrentPage,
-  UiState,
-  ZoomIn,
-  ZoomOut,
-  Toggle3D,
-  ToggleWireframe,
-  ToggleCodeEditor,
-  ResetUiSettings
-} from 'src/app/core/state';
 import * as FileSaver from 'file-saver';
-import { SketchContainerComponent } from './viewer/lib/sketch-container.component';
+import { CurrentLayer, CurrentPage, ResetUiSettings, Toggle3D, ToggleCodeEditor, ToggleWireframe, UiState, ZoomIn, ZoomOut } from 'src/app/core/state';
 import { environment } from '../../environments/environment';
-import { ExportStackblitzService } from './exports/stackblitz.service';
 import { PageState } from '../core/state/page.state';
 import { XlayersNgxEditorModel } from './code-editor/editor-container/codegen/codegen.service';
+import { ExportStackblitzService } from './exports/stackblitz.service';
+import { SketchContainerComponent } from './viewer/lib/sketch-container.component';
 
 @Component({
   selector: 'sketch-editor',
