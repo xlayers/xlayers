@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { XlayersNgxEditorModel } from '../code-editor/editor-container/codegen/codegen.service';
+import { XlayersNgxEditorModel } from '../../code-editor/editor-container/codegen/codegen.service';
 import { StackBlitzProjectPayload } from './stackblitz.service';
 
 @Injectable({
@@ -49,11 +49,8 @@ platformBrowserDynamic().bootstrapModule(AppModule)
 
     return {
       files,
-      title: 'xlayers',
-      description: 'xLayers generated project',
       template: 'angular-cli',
-      tags: ['angular', 'xlayers'],
-      dependencies: {}
+      tags: ['angular']
     };
   }
 }

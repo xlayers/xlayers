@@ -5,7 +5,7 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { NgxsModule, Store } from '@ngxs/store';
 import { ResizeEvent } from 'angular-resizable-element';
 import { UiState } from '../../../core/state';
-import { PageState } from '../../../core/state/page.state';
+import { CodeGenState } from '../../../core/state/page.state';
 import { getFlatLayerMock, getResizeEventMock, getFrameMock } from './sketch-layer.component.mock';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 
@@ -17,7 +17,7 @@ describe('SketchLayerComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       schemas: [NO_ERRORS_SCHEMA],
-      imports: [NgxsModule.forRoot([UiState, PageState]), MatSnackBarModule],
+      imports: [NgxsModule.forRoot([UiState, CodeGenState]), MatSnackBarModule],
       declarations: [SketchLayerComponent]
     })
       .compileComponents();

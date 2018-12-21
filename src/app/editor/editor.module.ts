@@ -10,7 +10,7 @@ import { EditorComponent } from './editor.component';
 import { LayerSettingsModule } from './layer-settings/layer-settings.module';
 import { TreeViewComponent } from './tree-view/tree-view.component';
 import { AngularSketchModule } from './viewer/lib/sketch.module';
-import { PageState } from '../core/state/page.state';
+import { CodeGenState } from '../core/state/page.state';
 
 export const routes: Route[] = [
   {
@@ -22,7 +22,7 @@ export const routes: Route[] = [
 @NgModule({
   imports: [
     CoreModule,
-    NgxsModule.forRoot([UiState, PageState]),
+    NgxsModule.forRoot([UiState, CodeGenState]),
     NgxsLoggerPluginModule.forRoot(),
     NgxsReduxDevtoolsPluginModule.forRoot(),
     RouterModule.forChild(routes),

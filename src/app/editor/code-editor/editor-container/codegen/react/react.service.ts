@@ -1,25 +1,40 @@
 import { Injectable } from '@angular/core';
 import { CodeGenFacade, XlayersNgxEditorModel } from '../codegen.service';
+import { SharedCodegen } from '../shared-codegen.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ReactCodeGenService implements CodeGenFacade {
-
-  constructor() {}
+  constructor(private sharedCodegen: SharedCodegen) {}
 
   generate(ast: SketchMSLayer): Array<XlayersNgxEditorModel> {
-    return [{
-      uri: 'README.md',
-      value: this.generateReadme(),
-      language: 'text/plain',
-      kind: 'text'
-    }, {
-      uri: 'XLayersComponent.ts',
-      value: this.generateComponent(),
-      language: 'typescript',
-      kind: 'react'
-    }];
+    return [
+      {
+        uri: 'README.md',
+        value: this.generateReadme(),
+        language: 'text/plain',
+        kind: 'text'
+      },
+      {
+        uri: 'XLayers.js',
+        value: this.generateComponent(ast),
+        language: 'javascript',
+        kind: 'react'
+      },
+      {
+        uri: 'XLayers.test.js',
+        value: this.generateTestComponent(),
+        language: 'javascript',
+        kind: 'react'
+      },
+      {
+        uri: 'XLayers.css',
+        value: this.sharedCodegen.generateComponentStyles(ast),
+        language: 'css',
+        kind: 'react'
+      }
+    ];
   }
 
   private generateReadme() {
@@ -29,14 +44,36 @@ export class ReactCodeGenService implements CodeGenFacade {
   /**
    * @todo make this dynamic
    */
-  private generateComponent() {
+  private generateTestComponent() {
     return `
-class XLayersComponent extends React.Component {
-  render() {
-    return <div></div>;
-  }
-}
+import React from 'react';
+import ReactDOM from 'react-dom';
+import XLayers from './XLayers';
+
+it('renders without crashing', () => {
+  const div = document.createElement('div');
+  ReactDOM.render(<XLayers />, div);
+  ReactDOM.unmountComponentAtNode(div);
+});
     `;
   }
 
+  private generateComponent(ast: SketchMSLayer) {
+    return `
+import React, { Component } from 'react';
+import './XLayers.css';
+
+class XLayers extends Component {
+  render() {
+    return (
+      <div className="XLayers">
+        ${this.sharedCodegen.generateComponentTemplate(ast, /* CodeGenService.Kind.React */ 2)}
+      </div>
+    );
+  }
+}
+
+export default XLayers;
+    `;
+  }
 }
