@@ -1,27 +1,54 @@
-import { Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnInit,
+  Output,
+  SimpleChanges,
+  ViewChild
+} from '@angular/core';
 import { SketchService } from './sketch.service';
 
 @Component({
   selector: 'sketch-dropzone',
   template: `
+    <mat-icon
+      class="mode__mini"
+      *ngIf="isModeMini; else: large"
+      (drop)="onFileDrop($event)"
+      (dragover)="dragOverHandler($event)"
+      (click)="openFileBrowser()"
+      >cloud_upload</mat-icon
+    >
 
-  <mat-icon class="mode__mini"
-    *ngIf="isModeMini else large"
-    (drop)="onFileDrop($event)"
-    (dragover)="dragOverHandler($event)"
-    (click)="openFileBrowser()">cloud_upload</mat-icon>
+    <ng-template #large>
+      <section (drop)="onFileDrop($event)" (dragover)="dragOverHandler($event)">
+        <mat-icon class="mode__large">cloud_upload</mat-icon>
+        <h2 class="mat-headline">Drag&Drop your Sketch file here</h2>
+        <span class="mat-subheading-1">OR</span>
+        <button
+          color="primary"
+          class="mat-headline"
+          mat-button
+          (click)="openFileBrowser()"
+        >
+          BROWSE FILES
+        </button>
+        <sketch-select-demo-files
+          [error]="selectedDemoFileError"
+          (changed)="openSelectedDemoFile($event)"
+        ></sketch-select-demo-files>
+      </section>
+    </ng-template>
 
-  <ng-template #large>
-    <section (drop)="onFileDrop($event)" (dragover)="dragOverHandler($event)">
-      <mat-icon class="mode__large">cloud_upload</mat-icon>
-      <h2 class="mat-headline">Drag&Drop your Sketch file here</h2>
-      <span class="mat-subheading-1">OR</span>
-      <button color="primary" class="mat-headline" mat-button (click)="openFileBrowser()">BROWSE FILES</button>
-      <sketch-select-demo-files [error]="selectedDemoFileError" (changed)="openSelectedDemoFile($event)"></sketch-select-demo-files>
-    </section>
-  </ng-template>
-
-  <input #fileBrowserRef type="file" (input)="onFileChange($event)" accept=".sketch">
+    <input
+      #fileBrowserRef
+      type="file"
+      (input)="onFileChange($event)"
+      accept=".sketch"
+    />
   `,
   styles: [
     `
@@ -32,7 +59,7 @@ import { SketchService } from './sketch.service';
         position: relative;
         align-items: center;
         justify-content: center;
-        color: #B0B0B0;
+        color: #b0b0b0;
       }
       section {
         width: 100%;
@@ -46,7 +73,7 @@ import { SketchService } from './sketch.service';
         margin: 20px auto;
       }
 
-      input[type="file"] {
+      input[type='file'] {
         display: none;
       }
 
@@ -71,9 +98,9 @@ export class SketchDropzoneComponent implements OnInit, OnChanges {
   public isModeMini = false;
   public selectedDemoFileError = false;
 
-  constructor(private service: SketchService) { }
+  constructor(private service: SketchService) {}
 
-  ngOnInit() { }
+  ngOnInit() {}
 
   ngOnChanges(records: SimpleChanges) {
     if (records.mode) {
@@ -91,8 +118,7 @@ export class SketchDropzoneComponent implements OnInit, OnChanges {
       (file: Blob) => {
         this.onFileChange(new File([file], `${fileName}.sketch`));
       },
-      err => {
-        console.log(err);
+      _ => {
         // include this status in the store for me it's an overkill
         this.selectedDemoFileError = true;
         setTimeout(() => {
@@ -102,7 +128,7 @@ export class SketchDropzoneComponent implements OnInit, OnChanges {
     );
   }
 
-  onFileDrop(event) {
+  onFileDrop(event: DragEvent) {
     event.preventDefault();
 
     if (event.dataTransfer.items) {
@@ -132,7 +158,7 @@ export class SketchDropzoneComponent implements OnInit, OnChanges {
     this.removeDragData(event);
   }
 
-  dragOverHandler(event) {
+  dragOverHandler(event: DragEvent) {
     event.preventDefault();
     event.dataTransfer.dropEffect = 'move';
   }
@@ -154,7 +180,7 @@ export class SketchDropzoneComponent implements OnInit, OnChanges {
     }
   }
 
-  private removeDragData(event) {
+  private removeDragData(event: DragEvent) {
     if (event.dataTransfer.items) {
       // Use DataTransferItemList interface to remove the drag data
       event.dataTransfer.items.clear();
