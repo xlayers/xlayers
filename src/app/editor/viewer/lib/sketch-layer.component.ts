@@ -1,40 +1,40 @@
-import { AfterContentInit, Component, ElementRef, Input, OnInit, Renderer2 } from '@angular/core';
+import {
+  AfterContentInit,
+  Component,
+  ElementRef,
+  Input,
+  OnInit,
+  Renderer2
+} from '@angular/core';
 import { Store } from '@ngxs/store';
-import { ResizeEvent } from 'angular-resizable-element';
-import { UiState, CurrentLayer } from 'src/app/core/state/ui.state';
+import { CurrentLayer, UiState } from 'src/app/core/state/ui.state';
 
 @Component({
   selector: 'sketch-layer',
   template: `
-  <div
-    *ngIf="!layer?.isLocked"
-    mwlResizable
-    [resizeSnapGrid]="{ left: 1, right: 1 }"
-    [resizeEdges]="{bottom: true, right: true, top: true, left: true}"
-    (resizeStart)="resizeStart($event)"
-    (resizing)="resizing($event)"
-    (resizeEnd)="resizeEnd($event)"
-    [style.width.px]="layer?.frame?.width"
-    [style.height.px]="layer?.frame?.height"
-    [style.left.px]="layer?.frame?.x"
-    [style.top.px]="layer?.frame?.y"
+    <div
+      *ngIf="!layer?.isLocked"
+      [style.width.px]="layer?.frame?.width"
+      [style.height.px]="layer?.frame?.height"
+      [style.left.px]="layer?.frame?.x"
+      [style.top.px]="layer?.frame?.y"
     >
+      <span *ngIf="textContent">{{ textContent }}</span>
 
-    <span *ngIf="textContent">{{textContent}}</span>
-
-    <sketch-layer
-      sketchSelectedLayer
-      (selectedLayer)="selectLayer($event)"
-      *ngFor="let layer of layer?.layers"
-      class="layer"
-      [layer]="layer"
-      [level]="level + 1"
-      [wireframe]="wireframe"
-      [ngClass]="{ 'wireframe': wireframe }"
-      [attr.data-id]="layer?.do_objectID"
-      [attr.data-name]="layer?.name"
-      [attr.data-class]="layer?._class"></sketch-layer>
-  </div>
+      <sketch-layer
+        sketchSelectedLayer
+        (selectedLayer)="selectLayer($event)"
+        *ngFor="let layer of layer?.layers"
+        class="layer"
+        [layer]="layer"
+        [level]="level + 1"
+        [wireframe]="wireframe"
+        [ngClass]="{ wireframe: wireframe }"
+        [attr.data-id]="layer?.do_objectID"
+        [attr.data-name]="layer?.name"
+        [attr.data-class]="layer?._class"
+      ></sketch-layer>
+    </div>
   `,
   styles: [
     `
@@ -72,9 +72,13 @@ export class SketchLayerComponent implements OnInit, AfterContentInit {
 
   offset3d = 20;
 
-  textContent;
+  textContent: string;
 
-  constructor(public store: Store, public renderer: Renderer2, public element: ElementRef<HTMLElement>) {}
+  constructor(
+    public store: Store,
+    public renderer: Renderer2,
+    public element: ElementRef<HTMLElement>
+  ) {}
 
   ngOnInit() {
     this.nativeElement = this.element.nativeElement;
@@ -85,7 +89,11 @@ export class SketchLayerComponent implements OnInit, AfterContentInit {
       if (this.nativeElement) {
         if (is3dView === true) {
           if (this.level > 0) {
-            this.renderer.setStyle(this.nativeElement, 'transform', `translateZ(${(this.level * this.offset3d).toFixed(3)}px)`);
+            this.renderer.setStyle(
+              this.nativeElement,
+              'transform',
+              `translateZ(${(this.level * this.offset3d).toFixed(3)}px)`
+            );
           }
         } else {
           this.renderer.setStyle(this.nativeElement, 'transform', `none`);
@@ -102,22 +110,35 @@ export class SketchLayerComponent implements OnInit, AfterContentInit {
   }
 
   isTextContent() {
-    if (this.layer._class as 'text' === 'text') {
-      this.textContent = (this.layer as SketchMSSymbolMaster).attributedString.string;
+    if ((this.layer._class as 'text') === 'text') {
+      this.textContent = (this
+        .layer as SketchMSSymbolMaster).attributedString.string;
     }
   }
 
   updateLayerStyle() {
     if (this.layer && this.nativeElement) {
       const elementPosition = this.nativeElement.getBoundingClientRect();
-      this.renderer.setStyle(this.nativeElement, 'border-width', `${this.borderWidth}px`);
-      this.renderer.setStyle(this.nativeElement, 'left', `${elementPosition.left - this.borderWidth}px`);
-      this.renderer.setStyle(this.nativeElement, 'top', `${elementPosition.top - this.borderWidth}px`);
+      this.renderer.setStyle(
+        this.nativeElement,
+        'border-width',
+        `${this.borderWidth}px`
+      );
+      this.renderer.setStyle(
+        this.nativeElement,
+        'left',
+        `${elementPosition.left - this.borderWidth}px`
+      );
+      this.renderer.setStyle(
+        this.nativeElement,
+        'top',
+        `${elementPosition.top - this.borderWidth}px`
+      );
       this.applyDefaultStyles();
     }
   }
 
-  toggleSelected(layer: SketchMSSymbolMaster) {}
+  toggleSelected(_layer: SketchMSSymbolMaster) {}
 
   applyDefaultStyles() {
     const css = (this.layer as any).css as { [key: string]: string };
@@ -128,30 +149,6 @@ export class SketchLayerComponent implements OnInit, AfterContentInit {
         }
       }
     }
-  }
-
-  resizeStart(event: ResizeEvent) {}
-  resizing(event: ResizeEvent) {
-    if (event.rectangle.width && (event.edges.left || event.edges.right)) {
-      this.layer.frame.width = event.rectangle.width;
-
-      if (typeof event.edges.left === 'number') {
-        this.layer.frame.x = event.edges.left;
-      }
-    }
-
-    if (event.rectangle.height && (event.edges.top || event.edges.bottom)) {
-      this.layer.frame.height = event.rectangle.height;
-
-      if (typeof event.edges.top === 'number') {
-        this.layer.frame.y = event.edges.top;
-      }
-    }
-
-    this.updateLayerStyle();
-  }
-  resizeEnd(event: ResizeEvent) {
-    this.store.dispatch(new CurrentLayer(this.layer));
   }
 
   selectLayer(layer: SketchMSLayer) {

@@ -3,7 +3,17 @@ import { MatExpansionPanel } from '@angular/material/expansion';
 import { MatDrawerContainer } from '@angular/material/sidenav';
 import { Store } from '@ngxs/store';
 import * as FileSaver from 'file-saver';
-import { CurrentLayer, CurrentPage, ResetUiSettings, Toggle3D, ToggleCodeEditor, ToggleWireframe, UiState, ZoomIn, ZoomOut } from 'src/app/core/state';
+import {
+  CurrentLayer,
+  CurrentPage,
+  ResetUiSettings,
+  Toggle3D,
+  ToggleCodeEditor,
+  ToggleWireframe,
+  UiState,
+  ZoomIn,
+  ZoomOut
+} from 'src/app/core/state';
 import { environment } from '../../environments/environment';
 import { CodeGenState, CodeGenSettings } from '../core/state/page.state';
 import { XlayersNgxEditorModel } from './code-editor/editor-container/codegen/codegen.service';
@@ -107,9 +117,11 @@ export class EditorComponent implements OnInit {
         this.currentLayerNavRef.close();
       }
     });
-    this.store.select(UiState.isSettingsEnabled).subscribe(isEnbaledSettings => {
-      this.enabled = isEnbaledSettings;
-    });
+    this.store
+      .select(UiState.isSettingsEnabled)
+      .subscribe(isEnbaledSettings => {
+        this.enabled = isEnbaledSettings;
+      });
 
     this.store.select(CodeGenState.codegen).subscribe(codegen => {
       this.codegen = codegen;
@@ -138,7 +150,7 @@ export class EditorComponent implements OnInit {
     return page && page.name;
   }
 
-  changeBackgroundColor(event) {
+  changeBackgroundColor(event: any) {
     const c = event.color.rgb;
     if (c.a === 0) {
       this.colors.background = 'transparent';
@@ -150,6 +162,7 @@ export class EditorComponent implements OnInit {
   ZoomIn() {
     this.store.dispatch(new ZoomIn());
   }
+
   ZoomOut() {
     this.store.dispatch(new ZoomOut());
   }
@@ -157,14 +170,6 @@ export class EditorComponent implements OnInit {
   toggle3d() {
     this.is3dView = !this.is3dView;
     this.store.dispatch(new Toggle3D(this.is3dView));
-  }
-
-  onResizeSettingMenuEnd(event) {
-    this.settingMenuWidth = event.rectangle.width;
-  }
-
-  onResizeTreeViewerEnd(event) {
-    this.settingTreeViewerWidth = event.rectangle.width;
   }
 
   async share() {
@@ -176,7 +181,7 @@ export class EditorComponent implements OnInit {
     this.codegen.content.forEach(file => {
       zip.file(file.uri, file.value);
     });
-    const content = await zip.generateAsync({type: 'blob'});
+    const content = await zip.generateAsync({ type: 'blob' });
     FileSaver.saveAs(content, 'xLayers.zip');
   }
 

@@ -50,14 +50,10 @@
 <mat-drawer-container autosize [class.transparent-bg]="colors?.background === 'transparent'">
 
   <mat-drawer
-    mwlResizable
     class="sidebar"
-    [enableGhostResize]="true"
-    [resizeEdges]="{right: true}"
     mode="side"
     opened="false"
     disableClose="true"
-    (resizeEnd)="onResizeTreeViewerEnd($event)"
     [style.width.px]="settingTreeViewerWidth"
     #settingNavRef>
 
@@ -116,15 +112,11 @@
   </mat-drawer>
 
   <mat-drawer
-    mwlResizable
     class="sidebar settings"
-    [enableGhostResize]="true"
-    [resizeEdges]="{left: true}"
     mode="side"
     opened="false"
     position="end"
     hasBackdrop="false"
-    (resizeEnd)="onResizeSettingMenuEnd($event)"
     [style.width.px]="settingMenuWidth"
     #currentLayerNavRef>
 
