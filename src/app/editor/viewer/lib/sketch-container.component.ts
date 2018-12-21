@@ -1,6 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Store } from '@ngxs/store';
-import { CurrentFile, CurrentLayer, InformUser, UiState } from 'src/app/core/state';
+import {
+  CurrentFile,
+  CurrentLayer,
+  InformUser,
+  UiState
+} from 'src/app/core/state';
 import { SketchSelectedLayerDirective } from './selected-layer.directive';
 import { SketchService } from './sketch.service';
 
@@ -11,38 +16,43 @@ import { SketchService } from './sketch.service';
       <sketch-dropzone (changed)="onFileSelected($event)"></sketch-dropzone>
     </ng-template>
 
-    <div class="layers-container" *ngIf="currentPage else noDataRef" >
-      <sketch-canvas #ref sketchSelectedLayer (click)="clearSelection()" [currentPage]="currentPage"></sketch-canvas>
+    <div class="layers-container" *ngIf="currentPage; else: noDataRef">
+      <sketch-canvas
+        #ref
+        sketchSelectedLayer
+        (click)="clearSelection()"
+        [currentPage]="currentPage"
+      ></sketch-canvas>
     </div>
   `,
   styles: [
-  `
-  :host {
-    width: 100%;
-    height: 100%;
-    justify-content: center;
-    top: 64px;
-    position: absolute;
-    transform: scale(1);
-    transform-origin: center;
-  }
+    `
+      :host {
+        width: 100%;
+        height: 100%;
+        justify-content: center;
+        top: 64px;
+        position: absolute;
+        transform: scale(1);
+        transform-origin: center;
+      }
 
-  .layers-container {
-    display: flex;
-    justify-content: center;
-    width: 100%;
-    height: 100%;
-    min-height: 100%;
-    position: absolute;
-    top: 64px;
-  }
+      .layers-container {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        height: 100%;
+        min-height: 100%;
+        position: absolute;
+        top: 64px;
+      }
 
-  sketch-layer {
-    top: 0;
-    left: 0;
-    position: absolute;
-  }
-  `
+      sketch-layer {
+        top: 0;
+        left: 0;
+        position: absolute;
+      }
+    `
   ]
 })
 export class SketchContainerComponent implements OnInit {
@@ -78,8 +88,6 @@ export class SketchContainerComponent implements OnInit {
   }
 
   clearSelection() {
-    if (this.currentPage) {
-      this.store.dispatch(new CurrentLayer(null));
-    }
+    this.store.dispatch(new CurrentLayer(null));
   }
 }
