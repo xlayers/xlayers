@@ -63,25 +63,36 @@ export class SharedCodegen {
     return indentation + content;
   }
 
-  generateComponentTemplate(ast: SketchMSLayer) {
+  generateComponentTemplate(ast: SketchMSLayer, kind: number) {
     const template: Array<string> = [];
-    this.computeTemplate(ast, template);
+    this.computeTemplate(ast, template, 0, kind);
     return template.join('\n');
   }
 
-  private computeTemplate(ast: SketchMSLayer, template = [], depth = 0) {
+  private computeTemplate(
+    ast: SketchMSLayer,
+    template = [],
+    depth = 0,
+    kind = 0 /* CodeGenService.Kind.Unknown */
+  ) {
+    let classNameAttr = 'class';
+
+    if (kind === 2 /* CodeGenService.Kind.React */) {
+      classNameAttr = 'className';
+    }
+
     if (ast.layers && Array.isArray(ast.layers)) {
       ast.layers.forEach(layer => {
         if (layer.css) {
           const attributes = [
-            `class="${(layer as any).css__className}"`,
+            `${classNameAttr}="${(layer as any).css__className}"`,
             `role="${layer._class}"`,
             `aria-label="${layer.name}"`
           ];
           template.push(this.indent(depth, this.openTag('div', attributes)));
         }
 
-        const content = this.computeTemplate(layer, template, depth + 1);
+        const content = this.computeTemplate(layer, template, depth + 1, kind);
         if (content) {
           template.push(this.indent(depth + 1, content));
         }

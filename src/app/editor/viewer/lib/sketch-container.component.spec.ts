@@ -6,7 +6,7 @@ import { NgxsModule, Store } from '@ngxs/store';
 import { SketchService, SketchData } from './sketch.service';
 import { getSketchDataMock } from './sketch.service.mock';
 import { UiState } from 'src/app/core/state';
-import { PageState } from 'src/app/core/state/page.state';
+import { CodeGenState } from 'src/app/core/state/page.state';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { getFileMock } from './sketch-container.component.mock';
@@ -24,7 +24,7 @@ fdescribe('SketchContainerComponent', () => {
     TestBed.configureTestingModule({
       schemas: [NO_ERRORS_SCHEMA],
       imports: [
-        NgxsModule.forRoot([UiState, PageState]),
+        NgxsModule.forRoot([UiState, CodeGenState]),
         MatSnackBarModule,
         // HttpClientModule,
         HttpClientTestingModule,

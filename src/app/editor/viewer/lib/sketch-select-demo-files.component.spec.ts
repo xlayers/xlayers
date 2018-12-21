@@ -5,7 +5,7 @@ import { NgxsModule } from '@ngxs/store';
 import { SketchService } from './sketch.service';
 import { HttpClientModule } from '@angular/common/http';
 import { UiState } from 'src/app/core/state';
-import { PageState } from 'src/app/core/state/page.state';
+import { CodeGenState } from 'src/app/core/state/page.state';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 describe('SketchSelectDemoFilesComponent', () => {
@@ -16,7 +16,7 @@ describe('SketchSelectDemoFilesComponent', () => {
     TestBed.configureTestingModule({
       schemas: [NO_ERRORS_SCHEMA],
       imports: [
-        NgxsModule.forRoot([UiState, PageState]),
+        NgxsModule.forRoot([UiState, CodeGenState]),
         MatSnackBarModule,
         HttpClientModule
       ],

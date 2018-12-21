@@ -5,9 +5,9 @@ import { Store } from '@ngxs/store';
 import * as FileSaver from 'file-saver';
 import { CurrentLayer, CurrentPage, ResetUiSettings, Toggle3D, ToggleCodeEditor, ToggleWireframe, UiState, ZoomIn, ZoomOut } from 'src/app/core/state';
 import { environment } from '../../environments/environment';
-import { PageState } from '../core/state/page.state';
+import { CodeGenState, CodeGenSettings } from '../core/state/page.state';
 import { XlayersNgxEditorModel } from './code-editor/editor-container/codegen/codegen.service';
-import { ExportStackblitzService } from './exports/stackblitz.service';
+import { ExportStackblitzService } from './exports/stackblitz/stackblitz.service';
 import { SketchContainerComponent } from './viewer/lib/sketch-container.component';
 
 @Component({
@@ -33,7 +33,7 @@ export class EditorComponent implements OnInit {
 
   is3dView: boolean;
   isCodeEditor: boolean;
-  codegen: XlayersNgxEditorModel[];
+  codegen: CodeGenSettings;
 
   version = environment.version;
 
@@ -111,7 +111,7 @@ export class EditorComponent implements OnInit {
       this.enabled = isEnbaledSettings;
     });
 
-    this.store.select(PageState.codegen).subscribe(codegen => {
+    this.store.select(CodeGenState.codegen).subscribe(codegen => {
       this.codegen = codegen;
     });
   }
@@ -173,7 +173,7 @@ export class EditorComponent implements OnInit {
 
   async download() {
     const zip = new window['JSZip']();
-    this.codegen.forEach(file => {
+    this.codegen.content.forEach(file => {
       zip.file(file.uri, file.value);
     });
     const content = await zip.generateAsync({type: 'blob'});
