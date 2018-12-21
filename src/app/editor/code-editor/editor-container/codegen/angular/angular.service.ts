@@ -6,42 +6,48 @@ import { SharedCodegen } from '../shared-codegen.service';
   providedIn: 'root'
 })
 export class AngularCodeGenService implements CodeGenFacade {
-  private indentationSymbol = '  '; // 2 spaces ftw
 
-  constructor(private sharedCodegen: SharedCodegen) { }
+  constructor(private sharedCodegen: SharedCodegen) {}
 
   generate(ast: SketchMSLayer): Array<XlayersNgxEditorModel> {
-    return [{
-      uri: 'README.md',
-      value: this.generateReadme(),
-      language: 'markdown',
-      kind: 'text'
-    }, {
-      uri: 'xlayers.component.ts',
-      value: this.generateComponent(ast),
-      language: 'typescript',
-      kind: 'angular'
-    }, {
-      uri: 'xlayers.component.html',
-      value: this.sharedCodegen.generateComponentTemplate(ast),
-      language: 'html',
-      kind: 'angular'
-    }, {
-      uri: 'xlayers.component.css',
-      value: this.sharedCodegen.generateComponentStyles(ast),
-      language: 'less',
-      kind: 'angular'
-    }, {
-      uri: 'xlayers.component.spec.ts',
-      value: this.generateComponentSpec(),
-      language: 'typescript',
-      kind: 'angular'
-    }, {
-      uri: 'xlayers.module.ts',
-      value: this.generateModule(),
-      language: 'typescript',
-      kind: 'angular'
-    }];
+    return [
+      {
+        uri: 'README.md',
+        value: this.generateReadme(),
+        language: 'markdown',
+        kind: 'text'
+      },
+      {
+        uri: 'xlayers.component.ts',
+        value: this.generateComponent(ast),
+        language: 'typescript',
+        kind: 'angular'
+      },
+      {
+        uri: 'xlayers.component.html',
+        value: this.sharedCodegen.generateComponentTemplate(ast, /* CodeGenService.Kind.Angular */ 1),
+        language: 'html',
+        kind: 'angular'
+      },
+      {
+        uri: 'xlayers.component.css',
+        value: this.sharedCodegen.generateComponentStyles(ast),
+        language: 'less',
+        kind: 'angular'
+      },
+      {
+        uri: 'xlayers.component.spec.ts',
+        value: this.generateComponentSpec(),
+        language: 'typescript',
+        kind: 'angular'
+      },
+      {
+        uri: 'xlayers.module.ts',
+        value: this.generateModule(),
+        language: 'typescript',
+        kind: 'angular'
+      }
+    ];
   }
 
   private generateReadme() {

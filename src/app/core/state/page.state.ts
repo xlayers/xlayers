@@ -1,29 +1,31 @@
 import { State, Action, StateContext, Selector } from '@ngxs/store';
 import { XlayersNgxEditorModel } from 'src/app/editor/code-editor/editor-container/codegen/codegen.service';
 
-export interface PageSettings {
-  codegen: XlayersNgxEditorModel[];
+export interface CodeGenSettings {
+  content: XlayersNgxEditorModel[];
+  kind: number;
 }
 
 export class CodeGen {
-  static readonly type = '[Page] CodeGen';
-  constructor(public data: XlayersNgxEditorModel[]) {}
+  static readonly type = '[CodeGen] CodeGen';
+  constructor(public kind: number, public content: XlayersNgxEditorModel[]) {}
 }
 
-@State<SketchMSPage>({
-  name: 'page'
-})
-export class PageState {
 
+@State<SketchMSPage>({
+  name: 'codegen'
+})
+export class CodeGenState {
   @Selector()
-  static codegen(page: PageSettings) {
-    return page.codegen;
+  static codegen(codegen: CodeGenSettings) {
+    return codegen;
   }
 
   @Action(CodeGen)
-  selectCodegen({ setState }: StateContext<PageSettings>, action: CodeGen) {
+  selectCodegen({ setState }: StateContext<CodeGenSettings>, action: CodeGen) {
     setState({
-      codegen: [...action.data]
+      content: [...action.content],
+      kind: action.kind
     });
   }
 }
