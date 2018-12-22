@@ -7,6 +7,7 @@ import { NgxEditorModel } from 'ngx-monaco-editor';
 import { Store } from '@ngxs/store';
 import { UiState } from 'src/app/core/state';
 import { environment } from 'src/environments/environment.hmr';
+import { AngularIVyCodeGenService } from './angular/angular-ivy.service';
 
 export interface XlayersNgxEditorModel extends NgxEditorModel {
   kind: 'angular' | 'react' | 'vue' | 'wc' | 'html' | 'text';
@@ -22,16 +23,18 @@ export interface CodeGenFacade {
 export class CodeGenService {
   static Kind = {
     Unknown: 0,
-    Angular: 1,
-    React: 2,
-    Vue: 3,
-    WC: 4
+    Angular: 10,
+    AngularIVy: 11,
+    React: 20,
+    Vue: 30,
+    WC: 40
   };
 
   private ast: SketchMSLayer;
 
   constructor(
     private readonly angular: AngularCodeGenService,
+    private readonly angularIvy: AngularIVyCodeGenService,
     private readonly react: ReactCodeGenService,
     private readonly vue: VueCodeGenService,
     private readonly wc: WCCodeGenService,
@@ -101,6 +104,8 @@ export class CodeGenService {
     switch (kind) {
       case CodeGenService.Kind.Angular:
         return this.addHeaderInfo(this.angular.generate(this.ast));
+      case CodeGenService.Kind.AngularIVy:
+        return this.addHeaderInfo(this.angularIvy.generate(this.ast));
       case CodeGenService.Kind.React:
         return this.addHeaderInfo(this.react.generate(this.ast));
       case CodeGenService.Kind.Vue:

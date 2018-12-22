@@ -15,15 +15,19 @@ import { Store } from '@ngxs/store';
         <mat-icon svgIcon="angular"></mat-icon>
         <span>Angular</span>
       </button>
+      <button mat-menu-item (click)="generateAngularIvy()">
+        <mat-icon svgIcon="angular"></mat-icon>
+        <span>Angular (IVy)</span>
+      </button>
       <button mat-menu-item (click)="generateReact()">
         <mat-icon svgIcon="react"></mat-icon>
         <span>React</span>
       </button>
-      <button mat-menu-item (click)="generateVue()">
+      <button disabled mat-menu-item (click)="generateVue()">
         <mat-icon svgIcon="vue"></mat-icon>
         <span>Vue</span>
       </button>
-      <button mat-menu-item (click)="generateWc()">
+      <button disabled mat-menu-item (click)="generateWc()">
         <mat-icon svgIcon="wc"></mat-icon>
         <span>Web Component</span>
       </button>
@@ -123,6 +127,11 @@ export class EditorContainerComponent implements OnInit, AfterContentInit {
   generateAngular() {
     this.files = this.codegen.generate(CodeGenService.Kind.Angular);
     this.updateState(CodeGenService.Kind.Angular);
+  }
+
+  generateAngularIvy() {
+    this.files = this.codegen.generate(CodeGenService.Kind.AngularIVy);
+    this.updateState(CodeGenService.Kind.AngularIVy);
   }
 
   generateReact() {
