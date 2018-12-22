@@ -42,7 +42,7 @@ jobs:
       - image: circleci/node:10.12
     steps:
       - checkout
-      - run: npm lint ||
+      - run: npm run lint ||
               (echo "Lint errors detected. Please run ''npm lint --fix''" ; exit 1)
 
 
