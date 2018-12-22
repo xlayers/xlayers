@@ -90,6 +90,10 @@ sketch-container {
   min-width: 200px;
 }
 
+.sidebar.layers {
+  margin-bottom: 60px;
+}
+
 .sidebar.settings {
   min-width: 200px;
 }
