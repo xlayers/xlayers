@@ -27,6 +27,9 @@ import { Store } from '@ngxs/store';
         <mat-icon svgIcon="wc"></mat-icon>
         <span>Web Component</span>
       </button>
+      <a class="request-new-library" target="__blank" href="https://github.com/xlayers/xlayers/issues/new?assignees=&labels=type%3A+question+%2F+discussion+%2F+RFC%2C+Scope%3A+CodeGen&template=codegen--add-xxxxx-support.md&title=CodeGen%3A+add+XXXXX+support">
+        <span>Add a new library!</span>
+      </a>
     </mat-menu>
   </section>
 
@@ -90,6 +93,14 @@ import { Store } from '@ngxs/store';
         position: absolute;
         right: 15px;
         z-index: 999;
+      }
+      a.request-new-library {
+        text-align: center;
+        color: white;
+        display: inline-block;
+        width: 100%;
+        font-size: 13px;
+        padding-top: 10px;
       }
     `
   ]
