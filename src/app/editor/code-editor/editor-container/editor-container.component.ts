@@ -3,6 +3,9 @@ import { CodeGenService, XlayersNgxEditorModel } from './codegen/codegen.service
 import { CodeGen } from 'src/app/core/state/page.state';
 import { Store } from '@ngxs/store';
 
+// tslint:disable-next-line
+const githubIssueLink = 'https://github.com/xlayers/xlayers/issues/new?assignees=&labels=type%3A+question+%2F+discussion+%2F+RFC%2C+Scope%3A+CodeGen&template=codegen--add-xxxxx-support.md&title=CodeGen%3A+add+XXXXX+support';
+
 @Component({
   selector: 'sketch-editor-container',
   template: `
@@ -27,7 +30,7 @@ import { Store } from '@ngxs/store';
         <mat-icon svgIcon="wc"></mat-icon>
         <span>Web Component</span>
       </button>
-      <a class="request-new-library" target="__blank" href="https://github.com/xlayers/xlayers/issues/new?assignees=&labels=type%3A+question+%2F+discussion+%2F+RFC%2C+Scope%3A+CodeGen&template=codegen--add-xxxxx-support.md&title=CodeGen%3A+add+XXXXX+support">
+      <a class="request-new-library" target="__blank" href="${githubIssueLink}">
         <span>Add a new library!</span>
       </a>
     </mat-menu>
@@ -40,7 +43,7 @@ import { Store } from '@ngxs/store';
         <mat-icon [svgIcon]="file.kind"></mat-icon>
         {{ file.uri }}
       </ng-template>
-      
+
       <ng-template matTabContent>
         <ngx-monaco-editor
           [options]="{ language: file.language }"
@@ -63,8 +66,8 @@ import { Store } from '@ngxs/store';
         background-size: 56px 56px;
         background-position: center center;
         display: block;
-        min-height: 100%; 
-        height: 100%; 
+        min-height: 100%;
+        height: 100%;
         box-sizing: border-box;
       }
       :host,
