@@ -172,7 +172,7 @@ export class EditorComponent implements OnInit {
     this.store.dispatch(new Toggle3D(this.is3dView));
   }
 
-  async share() {
+  async openInStackblitz() {
     await this.exporter.export(this.codegen);
   }
 
