@@ -37,9 +37,6 @@
     </div>
     <div class="header-actions">
       <sketch-dropzone *ngIf="currentPage" matTooltip="Browse files" (changed)="sketchContainerRef.onFileSelected($event)" mode="mini"></sketch-dropzone>
-      <a matTooltip="Feedback" mat-icon-button target="__blank" href="https://github.com/xlayers/xlayers/issues">
-        <mat-icon>bug_report</mat-icon>
-      </a>
       <button *ngIf="currentPage" (click)="close()" matTooltip="Close project" mat-icon-button target="__blank" rel="noopener noreferrer">
         <mat-icon>exit_to_app</mat-icon>
       </button>
@@ -104,6 +101,9 @@
       </mat-expansion-panel>
 
       <footer>
+        <a matTooltip="Feedback" mat-icon-button target="__blank" href="https://github.com/xlayers/xlayers/issues">
+          <mat-icon>bug_report</mat-icon>
+        </a>
         <span>Build: {{ version }}</span>
       </footer>
 
