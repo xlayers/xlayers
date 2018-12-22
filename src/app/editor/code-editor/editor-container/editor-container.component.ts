@@ -77,6 +77,9 @@ import { Store } from '@ngxs/store';
         height: 100%;
         position: relative;
       }
+      .mat-tab-group ::ng-deep .mat-tab-body-wrapper .mat-tab-body .mat-tab-body-content {
+        overflow: hidden;
+      }
       .mat-tab-group ::ng-deep .mat-tab-body-wrapper {
         padding-top: 5px;
       }
@@ -122,6 +125,7 @@ export class EditorContainerComponent implements OnInit, AfterContentInit {
 
   generateAngular() {
     this.files = this.codegen.generate(CodeGenService.Kind.Angular);
+    console.log(this.files);
     this.updateState();
   }
 
