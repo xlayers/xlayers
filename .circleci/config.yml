@@ -23,11 +23,17 @@ jobs:
           - v1-dependencies-
 
       - run: yarn install
+      - run:
+        name: Install JUnit coverage reporter
+        command: yarn add --dev jest-junit
 
       - save_cache:
           paths:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
-        
-      # run tests!
-      - run: yarn test --ci --forceExit
+
+      - run:
+        name: Run tests with JUnit as reporter
+        command: yarn test --ci --forceExit --reporters=default --reporters=jest-junit
+        environment:
+          JEST_JUNIT_OUTPUT: "reports/junit/js-test-results.xml"
