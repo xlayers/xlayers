@@ -34,6 +34,6 @@ jobs:
 
       - run:
           name: Run tests with JUnit as reporter
-          command: npm test -- --ci --forceExit --reporters=default --reporters=jest-junit
+          command: npm test -- --ci --forceExit --reporters=default --reporters=jest-junit --maxWorkers=2
           environment:
             JEST_JUNIT_OUTPUT: "reports/junit/js-test-results.xml"
