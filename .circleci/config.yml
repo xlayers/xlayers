@@ -22,10 +22,10 @@ jobs:
           # fallback to using the latest cache if no exact match is found
           - v1-dependencies-
 
-      - run: yarn install
+      - run: npm install
       - run:
           name: Install JUnit coverage reporter
-          command: yarn add --dev jest-junit
+          command: npm i -D jest-junit
 
       - save_cache:
           paths:
@@ -34,6 +34,6 @@ jobs:
 
       - run:
           name: Run tests with JUnit as reporter
-          command: yarn test --ci --forceExit --reporters=default --reporters=jest-junit
+          command: npm test -- --ci --forceExit --reporters=default --reporters=jest-junit
           environment:
             JEST_JUNIT_OUTPUT: "reports/junit/js-test-results.xml"
