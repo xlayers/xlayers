@@ -125,7 +125,6 @@ export class EditorContainerComponent implements OnInit, AfterContentInit {
 
   generateAngular() {
     this.files = this.codegen.generate(CodeGenService.Kind.Angular);
-    console.log(this.files);
     this.updateState();
   }
 
