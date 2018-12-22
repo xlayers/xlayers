@@ -22,7 +22,7 @@ export const routes: Route[] = [{
   imports: [
     BrowserModule,
     HttpClientModule,
-    BrowserAnimationsModule,
+    NoopAnimationsModule,
     RouterModule.forRoot(routes, { useHash: true }),
     ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production })
   ],
