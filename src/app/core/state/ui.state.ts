@@ -215,7 +215,7 @@ export class UiState {
   }
 
   @Action(AutoFixPagePosition)
-  autoFixLayersPosition({ patchState,dispatch }: StateContext<UiSettings>, action: AutoFixPagePosition) {
+  autoFixLayersPosition({ patchState, dispatch }: StateContext<UiSettings>, action: AutoFixPagePosition) {
     const currentPage = { ...action.page };
 
     // reset the top/left position of the current page

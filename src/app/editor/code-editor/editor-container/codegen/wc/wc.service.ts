@@ -32,8 +32,8 @@ export class WCCodeGenService implements CodeGenFacade {
   private generateComponent() {
     return `
 class XLayersElement extends HTMLElement {
-  
-  static get observedAttributes() { 
+
+  static get observedAttributes() {
     return [];
   }
 
