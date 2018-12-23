@@ -50,9 +50,17 @@
               "namedChunks": false,
               "aot": true,
               "extractLicenses": true,
-              "vendorChunk": false,
-              "buildOptimizer": false,
-              "serviceWorker": true
+              "vendorChunk": true,
+              "buildOptimizer": true,
+              "serviceWorker": true,
+              "budgets": [
+                {
+                  "type": "bundle",
+                  "name": "vendor",
+                  "baseline": "700kb",
+                  "warning": "100kb"
+                }
+              ]
             },
             "hmr": {
               "fileReplacements": [
@@ -71,18 +79,18 @@
           },
           "configurations": {
             "production": {
-              "browserTarget": "angular-sketch:build:production"
+              "browserTarget": "xlayers:build:production"
             },
             "hmr": {
               "hmr": true,
-              "browserTarget": "angular-sketch:build:hmr"
+              "browserTarget": "xlayers:build:hmr"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "angular-sketch:build"
+            "browserTarget": "xlayers:build"
           }
         },
         "lint": {
