@@ -14,7 +14,6 @@ export const environment = {
       files: [
         'md-components-notifications-heads-up',
         'md-components-cards-welcome-back',
-        'md-components-keyboards',
         'md-components-tabs-status-bar',
         'md-components-cards-safari',
         'md-components-date-picker',
@@ -31,7 +30,6 @@ export const environment = {
       files: [
         'md-components-notifications-heads-up',
         'md-components-cards-welcome-back',
-        'md-components-keyboards',
         'md-components-tabs-status-bar',
         'md-components-cards-safari',
         'md-components-date-picker',
@@ -48,7 +46,6 @@ export const environment = {
       files: [
         'md-components-notifications-heads-up',
         'md-components-cards-welcome-back',
-        'md-components-keyboards',
         'md-components-tabs-status-bar',
         'md-components-cards-safari',
         'md-components-date-picker',
@@ -65,7 +62,6 @@ export const environment = {
       files: [
         'md-components-notifications-heads-up',
         'md-components-cards-welcome-back',
-        'md-components-keyboards',
         'md-components-tabs-status-bar',
         'md-components-cards-safari',
         'md-components-date-picker',
