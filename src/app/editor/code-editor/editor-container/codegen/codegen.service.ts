@@ -3,6 +3,7 @@ import { AngularCodeGenService } from './angular/angular.service';
 import { ReactCodeGenService } from './react/react.service';
 import { VueCodeGenService } from './vue/vue.service';
 import { WCCodeGenService } from './wc/wc.service';
+import { StencilCodeGenService } from './stencil/stencil.service';
 import { Store } from '@ngxs/store';
 import { UiState } from 'src/app/core/state';
 import { environment } from 'src/environments/environment.hmr';
@@ -11,7 +12,7 @@ import { CodeGenSettings } from 'src/app/core/state/page.state';
 declare var gtag;
 
 export interface XlayersNgxEditorModel {
-  kind: 'angular' | 'react' | 'vue' | 'wc' | 'html' | 'text';
+  kind: 'angular' | 'react' | 'vue' | 'wc' | 'stencil' |'html' | 'text';
   uri: string;
   value: string;
   language: string;
@@ -31,7 +32,8 @@ export enum CodeGenKind {
   Angular,
   React,
   Vue,
-  WC
+  WC,
+  Stencil
 }
 
 @Injectable({
@@ -45,6 +47,7 @@ export class CodeGenService {
     private readonly react: ReactCodeGenService,
     private readonly vue: VueCodeGenService,
     private readonly wc: WCCodeGenService,
+    private readonly stencil: StencilCodeGenService,
     private readonly store: Store
   ) {
     this.store
@@ -144,6 +147,13 @@ export class CodeGenService {
           content: this.addHeaderInfo(this.wc.generate(this.ast)),
           buttons: this.wc.buttons()
         };
+
+      case CodeGenKind.Stencil:
+      return {
+        kind,
+        content: this.addHeaderInfo(this.stencil.generate(this.ast)),
+        buttons: this.stencil.buttons()
+      };
     }
   }
 }

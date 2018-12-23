@@ -31,10 +31,14 @@ const githubIssueLink = 'https://github.com/xlayers/xlayers/issues/new?assignees
       <!--<button mat-menu-item (click)="generateVue()">
         <mat-icon svgIcon="vue"></mat-icon>
         <span>Vue</span>
-      </button>-->
+      </button>
       <button mat-menu-item (click)="generateWc()">
         <mat-icon svgIcon="wc"></mat-icon>
         <span>Web Component</span>
+      </button>
+      <button mat-menu-item (click)="generateStencil()">
+        <mat-icon svgIcon="stencil"></mat-icon>
+        <span>Stencil</span>
       </button>
       <a class="request-new-library" target="__blank" href="${githubIssueLink}">
         <span>Add a new library!</span>
@@ -171,7 +175,13 @@ export class EditorContainerComponent implements OnInit, AfterContentInit {
     this.updateState();
   }
 
+  generateStencil() {
+    this.codeSetting = this.codegen.generate(CodeGenKind.Stencil);
+    this.updateState();
+  }
+
   updateState() {
     this.store.dispatch(new CodeGen(this.codeSetting.kind, this.codeSetting.content, this.codeSetting.buttons));
   }
+
 }
