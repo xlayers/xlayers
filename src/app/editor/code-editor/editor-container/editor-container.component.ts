@@ -70,7 +70,7 @@ import { Store } from '@ngxs/store';
         width: 100%;
         background-color: #1e1e1e;
         min-height: 100%;
-        padding-bottom: 104px;
+        padding-bottom: 64px;
       }
       .mat-tab-group,
       .mat-tab-group ::ng-deep .mat-tab-body-wrapper {
