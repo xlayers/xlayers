@@ -23,6 +23,10 @@ import { Store } from '@ngxs/store';
         <mat-icon svgIcon="vue"></mat-icon>
         <span>Vue</span>
       </button>
+      <button mat-menu-item (click)="generateStencil()">
+        <mat-icon svgIcon="stencil"></mat-icon>
+        <span>Stencil</span>
+      </button>
       <button mat-menu-item (click)="generateWc()">
         <mat-icon svgIcon="wc"></mat-icon>
         <span>Web Component</span>
@@ -37,7 +41,7 @@ import { Store } from '@ngxs/store';
         <mat-icon [svgIcon]="file.kind"></mat-icon>
         {{ file.uri }}
       </ng-template>
-      
+
       <ng-template matTabContent>
         <ngx-monaco-editor
           [options]="{ language: file.language }"
@@ -60,8 +64,8 @@ import { Store } from '@ngxs/store';
         background-size: 56px 56px;
         background-position: center center;
         display: block;
-        min-height: 100%; 
-        height: 100%; 
+        min-height: 100%;
+        height: 100%;
         box-sizing: border-box;
       }
       :host,
@@ -138,6 +142,12 @@ export class EditorContainerComponent implements OnInit, AfterContentInit {
   generateWc() {
     this.files = this.codegen.generate(CodeGenService.Kind.WC);
     this.updateState(CodeGenService.Kind.WC);
+  }
+
+
+  generateStencil() {
+    this.files = this.codegen.generate(CodeGenService.Kind.Stencil);
+    this.updateState(CodeGenService.Kind.Stencil);
   }
 
   updateState(kind: number) {

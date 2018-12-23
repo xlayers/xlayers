@@ -6,6 +6,10 @@ import { ExportStackblitzAngularService } from './stackblitz.angular.service';
 import { ExportStackblitzReactService } from './stackblitz.react.service';
 import { ExportStackblitzVueService } from './stackblitz.vue.service';
 import { ExportStackblitzWCService } from './stackblitz.wc.service';
+import { ExportStackblitzStencilService } from './stackblitz.stencil.service';
+
+
+
 
 export interface StackBlitzProjectPayload {
   files: { [path: string]: string };
@@ -31,7 +35,9 @@ export class ExportStackblitzService {
     private angularExport: ExportStackblitzAngularService,
     private reactExport: ExportStackblitzReactService,
     private vueExport: ExportStackblitzVueService,
-    private wcExport: ExportStackblitzWCService
+    private wcExport: ExportStackblitzWCService,
+    private stencilExport: ExportStackblitzStencilService
+
   ) {}
 
   async export(codegen: CodeGenSettings) {
@@ -46,6 +52,9 @@ export class ExportStackblitzService {
       case CodeGenService.Kind.WC:
         project = this.wcExport.prepare(codegen.content);
         break;
+      case CodeGenService.Kind.Stencil:
+        project = this.stencilExport.prepare(codegen.content);
+      break;
       case CodeGenService.Kind.Angular:
       default:
         project = this.angularExport.prepare(codegen.content);
