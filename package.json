@@ -4,13 +4,14 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve --configuration hmr",
-    "build": "ng build --prod",
+    "build": "ng build --prod --stats-json",
     "postbuild": "bash scripts/stamp-build.bash",
     "test": "jest",
     "test:ci": "jest --ci --updateSnapshot",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "deploy": "npm run build && firebase deploy"
+    "deploy": "npm run build && firebase deploy",
+    "analyse": "webpack-bundle-analyzer ./dist/html/stats.json"
   },
   "jest": {
     "preset": "jest-preset-angular",
@@ -70,6 +71,7 @@
     "tslib": "^1.7.1",
     "tslint": "~5.9.1",
     "typescript": "^3.1.4",
+    "webpack-bundle-analyzer": "^3.0.3",
     "wepback": "^1.0.0"
   }
 }
