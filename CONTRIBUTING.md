@@ -12,7 +12,7 @@ to follow:
  - [Commit Message Guidelines](#commit)
 
 ## <a name="coc"></a> Code of Conduct
-xLayers follows the same Code of Condut as Angular. You can read it [here][https://github.com/angular/code-of-conduct/blob/master/CODE_OF_CONDUCT.md].
+xLayers follows the same Code of Condut as Angular. You can read it [here](https://github.com/angular/code-of-conduct/blob/master/CODE_OF_CONDUCT.md).
 
 ## <a name="question"></a> Got a Question or Problem?
 
