@@ -26,7 +26,7 @@ jobs:
 
       - run:
           name: Run tests with JUnit as reporter
-          command: npm test:ci -- --reporters=default --reporters=jest-junit --maxWorkers=2
+          command: npm run test:ci -- --reporters=default --reporters=jest-junit --maxWorkers=2
           environment:
             JEST_JUNIT_OUTPUT: "reports/junit/js-test-results.xml"
   test:
@@ -46,7 +46,7 @@ jobs:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
 
-      - run: npm build
+      - run: npm run build
 
   lint:
     docker:
