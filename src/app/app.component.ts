@@ -17,7 +17,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 })
 export class AppComponent {
   constructor(
-    readonly iconRegistry: MatIconRegistry, 
+    readonly iconRegistry: MatIconRegistry,
     readonly sanitizer: DomSanitizer) {
 
       iconRegistry.addSvgIcon('angular', sanitizer.bypassSecurityTrustResourceUrl('assets/codegen/angular.svg'));
