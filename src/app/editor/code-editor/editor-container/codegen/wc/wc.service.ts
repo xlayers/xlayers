@@ -28,7 +28,7 @@ export class WCCodeGenService implements CodeGenFacade {
   private generateReadme() {
     return readmeTemplate;
   }
-  
+
   private generateComponent(ast: SketchMSLayer) {
       return wcTemplate(this.sharedCodegen.generateComponentTemplate(ast , 1) , this.sharedCodegen.generateComponentStyles(ast));
   }
