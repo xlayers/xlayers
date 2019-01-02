@@ -1,5 +1,10 @@
 import { Injectable } from '@angular/core';
 
+export enum Template {
+  HTML,
+  JSX
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -63,7 +68,7 @@ export class SharedCodegen {
     return indentation + content;
   }
 
-  generateComponentTemplate(ast: SketchMSLayer, kind: number) {
+  generateComponentTemplate(ast: SketchMSLayer, kind: Template) {
     const template: Array<string> = [];
     this.computeTemplate(ast, template, 0, kind);
     return template.join('\n');
@@ -73,7 +78,7 @@ export class SharedCodegen {
     ast: SketchMSLayer,
     template = [],
     depth = 0,
-    kind = 0 /* CodeGenService.Kind.Unknown */
+    kind = Template.HTML
   ) {
     let classNameAttr = 'class';
 
