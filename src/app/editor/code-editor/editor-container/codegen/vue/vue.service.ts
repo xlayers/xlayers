@@ -24,7 +24,37 @@ export class VueCodeGenService implements CodeGenFacade {
   }
 
   private generateReadme() {
-    return ``;
+    const codeBlock = '```';
+    return (
+      '' +
+      `
+## How to use the Xlayers Vuejs module
+
+1. Download and extract the exported module into your workspace,
+
+2. Import the component into your App component or other container.
+${codeBlock}
+<template>
+  <div id="app">
+    <Xlayers />
+  </div>
+</template>
+
+<script>
+import Xlayers from './xlayers/Xlayers.vue'
+
+export default {
+  name: 'app',
+  components: {
+    Xlayers
+  }
+}
+</script>
+${codeBlock}
+
+3. Enjoy.
+      `
+    );
   }
 
   /**
