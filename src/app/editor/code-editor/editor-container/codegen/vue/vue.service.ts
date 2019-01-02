@@ -73,7 +73,7 @@ export default {}
 </script>
 
 <style>
-${this.sharedCodegen.generateComponentTemplate(ast, 1)}
+${this.sharedCodegen.generateComponentStyles(ast)}
 </style>
       `
     );
