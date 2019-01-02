@@ -81,8 +81,7 @@ export class SharedCodegen {
     kind = Template.HTML
   ) {
     let classNameAttr = 'class';
-
-    if (kind === 2 /* CodeGenService.Kind.React */) {
+    if (kind === Template.JSX) {
       classNameAttr = 'className';
     }
 
