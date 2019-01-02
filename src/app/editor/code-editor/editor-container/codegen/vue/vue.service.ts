@@ -18,6 +18,11 @@ export class VueCodeGenService implements CodeGenFacade {
     }, {
       uri: 'Xlayers.vue',
       value: this.generateComponent(ast),
+      language: 'html',
+      kind: 'vue'
+    }, {
+      uri: 'xlayers.test.ts',
+      value: this.generateComponentSpec(),
       language: 'javascript',
       kind: 'vue'
     }];
@@ -57,9 +62,14 @@ ${codeBlock}
     );
   }
 
-  /**
-   * @todo make this dynamic
-   */
+  private generateComponentSpec() {
+    return (
+      '' +
+      `
+      `
+    );
+  }
+
   private generateComponent(ast: SketchMSLayer) {
     return (
       '' +
