@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { CodeGenFacade, XlayersNgxEditorModel } from '../codegen.service';
-import { SharedCodegen } from '../shared-codegen.service';
+import { SharedCodegen, Template } from '../shared-codegen.service';
 
 @Injectable({
   providedIn: 'root'
@@ -67,7 +67,7 @@ class XLayers extends Component {
   render() {
     return (
       <div className="XLayers">
-        ${this.sharedCodegen.generateComponentTemplate(ast, /* CodeGenService.Kind.React */ 2)}
+        ${this.sharedCodegen.generateComponentTemplate(ast, Template.JSX)}
       </div>
     );
   }

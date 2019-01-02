@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { CodeGenFacade, XlayersNgxEditorModel } from '../codegen.service';
-import { SharedCodegen } from '../shared-codegen.service';
+import { SharedCodegen, Template } from '../shared-codegen.service';
 
 @Injectable({
   providedIn: 'root'
@@ -25,7 +25,7 @@ export class AngularCodeGenService implements CodeGenFacade {
       },
       {
         uri: 'xlayers.component.html',
-        value: this.sharedCodegen.generateComponentTemplate(ast, /* CodeGenService.Kind.Angular */ 1),
+        value: this.sharedCodegen.generateComponentTemplate(ast, Template.HTML),
         language: 'html',
         kind: 'angular'
       },
