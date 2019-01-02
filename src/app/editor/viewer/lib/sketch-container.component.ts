@@ -31,7 +31,6 @@ import { SketchService } from './sketch.service';
         width: 100%;
         height: 100%;
         justify-content: center;
-        top: 64px;
         position: absolute;
         transform: scale(1);
         transform-origin: center;
@@ -44,7 +43,6 @@ import { SketchService } from './sketch.service';
         height: 100%;
         min-height: 100%;
         position: absolute;
-        top: 64px;
       }
 
       sketch-layer {

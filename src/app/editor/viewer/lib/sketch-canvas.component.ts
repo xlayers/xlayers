@@ -39,9 +39,9 @@ import { SketchData } from './sketch.service';
     `
       :host {
         width: 100%;
-        height: 100%;
+        height: calc(100% - 64px);
         transform: none;
-        overflow: visible;
+        overflow: scroll;
         transform-style: preserve-3d;
         transition: transform 1s;
       }
