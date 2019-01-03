@@ -6,31 +6,59 @@ import { SketchData } from '../../viewer/lib/sketch.service';
 @Component({
   selector: 'sketch-settings-preview',
   template: `
-  <mat-expansion-panel expanded="true">
-    <mat-expansion-panel-header>
-      <mat-panel-title>
-        Preview
-      </mat-panel-title>
-    </mat-expansion-panel-header>
+    <mat-expansion-panel expanded="true">
+      <mat-expansion-panel-header>
+        <mat-panel-title> Preview </mat-panel-title>
+      </mat-expansion-panel-header>
 
-    <div class="preview-image">
-      <img *ngFor="let image of data?.previews" [src]="image.source" [width]="image.width" [height]="image.height"/>
-    </div>
-
-  </mat-expansion-panel>
+      <ng-container *ngFor="let image of data?.previews">
+        <div class="preview-image">
+          <img [src]="image.source"  />
+          <div class="overlay"  (click)="downloadImage(image.source)">
+            <mat-icon>cloud_download</mat-icon>
+          </div>
+        </div>
+      </ng-container>
+    </mat-expansion-panel>
   `,
-  styles: [`
-    .preview-image {
-      padding: 10px;
-    }
-    .preview-image img {
-      width: 100%;
-      height: auto;
-    }
-    .mat-expansion-panel-body {
-      text -align: center;
-    }
-  `]
+  styles: [
+    `
+      .preview-image {
+        position: relative;
+        padding: 10px;
+      }
+      .preview-image img {
+        width: 100%;
+        height: auto;
+      }
+
+      .preview-image .overlay {
+        cursor: pointer;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: #1e1e1e;
+        opacity: 0;
+      }
+      .preview-image:hover .overlay {
+        opacity: 0.6;
+      }
+      .overlay mat-icon {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+        text-align: center;
+      }
+
+      .mat-expansion-panel-body {
+        text-align: center;
+      }
+    `
+  ]
 })
 export class SettingsPreviewComponent implements OnInit {
   currentLayer: SketchMSLayer;
@@ -42,5 +70,14 @@ export class SettingsPreviewComponent implements OnInit {
     this.store.select(UiState.currentFile).subscribe(currentFile => {
       this.data = currentFile;
     });
+  }
+
+  downloadImage(source: string) {
+    const downloadableLink = document.createElement('a');
+    downloadableLink.href = source;
+    downloadableLink.download = 'preview';
+    document.body.appendChild(downloadableLink);
+    downloadableLink.click();
+    document.body.removeChild(downloadableLink);
   }
 }
