@@ -14,11 +14,11 @@ import { SketchData } from '../../viewer/lib/sketch.service';
       <ng-container *ngFor="let image of data?.previews">
         <div class="preview-image">
           <img [src]="image.source"/>
-          <div class="overlay">
-            <a [href]="image.source" download="preview">
-              <mat-icon>cloud_download</mat-icon>
+          <a [href]="image.source" [download]="image.source">
+            <div class="overlay">
+                <mat-icon>cloud_download</mat-icon>
+              </div>
             </a>
-          </div>
         </div>
       </ng-container>
     </mat-expansion-panel>
