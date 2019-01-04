@@ -13,9 +13,11 @@ import { SketchData } from '../../viewer/lib/sketch.service';
 
       <ng-container *ngFor="let image of data?.previews">
         <div class="preview-image">
-          <img [src]="image.source"  />
-          <div class="overlay"  (click)="downloadImage(image.source)">
-            <mat-icon>cloud_download</mat-icon>
+          <img [src]="image.source"/>
+          <div class="overlay">
+            <a [href]="image.source" download="preview">
+              <mat-icon>cloud_download</mat-icon>
+            </a>
           </div>
         </div>
       </ng-container>
@@ -52,6 +54,7 @@ import { SketchData } from '../../viewer/lib/sketch.service';
         transform: translate(-50%, -50%);
         -ms-transform: translate(-50%, -50%);
         text-align: center;
+        color: #fff;
       }
 
       .mat-expansion-panel-body {
@@ -63,6 +66,7 @@ import { SketchData } from '../../viewer/lib/sketch.service';
 export class SettingsPreviewComponent implements OnInit {
   currentLayer: SketchMSLayer;
   data: SketchData;
+  isMouseOver: boolean;
 
   constructor(private store: Store) {}
 
@@ -70,14 +74,5 @@ export class SettingsPreviewComponent implements OnInit {
     this.store.select(UiState.currentFile).subscribe(currentFile => {
       this.data = currentFile;
     });
-  }
-
-  downloadImage(source: string) {
-    const downloadableLink = document.createElement('a');
-    downloadableLink.href = source;
-    downloadableLink.download = 'preview';
-    document.body.appendChild(downloadableLink);
-    downloadableLink.click();
-    document.body.removeChild(downloadableLink);
   }
 }
