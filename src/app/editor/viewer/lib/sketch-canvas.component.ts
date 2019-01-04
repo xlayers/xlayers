@@ -41,7 +41,6 @@ import { SketchData } from './sketch.service';
         width: 100%;
         height: calc(100% - 64px);
         transform: none;
-        overflow: scroll;
         transform-style: preserve-3d;
         transition: transform 1s;
       }
