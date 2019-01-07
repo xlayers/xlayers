@@ -76,12 +76,15 @@ const githubIssueLink = 'https://github.com/xlayers/xlayers/issues/new?assignees
         width: 100%;
         background-color: #1e1e1e;
         min-height: 100%;
-        padding-bottom: 104px;
+        padding-bottom: 64px;
       }
       .mat-tab-group,
       .mat-tab-group ::ng-deep .mat-tab-body-wrapper {
         height: 100%;
         position: relative;
+      }
+      .mat-tab-group ::ng-deep .mat-tab-body-wrapper .mat-tab-body .mat-tab-body-content {
+        overflow: hidden;
       }
       .mat-tab-group ::ng-deep .mat-tab-body-wrapper {
         padding-top: 5px;
