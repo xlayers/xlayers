@@ -15,7 +15,7 @@ export class WCCodeGenService implements CodeGenFacade {
     return [{
       uri: 'README.md',
       value: this.generateReadme(),
-      language: 'text/plain',
+      language: 'markdown',
       kind: 'text'
     }, {
       uri: 'xlayers.js',
@@ -26,10 +26,10 @@ export class WCCodeGenService implements CodeGenFacade {
   }
 
   private generateReadme() {
-    return readmeTemplate;
+    return readmeTemplate();
   }
 
   private generateComponent(ast: SketchMSLayer) {
-      return wcTemplate(this.sharedCodegen.generateComponentTemplate(ast , 1) , this.sharedCodegen.generateComponentStyles(ast));
+    return wcTemplate(this.sharedCodegen.generateComponentTemplate(ast , 1) , this.sharedCodegen.generateComponentStyles(ast));
   }
 }
