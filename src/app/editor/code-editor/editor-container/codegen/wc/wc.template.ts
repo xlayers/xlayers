@@ -57,8 +57,7 @@ ${codeBlock}
   <x-layers-element></x-layers-element>
 ${codeBlock}
 
->  Needed polyfills are imported inside the x-layers-element javascript file you can import
->  globaly or on demand depending on browser capabilities.
+> Needed polyfills are imported inside the x-layers-element, in most cases you can import it globally or use different strategy. For example:
 
 ${codeBlock}
   //index.html
@@ -68,6 +67,7 @@ ${codeBlock}
   <!-- Load a custom element definitions in 'waitFor' and return a promise -->
   <script type="module">
     WebComponents.waitFor(() => {
+    // You should remove redundant polyfills import from x-layers-element-file
     return import('./x-layers-element-file.js');
     });
   </script>
