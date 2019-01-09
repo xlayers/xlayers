@@ -1,56 +1,35 @@
 import { Injectable } from '@angular/core';
 import { CodeGenFacade, XlayersNgxEditorModel } from '../codegen.service';
+import { SharedCodegen } from '../shared-codegen.service';
+import { wcTemplate, readmeTemplate } from './wc.template';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class WCCodeGenService implements CodeGenFacade {
 
-  constructor() {}
+  constructor(private sharedCodegen: SharedCodegen) {}
 
   generate(ast: SketchMSLayer): Array<XlayersNgxEditorModel> {
     return [{
       uri: 'README.md',
       value: this.generateReadme(),
-      language: 'text/plain',
+      language: 'markdown',
       kind: 'text'
     }, {
       uri: 'xlayers.js',
-      value: this.generateComponent(),
+      value: this.generateComponent(ast),
       language: 'javascript',
       kind: 'wc'
     }];
   }
 
   private generateReadme() {
-    return ``;
+    return readmeTemplate();
   }
 
-  /**
-   * @todo make this dynamic
-   */
-  private generateComponent() {
-    return `
-class XLayersElement extends HTMLElement {
-
-  static get observedAttributes() {
-    return [];
-  }
-
-  constructor() {
-    super();
-  }
-  disconnectedCallback() {
-    console.log('XLayersElement element removed from page.');
-  }
-  adoptedCallback() {
-    console.log('XLayersElement element moved to new page.');
-  }
-  attributeChangedCallback(name, oldValue, newValue) {
-    console.log('XLayersElement element attributes changed.');
-  }
-}
-customElements.define('xly-component', XLayersElement);
-    `;
+  private generateComponent(ast: SketchMSLayer) {
+    return wcTemplate(this.sharedCodegen.generateComponentTemplate(ast , 1) , this.sharedCodegen.generateComponentStyles(ast));
   }
 }
