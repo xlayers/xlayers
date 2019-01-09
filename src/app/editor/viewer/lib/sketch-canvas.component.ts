@@ -51,9 +51,6 @@ import { CdkDragStart, CdkDragEnd } from '@angular/cdk/drag-drop';
         perspective: 9000px;
         transform: rotateY(22deg) rotateX(30deg);
       }
-      .cdk-drop-dragging {
-        transition: transform;
-      }
       img {
         left: 2px;
         top: 2px;
