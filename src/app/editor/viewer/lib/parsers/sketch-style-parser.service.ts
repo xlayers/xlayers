@@ -1,5 +1,6 @@
 import { BinaryPropertyListParserService } from './bplist-parser.service';
 import { Injectable } from '@angular/core';
+import { SketchData } from '../sketch.service';
 
 /**
  * border Type:
@@ -18,74 +19,91 @@ export enum BorderType {
 })
 export class SketchStyleParserService {
   constructor(private binaryPlistParser: BinaryPropertyListParserService) {}
-  public visit(pages: Array<SketchMSPage>) {
-    pages.forEach(page => {
+
+  visit(sketch: SketchData) {
+    sketch.pages.forEach((page: SketchMSPage) => {
       if (page.layers) {
-        page.layers.map(layer => this.visitObject(layer, page, layer));
+        page.layers.map((layer: SketchMSLayer) => {
+          this.visitObject(layer, page, layer);
+        });
       }
     });
   }
 
-  visitObject(obj: any, parent: any, root: any) {
-    for (const property in obj) {
-      if (obj.hasOwnProperty(property)) {
-        if (typeof obj[property] === 'object') {
-          // visit child
-          if (obj[property].frame && obj[property].frame._class === 'rect') {
-            this.visitObject(obj[property], obj, obj[property]);
+  /**
+   * Recurse over all layers properties and parse
+   * valuable class to CSS
+   */
+  visitObject(curr: any, parent: any, root: SketchMSLayer) {
+    for (const property in curr) {
+      if (curr.hasOwnProperty(property)) {
+        // Check if the current property is a exploirable
+        // if not ignore it or exploit current data
+        if (typeof curr[property] === 'object') {
+          // Check if the next object is a new root scope
+          if (curr[property].frame && curr[property].frame._class === 'rect') {
+            this.visitObject(curr[property], curr, curr[property]);
           } else {
-            this.visitObject(obj[property], obj, root);
+            this.visitObject(curr[property], curr, root);
           }
         } else if (property === '_class') {
-          switch (obj[property]) {
+          switch (curr[property]) {
             case 'color':
-              obj._values = this.parseColors(obj as SketchMSColor);
+              curr._values = this.parseColors(curr as SketchMSColor);
               break;
 
             case 'symbolMaster':
-              this.setStyle(obj, root, {
+              this.setStyle(curr, root, {
                 'background-color': this.parseColors(
-                  (obj as SketchMSSymbolMaster).backgroundColor
+                  (curr as SketchMSSymbolMaster).backgroundColor
                 ).rgba
               });
               break;
 
             case 'style':
-              this.parseStyleInformation(obj, root);
+              this.parseBlur(curr, root);
+              this.parseBorders(curr, root);
+              this.parseFills(curr, root);
+              this.parseShadows(curr, root);
               break;
+
             case 'text':
-              this.parseText(obj, root);
+              this.parseTextContent(curr, root);
+              this.parseTextColor(curr, root);
+              this.parseParagraphStyle(curr, root);
+              this.parseTextFont(curr, root);
+              this.parseAttributeString(curr, root);
               break;
 
             default:
-              if ((obj as SketchMSPage).rotation) {
-                this.setStyle(obj, root, {
-                  transform: `rotate(${obj.rotation}deg)`
+              if ((curr as SketchMSPage).rotation) {
+                this.setStyle(curr, root, {
+                  transform: `rotate(${curr.rotation}deg)`
                 });
               }
 
-              if ((obj as SketchMSPage).fixedRadius) {
-                this.setStyle(obj, root, {
-                  'border-radius': `${obj.fixedRadius}px`
+              if ((curr as SketchMSPage).fixedRadius) {
+                this.setStyle(curr, root, {
+                  'border-radius': `${curr.fixedRadius}px`
                 });
               }
 
-              if ((obj as SketchMSGraphicsContextSettings).opacity) {
-                this.setStyle(obj, root, {
-                  opacity: `${obj.opacity}`
+              if ((curr as SketchMSGraphicsContextSettings).opacity) {
+                this.setStyle(curr, root, {
+                  opacity: `${curr.opacity}`
                 });
               }
           }
 
-          if ((obj as SketchMSLayer).frame) {
-            this.setStyle(obj, root, {
+          if ((curr as SketchMSLayer).frame) {
+            this.setStyle(curr, root, {
               display: 'block',
               position: 'absolute',
-              left: `${obj.frame.x}px`,
-              top: `${obj.frame.y}px`,
-              width: `${obj.frame.width}px`,
-              height: `${obj.frame.height}px`,
-              visibility: obj.isVisible ? 'visible' : 'hidden'
+              left: `${curr.frame.x}px`,
+              top: `${curr.frame.y}px`,
+              width: `${curr.frame.width}px`,
+              height: `${curr.frame.height}px`,
+              visibility: curr.isVisible ? 'visible' : 'hidden'
             });
           }
         }
@@ -94,131 +112,93 @@ export class SketchStyleParserService {
     return parent;
   }
 
-  parseText(obj: any, root: any) {
-    this.parseTextColor(obj, root);
-    this.parseParagraphStyle(obj, root);
-    this.parseTextFont(obj, root);
-    this.parseAttributeString(obj, root);
+  parseTextContent(curr: SketchMSLayer, root: SketchMSLayer) {
+    (root as any).content = curr.attributedString.string;
   }
 
   /**
    * Parse text font if nothing is found
    * fallback to current page font.
-   *
-   * @param obj   The current layer
-   * @param root  The root layer
    */
-  parseTextFont(obj: SketchMSLayer, root: any) {
-    const MSAttributedStringFontAttribute =
-      obj.style.textStyle.encodedAttributes.MSAttributedStringFontAttribute;
-    if (MSAttributedStringFontAttribute.hasOwnProperty('_archive')) {
-      const parsedMSAttributedStringFontAttribute = this.binaryPlistParser.parse64Content(
-        MSAttributedStringFontAttribute._archive
-      );
-      (root.style.textStyle.encodedAttributes
-        .MSAttributedStringFontAttribute as any)._transformed = parsedMSAttributedStringFontAttribute;
-    } else if (
-      MSAttributedStringFontAttribute.hasOwnProperty('_class') &&
-      MSAttributedStringFontAttribute._class === 'fontDescriptor'
-    ) {
-      this.setStyle(obj, root, {
-        'font-family': `${
-          MSAttributedStringFontAttribute.attributes.name
-        }, 'Roboto', sans-serif`,
-        'font-size': `${MSAttributedStringFontAttribute.attributes.size}px`
+  parseTextFont(curr: SketchMSLayer, root: SketchMSLayer) {
+    const obj = curr.style.textStyle.encodedAttributes.MSAttributedStringFontAttribute;
+    if (obj.hasOwnProperty('_class') && obj._class === 'fontDescriptor') {
+      this.setStyle(curr, root, {
+        'font-family': `${obj.attributes.name}, 'Roboto', sans-serif`,
+        'font-size': `${obj.attributes.size}px`
       });
+    } else if (obj.hasOwnProperty('_archive')) {
+      const archive = this.binaryPlistParser.parse64Content(obj._archive);
+      (root.style.textStyle.encodedAttributes.MSAttributedStringFontAttribute as any)._transformed = archive;
     }
   }
 
   /**
    * Parse attibutes (not used at the moment)
-   *
-   * @param obj   The current layer
-   * @param root  The root layer
    */
-  parseAttributeString(obj: SketchMSLayer, root: any) {
-    const attributedString = obj.attributedString;
-    if (attributedString.hasOwnProperty('archivedAttributedString')) {
-      const archivedAttributedString = attributedString.archivedAttributedString
-        ._archive as string;
-      const parsedArchivedAttributedString = this.binaryPlistParser.parse64Content(
-        archivedAttributedString
-      );
-      (root.attributedString
-        .archivedAttributedString as any)._transformed = parsedArchivedAttributedString;
+  parseAttributeString(curr: SketchMSLayer, root: SketchMSLayer) {
+    const obj = curr.attributedString;
+    if (obj.hasOwnProperty('archivedAttributedString')) {
+      const archive = this.binaryPlistParser.parse64Content(obj.archivedAttributedString._archive);
+      if (archive) {
+        switch (archive.$key) {
+          case 'ascii':
+            (root as any).content = archive.$value;
+            break;
+
+          default:
+            break;
+        }
+      }
     }
   }
 
   /**
    * Parse paragraph alignment (not used at the moment)
-   *
-   * @param obj   The current layer
-   * @param root  The root layer
    */
-  parseParagraphStyle(obj: SketchMSLayer, root: any) {
-    const encodedAttributes = obj.style.textStyle.encodedAttributes;
-    if (encodedAttributes.hasOwnProperty('NSParagraphStyle')) {
-      const NSParagraphStyle = root.style.textStyle.encodedAttributes
-        .NSParagraphStyle._archive as string;
-      const parsedNSParagraphStyle = this.binaryPlistParser.parse64Content(
-        NSParagraphStyle
-      );
-      (root.style.textStyle.encodedAttributes
-        .NSParagraphStyle as any)._transformed = parsedNSParagraphStyle;
+  parseParagraphStyle(curr: SketchMSLayer, root: SketchMSLayer) {
+    const obj = curr.style.textStyle.encodedAttributes;
+    if (obj.hasOwnProperty('NSParagraphStyle')) {
+      const archive = this.binaryPlistParser.parse64Content(root.style.textStyle.encodedAttributes.NSParagraphStyle._archive);
+      (root.style.textStyle.encodedAttributes.NSParagraphStyle as any)._transformed = archive;
     }
   }
 
   /**
    * Parse text colors, if nothing is found
    * fallback to black color
-   *
-   * @param obj   The current layer
-   * @param root  The root layer
    */
-  parseTextColor(obj: SketchMSLayer, root: any) {
-    const encodedAttributes = obj.style.textStyle.encodedAttributes;
-    if (encodedAttributes.hasOwnProperty('MSAttributedStringColorAttribute')) {
-      this.setStyle(obj, root, {
+  parseTextColor(curr: SketchMSLayer, root: SketchMSLayer) {
+    const obj = curr.style.textStyle.encodedAttributes;
+    if (obj.hasOwnProperty('MSAttributedStringColorAttribute')) {
+      this.setStyle(curr, root, {
         color: this.parseColors(
-          encodedAttributes.MSAttributedStringColorAttribute
+          obj.MSAttributedStringColorAttribute
         ).rgba
       });
-    } else if (encodedAttributes.hasOwnProperty('NSColor')) {
-      const NSColor = encodedAttributes.NSColor._archive as string;
-      const parsedNSColor = this.binaryPlistParser.parse64Content(NSColor);
-      (root.style.textStyle.encodedAttributes
-        .NSColor as any)._transformed = parsedNSColor;
+    } else if (obj.hasOwnProperty('NSColor')) {
+      const archive = this.binaryPlistParser.parse64Content(obj.NSColor._archive);
+      (root.style.textStyle.encodedAttributes.NSColor as any)._transformed = archive;
     } else {
-      this.setStyle(obj, root, {
+      this.setStyle(curr, root, {
         color: 'black'
       });
     }
   }
 
-  parseStyleInformation(obj: any, root: any) {
-    // blur
-    this.parseBlur(obj, root);
-    // borders
-    this.parseBorders(obj, root);
-    // fills
-    this.parseFills(obj, root);
-    // innerShadows and shadows
-    this.parseShadows(obj, root);
-  }
-
-  parseBlur(obj: SketchMSStyle, root: any) {
-    const blur = obj.blur;
-    if (blur && blur.radius > 0) {
-      this.setStyle(obj, root, {
-        filter: `blur(${blur.radius}px);`
+  parseBlur(curr: SketchMSStyle, root: SketchMSLayer) {
+    const obj = curr.blur;
+    if (obj && obj.radius > 0) {
+      this.setStyle(curr, root, {
+        filter: `blur(${obj.radius}px);`
       });
     }
   }
 
-  parseBorders(obj: SketchMSStyle, root: any) {
-    const borders = obj.borders;
-    if (borders && borders.length > 0) {
-      const bordersStyles = borders.reduce((acc, border) => {
+  parseBorders(curr: SketchMSStyle, root: SketchMSLayer) {
+    const obj = curr.borders;
+    if (obj && obj.length > 0) {
+      const bordersStyles = obj.reduce((acc, border) => {
         if (border.thickness > 0) {
           const color = this.parseColors(border.color);
           let shadow = `0 0 0 ${border.thickness}px ${color.rgba}`;
@@ -231,21 +211,21 @@ export class SketchStyleParserService {
       }, []);
 
       if (bordersStyles.length > 0) {
-        this.setStyle(obj, root, {
+        this.setStyle(curr, root, {
           'box-shadow': bordersStyles.join(',')
         });
       }
     }
   }
 
-  parseFills(obj: SketchMSStyle, root: any) {
-    const fills = obj.fills || [];
-    if (fills.length > 0) {
+  parseFills(curr: SketchMSStyle, root: SketchMSLayer) {
+    const obj = curr.fills;
+    if (obj && obj.length > 0) {
       // we only support one fill: take the first one!
       // ignore the other fills
-      const firstFill = fills[0];
+      const firstFill = obj[0];
 
-      this.setStyle(obj, root, {
+      this.setStyle(curr, root, {
         'background-color': `${this.parseColors(firstFill.color).rgba}`
       });
 
@@ -262,7 +242,7 @@ export class SketchStyleParserService {
         if (fillsStyles.length > 0) {
           // apply gradient, if multiple fills
           // default angle is 90deg
-          this.setStyle(obj, root, {
+          this.setStyle(curr, root, {
             background: `linear-gradient(90deg, ${fillsStyles.join(',')})`
           });
         }
@@ -270,9 +250,9 @@ export class SketchStyleParserService {
     }
   }
 
-  parseShadows(obj: SketchMSStyle, root: any) {
-    const innerShadows = obj.innerShadows || [];
-    const shadows = obj.shadows || [];
+  parseShadows(curr: SketchMSStyle, root: SketchMSLayer) {
+    const innerShadows = curr.innerShadows;
+    const shadows = curr.shadows;
     const shadowsStyles: string[] = [];
     if (innerShadows) {
       innerShadows.forEach(innerShadow => {
@@ -294,8 +274,8 @@ export class SketchStyleParserService {
         );
       });
     }
-    if (innerShadows.length > 0 || shadows.length > 0) {
-      this.setStyle(obj, root, {
+    if (shadowsStyles.length > 0) {
+      this.setStyle(curr, root, {
         'box-shadow': shadowsStyles.join(',')
       });
     }
@@ -339,13 +319,13 @@ export class SketchStyleParserService {
     return `rgba(${this.rgba(r)},${this.rgba(g)},${this.rgba(b)},${a})`;
   }
 
-  setStyle(obj: any, root: any, style: { [key: string]: string }) {
+  setStyle(curr: any, root: SketchMSLayer, style: { [key: string]: string }) {
     root.css = root.css || {};
-    obj.css = obj.css || {};
+    curr.css = curr.css || {};
     for (const property in style) {
       if (style.hasOwnProperty(property)) {
         root.css[property] = style[property];
-        obj.css[property] = style[property];
+        curr.css[property] = style[property];
       }
     }
   }

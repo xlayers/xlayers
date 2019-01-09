@@ -28,7 +28,7 @@ export class SketchService {
 
   constructor(
     private sanitizer: DomSanitizer,
-    private sketchColorParser: SketchStyleParserService,
+    private sketchParser: SketchStyleParserService,
     private http: HttpClient
   ) {
     this._data = {
@@ -42,12 +42,8 @@ export class SketchService {
 
   async process(file: File) {
     this._data = await this.sketch2Json(file);
-    this.parseColors(this._data.pages);
+    this.sketchParser.visit(this._data);
     return this._data;
-  }
-
-  parseColors(pages: Array<SketchMSPage>) {
-    this.sketchColorParser.visit(pages);
   }
 
   async readZipEntries(file) {
