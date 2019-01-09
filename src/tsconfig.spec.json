@@ -5,7 +5,8 @@
     "module": "commonjs",
     "types": [
       "jasmine",
-      "node"
+      "node",
+      "sketchapp"
     ]
   },
   "files": [
@@ -14,7 +15,6 @@
   ],
   "include": [
     "**/*.spec.ts",
-    "**/*.d.ts",
-    "sketch.typings.ts"
+    "**/*.d.ts"
   ]
 }

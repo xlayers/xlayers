@@ -78,6 +78,11 @@ export class ResetUiSettings {
   static readonly type = '[UiSettings] Reset UI Settings';
 }
 
+export class InformUser {
+  static readonly type = '[UiSettings] Inform user';
+  constructor(public message: string) {}
+}
+
 const DEFAULT_UI_STATE = {
   wireframe: false,
   preview: false,
@@ -210,7 +215,7 @@ export class UiState {
   }
 
   @Action(AutoFixPagePosition)
-  autoFixLayersPosition({ patchState }: StateContext<UiSettings>, action: AutoFixPagePosition) {
+  autoFixLayersPosition({ patchState, dispatch }: StateContext<UiSettings>, action: AutoFixPagePosition) {
     const currentPage = { ...action.page };
 
     // reset the top/left position of the current page
@@ -226,9 +231,7 @@ export class UiState {
       currentPage
     });
 
-    this.snackBar.open('Auto Fixed Top/Left Position', 'CLOSE', {
-      duration: 5000
-    });
+    dispatch(new InformUser('Auto Fixed Top/Left Position'));
   }
 
   @Action(ZoomIn)
@@ -267,5 +270,11 @@ export class UiState {
   @Action(ResetUiSettings)
   resetUiSettings({ patchState }: StateContext<UiSettings>) {
     patchState(DEFAULT_UI_STATE);
+  }
+  @Action(InformUser)
+  informUser({}, action: InformUser) {
+    this.snackBar.open(action.message, 'CLOSE', {
+      duration: 5000
+    });
   }
 }

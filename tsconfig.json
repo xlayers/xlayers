@@ -15,11 +15,6 @@
     "lib": [
       "es2017",
       "dom"
-    ],
-    "paths": {
-      "@manekinekko/ngx-sketch-viewer": [
-        "dist/manekinekko/ngx-sketch-viewer"
-      ]
-    }
+    ]
   }
 }

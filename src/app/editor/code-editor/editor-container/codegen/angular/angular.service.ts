@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { CodeGenFacade, XlayersNgxEditorModel } from '../codegen.service';
+import { SharedCodegen, Template } from '../shared-codegen.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AngularCodeGenService implements CodeGenFacade {
-  private indentationSymbol = '  '; // 2 spaces ftw
 
-  constructor() {}
+  constructor(private sharedCodegen: SharedCodegen) {}
 
   generate(ast: SketchMSLayer): Array<XlayersNgxEditorModel> {
     return [
@@ -25,14 +25,14 @@ export class AngularCodeGenService implements CodeGenFacade {
       },
       {
         uri: 'xlayers.component.html',
-        value: this.generateComponentTemplate(ast),
+        value: this.sharedCodegen.generateComponentTemplate(ast, Template.HTML),
         language: 'html',
         kind: 'angular'
       },
       {
         uri: 'xlayers.component.css',
-        value: this.generateComponentStyles(ast),
-        language: 'css',
+        value: this.sharedCodegen.generateComponentStyles(ast),
+        language: 'less',
         kind: 'angular'
       },
       {
@@ -46,12 +46,50 @@ export class AngularCodeGenService implements CodeGenFacade {
         value: this.generateModule(),
         language: 'typescript',
         kind: 'angular'
+      },
+      {
+        uri: 'xlayers-routing.module.ts',
+        value: this.generateRoutingModule(),
+        language: 'typescript',
+        kind: 'angular'
       }
     ];
   }
 
   private generateReadme() {
-    return ``;
+    const codeBlock = '```';
+    return `
+## How to use the Xlayers Angular module
+
+1. Download and extract the exported module into your workspace,
+
+2. Option #1: Import eagerly the XlayersModule into your AppModule or other module.
+${codeBlock}
+import { XlayersModule } from './xlayers/xlayers.module';
+@NgModule({
+  imports: [
+    XlayersModule,
+    ...
+  ],
+})
+export class AppModule {}
+${codeBlock}
+
+2. Option #2: Import lazily the XlayersModule routing configuration into your AppModule or other module.
+Make sure your router is setup properly in order to use this option (see: https://angular.io/guide/lazy-loading-ngmodules).
+${codeBlock}
+import { XlayersRoutingModule } from './xlayers/xlayers-routing.module';
+@NgModule({
+  imports: [
+    XlayersRoutingModule,
+    ...
+  ],
+})
+export class AppModule {}
+${codeBlock}
+
+3. Enjoy.
+`;
   }
 
   private generateModule() {
@@ -74,6 +112,27 @@ import { XlayersComponent } from './xlayers.component';
   ]
 })
 export class XlayersModule { }
+    `
+    );
+  }
+
+  private generateRoutingModule() {
+    return (
+      '' +
+      `
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+
+const xlayersRoutes: Routes = [{
+  path: 'xlayers',
+  loadChildren: 'app/xlayers/xlayers.module#XlayersModule'
+}];
+
+@NgModule({
+  imports: [ RouterModule.forChild(xlayersRoutes) ],
+  exports: [ RouterModule ]
+})
+export class XlayersRoutingModule {}
     `
     );
   }
@@ -134,102 +193,5 @@ describe('XlayersComponent', () => {
 });
     `
     );
-  }
-
-  private generateComponentStyles(ast: SketchMSLayer) {
-    const styles: Array<string> = [
-      [
-        ':host {',
-        `${this.indentationSymbol}display: block;`,
-        `${this.indentationSymbol}position: relative;`,
-        '}',
-        ''
-      ].join('\n')
-    ];
-
-    (function computeStyle(_ast: SketchMSLayer, _styles, indentationSymbol) {
-      const content = (data: string) => {
-        if (data) {
-          _styles.push(data);
-        }
-      };
-      if (_ast.layers && Array.isArray(_ast.layers)) {
-        _ast.layers.forEach(layer => {
-          if (layer.css) {
-            const rules: string[] = [];
-            // tslint:disable-next-line:forin
-            for (const prop in layer.css) {
-              rules.push(`${prop}: ${layer.css[prop]};`);
-            }
-            content(
-              [
-                `.${(layer as any).css__className} {`,
-                rules.map(rule => indentationSymbol + rule).join('\n'),
-                '}'
-              ].join('\n')
-            );
-          }
-
-          computeStyle(layer, styles, indentationSymbol);
-        });
-      }
-    })(ast, styles, this.indentationSymbol);
-
-    return styles.join('\n');
-  }
-
-  private generateComponentTemplate(ast: SketchMSLayer) {
-    const template: Array<string> = [];
-
-    // indentation
-    const i = (n: number) => (!!n ? this.indentationSymbol.repeat(n) : '');
-
-    const openTag = (tag = 'div', node: SketchMSLayer, depth: number) => {
-      template.push(
-        i(depth) +
-          [
-            `<${tag}`,
-            `class="${(node as any).css__className}"`,
-            `role="${node._class}"`,
-            `aria-label="${node.name}"`
-          ].join(' ') +
-          `>`
-      );
-    };
-
-    const closeTag = (tag = 'div', _node: SketchMSLayer, depth: number) => {
-      template.push(`${i(depth)}</${tag}>`);
-    };
-
-    const content = (data: string, depth: number) => {
-      if (data) {
-        template.push(i(depth) + data);
-      }
-    };
-
-    (function computeTemplate(_ast: SketchMSLayer, _template, depth = 0) {
-      if (_ast.layers && Array.isArray(_ast.layers)) {
-        _ast.layers.forEach(layer => {
-          if (layer.css) {
-            openTag('div', layer, depth);
-          }
-
-          content(computeTemplate(layer, _template, depth + 1), depth + 1);
-
-          if (layer.css) {
-            closeTag('div', layer, depth);
-          }
-        });
-      } else {
-        let innerText = '';
-        if ((_ast as any)._class === 'text') {
-          innerText = `<span>${_ast.attributedString.string}</span>`;
-        }
-
-        return innerText;
-      }
-    })(ast, template);
-
-    return template.join('\n');
   }
 }

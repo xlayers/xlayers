@@ -12,7 +12,8 @@
 }
 
 @media (max-width: 599px) {
-  .mat-toolbar-row, .mat-toolbar-single-row {
+  .mat-toolbar-row,
+  .mat-toolbar-single-row {
     height: 64px;
   }
 }
@@ -26,7 +27,7 @@
 }
 
 .header-title a {
-  color: rgba(255,255,255,0.7);
+  color: rgba(255, 255, 255, 0.7);
   text-decoration: none;
   margin-left: -5px;
   margin-top: -8px;
@@ -87,6 +88,10 @@ sketch-container {
 
 .sidebar {
   min-width: 200px;
+}
+
+.sidebar.layers {
+  margin-bottom: 60px;
 }
 
 .sidebar.settings {
@@ -158,5 +163,8 @@ footer {
   padding: 5px;
   font-size: 0.8em;
   line-height: normal;
-  margin: 10px 0;
+  position: fixed;
+  background: #212121;
+  width: 210px;
+  height: 50px;
 }

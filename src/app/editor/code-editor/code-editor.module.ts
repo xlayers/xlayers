@@ -25,7 +25,7 @@ export const monacoConfig: NgxMonacoEditorConfig = {
     fontSize: 15,
     fontLigatures: true,
     formatOnPaste: false,
-    scrollBeyondLastLine: true,
+    scrollBeyondLastLine: false,
     miniMap: {
       enabled: false
     }

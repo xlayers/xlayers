@@ -5,7 +5,7 @@ import { NO_ERRORS_SCHEMA, Renderer2 } from '@angular/core';
 import { NgxsModule, Store } from '@ngxs/store';
 import { getSketchDataMock } from './sketch.service.mock';
 import { UiState, CurrentFile } from 'src/app/core/state';
-import { PageState } from 'src/app/core/state/page.state';
+import { CodeGenState } from 'src/app/core/state/page.state';
 import { getFlatLayerMock } from './sketch-layer.component.mock';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -23,7 +23,7 @@ describe('SketchCanvasComponent', () => {
     TestBed.configureTestingModule({
       schemas: [NO_ERRORS_SCHEMA],
       imports: [
-        NgxsModule.forRoot([UiState, PageState]),
+        NgxsModule.forRoot([UiState, CodeGenState]),
         MatSnackBarModule,
         NoopAnimationsModule
       ],
