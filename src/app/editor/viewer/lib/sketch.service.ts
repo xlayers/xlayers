@@ -1,8 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-import { SketchStyleParserService } from './parsers/sketch-style-parser.service';
+import { Store } from '@ngxs/store';
+import { InformUser } from 'src/app/core/state';
 import { environment } from 'src/environments/environment';
+import { SketchStyleParserService } from './parsers/sketch-style-parser.service';
+import { AngularSketchModule } from './sketch.module';
 
 export interface SketchUser {
   [key: string]: {
@@ -29,7 +32,8 @@ export class SketchService {
   constructor(
     private sanitizer: DomSanitizer,
     private sketchColorParser: SketchStyleParserService,
-    private http: HttpClient
+    private http: HttpClient,
+    private store: Store
   ) {
     this._data = {
       pages: [],
@@ -41,8 +45,16 @@ export class SketchService {
   }
 
   async process(file: File) {
-    this._data = await this.sketch2Json(file);
-    this.parseColors(this._data.pages);
+    try {
+      this._data = await this.sketch2Json(file);
+      this.parseColors(this._data.pages);
+    } catch (e) {
+      this.store.dispatch(
+        new InformUser(
+          'The design was created using an unsupported version so the result may not be accurate.'
+        )
+      );
+    }
     return this._data;
   }
 

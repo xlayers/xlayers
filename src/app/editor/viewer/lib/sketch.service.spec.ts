@@ -3,13 +3,14 @@ import { TestBed, async } from '@angular/core/testing';
 import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { getFrameMock } from './sketch-layer.component.mock';
+import { NgxsModule } from '@ngxs/store';
 
 describe('SketchService', () => {
   let sketchService: SketchService;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientModule, CommonModule],
+      imports: [HttpClientModule, CommonModule, NgxsModule.forRoot([])],
       providers: [
         SketchService
       ]
