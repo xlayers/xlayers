@@ -153,6 +153,11 @@ export class SketchCanvasComponent implements OnInit, AfterViewInit {
     this.originPositionY += event.y;
   }
 
+ /**
+  * cdk overrides existing transform style and replace it by its own. We detect
+  * if there is any existing scale propery in transform, then replace its value by current zoom level in both
+  * drag started & ended event
+  */
   OnCdkDragStarted(event: CdkDragStart) {
     event.source.element.nativeElement.style.transform = this.formatTransformStyle(
       event.source.element.nativeElement.style.transform,
