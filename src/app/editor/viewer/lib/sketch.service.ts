@@ -42,7 +42,7 @@ export class SketchService {
 
   async process(file: File) {
     this._data = await this.sketch2Json(file);
-    this.sketchParser.visit(this._data);
+    this.sketchParser.process(this._data);
     return this._data;
   }
 
