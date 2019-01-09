@@ -22,10 +22,11 @@ const githubIssueLink = 'https://github.com/xlayers/xlayers/issues/new?assignees
         <mat-icon svgIcon="react"></mat-icon>
         <span>React</span>
       </button>
-      <button mat-menu-item (click)="generateVue()">
+      <!-- uncomment this when Vue codegen is ready -->
+      <!--<button mat-menu-item (click)="generateVue()">
         <mat-icon svgIcon="vue"></mat-icon>
         <span>Vue</span>
-      </button>
+      </button>-->
       <button mat-menu-item (click)="generateWc()">
         <mat-icon svgIcon="wc"></mat-icon>
         <span>Web Component</span>
