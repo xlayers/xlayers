@@ -10,7 +10,7 @@
     "test:ci": "jest --ci --updateSnapshot",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "deploy": "npm run build && firebase deploy",
+    "deploy": "npm run test:ci && npm run build && firebase deploy",
     "analyse": "webpack-bundle-analyzer ./dist/html/stats.json"
   },
   "jest": {
