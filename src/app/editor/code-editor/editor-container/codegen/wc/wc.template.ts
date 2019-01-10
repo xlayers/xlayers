@@ -1,5 +1,5 @@
-export const wcTemplate = (ast: string, style: string) => {
-  const tpl = '`' + '<style>' + style + '</style>' + ast + '`';
+export const wcTemplate = (domContent: string, style: string) => {
+  const tpl = '`' + '<style>' + style + '</style>' + domContent + '`';
 
   return `
 // Web Components polyfills
@@ -53,7 +53,7 @@ This implementation export the assets as single file web component that can be c
 
 ${codeBlock}
   // index.html
-  <script src="./x-layers-element-file.js"></script>
+  <script src="./x-layers-element.js"></script>
   <x-layers-element></x-layers-element>
 ${codeBlock}
 
@@ -67,8 +67,8 @@ ${codeBlock}
   <!-- Load a custom element definitions in 'waitFor' and return a promise -->
   <script type="module">
     WebComponents.waitFor(() => {
-    // You should remove redundant polyfills import from x-layers-element-file
-    return import('./x-layers-element-file.js');
+    // You should remove redundant polyfills import from x-layers-element
+    return import('./x-layers-element.js');
     });
   </script>
 

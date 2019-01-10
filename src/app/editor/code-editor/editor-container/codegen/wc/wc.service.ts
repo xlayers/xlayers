@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { CodeGenFacade, XlayersNgxEditorModel } from '../codegen.service';
-import { SharedCodegen } from '../shared-codegen.service';
+import { SharedCodegen, Template } from '../shared-codegen.service';
 import { wcTemplate, readmeTemplate } from './wc.template';
 
 @Injectable({
@@ -18,7 +18,7 @@ export class WCCodeGenService implements CodeGenFacade {
         kind: 'text'
       },
       {
-        uri: 'x-layers-element-file.js',
+        uri: 'index.js',
         value: this.generateComponent(ast),
         language: 'javascript',
         kind: 'wc'
@@ -32,7 +32,7 @@ export class WCCodeGenService implements CodeGenFacade {
 
   private generateComponent(ast: SketchMSLayer) {
     return wcTemplate(
-      this.sharedCodegen.generateComponentTemplate(ast, 1),
+      this.sharedCodegen.generateComponentTemplate(ast, Template.HTML),
       this.sharedCodegen.generateComponentStyles(ast)
     );
   }
