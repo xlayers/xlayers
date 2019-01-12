@@ -2,22 +2,23 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatExpansionPanel } from '@angular/material/expansion';
 import { MatDrawerContainer } from '@angular/material/sidenav';
 import { Store } from '@ngxs/store';
+import * as FileSaver from 'file-saver';
 import {
   CurrentLayer,
   CurrentPage,
+  ResetUiSettings,
+  Toggle3D,
+  ToggleCodeEditor,
+  ToggleWireframe,
   UiState,
   ZoomIn,
-  ZoomOut,
-  Toggle3D,
-  ToggleWireframe,
-  ToggleCodeEditor,
-  ResetUiSettings
+  ZoomOut
 } from 'src/app/core/state';
-import { SketchContainerComponent } from './viewer/lib/sketch-container.component';
 import { environment } from '../../environments/environment';
-import { ExportStackblitzService } from './exports/stackblitz.service';
-import { PageState } from '../core/state/page.state';
+import { CodeGenState, CodeGenSettings } from '../core/state/page.state';
 import { XlayersNgxEditorModel } from './code-editor/editor-container/codegen/codegen.service';
+import { ExportStackblitzService } from './exports/stackblitz/stackblitz.service';
+import { SketchContainerComponent } from './viewer/lib/sketch-container.component';
 
 @Component({
   selector: 'sketch-editor',
@@ -42,7 +43,7 @@ export class EditorComponent implements OnInit {
 
   is3dView: boolean;
   isCodeEditor: boolean;
-  codegen: XlayersNgxEditorModel[];
+  codegen: CodeGenSettings;
 
   version = environment.version;
 
@@ -73,51 +74,57 @@ export class EditorComponent implements OnInit {
         this.pagesPanelRef.open();
         this.layersPanelRef.open();
         this.settingNavRef.open();
+      } else {
+        this.pagesPanelRef.close();
+        this.layersPanelRef.close();
+        this.settingNavRef.close();
       }
+    });
 
-      this.store.select(UiState.isWireframe).subscribe(isWireframe => {
-        this.wireframe = isWireframe;
-      });
-      this.store.select(UiState.zoomLevel).subscribe(zoomLevel => {
-        this.zoomLevel = zoomLevel;
-      });
-      this.store.select(UiState.is3dView).subscribe(is3dView => {
-        this.is3dView = is3dView;
-      });
-      this.store.select(UiState.isCodeEditor).subscribe(isCodeEditor => {
-        this.isCodeEditor = isCodeEditor;
+    this.store.select(UiState.isWireframe).subscribe(isWireframe => {
+      this.wireframe = isWireframe;
+    });
+    this.store.select(UiState.zoomLevel).subscribe(zoomLevel => {
+      this.zoomLevel = zoomLevel;
+    });
+    this.store.select(UiState.is3dView).subscribe(is3dView => {
+      this.is3dView = is3dView;
+    });
+    this.store.select(UiState.isCodeEditor).subscribe(isCodeEditor => {
+      this.isCodeEditor = isCodeEditor;
+      if (this.sketchPages.length > 0) {
         if (this.isCodeEditor) {
           this.settingNavRef.close();
         } else {
           this.settingNavRef.open();
         }
-      });
-      this.store.select(UiState.isPreview).subscribe(isPreview => {
-        this.preview = isPreview;
-        if (this.preview) {
-          this.currentLayerNavRef.open();
-        } else {
-          this.currentLayerNavRef.close();
-        }
-      });
-      this.store.select(UiState.currentPage).subscribe(currentPage => {
-        this.currentPage = currentPage;
-      });
-      this.store.select(UiState.currentLayer).subscribe(currentLayer => {
-        this.currentLayer = currentLayer;
-        if (this.currentLayer) {
-          this.currentLayerNavRef.open();
-        } else {
-          this.currentLayerNavRef.close();
-        }
-      });
-      this.store.select(UiState.isSettingsEnabled).subscribe(isEnbaledSettings => {
+      }
+    });
+    this.store.select(UiState.isPreview).subscribe(isPreview => {
+      this.preview = isPreview;
+      if (this.preview) {
+        this.currentLayerNavRef.open();
+      }
+    });
+    this.store.select(UiState.currentPage).subscribe(currentPage => {
+      this.currentPage = currentPage;
+    });
+    this.store.select(UiState.currentLayer).subscribe(currentLayer => {
+      this.currentLayer = currentLayer;
+      if (this.currentLayer) {
+        this.currentLayerNavRef.open();
+      } else {
+        this.currentLayerNavRef.close();
+      }
+    });
+    this.store
+      .select(UiState.isSettingsEnabled)
+      .subscribe(isEnbaledSettings => {
         this.enabled = isEnbaledSettings;
       });
 
-      this.store.select(PageState.codegen).subscribe(codegen => {
-        this.codegen = codegen;
-      });
+    this.store.select(CodeGenState.codegen).subscribe(codegen => {
+      this.codegen = codegen;
     });
   }
 
@@ -143,7 +150,7 @@ export class EditorComponent implements OnInit {
     return page && page.name;
   }
 
-  changeBackgroundColor(event) {
+  changeBackgroundColor(event: any) {
     const c = event.color.rgb;
     if (c.a === 0) {
       this.colors.background = 'transparent';
@@ -155,6 +162,7 @@ export class EditorComponent implements OnInit {
   ZoomIn() {
     this.store.dispatch(new ZoomIn());
   }
+
   ZoomOut() {
     this.store.dispatch(new ZoomOut());
   }
@@ -164,15 +172,20 @@ export class EditorComponent implements OnInit {
     this.store.dispatch(new Toggle3D(this.is3dView));
   }
 
-  onResizeSettingMenuEnd(event) {
-    this.settingMenuWidth = event.rectangle.width;
-  }
-
-  onResizeTreeViewerEnd(event) {
-    this.settingTreeViewerWidth = event.rectangle.width;
-  }
-
-  async share() {
+  async openInStackblitz() {
     await this.exporter.export(this.codegen);
+  }
+
+  async download() {
+    const zip = new window['JSZip']();
+    this.codegen.content.forEach(file => {
+      zip.file(file.uri, file.value);
+    });
+    const content = await zip.generateAsync({ type: 'blob' });
+    FileSaver.saveAs(content, 'xLayers.zip');
+  }
+
+  close() {
+    this.store.dispatch(new ResetUiSettings());
   }
 }

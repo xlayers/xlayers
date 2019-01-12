@@ -5,7 +5,7 @@ import { SketchService } from './sketch.service';
 import { SketchDropzoneComponent } from './sketch-dropzone.component';
 import { HttpClientModule } from '@angular/common/http';
 import { UiState } from 'src/app/core/state';
-import { PageState } from 'src/app/core/state/page.state';
+import { CodeGenState } from 'src/app/core/state/page.state';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { getDataTransfertMock } from './sketch-dropzone.component.mock';
 
@@ -17,7 +17,7 @@ describe('SketchDropZone', () => {
     TestBed.configureTestingModule({
       schemas: [NO_ERRORS_SCHEMA],
       imports: [
-        NgxsModule.forRoot([UiState, PageState]),
+        NgxsModule.forRoot([UiState, CodeGenState]),
         MatSnackBarModule,
         HttpClientModule
       ],

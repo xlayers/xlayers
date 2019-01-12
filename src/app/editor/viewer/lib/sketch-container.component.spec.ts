@@ -6,7 +6,7 @@ import { NgxsModule, Store } from '@ngxs/store';
 import { SketchService, SketchData } from './sketch.service';
 import { getSketchDataMock } from './sketch.service.mock';
 import { UiState } from 'src/app/core/state';
-import { PageState } from 'src/app/core/state/page.state';
+import { CodeGenState } from 'src/app/core/state/page.state';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { getFileMock } from './sketch-container.component.mock';
@@ -24,20 +24,16 @@ fdescribe('SketchContainerComponent', () => {
     TestBed.configureTestingModule({
       schemas: [NO_ERRORS_SCHEMA],
       imports: [
-        NgxsModule.forRoot([UiState, PageState]),
+        NgxsModule.forRoot([UiState, CodeGenState]),
         MatSnackBarModule,
-        // HttpClientModule,
         HttpClientTestingModule,
         NoopAnimationsModule
       ],
-      providers: [
-        SketchService
-      ],
+      providers: [SketchService],
       declarations: [SketchContainerComponent]
-    })
-      .compileComponents();
-      store = TestBed.get(Store);
-      sketchService = TestBed.get(SketchService);
+    }).compileComponents();
+    store = TestBed.get(Store);
+    sketchService = TestBed.get(SketchService);
   }));
 
   beforeEach(() => {
@@ -52,17 +48,22 @@ fdescribe('SketchContainerComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should process selected file', async() => {
-    spyOn(sketchService, 'process').and.returnValue(Promise.resolve(mockSketchData));
+  it('should process selected file', async () => {
+    spyOn(sketchService, 'process').and.returnValue(
+      Promise.resolve(mockSketchData)
+    );
     await component.onFileSelected(mockFile);
-    expect(component.data).toBe(mockSketchData);
+
+    store.selectOnce(UiState.currentFile).subscribe(data => {
+      expect(data).toEqual(mockSketchData);
+    });
   });
 
   describe('should clear current page', () => {
     it('currentPage is truthy', async(() => {
       component.currentPage = {} as any;
       component.clearSelection();
-      store.select(UiState.currentLayer).subscribe((element) => {
+      store.select(UiState.currentLayer).subscribe(element => {
         expect(element).toBe(null);
       });
     }));
@@ -70,7 +71,7 @@ fdescribe('SketchContainerComponent', () => {
     it('currentPage is falsy', async(() => {
       component.currentPage = null;
       component.clearSelection();
-      store.select(UiState.currentLayer).subscribe((element) => {
+      store.select(UiState.currentLayer).subscribe(element => {
         expect(element).toBe(null);
       });
     }));

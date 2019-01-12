@@ -6,7 +6,7 @@ import { NgxsModule } from '@ngxs/store';
 import { By } from '@angular/platform-browser';
 import { getFrameMock } from './sketch-layer.component.mock';
 import { UiState } from 'src/app/core/state';
-import { PageState } from 'src/app/core/state/page.state';
+import { CodeGenState } from 'src/app/core/state/page.state';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 describe('SketchPageComponent', () => {
@@ -16,7 +16,7 @@ describe('SketchPageComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       schemas: [NO_ERRORS_SCHEMA],
-      imports: [NgxsModule.forRoot([UiState, PageState]), MatSnackBarModule],
+      imports: [NgxsModule.forRoot([UiState, CodeGenState]), MatSnackBarModule],
       declarations: [SketchPageComponent]
     })
       .compileComponents();

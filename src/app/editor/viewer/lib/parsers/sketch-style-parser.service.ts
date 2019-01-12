@@ -44,7 +44,9 @@ export class SketchStyleParserService {
 
             case 'symbolMaster':
               this.setStyle(obj, root, {
-                'background-color': this.parseColors((obj as SketchMSSymbolMaster).backgroundColor).rgba
+                'background-color': this.parseColors(
+                  (obj as SketchMSSymbolMaster).backgroundColor
+                ).rgba
               });
               break;
 
@@ -77,13 +79,13 @@ export class SketchStyleParserService {
 
           if ((obj as SketchMSLayer).frame) {
             this.setStyle(obj, root, {
-              'display': 'block',
-              'position': 'absolute',
-              'left': `${obj.frame.x}px`,
-              'top': `${obj.frame.y}px`,
-              'width': `${obj.frame.width}px`,
-              'height': `${obj.frame.height}px`,
-              'visibility': obj.isVisible ? 'visible' : 'hidden'
+              display: 'block',
+              position: 'absolute',
+              left: `${obj.frame.x}px`,
+              top: `${obj.frame.y}px`,
+              width: `${obj.frame.width}px`,
+              height: `${obj.frame.height}px`,
+              visibility: obj.isVisible ? 'visible' : 'hidden'
             });
           }
         }
@@ -107,14 +109,22 @@ export class SketchStyleParserService {
    * @param root  The root layer
    */
   parseTextFont(obj: SketchMSLayer, root: any) {
-    const MSAttributedStringFontAttribute = obj.style.textStyle.encodedAttributes.MSAttributedStringFontAttribute;
+    const MSAttributedStringFontAttribute =
+      obj.style.textStyle.encodedAttributes.MSAttributedStringFontAttribute;
     if (MSAttributedStringFontAttribute.hasOwnProperty('_archive')) {
-      const parsedMSAttributedStringFontAttribute = this.binaryPlistParser.parse64Content(MSAttributedStringFontAttribute._archive);
+      const parsedMSAttributedStringFontAttribute = this.binaryPlistParser.parse64Content(
+        MSAttributedStringFontAttribute._archive
+      );
       (root.style.textStyle.encodedAttributes
         .MSAttributedStringFontAttribute as any)._transformed = parsedMSAttributedStringFontAttribute;
-    } else if (MSAttributedStringFontAttribute.hasOwnProperty('_class') && MSAttributedStringFontAttribute._class === 'fontDescriptor') {
+    } else if (
+      MSAttributedStringFontAttribute.hasOwnProperty('_class') &&
+      MSAttributedStringFontAttribute._class === 'fontDescriptor'
+    ) {
       this.setStyle(obj, root, {
-        'font-family': `${MSAttributedStringFontAttribute.attributes.name}, 'Roboto', sans-serif`,
+        'font-family': `${
+          MSAttributedStringFontAttribute.attributes.name
+        }, 'Roboto', sans-serif`,
         'font-size': `${MSAttributedStringFontAttribute.attributes.size}px`
       });
     }
@@ -129,9 +139,13 @@ export class SketchStyleParserService {
   parseAttributeString(obj: SketchMSLayer, root: any) {
     const attributedString = obj.attributedString;
     if (attributedString.hasOwnProperty('archivedAttributedString')) {
-      const archivedAttributedString = attributedString.archivedAttributedString._archive as string;
-      const parsedArchivedAttributedString = this.binaryPlistParser.parse64Content(archivedAttributedString);
-      (root.attributedString.archivedAttributedString as any)._transformed = parsedArchivedAttributedString;
+      const archivedAttributedString = attributedString.archivedAttributedString
+        ._archive as string;
+      const parsedArchivedAttributedString = this.binaryPlistParser.parse64Content(
+        archivedAttributedString
+      );
+      (root.attributedString
+        .archivedAttributedString as any)._transformed = parsedArchivedAttributedString;
     }
   }
 
@@ -144,9 +158,13 @@ export class SketchStyleParserService {
   parseParagraphStyle(obj: SketchMSLayer, root: any) {
     const encodedAttributes = obj.style.textStyle.encodedAttributes;
     if (encodedAttributes.hasOwnProperty('NSParagraphStyle')) {
-      const NSParagraphStyle = root.style.textStyle.encodedAttributes.NSParagraphStyle._archive as string;
-      const parsedNSParagraphStyle = this.binaryPlistParser.parse64Content(NSParagraphStyle);
-      (root.style.textStyle.encodedAttributes.NSParagraphStyle as any)._transformed = parsedNSParagraphStyle;
+      const NSParagraphStyle = root.style.textStyle.encodedAttributes
+        .NSParagraphStyle._archive as string;
+      const parsedNSParagraphStyle = this.binaryPlistParser.parse64Content(
+        NSParagraphStyle
+      );
+      (root.style.textStyle.encodedAttributes
+        .NSParagraphStyle as any)._transformed = parsedNSParagraphStyle;
     }
   }
 
@@ -161,12 +179,15 @@ export class SketchStyleParserService {
     const encodedAttributes = obj.style.textStyle.encodedAttributes;
     if (encodedAttributes.hasOwnProperty('MSAttributedStringColorAttribute')) {
       this.setStyle(obj, root, {
-        color: this.parseColors(encodedAttributes.MSAttributedStringColorAttribute).rgba
+        color: this.parseColors(
+          encodedAttributes.MSAttributedStringColorAttribute
+        ).rgba
       });
     } else if (encodedAttributes.hasOwnProperty('NSColor')) {
       const NSColor = encodedAttributes.NSColor._archive as string;
       const parsedNSColor = this.binaryPlistParser.parse64Content(NSColor);
-      (root.style.textStyle.encodedAttributes.NSColor as any)._transformed = parsedNSColor;
+      (root.style.textStyle.encodedAttributes
+        .NSColor as any)._transformed = parsedNSColor;
     } else {
       this.setStyle(obj, root, {
         color: 'black'
@@ -223,15 +244,12 @@ export class SketchStyleParserService {
       // we only support one fill: take the first one!
       // ignore the other fills
       const firstFill = fills[0];
-      console.log(`firstFill`, firstFill);
 
       this.setStyle(obj, root, {
         'background-color': `${this.parseColors(firstFill.color).rgba}`
       });
 
       if (firstFill.gradient) {
-        console.log(`firstFill.gradient`, firstFill.gradient);
-
         const fillsStyles: string[] = [];
         firstFill.gradient.stops.forEach(stop => {
           let fill = `${this.parseColors(stop.color).rgba}`;
@@ -240,8 +258,6 @@ export class SketchStyleParserService {
           }
           fillsStyles.push(fill);
         });
-
-        console.log(`fillsStyles`, fillsStyles);
 
         if (fillsStyles.length > 0) {
           // apply gradient, if multiple fills
@@ -262,14 +278,20 @@ export class SketchStyleParserService {
       innerShadows.forEach(innerShadow => {
         const color = this.parseColors(innerShadow.color);
         shadowsStyles.push(
-          `${innerShadow.offsetX}px ${innerShadow.offsetY}px ${innerShadow.blurRadius}px ${innerShadow.spread}px ${color.rgba} inset`
+          `${innerShadow.offsetX}px ${innerShadow.offsetY}px ${
+            innerShadow.blurRadius
+          }px ${innerShadow.spread}px ${color.rgba} inset`
         );
       });
     }
     if (shadows) {
       shadows.forEach(shadow => {
         const color = this.parseColors(shadow.color);
-        shadowsStyles.push(`${shadow.offsetX}px ${shadow.offsetY}px ${shadow.blurRadius}px ${shadow.spread}px ${color.rgba}`);
+        shadowsStyles.push(
+          `${shadow.offsetX}px ${shadow.offsetY}px ${shadow.blurRadius}px ${
+            shadow.spread
+          }px ${color.rgba}`
+        );
       });
     }
     if (innerShadows.length > 0 || shadows.length > 0) {
@@ -280,7 +302,6 @@ export class SketchStyleParserService {
   }
 
   parseColors(color: SketchMSColor | undefined) {
-
     if (typeof color === 'undefined') {
       return {
         hex: '#00FFFFFF',
@@ -336,7 +357,13 @@ export class SketchStyleParserService {
     return (
       '#' +
       ((256 + this.rgba(r)).toString(16).substr(1) +
-        (((1 << 24) + (this.rgba(g) << 16)) | (this.rgba(b) << 8) | this.rgba(a)).toString(16).substr(1))
+        (
+          ((1 << 24) + (this.rgba(g) << 16)) |
+          (this.rgba(b) << 8) |
+          this.rgba(a)
+        )
+          .toString(16)
+          .substr(1))
     );
   }
 }

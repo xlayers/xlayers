@@ -1,21 +1,18 @@
 import { Injectable } from '@angular/core';
-import { XlayersNgxEditorModel } from '../code-editor/editor-container/codegen/codegen.service';
-import sdk from '@stackblitz/sdk';
+import { XlayersNgxEditorModel } from '../../code-editor/editor-container/codegen/codegen.service';
+import { StackBlitzProjectPayload } from './stackblitz.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ExportStackblitzService {
-
-  constructor() { }
-
-  async export(content: Array<XlayersNgxEditorModel>) {
-
+export class ExportStackblitzAngularService {
+  constructor() {}
+  prepare(content: XlayersNgxEditorModel[]): StackBlitzProjectPayload {
     const files = {};
     for (let i = 0; i < content.length; i++) {
-      for (let prop in content[i]) {
+      for (const prop in content[i]) {
         if (prop === 'uri') {
-          files[`src/app/xlayers/`+content[i].uri] = content[i].value;
+          files[`src/app/xlayers/` + content[i].uri] = content[i].value;
         }
       }
     }
@@ -50,16 +47,10 @@ platformBrowserDynamic().bootstrapModule(AppModule)
     `;
     files['src/index.html'] = '<my-app>loading</my-app>';
 
-    const project = {
+    return {
       files,
-      title: 'xlayers',
-      description: 'xLayers generated project',
       template: 'angular-cli',
-      tags: ['angular', 'xlayers'],
-      dependencies: {}
+      tags: ['angular']
     };
-
-
-    sdk.openProject(project);
   }
 }
