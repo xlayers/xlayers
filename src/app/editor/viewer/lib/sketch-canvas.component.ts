@@ -10,7 +10,8 @@ import {
 import { Store } from '@ngxs/store';
 import { UiState } from 'src/app/core/state';
 import { SketchData } from './sketch.service';
-import { CdkDragStart, CdkDragEnd } from '@angular/cdk/drag-drop';
+import { CdkDragStart, CdkDragEnd, CdkDragMove } from '@angular/cdk/drag-drop';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'sketch-canvas',
@@ -18,6 +19,7 @@ import { CdkDragStart, CdkDragEnd } from '@angular/cdk/drag-drop';
     <div
       class="canvas"
       cdkDrag
+      (cdkDragMoved)="OnCdkDragMoved($event)"
       (cdkDragStarted)="OnCdkDragStarted($event)"
       (cdkDragEnded)="OnCdkDragEnded($event)"
       (started)="dragStart($event)"
@@ -165,6 +167,18 @@ export class SketchCanvasComponent implements OnInit, AfterViewInit {
   OnCdkDragEnded(event: CdkDragEnd) {
     event.source.element.nativeElement.style.transform = this.formatTransformStyle(
       event.source.element.nativeElement.style.transform,
+      this.currentZoomLevel
+    );
+  }
+
+  /**
+   * Keep dragging element's transform style updated with currentZoomLeve, while it is moved.
+   * @param event Observable<CdkDragMove<CdkDrag>>
+   */
+  OnCdkDragMoved(event: Observable<CdkDragMove<any>>) {
+    const sourceElement: any = event.source;
+    sourceElement.element.nativeElement.style.transform = this.formatTransformStyle(
+      sourceElement.element.nativeElement.style.transform,
       this.currentZoomLevel
     );
   }
