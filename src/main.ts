@@ -22,14 +22,14 @@ if (environment.hmr) {
     console.log('Are you using the --hmr flag for ng serve?');
   }
 } else {
-  
+
   bootstrap().catch(err => {
-  
+
     gtag('event', 'exception', {
       'description': err,
       'fatal': false
     });
 
-    console.log(err); 
+    console.log(err);
   });
 }

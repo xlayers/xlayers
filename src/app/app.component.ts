@@ -37,9 +37,9 @@ export class AppComponent {
       ).subscribe((event: NavigationEnd) => {
 
         gtag('config', 'UA-120660908-1', {
-          "page_path": event.urlAfterRedirects
+          'page_path': event.urlAfterRedirects
         });
 
-      })
+      });
   }
 }
