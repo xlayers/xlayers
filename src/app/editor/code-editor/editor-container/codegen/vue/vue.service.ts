@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { CodeGenFacade, XlayersNgxEditorModel } from '../codegen.service';
-import { SharedCodegen } from '../shared-codegen.service';
+import { SharedCodegen, Template } from '../shared-codegen.service';
 
 @Injectable({
   providedIn: 'root'
@@ -75,7 +75,7 @@ ${codeBlock}
       '' +
       `
 <template>
-  ${this.sharedCodegen.generateComponentTemplate(ast, 1)}
+  ${this.sharedCodegen.generateComponentTemplate(ast, Template.HTML)}
 </template>
 
 <script>
