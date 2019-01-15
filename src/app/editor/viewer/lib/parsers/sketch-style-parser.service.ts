@@ -14,51 +14,94 @@ export enum BorderType {
   CENTER = 0
 }
 
+export interface SketchASTStyle {
+  [rule: string]: string;
+}
+
+export interface SketchASTEdgeNode  {
+  content?: string;
+  style?: SketchASTStyle;
+}
+
+export interface SketchASTTrunkNode {
+  id: string;
+  name: string;
+  childrens: Array<SketchASTNode>;
+}
+
+export type SketchASTNode = SketchASTEdgeNode | SketchASTTrunkNode;
+export type SketchASTLayer = Array<SketchASTNode>;
+export type SketchASTPage = Array<SketchASTLayer>;
+
 @Injectable({
   providedIn: 'root'
 })
 export class SketchStyleParserService {
   constructor(private binaryPlistParser: BinaryPropertyListParserService) {}
 
-  process(sketch: SketchData) {
-    console.log(this.visitPage(sketch.pages));
+  process(sketch: SketchData): SketchASTPage {
+    return this.visitPage(sketch.pages);
   }
 
-  visitPage(pages) {
-    return pages.map((page) => {
-      if (page.layers && page.layers.length > 0) {
-        return this.visitLayer(page.layers);
-      }
-      return {};
+  visitPage(pages: Array<SketchMSPage>): SketchASTPage {
+    return pages.map((page: SketchMSPage): SketchASTLayer => {
+      return page.layers
+        ? this.visitLayer(page.layers)
+        : [];
     });
   }
 
   /**
    * Recurse over all layers and extract CSS property
    */
-  visitLayer(layers) {
-    return layers.map((layer: any) => {
+  visitLayer(layers: Array<SketchMSLayer>): SketchASTLayer {
+    return layers.map((layer: SketchMSLayer): SketchASTNode => {
       if (layer.layers && layer.layers.length > 0) {
         return {
-          children: this.visitLayer(layer.layers)
+          id: layer.do_objectID,
+          name: layer.name,
+          childrens: this.visitLayer(layer.layers)
         };
       }
 
-      // const attributes = this.parseAttributeString(layer);
+      const attributes = this.parseAttributeString(layer);
       const object = this.parseObject(layer);
       const group = this.parseGroup(layer);
 
       return {
-        ...object,
+        content: (object || {}).content || ((attributes || {}).content || null),
         style: {
-          ...object.style,
-          ...group.style
-        },
+          ...((attributes || {}).style || {}),
+          ...((object || {}).style || {}),
+          ...((group || {}).style || {})
+        }
       };
     });
   }
 
-  parseGroup(layer: any) {
+  /**
+   * Parse attibutes
+   */
+  parseAttributeString(node: SketchMSLayer): SketchASTEdgeNode {
+    const obj = node.attributedString;
+    if (obj.hasOwnProperty('archivedAttributedString')) {
+      const archive = this.binaryPlistParser.parse64Content(obj.archivedAttributedString._archive);
+      if (archive) {
+        switch (archive.$key) {
+          case 'ascii':
+            return {
+              content: archive.$value
+            };
+        }
+      }
+    }
+    return null;
+  }
+
+  /**
+   * Parse high level wapper attributes
+   */
+  parseGroup(layer: SketchMSLayer): SketchASTEdgeNode {
     return {
       style: (layer as SketchMSLayer).frame ? {
         display: 'block',
@@ -72,56 +115,52 @@ export class SketchStyleParserService {
     };
   }
 
-  parseObject(layer: any) {
+  parseObject(layer: any): SketchASTEdgeNode {
     switch (layer._class) {
-      case 'symbolMaster':
-        return {
-          style: {
-            ...this.transformSymbolMaster(layer)
-          }
-        };
+    case 'symbolMaster':
+      return {
+        style: {
+          ...this.transformSymbolMaster(layer)
+        }
+      };
 
-      case 'style':
-        return {
-          style: {
-            ...this.transformBlur(layer),
-            ...this.transformBorders(layer),
-            ...this.transformFills(layer),
-            ...this.transformShadows(layer)
-          }
-        };
+    case 'style':
+      return {
+        style: {
+          ...this.transformBlur(layer),
+          ...this.transformBorders(layer),
+          ...this.transformFills(layer),
+          ...this.transformShadows(layer)
+        }
+      };
 
-      case 'text':
-        const text = this.transformTextContent(layer);
-        return {
-          ...(text !== '' ? {content: text} : {}),
-          style: {
-            ...this.transformTextColor(layer),
-            ...this.transformParagraphStyle(layer),
-            ...this.transformTextFont(layer)
-          }
-        };
+    case 'text':
+      return {
+        content: this.transformTextContent(layer),
+        style: {
+          ...this.transformTextColor(layer),
+          ...this.transformParagraphStyle(layer),
+          ...this.transformTextFont(layer)
+        }
+      };
 
-      default:
-        return {
-          style: {
-            ...(layer as SketchMSPage).rotation ? {
-              transform: `rotate(${layer.rotation}deg)`
-            } : {},
-            ...(layer as SketchMSPage).fixedRadius ? {
-              'border-radius': `${layer.fixedRadius}px`
-            } : {},
-            ...(layer as SketchMSGraphicsContextSettings).opacity ? {
-              opacity: `${layer.opacity}`
-            } : {}
-          }
-        };
+    default:
+      return {
+        style: {
+          ...(layer as SketchMSPage).rotation ? {
+            transform: `rotate(${layer.rotation}deg)`
+          } : {},
+          ...(layer as SketchMSPage).fixedRadius ? {
+            'border-radius': `${layer.fixedRadius}px`
+          } : {},
+          ...(layer as SketchMSGraphicsContextSettings).opacity ? {
+            opacity: `${layer.opacity}`
+          } : {}
+        }
+      };
     }
   }
 
-  /**
-   * Parse master symbol background
-   */
   transformSymbolMaster(layer: SketchMSSymbolMaster) {
     const obj = layer.backgroundColor;
     return {
@@ -129,17 +168,10 @@ export class SketchStyleParserService {
     };
   }
 
-  /**
-   * Parse tree edge children
-   */
   transformTextContent(node: SketchMSLayer) {
     return node.attributedString.string;
   }
 
-  /**
-   * Parse text font if nothing is found
-   * fallback to node page font.
-   */
   transformTextFont(node: SketchMSLayer) {
     const obj = node.style.textStyle.encodedAttributes.MSAttributedStringFontAttribute;
     if (obj.hasOwnProperty('_class') && obj._class === 'fontDescriptor') {
@@ -148,49 +180,25 @@ export class SketchStyleParserService {
         'font-size': `${obj.attributes.size}px`
       };
     } else if (obj.hasOwnProperty('_archive')) {
-      const archive = this.binaryPlistParser.parse64Content(obj._archive);
+      // TODO: Handle legacy
+      // const archive = this.binaryPlistParser.parse64Content(obj._archive);
       // (scope.style.textStyle.encodedAttributes.MSAttributedStringFontAttribute as any)._transformed = archive;
       return {};
     }
     return {};
   }
 
-  /**
-   * Parse attibutes (not used at the moment)
-   */
-  parseAttributeString(node: SketchMSLayer) {
-    const obj = node.attributedString;
-    if (obj.hasOwnProperty('archivedAttributedString')) {
-      const archive = this.binaryPlistParser.parse64Content(obj.archivedAttributedString._archive);
-      if (archive) {
-        switch (archive.$key) {
-          case 'ascii':
-            return archive.$value;
-
-          default:
-            return null;
-        }
-      }
-    }
-    return null;
-  }
-
-  /**
-   * Parse paragraph alignment (not used at the moment)
-   */
   transformParagraphStyle(node: SketchMSLayer) {
     const obj = node.style.textStyle.encodedAttributes;
     if (obj.hasOwnProperty('NSParagraphStyle')) {
+      // TODO: Handle legacy
       // const archive = this.binaryPlistParser.parse64Content(scope.style.textStyle.encodedAttributes.NSParagraphStyle._archive);
       // (scope.style.textStyle.encodedAttributes.NSParagraphStyle as any)._transformed = archive;
+      return {};
     }
     return {};
   }
 
-  /**
-   * Parse text colors, if nothing is found
-   * fallback to black color
-   */
   transformTextColor(node: SketchMSLayer) {
     const obj = node.style.textStyle.encodedAttributes;
     if (obj.hasOwnProperty('MSAttributedStringColorAttribute')) {
@@ -200,7 +208,8 @@ export class SketchStyleParserService {
         ).rgba
       };
     } else if (obj.hasOwnProperty('NSColor')) {
-      const archive = this.binaryPlistParser.parse64Content(obj.NSColor._archive);
+      // TODO: Handle legacy
+      // const archive = this.binaryPlistParser.parse64Content(obj.NSColor._archive);
       // (scope.style.textStyle.encodedAttributes.NSColor as any)._transformed = archive;
       return {};
     }
@@ -209,6 +218,9 @@ export class SketchStyleParserService {
     };
   }
 
+  /**
+   * Translate blur to CSS
+   */
   transformBlur(node: SketchMSStyle) {
     const obj = node.blur;
     return obj || obj.radius > 0 ? {

@@ -4,7 +4,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { Store } from '@ngxs/store';
 import { InformUser } from 'src/app/core/state';
 import { environment } from 'src/environments/environment';
-import { SketchStyleParserService } from './parsers/sketch-style-parser.service';
+import { SketchStyleParserService, SketchASTPage } from './parsers/sketch-style-parser.service';
 import { AngularSketchModule } from './sketch.module';
 
 export interface SketchUser {
@@ -16,6 +16,7 @@ export interface SketchUser {
 }
 
 export interface SketchData {
+  ast: SketchASTPage;
   pages: Array<SketchMSPage>;
   previews: Array<{ source: string; width: number; height: number }>;
   document: SketchMSDocumentData;
@@ -47,7 +48,7 @@ export class SketchService {
   async process(file: File) {
     try {
       this._data = await this.sketch2Json(file);
-      this.sketchStyleParser.process(this._data);
+      this._data.ast = this.sketchStyleParser.process(this._data);
     } catch (e) {
       this.store.dispatch(
         new InformUser(
