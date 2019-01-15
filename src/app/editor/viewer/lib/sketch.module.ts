@@ -10,6 +10,7 @@ import { SketchPageComponent } from './sketch-page.component';
 import { SketchSelectDemoFilesComponent } from './sketch-select-demo-files.component';
 import { SketchStopEventPropagationDirective } from './sketch-stop-event-propagation.directive';
 import { SketchTooltilDirective } from './sketch-tooltip.directive';
+import { SketchService } from './sketch.service';
 
 @NgModule({
   imports: [CoreModule],
@@ -30,6 +31,9 @@ import { SketchTooltilDirective } from './sketch-tooltip.directive';
     SketchContainerComponent,
     SketchSelectedLayerDirective,
     SketchSelectDemoFilesComponent
+  ],
+  providers: [
+    SketchService
   ]
 })
 export class AngularSketchModule {}

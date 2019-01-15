@@ -8,7 +8,10 @@ describe('WCCodeGenService', () => {
     });
   });
 
-  it('should be created', inject([WCCodeGenService], (service: WCCodeGenService) => {
-    expect(service).toBeTruthy();
-  }));
+  it('should be created', inject(
+    [WCCodeGenService],
+    (service: WCCodeGenService) => {
+      expect(service).toBeTruthy();
+    }
+  ));
 });

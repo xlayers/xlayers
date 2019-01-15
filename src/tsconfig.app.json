@@ -3,7 +3,7 @@
   "compilerOptions": {
     "outDir": "../out-tsc/app",
     "module": "es2015",
-    "types": ["node"]
+    "types": ["node", "sketchapp"]
   },
   "exclude": ["src/test.ts", "**/*.spec.ts"]
 }
