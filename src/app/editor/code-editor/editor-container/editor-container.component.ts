@@ -18,6 +18,10 @@ const githubIssueLink = 'https://github.com/xlayers/xlayers/issues/new?assignees
         <mat-icon svgIcon="angular"></mat-icon>
         <span>Angular</span>
       </button>
+      <button mat-menu-item (click)="generateVue()">
+        <mat-icon svgIcon="vue"></mat-icon>
+        <span>Vue</span>
+      </button>
       <button mat-menu-item (click)="generateReact()">
         <mat-icon svgIcon="react"></mat-icon>
         <span>React</span>
