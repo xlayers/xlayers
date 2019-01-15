@@ -66,6 +66,16 @@ ${codeBlock}
     return (
       '' +
       `
+import { shallowMount } from "@vue/test-utils";
+import Xlayers from "@/components/Xlayers.vue";
+
+describe("Xlayers.vue", () => {
+  it("render", () => {
+    const wrapper = shallowMount(Xlayers, {});
+    expect(wrapper.isVueInstance()).toBeTruthy();
+  });
+});
+
       `
     );
   }
