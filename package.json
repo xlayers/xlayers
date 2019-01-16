@@ -32,6 +32,8 @@
     "@angular/pwa": "0.10.6",
     "@angular/router": "^7.1.0",
     "@angular/service-worker": "^7.1.0",
+    "@bugsnag/js": "^5.1.0",
+    "@bugsnag/plugin-angular": "^5.1.0",
     "@ngxs/store": "^3.3.0",
     "@stackblitz/sdk": "^1.2.0",
     "@types/file-saver": "^2.0.0",
