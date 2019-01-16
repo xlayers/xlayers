@@ -24,7 +24,8 @@ export const routes: Route[] = [{
     HttpClientModule,
     NoopAnimationsModule,
     RouterModule.forRoot(routes, { useHash: true }),
-    ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production })
+    // TODO(manekinekko): enable SW support when it's stable
+    // ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production })
   ],
   bootstrap: [AppComponent]
 })
