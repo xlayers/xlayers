@@ -45,19 +45,11 @@ export class SketchService {
   }
 
   async process(file: File) {
-    try {
-      this._data = await this.sketch2Json(file);
-      if (this.sketchStyleParser.visit(this._data) === SupportScore.LEGACY) {
-        this.store.dispatch(
-          new InformUser(
-            'The design was created using a legacy version so the result may not be accurate.'
-          )
-        );
-      }
-    } catch (e) {
+    this._data = await this.sketch2Json(file);
+    if (this.sketchStyleParser.visit(this._data) === SupportScore.LEGACY) {
       this.store.dispatch(
         new InformUser(
-          'The design was created using an unsupported version.'
+          'The design was created using a legacy version of SketchApp, so the result may not be accurate.'
         )
       );
     }
@@ -65,22 +57,30 @@ export class SketchService {
   }
 
   async readZipEntries(file) {
-    return new Promise<any>((resolve, reject) => {
+    return new Promise<any[]>((resolve, reject) => {
       const reader = new FileReader();
-      reader.onload = async readerEvent => {
+      reader.onload = readerEvent => {
         const data = (readerEvent.target as FileReader).result;
-        const zip = await window['JSZip'].loadAsync(data);
-        const zips = [];
-        zip.forEach((relativePath, zipEntry) => {
-          zips.push({ relativePath, zipEntry });
-        });
-        resolve(zips);
+        window['JSZip']
+          .loadAsync(data)
+          .then(zip => {
+            const zips = [];
+            zip.forEach((relativePath, zipEntry) => {
+              zips.push({ relativePath, zipEntry });
+            });
+            resolve(zips);
+          })
+          .catch(e => {
+            reject(e);
+          });
       };
-
+      reader.onerror = e => {
+        reject(e);
+      };
       try {
         reader.readAsArrayBuffer(file);
-      } catch (e) {
-        reject(e);
+      } catch (error) {
+        reject(error);
       }
     });
   }
@@ -106,6 +106,7 @@ export class SketchService {
       user: {},
       meta: {}
     } as any;
+
     const zips = await this.readZipEntries(file);
 
     await Promise.all(

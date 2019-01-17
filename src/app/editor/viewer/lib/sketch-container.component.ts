@@ -81,7 +81,7 @@ export class SketchContainerComponent implements OnInit {
     } catch (e) {
       this.store.dispatch(
         new InformUser(
-          'Only .sketch files that were saved using Sketch v43 and above are supported.'
+          'The design was created using an unsupported version of SketchApp.'
         )
       );
     }
