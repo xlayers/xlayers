@@ -178,8 +178,8 @@ export class SketchStyleParserService {
     };
   }
 
-  transformSymbolMaster(layer: SketchMSSymbolMaster) {
-    const obj = layer.backgroundColor;
+  transformSymbolMaster(node: SketchMSSymbolMaster) {
+    const obj = node.backgroundColor;
     return {
       'background-color': this.parseColors(obj).rgba
     };
@@ -235,9 +235,6 @@ export class SketchStyleParserService {
     };
   }
 
-  /**
-   * Translate blur to CSS
-   */
   transformBlur(node: SketchMSStyle) {
     const obj = node.blur;
     return obj && obj.radius > 0 ? {
