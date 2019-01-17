@@ -36,13 +36,9 @@ describe('SketchStyleParserService', () => {
           }
         }
       } as any;
-      const root = {};
-      sketchStyleParserService.parseTextFont(obj, root);
-      expect(root).toEqual({
-        css: {
-          'font-family': 'Roboto-Medium, \'Roboto\', sans-serif',
-          'font-size': '14px',
-        },
+      expect(sketchStyleParserService.transformTextFont(obj)).toEqual({
+        'font-family': '\'Roboto-Medium\', \'Roboto\', \'sans-serif\'',
+        'font-size': '14px',
       });
     });
 
@@ -57,9 +53,7 @@ describe('SketchStyleParserService', () => {
           }
         }
       } as SketchMSLayer;
-      const root = {};
-      sketchStyleParserService.parseTextFont(obj, root);
-      expect(root).toEqual({});
+      expect(sketchStyleParserService.transformTextFont(obj)).toEqual({});
     });
 
     it('should parse color', () => {
@@ -77,12 +71,8 @@ describe('SketchStyleParserService', () => {
           }
         }
       } as SketchMSLayer;
-      const root = {};
-      sketchStyleParserService.parseTextColor(obj, root);
-      expect(root).toEqual({
-        css: {
-          color: 'rgba(255,82,166,0.4)'
-        },
+      expect(sketchStyleParserService.transformTextColor(obj)).toEqual({
+        color: 'rgba(255,82,166,0.4)'
       });
     });
 
@@ -94,12 +84,8 @@ describe('SketchStyleParserService', () => {
           }
         }
       } as SketchMSLayer;
-      const root = {};
-      sketchStyleParserService.parseTextColor(obj, root);
-      expect(root).toEqual({
-        css: {
-          color: 'black'
-        },
+      expect(sketchStyleParserService.transformTextColor(obj)).toEqual({
+        color: 'black'
       });
     });
   });
@@ -161,39 +147,29 @@ describe('SketchStyleParserService', () => {
         color: getSketchColorMock()
       }]
     } as SketchMSStyle;
-    const root = {};
-    sketchStyleParserService.parseShadows(obj, root);
     const color = sketchStyleParserService['parseColors'](obj.shadows[0].color);
-    expect(root).toEqual({ css: { 'box-shadow': `123px 53px 12px 23px ${color.rgba}` } });
+    expect(sketchStyleParserService.transformShadows(obj)).toEqual({ 'box-shadow': `123px 53px 12px 23px ${color.rgba}`});
   });
 
   describe('when parse blur', () => {
     it('should parse positive radius blur', () => {
       const obj = {blur: {radius: 96}} as SketchMSStyle;
-      const root = {};
-      sketchStyleParserService.parseBlur(obj, root);
-      expect(root).toEqual({ css: { filter: `blur(${obj.blur.radius}px);` } });
+      expect(sketchStyleParserService.transformBlur(obj)).toEqual({filter: `blur(${obj.blur.radius}px);`});
     });
 
     it('should skip for negative blur radius', () => {
       const obj = {blur: {radius: -123}} as SketchMSStyle;
-      const root = {};
-      sketchStyleParserService['parseBlur'](obj, root);
-      expect(root).toEqual({});
+      expect(sketchStyleParserService.transformBlur(obj)).toEqual({});
     });
 
     it('should skip for 0 blur radius', () => {
       const obj = {blur: {radius: 0}} as SketchMSStyle;
-      const root = {};
-      sketchStyleParserService['parseBlur'](obj, root);
-      expect(root).toEqual({});
+      expect(sketchStyleParserService.transformBlur(obj)).toEqual({});
     });
 
     it('should skip on undefined blur', () => {
       const obj = {} as SketchMSStyle;
-      const root = {};
-      sketchStyleParserService['parseBlur'](obj, root);
-      expect(root).toEqual({});
+      expect(sketchStyleParserService.transformBlur(obj)).toEqual({});
     });
   });
 
@@ -206,10 +182,8 @@ describe('SketchStyleParserService', () => {
           color: getSketchColorMock()
         }]
       } as SketchMSStyle;
-      const root = {};
-      sketchStyleParserService['parseBorders'](obj, root);
       const color = sketchStyleParserService['parseColors'](obj.borders[0].color);
-      expect(root).toEqual({ css: { 'box-shadow': `0 0 0 129px ${color.rgba}`}});
+      expect(sketchStyleParserService.transformBorders(obj)).toEqual({'box-shadow': `0 0 0 129px ${color.rgba}`});
     });
 
     it('should skip for negative thickness border', () => {
@@ -220,9 +194,7 @@ describe('SketchStyleParserService', () => {
           color: getSketchColorMock()
         }]
       } as SketchMSStyle;
-      const root = {};
-      sketchStyleParserService['parseBorders'](obj, root);
-      expect(root).toEqual({});
+      expect(sketchStyleParserService.transformBorders(obj)).toEqual({});
     });
 
     it('should set inet for boder type inside', () => {
@@ -233,10 +205,8 @@ describe('SketchStyleParserService', () => {
           color: getSketchColorMock()
         }]
       } as SketchMSStyle;
-      const root = {};
-      sketchStyleParserService['parseBorders'](obj, root);
       const color = sketchStyleParserService['parseColors'](obj.borders[0].color);
-      expect(root).toEqual({css: {'box-shadow': `0 0 0 129px ${color.rgba} inset`}});
+      expect(sketchStyleParserService.transformBorders(obj)).toEqual({'box-shadow': `0 0 0 129px ${color.rgba} inset`});
     });
 
     it('should skip fallback to default on center position', () => {
@@ -247,10 +217,8 @@ describe('SketchStyleParserService', () => {
           color: getSketchColorMock()
         }]
       } as SketchMSStyle;
-      const root = {};
-      sketchStyleParserService['parseBorders'](obj, root);
       const color = sketchStyleParserService['parseColors'](obj.borders[0].color);
-      expect(root).toEqual({css: {'box-shadow': `0 0 0 129px ${color.rgba}`}});
+      expect(sketchStyleParserService.transformBorders(obj)).toEqual({'box-shadow': `0 0 0 129px ${color.rgba}`});
     });
 
     it('should skip fallback to default on outside position', () => {
@@ -261,24 +229,18 @@ describe('SketchStyleParserService', () => {
           color: getSketchColorMock()
         }]
       } as SketchMSStyle;
-      const root = {};
-      sketchStyleParserService['parseBorders'](obj, root);
       const color = sketchStyleParserService['parseColors'](obj.borders[0].color);
-      expect(root).toEqual({css: {'box-shadow': `0 0 0 129px ${color.rgba}`}});
+      expect(sketchStyleParserService.transformBorders(obj)).toEqual({'box-shadow': `0 0 0 129px ${color.rgba}`});
     });
 
     it('should skip on empty border', () => {
       const obj = {borders: []} as SketchMSStyle;
-      const root = {};
-      sketchStyleParserService['parseBorders'](obj, root);
-      expect(root).toEqual({});
+      expect(sketchStyleParserService.transformBorders(obj)).toEqual({});
     });
 
     it('should skip on undefined border', () => {
       const obj = {} as SketchMSStyle;
-      const root = {};
-      sketchStyleParserService['parseBorders'](obj, root);
-      expect(root).toEqual({});
+      expect(sketchStyleParserService.transformBorders(obj)).toEqual({});
     });
   });
 
@@ -295,15 +257,11 @@ describe('SketchStyleParserService', () => {
           }
         }]
       } as SketchMSStyle;
-      const root = {};
-      sketchStyleParserService.parseFills(obj, root);
       const color = sketchStyleParserService['parseColors'](obj.fills[0].color);
       const colorStop = sketchStyleParserService['parseColors'](obj.fills[0].gradient.stops[0].color);
-      expect(root).toEqual({
-        css: {
-          'background-color': color.rgba,
-          'background': `linear-gradient(90deg, ${colorStop.rgba} 83.5923120242395%)`
-        }
+      expect(sketchStyleParserService.transformFills(obj)).toEqual({
+        'background-color': color.rgba,
+        'background': `linear-gradient(90deg, ${colorStop.rgba} 83.5923120242395%)`
       });
     });
 
@@ -319,15 +277,11 @@ describe('SketchStyleParserService', () => {
           }
         }]
       } as SketchMSStyle;
-      const root = {};
-      sketchStyleParserService.parseFills(obj, root);
       const color = sketchStyleParserService['parseColors'](obj.fills[0].color);
       const colorStop = sketchStyleParserService['parseColors'](obj.fills[0].gradient.stops[0].color);
-      expect(root).toEqual({
-        css: {
-          'background-color': color.rgba,
-          'background': `linear-gradient(90deg, ${colorStop.rgba})`
-        }
+      expect(sketchStyleParserService.transformFills(obj)).toEqual({
+        'background-color': color.rgba,
+        'background': `linear-gradient(90deg, ${colorStop.rgba})`
       });
     });
 
@@ -343,15 +297,11 @@ describe('SketchStyleParserService', () => {
           }
         }]
       } as SketchMSStyle;
-      const root = {};
-      sketchStyleParserService.parseFills(obj, root);
       const color = sketchStyleParserService['parseColors'](obj.fills[0].color);
       const colorStop = sketchStyleParserService['parseColors'](obj.fills[0].gradient.stops[0].color);
-      expect(root).toEqual({
-        css: {
-          'background-color': color.rgba,
-          'background': `linear-gradient(90deg, ${colorStop.rgba})`
-        }
+      expect(sketchStyleParserService.transformFills(obj)).toEqual({
+        'background-color': color.rgba,
+        'background': `linear-gradient(90deg, ${colorStop.rgba})`
       });
     });
   });
