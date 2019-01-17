@@ -48,9 +48,9 @@ export class SketchStyleParserService {
       return SupportScore.UNKNOWN;
     } else if (ver < 49) {
       return SupportScore.DROPPED;
-    } else if (ver >= 49 && ver < 52) {
+    } else if (ver >= 49 && ver < 50) {
       return SupportScore.LEGACY;
-    } else if (ver === 52) {
+    } else if (ver >= 50) {
       return SupportScore.LATEST;
     } else {
       return SupportScore.EDGE;
