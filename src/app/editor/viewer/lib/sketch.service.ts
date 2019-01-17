@@ -4,7 +4,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { Store } from '@ngxs/store';
 import { InformUser } from 'src/app/core/state';
 import { environment } from 'src/environments/environment';
-import { SketchStyleParserService } from './parsers/sketch-style-parser.service';
+import { SketchStyleParserService, SupportScore } from './parsers/sketch-style-parser.service';
 import { AngularSketchModule } from './sketch.module';
 
 export interface SketchUser {
@@ -31,7 +31,7 @@ export class SketchService {
 
   constructor(
     private sanitizer: DomSanitizer,
-    private sketchColorParser: SketchStyleParserService,
+    private sketchStyleParser: SketchStyleParserService,
     private http: HttpClient,
     private store: Store
   ) {
@@ -47,23 +47,25 @@ export class SketchService {
   async process(file: File) {
     try {
       this._data = await this.sketch2Json(file);
-      this.parseColors(this._data.pages);
+      if (this.sketchStyleParser.visit(this._data) === SupportScore.LEGACY) {
+        this.store.dispatch(
+          new InformUser(
+            'The design was created using a legacy version so the result may not be accurate.'
+          )
+        );
+      }
     } catch (e) {
       this.store.dispatch(
         new InformUser(
-          'The design was created using an unsupported version so the result may not be accurate.'
+          'The design was created using an unsupported version.'
         )
       );
     }
     return this._data;
   }
 
-  parseColors(pages: Array<SketchMSPage>) {
-    this.sketchColorParser.visit(pages);
-  }
-
   async readZipEntries(file) {
-    return new Promise<any>(resolve => {
+    return new Promise<any>((resolve, reject) => {
       const reader = new FileReader();
       reader.onload = async readerEvent => {
         const data = (readerEvent.target as FileReader).result;
@@ -74,7 +76,12 @@ export class SketchService {
         });
         resolve(zips);
       };
-      reader.readAsArrayBuffer(file);
+
+      try {
+        reader.readAsArrayBuffer(file);
+      } catch (e) {
+        reject(e);
+      }
     });
   }
 
@@ -92,61 +99,59 @@ export class SketchService {
   }
 
   async sketch2Json(file) {
-    return new Promise<SketchData>(async (resolve, reject) => {
-      const _data: SketchData = {
-        pages: [],
-        previews: [],
-        document: {},
-        user: {},
-        meta: {}
-      } as any;
-      const zips = await this.readZipEntries(file);
+    const _data: SketchData = {
+      pages: [],
+      previews: [],
+      document: {},
+      user: {},
+      meta: {}
+    } as any;
+    const zips = await this.readZipEntries(file);
 
-      await Promise.all(
-        zips.map(async ({ relativePath, zipEntry }) => {
-          if (relativePath === 'previews/preview.png') {
-            const content = await zipEntry.async('base64');
-            const source = `data:image/png;base64,${content}`;
-            const image = await this.computeImage(source);
-            _data.previews.push({
-              source,
-              width: image.width,
-              height: image.height
-            });
-          } else if (relativePath.startsWith('pages/')) {
-            const content = await zipEntry.async('string');
+    await Promise.all(
+      zips.map(async ({ relativePath, zipEntry }) => {
+        if (relativePath === 'previews/preview.png') {
+          const content = await zipEntry.async('base64');
+          const source = `data:image/png;base64,${content}`;
+          const image = await this.computeImage(source);
+          _data.previews.push({
+            source,
+            width: image.width,
+            height: image.height
+          });
+        } else if (relativePath.startsWith('pages/')) {
+          const content = await zipEntry.async('string');
 
-            try {
-              const page = JSON.parse(content) as SketchMSPage;
-              _data.pages.push(page);
-            } catch (e) {
-              reject('Could not load page');
-            }
-          } else if (relativePath.startsWith('images/')) {
-            const blob = await zipEntry.async('blob');
-            const objectUrl = URL.createObjectURL(blob);
-            // @todo deal with SafeResourceUrl!!
-            const source = this.sanitizer
-              .bypassSecurityTrustResourceUrl(objectUrl)
-              .toString();
-            const image = await this.computeImage(source);
-            _data.previews.push({
-              source: objectUrl,
-              width: image.width,
-              height: image.height
-            });
-          } else {
-            // document.json
-            // user.json
-            // meta.json
-            const content = await zipEntry.async('string');
-            _data[relativePath.replace('.json', '')] = JSON.parse(content);
+          try {
+            const page = JSON.parse(content) as SketchMSPage;
+            _data.pages.push(page);
+          } catch (e) {
+            throw new Error('Could not load page');
           }
-        })
-      );
+        } else if (relativePath.startsWith('images/')) {
+          const blob = await zipEntry.async('blob');
+          const objectUrl = URL.createObjectURL(blob);
+          // @todo deal with SafeResourceUrl!!
+          const source = this.sanitizer
+            .bypassSecurityTrustResourceUrl(objectUrl)
+            .toString();
+          const image = await this.computeImage(source);
+          _data.previews.push({
+            source: objectUrl,
+            width: image.width,
+            height: image.height
+          });
+        } else {
+          // document.json
+          // user.json
+          // meta.json
+          const content = await zipEntry.async('string');
+          _data[relativePath.replace('.json', '')] = JSON.parse(content);
+        }
+      })
+    );
 
-      resolve(_data);
-    });
+    return _data;
   }
 
   getPages(): SketchMSPage[] {
