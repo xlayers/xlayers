@@ -21,34 +21,44 @@ describe('SketchService', () => {
     sketchService = TestBed.get(SketchService);
   });
 
-  it('should process file', (done: DoneFn) => {
+  it('should convert sketch to json', (done: DoneFn) => {
     const file = {
       lastModified: new Date('2018-11-21T15:52:43.644Z').valueOf(),
       name: 'mock-file'
     } as File;
-    const data = {
-      previews: [{}],
-      pages: [
-        {
-          do_objectID: `page-layer`,
-          _class: 'page',
-          layers: [{
-            do_objectID: `layer-0-id`,
-            _class: 'layer',
-            layers: [],
-            frame: getFrameMock(982, 240),
-            name: `layer-0`
-          }],
-          frame: getFrameMock(824, 918),
-          name: `page-layer`
+    spyOn(sketchService, 'computeImage').and.returnValue({
+      width: 20,
+      height: 10
+    });
+    spyOn(sketchService, 'readZipEntries').and.returnValue([{
+      relativePath: 'previews/preview.png',
+      zipEntry: {
+        async() {
+          return 'previews-data';
         }
-      ]
-    } as SketchData;
-    spyOn(sketchService, 'sketch2Json').and.returnValue(
-      Promise.resolve(data)
-    );
-    sketchService.process(file).then(element => {
-      expect(element).toBe(data);
+      }
+    }, {
+      relativePath: 'pages/somepage.json',
+      zipEntry: {
+        async() {
+          return '{"data": "previews-data"}';
+        }
+      }
+    }]);
+    sketchService.sketch2Json(file).then(element => {
+      expect(element).toEqual({
+        pages: [{
+          data: 'previews-data'
+        }],
+        previews: [{
+          height: 10,
+          width: 20,
+          source: 'data:image/png;base64,previews-data'
+        }],
+        document: {},
+        user: {},
+        meta: {}
+      });
       done();
     });
   });
