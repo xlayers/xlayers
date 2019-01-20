@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { CodeGenFacade, XlayersNgxEditorModel } from '../codegen.service';
 import { SharedCodegen } from '../shared-codegen.service';
-import { componentTemplate , testE2ETemplate , unitTestTemplate} from './stencil.component.templates';
+import { componentTemplate , readmeTemplate, testE2ETemplate , unitTestTemplate} from './stencil.template';
 
 
 
@@ -16,7 +16,7 @@ export class StencilCodeGenService implements CodeGenFacade {
       {
         uri: 'README.md',
         value: this.generateReadme(),
-        language: 'text/plain',
+        language: 'markdown',
         kind: 'text'
       },
       {
@@ -47,10 +47,10 @@ export class StencilCodeGenService implements CodeGenFacade {
   }
 
   private generateReadme() {
-    return ``;
+    return readmeTemplate();
   }
 
   private generateComponent(ast: SketchMSLayer) {
-    return componentTemplate(this.sharedCodegen.generateComponentTemplate(ast, 1));
+    return componentTemplate(this.sharedCodegen.generateComponentTemplate(ast, 0));
   }
 }

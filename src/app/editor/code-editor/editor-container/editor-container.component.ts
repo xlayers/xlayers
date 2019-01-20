@@ -31,6 +31,10 @@ const githubIssueLink = 'https://github.com/xlayers/xlayers/issues/new?assignees
         <mat-icon svgIcon="wc"></mat-icon>
         <span>Web Component</span>
       </button>
+      <button mat-menu-item (click)="generateStencil()">
+        <mat-icon svgIcon="stencil"></mat-icon>
+        <span>Stencil</span>
+      </button>
       <a class="request-new-library" target="__blank" href="${githubIssueLink}">
         <span>Add a new library!</span>
       </a>

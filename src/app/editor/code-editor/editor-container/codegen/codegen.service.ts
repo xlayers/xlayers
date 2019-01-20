@@ -125,6 +125,7 @@ export class CodeGenService {
         this.trackFrameworkKind('Web Components');
         return this.addHeaderInfo(this.wc.generate(this.ast));
       case CodeGenService.Kind.Stencil:
+        this.trackFrameworkKind('StencilJS');
         return this.addHeaderInfo(this.stencil.generate(this.ast));
     }
   }
