@@ -1,6 +1,5 @@
-
 export const componentTemplate = (ast) => {
-  return  `
+  return `
   import { Component } from '@stencil/core';
 
   @Component({
@@ -15,15 +14,13 @@ export const componentTemplate = (ast) => {
   }`;
 };
 
-
 export const testE2ETemplate = () => {
-  return  `
+  return `
   import { newE2EPage } from '@stencil/core/testing';
 
 describe('x-layers-component', () => {
   it('renders', async () => {
     const page = await newE2EPage();
-
     await page.setContent('<x-layers-component></x-layers-component>');
     const element = await page.find('x-layers-component');
     expect(element).toHaveClass('hydrated');
@@ -32,7 +29,7 @@ describe('x-layers-component', () => {
 };
 
 export const unitTestTemplate = () => {
-  return  `
+  return `
   import { newE2EPage } from '@stencil/core/testing';
 
 describe('x-layers-component', () => {
@@ -46,8 +43,22 @@ describe('x-layers-component', () => {
 });`;
 };
 
+export const readmeTemplate = () => {
+  const codeBlock = '```';
+  return `
+## How to use the Xlayers StencilJS Web Components
 
+This implementation export all assets needed to build stenciljs component
 
+Simple use :
+${codeBlock}
+  // index.html
+  <script src="./x-layers-element.js"></script>
+  <x-layers-element></x-layers-element>
+${codeBlock}
 
+For more examples how to integrate into your application, view [Framework Integrations](https://stenciljs.com/docs/overview)
 
-
+>  For more information about [Stenciljs](https://stenciljs.com/)
+  `;
+};
