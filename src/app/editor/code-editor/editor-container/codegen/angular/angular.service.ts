@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { CodeGenFacade, XlayersNgxEditorModel } from '../codegen.service';
-import { SharedCodegen } from '../shared-codegen.service';
+import { SharedCodegen, Template } from '../shared-codegen.service';
 
 @Injectable({
   providedIn: 'root'
@@ -25,7 +25,7 @@ export class AngularCodeGenService implements CodeGenFacade {
       },
       {
         uri: 'xlayers.component.html',
-        value: this.sharedCodegen.generateComponentTemplate(ast, /* CodeGenService.Kind.Angular */ 1),
+        value: this.sharedCodegen.generateComponentTemplate(ast, Template.HTML),
         language: 'html',
         kind: 'angular'
       },
@@ -46,12 +46,50 @@ export class AngularCodeGenService implements CodeGenFacade {
         value: this.generateModule(),
         language: 'typescript',
         kind: 'angular'
+      },
+      {
+        uri: 'xlayers-routing.module.ts',
+        value: this.generateRoutingModule(),
+        language: 'typescript',
+        kind: 'angular'
       }
     ];
   }
 
   private generateReadme() {
-    return ``;
+    const codeBlock = '```';
+    return `
+## How to use the Xlayers Angular module
+
+1. Download and extract the exported module into your workspace,
+
+2. Option #1: Import eagerly the XlayersModule into your AppModule or other module.
+${codeBlock}
+import { XlayersModule } from './xlayers/xlayers.module';
+@NgModule({
+  imports: [
+    XlayersModule,
+    ...
+  ],
+})
+export class AppModule {}
+${codeBlock}
+
+2. Option #2: Import lazily the XlayersModule routing configuration into your AppModule or other module.
+Make sure your router is setup properly in order to use this option (see: https://angular.io/guide/lazy-loading-ngmodules).
+${codeBlock}
+import { XlayersRoutingModule } from './xlayers/xlayers-routing.module';
+@NgModule({
+  imports: [
+    XlayersRoutingModule,
+    ...
+  ],
+})
+export class AppModule {}
+${codeBlock}
+
+3. Enjoy.
+`;
   }
 
   private generateModule() {
@@ -74,6 +112,27 @@ import { XlayersComponent } from './xlayers.component';
   ]
 })
 export class XlayersModule { }
+    `
+    );
+  }
+
+  private generateRoutingModule() {
+    return (
+      '' +
+      `
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+
+const xlayersRoutes: Routes = [{
+  path: 'xlayers',
+  loadChildren: 'app/xlayers/xlayers.module#XlayersModule'
+}];
+
+@NgModule({
+  imports: [ RouterModule.forChild(xlayersRoutes) ],
+  exports: [ RouterModule ]
+})
+export class XlayersRoutingModule {}
     `
     );
   }

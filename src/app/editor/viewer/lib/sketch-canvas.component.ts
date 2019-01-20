@@ -10,6 +10,8 @@ import {
 import { Store } from '@ngxs/store';
 import { UiState } from 'src/app/core/state';
 import { SketchData } from './sketch.service';
+import { CdkDragStart, CdkDragEnd, CdkDragMove } from '@angular/cdk/drag-drop';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'sketch-canvas',
@@ -17,6 +19,9 @@ import { SketchData } from './sketch.service';
     <div
       class="canvas"
       cdkDrag
+      (cdkDragMoved)="OnCdkDragMoved($event)"
+      (cdkDragStarted)="OnCdkDragStarted($event)"
+      (cdkDragEnded)="OnCdkDragEnded($event)"
       (started)="dragStart($event)"
       (ended)="dragEnd($event)"
       (moved)="dragging($event)"
@@ -39,9 +44,8 @@ import { SketchData } from './sketch.service';
     `
       :host {
         width: 100%;
-        height: 100%;
+        height: calc(100% - 64px);
         transform: none;
-        overflow: visible;
         transform-style: preserve-3d;
         transition: transform 1s;
       }
@@ -80,7 +84,7 @@ export class SketchCanvasComponent implements OnInit, AfterViewInit {
   positionY: number;
   originPositionX: number;
   originPositionY: number;
-
+  currentZoomLevel: number;
   data: SketchData;
 
   constructor(
@@ -105,12 +109,26 @@ export class SketchCanvasComponent implements OnInit, AfterViewInit {
     });
     this.store.select(UiState.zoomLevel).subscribe(zoomLevel => {
       if (this.canvasRef && this.canvasRef.nativeElement) {
-        this.canvasRef.nativeElement.style.transform = `translate3d(-50%, 50%, 0px) scale(${zoomLevel})`;
+        this.canvasRef.nativeElement.style.transform = this.formatTransformStyle(
+          this.canvasRef.nativeElement.style.transform,
+          zoomLevel
+        );
+        this.currentZoomLevel = zoomLevel;
       }
     });
     const current = this.canvasRef.nativeElement.getBoundingClientRect();
     this.positionX = current.left - 100;
     this.positionY = current.top;
+  }
+
+  formatTransformStyle(existingTransformStyle: string, zoomLevel) {
+    const scaleStyleRegex = /(\([ ]?[\d]+(\.[\d]+)?[ ]?(,[ ]?[\d]+(\.[\d]+)?[ ]?)?\))/gmi;
+    return scaleStyleRegex.test(existingTransformStyle)
+      ? existingTransformStyle.replace(
+          scaleStyleRegex,
+          `(${zoomLevel},${zoomLevel})`
+        )
+      : existingTransformStyle + ` scale(${zoomLevel},${zoomLevel})`;
   }
 
   ngAfterViewInit() {
@@ -132,5 +150,36 @@ export class SketchCanvasComponent implements OnInit, AfterViewInit {
   dragEnd(event: DragEvent) {
     this.originPositionX += event.x;
     this.originPositionY += event.y;
+  }
+
+ /**
+  * cdk overrides existing transform style and replace it by its own. We detect
+  * if there is any existing scale propery in transform, then replace its value by current zoom level in both
+  * drag started & ended event
+  */
+  OnCdkDragStarted(event: CdkDragStart) {
+    event.source.element.nativeElement.style.transform = this.formatTransformStyle(
+      event.source.element.nativeElement.style.transform,
+      this.currentZoomLevel
+    );
+  }
+
+  OnCdkDragEnded(event: CdkDragEnd) {
+    event.source.element.nativeElement.style.transform = this.formatTransformStyle(
+      event.source.element.nativeElement.style.transform,
+      this.currentZoomLevel
+    );
+  }
+
+  /**
+   * Keep dragging element's transform style updated with currentZoomLeve, while it is moved.
+   * @param event Observable<CdkDragMove<CdkDrag>>
+   */
+  OnCdkDragMoved(event: Observable<CdkDragMove<any>>) {
+    const sourceElement: any = event.source;
+    sourceElement.element.nativeElement.style.transform = this.formatTransformStyle(
+      sourceElement.element.nativeElement.style.transform,
+      this.currentZoomLevel
+    );
   }
 }

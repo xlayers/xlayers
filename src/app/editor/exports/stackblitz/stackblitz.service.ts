@@ -67,7 +67,7 @@ export class ExportStackblitzService {
       description: project.description || 'xLayers generated project',
       template: project.template,
       // tags: ['xlayers', ...project.tags],
-      // dependencies: project.dependencies || {}
+      dependencies: project.dependencies || {}
     });
   }
 }

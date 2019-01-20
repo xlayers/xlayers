@@ -9,6 +9,8 @@ import { Store } from '@ngxs/store';
 import { UiState } from 'src/app/core/state';
 import { environment } from 'src/environments/environment.hmr';
 
+declare var gtag;
+
 export interface XlayersNgxEditorModel extends NgxEditorModel {
   kind: 'angular' | 'react' | 'vue' | 'wc' | 'stencil' | 'html' | 'text';
 }
@@ -100,15 +102,27 @@ export class CodeGenService {
     return addCssClassNames(ast);
   }
 
+  trackFrameworkKind(kind: string) {
+    gtag('event', 'code_gen', {
+      'event_category': 'web',
+      'event_label': kind
+    });
+  }
+
   generate(kind: number): Array<XlayersNgxEditorModel> {
+
     switch (kind) {
       case CodeGenService.Kind.Angular:
+        this.trackFrameworkKind('Angular');
         return this.addHeaderInfo(this.angular.generate(this.ast));
       case CodeGenService.Kind.React:
+        this.trackFrameworkKind('React');
         return this.addHeaderInfo(this.react.generate(this.ast));
       case CodeGenService.Kind.Vue:
+        this.trackFrameworkKind('Vue');
         return this.addHeaderInfo(this.vue.generate(this.ast));
       case CodeGenService.Kind.WC:
+        this.trackFrameworkKind('Web Components');
         return this.addHeaderInfo(this.wc.generate(this.ast));
       case CodeGenService.Kind.Stencil:
         return this.addHeaderInfo(this.stencil.generate(this.ast));

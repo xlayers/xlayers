@@ -3,6 +3,9 @@ import { CodeGenService, XlayersNgxEditorModel } from './codegen/codegen.service
 import { CodeGen } from 'src/app/core/state/page.state';
 import { Store } from '@ngxs/store';
 
+// tslint:disable-next-line
+const githubIssueLink = 'https://github.com/xlayers/xlayers/issues/new?assignees=&labels=type%3A+question+%2F+discussion+%2F+RFC%2C+Scope%3A+CodeGen&template=codegen--add-xxxxx-support.md&title=CodeGen%3A+add+XXXXX+support';
+
 @Component({
   selector: 'sketch-editor-container',
   template: `
@@ -19,18 +22,18 @@ import { Store } from '@ngxs/store';
         <mat-icon svgIcon="react"></mat-icon>
         <span>React</span>
       </button>
-      <button mat-menu-item (click)="generateVue()">
+      <!-- uncomment this when Vue codegen is ready -->
+      <!--<button mat-menu-item (click)="generateVue()">
         <mat-icon svgIcon="vue"></mat-icon>
         <span>Vue</span>
-      </button>
-      <button mat-menu-item (click)="generateStencil()">
-        <mat-icon svgIcon="stencil"></mat-icon>
-        <span>Stencil</span>
-      </button>
+      </button>-->
       <button mat-menu-item (click)="generateWc()">
         <mat-icon svgIcon="wc"></mat-icon>
         <span>Web Component</span>
       </button>
+      <a class="request-new-library" target="__blank" href="${githubIssueLink}">
+        <span>Add a new library!</span>
+      </a>
     </mat-menu>
   </section>
 
@@ -74,12 +77,15 @@ import { Store } from '@ngxs/store';
         width: 100%;
         background-color: #1e1e1e;
         min-height: 100%;
-        padding-bottom: 104px;
+        padding-bottom: 64px;
       }
       .mat-tab-group,
       .mat-tab-group ::ng-deep .mat-tab-body-wrapper {
         height: 100%;
         position: relative;
+      }
+      .mat-tab-group ::ng-deep .mat-tab-body-wrapper .mat-tab-body .mat-tab-body-content {
+        overflow: hidden;
       }
       .mat-tab-group ::ng-deep .mat-tab-body-wrapper {
         padding-top: 5px;
@@ -94,6 +100,14 @@ import { Store } from '@ngxs/store';
         position: absolute;
         right: 15px;
         z-index: 999;
+      }
+      a.request-new-library {
+        text-align: center;
+        color: white;
+        display: inline-block;
+        width: 100%;
+        font-size: 13px;
+        padding-top: 10px;
       }
     `
   ]

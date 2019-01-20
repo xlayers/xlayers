@@ -1,10 +1,12 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, HostListener } from '@angular/core';
 import { Store } from '@ngxs/store';
 import {
   CurrentFile,
   CurrentLayer,
   InformUser,
-  UiState
+  UiState,
+  ZoomIn,
+  ZoomOut
 } from 'src/app/core/state';
 import { SketchSelectedLayerDirective } from './selected-layer.directive';
 import { SketchService } from './sketch.service';
@@ -31,7 +33,6 @@ import { SketchService } from './sketch.service';
         width: 100%;
         height: 100%;
         justify-content: center;
-        top: 64px;
         position: absolute;
         transform: scale(1);
         transform-origin: center;
@@ -44,7 +45,6 @@ import { SketchService } from './sketch.service';
         height: 100%;
         min-height: 100%;
         position: absolute;
-        top: 64px;
       }
 
       sketch-layer {
@@ -89,5 +89,19 @@ export class SketchContainerComponent implements OnInit {
 
   clearSelection() {
     this.store.dispatch(new CurrentLayer(null));
+  }
+
+  @HostListener('mousewheel', ['$event'])
+  OnMouseWheel(event: MouseEvent) {
+
+    /**
+     * Emit Zoom events only when any sketch file is selected
+     * deltaY < 0 means wheel/scroll up, otherwise wheel down
+     */
+    if (!!this.currentPage) {
+      return (event as any).deltaY < 0
+        ? this.store.dispatch(new ZoomIn())
+        : this.store.dispatch(new ZoomOut());
+    }
   }
 }

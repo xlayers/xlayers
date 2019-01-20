@@ -47,8 +47,48 @@ describe('EditorContainerComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
     store.selectOnce(state => state.codegen).subscribe((codegen: CodeGenSettings) => {
-      expect(codegen.content).toBe([]);
-      expect(codegen.kind).toBe(1 /* CodeGenService.Kind.Angular */ );
+      expect(codegen.content).toEqual([]);
+      expect(codegen.kind).toBe(1 /* CodeGenService.Kind.Angular */);
     });
+
+  });
+
+  describe('When generating codegen', () => {
+    it('should dispatch Angular codegen state', () => {
+
+      component.generateAngular();
+
+      store.selectOnce(state => state.codegen).subscribe((codegen: CodeGenSettings) => {
+        expect(codegen.kind).toBe(1 /* CodeGenService.Kind.Angular */);
+      });
+    });
+
+    it('should dispatch React codegen state', () => {
+
+      component.generateReact();
+
+      store.selectOnce(state => state.codegen).subscribe((codegen: CodeGenSettings) => {
+        expect(codegen.kind).toBe(2 /* CodeGenService.Kind.React */);
+      });
+    });
+
+    it('should dispatch VueJs codegen state', () => {
+
+      component.generateVue();
+
+      store.selectOnce(state => state.codegen).subscribe((codegen: CodeGenSettings) => {
+        expect(codegen.kind).toBe(3 /* CodeGenService.Kind.Vue */);
+      });
+    });
+
+    it('should dispatch Web Components codegen state', () => {
+
+      component.generateWc();
+
+      store.selectOnce(state => state.codegen).subscribe((codegen: CodeGenSettings) => {
+        expect(codegen.kind).toBe(4 /* CodeGenService.Kind.Wc */);
+      });
+    });
+
   });
 });
