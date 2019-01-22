@@ -3,6 +3,12 @@
   display: block;
 }
 
+section {
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
 .xly-ui-section {
   opacity: 1;
   transition: opacity, 0.25s;

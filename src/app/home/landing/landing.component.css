@@ -184,6 +184,13 @@ footer i {
   }
 }
 
+
+@media (max-width: 1300px) {
+  .bg.interactive {
+    display: none;
+  }
+}
+
 @keyframes rotate {
   from {
     transform: rotate(0deg);

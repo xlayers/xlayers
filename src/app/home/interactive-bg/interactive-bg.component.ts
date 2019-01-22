@@ -7,8 +7,12 @@ import { Renderer2 } from '@angular/core';
   styleUrls: ['./interactive-bg.component.css']
 })
 export class InteractiveBgComponent implements OnInit {
+  @Input() width: string;
+  @Input() height: string;
   @Input() src: string;
   @Input() sections: any[];
+
+  backgroundImageSrc;
 
   lastUiSection: ElementRef;
   lastbtn: HTMLButtonElement;
@@ -16,6 +20,11 @@ export class InteractiveBgComponent implements OnInit {
   constructor(private readonly renderer: Renderer2) {}
 
   ngOnInit() {
+    this.backgroundImageSrc = {
+      'background-image': `url( ${this.src} )`,
+      width: this.width,
+      height: this.height
+    };
   }
 
   reset() {
