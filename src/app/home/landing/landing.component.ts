@@ -27,7 +27,7 @@ export class LandingComponent implements OnInit {
         left: '514px'
       },
       description:
-        'Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus alias incidunt iure eum.'
+      'Quick access to layers inspection, zooming functionalities and 3D mode, with the addition of the codegen editor (see below for more details).'
     },
     {
       frame: {
@@ -46,7 +46,7 @@ export class LandingComponent implements OnInit {
         left: '130px'
       },
       description:
-        'Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus alias incidunt iure eum.'
+        'Quickly access and inspect the layers hierarchy of the Sketch design.'
     },
     {
       frame: {
@@ -65,7 +65,7 @@ export class LandingComponent implements OnInit {
         left: '682px'
       },
       description:
-        'Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus alias incidunt iure eum.'
+        'A fully fledged design viewer with both 2D and 3D inspection mode allowing you to access all the layers of your design.'
     },
     {
       frame: {
@@ -84,7 +84,7 @@ export class LandingComponent implements OnInit {
         left: '1215px'
       },
       description:
-        'Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus alias incidunt iure eum.'
+        'Quick access and download the original design as it was exported by SketchApp.'
     },
     {
       frame: {
@@ -103,7 +103,7 @@ export class LandingComponent implements OnInit {
         left: '1215px'
       },
       description:
-        'Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus alias incidunt iure eum.'
+        'Complementary property inspector of each layer including size and dimensions, style information and much more. '
     }
   ];
 
@@ -124,7 +124,7 @@ export class LandingComponent implements OnInit {
       left: '580px'
     },
     description:
-      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus alias incidunt iure eum.'
+      'Additional export options to external editors and IDEs, and a handy archive download feature for local development.'
   }, {
     frame: {
       width: '1262px',
@@ -142,7 +142,7 @@ export class LandingComponent implements OnInit {
       left: '660px'
     },
     description:
-      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus alias incidunt iure eum.'
+      'A code editor to quickly view the generated code of the current design for the selected technology.'
   }, {
     frame: {
       width: '176px',
@@ -160,7 +160,7 @@ export class LandingComponent implements OnInit {
       left: '1292px'
     },
     description:
-      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus alias incidunt iure eum.'
+      'Many ouput Web technologies including but not limited to Angular, Vue.js, React, Web Components, etc...'
   }];
 
   constructor() {}
