@@ -14,13 +14,13 @@ export class LandingComponent implements OnInit {
       frame: {
         width: '300px',
         left: '543px',
-        top: '63px',
+        top: '66px',
         height: '50px'
       },
       tooltip: {
         direction: 'right',
         left: '220px',
-        top: '48px'
+        top: '28px'
       },
       button: {
         top: '80px',
@@ -53,7 +53,7 @@ export class LandingComponent implements OnInit {
         width: '831px',
         left: '279px',
         top: '126px',
-        height: '705px'
+        height: '760px'
       },
       tooltip: {
         direction: 'right',
