@@ -1,10 +1,12 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, HostListener } from '@angular/core';
 import { Store } from '@ngxs/store';
 import {
   CurrentFile,
   CurrentLayer,
   InformUser,
-  UiState
+  UiState,
+  ZoomIn,
+  ZoomOut
 } from 'src/app/core/state';
 import { SketchSelectedLayerDirective } from './selected-layer.directive';
 import { SketchService } from './sketch.service';
@@ -79,7 +81,7 @@ export class SketchContainerComponent implements OnInit {
     } catch (e) {
       this.store.dispatch(
         new InformUser(
-          'Only .sketch files that were saved using Sketch v43 and above are supported.'
+          'The design was created using an unsupported version of SketchApp.'
         )
       );
     }
@@ -87,5 +89,19 @@ export class SketchContainerComponent implements OnInit {
 
   clearSelection() {
     this.store.dispatch(new CurrentLayer(null));
+  }
+
+  @HostListener('mousewheel', ['$event'])
+  OnMouseWheel(event: MouseEvent) {
+
+    /**
+     * Emit Zoom events only when any sketch file is selected
+     * deltaY < 0 means wheel/scroll up, otherwise wheel down
+     */
+    if (!!this.currentPage) {
+      return (event as any).deltaY < 0
+        ? this.store.dispatch(new ZoomIn())
+        : this.store.dispatch(new ZoomOut());
+    }
   }
 }

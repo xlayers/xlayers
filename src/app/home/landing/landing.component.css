@@ -118,6 +118,14 @@ footer i {
   max-width: 100%;
 }
 
+.bg.interactive {
+  border-bottom: 1px solid rgba(255, 108, 95, 0.31);
+}
+
+.bg.interactive img {
+  width: 1392px;
+}
+
 .bg p {
   padding: 0px 60px;
 }
@@ -141,11 +149,9 @@ footer i {
   width: 150px;
   height: 150px;
   position: absolute;
-  background: url(/assets/xlayers-bg-3.png) -60px -80px/680px no-repeat;
+  background: url(/assets/xlayers-bg-3-ng.png) -1200px -171px/1480px no-repeat;
   border-radius: 50%;
   border: 1px solid #fff;
-  margin-top: -156px;
-  margin-left: -30px;
 }
 
 @media (min-width: 500px) {
@@ -166,6 +172,22 @@ footer i {
     width: 200px;
     height: 200px;
     margin-top: -106px;
+  }
+  .bg-2:before {
+    margin-top: -106px;
+  }
+  .bg-3:before {
+    width: 200px;
+    height: 200px;
+    margin-top: -76px;
+    margin-left: 281px;
+  }
+}
+
+
+@media (max-width: 1300px) {
+  .bg.interactive {
+    display: none;
   }
 }
 

@@ -1,0 +1,132 @@
+:host {
+  position: relative;
+  display: block;
+}
+
+section {
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.xly-ui-section {
+  opacity: 1;
+  transition: opacity, 0.25s;
+}
+
+.xly-ui-hidden {
+  opacity: 0;
+}
+
+.xly-ratio-fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.xly-frame {
+  position: absolute;
+  border: 2px solid #FD587D;
+  border-radius: 5px;
+}
+
+.xly-absolute {
+  position: absolute !important;
+}
+
+.xly-tooltip {
+  position: relative;
+  max-width: 260px;
+  padding: 10px;
+  border: 6px solid #FD587D;
+  background: #FD587D;
+  color: white;
+}
+
+.xly-tooltip::after {
+  position: absolute;
+  display: block;
+  pointer-events: none;
+  content: '';
+  border: .875rem solid;
+}
+
+.xly-tooltip--left::after {
+  top: 50%;
+  left: -34px;
+  margin-top: -13px;
+  border-top-color: transparent !important;
+  border-bottom-color: transparent !important;
+  border-left-color: transparent !important;
+  border-color: #FC5A7D;
+}
+
+.xly-tooltip--right::after {
+  top: 50%;
+  right: -34px;
+  margin-top: -13px;
+  border-top-color: transparent !important;
+  border-bottom-color: transparent !important;
+  border-right-color: transparent !important;
+  border-color: #FC5A7D;
+}
+
+.xly-btn--pulse {
+  background-color: #FE567C;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 0;
+  padding: 0;
+  border-radius: 50%;
+  display: inline-block;
+  padding: 0.5em 1.2em;
+  margin: 0;
+  font-family: inherit;
+  font-size: 10px;
+  font-weight: bold;
+  color: inherit;
+  text-align: center;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  user-select: none;
+  background-image: none;
+  border: none;
+  width: 25px;
+  height: 25px;
+  z-index: 1;
+}
+
+.xly-btn--pulse::after {
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  content: '';
+  background-color: inherit;
+  border-radius: 50%;
+  opacity: 0;
+  animation: pulsate 1.5s ease-out;
+  animation-iteration-count: infinite
+}
+
+@keyframes pulsate {
+  0% {
+      opacity: 0.0;
+      transform: scale(0.1, 0.1)
+  }
+
+  50% {
+      opacity: 1.0
+  }
+
+  100% {
+      opacity: 0.0;
+      transform: scale(2, 2)
+  }
+}

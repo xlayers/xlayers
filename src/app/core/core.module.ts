@@ -1,6 +1,8 @@
+import bugsnag from '@bugsnag/js';
+import { BugsnagErrorHandler } from '@bugsnag/plugin-angular';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { CommonModule } from '@angular/common';
-import { NgModule } from '@angular/core';
+import { NgModule, ErrorHandler } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
@@ -46,8 +48,15 @@ const MatModules = [
 
 const ExtraModules = [FormsModule, ColorSketchModule];
 
+const bugsnagClient = bugsnag('74a971bd894eea48c5d692078e969c39');
+
+export function errorHandlerFactory() {
+  return new BugsnagErrorHandler(bugsnagClient);
+}
+
 @NgModule({
   imports: [...MatModules, ...ExtraModules],
-  exports: [CommonModule, ...MatModules, ...ExtraModules]
+  exports: [CommonModule, ...MatModules, ...ExtraModules],
+  providers: [ { provide: ErrorHandler, useFactory: errorHandlerFactory } ]
 })
 export class CoreModule {}
