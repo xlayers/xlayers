@@ -5,7 +5,7 @@ import { Store } from '@ngxs/store';
 
 // tslint:disable-next-line
 const githubIssueLink = 'https://github.com/xlayers/xlayers/issues/new?assignees=&labels=type%3A+question+%2F+discussion+%2F+RFC%2C+Scope%3A+CodeGen&template=codegen--add-xxxxx-support.md&title=CodeGen%3A+add+XXXXX+support';
-
+declare const hljs: any;
 @Component({
   selector: 'sketch-editor-container',
   template: `
@@ -45,11 +45,9 @@ const githubIssueLink = 'https://github.com/xlayers/xlayers/issues/new?assignees
       </ng-template>
 
       <ng-template matTabContent>
-        <ngx-monaco-editor
-          [options]="{ language: file.language }"
-          [ngModel]="file.value"
-          (onInit)="onEditorInit($event)"
-        ></ngx-monaco-editor>
+      <div contenteditable="true" #codeContentEditor  spellcheck="false" class="code-highlight-editor">
+      <pre><code [highlight]="file.value" (highlighted)="onEditorInit($event, codeContentEditor)"></code></pre>
+      </div>
       </ng-template>
     </mat-tab>
 
@@ -70,8 +68,17 @@ const githubIssueLink = 'https://github.com/xlayers/xlayers/issues/new?assignees
         height: 100%;
         box-sizing: border-box;
       }
-      :host,
-      ngx-monaco-editor {
+      .code-highlight-editor pre {
+        margin-top: 0px;
+      }
+      .code-highlight-editor code {
+        font-family: Consolas, "Courier New", monospace;
+        font-weight: normal;
+        font-size: 15px;
+        line-height: 20px;
+        letter-spacing: 0px;
+      }
+      :host, .code-highlight-editor, .code-highlight-editor code {
         height: 100%;
         width: 100%;
         background-color: #1e1e1e;
@@ -112,7 +119,6 @@ const githubIssueLink = 'https://github.com/xlayers/xlayers/issues/new?assignees
   ]
 })
 export class EditorContainerComponent implements OnInit, AfterContentInit {
-  editorOptions: monaco.editor.IEditorConstructionOptions = {};
   files: Array<XlayersNgxEditorModel>;
 
   frameworks: Array<{
@@ -132,9 +138,8 @@ export class EditorContainerComponent implements OnInit, AfterContentInit {
     this.generateAngular();
   }
 
-  onEditorInit(editor: monaco.editor.ICodeEditor) {
-    editor.layout();
-    editor.focus();
+  onEditorInit(editor: any, ctrl: HTMLElement) {
+    ctrl.focus();
   }
 
   generateAngular() {

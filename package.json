@@ -39,9 +39,10 @@
     "buffer": "^5.2.1",
     "core-js": "^2.5.7",
     "file-saver": "^2.0.0",
+    "highlight.js": "^9.13.1",
     "jszip": "^3.1.5",
     "ngx-color": "^2.0.5",
-    "ngx-monaco-editor": "^6.0.0",
+    "ngx-highlightjs": "^3.0.1",
     "rxjs": "^6.3.3",
     "zone.js": "^0.8.26"
   },
