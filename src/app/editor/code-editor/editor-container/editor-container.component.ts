@@ -5,7 +5,7 @@ import { Store } from '@ngxs/store';
 
 // tslint:disable-next-line
 const githubIssueLink = 'https://github.com/xlayers/xlayers/issues/new?assignees=&labels=type%3A+question+%2F+discussion+%2F+RFC%2C+Scope%3A+CodeGen&template=codegen--add-xxxxx-support.md&title=CodeGen%3A+add+XXXXX+support';
-declare const hljs: any;
+
 @Component({
   selector: 'sketch-editor-container',
   template: `
