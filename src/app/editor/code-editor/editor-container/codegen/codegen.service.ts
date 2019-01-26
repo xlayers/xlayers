@@ -3,15 +3,17 @@ import { AngularCodeGenService } from './angular/angular.service';
 import { ReactCodeGenService } from './react/react.service';
 import { VueCodeGenService } from './vue/vue.service';
 import { WCCodeGenService } from './wc/wc.service';
-import { NgxEditorModel } from 'ngx-monaco-editor';
 import { Store } from '@ngxs/store';
 import { UiState } from 'src/app/core/state';
 import { environment } from 'src/environments/environment.hmr';
 
 declare var gtag;
 
-export interface XlayersNgxEditorModel extends NgxEditorModel {
+export interface XlayersNgxEditorModel {
   kind: 'angular' | 'react' | 'vue' | 'wc' | 'html' | 'text';
+  uri: string;
+  value: string;
+  language: string;
 }
 
 export interface CodeGenFacade {
