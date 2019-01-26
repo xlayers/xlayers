@@ -50,8 +50,8 @@ const githubIssueLink = 'https://github.com/xlayers/xlayers/issues/new?assignees
       </ng-template>
 
       <ng-template matTabContent>
-      <div contenteditable="true" #codeContentEditor  spellcheck="false" class="code-highlight-editor">
-      <pre><code [highlight]="file.value" (highlighted)="onEditorInit($event, codeContentEditor)"></code></pre>
+      <div #codeContentEditor  spellcheck="false" class="code-highlight-editor">
+      <pre><code contentEditable="true" [highlight]="file.value" (highlighted)="onEditorInit($event, codeContentEditor)"></code></pre>
       </div>
       </ng-template>
     </mat-tab>
@@ -75,6 +75,9 @@ const githubIssueLink = 'https://github.com/xlayers/xlayers/issues/new?assignees
       }
       .code-highlight-editor pre {
         margin-top: 0px;
+      }
+      .code-highlight-editor {
+        overflow: auto;
       }
       .code-highlight-editor code {
         font-family: Consolas, "Courier New", monospace;
