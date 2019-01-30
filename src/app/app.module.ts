@@ -8,6 +8,7 @@ import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';
 import { HighlightModule } from 'ngx-highlightjs';
 import typescript from 'highlight.js/lib/languages/typescript';
+import xml from 'highlight.js/lib/languages/xml';
 import scss from 'highlight.js/lib/languages/scss';
 import javascript from 'highlight.js/lib/languages/javascript';
 
@@ -26,6 +27,7 @@ export function hljsLanguages() {
     {name: 'typescript', func: typescript},
     {name: 'javascript', func: javascript},
     {name: 'scss', func: scss},
+    {name: 'vue', func: xml},
   ];
 }
 
