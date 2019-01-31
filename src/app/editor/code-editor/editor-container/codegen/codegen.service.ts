@@ -4,8 +4,9 @@ import { ReactCodeGenService } from './react/react.service';
 import { VueCodeGenService } from './vue/vue.service';
 import { WCCodeGenService } from './wc/wc.service';
 import { Store } from '@ngxs/store';
-import { UiState } from 'src/app/core/state';
+import { UiState, CurrentExportButtons } from 'src/app/core/state';
 import { environment } from 'src/environments/environment.hmr';
+import { CodeGenSettings } from 'src/app/core/state/page.state';
 
 declare var gtag;
 
@@ -16,7 +17,12 @@ export interface XlayersNgxEditorModel {
   language: string;
 }
 
+export interface XlayersExporterNavBar {
+  stackblitz?: (codegen: CodeGenSettings) => void;
+}
+
 export interface CodeGenFacade {
+  buttons(): XlayersExporterNavBar;
   generate(ast: SketchMSLayer): Array<XlayersNgxEditorModel>;
 }
 
@@ -24,14 +30,6 @@ export interface CodeGenFacade {
   providedIn: 'root'
 })
 export class CodeGenService {
-  static Kind = {
-    Unknown: 0,
-    Angular: 1,
-    React: 2,
-    Vue: 3,
-    WC: 4
-  };
-
   private ast: SketchMSLayer;
 
   constructor(
@@ -108,20 +106,23 @@ export class CodeGenService {
     });
   }
 
-  generate(kind: number): Array<XlayersNgxEditorModel> {
-
+  generate(kind: string): Array<XlayersNgxEditorModel> {
     switch (kind) {
-      case CodeGenService.Kind.Angular:
+      case 'Angular':
         this.trackFrameworkKind('Angular');
+        this.store.dispatch(new CurrentExportButtons(this.angular.buttons()));
         return this.addHeaderInfo(this.angular.generate(this.ast));
-      case CodeGenService.Kind.React:
+      case 'React':
         this.trackFrameworkKind('React');
+        this.store.dispatch(new CurrentExportButtons(this.react.buttons()));
         return this.addHeaderInfo(this.react.generate(this.ast));
-      case CodeGenService.Kind.Vue:
+      case 'Vue':
         this.trackFrameworkKind('Vue');
+        this.store.dispatch(new CurrentExportButtons(this.vue.buttons()));
         return this.addHeaderInfo(this.vue.generate(this.ast));
-      case CodeGenService.Kind.WC:
+      case 'WC':
         this.trackFrameworkKind('Web Components');
+        this.store.dispatch(new CurrentExportButtons(this.wc.buttons()));
         return this.addHeaderInfo(this.wc.generate(this.ast));
     }
   }

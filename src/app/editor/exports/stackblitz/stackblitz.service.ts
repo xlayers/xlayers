@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import sdk from '@stackblitz/sdk';
 import { CodeGenSettings } from 'src/app/core/state/page.state';
-import { CodeGenService } from '../../code-editor/editor-container/codegen/codegen.service';
 import { ExportStackblitzAngularService } from './stackblitz.angular.service';
 import { ExportStackblitzReactService } from './stackblitz.react.service';
 import { ExportStackblitzVueService } from './stackblitz.vue.service';
@@ -37,16 +36,16 @@ export class ExportStackblitzService {
   async export(codegen: CodeGenSettings) {
     let project: StackBlitzProjectPayload = null;
     switch (codegen.kind) {
-      case CodeGenService.Kind.React:
+      case 'React':
         project = this.reactExport.prepare(codegen.content);
         break;
-      case CodeGenService.Kind.Vue:
+      case 'Vue':
         project = this.vueExport.prepare(codegen.content);
         break;
-      case CodeGenService.Kind.WC:
+      case 'WC':
         project = this.wcExport.prepare(codegen.content);
         break;
-      case CodeGenService.Kind.Angular:
+      case 'Angular':
       default:
         project = this.angularExport.prepare(codegen.content);
         break;

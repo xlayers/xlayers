@@ -3,12 +3,12 @@ import { XlayersNgxEditorModel } from 'src/app/editor/code-editor/editor-contain
 
 export interface CodeGenSettings {
   content: XlayersNgxEditorModel[];
-  kind: number;
+  kind: string;
 }
 
 export class CodeGen {
   static readonly type = '[CodeGen] CodeGen';
-  constructor(public kind: number, public content: XlayersNgxEditorModel[]) {}
+  constructor(public kind: string, public content: XlayersNgxEditorModel[]) {}
 }
 
 

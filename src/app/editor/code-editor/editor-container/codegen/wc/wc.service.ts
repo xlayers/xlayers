@@ -2,12 +2,27 @@ import { Injectable } from '@angular/core';
 import { CodeGenFacade, XlayersNgxEditorModel } from '../codegen.service';
 import { SharedCodegen, Template } from '../shared-codegen.service';
 import { wcTemplate, readmeTemplate } from './wc.template';
+import { Store } from '@ngxs/store';
+import { ExportStackblitzService } from 'src/app/editor/exports/stackblitz/stackblitz.service';
+import { CodeGenSettings } from 'src/app/core/state/page.state';
 
 @Injectable({
   providedIn: 'root'
 })
 export class WCCodeGenService implements CodeGenFacade {
-  constructor(private sharedCodegen: SharedCodegen) {}
+
+  constructor(
+    private sharedCodegen: SharedCodegen,
+    private readonly exporter: ExportStackblitzService
+  ) {}
+
+  buttons() {
+    return {
+      stackblitz: async (codegen: CodeGenSettings) => {
+        await this.exporter.export(codegen);
+      }
+    };
+  }
 
   generate(ast: SketchMSLayer): Array<XlayersNgxEditorModel> {
     return [

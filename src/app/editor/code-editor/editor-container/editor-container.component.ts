@@ -151,26 +151,26 @@ export class EditorContainerComponent implements OnInit, AfterContentInit {
   }
 
   generateAngular() {
-    this.files = this.codegen.generate(CodeGenService.Kind.Angular);
-    this.updateState(CodeGenService.Kind.Angular);
+    this.files = this.codegen.generate('Angular');
+    this.updateState('Angular');
   }
 
   generateReact() {
-    this.files = this.codegen.generate(CodeGenService.Kind.React);
-    this.updateState(CodeGenService.Kind.React);
+    this.files = this.codegen.generate('React');
+    this.updateState('React');
   }
 
   generateVue() {
-    this.files = this.codegen.generate(CodeGenService.Kind.Vue);
-    this.updateState(CodeGenService.Kind.Vue);
+    this.files = this.codegen.generate('Vue');
+    this.updateState('Vue');
   }
 
   generateWc() {
-    this.files = this.codegen.generate(CodeGenService.Kind.WC);
-    this.updateState(CodeGenService.Kind.WC);
+    this.files = this.codegen.generate('WC');
+    this.updateState('WC');
   }
 
-  updateState(kind: number) {
+  updateState(kind: string) {
     this.store.dispatch(new CodeGen(kind, this.files));
   }
 

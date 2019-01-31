@@ -48,7 +48,7 @@ describe('EditorContainerComponent', () => {
     expect(component).toBeTruthy();
     store.selectOnce(state => state.codegen).subscribe((codegen: CodeGenSettings) => {
       expect(codegen.content).toEqual([]);
-      expect(codegen.kind).toBe(1 /* CodeGenService.Kind.Angular */);
+      expect(codegen.kind).toBe('Angular');
     });
 
   });
@@ -59,7 +59,7 @@ describe('EditorContainerComponent', () => {
       component.generateAngular();
 
       store.selectOnce(state => state.codegen).subscribe((codegen: CodeGenSettings) => {
-        expect(codegen.kind).toBe(1 /* CodeGenService.Kind.Angular */);
+        expect(codegen.kind).toBe('Angular');
       });
     });
 
@@ -68,7 +68,7 @@ describe('EditorContainerComponent', () => {
       component.generateReact();
 
       store.selectOnce(state => state.codegen).subscribe((codegen: CodeGenSettings) => {
-        expect(codegen.kind).toBe(2 /* CodeGenService.Kind.React */);
+        expect(codegen.kind).toBe('React');
       });
     });
 
@@ -77,7 +77,7 @@ describe('EditorContainerComponent', () => {
       component.generateVue();
 
       store.selectOnce(state => state.codegen).subscribe((codegen: CodeGenSettings) => {
-        expect(codegen.kind).toBe(3 /* CodeGenService.Kind.Vue */);
+        expect(codegen.kind).toBe('Vue');
       });
     });
 
@@ -86,7 +86,7 @@ describe('EditorContainerComponent', () => {
       component.generateWc();
 
       store.selectOnce(state => state.codegen).subscribe((codegen: CodeGenSettings) => {
-        expect(codegen.kind).toBe(4 /* CodeGenService.Kind.Wc */);
+        expect(codegen.kind).toBe('Wc');
       });
     });
 
