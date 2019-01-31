@@ -4,8 +4,9 @@ import { ReactCodeGenService } from './react/react.service';
 import { VueCodeGenService } from './vue/vue.service';
 import { WCCodeGenService } from './wc/wc.service';
 import { Store } from '@ngxs/store';
-import { UiState } from 'src/app/core/state';
+import { UiState, CurrentExportButtons } from 'src/app/core/state';
 import { environment } from 'src/environments/environment.hmr';
+import { CodeGenSettings } from 'src/app/core/state/page.state';
 
 declare var gtag;
 
@@ -16,22 +17,27 @@ export interface XlayersNgxEditorModel {
   language: string;
 }
 
+export interface XlayersExporterNavBar {
+  stackblitz?: boolean;
+}
+
 export interface CodeGenFacade {
+  buttons(): XlayersExporterNavBar;
   generate(ast: SketchMSLayer): Array<XlayersNgxEditorModel>;
+}
+
+export enum CodeGenKind {
+  Unknown,
+  Angular,
+  React,
+  Vue,
+  WC
 }
 
 @Injectable({
   providedIn: 'root'
 })
 export class CodeGenService {
-  static Kind = {
-    Unknown: 0,
-    Angular: 1,
-    React: 2,
-    Vue: 3,
-    WC: 4
-  };
-
   private ast: SketchMSLayer;
 
   constructor(
@@ -101,27 +107,30 @@ export class CodeGenService {
     return addCssClassNames(ast);
   }
 
-  trackFrameworkKind(kind: string) {
+  trackFrameworkKind(kind: CodeGenKind) {
     gtag('event', 'code_gen', {
       'event_category': 'web',
       'event_label': kind
     });
   }
 
-  generate(kind: number): Array<XlayersNgxEditorModel> {
-
+  generate(kind: CodeGenKind): Array<XlayersNgxEditorModel> {
     switch (kind) {
-      case CodeGenService.Kind.Angular:
-        this.trackFrameworkKind('Angular');
+      case CodeGenKind.Angular:
+        this.trackFrameworkKind(CodeGenKind.Angular);
+        this.store.dispatch(new CurrentExportButtons(this.angular.buttons()));
         return this.addHeaderInfo(this.angular.generate(this.ast));
-      case CodeGenService.Kind.React:
-        this.trackFrameworkKind('React');
+      case CodeGenKind.React:
+        this.trackFrameworkKind(CodeGenKind.React);
+        this.store.dispatch(new CurrentExportButtons(this.react.buttons()));
         return this.addHeaderInfo(this.react.generate(this.ast));
-      case CodeGenService.Kind.Vue:
-        this.trackFrameworkKind('Vue');
+      case CodeGenKind.Vue:
+        this.trackFrameworkKind(CodeGenKind.Vue);
+        this.store.dispatch(new CurrentExportButtons(this.vue.buttons()));
         return this.addHeaderInfo(this.vue.generate(this.ast));
-      case CodeGenService.Kind.WC:
-        this.trackFrameworkKind('Web Components');
+      case CodeGenKind.WC:
+        this.trackFrameworkKind(CodeGenKind.WC);
+        this.store.dispatch(new CurrentExportButtons(this.wc.buttons()));
         return this.addHeaderInfo(this.wc.generate(this.ast));
     }
   }

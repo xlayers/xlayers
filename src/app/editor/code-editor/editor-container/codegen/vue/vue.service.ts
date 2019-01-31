@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { CodeGenFacade, XlayersNgxEditorModel } from '../codegen.service';
 import { SharedCodegen, Template } from '../shared-codegen.service';
+import { CodeGenSettings } from 'src/app/core/state/page.state';
 
 @Injectable({
   providedIn: 'root'
@@ -8,6 +9,10 @@ import { SharedCodegen, Template } from '../shared-codegen.service';
 export class VueCodeGenService implements CodeGenFacade {
 
   constructor(private sharedCodegen: SharedCodegen) {}
+
+  buttons() {
+    return {};
+  }
 
   generate(ast: SketchMSLayer): Array<XlayersNgxEditorModel> {
     return [{
