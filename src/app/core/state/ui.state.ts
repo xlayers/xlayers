@@ -1,7 +1,6 @@
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Action, Selector, State, StateContext } from '@ngxs/store';
 import { SketchData } from 'src/app/editor/viewer/lib/sketch.service';
-import { XlayersExporterNavBar } from 'src/app/editor/code-editor/editor-container/codegen/codegen.service';
 
 export interface LayerCSS {
   transform: string;
@@ -25,12 +24,6 @@ export interface UiSettings {
   zoomLevel: number;
   is3dView: boolean;
   isCodeEditor: boolean;
-  exportButtons: XlayersExporterNavBar;
-}
-
-export class CurrentExportButtons {
-  static readonly type = '[UiSettings] Current Export Buttons';
-  constructor(public value: XlayersExporterNavBar) {}
 }
 
 export class CurrentFile {
@@ -100,8 +93,7 @@ const DEFAULT_UI_STATE = {
   currentPage: null,
   zoomLevel: 1,
   is3dView: false,
-  isCodeEditor: false,
-  exportButtons: {}
+  isCodeEditor: false
 };
 
 @State<UiSettings>({
@@ -133,11 +125,6 @@ export class UiState {
   @Selector()
   static autoFixCurrentPagePosition(ui: UiSettings) {
     return ui.currentPage;
-  }
-
-  @Selector()
-  static exportButtons(ui: UiSettings) {
-    return ui.exportButtons;
   }
 
   @Selector()
@@ -188,13 +175,6 @@ export class UiState {
     ]);
     patchState({
       currentFile: { ...action.data }
-    });
-  }
-
-  @Action(CurrentExportButtons)
-  currentExportButtons({ patchState }: StateContext<UiSettings>, action: CurrentExportButtons) {
-    patchState({
-      exportButtons: action.value
     });
   }
 

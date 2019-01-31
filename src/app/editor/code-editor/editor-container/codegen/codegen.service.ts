@@ -4,7 +4,7 @@ import { ReactCodeGenService } from './react/react.service';
 import { VueCodeGenService } from './vue/vue.service';
 import { WCCodeGenService } from './wc/wc.service';
 import { Store } from '@ngxs/store';
-import { UiState, CurrentExportButtons } from 'src/app/core/state';
+import { UiState } from 'src/app/core/state';
 import { environment } from 'src/environments/environment.hmr';
 import { CodeGenSettings } from 'src/app/core/state/page.state';
 
@@ -114,24 +114,36 @@ export class CodeGenService {
     });
   }
 
-  generate(kind: CodeGenKind): Array<XlayersNgxEditorModel> {
+  generate(kind: CodeGenKind): CodeGenSettings {
     switch (kind) {
       case CodeGenKind.Angular:
         this.trackFrameworkKind(CodeGenKind.Angular);
-        this.store.dispatch(new CurrentExportButtons(this.angular.buttons()));
-        return this.addHeaderInfo(this.angular.generate(this.ast));
+        return {
+          kind,
+          content: this.addHeaderInfo(this.angular.generate(this.ast)),
+          buttons: this.angular.buttons()
+        };
       case CodeGenKind.React:
         this.trackFrameworkKind(CodeGenKind.React);
-        this.store.dispatch(new CurrentExportButtons(this.react.buttons()));
-        return this.addHeaderInfo(this.react.generate(this.ast));
+        return {
+          kind,
+          content: this.addHeaderInfo(this.react.generate(this.ast)),
+          buttons: this.react.buttons()
+        };
       case CodeGenKind.Vue:
         this.trackFrameworkKind(CodeGenKind.Vue);
-        this.store.dispatch(new CurrentExportButtons(this.vue.buttons()));
-        return this.addHeaderInfo(this.vue.generate(this.ast));
+        return {
+          kind,
+          content: this.addHeaderInfo(this.vue.generate(this.ast)),
+          buttons: this.vue.buttons()
+        };
       case CodeGenKind.WC:
         this.trackFrameworkKind(CodeGenKind.WC);
-        this.store.dispatch(new CurrentExportButtons(this.wc.buttons()));
-        return this.addHeaderInfo(this.wc.generate(this.ast));
+        return {
+          kind,
+          content: this.addHeaderInfo(this.wc.generate(this.ast)),
+          buttons: this.wc.buttons()
+        };
     }
   }
 }

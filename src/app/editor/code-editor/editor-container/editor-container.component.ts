@@ -2,6 +2,7 @@ import { AfterContentInit, Component, OnInit } from '@angular/core';
 import { CodeGenService, CodeGenKind, XlayersNgxEditorModel } from './codegen/codegen.service';
 import { CodeGen } from 'src/app/core/state/page.state';
 import { Store } from '@ngxs/store';
+import { CodeGenSettings } from 'src/app/core/state/page.state';
 
 // tslint:disable-next-line
 const githubIssueLink = 'https://github.com/xlayers/xlayers/issues/new?assignees=&labels=type%3A+question+%2F+discussion+%2F+RFC%2C+Scope%3A+CodeGen&template=codegen--add-xxxxx-support.md&title=CodeGen%3A+add+XXXXX+support';
@@ -42,7 +43,7 @@ const githubIssueLink = 'https://github.com/xlayers/xlayers/issues/new?assignees
   </section>
 
   <mat-tab-group selectedIndex="0" disableRipple="true" animationDuration="0ms" dynamicHeight="false">
-    <mat-tab *ngFor="let file of files">
+    <mat-tab *ngFor="let file of codeSetting.content">
 
       <ng-template mat-tab-label>
         <mat-icon [svgIcon]="file.kind"></mat-icon>
@@ -127,7 +128,7 @@ const githubIssueLink = 'https://github.com/xlayers/xlayers/issues/new?assignees
   ]
 })
 export class EditorContainerComponent implements OnInit, AfterContentInit {
-  files: Array<XlayersNgxEditorModel>;
+  codeSetting: CodeGenSettings;
 
   frameworks: Array<{
     title: string;
@@ -151,27 +152,26 @@ export class EditorContainerComponent implements OnInit, AfterContentInit {
   }
 
   generateAngular() {
-    this.files = this.codegen.generate(CodeGenKind.Angular);
-    this.updateState(CodeGenKind.Angular);
+    this.codeSetting = this.codegen.generate(CodeGenKind.Angular);
+    this.updateState();
   }
 
   generateReact() {
-    this.files = this.codegen.generate(CodeGenKind.React);
-    this.updateState(CodeGenKind.React);
+    this.codeSetting = this.codegen.generate(CodeGenKind.React);
+    this.updateState();
   }
 
   generateVue() {
-    this.files = this.codegen.generate(CodeGenKind.Vue);
-    this.updateState(CodeGenKind.Vue);
+    this.codeSetting = this.codegen.generate(CodeGenKind.Vue);
+    this.updateState();
   }
 
   generateWc() {
-    this.files = this.codegen.generate(CodeGenKind.WC);
-    this.updateState(CodeGenKind.WC);
+    this.codeSetting = this.codegen.generate(CodeGenKind.WC);
+    this.updateState();
   }
 
-  updateState(kind: CodeGenKind) {
-    this.store.dispatch(new CodeGen(kind, this.files));
+  updateState() {
+    this.store.dispatch(new CodeGen(this.codeSetting.kind, this.codeSetting.content, this.codeSetting.buttons));
   }
-
 }

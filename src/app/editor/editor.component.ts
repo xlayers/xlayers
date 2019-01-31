@@ -41,10 +41,10 @@ export class EditorComponent implements OnInit {
 
   zoomLevel: number;
 
+  isStackblitzEnabled = true;
   is3dView: boolean;
   isCodeEditor: boolean;
   codegen: CodeGenSettings;
-  exportButtons: XlayersExporterNavBar;
 
   version = environment.version;
 
@@ -82,9 +82,6 @@ export class EditorComponent implements OnInit {
       }
     });
 
-    this.store.select(UiState.exportButtons).subscribe(exportButtons => {
-      this.exportButtons = exportButtons;
-    });
     this.store.select(UiState.isWireframe).subscribe(isWireframe => {
       this.wireframe = isWireframe;
     });
@@ -128,6 +125,9 @@ export class EditorComponent implements OnInit {
       });
 
     this.store.select(CodeGenState.codegen).subscribe(codegen => {
+      if (this.codegen) {
+        this.isStackblitzEnabled = codegen.buttons.stackblitz;
+      }
       this.codegen = codegen;
     });
   }
