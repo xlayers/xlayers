@@ -16,8 +16,8 @@ export class AngularCodeGenService implements CodeGenFacade {
 
   buttons() {
     return {
-      stackblitz: async (codegen: CodeGenSettings) => {
-        await this.exporter.export(codegen);
+      stackblitz: (codegen: CodeGenSettings) => {
+        this.exporter.export(codegen);
       }
     };
   }
