@@ -63,8 +63,8 @@
         <mat-icon>arrow_back</mat-icon>
       </button>
       <button
-        [disabled]="!exportButtons.hasOwnProperty('stackblitz')"
-        (click)="exportButtons.stackblitz(codegen)"
+        [disabled]="!exportButtons.stackblitz"
+        (click)="openInStackblitz()"
         matTooltip="Open project in Stackblitz"
         mat-button
         target="__blank"

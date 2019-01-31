@@ -3,7 +3,6 @@ import { CodeGenFacade, XlayersNgxEditorModel } from '../codegen.service';
 import { SharedCodegen, Template } from '../shared-codegen.service';
 import { wcTemplate, readmeTemplate } from './wc.template';
 import { Store } from '@ngxs/store';
-import { ExportStackblitzService } from 'src/app/editor/exports/stackblitz/stackblitz.service';
 import { CodeGenSettings } from 'src/app/core/state/page.state';
 
 @Injectable({
@@ -11,16 +10,11 @@ import { CodeGenSettings } from 'src/app/core/state/page.state';
 })
 export class WCCodeGenService implements CodeGenFacade {
 
-  constructor(
-    private sharedCodegen: SharedCodegen,
-    private readonly exporter: ExportStackblitzService
-  ) {}
+  constructor(private sharedCodegen: SharedCodegen) {}
 
   buttons() {
     return {
-      stackblitz: (codegen: CodeGenSettings) => {
-        this.exporter.export(codegen);
-      }
+      stackblitz: true
     };
   }
 

@@ -1,14 +1,14 @@
 import { State, Action, StateContext, Selector } from '@ngxs/store';
-import { XlayersNgxEditorModel } from 'src/app/editor/code-editor/editor-container/codegen/codegen.service';
+import { CodeGenKind, XlayersNgxEditorModel } from 'src/app/editor/code-editor/editor-container/codegen/codegen.service';
 
 export interface CodeGenSettings {
   content: XlayersNgxEditorModel[];
-  kind: string;
+  kind: CodeGenKind;
 }
 
 export class CodeGen {
   static readonly type = '[CodeGen] CodeGen';
-  constructor(public kind: string, public content: XlayersNgxEditorModel[]) {}
+  constructor(public kind: CodeGenKind, public content: XlayersNgxEditorModel[]) {}
 }
 
 

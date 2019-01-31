@@ -16,6 +16,7 @@ import {
 } from 'src/app/core/state';
 import { environment } from '../../environments/environment';
 import { CodeGenState, CodeGenSettings } from '../core/state/page.state';
+import { ExportStackblitzService } from './exports/stackblitz/stackblitz.service';
 import { XlayersExporterNavBar } from './code-editor/editor-container/codegen/codegen.service';
 import { SketchContainerComponent } from './viewer/lib/sketch-container.component';
 
@@ -55,7 +56,10 @@ export class EditorComponent implements OnInit {
   @ViewChild('settingNavRef') settingNavRef: MatDrawerContainer;
   @ViewChild('sketchContainerRef') sketchContainerRef: SketchContainerComponent;
 
-  constructor(private readonly store: Store) {}
+  constructor(
+    private readonly store: Store,
+    private readonly exporter: ExportStackblitzService
+  ) {}
 
   ngOnInit() {
     this.colors = {
@@ -183,5 +187,9 @@ export class EditorComponent implements OnInit {
 
   close() {
     this.store.dispatch(new ResetUiSettings());
+  }
+
+  openInStackblitz() {
+    this.exporter.export(this.codegen);
   }
 }

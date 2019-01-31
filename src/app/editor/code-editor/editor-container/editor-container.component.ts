@@ -1,5 +1,5 @@
 import { AfterContentInit, Component, OnInit } from '@angular/core';
-import { CodeGenService, XlayersNgxEditorModel } from './codegen/codegen.service';
+import { CodeGenService, CodeGenKind, XlayersNgxEditorModel } from './codegen/codegen.service';
 import { CodeGen } from 'src/app/core/state/page.state';
 import { Store } from '@ngxs/store';
 
@@ -151,26 +151,26 @@ export class EditorContainerComponent implements OnInit, AfterContentInit {
   }
 
   generateAngular() {
-    this.files = this.codegen.generate('Angular');
-    this.updateState('Angular');
+    this.files = this.codegen.generate(CodeGenKind.Angular);
+    this.updateState(CodeGenKind.Angular);
   }
 
   generateReact() {
-    this.files = this.codegen.generate('React');
-    this.updateState('React');
+    this.files = this.codegen.generate(CodeGenKind.React);
+    this.updateState(CodeGenKind.React);
   }
 
   generateVue() {
-    this.files = this.codegen.generate('Vue');
-    this.updateState('Vue');
+    this.files = this.codegen.generate(CodeGenKind.Vue);
+    this.updateState(CodeGenKind.Vue);
   }
 
   generateWc() {
-    this.files = this.codegen.generate('WC');
-    this.updateState('WC');
+    this.files = this.codegen.generate(CodeGenKind.WC);
+    this.updateState(CodeGenKind.WC);
   }
 
-  updateState(kind: string) {
+  updateState(kind: CodeGenKind) {
     this.store.dispatch(new CodeGen(kind, this.files));
   }
 
