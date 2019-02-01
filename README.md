@@ -34,13 +34,17 @@
     <img src="http://isitmaintained.com/badge/resolution/xlayers/xlayers.svg"/>
   </a>
   
-  <a href="https://circleci.com/gh/xlayers/xlayers">
-    <img src="https://circleci.com/gh/xlayers/xlayers/tree/develop.svg?style=svg" />
+  <a href="https://waffle.io/xlayers/xlayers">
+    <img src="https://badge.waffle.io/xlayers/xlayers.svg?columns=all"/>
   </a>
   
   <br/>
-  <a href="https://waffle.io/xlayers/xlayers">
-    <img src="https://badge.waffle.io/xlayers/xlayers.svg?columns=all"/>
+  <a href="https://circleci.com/gh/xlayers/xlayers">
+    <img src="https://circleci.com/gh/xlayers/xlayers/tree/develop.svg?style=svg" />
+  </a>
+
+  <a href="https://app.netlify.com/sites/xlayers/deploys">
+    <img src="https://api.netlify.com/api/v1/badges/3f01ff90-945c-4a5c-9ecd-58e24f3a3ef3/deploy-status" />
   </a>
   
 </p>
