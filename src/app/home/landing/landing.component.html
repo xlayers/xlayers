@@ -2,13 +2,13 @@
   <nav>
     <h1>
       <div class="logo-wrapper">
-          <img class="logo" src="/assets/xLayers-logo.png" alt="xlayers logo">
+        <img class="logo" src="/assets/xLayers-logo.png" alt="xlayers logo" />
       </div>
-      <a href="/">
-        xLayers
-      </a>
+      <a href="/"> xLayers </a>
     </h1>
-    <h3>Preview and Convert SketchApp files into Angular–React–Vue-Web Components.</h3>
+    <h3>
+      Preview and Convert SketchApp Design Files Into ANY Framework And Library.
+    </h3>
   </nav>
 
   <img src="assets/xlayers-ui-1.png" />
@@ -20,45 +20,117 @@
   </div>
 </section>
 
-<section class="bg bg-0">
+<section class="bg interactive">
+  <h1>Explore the Viewer interface</h1>
+  <sketch-interactive-bg
+    width="1392px"
+    height="967px"
+    src="/assets/xlayers-ui-2.png"
+    [sections]="viewerSections"
+  ></sketch-interactive-bg>
+  <h1>Explore the Codegen interface</h1>
+  <sketch-interactive-bg
+    width="1392px"
+    height="967px"
+    src="/assets/xlayers-bg-3-ng.png"
+    [sections]="editorSections"
+  ></sketch-interactive-bg>
+</section>
+
+<section class="bg bg-0 outline">
   <img src="/assets/xlayers-bg-0.png" />
-  <p class="mat-headline">Designers will usually use the SketchApp<sup>1</sup> app to create beautiful UI components...</p>
+  <p class="mat-headline">
+    Designers will usually use the SketchApp<sup>1</sup> app to create beautiful
+    UI components...
+  </p>
 </section>
 
 <section class="bg bg-4">
   <img src="/assets/xlayers-bg-4.png" />
-  <p class="mat-headline">Now, Designers can simply drag and drop the SketchApp project file (*.sketch) containing the UI component into xLayers to preview their creation directly inside the browser.</p>
+  <p class="mat-headline">
+    Now, Designers can simply drag and drop the SketchApp project file
+    (*.sketch) containing the UI component into xLayers to preview their
+    creation directly inside the browser.
+  </p>
 </section>
 
 <section class="bg bg-2">
   <img src="/assets/xlayers-bg-2.png" />
-  <p class="mat-headline">xLayers even has a 3D viewing mode allowing both Designers and Developers to preview all the layers that compose the UI component, and inspect their size, position and color properties.</p>
+  <p class="mat-headline">
+    xLayers even has a 3D viewing mode allowing both Designers and Developers to
+    preview all the layers that compose the UI component, and inspect their
+    size, position and color properties.
+  </p>
 </section>
 
 <section class="bg bg-3">
   <img src="/assets/xlayers-bg-3-ng.png" />
-  <p class="mat-headline">Developers would usually use xLayers to export the UI component made with the SketchApp app as an Angular, Vue or React component and import it into an existing application.</p>
+  <p class="mat-headline">
+    Developers would usually use xLayers to export the UI component made with
+    the SketchApp app as an Angular, Vue or React component and import it into
+    an existing application.
+  </p>
 </section>
 
 <section class="bg try-it outline">
-  <p class="mat-headline">xLayers is fully Open Source and available on GitHub.</p>
-  <br/>
+  <p class="mat-headline">
+    xLayers is fully Open Source and available on GitHub.
+  </p>
+  <br />
   <div class="button">
-    <a target="__blank" href="https://github.com/xlayers/xlayers" class="btn btn-outline btn-xl">Join Us On GitHub</a>
+    <a
+      target="__blank"
+      href="https://github.com/xlayers/xlayers"
+      class="btn btn-outline btn-xl"
+      >Join Us On GitHub</a
+    >
   </div>
 </section>
 
 <footer class="bg-pattern-color">
   <div class="container">
-    <p>Made with ♡ by
-      <a href="https://twitter.com/manekinekko">Wassim Chegham (@manekinekko)</a> for both Designers and Developers.
+    <p>
+      Made with ♡ by
+      <a href="https://twitter.com/manekinekko"
+        >Wassim Chegham (@manekinekko)</a
+      >
+      for both Designers and Developers.
     </p>
     <p>
-      <i>xLayers is still in ALPHA release, the UI and UX might change in the final release.</i><br/>
-      <i><sup>1</sup> Supported SketchApp version v50 and above.</i><br>
-      <i>xLayers logo is kindly contributed by <a href="https://twitter.com/centigradegmbh">@centigradegmbh</a></i>
-      <br/>
-      <i>This project is provided as is without any warranties. Use at your own risk. By using xLayers.app you agree with its <a href="https://github.com/xlayers/xlayers/blob/develop/PRIVACY.md" target="__blank">Privacy Policy</a> and <a href="https://github.com/xlayers/xlayers/blob/develop/LICENSE" target="__blank">License</a></i>.<br/>
+      <i
+        >xLayers is still in ALPHA release, the UI and UX might change in the
+        final release.</i
+      ><br />
+      <i
+        ><sup>1</sup> Supported SketchApp version
+        <a
+          href="https://github.com/xlayers/xlayers/wiki/Usage-&-compatibility#compatibility-table"
+          target="__blank"
+          >v50 and above</a
+        >.</i
+      ><br />
+      <i
+        >xLayers logo is kindly contributed by
+        <a target="__blank" href="https://twitter.com/centigradegmbh"
+          >@centigradegmbh</a
+        ></i
+      >
+      <br />
+      <i
+        >This project is provided as is without any warranties. Use at your own
+        risk. By using xLayers.app you agree with its
+        <a
+          href="https://github.com/xlayers/xlayers/blob/develop/PRIVACY.md"
+          target="__blank"
+          >Privacy Policy</a
+        >
+        and
+        <a
+          href="https://github.com/xlayers/xlayers/blob/develop/LICENSE"
+          target="__blank"
+          >License</a
+        ></i
+      >.<br />
       <span>Build: {{ version }}</span>
     </p>
   </div>

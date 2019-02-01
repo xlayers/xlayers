@@ -1,7 +1,8 @@
 import { AfterContentInit, Component, OnInit } from '@angular/core';
-import { CodeGenService, XlayersNgxEditorModel } from './codegen/codegen.service';
+import { CodeGenService, CodeGenKind, XlayersNgxEditorModel } from './codegen/codegen.service';
 import { CodeGen } from 'src/app/core/state/page.state';
 import { Store } from '@ngxs/store';
+import { CodeGenSettings } from 'src/app/core/state/page.state';
 
 // tslint:disable-next-line
 const githubIssueLink = 'https://github.com/xlayers/xlayers/issues/new?assignees=&labels=type%3A+question+%2F+discussion+%2F+RFC%2C+Scope%3A+CodeGen&template=codegen--add-xxxxx-support.md&title=CodeGen%3A+add+XXXXX+support';
@@ -17,6 +18,10 @@ const githubIssueLink = 'https://github.com/xlayers/xlayers/issues/new?assignees
       <button mat-menu-item (click)="generateAngular()">
         <mat-icon svgIcon="angular"></mat-icon>
         <span>Angular</span>
+      </button>
+      <button mat-menu-item (click)="generateVue()">
+        <mat-icon svgIcon="vue"></mat-icon>
+        <span>Vue</span>
       </button>
       <button mat-menu-item (click)="generateReact()">
         <mat-icon svgIcon="react"></mat-icon>
@@ -38,7 +43,7 @@ const githubIssueLink = 'https://github.com/xlayers/xlayers/issues/new?assignees
   </section>
 
   <mat-tab-group selectedIndex="0" disableRipple="true" animationDuration="0ms" dynamicHeight="false">
-    <mat-tab *ngFor="let file of files">
+    <mat-tab *ngFor="let file of codeSetting.content">
 
       <ng-template mat-tab-label>
         <mat-icon [svgIcon]="file.kind"></mat-icon>
@@ -46,11 +51,9 @@ const githubIssueLink = 'https://github.com/xlayers/xlayers/issues/new?assignees
       </ng-template>
 
       <ng-template matTabContent>
-        <ngx-monaco-editor
-          [options]="{ language: file.language }"
-          [ngModel]="file.value"
-          (onInit)="onEditorInit($event)"
-        ></ngx-monaco-editor>
+      <div #codeContentEditor  spellcheck="false" class="code-highlight-editor">
+      <pre><code contentEditable="true" [highlight]="file.value" (highlighted)="onEditorInit($event, codeContentEditor)"></code></pre>
+      </div>
       </ng-template>
     </mat-tab>
 
@@ -71,8 +74,20 @@ const githubIssueLink = 'https://github.com/xlayers/xlayers/issues/new?assignees
         height: 100%;
         box-sizing: border-box;
       }
-      :host,
-      ngx-monaco-editor {
+      .code-highlight-editor pre {
+        margin-top: 0px;
+      }
+      .code-highlight-editor {
+        overflow: auto;
+      }
+      .code-highlight-editor code {
+        font-family: Consolas, "Courier New", monospace;
+        font-weight: normal;
+        font-size: 15px;
+        line-height: 20px;
+        letter-spacing: 0px;
+      }
+      :host, .code-highlight-editor, .code-highlight-editor code {
         height: 100%;
         width: 100%;
         background-color: #1e1e1e;
@@ -113,8 +128,7 @@ const githubIssueLink = 'https://github.com/xlayers/xlayers/issues/new?assignees
   ]
 })
 export class EditorContainerComponent implements OnInit, AfterContentInit {
-  editorOptions: monaco.editor.IEditorConstructionOptions = {};
-  files: Array<XlayersNgxEditorModel>;
+  codeSetting: CodeGenSettings;
 
   frameworks: Array<{
     title: string;
@@ -133,33 +147,31 @@ export class EditorContainerComponent implements OnInit, AfterContentInit {
     this.generateAngular();
   }
 
-  onEditorInit(editor: monaco.editor.ICodeEditor) {
-    editor.layout();
-    editor.focus();
+  onEditorInit(editor: any, ctrl: HTMLElement) {
+    ctrl.focus();
   }
 
   generateAngular() {
-    this.files = this.codegen.generate(CodeGenService.Kind.Angular);
-    this.updateState(CodeGenService.Kind.Angular);
+    this.codeSetting = this.codegen.generate(CodeGenKind.Angular);
+    this.updateState();
   }
 
   generateReact() {
-    this.files = this.codegen.generate(CodeGenService.Kind.React);
-    this.updateState(CodeGenService.Kind.React);
+    this.codeSetting = this.codegen.generate(CodeGenKind.React);
+    this.updateState();
   }
 
   generateVue() {
-    this.files = this.codegen.generate(CodeGenService.Kind.Vue);
-    this.updateState(CodeGenService.Kind.Vue);
+    this.codeSetting = this.codegen.generate(CodeGenKind.Vue);
+    this.updateState();
   }
 
   generateWc() {
-    this.files = this.codegen.generate(CodeGenService.Kind.WC);
-    this.updateState(CodeGenService.Kind.WC);
+    this.codeSetting = this.codegen.generate(CodeGenKind.WC);
+    this.updateState();
   }
 
-  updateState(kind: number) {
-    this.store.dispatch(new CodeGen(kind, this.files));
+  updateState() {
+    this.store.dispatch(new CodeGen(this.codeSetting.kind, this.codeSetting.content, this.codeSetting.buttons));
   }
-
 }

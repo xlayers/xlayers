@@ -6,10 +6,14 @@ import { NgxsModule, Store } from '@ngxs/store';
 import { UiState } from 'src/app/core/state';
 import { CodeGenState, CodeGenSettings } from 'src/app/core/state/page.state';
 import { EditorContainerComponent } from './editor-container.component';
-import { CodeGenService } from './codegen/codegen.service';
+import { CodeGenService, CodeGenKind } from './codegen/codegen.service';
 
 const codeGenService = {
-  generate() { return []; }
+  generate() { return {
+    content: [],
+    kind: CodeGenKind.Angular,
+    buttons: {},
+  }; }
 };
 
 describe('EditorContainerComponent', () => {
@@ -40,7 +44,7 @@ describe('EditorContainerComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(EditorContainerComponent);
     component = fixture.componentInstance;
-    component.files = [];
+    component.codeSetting = {};
     fixture.detectChanges();
   });
 
@@ -48,47 +52,8 @@ describe('EditorContainerComponent', () => {
     expect(component).toBeTruthy();
     store.selectOnce(state => state.codegen).subscribe((codegen: CodeGenSettings) => {
       expect(codegen.content).toEqual([]);
-      expect(codegen.kind).toBe(1 /* CodeGenService.Kind.Angular */);
+      expect(codegen.kind).toBe(CodeGenKind.Angular);
+      expect(codegen.buttons.stackblitz).toBeTruthy();
     });
-
-  });
-
-  describe('When generating codegen', () => {
-    it('should dispatch Angular codegen state', () => {
-
-      component.generateAngular();
-
-      store.selectOnce(state => state.codegen).subscribe((codegen: CodeGenSettings) => {
-        expect(codegen.kind).toBe(1 /* CodeGenService.Kind.Angular */);
-      });
-    });
-
-    it('should dispatch React codegen state', () => {
-
-      component.generateReact();
-
-      store.selectOnce(state => state.codegen).subscribe((codegen: CodeGenSettings) => {
-        expect(codegen.kind).toBe(2 /* CodeGenService.Kind.React */);
-      });
-    });
-
-    it('should dispatch VueJs codegen state', () => {
-
-      component.generateVue();
-
-      store.selectOnce(state => state.codegen).subscribe((codegen: CodeGenSettings) => {
-        expect(codegen.kind).toBe(3 /* CodeGenService.Kind.Vue */);
-      });
-    });
-
-    it('should dispatch Web Components codegen state', () => {
-
-      component.generateWc();
-
-      store.selectOnce(state => state.codegen).subscribe((codegen: CodeGenSettings) => {
-        expect(codegen.kind).toBe(4 /* CodeGenService.Kind.Wc */);
-      });
-    });
-
   });
 });

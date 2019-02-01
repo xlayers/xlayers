@@ -63,13 +63,14 @@
         <mat-icon>arrow_back</mat-icon>
       </button>
       <button
+        [disabled]="!isStackblitzEnabled"
         (click)="openInStackblitz()"
-        matTooltip="Open project in StackBlitz"
+        matTooltip="Open project in Stackblitz"
         mat-button
         target="__blank"
         rel="noopener noreferrer"
       >
-        <mat-icon>offline_bolt</mat-icon>
+      <mat-icon>offline_bolt</mat-icon>
       </button>
       <button
         (click)="download()"

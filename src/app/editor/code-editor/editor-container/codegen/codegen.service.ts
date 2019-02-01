@@ -3,33 +3,41 @@ import { AngularCodeGenService } from './angular/angular.service';
 import { ReactCodeGenService } from './react/react.service';
 import { VueCodeGenService } from './vue/vue.service';
 import { WCCodeGenService } from './wc/wc.service';
-import { NgxEditorModel } from 'ngx-monaco-editor';
 import { Store } from '@ngxs/store';
 import { UiState } from 'src/app/core/state';
 import { environment } from 'src/environments/environment.hmr';
+import { CodeGenSettings } from 'src/app/core/state/page.state';
 
 declare var gtag;
 
-export interface XlayersNgxEditorModel extends NgxEditorModel {
+export interface XlayersNgxEditorModel {
   kind: 'angular' | 'react' | 'vue' | 'wc' | 'html' | 'text';
+  uri: string;
+  value: string;
+  language: string;
+}
+
+export interface XlayersExporterNavBar {
+  stackblitz?: boolean;
 }
 
 export interface CodeGenFacade {
+  buttons(): XlayersExporterNavBar;
   generate(ast: SketchMSLayer): Array<XlayersNgxEditorModel>;
+}
+
+export enum CodeGenKind {
+  Unknown,
+  Angular,
+  React,
+  Vue,
+  WC
 }
 
 @Injectable({
   providedIn: 'root'
 })
 export class CodeGenService {
-  static Kind = {
-    Unknown: 0,
-    Angular: 1,
-    React: 2,
-    Vue: 3,
-    WC: 4
-  };
-
   private ast: SketchMSLayer;
 
   constructor(
@@ -99,28 +107,43 @@ export class CodeGenService {
     return addCssClassNames(ast);
   }
 
-  trackFrameworkKind(kind: string) {
+  trackFrameworkKind(kind: CodeGenKind) {
     gtag('event', 'code_gen', {
       'event_category': 'web',
       'event_label': kind
     });
   }
 
-  generate(kind: number): Array<XlayersNgxEditorModel> {
-
+  generate(kind: CodeGenKind): CodeGenSettings {
     switch (kind) {
-      case CodeGenService.Kind.Angular:
-        this.trackFrameworkKind('Angular');
-        return this.addHeaderInfo(this.angular.generate(this.ast));
-      case CodeGenService.Kind.React:
-        this.trackFrameworkKind('React');
-        return this.addHeaderInfo(this.react.generate(this.ast));
-      case CodeGenService.Kind.Vue:
-        this.trackFrameworkKind('Vue');
-        return this.addHeaderInfo(this.vue.generate(this.ast));
-      case CodeGenService.Kind.WC:
-        this.trackFrameworkKind('Web Components');
-        return this.addHeaderInfo(this.wc.generate(this.ast));
+      case CodeGenKind.Angular:
+        this.trackFrameworkKind(CodeGenKind.Angular);
+        return {
+          kind,
+          content: this.addHeaderInfo(this.angular.generate(this.ast)),
+          buttons: this.angular.buttons()
+        };
+      case CodeGenKind.React:
+        this.trackFrameworkKind(CodeGenKind.React);
+        return {
+          kind,
+          content: this.addHeaderInfo(this.react.generate(this.ast)),
+          buttons: this.react.buttons()
+        };
+      case CodeGenKind.Vue:
+        this.trackFrameworkKind(CodeGenKind.Vue);
+        return {
+          kind,
+          content: this.addHeaderInfo(this.vue.generate(this.ast)),
+          buttons: this.vue.buttons()
+        };
+      case CodeGenKind.WC:
+        this.trackFrameworkKind(CodeGenKind.WC);
+        return {
+          kind,
+          content: this.addHeaderInfo(this.wc.generate(this.ast)),
+          buttons: this.wc.buttons()
+        };
     }
   }
 }

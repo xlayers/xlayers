@@ -1,0 +1,30 @@
+<!-- <img [src]="src" /> -->
+<section [ngStyle]="backgroundImageSrc">
+  <ng-container *ngFor="let uiSection of sections; let id = index">
+    <div
+      class="xly-ui-section xly-ui-hidden"
+      id="xly-ui-section-{{ id }}"
+      #uiSectionRef
+    >
+      <div class="xly-ratio-fill" (click)="reset()">
+        <div class="xly-frame" [ngStyle]="uiSection.frame"></div>
+        <div class="xly-absolute" [ngStyle]="uiSection.tooltip">
+          <div
+            class="xly-tooltip xly-tooltip--{{ uiSection.tooltip.direction }}"
+          >
+            <div
+              class="xly-tooltip__body xly-compensate-type-top xly-compensate-type-bottom"
+            >
+              {{ uiSection.description }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <button
+      (click)="show($event, uiSectionRef)"
+      class="xly-btn--pulse xly-absolute"
+      [ngStyle]="uiSection.button"
+    ></button>
+  </ng-container>
+</section>

@@ -6,6 +6,11 @@ import { Route, RouterModule } from '@angular/router';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';
+import { HighlightModule } from 'ngx-highlightjs';
+import typescript from 'highlight.js/lib/languages/typescript';
+import xml from 'highlight.js/lib/languages/xml';
+import scss from 'highlight.js/lib/languages/scss';
+import javascript from 'highlight.js/lib/languages/javascript';
 
 export const routes: Route[] = [{
   path: '', redirectTo: '/home', pathMatch: 'full'
@@ -17,6 +22,15 @@ export const routes: Route[] = [{
   path: '**', redirectTo: '/home'
 }];
 
+export function hljsLanguages() {
+  return [
+    {name: 'typescript', func: typescript},
+    {name: 'javascript', func: javascript},
+    {name: 'scss', func: scss},
+    {name: 'vue', func: xml},
+  ];
+}
+
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -24,6 +38,9 @@ export const routes: Route[] = [{
     HttpClientModule,
     NoopAnimationsModule,
     RouterModule.forRoot(routes, { useHash: true }),
+    HighlightModule.forRoot({
+      languages: hljsLanguages
+    }),
     // TODO(manekinekko): enable SW support when it's stable
     // ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production })
   ],
