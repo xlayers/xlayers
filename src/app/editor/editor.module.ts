@@ -12,6 +12,7 @@ import { ErrorReportService } from './error-report.service';
 import { LayerSettingsModule } from './layer-settings/layer-settings.module';
 import { TreeViewComponent } from './tree-view/tree-view.component';
 import { AngularSketchModule } from './viewer/lib/sketch.module';
+import { environment } from 'src/environments/environment';
 
 export const routes: Route[] = [
   {
@@ -24,8 +25,8 @@ export const routes: Route[] = [
   imports: [
     CoreModule,
     NgxsModule.forRoot([UiState, CodeGenState]),
-    NgxsLoggerPluginModule.forRoot(),
-    NgxsReduxDevtoolsPluginModule.forRoot(),
+    NgxsLoggerPluginModule.forRoot({ disabled: environment.production }),
+    NgxsReduxDevtoolsPluginModule.forRoot({ disabled: environment.production }) ,
     RouterModule.forChild(routes),
     AngularSketchModule,
     LayerSettingsModule,
