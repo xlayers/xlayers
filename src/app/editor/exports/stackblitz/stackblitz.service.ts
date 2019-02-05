@@ -54,6 +54,7 @@ export class ExportStackblitzService {
         break;
       case CodeGenKind.Stencil:
         project = this.stencilExport.prepare(codegen.content);
+        break;
       case CodeGenKind.Angular:
       default:
         project = this.angularExport.prepare(codegen.content);

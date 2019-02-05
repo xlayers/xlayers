@@ -31,7 +31,7 @@ const githubIssueLink = 'https://github.com/xlayers/xlayers/issues/new?assignees
       <!--<button mat-menu-item (click)="generateVue()">
         <mat-icon svgIcon="vue"></mat-icon>
         <span>Vue</span>
-      </button>
+      </button>-->
       <button mat-menu-item (click)="generateWc()">
         <mat-icon svgIcon="wc"></mat-icon>
         <span>Web Component</span>
@@ -180,8 +180,8 @@ export class EditorContainerComponent implements OnInit, AfterContentInit {
     this.updateState();
   }
 
+
   updateState() {
     this.store.dispatch(new CodeGen(this.codeSetting.kind, this.codeSetting.content, this.codeSetting.buttons));
   }
-
 }
