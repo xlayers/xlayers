@@ -29,6 +29,7 @@ export class AppComponent {
       iconRegistry.addSvgIcon('react', sanitizer.bypassSecurityTrustResourceUrl('assets/codegen/react.svg'));
       iconRegistry.addSvgIcon('vue', sanitizer.bypassSecurityTrustResourceUrl('assets/codegen/vue.svg'));
       iconRegistry.addSvgIcon('wc', sanitizer.bypassSecurityTrustResourceUrl('assets/codegen/wc.svg'));
+      iconRegistry.addSvgIcon('stencil', sanitizer.bypassSecurityTrustResourceUrl('assets/codegen/stencil.svg'));
       iconRegistry.addSvgIcon('html', sanitizer.bypassSecurityTrustResourceUrl('assets/codegen/html.svg'));
       iconRegistry.addSvgIcon('text', sanitizer.bypassSecurityTrustResourceUrl('assets/codegen/text.svg'));
 
