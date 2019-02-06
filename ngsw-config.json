@@ -1,7 +1,7 @@
 {
   "index": "/index.html",
   "assetGroups": [{
-    "name": "app",
+    "name": "sketch",
     "installMode": "prefetch",
     "resources": {
       "files": [
