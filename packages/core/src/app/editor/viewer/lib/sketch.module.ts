@@ -11,7 +11,7 @@ import { SketchSelectDemoFilesComponent } from './sketch-select-demo-files.compo
 import { SketchStopEventPropagationDirective } from './sketch-stop-event-propagation.directive';
 import { SketchTooltilDirective } from './sketch-tooltip.directive';
 import { SketchService } from './sketch.service';
-import { SketchParserModule } from '../../../../../../sketch-parser/src/public_api';
+import { SketchParserModule } from '../../../../../../sktechapp-parser/src/public_api';
 
 @NgModule({
   imports: [CoreModule, SketchParserModule],

@@ -1,7 +1,8 @@
 {
   "name": "xlayers",
-  "version": "1.0.0",
+  "version": "1.0.1-beta.0",
   "scripts": {
+    "release": "standard-version",
     "ng": "ng",
     "start": "ng serve --configuration hmr",
     "build": "ng build --prod --stats-json",
@@ -77,6 +78,7 @@
     "ng-packagr": "^4.4.0",
     "puppeteer": "^1.10.0",
     "speed-measure-webpack-plugin": "^1.2.3",
+    "standard-version": "^4.4.0",
     "ts-node": "~5.0.1",
     "tsickle": ">=0.25.5",
     "tslib": "^1.7.1",
