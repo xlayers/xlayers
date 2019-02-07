@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngxs/store';
-import { UiState } from '../../../core/state';
+import { UiState } from '~core/src/app/core/state';
 
 @Component({
   selector: 'sketch-settings-container',

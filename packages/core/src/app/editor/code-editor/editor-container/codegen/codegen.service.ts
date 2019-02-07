@@ -5,9 +5,9 @@ import { VueCodeGenService } from './vue/vue.service';
 import { WCCodeGenService } from './wc/wc.service';
 import { StencilCodeGenService } from './stencil/stencil.service';
 import { Store } from '@ngxs/store';
-import { UiState } from '../../../../core/state';
-import { environment } from '../../../../../environments/environment.hmr';
-import { CodeGenSettings } from '../../../../core/state/page.state';
+import { UiState } from '~core/src/app/core/state';
+import { environment } from '~core/src/environments/environment.hmr';
+import { CodeGenSettings } from '~core/src/app/core/state/page.state';
 
 declare var gtag;
 

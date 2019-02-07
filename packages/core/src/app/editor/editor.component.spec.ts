@@ -3,7 +3,7 @@ import { EditorComponent } from './editor.component';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { MatMenuModule } from '@angular/material/menu';
 import { NgxsModule } from '@ngxs/store';
-import { XStore } from '../core/state/state.mock';
+import { XStore } from '~core/src/app/core/state/state.mock';
 
 describe('EditorComponent', () => {
   beforeEach(async(() => {

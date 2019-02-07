@@ -1,4 +1,4 @@
-import { UiState } from '../../../core/state';
+import { UiState } from '~core/src/app/core/state';
 import { Store } from '@ngxs/store';
 import { Component, OnInit } from '@angular/core';
 

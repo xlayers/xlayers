@@ -4,8 +4,8 @@ import { NgxsModule } from '@ngxs/store';
 import { SketchService } from './sketch.service';
 import { SketchDropzoneComponent } from './sketch-dropzone.component';
 import { HttpClientModule } from '@angular/common/http';
-import { UiState } from '../../../core/state';
-import { CodeGenState } from '../../../core/state/page.state';
+import { UiState } from '~core/src/app/core/state';
+import { CodeGenState } from '~core/src/app/core/state/page.state';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { getDataTransfertMock } from './sketch-dropzone.component.mock';
 

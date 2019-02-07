@@ -4,8 +4,8 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { NgxsModule } from '@ngxs/store';
 import { SketchService } from './sketch.service';
 import { HttpClientModule } from '@angular/common/http';
-import { UiState } from '../../../core/state';
-import { CodeGenState } from '../../../core/state/page.state';
+import { UiState } from '~core/src/app/core/state';
+import { CodeGenState } from '~core/src/app/core/state/page.state';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 describe('SketchSelectDemoFilesComponent', () => {

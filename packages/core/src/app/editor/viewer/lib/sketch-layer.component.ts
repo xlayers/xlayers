@@ -7,7 +7,7 @@ import {
   Renderer2
 } from '@angular/core';
 import { Store } from '@ngxs/store';
-import { CurrentLayer, UiState } from '../../../core/state/ui.state';
+import { CurrentLayer, UiState } from '~core/src/app/core/state/ui.state';
 
 @Component({
   selector: 'sketch-layer',

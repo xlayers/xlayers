@@ -11,6 +11,7 @@ module.exports = {
   preset: "jest-preset-angular",
   setupTestFrameworkScriptFile: "./jest.ts",
   moduleNameMapper: {
+    "~(.*)": "<rootDir>/packages/$1",
     "^\@xlayers/(.*)": "<rootDir>/dist/$1"
   }
 }

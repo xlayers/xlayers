@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material/tree';
 import { Store } from '@ngxs/store';
 import { Observable, of } from 'rxjs';
-import { CurrentLayer, UiState } from '../../core/state';
+import { CurrentLayer, UiState } from '~core/src/app/core/state';
 
 export class FileFlatNode {
   name: string;

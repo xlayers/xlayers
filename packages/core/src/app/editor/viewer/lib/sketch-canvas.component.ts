@@ -8,7 +8,7 @@ import {
   ViewChild
 } from '@angular/core';
 import { Store } from '@ngxs/store';
-import { UiState } from '../../../core/state';
+import { UiState } from '~core/src/app/core/state';
 import { SketchData } from './sketch.service';
 import { CdkDragStart, CdkDragEnd, CdkDragMove } from '@angular/cdk/drag-drop';
 import { Observable } from 'rxjs';

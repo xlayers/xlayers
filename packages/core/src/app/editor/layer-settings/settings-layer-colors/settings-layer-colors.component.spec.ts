@@ -3,7 +3,7 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { NgxsModule } from '@ngxs/store';
 import { MatMenuModule } from '@angular/material/menu';
 import { SettingsLayerColorsComponent } from './settings-layer-colors.component';
-import { XStore } from '../../../core/state/state.mock';
+import { XStore } from '~core/src/app/core/state/state.mock';
 
 describe('SettingsLayerColorsComponent', () => {
   let component: SettingsLayerColorsComponent;

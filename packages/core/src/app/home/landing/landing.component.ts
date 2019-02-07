@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { environment } from '../../../environments/environment';
+import { environment } from '~core/src/environments/environment';
 
 @Component({
   selector: 'sketch-landing',

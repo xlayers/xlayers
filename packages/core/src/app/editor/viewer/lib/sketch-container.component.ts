@@ -7,7 +7,7 @@ import {
   UiState,
   ZoomIn,
   ZoomOut
-} from '../../../core/state';
+} from '~core/src/app/core/state';
 import { SketchSelectedLayerDirective } from './selected-layer.directive';
 import { SketchService } from './sketch.service';
 

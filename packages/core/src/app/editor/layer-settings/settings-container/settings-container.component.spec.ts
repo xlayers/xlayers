@@ -3,7 +3,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { SettingsContainerComponent } from './settings-container.component';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { NgxsModule } from '@ngxs/store';
-import { XStore } from '../../../core/state/state.mock';
+import { XStore } from '~core/src/app/core/state/state.mock';
 
 describe('SettingsContainerComponent', () => {
   let component: SettingsContainerComponent;

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { XlayersNgxEditorModel } from '../../code-editor/editor-container/codegen/codegen.service';
+import { XlayersNgxEditorModel } from '~core/src/app/editor/code-editor/editor-container/codegen/codegen.service';
 import { StackBlitzProjectPayload } from './stackblitz.service';
 
 @Injectable({

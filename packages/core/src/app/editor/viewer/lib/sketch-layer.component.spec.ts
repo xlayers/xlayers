@@ -2,8 +2,8 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { NgxsModule, Store } from '@ngxs/store';
-import { UiState } from '../../../core/state';
-import { CodeGenState } from '../../../core/state/page.state';
+import { UiState } from '~core/src/app/core/state';
+import { CodeGenState } from '~core/src/app/core/state/page.state';
 import { SketchLayerComponent } from './sketch-layer.component';
 import { getFrameMock } from './sketch-layer.component.mock';
 

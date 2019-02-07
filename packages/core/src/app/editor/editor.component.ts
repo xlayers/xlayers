@@ -13,9 +13,9 @@ import {
   UiState,
   ZoomIn,
   ZoomOut
-} from '../core/state';
-import { environment } from '../../environments/environment';
-import { CodeGenState, CodeGenSettings } from '../core/state/page.state';
+} from '~core/src/app/core/state';
+import { environment } from '~core/src/environments/environment';
+import { CodeGenState, CodeGenSettings } from '~core/src/app/core/state/page.state';
 import { ExportStackblitzService } from './exports/stackblitz/stackblitz.service';
 import { SketchContainerComponent } from './viewer/lib/sketch-container.component';
 

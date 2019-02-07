@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import sdk from '@stackblitz/sdk';
-import { CodeGenSettings } from '../../../core/state/page.state';
-import { CodeGenKind } from '../../code-editor/editor-container/codegen/codegen.service';
+import { CodeGenSettings } from '~core/src/app/core/state/page.state';
+import { CodeGenKind } from '~core/src/app/editor/code-editor/editor-container/codegen/codegen.service';
 import { ExportStackblitzAngularService } from './stackblitz.angular.service';
 import { ExportStackblitzReactService } from './stackblitz.react.service';
 import { ExportStackblitzVueService } from './stackblitz.vue.service';

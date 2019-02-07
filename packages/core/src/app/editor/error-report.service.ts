@@ -2,7 +2,7 @@ import { ErrorHandler, Injectable, Injector } from '@angular/core';
 import bugsnag from '@bugsnag/js';
 import { Store } from '@ngxs/store';
 import { BugsnagErrorHandler } from '@bugsnag/plugin-angular';
-import { InformUser } from '../core/state';
+import { InformUser } from '~core/src/app/core/state';
 const bugsnagClient = bugsnag('74a971bd894eea48c5d692078e969c39');
 
 @Injectable()

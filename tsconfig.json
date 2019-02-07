@@ -17,6 +17,9 @@
       "dom"
     ],
     "paths": {
+      "~*": [
+        "packages/*"
+      ],
       "@xlayers/*": [
         "dist/*"
       ]

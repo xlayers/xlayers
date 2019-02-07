@@ -3,8 +3,8 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { NgxsModule, Store } from '@ngxs/store';
-import { UiState } from '../../../core/state';
-import { CodeGenState, CodeGenSettings } from '../../../core/state/page.state';
+import { UiState } from '~core/src/app/core/state';
+import { CodeGenState, CodeGenSettings } from '~core/src/app/core/state/page.state';
 import { EditorContainerComponent } from './editor-container.component';
 import { CodeGenService, CodeGenKind } from './codegen/codegen.service';
 

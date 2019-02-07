@@ -1,5 +1,5 @@
 import { State, Action, StateContext, Selector } from '@ngxs/store';
-import { CodeGenKind, XlayersExporterNavBar, XlayersNgxEditorModel } from '../../editor/code-editor/editor-container/codegen/codegen.service';
+import { CodeGenKind, XlayersExporterNavBar, XlayersNgxEditorModel } from '~core/src/app/editor/code-editor/editor-container/codegen/codegen.service';
 
 export interface CodeGenSettings {
   content: XlayersNgxEditorModel[];

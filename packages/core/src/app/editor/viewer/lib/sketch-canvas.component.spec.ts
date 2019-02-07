@@ -4,8 +4,8 @@ import { SketchCanvasComponent } from './sketch-canvas.component';
 import { NO_ERRORS_SCHEMA, Renderer2 } from '@angular/core';
 import { NgxsModule, Store } from '@ngxs/store';
 import { getSketchDataMock } from './sketch.service.mock';
-import { UiState, CurrentFile } from '../../../core/state';
-import { CodeGenState } from '../../../core/state/page.state';
+import { UiState, CurrentFile } from '~core/src/app/core/state';
+import { CodeGenState } from '~core/src/app/core/state/page.state';
 import { getFlatLayerMock } from './sketch-layer.component.mock';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 

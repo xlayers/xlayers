@@ -1,6 +1,6 @@
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
-import { CoreModule } from '../../../core/core.module';
+import { CoreModule } from '~core/src/app/core/core.module';
 import { SketchSelectedLayerDirective } from './selected-layer.directive';
 import { SketchCanvasComponent } from './sketch-canvas.component';
 import { SketchContainerComponent } from './sketch-container.component';

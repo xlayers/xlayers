@@ -4,7 +4,7 @@ import { TreeViewComponent } from './tree-view.component';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { MatTreeModule } from '@angular/material/tree';
 import { NgxsModule } from '@ngxs/store';
-import { XStore } from '../../core/state/state.mock';
+import { XStore } from '~core/src/app/core/state/state.mock';
 
 describe('TreeViewComponent', () => {
   let component: TreeViewComponent;

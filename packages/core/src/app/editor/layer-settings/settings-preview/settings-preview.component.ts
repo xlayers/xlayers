@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngxs/store';
-import { UiState } from '../../../core/state';
-import { SketchData } from '../../../editor/viewer/lib/sketch.service';
+import { UiState } from '~core/src/app/core/state';
+import { SketchData } from '~core/src/app/editor/viewer/lib/sketch.service';
 
 @Component({
   selector: 'sketch-settings-preview',

@@ -1,8 +1,8 @@
 import { AfterContentInit, Component, OnInit } from '@angular/core';
 import { CodeGenService, CodeGenKind, XlayersNgxEditorModel } from './codegen/codegen.service';
-import { CodeGen } from '../../../core/state/page.state';
+import { CodeGen } from '~core/src/app/core/state/page.state';
 import { Store } from '@ngxs/store';
-import { CodeGenSettings } from '../../../core/state/page.state';
+import { CodeGenSettings } from '~core/src/app/core/state/page.state';
 
 // tslint:disable-next-line
 const githubIssueLink = 'https://github.com/xlayers/xlayers/issues/new?assignees=&labels=type%3A+question+%2F+discussion+%2F+RFC%2C+Scope%3A+CodeGen&template=codegen--add-xxxxx-support.md&title=CodeGen%3A+add+XXXXX+support';

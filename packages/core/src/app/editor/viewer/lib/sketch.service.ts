@@ -2,8 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Store } from '@ngxs/store';
-import { InformUser } from '../../../core/state';
-import { environment } from '../../../../environments/environment';
+import { InformUser } from '~core/src/app/core/state';
+import { environment } from '~core/src/environments/environment';
 import { SketchStyleParserService, SupportScore } from '@xlayers/sketchapp-parser';
 
 export interface SketchUser {
