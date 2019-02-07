@@ -111,8 +111,7 @@ export class SketchLayerComponent implements OnInit, AfterContentInit {
 
   isTextContent() {
     if ((this.layer._class as 'text') === 'text') {
-      this.textContent = (this
-        .layer as SketchMSSymbolMaster).attributedString.string;
+      this.textContent = (this.layer as any).text;
     }
   }
 

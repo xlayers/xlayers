@@ -1,6 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 @import '@angular/material/prebuilt-themes/pink-bluegrey.css';
-
+@import '~highlight.js/styles/railscasts.css';
 body,
 html {
   margin: 0;

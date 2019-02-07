@@ -18,11 +18,55 @@ export class ExportStackblitzVueService {
     }
 
     // add extra files
-    // files['src/index.html'] = '<div>loading</div>';
+    files['index.js'] = `
+import Vue from 'vue'
+import App from './src/App.vue'
+
+Vue.config.productionTip = false
+
+new Vue({
+  el: '#app',
+  render: h => h(App),
+})
+    `;
+
+    files['index.html'] = `
+<div id="app"></div>
+    `;
+
+    files['src/App.vue'] = `
+<template>
+  <div id="app">
+    <Xlayers />
+  </div>
+</template>
+
+<script>
+import Xlayers from './xlayers/Xlayers.vue'
+
+export default {
+  name: 'app',
+  components: {
+    Xlayers
+  }
+}
+</script>
+    `;
+
+    files['babel.config.js'] = `
+module.exports = {
+  presets: [
+    '@vue/app'
+  ]
+}
+    `;
 
     return {
       files,
       template: 'javascript',
+      dependencies: {
+        ['vue']: '^2.5.21'
+      },
       tags: ['vuejs']
     };
   }
