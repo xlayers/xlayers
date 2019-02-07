@@ -1,5 +1,5 @@
 {
-  "name": "@xlayers/sktechapp-parser",
+  "name": "@xlayers/sketchapp-parser",
   "version": "0.0.1",
   "peerDependencies": {
     "@angular/common": "^7.1.0",

@@ -17,11 +17,11 @@
       "dom"
     ],
     "paths": {
-      "@xlayers/sktechapp-parser": [
-        "dist/sktechapp-parser"
+      "@xlayers/sketchapp-parser": [
+        "dist/sketchapp-parser"
       ],
-      "@xlayers/sktechapp-parser/*": [
-        "dist/sktechapp-parser/*"
+      "@xlayers/sketchapp-parser/*": [
+        "dist/sketchapp-parser/*"
       ]
     }
   }

@@ -4,7 +4,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { Store } from '@ngxs/store';
 import { InformUser } from '../../../core/state';
 import { environment } from '../../../../environments/environment';
-import { SketchStyleParserService, SupportScore } from '../../../../../../sktechapp-parser/src/public_api';
+import { SketchStyleParserService, SupportScore } from '@xlayers/sketchapp-parser';
 
 export interface SketchUser {
   [key: string]: {

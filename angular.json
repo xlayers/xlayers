@@ -102,33 +102,33 @@
         }
       }
     },
-    "sktechapp-parser": {
-      "root": "packages/sktechapp-parser",
-      "sourceRoot": "packages/sktechapp-parser/src",
+    "sketchapp-parser": {
+      "root": "packages/sketchapp-parser",
+      "sourceRoot": "packages/sketchapp-parser/src",
       "projectType": "library",
       "prefix": "lib",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {
-            "tsConfig": "packages/sktechapp-parser/tsconfig.lib.json",
-            "project": "packages/sktechapp-parser/ng-package.json"
+            "tsConfig": "packages/sketchapp-parser/tsconfig.lib.json",
+            "project": "packages/sketchapp-parser/ng-package.json"
           }
         },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "main": "packages/sktechapp-parser/src/test.ts",
-            "tsConfig": "packages/sktechapp-parser/tsconfig.spec.json",
-            "karmaConfig": "packages/sktechapp-parser/karma.conf.js"
+            "main": "packages/sketchapp-parser/src/test.ts",
+            "tsConfig": "packages/sketchapp-parser/tsconfig.spec.json",
+            "karmaConfig": "packages/sketchapp-parser/karma.conf.js"
           }
         },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "packages/sktechapp-parser/tsconfig.lib.json",
-              "packages/sktechapp-parser/tsconfig.spec.json"
+              "packages/sketchapp-parser/tsconfig.lib.json",
+              "packages/sketchapp-parser/tsconfig.spec.json"
             ],
             "exclude": [
               "**/node_modules/**"

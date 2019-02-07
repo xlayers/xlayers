@@ -1,6 +1,14 @@
 import { BinaryPropertyListParserService } from './bplist-parser.service';
 import { Injectable } from '@angular/core';
-import { SketchData } from '../../../core/src/app/editor/viewer/lib/sketch.service';
+
+// TODO: Move to @types/sketchapp
+export interface SketchData {
+  pages: Array<SketchMSPage>;
+  previews: Array<{ source: string; width: number; height: number }>;
+  document: SketchMSDocumentData;
+  user: {};
+  meta: SketchMSMetadata;
+}
 
 /**
  * border Type:
