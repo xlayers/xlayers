@@ -17,11 +17,8 @@
       "dom"
     ],
     "paths": {
-      "@xlayers/sketchapp-parser": [
-        "dist/sketchapp-parser"
-      ],
-      "@xlayers/sketchapp-parser/*": [
-        "dist/sketchapp-parser/*"
+      "@xlayers/*": [
+        "dist/*"
       ]
     }
   }

@@ -14,16 +14,6 @@
     "deploy": "npm run test:ci && npm run build && firebase deploy",
     "analyse": "webpack-bundle-analyzer ./dist/html/stats.json"
   },
-  "jest": {
-    "globals": {
-      "ts-jest": {
-        "tsConfig": "packages/core/src/tsconfig.spec.json"
-      },
-      "__TRANSFORM_HTML__": true
-    },
-    "preset": "jest-preset-angular",
-    "setupTestFrameworkScriptFile": "./jest.ts"
-  },
   "private": true,
   "dependencies": {
     "@angular/animations": "^7.1.0",
