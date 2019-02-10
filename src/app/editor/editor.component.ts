@@ -16,8 +16,8 @@ import {
 } from 'src/app/core/state';
 import { environment } from '../../environments/environment';
 import { CodeGenState, CodeGenSettings } from '../core/state/page.state';
-import { XlayersNgxEditorModel } from './code-editor/editor-container/codegen/codegen.service';
 import { ExportStackblitzService } from './exports/stackblitz/stackblitz.service';
+import { XlayersExporterNavBar } from './code-editor/editor-container/codegen/codegen.service';
 import { SketchContainerComponent } from './viewer/lib/sketch-container.component';
 
 @Component({
@@ -41,6 +41,7 @@ export class EditorComponent implements OnInit {
 
   zoomLevel: number;
 
+  isStackblitzEnabled = true;
   is3dView: boolean;
   isCodeEditor: boolean;
   codegen: CodeGenSettings;
@@ -124,6 +125,9 @@ export class EditorComponent implements OnInit {
       });
 
     this.store.select(CodeGenState.codegen).subscribe(codegen => {
+      if (this.codegen) {
+        this.isStackblitzEnabled = codegen.buttons.stackblitz;
+      }
       this.codegen = codegen;
     });
   }
@@ -172,10 +176,6 @@ export class EditorComponent implements OnInit {
     this.store.dispatch(new Toggle3D(this.is3dView));
   }
 
-  async openInStackblitz() {
-    await this.exporter.export(this.codegen);
-  }
-
   async download() {
     const zip = new window['JSZip']();
     this.codegen.content.forEach(file => {
@@ -187,5 +187,9 @@ export class EditorComponent implements OnInit {
 
   close() {
     this.store.dispatch(new ResetUiSettings());
+  }
+
+  openInStackblitz() {
+    this.exporter.export(this.codegen);
   }
 }

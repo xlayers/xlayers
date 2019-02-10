@@ -1,1 +1,3 @@
-{}
+{
+  "pluginsFile": "e2e/plugins/index.js"
+}

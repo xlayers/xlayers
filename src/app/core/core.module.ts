@@ -1,5 +1,3 @@
-import bugsnag from '@bugsnag/js';
-import { BugsnagErrorHandler } from '@bugsnag/plugin-angular';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { CommonModule } from '@angular/common';
 import { NgModule, ErrorHandler } from '@angular/core';
@@ -47,16 +45,8 @@ const MatModules = [
 ];
 
 const ExtraModules = [FormsModule, ColorSketchModule];
-
-const bugsnagClient = bugsnag('74a971bd894eea48c5d692078e969c39');
-
-export function errorHandlerFactory() {
-  return new BugsnagErrorHandler(bugsnagClient);
-}
-
 @NgModule({
   imports: [...MatModules, ...ExtraModules],
   exports: [CommonModule, ...MatModules, ...ExtraModules],
-  providers: [ { provide: ErrorHandler, useFactory: errorHandlerFactory } ]
 })
-export class CoreModule {}
+export class CoreModule { }
