@@ -70,6 +70,7 @@
     "ng-packagr": "^4.4.0",
     "puppeteer": "^1.10.0",
     "speed-measure-webpack-plugin": "^1.2.3",
+    "terser": "^3.14.1",
     "ts-node": "~5.0.1",
     "tsickle": ">=0.25.5",
     "tslib": "^1.7.1",
