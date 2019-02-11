@@ -119,7 +119,6 @@ export class SketchCanvasComponent implements OnInit, AfterViewInit {
     const current = this.canvasRef.nativeElement.getBoundingClientRect();
     this.positionX = current.left - 100;
     this.positionY = current.top;
-    // debugger;
   }
 
   formatTransformStyle(existingTransformStyle: string, zoomLevel) {
