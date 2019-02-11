@@ -120,6 +120,7 @@ footer i {
 
 .bg.interactive {
   border-bottom: 1px solid rgba(255, 108, 95, 0.31);
+  overflow: hidden;
 }
 
 .bg.interactive img {
@@ -185,7 +186,7 @@ footer i {
 }
 
 
-@media (max-width: 1300px) {
+@media (max-width: 1000px) {
   .bg.interactive {
     display: none;
   }
