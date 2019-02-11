@@ -3,21 +3,10 @@ import { MatExpansionPanel } from '@angular/material/expansion';
 import { MatDrawerContainer } from '@angular/material/sidenav';
 import { Store } from '@ngxs/store';
 import * as FileSaver from 'file-saver';
-import {
-  CurrentLayer,
-  CurrentPage,
-  ResetUiSettings,
-  Toggle3D,
-  ToggleCodeEditor,
-  ToggleWireframe,
-  UiState,
-  ZoomIn,
-  ZoomOut
-} from 'src/app/core/state';
+import { CurrentLayer, CurrentPage, ResetUiSettings, Toggle3D, ToggleCodeEditor, ToggleWireframe, UiState, ZoomIn, ZoomOut } from 'src/app/core/state';
 import { environment } from '../../environments/environment';
-import { CodeGenState, CodeGenSettings } from '../core/state/page.state';
+import { CodeGenSettings, CodeGenState } from '../core/state/page.state';
 import { ExportStackblitzService } from './exports/stackblitz/stackblitz.service';
-import { XlayersExporterNavBar } from './code-editor/editor-container/codegen/codegen.service';
 import { SketchContainerComponent } from './viewer/lib/sketch-container.component';
 
 @Component({
