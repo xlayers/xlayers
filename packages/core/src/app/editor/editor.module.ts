@@ -24,7 +24,8 @@ export const routes: Route[] = [
 @NgModule({
   imports: [
     CoreModule,
-    NgxsModule.forRoot([UiState, CodeGenState], { developmentMode: !environment.production }),
+    /* https://github.com/ngxs/store/issues/716#issuecomment-447989673 */
+    NgxsModule.forRoot([UiState, CodeGenState], /* {developmentMode: !environment.production } */),
     NgxsLoggerPluginModule.forRoot({ disabled: environment.production }),
     NgxsReduxDevtoolsPluginModule.forRoot({ disabled: environment.production }) ,
     RouterModule.forChild(routes),
