@@ -17,8 +17,11 @@
       "dom"
     ],
     "paths": {
-      "~*": [
-        "packages/*"
+      "@env/*": [
+        "packages/xlayers/src/environments/*"
+      ],
+      "@app/*": [
+        "packages/xlayers/src/app/*"
       ],
       "@xlayers/*": [
         "dist/*"

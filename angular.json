@@ -4,8 +4,8 @@
   "newProjectRoot": "packages",
   "projects": {
     "xlayers": {
-      "root": "packages/core/",
-      "sourceRoot": "packages/core/src",
+      "root": "packages/xlayers/",
+      "sourceRoot": "packages/xlayers/src",
       "projectType": "application",
       "prefix": "sketch",
       "schematics": {},
@@ -14,17 +14,17 @@
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
             "outputPath": "dist/html",
-            "index": "packages/core/src/index.html",
-            "main": "packages/core/src/main.ts",
-            "polyfills": "packages/core/src/polyfills.ts",
-            "tsConfig": "packages/core/tsconfig.app.json",
+            "index": "packages/xlayers/src/index.html",
+            "main": "packages/xlayers/src/main.ts",
+            "polyfills": "packages/xlayers/src/polyfills.ts",
+            "tsConfig": "packages/xlayers/tsconfig.app.json",
             "assets": [
-              "packages/core/src/favicon.ico",
-              "packages/core/src/assets",
-              "packages/core/src/manifest.json"
+              "packages/xlayers/src/favicon.ico",
+              "packages/xlayers/src/assets",
+              "packages/xlayers/src/manifest.json"
             ],
             "styles": [
-              "packages/core/src/styles.css"
+              "packages/xlayers/src/styles.css"
             ],
             "scripts": [
               "node_modules/jszip/dist/jszip.min.js",
@@ -36,8 +36,8 @@
             "production": {
               "fileReplacements": [
                 {
-                  "replace": "packages/core/src/environments/environment.ts",
-                  "with": "packages/core/src/environments/environment.prod.ts"
+                  "replace": "packages/xlayers/src/environments/environment.ts",
+                  "with": "packages/xlayers/src/environments/environment.prod.ts"
                 }
               ],
               "optimization": true,
@@ -62,8 +62,8 @@
             "hmr": {
               "fileReplacements": [
                 {
-                  "replace": "packages/core/src/environments/environment.ts",
-                  "with": "packages/core/src/environments/environment.hmr.ts"
+                  "replace": "packages/xlayers/src/environments/environment.ts",
+                  "with": "packages/xlayers/src/environments/environment.hmr.ts"
                 }
               ]
             }
@@ -94,8 +94,8 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "packages/core/tsconfig.app.json",
-              "packages/core/tsconfig.spec.json"
+              "packages/xlayers/tsconfig.app.json",
+              "packages/xlayers/tsconfig.spec.json"
             ],
             "exclude": [
               "**/node_modules/**"
