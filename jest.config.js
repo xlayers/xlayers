@@ -9,9 +9,10 @@ module.exports = {
     __TRANSFORM_HTML__: true
   },
   preset: "jest-preset-angular",
-  setupTestFrameworkScriptFile: "./jest.ts",
+  setupFilesAfterEnv: ["./jest.ts"],
   moduleNameMapper: {
-    "~(.*)": "<rootDir>/packages/$1",
+    "^\@app/(.*)": "<rootDir>/packages/xlayers/src/app/$1",
+    "^\@env/(.*)": "<rootDir>/packages/xlayers/src/environments/$1",
     "^\@xlayers/(.*)": "<rootDir>/dist/$1"
   }
 }
