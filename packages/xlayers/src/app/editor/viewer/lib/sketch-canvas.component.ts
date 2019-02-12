@@ -1,17 +1,8 @@
-import {
-  AfterViewInit,
-  Component,
-  ElementRef,
-  Input,
-  OnInit,
-  Renderer2,
-  ViewChild
-} from '@angular/core';
+import { CdkDragEnd, CdkDragMove, CdkDragStart } from '@angular/cdk/drag-drop';
+import { AfterViewInit, Component, ElementRef, Input, OnInit, Renderer2, ViewChild } from '@angular/core';
+import { UiState } from '@app/core/state';
 import { Store } from '@ngxs/store';
-import { UiState, LayerPosition } from '@app/core/state';
 import { SketchData } from './sketch.service';
-import { CdkDragStart, CdkDragEnd, CdkDragMove } from '@angular/cdk/drag-drop';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'sketch-canvas',
