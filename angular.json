@@ -27,7 +27,9 @@
               "packages/core/src/styles.css"
             ],
             "scripts": [
-              "node_modules/jszip/dist/jszip.min.js"
+              "node_modules/jszip/dist/jszip.min.js",
+              "node_modules/pdfjs-dist/build/pdf.min.js",
+              "node_modules/pdfjs-dist/build/pdf.worker.min.js"
             ]
           },
           "configurations": {

@@ -57,6 +57,15 @@ export class AutoFixPagePosition {
   static readonly type = '[UiSettings] Auto Fix Current Page Position';
   constructor(public page: SketchMSLayer) {}
 }
+export class LayerPosition {
+  static readonly type = '[UiSettings] Set Layer Position';
+  public left:  number;
+  public top:  number;
+  constructor({ left, top }: {left: number; top: number} = { left: 0, top: 0 }) {
+    this.left = left;
+    this.top = top;
+  }
+}
 export class ZoomIn {
   static readonly type = '[UiSettings] Zoom In';
   constructor(public value: number = 0.1) {}
@@ -157,18 +166,32 @@ export class UiState {
   // Actions
 
   @Action(CurrentFile)
-  currentFile({ patchState, dispatch }: StateContext<UiSettings>, action: CurrentFile) {
-    const page = action.data.pages[0];
-    const shouldFixTopLeftPosition =
-      page.frame.x !== 0 || page.frame.y !== 0 || (page.layers && (page.layers[0].frame.x !== 0 || page.layers[0].frame.y !== 0));
+  currentFile(
+    { patchState, dispatch }: StateContext<UiSettings>,
+    action: CurrentFile
+  ) {
+    let shouldFixTopLeftPosition = false;
+
+    action.data.pages.map(page => {
+      shouldFixTopLeftPosition =
+        page.frame.x !== 0 ||
+        page.frame.y !== 0 ||
+        (page.layers &&
+          (page.layers[0].frame.x !== 0 || page.layers[0].frame.y !== 0));
+
+      if (shouldFixTopLeftPosition) {
+        dispatch(new AutoFixPagePosition(page));
+      }
+    });
 
     if (shouldFixTopLeftPosition) {
-      dispatch(new AutoFixPagePosition(page));
+      // dispatch this message only once.
+      dispatch(new InformUser('Auto Fixed Top/Left Position'));
     }
 
     dispatch([
       new AvailablePages(action.data.pages),
-      new CurrentPage(page),
+      new CurrentPage(action.data.pages[0]),
       new SettingsEnabled(),
       new ToggleWireframe(false),
       new ToggleCodeEditor(false)
@@ -179,14 +202,20 @@ export class UiState {
   }
 
   @Action(ToggleWireframe)
-  showWireframe({ patchState }: StateContext<UiSettings>, action: ToggleWireframe) {
+  showWireframe(
+    { patchState }: StateContext<UiSettings>,
+    action: ToggleWireframe
+  ) {
     patchState({
       wireframe: action.value
     });
   }
 
   @Action(AvailablePages)
-  setAvailablePages({ patchState }: StateContext<UiSettings>, action: AvailablePages) {
+  setAvailablePages(
+    { patchState }: StateContext<UiSettings>,
+    action: AvailablePages
+  ) {
     patchState({
       availablePages: [...action.pages]
     });
@@ -200,7 +229,10 @@ export class UiState {
   }
 
   @Action(CurrentLayer)
-  currentLayer({ getState, patchState }: StateContext<UiSettings>, action: CurrentLayer) {
+  currentLayer(
+    { getState, patchState }: StateContext<UiSettings>,
+    action: CurrentLayer
+  ) {
     patchState({
       currentLayer: action.layer ? { ...action.layer } : null,
       previousLayer: { ...getState().currentLayer }
@@ -215,23 +247,63 @@ export class UiState {
   }
 
   @Action(AutoFixPagePosition)
-  autoFixLayersPosition({ patchState, dispatch }: StateContext<UiSettings>, action: AutoFixPagePosition) {
+  autoFixLayersPosition(
+    { patchState, dispatch }: StateContext<UiSettings>,
+    action: AutoFixPagePosition
+  ) {
     const currentPage = { ...action.page };
 
     // reset the top/left position of the current page
     // and the root layer
-    currentPage.frame.x = 0;
-    currentPage.frame.y = 0;
+    currentPage.frame = {
+      ...currentPage.frame,
+      x: 0,
+      y: 0
+    };
+
     if (currentPage.layers[0]) {
-      currentPage.layers[0].frame.x = 0;
-      currentPage.layers[0].frame.y = 0;
+      // use array destructuring to avoid:
+      // TypeError: Cannot assign to read only property '0' of [object Array]
+      const [firstLayer, ...remainingLayers] = currentPage.layers;
+      currentPage.layers = [
+        {
+          ...firstLayer,
+          frame: {
+            ...firstLayer.frame,
+            x: 0,
+            y: 0
+          }
+        },
+        ...remainingLayers
+      ];
     }
 
     patchState({
       currentPage
     });
+  }
 
-    dispatch(new InformUser('Auto Fixed Top/Left Position'));
+  @Action(LayerPosition)
+  layerPosition(
+    { getState, patchState }: StateContext<UiSettings>,
+    action: LayerPosition
+  ) {
+    const ui = { ...getState() };
+
+    // reset the top/left position of the current page
+    // and the root layer
+    ui.currentPage = {
+      ...ui.currentPage,
+      frame: {
+        ...ui.currentPage.frame,
+        x: action.left,
+        y: action.top
+      }
+    };
+
+    patchState({
+      currentPage: ui.currentPage
+    });
   }
 
   @Action(ZoomIn)
@@ -251,7 +323,10 @@ export class UiState {
     }
   }
   @Action(Toggle3D)
-  toggle3D({ patchState, dispatch }: StateContext<UiSettings>, action: Toggle3D) {
+  toggle3D(
+    { patchState, dispatch }: StateContext<UiSettings>,
+    action: Toggle3D
+  ) {
     if (action.value) {
       dispatch(new ToggleWireframe(true));
     }
@@ -261,7 +336,10 @@ export class UiState {
     });
   }
   @Action(ToggleCodeEditor)
-  toggleCodeEditor({ patchState, dispatch }: StateContext<UiSettings>, action: ToggleCodeEditor) {
+  toggleCodeEditor(
+    { patchState, dispatch }: StateContext<UiSettings>,
+    action: ToggleCodeEditor
+  ) {
     dispatch(new CurrentLayer(null));
     patchState({
       isCodeEditor: action.value

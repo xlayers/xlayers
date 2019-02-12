@@ -12,95 +12,95 @@ export class LandingComponent implements OnInit {
   viewerSections = [
     {
       frame: {
-        width: '300px',
-        left: '543px',
-        top: '66px',
+        width: '240px',
+        left: '447px',
+        top: '50px',
         height: '50px'
       },
       tooltip: {
         direction: 'right',
-        left: '220px',
-        top: '28px'
+        left: '140px',
+        top: '12px'
       },
       button: {
-        top: '80px',
-        left: '514px'
+        top: '66px',
+        left: '414px'
       },
       description:
       'Quick access to layers inspection, zooming functionalities and 3D mode, with the addition of the codegen editor (see below for more details).'
     },
     {
       frame: {
-        width: '198px',
-        left: '57px',
-        top: '153px',
-        height: '615px'
+        width: '166px',
+        left: '45px',
+        top: '120px',
+        height: '560px'
       },
       tooltip: {
         direction: 'left',
-        left: '280px',
-        top: '188px'
+        left: '230px',
+        top: '338px'
       },
       button: {
-        top: '430px',
-        left: '130px'
+        top: '370px',
+        left: '100px'
       },
       description:
         'Quickly access and inspect the layers hierarchy of the Sketch design.'
     },
     {
       frame: {
-        width: '831px',
-        left: '279px',
-        top: '126px',
-        height: '760px'
+        width: '686px',
+        left: '226px',
+        top: '103px',
+        height: '629px'
       },
       tooltip: {
         direction: 'right',
-        left: '-50px',
-        top: '188px'
+        left: '270px',
+        top: '367px'
       },
       button: {
-        top: '430px',
-        left: '682px'
+        top: '410px',
+        left: '592px'
       },
       description:
         'A fully fledged design viewer with both 2D and 3D inspection mode allowing you to access all the layers of your design.'
     },
     {
       frame: {
-        width: '215px',
-        left: '1117px',
-        top: '135px',
-        height: '385px'
+        width: '176px',
+        left: '916px',
+        top: '103px',
+        height: '325px'
       },
       tooltip: {
         direction: 'right',
-        left: '800px',
-        top: '285px'
+        left: '610px',
+        top: '215px'
       },
       button: {
-        top: '330px',
-        left: '1215px'
+        top: '270px',
+        left: '995px'
       },
       description:
         'Quick access and download the original design as it was exported by SketchApp.'
     },
     {
       frame: {
-        width: '215px',
-        left: '1117px',
-        top: '530px',
-        height: '212px'
+        width: '176px',
+        left: '916px',
+        top: '440px',
+        height: '291px'
       },
       tooltip: {
         direction: 'right',
-        left: '800px',
-        top: '595px'
+        left: '610px',
+        top: '535px'
       },
       button: {
-        top: '640px',
-        left: '1215px'
+        top: '584px',
+        left: '1000px'
       },
       description:
         'Complementary property inspector of each layer including size and dimensions, style information and much more. '
@@ -109,55 +109,55 @@ export class LandingComponent implements OnInit {
 
   editorSections = [{
     frame: {
-      width: '200px',
-      left: '603px',
-      top: '66px',
+      width: '175px',
+      left: '485px',
+      top: '50px',
       height: '50px'
     },
     tooltip: {
       direction: 'right',
-      left: '280px',
-      top: '48px'
+      left: '180px',
+      top: '24px'
     },
     button: {
-      top: '82px',
-      left: '580px'
+      top: '67px',
+      left: '472px'
     },
     description:
       'Additional export options to external editors and IDEs, and a handy archive download feature for local development.'
   }, {
     frame: {
-      width: '1262px',
-      left: '63px',
-      top: '123px',
-      height: '761px'
+      width: '1046px',
+      left: '46px',
+      top: '99px',
+      height: '632px'
     },
     tooltip: {
       direction: 'right',
-      left: '1003px',
-      top: '770px'
+      left: '213px',
+      top: '274px'
     },
     button: {
-      top: '548px',
-      left: '660px'
+      top: '308px',
+      left: '520px'
     },
     description:
       'A code editor to quickly view the generated code of the current design for the selected technology.'
   }, {
     frame: {
-      width: '176px',
-      left: '1142px',
-      top: '163px',
-      height: '186px'
+      width: '140px',
+      left: '940px',
+      top: '135px',
+      height: '150px'
     },
     tooltip: {
       direction: 'right',
-      left: '822px',
-      top: '212px'
+      left: '634px',
+      top: '136px'
     },
     button: {
-      top: '167px',
-      left: '1292px'
+      top: '152px',
+      left: '1042px'
     },
     description:
       'Many ouput Web technologies including but not limited to Angular, Vue.js, React, Web Components, etc...'

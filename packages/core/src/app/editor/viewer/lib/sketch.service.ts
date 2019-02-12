@@ -5,6 +5,7 @@ import { Store } from '@ngxs/store';
 import { InformUser } from '~core/src/app/core/state';
 import { environment } from '~core/src/environments/environment';
 import { SketchStyleParserService, SupportScore } from '@xlayers/sketchapp-parser';
+import * as PDFJS from 'pdfjs-dist';
 
 export interface SketchUser {
   [key: string]: {
@@ -141,6 +142,29 @@ export class SketchService {
             width: image.width,
             height: image.height
           });
+        } else if (relativePath.endsWith('.pdf')) {
+          // text-previews/text-previews.pdf
+
+          const data = await zipEntry.async('uint8array');
+          const pdfDoc = await PDFJS.getDocument({ data }).promise;
+          const pdfPage = await pdfDoc.getPage(1);
+          const viewport = await pdfPage.getViewport({scale: 1.0});
+          const __domCanvas = document.createElement('canvas');
+          const __canvasCtx = __domCanvas.getContext('2d');
+
+          await pdfPage.render({
+            canvasContext: __canvasCtx,
+            viewport
+          }).promise;
+
+          const source = __domCanvas.toDataURL('image/png', 1);
+          const image = await this.computeImage(source);
+          _data.previews.push({
+            source,
+            width: image.width,
+            height: image.height
+          });
+
         } else {
           // document.json
           // user.json
@@ -159,11 +183,14 @@ export class SketchService {
   }
 
   getDemoFiles() {
-    return environment.demoFiles.filter(meta => !meta.disabled).sort((m1, m2) => m2.value - m1.value);
+    return environment.demoFiles
+      .filter(meta => !meta.disabled)
+      .sort((m1, m2) => m2.value - m1.value);
   }
 
   getSketchDemoFile(filename: string) {
-    const repoUrl = `${window.location.origin || environment.baseUrl}/assets/demos/sketchapp/`;
+    const repoUrl = `${window.location.origin ||
+      environment.baseUrl}/assets/demos/sketchapp/`;
     return this.http.get(`${repoUrl}${filename}.sketch`, {
       responseType: 'blob'
     });

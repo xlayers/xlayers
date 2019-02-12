@@ -8,7 +8,7 @@ import {
   ViewChild
 } from '@angular/core';
 import { Store } from '@ngxs/store';
-import { UiState } from '~core/src/app/core/state';
+import { UiState, LayerPosition } from '~core/src/app/core/state';
 import { SketchData } from './sketch.service';
 import { CdkDragStart, CdkDragEnd, CdkDragMove } from '@angular/cdk/drag-drop';
 import { Observable } from 'rxjs';
@@ -80,11 +80,11 @@ export class SketchCanvasComponent implements OnInit, AfterViewInit {
 
   @ViewChild('canvas') canvasRef: ElementRef<HTMLElement>;
 
-  positionX: number;
-  positionY: number;
-  originPositionX: number;
-  originPositionY: number;
-  currentZoomLevel: number;
+  positionX = 0;
+  positionY = 0;
+  originPositionX = 0;
+  originPositionY = 0;
+  currentZoomLevel = 1;
   data: SketchData;
 
   constructor(
@@ -122,7 +122,7 @@ export class SketchCanvasComponent implements OnInit, AfterViewInit {
   }
 
   formatTransformStyle(existingTransformStyle: string, zoomLevel) {
-    const scaleStyleRegex = /(\([ ]?[\d]+(\.[\d]+)?[ ]?(,[ ]?[\d]+(\.[\d]+)?[ ]?)?\))/gmi;
+    const scaleStyleRegex = /(\([ ]?[\d]+(\.[\d]+)?[ ]?(,[ ]?[\d]+(\.[\d]+)?[ ]?)?\))/gim;
     return scaleStyleRegex.test(existingTransformStyle)
       ? existingTransformStyle.replace(
           scaleStyleRegex,
@@ -152,11 +152,11 @@ export class SketchCanvasComponent implements OnInit, AfterViewInit {
     this.originPositionY += event.y;
   }
 
- /**
-  * cdk overrides existing transform style and replace it by its own. We detect
-  * if there is any existing scale propery in transform, then replace its value by current zoom level in both
-  * drag started & ended event
-  */
+  /**
+   * cdk overrides existing transform style and replace it by its own. We detect
+   * if there is any existing scale propery in transform, then replace its value by current zoom level in both
+   * drag started & ended event
+   */
   OnCdkDragStarted(event: CdkDragStart) {
     event.source.element.nativeElement.style.transform = this.formatTransformStyle(
       event.source.element.nativeElement.style.transform,
@@ -175,7 +175,7 @@ export class SketchCanvasComponent implements OnInit, AfterViewInit {
    * Keep dragging element's transform style updated with currentZoomLeve, while it is moved.
    * @param event Observable<CdkDragMove<CdkDrag>>
    */
-  OnCdkDragMoved(event: Observable<CdkDragMove<any>>) {
+  OnCdkDragMoved(event: CdkDragMove<any>) {
     const sourceElement: any = event.source;
     sourceElement.element.nativeElement.style.transform = this.formatTransformStyle(
       sourceElement.element.nativeElement.style.transform,
