@@ -16,7 +16,7 @@ const VERSION_LIST = [50, 51, 52];
 
 function loadSnapshot(version, fileName) {
   return new Promise((resolve, reject) => {
-    readFile(`./test/snapshots/${version}/${fileName}.json`, 'utf8', (err, data) => {
+    readFile(`./tests/snapshots/${version}/${fileName}.json`, 'utf8', (err, data) => {
       if (err) {
         reject(err);
       } else {
@@ -28,7 +28,7 @@ function loadSnapshot(version, fileName) {
 
 function saveSnapshot(version, fileName, data) {
   return new Promise((resolve, reject) => {
-    writeFile(`./test/snapshots/${version}/${fileName}.json`, JSON.stringify(data), (err) => {
+    writeFile(`./tests/snapshots/${version}/${fileName}.json`, JSON.stringify(data), (err) => {
       if (err) {
         reject(err);
       } else {
@@ -48,7 +48,7 @@ async function loadSketch(version, fileName) {
   } as SketchData;
 
   const sketch = await new Promise((resolve, reject) => {
-    readFile(`./packages/xlayers/src/app/assets/demos/sketchapp/${version}/${fileName}`, (err, file) => {
+    readFile(`./packages/xlayers/src/assets/demos/sketchapp/${version}/${fileName}`, (err, file) => {
       if (err) {
         reject(err);
       } else {
@@ -103,7 +103,7 @@ describe('sketch parser', () => {
   beforeAll(async(() => {
     VERSION_LIST.forEach(async (version) => {
       const fileNames = await new Promise((resolve, reject) => {
-        readdir(`./packages/core/src/assets/demos/sketchapp/${version}`, (err, dirfileNames) => {
+        readdir(`./packages/xlayers/src/assets/demos/sketchapp/${version}`, (err, dirfileNames) => {
           if (err) {
             reject();
           } else {
@@ -114,7 +114,7 @@ describe('sketch parser', () => {
 
       await Promise.all((fileNames as Array<string>).map((fileName) =>
         new Promise((resolve, reject) => {
-          access(`./test/snapshots/${version}/${fileName}.json`, constants.R_OK, (err) => {
+          access(`./tests/snapshots/${version}/${fileName}.json`, constants.R_OK, (err) => {
             if (err) {
               loadSketch(version, fileName)
               .then(((data) => {
@@ -135,7 +135,7 @@ describe('sketch parser', () => {
   }));
 
   VERSION_LIST.forEach((version) => {
-      const fileNames = readdirSync(`./packages/core/src/assets/demos/sketchapp/${version}`);
+      const fileNames = readdirSync(`./packages/xlayers/src/assets/demos/sketchapp/${version}`);
 
       fileNames.forEach((fileName) => {
         it(`should match ${fileName} snapshot for ${version}`, (done: DoneFn) => {
