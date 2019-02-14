@@ -43,9 +43,8 @@ export class SketchStyleParserService {
     }
 
     sketch.pages.forEach(page => {
-      if (page.layers) {
-        page.layers.map(layer => this.visitObject(layer, page, layer));
-      }
+      this.autoFixPagePosition(page);
+      this.enrichCSSStyle(page);
     });
     return supp;
   }
@@ -62,6 +61,27 @@ export class SketchStyleParserService {
       return SupportScore.LATEST;
     } else {
       return SupportScore.EDGE;
+    }
+  }
+
+  autoFixPagePosition(page: SketchMSPage) {
+    if (page.frame.x !== 0 ||
+        page.frame.y !== 0 ||
+        (page.layers &&
+          (page.layers[0].frame.x !== 0 || page.layers[0].frame.y !== 0))) {
+      page.frame.x = 0;
+      page.frame.y = 0;
+
+      if (page.layers[0]) {
+        page.layers[0].frame.x = 0;
+        page.layers[0].frame.y = 0;
+      }
+    }
+  }
+
+  enrichCSSStyle(page: SketchMSPage) {
+    if (page.layers) {
+      page.layers.map(layer => this.visitObject(layer, page, layer));
     }
   }
 
