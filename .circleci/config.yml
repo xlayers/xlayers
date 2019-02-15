@@ -15,7 +15,7 @@ jobs:
           - v1-dependencies-
 
       - run: npm install
-      - run: npm run prebuild-libraries
+      - run: npm run prebuild
       - run:
           name: Install JUnit coverage reporter
           command: npm i -D jest-junit
@@ -43,7 +43,7 @@ jobs:
           - v1-dependencies-
 
       - run: npm install
-      - run: npm run prebuild-libraries
+      - run: npm run prebuild
       - save_cache:
           paths:
             - node_modules

@@ -6,7 +6,7 @@
     "ng": "ng",
     "start": "ng serve --configuration hmr",
     "build": "ng build --prod --stats-json",
-    "prebuild-libraries": "ng build sketchapp-parser",
+    "prebuild": "ng build sketchapp-parser",
     "postbuild": "bash scripts/stamp-build.bash && npm run changelog",
     "test": "jest",
     "test:ci": "jest --ci --detectOpenHandles",
