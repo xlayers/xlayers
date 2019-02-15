@@ -58,10 +58,6 @@ workflows:
     jobs:
       - lint
 
-  test:
-    jobs:
-      - test
-
   build:
     jobs:
       - build
