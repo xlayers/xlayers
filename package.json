@@ -44,7 +44,7 @@
     "jszip": "^3.1.5",
     "ngx-color": "^2.0.5",
     "ngx-highlightjs": "^3.0.1",
-    "pdfjs-dist": "^2.2.2",
+    "pdfjs-dist": "^2.0.943",
     "rxjs": "^6.4.0",
     "zone.js": "^0.8.29"
   },
