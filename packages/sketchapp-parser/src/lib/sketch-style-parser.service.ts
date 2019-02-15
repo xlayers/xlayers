@@ -50,7 +50,7 @@ export class SketchStyleParserService {
   }
 
   checkSupport(sketch: SketchData) {
-    const ver = Number.parseInt(sketch.meta.appVersion.split('.')[0]);
+    const ver = Number.parseInt(sketch.meta.appVersion.split('.')[0], 10);
     if (Number.isNaN(ver)) {
       return SupportScore.UNKNOWN;
     } else if (ver < 49) {
