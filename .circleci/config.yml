@@ -30,25 +30,6 @@ jobs:
           command: npm run test:ci -- --reporters=default --reporters=jest-junit --maxWorkers=2
           environment:
             JEST_JUNIT_OUTPUT: "reports/junit/js-test-results.xml"
-  test:
-    docker:
-      - image: circleci/node:10.12
-    steps:
-      - checkout
-      - restore_cache:
-          keys:
-          - v1-dependencies-{{ checksum "package.json" }}
-          # fallback to using the latest cache if no exact match is found
-          - v1-dependencies-
-
-      - run: npm install
-      - run: npm run prebuild-libraries
-      - save_cache:
-          paths:
-            - node_modules
-          key: v1-dependencies-{{ checksum "package.json" }}
-
-      - run: npm run test
 
   lint:
     docker:
