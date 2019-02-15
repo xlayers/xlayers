@@ -42,7 +42,7 @@ section {
   padding: 10px;
   border: 6px solid #FD587D;
   background: #FD587D;
-  color: white;
+  color: #351c1c;
 }
 
 .xly-tooltip::after {
@@ -99,6 +99,7 @@ section {
   width: 25px;
   height: 25px;
   z-index: 1;
+  font-size: 0;
 }
 
 .xly-btn--pulse::after {
