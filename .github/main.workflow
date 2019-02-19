@@ -3,11 +3,19 @@ workflow "Main" {
   resolves = [
     "Test",
     "GitHub Action for Firebase",
+    "Prebuild libraries",
+    "Install dependencies",
   ]
+}
+
+action "Select master branch" {
+  uses = "actions/bin/filter@master"
+  args = "branch master"
 }
 
 action "Install dependencies" {
   uses = "actions/npm@59b64a598378f31e49cb76f27d6f3312b582f680"
+  needs = ["Select master branch"]
   args = "install"
 }
 
