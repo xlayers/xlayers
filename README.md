@@ -68,7 +68,7 @@ Want to file a bug, contribute some code, or improve documentation? Excellent! R
 ## Sponsors
  Support this project by becoming a sponsor. Your logo will show up here with a link to your website. [[Become a sponsor](https://opencollective.com/xlayers#sponsor)]
  [<img alt="sfeir" src="https://www.sfeir.com/img/logo-SFEIR-normal.png" width="100">](http://sfeir.com)
- <a href="https://opencollective.com/xlayers/sponsor/0/website" target="_blank"><img src="https://opencollective.com/xlayers/sponsor/0/avatar.svg"></a>
+ <a href="https://www.centigrade.de/en" target="_blank"><img src="https://pbs.twimg.com/profile_images/481333142238679040/ErykRvBG_400x400.png" width="50"></a>
 <a href="https://opencollective.com/xlayers/sponsor/1/website" target="_blank"><img src="https://opencollective.com/xlayers/sponsor/1/avatar.svg"></a>
 <a href="https://opencollective.com/xlayers/sponsor/2/website" target="_blank"><img src="https://opencollective.com/xlayers/sponsor/2/avatar.svg"></a>
 <a href="https://opencollective.com/xlayers/sponsor/3/website" target="_blank"><img src="https://opencollective.com/xlayers/sponsor/3/avatar.svg"></a>
