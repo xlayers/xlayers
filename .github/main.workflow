@@ -1,6 +1,9 @@
 workflow "Main" {
   on = "push"
-  resolves = ["Test", "Build"]
+  resolves = [
+    "Test",
+    "GitHub Action for Firebase",
+  ]
 }
 
 action "Install dependencies" {
@@ -30,4 +33,11 @@ action "Build" {
   uses = "actions/npm@59b64a598378f31e49cb76f27d6f3312b582f680"
   needs = ["Lint", "Test"]
   args = "run build"
+}
+
+action "GitHub Action for Firebase" {
+  uses = "w9jds/firebase-action@7d6b2b058813e1224cdd4db255b2f163ae4084d3"
+  needs = ["Build"]
+  secrets = ["FIREBASE_TOKEN", "PROJECT_ID"]
+  args = "deploy --only hosting:prod"
 }
