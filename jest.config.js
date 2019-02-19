@@ -1,10 +1,11 @@
 module.exports = {
   roots: [
+    "<rootDir>/tests",
     "<rootDir>/packages"
   ],
   globals: {
     "ts-jest": {
-      tsConfig: "packages/core/src/tsconfig.spec.json"
+      tsConfig: "packages/xlayers/tsconfig.spec.json"
     },
     __TRANSFORM_HTML__: true
   },

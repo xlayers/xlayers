@@ -53,10 +53,6 @@ export class CurrentLayer {
 export class SettingsEnabled {
   static readonly type = '[UiSettings] Enable Settings';
 }
-export class AutoFixPagePosition {
-  static readonly type = '[UiSettings] Auto Fix Current Page Position';
-  constructor(public page: SketchMSLayer) {}
-}
 export class LayerPosition {
   static readonly type = '[UiSettings] Set Layer Position';
   public left:  number;
@@ -170,25 +166,6 @@ export class UiState {
     { patchState, dispatch }: StateContext<UiSettings>,
     action: CurrentFile
   ) {
-    let shouldFixTopLeftPosition = false;
-
-    action.data.pages.map(page => {
-      shouldFixTopLeftPosition =
-        page.frame.x !== 0 ||
-        page.frame.y !== 0 ||
-        (page.layers &&
-          (page.layers[0].frame.x !== 0 || page.layers[0].frame.y !== 0));
-
-      if (shouldFixTopLeftPosition) {
-        dispatch(new AutoFixPagePosition(page));
-      }
-    });
-
-    if (shouldFixTopLeftPosition) {
-      // dispatch this message only once.
-      dispatch(new InformUser('Auto Fixed Top/Left Position'));
-    }
-
     dispatch([
       new AvailablePages(action.data.pages),
       new CurrentPage(action.data.pages[0]),
@@ -243,43 +220,6 @@ export class UiState {
   enableSettings({ patchState }: StateContext<UiSettings>) {
     patchState({
       settingsEnabled: true
-    });
-  }
-
-  @Action(AutoFixPagePosition)
-  autoFixLayersPosition(
-    { patchState, dispatch }: StateContext<UiSettings>,
-    action: AutoFixPagePosition
-  ) {
-    const currentPage = { ...action.page };
-
-    // reset the top/left position of the current page
-    // and the root layer
-    currentPage.frame = {
-      ...currentPage.frame,
-      x: 0,
-      y: 0
-    };
-
-    if (currentPage.layers[0]) {
-      // use array destructuring to avoid:
-      // TypeError: Cannot assign to read only property '0' of [object Array]
-      const [firstLayer, ...remainingLayers] = currentPage.layers;
-      currentPage.layers = [
-        {
-          ...firstLayer,
-          frame: {
-            ...firstLayer.frame,
-            x: 0,
-            y: 0
-          }
-        },
-        ...remainingLayers
-      ];
-    }
-
-    patchState({
-      currentPage
     });
   }
 
