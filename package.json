@@ -1,8 +1,7 @@
 {
   "name": "xlayers",
-  "version": "1.0.0-beta.0",
+  "version": "1.0.0-beta.1",
   "scripts": {
-    "release": "standard-version",
     "ng": "ng",
     "start": "ng serve --configuration hmr",
     "build": "ng build --prod --stats-json",
