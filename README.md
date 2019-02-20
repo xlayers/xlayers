@@ -46,7 +46,7 @@
 </p>
 
 <p align="center">View and generate code from Sketch files online</p>
-<img align="center" src="https://github.com/xlayers/xlayers/blob/master/src/assets/xlayers-ui-1.png?raw=true"/>
+<img align="center" src="https://github.com/xlayers/xlayers/raw/develop/packages/xlayers/src/assets/xlayers-ui-1.png?raw=true"/>
 
 ## Want to help? [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/xlayers/xlayers/issues)
 Want to file a bug, contribute some code, or improve documentation? Excellent! Read up on our guidelines for [contributing](https://github.com/xlayers/xlayers/blob/master/CONTRIBUTING.md) and then check out one of our issues in the hotlist: [community-help](https://github.com/xlayers/xlayers/issues).
