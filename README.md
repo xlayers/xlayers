@@ -6,10 +6,6 @@
 
   <img src="https://img.shields.io/github/license/xlayers/xlayers.svg"/>
 
-  <a href="https://gitter.im/xlayers">
-    <img src="https://img.shields.io/gitter/room/xlayers/Lobby.svg"/>
-  </a>
-  
   <a href="https://github.com/xlayers/xlayers/compare/master...develop">
     <img src="https://img.shields.io/github/commits-since/xlayers/xlayers/master.svg?label=commits%20to%20deploy"/>
   </a>
