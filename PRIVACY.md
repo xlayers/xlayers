@@ -14,7 +14,7 @@ The app does use third party services that may collect information used to ident
 
 ### Log Data
 
-We want to inform you that whenever you use our Service, in case of an error in the app we collect data and information (through third party products, ie. bugsnag). This Log Data may include information such as your devices’s Internet Protocol (“IP”) address, device name, operating system version, configuration of the app when utilising our Service, the time and date of your use of the Service, and other statistics.
+We want to inform you that whenever you use our Service, in case of an error in the app we collect data and information (through third party products, ie. Analytics). This Log Data may include information such as your devices’s Internet Protocol (“IP”) address, device name, operating system version, configuration of the app when utilising our Service, the time and date of your use of the Service, and other statistics.
 
 ### Cookies
 
