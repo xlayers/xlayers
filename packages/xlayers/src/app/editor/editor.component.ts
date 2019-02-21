@@ -12,7 +12,8 @@ import {
   ToggleWireframe,
   UiState,
   ZoomIn,
-  ZoomOut
+  ZoomOut,
+  ZoomReset
 } from '@app/core/state';
 import { environment } from '@env/environment';
 import { CodeGenState, CodeGenSettings } from '@app/core/state/page.state';
@@ -168,6 +169,10 @@ export class EditorComponent implements OnInit {
 
   ZoomOut() {
     this.store.dispatch(new ZoomOut());
+  }
+
+  ZoomReset() {
+    this.store.dispatch(new ZoomReset());
   }
 
   toggle3d() {
