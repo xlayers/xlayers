@@ -70,6 +70,10 @@ export class ZoomOut {
   static readonly type = '[UiSettings] Zoom Out';
   constructor(public value: number = 0.1) {}
 }
+export class ZoomReset {
+  static readonly type = '[UiSettings] Zoom Reset';
+  constructor() {}
+}
 export class Toggle3D {
   static readonly type = '[UiSettings] Toggle 3D';
   constructor(public value: boolean) {}
@@ -243,6 +247,14 @@ export class UiState {
 
     patchState({
       currentPage: ui.currentPage
+    });
+  }
+
+  @Action(ZoomReset)
+  zoomReset({ getState, setState }: StateContext<UiSettings>, action: ZoomReset) {
+    setState({
+      ...getState(),
+      zoomLevel: DEFAULT_UI_STATE.zoomLevel
     });
   }
 
