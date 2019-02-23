@@ -7,7 +7,7 @@ import { ExportStackblitzReactService } from './stackblitz.react.service';
 import { ExportStackblitzVueService } from './stackblitz.vue.service';
 import { ExportStackblitzWCService } from './stackblitz.wc.service';
 import { ExportStackblitzStencilService } from './stackblitz.stencil.service';
-
+import { ExportStackblitzLitElementService } from './stackblitz.lit-element.service';
 
 
 
@@ -36,7 +36,8 @@ export class ExportStackblitzService {
     private reactExport: ExportStackblitzReactService,
     private vueExport: ExportStackblitzVueService,
     private wcExport: ExportStackblitzWCService,
-    private stencilExport: ExportStackblitzStencilService
+    private stencilExport: ExportStackblitzStencilService,
+    private litElementExport: ExportStackblitzLitElementService
 
   ) {}
 
@@ -54,6 +55,9 @@ export class ExportStackblitzService {
         break;
       case CodeGenKind.Stencil:
         project = this.stencilExport.prepare(codegen.content);
+        break;
+      case CodeGenKind.LitElement:
+        project = this.litElementExport.prepare(codegen.content);
         break;
       case CodeGenKind.Angular:
       default:
