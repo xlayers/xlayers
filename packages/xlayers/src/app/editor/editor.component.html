@@ -1,0 +1,207 @@
+<mat-toolbar>
+  <mat-toolbar-row class="row-header">
+    <div class="header-title">
+      <a routerLink="/"> Cross Layers<span>ALPHA</span> </a>
+    </div>
+    <div class="header-spacer">
+      <div
+        [hidden]="!enabled"
+        class="row-settings"
+        *ngIf="currentPage && !isCodeEditor"
+      >
+        <button
+          matTooltip="Toggle Preview Mode"
+          [color]="wireframe ? 'warn' : ''"
+          mat-button
+          (click)="toggleWireframe()"
+        >
+          <mat-icon>layers</mat-icon>
+        </button>
+        <button
+          [disabled]="zoomLevel >= 3"
+          matTooltip="Zoom In"
+          mat-button
+          (click)="ZoomIn()"
+        >
+          <mat-icon>zoom_in</mat-icon>
+        </button>
+        <button
+          [disabled]="zoomLevel <= 0.1"
+          matTooltip="Zoom Out"
+          mat-button
+          (click)="ZoomOut()"
+        >
+          <mat-icon>zoom_out</mat-icon>
+        </button>
+        <button
+          matTooltip="Toggle 3D"
+          mat-button
+          [color]="is3dView ? 'warn' : ''"
+          (click)="toggle3d()"
+        >
+          <mat-icon>3d_rotation</mat-icon>
+        </button>
+        <button
+          matTooltip="Code generation"
+          mat-button
+          (click)="toggleCodeEditor()"
+        >
+          <mat-icon>code</mat-icon>
+        </button>
+      </div>
+    </div>
+    <div
+      [hidden]="!enabled"
+      class="row-settings"
+      *ngIf="currentPage && isCodeEditor"
+    >
+      <button
+        matTooltip="Go Back To Preview"
+        mat-button
+        (click)="toggleCodeEditor()"
+      >
+        <mat-icon>arrow_back</mat-icon>
+      </button>
+      <button
+        [disabled]="!isStackblitzEnabled"
+        (click)="openInStackblitz()"
+        matTooltip="Open project in Stackblitz"
+        mat-button
+        target="__blank"
+        rel="noopener noreferrer"
+      >
+      <mat-icon>offline_bolt</mat-icon>
+      </button>
+      <button
+        (click)="download()"
+        matTooltip="Download as zip"
+        mat-button
+        target="__blank"
+        rel="noopener noreferrer"
+      >
+        <mat-icon>archive</mat-icon>
+      </button>
+    </div>
+    <div class="header-actions">
+      <sketch-dropzone
+        *ngIf="currentPage"
+        matTooltip="Browse files"
+        (changed)="sketchContainerRef.onFileSelected($event)"
+        mode="mini"
+      ></sketch-dropzone>
+      <button
+        *ngIf="currentPage"
+        (click)="close()"
+        matTooltip="Close project"
+        mat-icon-button
+        target="__blank"
+        rel="noopener noreferrer"
+      >
+        <mat-icon>exit_to_app</mat-icon>
+      </button>
+    </div>
+  </mat-toolbar-row>
+</mat-toolbar>
+<mat-drawer-container
+  autosize
+  [class.transparent-bg]="colors?.background === 'transparent'"
+>
+  <mat-drawer
+    class="sidebar layers"
+    mode="side"
+    opened="false"
+    disableClose="true"
+    [style.width.px]="settingTreeViewerWidth"
+    #settingNavRef
+  >
+    <section>
+      <mat-expansion-panel *ngIf="shouldEnableCanvasSettings">
+        <mat-expansion-panel-header>
+          <mat-panel-title> Settings </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <mat-nav-list>
+          <mat-list-item [matMenuTriggerFor]="menuColor">
+            <span
+              class="color-preview"
+              [class.transparent-bg]="colors?.background === 'transparent'"
+              [style.backgroundColor]="colors?.background"
+            ></span>
+            Canvas Color
+
+            <mat-menu
+              #menuColor="matMenu"
+              class="menu-color-panel"
+              [overlapTrigger]="false"
+            >
+              <color-sketch
+                [color]="colors.background"
+                (onChangeComplete)="changeBackgroundColor($event)"
+              ></color-sketch>
+            </mat-menu>
+          </mat-list-item>
+        </mat-nav-list>
+      </mat-expansion-panel>
+
+      <mat-expansion-panel #pagesPanelRef [hidden]="!currentPage">
+        <mat-expansion-panel-header>
+          <mat-panel-title> Pages </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <mat-nav-list>
+          <mat-list-item
+            [ngClass]="{
+              'selected-page': currentPage?.name === sketchPages[idx]?.name
+            }"
+            *ngFor="let page of sketchPages; trackBy: pageName; let idx = index"
+            (click)="setCurrentPage(page)"
+          >
+            {{ page.name }}
+          </mat-list-item>
+        </mat-nav-list>
+      </mat-expansion-panel>
+
+      <mat-expansion-panel #layersPanelRef [hidden]="!currentPage">
+        <mat-expansion-panel-header>
+          <mat-panel-title> Layers </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <sketch-tree-view></sketch-tree-view>
+      </mat-expansion-panel>
+    </section>
+    <footer>
+      <a
+        matTooltip="Feedback"
+        mat-icon-button
+        target="__blank"
+        href="https://github.com/xlayers/xlayers/issues"
+      >
+        <mat-icon>bug_report</mat-icon>
+      </a>
+      <span>Build: {{ version }}</span>
+    </footer>
+  </mat-drawer>
+
+  <mat-drawer
+    class="sidebar settings"
+    mode="side"
+    opened="false"
+    position="end"
+    hasBackdrop="false"
+    [style.width.px]="settingMenuWidth"
+    #currentLayerNavRef
+  >
+    <sketch-settings-container></sketch-settings-container>
+
+    <mat-nav-list class="side-nav-bottom">
+      <mat-list-item (click)="closeLayerSettings()">
+        <mat-icon>keyboard_arrow_right</mat-icon>
+      </mat-list-item>
+    </mat-nav-list>
+  </mat-drawer>
+
+  <section class="mat-drawer-content">
+    <sketch-editor-container *ngIf="isCodeEditor"></sketch-editor-container>
+    <sketch-container #sketchContainerRef></sketch-container>
+  </section>
+</mat-drawer-container>

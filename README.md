@@ -34,13 +34,17 @@
     <img src="http://isitmaintained.com/badge/resolution/xlayers/xlayers.svg"/>
   </a>
   
-  <a href="https://circleci.com/gh/xlayers/xlayers">
-    <img src="https://circleci.com/gh/xlayers/xlayers/tree/develop.svg?style=svg" />
+  <a href="https://waffle.io/xlayers/xlayers">
+    <img src="https://badge.waffle.io/xlayers/xlayers.svg?columns=all"/>
   </a>
   
   <br/>
-  <a href="https://waffle.io/xlayers/xlayers">
-    <img src="https://badge.waffle.io/xlayers/xlayers.svg?columns=all"/>
+  <a href="https://circleci.com/gh/xlayers/xlayers">
+    <img src="https://circleci.com/gh/xlayers/xlayers/tree/develop.svg?style=svg" />
+  </a>
+
+  <a href="https://app.netlify.com/sites/xlayers/deploys">
+    <img src="https://api.netlify.com/api/v1/badges/3f01ff90-945c-4a5c-9ecd-58e24f3a3ef3/deploy-status" />
   </a>
   
 </p>
@@ -64,7 +68,7 @@ Want to file a bug, contribute some code, or improve documentation? Excellent! R
 ## Sponsors
  Support this project by becoming a sponsor. Your logo will show up here with a link to your website. [[Become a sponsor](https://opencollective.com/xlayers#sponsor)]
  [<img alt="sfeir" src="https://www.sfeir.com/img/logo-SFEIR-normal.png" width="100">](http://sfeir.com)
- <a href="https://opencollective.com/xlayers/sponsor/0/website" target="_blank"><img src="https://opencollective.com/xlayers/sponsor/0/avatar.svg"></a>
+ <a href="https://www.centigrade.de/en" target="_blank"><img src="https://pbs.twimg.com/profile_images/481333142238679040/ErykRvBG_400x400.png" width="50"></a>
 <a href="https://opencollective.com/xlayers/sponsor/1/website" target="_blank"><img src="https://opencollective.com/xlayers/sponsor/1/avatar.svg"></a>
 <a href="https://opencollective.com/xlayers/sponsor/2/website" target="_blank"><img src="https://opencollective.com/xlayers/sponsor/2/avatar.svg"></a>
 <a href="https://opencollective.com/xlayers/sponsor/3/website" target="_blank"><img src="https://opencollective.com/xlayers/sponsor/3/avatar.svg"></a>

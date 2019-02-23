@@ -1,11 +1,11 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "version": 1,
-  "newProjectRoot": "projects",
+  "newProjectRoot": "packages",
   "projects": {
     "xlayers": {
-      "root": "",
-      "sourceRoot": "src",
+      "root": "packages/xlayers/",
+      "sourceRoot": "packages/xlayers/src",
       "projectType": "application",
       "prefix": "sketch",
       "schematics": {},
@@ -14,33 +14,30 @@
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
             "outputPath": "dist/html",
-            "index": "src/index.html",
-            "main": "src/main.ts",
-            "polyfills": "src/polyfills.ts",
-            "tsConfig": "src/tsconfig.app.json",
+            "index": "packages/xlayers/src/index.html",
+            "main": "packages/xlayers/src/main.ts",
+            "polyfills": "packages/xlayers/src/polyfills.ts",
+            "tsConfig": "packages/xlayers/tsconfig.app.json",
             "assets": [
-              "src/favicon.ico",
-              "src/assets",
-              {
-                "glob": "**/*",
-                "input": "node_modules/ngx-monaco-editor/assets/monaco",
-                "output": "./assets/monaco/"
-              },
-              "src/manifest.json"
+              "packages/xlayers/src/favicon.ico",
+              "packages/xlayers/src/assets",
+              "packages/xlayers/src/manifest.json"
             ],
             "styles": [
-              "src/styles.css"
+              "packages/xlayers/src/styles.css"
             ],
             "scripts": [
-              "node_modules/jszip/dist/jszip.min.js"
+              "node_modules/jszip/dist/jszip.min.js",
+              "node_modules/pdfjs-dist/build/pdf.min.js",
+              "node_modules/pdfjs-dist/build/pdf.worker.min.js"
             ]
           },
           "configurations": {
             "production": {
               "fileReplacements": [
                 {
-                  "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.prod.ts"
+                  "replace": "packages/xlayers/src/environments/environment.ts",
+                  "with": "packages/xlayers/src/environments/environment.prod.ts"
                 }
               ],
               "optimization": true,
@@ -65,8 +62,8 @@
             "hmr": {
               "fileReplacements": [
                 {
-                  "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.hmr.ts"
+                  "replace": "packages/xlayers/src/environments/environment.ts",
+                  "with": "packages/xlayers/src/environments/environment.hmr.ts"
                 }
               ]
             }
@@ -97,8 +94,43 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "src/tsconfig.app.json",
-              "src/tsconfig.spec.json"
+              "packages/xlayers/tsconfig.app.json",
+              "packages/xlayers/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "sketchapp-parser": {
+      "root": "packages/sketchapp-parser",
+      "sourceRoot": "packages/sketchapp-parser/src",
+      "projectType": "library",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "packages/sketchapp-parser/tsconfig.lib.json",
+            "project": "packages/sketchapp-parser/ng-package.json"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "packages/sketchapp-parser/src/test.ts",
+            "tsConfig": "packages/sketchapp-parser/tsconfig.spec.json",
+            "karmaConfig": "packages/sketchapp-parser/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "packages/sketchapp-parser/tsconfig.lib.json",
+              "packages/sketchapp-parser/tsconfig.spec.json"
             ],
             "exclude": [
               "**/node_modules/**"
