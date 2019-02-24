@@ -11,12 +11,18 @@ import {
   Input,
   OnInit,
   Renderer2,
-  ViewChild
+  ViewChild,
+  OnDestroy
 } from '@angular/core';
 import { UiState } from '@app/core/state';
 import { Store } from '@ngxs/store';
 import { SketchData } from './sketch.service';
+<<<<<<< HEAD
 import { fromEvent, merge } from 'rxjs';
+=======
+import { fromEvent, merge, Subscription } from 'rxjs';
+
+>>>>>>> 69f0bd2... feat(rotate): unsubscribe rotation subscriber
 @Component({
   selector: 'sketch-canvas',
   template: `
@@ -80,7 +86,7 @@ import { fromEvent, merge } from 'rxjs';
     `
   ]
 })
-export class SketchCanvasComponent implements OnInit, AfterViewInit {
+export class SketchCanvasComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input() currentPage: SketchMSPage = null;
 
   @ViewChild('canvas') canvasRef: ElementRef<HTMLElement>;
@@ -100,6 +106,7 @@ export class SketchCanvasComponent implements OnInit, AfterViewInit {
   center = { x: 0, y: 0 };
   isDragging = false;
   currentRotationState = 0;
+  rotationSubscriber$: Subscription;
 
   constructor(
     private store: Store,
@@ -114,7 +121,7 @@ export class SketchCanvasComponent implements OnInit, AfterViewInit {
       fromEvent(this.canvasRef.nativeElement, 'mouseup')
     );
 
-    rotate$.subscribe(this.rotate);
+    this.rotationSubscriber$ = rotate$.subscribe(this.rotate);
 
     this.store.select(UiState.currentFile).subscribe(currentFile => {
       this.data = currentFile;
@@ -302,4 +309,10 @@ export class SketchCanvasComponent implements OnInit, AfterViewInit {
     );
     this.currentRotationState = this.angle + this.rotation;
   };
+
+  ngOnDestroy(): void {
+    if(this.rotationSubscriber$ && this.rotationSubscriber$.unsubscribe) {
+      this.rotationSubscriber$.unsubscribe();
+    }
+  }
 }
