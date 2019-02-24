@@ -17,7 +17,7 @@ export class ExportStackblitzLitElementService {
         }
       }
     }
-    files['index.ts'] = `import './x-layers-element.js';`;
+    files['index.js'] = `import './x-layers-element.js';`;
     // add extra files
     files['index.html'] = `
 <!DOCTYPE html>
@@ -32,6 +32,7 @@ export class ExportStackblitzLitElementService {
   <body>
     <x-layers-element></x-layers-element>
   </body>
+  <script src="./index.js"></script>
 </html>`;
 
 
@@ -41,7 +42,7 @@ export class ExportStackblitzLitElementService {
         ['@webcomponents/webcomponentsjs']: '2.2.7',
         ['lit-element']: '2.0.1'
       },
-      template: 'typescript',
+      template: 'javascript',
       tags: ['web component' , 'lit-element']
     };
   }
