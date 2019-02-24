@@ -1,5 +1,18 @@
-import { CdkDragEnd, CdkDragMove, CdkDragStart, CdkDrag } from '@angular/cdk/drag-drop';
-import { AfterViewInit, Component, ElementRef, Input, OnInit, Renderer2, ViewChild } from '@angular/core';
+import {
+  CdkDragEnd,
+  CdkDragMove,
+  CdkDragStart,
+  CdkDrag
+} from '@angular/cdk/drag-drop';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  Input,
+  OnInit,
+  Renderer2,
+  ViewChild
+} from '@angular/core';
 import { UiState } from '@app/core/state';
 import { Store } from '@ngxs/store';
 import { SketchData } from './sketch.service';
@@ -81,7 +94,7 @@ export class SketchCanvasComponent implements OnInit, AfterViewInit {
 
   is3dView = false;
   startAngle = 0;
-  angle =  0;
+  angle = 0;
   rotation = 0;
   R2D = 180 / Math.PI;
   center = { x: 0, y: 0 };
