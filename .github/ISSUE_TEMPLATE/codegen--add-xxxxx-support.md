@@ -1,8 +1,8 @@
 ---
 name: 'CodeGen: add XXXXX support'
-about: Describe this issue template's purpose here.
+about: Request a new technology support for the CodeGen.
 title: 'CodeGen: add XXXXX support'
-labels: 'type: question / discussion / RFC, Scope: CodeGen'
+labels: 'Scope: CodeGen'
 assignees: ''
 
 ---
