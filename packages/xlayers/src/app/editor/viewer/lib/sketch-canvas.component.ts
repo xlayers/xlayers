@@ -17,12 +17,8 @@ import {
 import { UiState } from '@app/core/state';
 import { Store } from '@ngxs/store';
 import { SketchData } from './sketch.service';
-<<<<<<< HEAD
-import { fromEvent, merge } from 'rxjs';
-=======
 import { fromEvent, merge, Subscription } from 'rxjs';
 
->>>>>>> 69f0bd2... feat(rotate): unsubscribe rotation subscriber
 @Component({
   selector: 'sketch-canvas',
   template: `
@@ -267,7 +263,7 @@ export class SketchCanvasComponent implements OnInit, AfterViewInit, OnDestroy {
       this.R2D *
       Math.atan2(event.clientY - this.center.y, event.clientX - this.center.x);
     this.isDragging = true;
-  }
+  };
 
   /**
    * Rotation mouse event handler
@@ -284,7 +280,7 @@ export class SketchCanvasComponent implements OnInit, AfterViewInit, OnDestroy {
     if (event.type === 'mousemove' && this.is3dView && this.isDragging) {
       return this.initRotation(event);
     }
-  }
+  };
 
   /**
    * Save final angle of rotation & disable rotation
@@ -292,7 +288,7 @@ export class SketchCanvasComponent implements OnInit, AfterViewInit, OnDestroy {
   disableRotation = (event: MouseEvent) => {
     this.angle += this.rotation;
     this.isDragging = false;
-  }
+  };
 
   /**
    * Start rotation
@@ -308,10 +304,10 @@ export class SketchCanvasComponent implements OnInit, AfterViewInit, OnDestroy {
       this.angle + this.rotation
     );
     this.currentRotationState = this.angle + this.rotation;
-  }
+  };
 
   ngOnDestroy(): void {
-    if (this.rotationSubscriber$ && this.rotationSubscriber$.unsubscribe) {
+    if(this.rotationSubscriber$ && this.rotationSubscriber$.unsubscribe) {
       this.rotationSubscriber$.unsubscribe();
     }
   }
