@@ -4,15 +4,17 @@ import { ReactCodeGenService } from './react/react.service';
 import { VueCodeGenService } from './vue/vue.service';
 import { WCCodeGenService } from './wc/wc.service';
 import { StencilCodeGenService } from './stencil/stencil.service';
+import { LitElementCodeGenService } from './lit-element/lit-element.service';
 import { Store } from '@ngxs/store';
 import { UiState } from '@app/core/state';
 import { environment } from '@env/environment.hmr';
 import { CodeGenSettings } from '@app/core/state/page.state';
 
+
 declare var gtag;
 
 export interface XlayersNgxEditorModel {
-  kind: 'angular' | 'react' | 'vue' | 'wc' | 'stencil' |'html' | 'text';
+  kind: 'angular' | 'react' | 'vue' | 'wc' | 'stencil' | 'litElement' |'html' | 'text';
   uri: string;
   value: string;
   language: string;
@@ -33,7 +35,8 @@ export enum CodeGenKind {
   React,
   Vue,
   WC,
-  Stencil
+  Stencil,
+  LitElement
 }
 
 @Injectable({
@@ -48,6 +51,7 @@ export class CodeGenService {
     private readonly vue: VueCodeGenService,
     private readonly wc: WCCodeGenService,
     private readonly stencil: StencilCodeGenService,
+    private readonly litElement: LitElementCodeGenService,
     private readonly store: Store
   ) {
     this.store
@@ -153,6 +157,13 @@ export class CodeGenService {
         kind,
         content: this.addHeaderInfo(this.stencil.generate(this.ast)),
         buttons: this.stencil.buttons()
+      };
+
+      case CodeGenKind.LitElement:
+      return {
+        kind,
+        content: this.addHeaderInfo(this.litElement.generate(this.ast)),
+        buttons: this.litElement.buttons()
       };
     }
   }

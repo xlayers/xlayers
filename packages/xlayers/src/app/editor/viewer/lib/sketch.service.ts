@@ -4,8 +4,10 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { Store } from '@ngxs/store';
 import { InformUser } from '@app/core/state';
 import { environment } from '@env/environment';
-import { SketchStyleParserService, SupportScore } from '@xlayers/sketchapp-parser';
-import * as PDFJS from 'pdfjs-dist';
+import {
+  SketchStyleParserService,
+  SupportScore
+} from '@xlayers/sketchapp-parser';
 
 export interface SketchUser {
   [key: string]: {
@@ -144,27 +146,7 @@ export class SketchService {
           });
         } else if (relativePath.endsWith('.pdf')) {
           // text-previews/text-previews.pdf
-
-          const data = await zipEntry.async('uint8array');
-          const pdfDoc = await PDFJS.getDocument({ data }).promise;
-          const pdfPage = await pdfDoc.getPage(1);
-          const viewport = await pdfPage.getViewport({scale: 1.0});
-          const __domCanvas = document.createElement('canvas');
-          const __canvasCtx = __domCanvas.getContext('2d');
-
-          await pdfPage.render({
-            canvasContext: __canvasCtx,
-            viewport
-          }).promise;
-
-          const source = __domCanvas.toDataURL('image/png', 1);
-          const image = await this.computeImage(source);
-          _data.previews.push({
-            source,
-            width: image.width,
-            height: image.height
-          });
-
+          // removed because of: https://github.com/xlayers/xlayers/issues/200
         } else {
           // document.json
           // user.json

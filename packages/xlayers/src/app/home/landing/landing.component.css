@@ -6,7 +6,6 @@
 
 header {
   height: auto;
-  margin-top: -40px;
   border-bottom: 1px solid rgba(255, 108, 95, 0.7);
 }
 
@@ -15,6 +14,7 @@ header h1 {
   font-weight: 100;
   font-size: 2.5em;
   padding: 22px 0 0;
+  margin: 0;
 }
 
 header h1 sup {
@@ -36,6 +36,8 @@ header img.logo {
   bottom: 0;
   left: 0;
   animation: rotate 10s linear infinite;
+  will-change: transform;
+  transform: rotateZ(0);
 }
 
 header h3 {
@@ -59,36 +61,42 @@ header img {
   padding: 0px 10px 60px;
   text-align: center;
   border-top: 1px solid rgba(255, 108, 95, 0.31);
-  margin-bottom: 20px;
+  margin: -30px 0 20px;
 }
 
-.try-it a {
+.button {
   color: white;
   padding: 10px 30px;
   text-decoration: none;
   border-radius: 50px;
-  font-size: 1.5em;
+  font-size: 1.5rem;
   background: linear-gradient(217deg, #ff6c5f, #ff4f81 70.71%),
     linear-gradient(127deg, #3369e7, #b84592 70.71%),
     linear-gradient(336deg, #ff4f81, #ffc168 70.71%);
-  margin-top: -20px;
   text-transform: uppercase;
+  border: 3px solid transparent;
+  cursor: pointer;
+}
+.button:hover {
+  border-color:#b84592;
 }
 
-.try-it .button {
-  margin-top: -20px;
+.button-alt {
+  color: #cf3c66;
+  padding: 10px 30px;
+  text-decoration: none;
+  border-radius: 50px;
+  font-size: 1rem;
+  background: transparent;
+  text-transform: uppercase;
+  border: 1px solid #cf3c66;
+  cursor: pointer;
+}
+.button-alt:hover {
+  color: white;
+  background-color: #cf3c66;
 }
 
-.try-it.outline a {
-  font-size: 1.2em;
-  background: white;
-  color: #ff4f81;
-  border: 1px solid #ff4f81;
-}
-
-.try-it.outline .button {
-  margin-top: 0;
-}
 
 footer {
   padding: 30px;
@@ -158,10 +166,6 @@ footer i {
 @media (min-width: 500px) {
   header h1 {
     font-size: 3em;
-  }
-
-  .try-it a {
-    font-size: 2em;
   }
 
   .bg p {

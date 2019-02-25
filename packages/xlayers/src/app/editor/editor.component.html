@@ -34,6 +34,13 @@
           <mat-icon>zoom_out</mat-icon>
         </button>
         <button
+          matTooltip="Zoom Reset"
+          mat-button
+          (click)="ZoomReset()"
+        >
+          <mat-icon>search</mat-icon>
+        </button>
+        <button
           matTooltip="Toggle 3D"
           mat-button
           [color]="is3dView ? 'warn' : ''"
