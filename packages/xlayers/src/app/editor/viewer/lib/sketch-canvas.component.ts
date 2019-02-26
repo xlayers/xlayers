@@ -1,5 +1,5 @@
 import { CdkDragEnd, CdkDragMove, CdkDragStart } from '@angular/cdk/drag-drop';
-import { AfterViewInit, Component, ElementRef, Input, OnInit, Renderer2, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Input, OnInit, Renderer2, ViewChildren, QueryList } from '@angular/core';
 import { UiState } from '@app/core/state';
 import { Store } from '@ngxs/store';
 import { SketchData } from './sketch.service';
@@ -10,25 +10,19 @@ import { SketchData } from './sketch.service';
     <div
       class="canvas"
       cdkDrag
+      *ngFor="let page of data.pages"
+      [class.selected]="page.do_objectID == currentPage.do_objectID"
       (cdkDragMoved)="OnCdkDragMoved($event)"
       (cdkDragStarted)="OnCdkDragStarted($event)"
       (cdkDragEnded)="OnCdkDragEnded($event)"
-      (started)="dragStart($event)"
-      (ended)="dragEnd($event)"
-      (moved)="dragging($event)"
-      [style.left.px]="positionX"
-      [style.top.px]="positionY"
       #canvas
     >
-      <div>
-        <sketch-page
-          *ngIf="currentPage"
-          [attr.data-id]="currentPage?.do_objectID"
-          [attr.data-name]="currentPage?.name"
-          [attr.data-class]="currentPage?._class"
-          [page]="currentPage"
-        ></sketch-page>
-      </div>
+      <sketch-page
+        [attr.data-id]="currentPage?.do_objectID"
+        [attr.data-name]="currentPage?.name"
+        [attr.data-class]="currentPage?._class"
+        [page]="currentPage"
+      ></sketch-page>
     </div>
   `,
   styles: [
@@ -49,6 +43,7 @@ import { SketchData } from './sketch.service';
         top: 2px;
       }
       .canvas {
+        display: none;
         cursor: move;
         left: 50%;
         position: absolute;
@@ -63,18 +58,17 @@ import { SketchData } from './sketch.service';
       .canvas .hidden img {
         opacity: 0;
       }
+      .selected {
+        display: block;
+      }
     `
   ]
 })
 export class SketchCanvasComponent implements OnInit, AfterViewInit {
   @Input() currentPage: SketchMSPage = null;
 
-  @ViewChild('canvas') canvasRef: ElementRef<HTMLElement>;
+  @ViewChildren('canvas') canvasRef: QueryList<ElementRef<HTMLElement>>;
 
-  positionX = 0;
-  positionY = 0;
-  originPositionX = 0;
-  originPositionY = 0;
   currentZoomLevel = 1;
   data: SketchData;
 
@@ -99,17 +93,16 @@ export class SketchCanvasComponent implements OnInit, AfterViewInit {
       }
     });
     this.store.select(UiState.zoomLevel).subscribe(zoomLevel => {
-      if (this.canvasRef && this.canvasRef.nativeElement) {
-        this.canvasRef.nativeElement.style.transform = this.formatTransformStyle(
-          this.canvasRef.nativeElement.style.transform,
-          zoomLevel
-        );
+      if (this.canvasRef) {
+        this.canvasRef.map((element) => {
+          element.nativeElement.style.transform = this.formatTransformStyle(
+            element.nativeElement.style.transform,
+            zoomLevel
+          );
+        });
         this.currentZoomLevel = zoomLevel;
       }
     });
-    const current = this.canvasRef.nativeElement.getBoundingClientRect();
-    this.positionX = current.left - 100;
-    this.positionY = current.top;
   }
 
   formatTransformStyle(existingTransformStyle: string, zoomLevel) {
@@ -126,21 +119,6 @@ export class SketchCanvasComponent implements OnInit, AfterViewInit {
     if (!this.currentPage) {
       this.currentPage = this.data.pages[0];
     }
-  }
-
-  dragStart(_event: DragEvent) {
-    this.originPositionX = this.positionX;
-    this.originPositionY = this.positionY;
-  }
-
-  dragging(event: DragEvent) {
-    this.positionX = this.originPositionX + event.x;
-    this.positionY = this.originPositionY + event.y;
-  }
-
-  dragEnd(event: DragEvent) {
-    this.originPositionX += event.x;
-    this.originPositionY += event.y;
   }
 
   /**
