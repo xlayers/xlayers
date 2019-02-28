@@ -166,8 +166,6 @@ export class BinaryPropertyListParserService {
 
     const magic = this.buffer2String(data, 0, 8);
 
-    console.log('magic', magic);
-
     if (!magic.startsWith('bplist') && !magic.startsWith('plist')) {
       // throw new IllegalArgumentException(`'The given data is no binary property list. Wrong magic bytes: ${magic}`);
       console.error(`'The given data is no binary property list. Wrong magic bytes: ${magic}`);
@@ -288,7 +286,7 @@ export class BinaryPropertyListParserService {
       const int_type = this.bytes[offset + 1];
       const intType = (int_type & 0xf0) >> 4;
       if (intType !== 0x1) {
-        console.log(`BinaryPropertyListParser: Length integer has an unexpected type ${intType}. Attempting to parse anyway...`);
+        console.warn(`BinaryPropertyListParser: Length integer has an unexpected type ${intType}. Attempting to parse anyway...`);
       }
       const intInfo = int_type & 0x0f;
       const intLength = Math.pow(2, intInfo);
@@ -321,11 +319,9 @@ export class BinaryPropertyListParserService {
 
     switch (objType) {
       case 0x0: {
-        console.log('case 0x0:');
         // Simple
         switch (objInfo) {
           case 0x0: {
-            console.log('case 0x0:');
             // null object (v1.0 and later)
             return {
               $key: 'null',
@@ -333,7 +329,6 @@ export class BinaryPropertyListParserService {
             };
           }
           case 0x8: {
-            console.log('case 0x8:');
             // false
             return {
               $key: 'false',
@@ -341,7 +336,6 @@ export class BinaryPropertyListParserService {
             };
           }
           case 0x9: {
-            console.log('case 0x9:');
             // true
             return {
               $key: 'true',
@@ -349,7 +343,6 @@ export class BinaryPropertyListParserService {
             };
           }
           case 0xc: {
-            console.log('case 0xc:');
             // URL with no base URL (v1.0 and later)
             // TODO Implement binary URL parsing (not yet even implemented in Core Foundation as of revision 855.17)
             // throw new UnsupportedOperationException(
@@ -357,7 +350,6 @@ export class BinaryPropertyListParserService {
             break;
           }
           case 0xd: {
-            console.log('case 0xd:');
             // URL with base URL (v1.0 and later)
             // TODO Implement binary URL parsing (not yet even implemented in Core Foundation as of revision 855.17)
             // throw new UnsupportedOperationException(
@@ -365,7 +357,6 @@ export class BinaryPropertyListParserService {
             break;
           }
           case 0xe: {
-            console.log('case 0xe:');
             // 16-byte UUID (v1.0 and later)
             // TODO Implement binary UUID parsing (not yet even implemented in Core Foundation as of revision 855.17)
             // throw new UnsupportedOperationException(
@@ -384,7 +375,6 @@ export class BinaryPropertyListParserService {
         const len = Math.pow(2, objInfo);
         const value = this.buffer2String(this.bytes, offset + 1, offset + 1 + len);
 
-        console.log('case 0x1:', value);
         return {
           $key: 'integer',
           $value: parseInt(value, 10)
@@ -395,14 +385,12 @@ export class BinaryPropertyListParserService {
         const len = Math.pow(2, objInfo);
         const value = this.buffer2String(this.bytes, offset + 1, offset + 1 + len);
 
-        console.log('case 0x2:', value);
         return {
           $key: 'float',
           $value: parseFloat(value)
         };
       }
       case 0x3: {
-        console.log('case 0x3:');
         // Date
         if (objInfo !== 0x3) {
           // throw new PropertyListFormatException(`The given binary property list contains a date object of an unknown type (${objInfo})`);
@@ -419,7 +407,6 @@ export class BinaryPropertyListParserService {
         const len = lengthAndOffset[0];
         const dataOffset = lengthAndOffset[1];
         const value = this.buffer2String(this.bytes, offset + dataOffset, offset + dataOffset + len);
-        console.log('case 0x4:', value);
 
         return {
           $key: 'data',
@@ -433,7 +420,6 @@ export class BinaryPropertyListParserService {
         const strOffset = lengthAndOffset[1];
         const value = this.buffer2String(this.bytes, offset + strOffset, offset + strOffset + len, 'ascii');
 
-        console.log('case 0x5:', value);
         return {
           $key: 'ascii',
           $value: value
@@ -453,7 +439,6 @@ export class BinaryPropertyListParserService {
         const value = this.buffer2String(this.bytes, startIndex, (startIndex + offset) * 2 ** 8 + endIndex, 'base64');
         // const value = this.buffer2String(this.bytes, offset + strOffset, offset + strOffset + length, 'base64');
 
-        console.log('case 0x6:', value);
         if (this.isBase64(value)) {
           return this.parse64Content(value);
         } else {
@@ -473,7 +458,6 @@ export class BinaryPropertyListParserService {
         const len = this.calculateUtf8StringLength(this.bytes, offset + strOffset, characters);
         const value = this.buffer2String(this.bytes, offset + strOffset, offset + strOffset + len);
 
-        console.log('case 0x7:', value);
         return {
           $key: 'utf-8',
           $value: value
@@ -488,7 +472,6 @@ export class BinaryPropertyListParserService {
           this.buffer2String(this.bytes, offset + 1, offset + 1 + len)
         );
 
-        console.log('case 0x8:', value);
         return {
           $key: 'uid',
           $value: value
@@ -510,7 +493,6 @@ export class BinaryPropertyListParserService {
           value.push(this.visit(objRef));
         }
 
-        console.log('case 0xa:', value);
         return {
           $key: 'array',
           $value: value
@@ -532,7 +514,6 @@ export class BinaryPropertyListParserService {
           value.add(this.visit(objRef));
         }
 
-        console.log('case 0xb:', value);
         return {
           $key: 'order-set',
           $value: value
@@ -554,7 +535,6 @@ export class BinaryPropertyListParserService {
           value.add(this.visit(objRef));
         }
 
-        console.log('case 0xc:', value);
         return {
           $key: 'set',
           $value: value
@@ -583,7 +563,6 @@ export class BinaryPropertyListParserService {
           value.set(key.$key.toString(), val);
         }
 
-        console.log('case 0xd:', value);
         return {
           $key: 'dictionary',
           $value: value
@@ -600,10 +579,3 @@ export class BinaryPropertyListParserService {
     return /^([\+\/-9A-Za-z]{4})*([\+\/-9A-Za-z]{4}|[\+\/-9A-Za-z]{3}=|[\+\/-9A-Za-z]{2}==)$/u.test(value);
   }
 }
-
-// const content =
-// tslint:disable-next-line:max-line-length
-//   'YnBsaXN0MDDUAQIDBAUIKClUJHRvcFgkb2JqZWN0c1gkdmVyc2lvblkkYXJjaGl2ZXLRBgdUcm9vdIABqQkKDxkaGxwdJFUkbnVsbNILDA0OViRjbGFzc18QGk5TRm9udERlc2NyaXB0b3JBdHRyaWJ1dGVzgAiAAtMQCxESFRZaTlMub2JqZWN0c1dOUy5rZXlzohMUgAWABoAHohcYgAOABF8QE05TRm9udE5hbWVBdHRyaWJ1dGVfEBNOU0ZvbnRTaXplQXR0cmlidXRlXU1lbmxvLVJlZ3VsYXIiQUAAANIeHyAhWCRjbGFzc2VzWiRjbGFzc25hbWWjISIjXxATTlNNdXRhYmxlRGljdGlvbmFyeVxOU0RpY3Rpb25hcnlYTlNPYmplY3TSHh8lJ6ImI18QEE5TRm9udERlc2NyaXB0b3JfEBBOU0ZvbnREZXNjcmlwdG9yEgABhqBfEA9OU0tleWVkQXJjaGl2ZXIACAARABYAHwAoADIANQA6ADwARgBMAFEAWAB1AHcAeQCAAIsAkwCWAJgAmgCcAJ8AoQCjALkAzwDdAOIA5wDwAPsA/wEVASIBKwEwATMBRgFZAV4AAAAAAAACAQAAAAAAAAAqAAAAAAAAAAAAAAAAAAABcA==';
-// const parser = new BinaryPropertyListParser();
-// const result = parser.parse64Content(content);
-// console.log(result);
