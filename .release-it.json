@@ -1,0 +1,25 @@
+{
+  "preRelease": "beta",
+  "increment": "conventional:angular",
+  "script": {
+    "changelog": "npm run changelog",
+    "beforeStage": "npm run changelog.write"
+  },
+  "git": {
+    "commitMessage": "chore(release): ${version}",
+    "tagName": "${version}",
+    "tagAnnotation": "Release ${version}",
+    "push": true,
+    "commit": true
+  },
+  "github": {
+    "release": true,
+    "preRelease": true,
+    "releaseName": "xLayers ${version}",
+    "draft": true,
+    "tokenRef": "GITHUB_TOKEN"
+  },
+  "npm": {
+    "publish": false
+  }
+}
