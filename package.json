@@ -1,19 +1,20 @@
 {
   "name": "xlayers",
-  "version": "1.0.0-beta.1",
+  "version": "1.0.0-beta.2",
   "scripts": {
     "ng": "ng",
     "start": "ng serve --configuration hmr",
     "build": "ng build --prod --stats-json",
     "prebuild": "ng build sketchapp-parser",
-    "postbuild": "bash scripts/stamp-build.bash && npm run changelog",
+    "postbuild": "bash scripts/stamp-build.bash",
     "test": "jest",
     "test:ci": "jest --ci --detectOpenHandles --updateSnapshot",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0 && git add CHANGELOG.md",
     "deploy": "npm run test:ci && npm run build && firebase deploy",
-    "analyse": "webpack-bundle-analyzer ./dist/html/stats.json"
+    "analyse": "webpack-bundle-analyzer ./dist/html/stats.json",
+    "prerelease": "npm run build",
+    "release": "git add . && standard-version --prerelease beta --sign --commit-all"
   },
   "private": true,
   "dependencies": {
