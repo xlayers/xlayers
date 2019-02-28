@@ -1,11 +1,11 @@
 workflow "Auto Release" {
-  on = "push"
   resolves = [
     "Install dependencies",
     "Lint",
     "Test",
     "Release",
   ]
+  on = "release"
 }
 
 action "Master branch only" {
