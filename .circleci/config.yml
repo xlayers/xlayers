@@ -1,6 +1,6 @@
 version: 2
 jobs:
-  "build-app":
+  "ci/build-app":
     docker:
       - image: circleci/node:10.12
 
@@ -27,7 +27,7 @@ jobs:
       - run:
           command: npm run app.build.prod
 
-  "build-lib":
+  "ci/build-lib":
     docker:
       - image: circleci/node:10.12
 
@@ -54,7 +54,7 @@ jobs:
       - run:
           command: npm run lib.build.prod
 
-  test:
+  "ci/test":
     docker:
       - image: circleci/node:10.12
     steps:
@@ -77,7 +77,7 @@ jobs:
 
       - run: npm run test.ci -- --reporters=default --reporters=jest-junit --maxWorkers=2
 
-  lint:
+  "ci/lint":
     docker:
       - image: circleci/node:10.12
     steps:
@@ -99,15 +99,27 @@ jobs:
 
 workflows:
   version: 2
-  lint_test_build:
+  # lint_test_build:
+  #   jobs:
+  #     - lint
+  #     - test:
+  #         requires:
+  #           - lint
+  #     - "build-lib":
+  #         requires:
+  #           - test
+  #     - "build-app":
+  #         requires:
+  #           - test
+  "ci/lint":
     jobs:
-      - lint
-      - test:
-          requires:
-            - lint
-      - "build-lib":
-          requires:
-            - test
-      - "build-app":
-          requires:
-            - test
+      - "ci/lint"
+  "ci/test":
+    jobs:
+      - "ci/test"
+  "ci/build-lib":
+    jobs:
+      - "ci/build-lib"
+  "ci/build-app":
+    jobs:
+      - "ci/build-app"
