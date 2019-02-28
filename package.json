@@ -1,6 +1,6 @@
 {
   "name": "xlayers",
-  "version": "1.0.0-beta.2",
+  "version": "1.0.0-beta.1",
   "scripts": {
     "ng": "ng",
     "--dev--": "",
@@ -24,10 +24,12 @@
     "deploy.ci": "run-s -l deploy.prod.ci.setup deploy.prod.ci",
     "deploy": "run-s -l deploy.prod",
     "--release--": "",
-    "release.setup": "standard-version --prerelease beta --sign",
-    "release": "run-s -l build release.setup",
+    "release": "release-it --config .release-it.json",
     "--misc--": "",
-    "quality": "run-s -l lint test"
+    "quality": "run-s -l lint test",
+    "changelog": "conventional-changelog -p angular -u | tail -n +3",
+    "changelog.write": "conventional-changelog -p angular -i CHANGELOG.md -s",
+    "postchangelog.write": "node scripts/clean-changelog.js"
   },
   "private": true,
   "dependencies": {
@@ -73,7 +75,7 @@
     "@types/node": "~11.9.2",
     "@types/sketchapp": "^1.0.0",
     "codelyzer": "~4.5.0",
-    "conventional-changelog-cli": "^2.0.11",
+    "conventional-changelog-cli": "^2.0.12",
     "cypress": "^3.1.5",
     "jest": "^24.1.0",
     "jest-preset-angular": "^6.0.2",
@@ -82,6 +84,7 @@
     "ng-packagr": "^4.7.1",
     "npm-run-all": "^4.1.5",
     "puppeteer": "^1.12.2",
+    "release-it": "^10.2.0",
     "speed-measure-webpack-plugin": "^1.3.0",
     "terser": "^3.16.1",
     "ts-node": "~8.0.2",
