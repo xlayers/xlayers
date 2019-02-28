@@ -24,7 +24,8 @@
         "packages/xlayers/src/app/*"
       ],
       "@xlayers/*": [
-        "dist/*"
+        "packages/*/src/lib",
+        "packages/*/src/public_api.ts"
       ]
     }
   }
