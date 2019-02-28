@@ -15,7 +15,6 @@ jobs:
           - v1-dependencies-
 
       - run: npm install
-      - run: npm run prebuild
       - run:
           name: Install JUnit coverage reporter
           command: npm i -D jest-junit
@@ -27,7 +26,7 @@ jobs:
 
       - run:
           name: Run tests with JUnit as reporter
-          command: npm run test:ci -- --reporters=default --reporters=jest-junit --maxWorkers=2
+          command: npm run test.ci -- --reporters=default --reporters=jest-junit --maxWorkers=2
           environment:
             JEST_JUNIT_OUTPUT: "reports/junit/js-test-results.xml"
 
@@ -43,7 +42,6 @@ jobs:
           - v1-dependencies-
 
       - run: npm install
-      - run: npm run prebuild
       - save_cache:
           paths:
             - node_modules
@@ -60,4 +58,4 @@ workflows:
 
   build:
     jobs:
-      - build
+      - app.build.prod
