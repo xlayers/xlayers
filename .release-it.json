@@ -17,7 +17,7 @@
     "release": true,
     "preRelease": true,
     "releaseName": "xLayers ${version}",
-    "draft": true,
+    "draft": false,
     "tokenRef": "GITHUB_TOKEN"
   },
   "npm": {
