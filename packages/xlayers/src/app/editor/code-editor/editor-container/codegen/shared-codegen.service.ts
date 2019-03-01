@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { StyleSheetOptimizer } from '../optimizers/css/css-optimizer';
 
 export enum Template {
   HTML,
@@ -10,7 +11,10 @@ export enum Template {
 })
 export class SharedCodegen {
   private indentationSymbol = '  '; // 2 spaces ftw
-
+  generateComponentOptimizedStyles(ast: SketchMSLayer) {
+    const optimizer = new StyleSheetOptimizer();
+    return optimizer.parseStyleSheet(ast);
+  }
   generateComponentStyles(ast: SketchMSLayer) {
     const styles: Array<string> = [
       [

@@ -41,6 +41,16 @@ export class AngularCodeGenService implements CodeGenFacade {
         language: 'css',
         kind: 'angular'
       },
+      /* @jefiozie
+      ** THIS IS JUST HERE FOR NOW;
+      * WILL BE REMOVED WHEN FINSIHED
+      */
+      {
+        uri: 'xlayers.component-optimized.css',
+        value: this.sharedCodegen.generateComponentOptimizedStyles(ast),
+        language: 'css',
+        kind: 'angular'
+      },
       {
         uri: 'xlayers.component.spec.ts',
         value: this.generateComponentSpec(),
