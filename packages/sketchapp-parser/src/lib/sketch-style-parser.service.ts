@@ -110,6 +110,7 @@ export class SketchStyleParserService {
           this.setText(current, root, attr.text);
           this.setText(current, root, obj.text);
           this.setText(current, root, pol.text);
+          this.setSolid(current, root, obj.shape);
           this.setStyle(current, root, obj.style);
           this.setStyle(current, root, grp.style);
         }
@@ -163,53 +164,69 @@ export class SketchStyleParserService {
    */
   parseObject(layer: any) {
     switch (layer._class) {
-      case 'symbolMaster':
-        return {
-          style: {
-            ...this.transformSymbolMaster(layer)
-          }
-        };
+    case 'symbolMaster':
+      return {
+        style: {
+          ...this.transformSymbolMaster(layer)
+        }
+      };
 
-      case 'style':
-        return {
-          style: {
-            ...this.transformBlur(layer),
-            ...this.transformBorders(layer),
-            ...this.transformFills(layer),
-            ...this.transformShadows(layer)
-          }
-        };
+    case 'rectangle':
+      return {
+        style: {
+          ...this.transformBlur(layer.style),
+          ...this.transformBorders(layer.style),
+          ...this.transformFills(layer.style),
+          ...this.transformShadows(layer.style)
+        }
+      };
 
-      case 'text':
-        return {
-          text: this.transformTextContent(layer),
-          style: {
-            ...this.transformTextColor(layer),
-            ...this.transformParagraphStyle(layer),
-            ...this.transformTextFont(layer)
-          }
-        };
+    case 'oval':
+      return {
+        style: {
+          ...this.transformOvalSolid(),
+          ...this.transformBlur(layer.style),
+          ...this.transformBorders(layer.style),
+          ...this.transformFills(layer.style),
+          ...this.transformShadows(layer.style)
+        }
+      };
 
-      default:
-        return {
-          style: {
-            ...((layer as SketchMSPage).rotation
-              ? {
-                  transform: `rotate(${layer.rotation}deg)`
-                }
-              : {}),
-            ...((layer as SketchMSPage).fixedRadius
-              ? {
-                  'border-radius': `${layer.fixedRadius}px`
-                }
-              : {}),
-            ...((layer as SketchMSGraphicsContextSettings).opacity
-              ? {
-                  opacity: `${layer.opacity}`
-                }
-              : {})
-          }
-        };
+    case 'text':
+      return {
+        text: this.transformTextContent(layer),
+        style: {
+          ...this.transformTextColor(layer),
+          ...this.transformParagraphStyle(layer),
+          ...this.transformTextFont(layer)
+        }
+      };
+
+    case 'shapePath':
+      // Preprocess style to be embedded by shape solid
+      const style = {
+        ...this.transformFills(layer.style),
+        ...this.transformShadows(layer.style)
+      };
+      return {
+        shape: this.transformShapeSolid(layer, style),
+        style
+      };
+
+    default:
+      return {
+        style: {
+          ...(layer as SketchMSPage).rotation ? {
+            transform: `rotate(${layer.rotation}deg)`
+          } : {},
+          ...(layer as SketchMSPage).fixedRadius ? {
+            'border-radius': `${layer.fixedRadius}px`
+          } : {},
+          ...(layer as SketchMSGraphicsContextSettings).opacity ? {
+            opacity: `${layer.opacity}`
+          } : {}
+        }
+      };
     }
   }
 
@@ -231,6 +248,45 @@ export class SketchStyleParserService {
 
   transformTextContent(node: SketchMSLayer) {
     return node.attributedString.string;
+  }
+
+  transformOvalSolid() {
+    return {
+      'border-radius': '50%'
+    };
+  }
+
+  transformShapeSolid(node: SketchMSLayer, style: {[key: string]: string}) {
+    const parsePoint = (point) => point.slice(1, -1).split(', ');
+    const flattenSize = (point) => [
+      node.frame.width * Number.parseFloat(point[0]),
+      node.frame.height * Number.parseFloat(point[1])
+    ];
+
+    // TODO: move to @types/sketchapp
+    const origin = flattenSize(parsePoint((node as any).points[0].point));
+    const curves = (node as any).points
+      .slice(1)
+      .map(((curvePoint) => {
+        const startPoint = flattenSize(parsePoint(curvePoint.point));
+        return `L${startPoint[0]} ${startPoint[1]}`;
+      }));
+
+    curves.unshift(`M${origin[0]} ${origin[1]}`);
+
+    const embeddedStyle = [];
+
+    if (style['background-color']) {
+      embeddedStyle.push(`fill: ${style['background-color']}`);
+    }
+
+    let css = ' ';
+
+    if (embeddedStyle.length > 0) {
+      css = `style: "${embeddedStyle.join(' ')}" `;
+    }
+
+    return `<svg width="${node.frame.width}" height="${node.frame.height}"><path${css}d="${curves.join(' ')}" /></svg>`;
   }
 
   transformTextFont(node: SketchMSLayer) {
@@ -435,6 +491,13 @@ export class SketchStyleParserService {
     if (text && (!root.text || !obj.text)) {
       root.text = text;
       obj.text = text;
+    }
+  }
+
+  setSolid(obj: any, root: any, shape: string) {
+    if (shape && (!root.shape || !obj.shape)) {
+      root.shape = shape;
+      obj.shape = shape;
     }
   }
 }

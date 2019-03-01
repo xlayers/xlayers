@@ -4,11 +4,13 @@ import {
   ElementRef,
   Input,
   OnInit,
-  Renderer2
+  Renderer2,
+  SecurityContext
 } from '@angular/core';
 import { Store } from '@ngxs/store';
 import { CurrentLayer, UiState } from '@app/core/state/ui.state';
 import { ResourceImageData, SketchService } from './sketch.service';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 @Component({
   selector: 'sketch-layer',
@@ -20,6 +22,8 @@ import { ResourceImageData, SketchService } from './sketch.service';
       [style.left.px]="layer?.frame?.x"
       [style.top.px]="layer?.frame?.y"
     >
+      <span *ngIf="textContent">{{ textContent }}</span>
+
       <sketch-layer
         sketchSelectedLayer
         (selectedLayer)="selectLayer($event)"
@@ -43,6 +47,7 @@ import { ResourceImageData, SketchService } from './sketch.service';
   styles: [
     `
       :host {
+        box-sizing: border-box;
         box-shadow: 0 0 0 1px transparent;
         transition: box-shadow 0.1s linear, transform 1s;
         transform-origin: 0 0;
@@ -64,7 +69,7 @@ import { ResourceImageData, SketchService } from './sketch.service';
     `
   ]
 })
-export class SketchLayerComponent implements OnInit, AfterContentInit {
+export class SketchLayerComponent implements OnInit {
   @Input() layer: SketchMSLayer;
   @Input() wireframe = false;
 
@@ -77,12 +82,13 @@ export class SketchLayerComponent implements OnInit, AfterContentInit {
 
   textContent: string;
   imageContent: ResourceImageData;
+  shapeContent: SafeHtml;
 
   constructor(
     public store: Store,
     public renderer: Renderer2,
+    public sanitizer: DomSanitizer
     public element: ElementRef<HTMLElement>,
-    public sketchService: SketchService
   ) {}
 
   ngOnInit() {
@@ -105,12 +111,11 @@ export class SketchLayerComponent implements OnInit, AfterContentInit {
         }
       }
     });
-  }
 
-  ngAfterContentInit() {
     if (this.layer) {
       this.updateLayerStyle();
       this.isTextContent();
+      this.isSolidContent();
       this.isImageContent();
     }
   }
@@ -124,6 +129,12 @@ export class SketchLayerComponent implements OnInit, AfterContentInit {
   isImageContent() {
     if ((this.layer._class as 'bitmap') === 'bitmap') {
       this.imageContent = this.sketchService.getImageDataFromRef((this.layer as any).image._ref);
+    }
+  }
+
+  isSolidContent() {
+    if ((this.layer._class as 'shapePath') === 'shapePath') {
+      this.shapeContent = this.sanitizer.bypassSecurityTrustHtml((this.layer as any).shape);
     }
   }
 

@@ -8,6 +8,7 @@ import {
 } from '@angular/core';
 import { Store } from '@ngxs/store';
 import { SketchLayerComponent } from './sketch-layer.component';
+import { DomSanitizer } from '@angular/platform-browser';
 import { SketchService } from './sketch.service';
 
 @Component({
@@ -53,8 +54,6 @@ export class SketchPageComponent extends SketchLayerComponent
   }
 
   ngAfterContentInit() {
-    super.ngAfterContentInit();
-
     const elementPosition = this.nativeElement.getBoundingClientRect();
     const ne = this.element.nativeElement;
     this.renderer.setStyle(ne, 'border-width', `${this.borderWidth}px`);
