@@ -3,7 +3,7 @@ workflow "Auto Release" {
     "Install dependencies",
     "Lint",
     "Test",
-    "Release",
+    "Deploy",
   ]
   on = "release"
 }
@@ -54,11 +54,4 @@ action "Deploy" {
   needs = ["Stamp Build"]
   secrets = ["FIREBASE_TOKEN", "PROJECT_ID"]
   args = "deploy"
-}
-
-action "Release" {
-  uses = "actions/npm@59b64a598378f31e49cb76f27d6f3312b582f680"
-  needs = ["Deploy"]
-  args = "run release"
-  secrets = ["GITHUB_TOKEN"]
 }
