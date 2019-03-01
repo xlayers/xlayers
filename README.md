@@ -36,7 +36,7 @@
   
   <br/>
   <a href="https://circleci.com/gh/xlayers/xlayers">
-    <img src="https://circleci.com/gh/xlayers/xlayers/tree/develop.svg?style=svg" />
+    <img src="https://circleci.com/gh/xlayers/xlayers/tree/master.svg?style=svg" />
   </a>
 
   <a href="https://app.netlify.com/sites/xlayers/deploys">
