@@ -1,0 +1,26 @@
+/* You can add global styles to this file, and also import other style files */
+@import '@angular/material/prebuilt-themes/pink-bluegrey.css';
+@import '~highlight.js/styles/railscasts.css';
+body,
+html {
+  margin: 0;
+  height: 100%;
+  min-height: 100%;
+  position: relative;
+  font-family: 'Roboto', sans-serif;
+  min-width: 320px;
+}
+
+.bg-pattern {
+  background: url('/assets/tiles-cubes.png') repeat;
+}
+
+.bg-pattern-color {
+  background: url('/assets/tiles-cubes.png') repeat,
+  linear-gradient(217deg, #ff6c5f, #ff4f81 70.71%), linear-gradient(127deg, #3369e7, #b84592 70.71%),
+  linear-gradient(336deg, #ff4f81, #ffc168 70.71%);
+}
+
+button {
+  transition: color 0.6s;
+}

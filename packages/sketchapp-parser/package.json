@@ -1,0 +1,9 @@
+{
+  "name": "@xlayers/sketchapp-parser",
+  "version": "1.0.0",
+  "peerDependencies": {
+    "@angular/common": "^8.0.0-beta.3",
+    "@angular/core": "^8.0.0-beta.3",
+    "big-integer": "^1.6.41"
+  }
+}

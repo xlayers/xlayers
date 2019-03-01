@@ -6,10 +6,6 @@
 
   <img src="https://img.shields.io/github/license/xlayers/xlayers.svg"/>
 
-  <a href="https://gitter.im/xlayers">
-    <img src="https://img.shields.io/gitter/room/xlayers/Lobby.svg"/>
-  </a>
-  
   <a href="https://github.com/xlayers/xlayers/compare/master...develop">
     <img src="https://img.shields.io/github/commits-since/xlayers/xlayers/master.svg?label=commits%20to%20deploy"/>
   </a>
@@ -34,19 +30,23 @@
     <img src="http://isitmaintained.com/badge/resolution/xlayers/xlayers.svg"/>
   </a>
   
-  <a href="https://circleci.com/gh/xlayers/xlayers">
-    <img src="https://circleci.com/gh/xlayers/xlayers/tree/develop.svg?style=svg" />
+  <a href="https://waffle.io/xlayers/xlayers">
+    <img src="https://badge.waffle.io/xlayers/xlayers.svg?columns=all"/>
   </a>
   
   <br/>
-  <a href="https://waffle.io/xlayers/xlayers">
-    <img src="https://badge.waffle.io/xlayers/xlayers.svg?columns=all"/>
+  <a href="https://circleci.com/gh/xlayers/xlayers">
+    <img src="https://circleci.com/gh/xlayers/xlayers/tree/master.svg?style=svg" />
+  </a>
+
+  <a href="https://app.netlify.com/sites/xlayers/deploys">
+    <img src="https://api.netlify.com/api/v1/badges/3f01ff90-945c-4a5c-9ecd-58e24f3a3ef3/deploy-status" />
   </a>
   
 </p>
 
 <p align="center">View and generate code from Sketch files online</p>
-<img align="center" src="https://github.com/xlayers/xlayers/blob/master/src/assets/xlayers-ui-1.png?raw=true"/>
+<img align="center" src="https://github.com/xlayers/xlayers/raw/develop/packages/xlayers/src/assets/xlayers-ui-1.png?raw=true"/>
 
 ## Want to help? [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/xlayers/xlayers/issues)
 Want to file a bug, contribute some code, or improve documentation? Excellent! Read up on our guidelines for [contributing](https://github.com/xlayers/xlayers/blob/master/CONTRIBUTING.md) and then check out one of our issues in the hotlist: [community-help](https://github.com/xlayers/xlayers/issues).
@@ -64,8 +64,8 @@ Want to file a bug, contribute some code, or improve documentation? Excellent! R
 ## Sponsors
  Support this project by becoming a sponsor. Your logo will show up here with a link to your website. [[Become a sponsor](https://opencollective.com/xlayers#sponsor)]
  [<img alt="sfeir" src="https://www.sfeir.com/img/logo-SFEIR-normal.png" width="100">](http://sfeir.com)
- <a href="https://opencollective.com/xlayers/sponsor/0/website" target="_blank"><img src="https://opencollective.com/xlayers/sponsor/0/avatar.svg"></a>
-<a href="https://opencollective.com/xlayers/sponsor/1/website" target="_blank"><img src="https://opencollective.com/xlayers/sponsor/1/avatar.svg"></a>
+ [<img src="https://pbs.twimg.com/profile_images/481333142238679040/ErykRvBG_400x400.png" width="50">](https://www.centigrade.de/en)
+ [<img src="https://pbs.twimg.com/profile_images/1013787066738462723/wOQWSyRh_400x400.jpg" width="80">](http://ng-atl.org/#/)
 <a href="https://opencollective.com/xlayers/sponsor/2/website" target="_blank"><img src="https://opencollective.com/xlayers/sponsor/2/avatar.svg"></a>
 <a href="https://opencollective.com/xlayers/sponsor/3/website" target="_blank"><img src="https://opencollective.com/xlayers/sponsor/3/avatar.svg"></a>
 <a href="https://opencollective.com/xlayers/sponsor/4/website" target="_blank"><img src="https://opencollective.com/xlayers/sponsor/4/avatar.svg"></a>

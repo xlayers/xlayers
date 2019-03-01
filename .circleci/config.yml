@@ -1,26 +1,18 @@
 version: 2
 jobs:
-  build:
+  "ci/build-app":
     docker:
-      # specify the version you desire here
       - image: circleci/node:10.12
-      
-      # Specify service dependencies here if necessary
-      # CircleCI maintains a library of pre-built images
-      # documented at https://circleci.com/docs/2.0/circleci-images/
-      # - image: circleci/mongo:3.4.4
 
     working_directory: ~/repo
 
     steps:
       - checkout
-
-      # Download and cache dependencies
       - restore_cache:
           keys:
-          - v1-dependencies-{{ checksum "package.json" }}
-          # fallback to using the latest cache if no exact match is found
-          - v1-dependencies-
+            - v1-dependencies-{{ checksum "package.json" }}
+            # fallback to using the latest cache if no exact match is found
+            - v1-dependencies-
 
       - run: npm install
       - run:
@@ -33,7 +25,101 @@ jobs:
           key: v1-dependencies-{{ checksum "package.json" }}
 
       - run:
-          name: Run tests with JUnit as reporter
-          command: npm test -- --ci --reporters=default --reporters=jest-junit --maxWorkers=2
-          environment:
-            JEST_JUNIT_OUTPUT: "reports/junit/js-test-results.xml"
+          command: npm run app.build.prod
+
+  "ci/build-lib":
+    docker:
+      - image: circleci/node:10.12
+
+    working_directory: ~/repo
+
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "package.json" }}
+            # fallback to using the latest cache if no exact match is found
+            - v1-dependencies-
+
+      - run: npm install
+      - run:
+          name: Install JUnit coverage reporter
+          command: npm i -D jest-junit
+
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "package.json" }}
+
+      - run:
+          command: npm run lib.build.prod
+
+  "ci/test":
+    docker:
+      - image: circleci/node:10.12
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "package.json" }}
+            # fallback to using the latest cache if no exact match is found
+            - v1-dependencies-
+
+      - run: npm install
+      - run:
+          name: Install JUnit coverage reporter
+          command: npm i -D jest-junit
+
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "package.json" }}
+
+      - run: npm run test.ci -- --reporters=default --reporters=jest-junit --maxWorkers=2
+
+  "ci/lint":
+    docker:
+      - image: circleci/node:10.12
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "package.json" }}
+            # fallback to using the latest cache if no exact match is found
+            - v1-dependencies-
+
+      - run: npm install
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "package.json" }}
+
+      - run: npm run lint ||
+          (echo "Lint errors detected. Please run ''npm lint --fix''" ; exit 1)
+
+workflows:
+  version: 2
+  # lint_test_build:
+  #   jobs:
+  #     - lint
+  #     - test:
+  #         requires:
+  #           - lint
+  #     - "build-lib":
+  #         requires:
+  #           - test
+  #     - "build-app":
+  #         requires:
+  #           - test
+  "ci/lint":
+    jobs:
+      - "ci/lint"
+  "ci/test":
+    jobs:
+      - "ci/test"
+  "ci/build-lib":
+    jobs:
+      - "ci/build-lib"
+  "ci/build-app":
+    jobs:
+      - "ci/build-app"
