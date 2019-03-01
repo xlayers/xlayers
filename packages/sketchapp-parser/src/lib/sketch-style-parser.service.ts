@@ -174,10 +174,10 @@ export class SketchStyleParserService {
     case 'rectangle':
       return {
         style: {
-          ...this.transformBlur(layer.style),
-          ...this.transformBorders(layer.style),
-          ...this.transformFills(layer.style),
-          ...this.transformShadows(layer.style)
+          ...layer.style ? this.transformBlur(layer.style) : {},
+          ...layer.style ? this.transformBorders(layer) : {},
+          ...layer.style ? this.transformFills(layer.style) : {},
+          ...layer.style ? this.transformShadows(layer.style) : {}
         }
       };
 
@@ -185,10 +185,10 @@ export class SketchStyleParserService {
       return {
         style: {
           ...this.transformOvalSolid(),
-          ...this.transformBlur(layer.style),
-          ...this.transformBorders(layer.style),
-          ...this.transformFills(layer.style),
-          ...this.transformShadows(layer.style)
+          ...layer.style ? this.transformBlur(layer.style) : {},
+          ...layer.style ? this.transformBorders(layer.style) : {},
+          ...layer.style ? this.transformFills(layer.style) : {},
+          ...layer.style ? this.transformShadows(layer.style) : {}
         }
       };
 
@@ -206,12 +206,11 @@ export class SketchStyleParserService {
       // Preprocess style to be embedded by shape solid
       return {
         shape: this.transformShapeSolid(layer, {
-          ...this.transformFills(layer.style),
-          ...this.transformShadows(layer.style)
+          ...layer.style ? this.transformFills(layer) : {},
         }),
         style: {
-          ...this.transformBorders(layer.style),
-          ...this.transformShadows(layer.style)
+          ...layer.style ? this.transformBorders(layer.style) : {},
+          ...layer.style ? this.transformShadows(layer.style) : {}
         }
       };
 
