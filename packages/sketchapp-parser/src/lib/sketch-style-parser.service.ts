@@ -34,6 +34,8 @@ export enum SupportScore {
   providedIn: 'root'
 })
 export class SketchStyleParserService {
+  version: SupportScore;
+
   constructor(private binaryPlistParser: BinaryPropertyListParserService) {}
 
   public visit(sketch: SketchData) {
@@ -42,6 +44,8 @@ export class SketchStyleParserService {
     if (supp < SupportScore.DROPPED) {
       throw new Error('No longer supported version');
     }
+
+    this.version = supp;
 
     sketch.pages.forEach(page => {
       this.autoFixPagePosition(page);
@@ -56,9 +60,9 @@ export class SketchStyleParserService {
       return SupportScore.UNKNOWN;
     } else if (ver < 49) {
       return SupportScore.DROPPED;
-    } else if (ver >= 49 && ver < 50) {
+    } else if (ver >= 49 && ver < 52) {
       return SupportScore.LEGACY;
-    } else if (ver >= 50) {
+    } else if (ver >= 52) {
       return SupportScore.LATEST;
     } else {
       return SupportScore.EDGE;
@@ -102,7 +106,9 @@ export class SketchStyleParserService {
             this.visitObject(current[property], current, root);
           }
         } else if (property === '_class') {
-          const obj = this.parseObject(current);
+          const obj = this.version >= SupportScore.LATEST
+            ? this.parseObject(current)
+            : this.legacyParseObject(current);
           const attr = this.parseAttributeString(current);
           const grp = this.parseGroup(current);
           const pol = this.polyfill(current);
@@ -110,7 +116,7 @@ export class SketchStyleParserService {
           this.setText(current, root, attr.text);
           this.setText(current, root, obj.text);
           this.setText(current, root, pol.text);
-          this.setSolid(current, root, obj.shape);
+          this.setSolid(current, root, (obj as any).shape);
           this.setStyle(current, root, obj.style);
           this.setStyle(current, root, grp.style);
         }
@@ -174,21 +180,10 @@ export class SketchStyleParserService {
     case 'rectangle':
       return {
         style: {
-          ...layer.style ? this.transformBlur(layer.style) : {},
-          ...layer.style ? this.transformBorders(layer) : {},
-          ...layer.style ? this.transformFills(layer.style) : {},
-          ...layer.style ? this.transformShadows(layer.style) : {}
-        }
-      };
-
-    case 'oval':
-      return {
-        style: {
-          ...this.transformOvalSolid(),
-          ...layer.style ? this.transformBlur(layer.style) : {},
-          ...layer.style ? this.transformBorders(layer.style) : {},
-          ...layer.style ? this.transformFills(layer.style) : {},
-          ...layer.style ? this.transformShadows(layer.style) : {}
+          ...this.transformBlur(layer.style),
+          ...this.transformBorders(layer.style),
+          ...this.transformFills(layer.style),
+          ...this.transformShadows(layer.style)
         }
       };
 
@@ -202,15 +197,74 @@ export class SketchStyleParserService {
         }
       };
 
+    case 'oval':
+      return {
+        style: {
+          ...this.transformOvalSolid(),
+          ...this.transformBlur(layer.style),
+          ...this.transformBorders(layer.style),
+          ...this.transformFills(layer.style),
+          ...this.transformShadows(layer.style)
+        }
+      };
+
     case 'shapePath':
       // Preprocess style to be embedded by shape solid
       return {
         shape: this.transformShapeSolid(layer, {
-          ...layer.style ? this.transformFills(layer) : {},
+          ...this.transformFills(layer.style),
         }),
         style: {
-          ...layer.style ? this.transformBorders(layer.style) : {},
-          ...layer.style ? this.transformShadows(layer.style) : {}
+          ...this.transformFills(layer.style),
+        }
+      };
+
+    default:
+      return {
+        style: {
+          ...(layer as SketchMSPage).rotation ? {
+            transform: `rotate(${layer.rotation}deg)`
+          } : {},
+          ...(layer as SketchMSPage).fixedRadius ? {
+            'border-radius': `${layer.fixedRadius}px`
+          } : {},
+          ...(layer as SketchMSGraphicsContextSettings).opacity ? {
+            opacity: `${layer.opacity}`
+          } : {}
+        }
+      };
+    }
+  }
+
+  /**
+   * Parse object attribute
+   */
+  legacyParseObject(layer: any) {
+    switch (layer._class) {
+    case 'symbolMaster':
+      return {
+        style: {
+          ...this.transformSymbolMaster(layer)
+        }
+      };
+
+    case 'style':
+      return {
+        style: {
+          ...this.transformBlur(layer),
+          ...this.transformBorders(layer),
+          ...this.transformFills(layer),
+          ...this.transformShadows(layer)
+        }
+      };
+
+    case 'text':
+      return {
+        text: this.transformTextContent(layer),
+        style: {
+          ...this.transformTextColor(layer),
+          ...this.transformParagraphStyle(layer),
+          ...this.transformTextFont(layer)
         }
       };
 

@@ -69,7 +69,7 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
     `
   ]
 })
-export class SketchLayerComponent implements OnInit {
+export class SketchLayerComponent implements OnInit, AfterContentInit {
   @Input() layer: SketchMSLayer;
   @Input() wireframe = false;
 
@@ -111,7 +111,9 @@ export class SketchLayerComponent implements OnInit {
         }
       }
     });
+  }
 
+  ngAfterContentInit() {
     if (this.layer) {
       this.updateLayerStyle();
       this.isTextContent();
@@ -134,7 +136,9 @@ export class SketchLayerComponent implements OnInit {
 
   isSolidContent() {
     if ((this.layer._class as 'shapePath') === 'shapePath') {
-      this.shapeContent = this.sanitizer.bypassSecurityTrustHtml((this.layer as any).shape);
+      if ((this.layer as any).shape) {
+        this.shapeContent = this.sanitizer.bypassSecurityTrustHtml((this.layer as any).shape);
+      }
     }
   }
 

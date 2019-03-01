@@ -54,6 +54,8 @@ export class SketchPageComponent extends SketchLayerComponent
   }
 
   ngAfterContentInit() {
+    super.ngAfterContentInit();
+
     const elementPosition = this.nativeElement.getBoundingClientRect();
     const ne = this.element.nativeElement;
     this.renderer.setStyle(ne, 'border-width', `${this.borderWidth}px`);
