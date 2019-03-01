@@ -29,7 +29,9 @@
     "quality": "run-s -l lint test",
     "changelog": "conventional-changelog -p angular -u | tail -n +3",
     "changelog.write": "conventional-changelog -p angular -i CHANGELOG.md -s",
-    "postchangelog.write": "node scripts/clean-changelog.js"
+    "postchangelog.write": "node scripts/clean-changelog.js",
+    "changelog.full": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0",
+    "postchangelog.full": "node scripts/clean-changelog.js"
   },
   "private": true,
   "dependencies": {
