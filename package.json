@@ -22,7 +22,7 @@
     "deploy.prod.ci.setup": "firebase use $PROJECT_ID --token $FIREBASE_TOKEN",
     "deploy.prod.ci": "firebase deploy --only hosting -m 'CI deploy' --token $FIREBASE_TOKEN",
     "deploy.ci": "run-s -l deploy.prod.ci.setup deploy.prod.ci",
-    "deploy": "run-s -l deploy.prod",
+    "deploy": "run-s -l lint test build deploy.prod",
     "--release--": "",
     "release": "release-it --config .release-it.json",
     "--misc--": "",
