@@ -11,4 +11,4 @@ gcloud builds submit \
         --config cloudbuild.yaml \
         --substitutions SHORT_SHA=$SHORT_SHA \
         --machine-type=n1-highcpu-8 \
-        . 
+        ../
