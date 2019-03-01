@@ -33,6 +33,12 @@
     "changelog.full": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0",
     "postchangelog.full": "node scripts/clean-changelog.js"
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run lint",
+      "pre-push": "npm run test"
+    }
+  },
   "private": true,
   "dependencies": {
     "@angular/animations": "^8.0.0-beta.4",
@@ -79,6 +85,7 @@
     "codelyzer": "~4.5.0",
     "conventional-changelog-cli": "^2.0.12",
     "cypress": "^3.1.5",
+    "husky": "^1.3.1",
     "jest": "^24.1.0",
     "jest-preset-angular": "^6.0.2",
     "karma-mocha": "^1.3.0",
