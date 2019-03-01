@@ -204,13 +204,15 @@ export class SketchStyleParserService {
 
     case 'shapePath':
       // Preprocess style to be embedded by shape solid
-      const style = {
-        ...this.transformFills(layer.style),
-        ...this.transformShadows(layer.style)
-      };
       return {
-        shape: this.transformShapeSolid(layer, style),
-        style
+        shape: this.transformShapeSolid(layer, {
+          ...this.transformFills(layer.style),
+          ...this.transformShadows(layer.style)
+        }),
+        style: {
+          ...this.transformBorders(layer.style),
+          ...this.transformShadows(layer.style)
+        }
       };
 
     default:
@@ -278,15 +280,11 @@ export class SketchStyleParserService {
 
     if (style['background-color']) {
       embeddedStyle.push(`fill: ${style['background-color']}`);
+    } else {
+      embeddedStyle.push('fill: none');
     }
 
-    let css = ' ';
-
-    if (embeddedStyle.length > 0) {
-      css = `style: "${embeddedStyle.join(' ')}" `;
-    }
-
-    return `<svg width="${node.frame.width}" height="${node.frame.height}"><path${css}d="${curves.join(' ')}" /></svg>`;
+    return `<svg width="${node.frame.width}" height="${node.frame.height}"><path style="${embeddedStyle.join(' ')}" d="${curves.join(' ')}" /></svg>`;
   }
 
   transformTextFont(node: SketchMSLayer) {
