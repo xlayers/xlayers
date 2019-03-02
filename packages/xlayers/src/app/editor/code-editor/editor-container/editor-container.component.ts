@@ -1,4 +1,4 @@
-import { AfterContentInit, Component, OnInit } from '@angular/core';
+import { AfterContentInit, Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { CodeGenService, CodeGenKind, XlayersNgxEditorModel } from './codegen/codegen.service';
 import { CodeGen } from '@app/core/state/page.state';
 import { Store } from '@ngxs/store';
@@ -59,7 +59,7 @@ const githubIssueLink = 'https://github.com/xlayers/xlayers/issues/new?assignees
       </ng-template>
 
       <ng-template matTabContent>
-      <div #codeContentEditor  spellcheck="false" class="code-highlight-editor">
+      <div #codeContentEditor  spellcheck="false" class="code-highlight-editor" (keydown)="simulateContentEditorScroll($event)">
       <pre><code contentEditable="true" [highlight]="file.value" (highlighted)="onEditorInit($event, codeContentEditor)"></code></pre>
       </div>
       </ng-template>
@@ -137,6 +137,7 @@ const githubIssueLink = 'https://github.com/xlayers/xlayers/issues/new?assignees
 })
 export class EditorContainerComponent implements OnInit, AfterContentInit {
   codeSetting: CodeGenSettings;
+  @ViewChild('codeContentEditor') codeEditor: ElementRef;
 
   frameworks: Array<{
     title: string;
@@ -192,4 +193,23 @@ export class EditorContainerComponent implements OnInit, AfterContentInit {
   updateState() {
     this.store.dispatch(new CodeGen(this.codeSetting.kind, this.codeSetting.content, this.codeSetting.buttons));
   }
+
+  simulateContentEditorScroll($event) {
+    const keyCode = $event.keyCode || $event.charCode;
+    const scroll = Math.round(0.9 * this.codeEditor.nativeElement.clientHeight);
+
+    // Page Up
+    if (keyCode === 34) {
+      this.codeEditor.nativeElement.scrollBy(0, scroll);
+      return false;
+    }
+    // Page Up
+    if (keyCode === 33) {
+      this.codeEditor.nativeElement.scrollBy(0, -scroll);
+      return false;
+    }
+
+    return true;
+  }
+
 }
