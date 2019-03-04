@@ -195,17 +195,17 @@ export class EditorContainerComponent implements OnInit, AfterContentInit {
   }
 
   simulateContentEditorScroll($event) {
-    const keyCode = $event.keyCode || $event.charCode;
+    const keyCode = $event.keyCode || $event.charCode || $event.which;
     const scroll = Math.round(0.9 * this.codeEditor.nativeElement.clientHeight);
 
-    // Page Up
-    if (keyCode === 34) {
-      this.codeEditor.nativeElement.scrollBy(0, scroll);
+    // Page Down
+    if (keyCode === 34 || $event.key === 'PageDown' || $event.code === 'PageDown') {
+      this.codeEditor.nativeElement.scrollTop += scroll;
       return false;
     }
     // Page Up
-    if (keyCode === 33) {
-      this.codeEditor.nativeElement.scrollBy(0, -scroll);
+    if (keyCode === 33 || $event.key === 'PageUp' || $event.code === 'PageUp') {
+      this.codeEditor.nativeElement.scrollTop -= scroll;
       return false;
     }
 
