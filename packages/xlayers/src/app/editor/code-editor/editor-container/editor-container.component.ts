@@ -1,71 +1,81 @@
 import { AfterContentInit, Component, OnInit } from '@angular/core';
-import { CodeGenService, CodeGenKind, XlayersNgxEditorModel } from './codegen/codegen.service';
-import { CodeGen } from '@app/core/state/page.state';
+import { CodeGen, CodeGenSettings } from '@app/core/state/page.state';
 import { Store } from '@ngxs/store';
-import { CodeGenSettings } from '@app/core/state/page.state';
+import { CodeGenKind, CodeGenService } from './codegen/codegen.service';
 
-// tslint:disable-next-line
-const githubIssueLink = 'https://github.com/xlayers/xlayers/issues/new?assignees=&labels=type%3A+question+%2F+discussion+%2F+RFC%2C+Scope%3A+CodeGen&template=codegen--add-xxxxx-support.md&title=CodeGen%3A+add+XXXXX+support';
+const githubIssueLink =
+  // tslint:disable-next-line:max-line-length
+  'https://github.com/xlayers/xlayers/issues/new?assignees=&labels=Priority%3A+Low%2C+Scope%3A+CodeGen%2C+community-help%2C+effort2%3A+medium+%28days%29%2C+good+first+issue%2C+type%3A+discussion+%2F+RFC&template=codegen--add---technology---support.md&title=CodeGen%3A+add+%5B%5Btechnology%5D%5D+support';
 
 @Component({
   selector: 'sketch-editor-container',
   template: `
-  <section class="meu-container">
-    <button mat-icon-button [matMenuTriggerFor]="menu" title="Choose framework">
-      <mat-icon>more_vert</mat-icon>
-    </button>
-    <mat-menu #menu="matMenu">
-      <button mat-menu-item (click)="generateAngular()">
-        <mat-icon svgIcon="angular"></mat-icon>
-        <span>Angular</span>
+    <section class="meu-container">
+      <button
+        mat-icon-button
+        [matMenuTriggerFor]="menu"
+        title="Choose framework"
+      >
+        <mat-icon>more_vert</mat-icon>
       </button>
-      <button mat-menu-item (click)="generateVue()">
-        <mat-icon svgIcon="vue"></mat-icon>
-        <span>Vue</span>
-      </button>
-      <button mat-menu-item (click)="generateReact()">
-        <mat-icon svgIcon="react"></mat-icon>
-        <span>React</span>
-      </button>
-      <!-- uncomment this when Vue codegen is ready -->
-      <!--<button mat-menu-item (click)="generateVue()">
-        <mat-icon svgIcon="vue"></mat-icon>
-        <span>Vue</span>
-      </button>-->
-      <button mat-menu-item (click)="generateWc()">
-        <mat-icon svgIcon="wc"></mat-icon>
-        <span>Web Component</span>
-      </button>
-      <button mat-menu-item (click)="generateStencil()">
-        <mat-icon svgIcon="stencil"></mat-icon>
-        <span>Stencil</span>
-      </button>
-      <button mat-menu-item (click)="generateLitElement()">
-        <mat-icon svgIcon="polymer"></mat-icon>
-        <span>LitElement</span>
-      </button>
-      <a class="request-new-library" target="__blank" href="${githubIssueLink}">
-        <span>Add a new library!</span>
-      </a>
-    </mat-menu>
-  </section>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="generateAngular()">
+          <mat-icon svgIcon="angular"></mat-icon>
+          <span>Angular</span>
+        </button>
+        <button mat-menu-item (click)="generateVue()">
+          <mat-icon svgIcon="vue"></mat-icon>
+          <span>Vue</span>
+        </button>
+        <button mat-menu-item (click)="generateReact()">
+          <mat-icon svgIcon="react"></mat-icon>
+          <span>React</span>
+        </button>
+        <button mat-menu-item (click)="generateWc()">
+          <mat-icon svgIcon="wc"></mat-icon>
+          <span>Web Component</span>
+        </button>
+        <button mat-menu-item (click)="generateStencil()">
+          <mat-icon svgIcon="stencil"></mat-icon>
+          <span>Stencil</span>
+        </button>
+        <button mat-menu-item (click)="generateLitElement()">
+          <mat-icon svgIcon="polymer"></mat-icon>
+          <span>LitElement</span>
+        </button>
+        <a
+          class="request-new-library"
+          target="__blank"
+          href="${githubIssueLink}"
+        >
+          <span>Add a new library!</span>
+        </a>
+      </mat-menu>
+    </section>
 
-  <mat-tab-group selectedIndex="0" disableRipple="true" animationDuration="0ms" dynamicHeight="false">
-    <mat-tab *ngFor="let file of codeSetting.content">
+    <mat-tab-group
+      selectedIndex="0"
+      disableRipple="true"
+      animationDuration="0ms"
+      dynamicHeight="false"
+    >
+      <mat-tab *ngFor="let file of codeSetting.content">
+        <ng-template mat-tab-label>
+          <mat-icon [svgIcon]="file.kind"></mat-icon>
+          {{ file.uri }}
+        </ng-template>
 
-      <ng-template mat-tab-label>
-        <mat-icon [svgIcon]="file.kind"></mat-icon>
-        {{ file.uri }}
-      </ng-template>
-
-      <ng-template matTabContent>
-      <div #codeContentEditor  spellcheck="false" class="code-highlight-editor">
-      <pre><code contentEditable="true" [highlight]="file.value" (highlighted)="onEditorInit($event, codeContentEditor)"></code></pre>
-      </div>
-      </ng-template>
-    </mat-tab>
-
-  </mat-tab-group>
+        <ng-template matTabContent>
+          <div
+            #codeContentEditor
+            spellcheck="false"
+            class="code-highlight-editor"
+          >
+            <pre><code contentEditable="true" [highlight]="file.value" (highlighted)="onEditorInit($event, codeContentEditor)"></code></pre>
+          </div>
+        </ng-template>
+      </mat-tab>
+    </mat-tab-group>
   `,
   styles: [
     `
@@ -89,13 +99,15 @@ const githubIssueLink = 'https://github.com/xlayers/xlayers/issues/new?assignees
         overflow: auto;
       }
       .code-highlight-editor code {
-        font-family: Consolas, "Courier New", monospace;
+        font-family: Consolas, 'Courier New', monospace;
         font-weight: normal;
         font-size: 15px;
         line-height: 20px;
         letter-spacing: 0px;
       }
-      :host, .code-highlight-editor, .code-highlight-editor code {
+      :host,
+      .code-highlight-editor,
+      .code-highlight-editor code {
         height: 100%;
         width: 100%;
         background-color: #1e1e1e;
@@ -107,7 +119,11 @@ const githubIssueLink = 'https://github.com/xlayers/xlayers/issues/new?assignees
         height: 100%;
         position: relative;
       }
-      .mat-tab-group ::ng-deep .mat-tab-body-wrapper .mat-tab-body .mat-tab-body-content {
+      .mat-tab-group
+        ::ng-deep
+        .mat-tab-body-wrapper
+        .mat-tab-body
+        .mat-tab-body-content {
         overflow: hidden;
       }
       .mat-tab-group ::ng-deep .mat-tab-body-wrapper {
@@ -143,13 +159,9 @@ export class EditorContainerComponent implements OnInit, AfterContentInit {
     logo: FunctionStringCallback;
   }>;
 
-  constructor(
-    private codegen: CodeGenService,
-    private readonly store: Store
-  ) { }
+  constructor(private codegen: CodeGenService, private readonly store: Store) {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   ngAfterContentInit() {
     this.generateAngular();
@@ -190,6 +202,12 @@ export class EditorContainerComponent implements OnInit, AfterContentInit {
   }
 
   updateState() {
-    this.store.dispatch(new CodeGen(this.codeSetting.kind, this.codeSetting.content, this.codeSetting.buttons));
+    this.store.dispatch(
+      new CodeGen(
+        this.codeSetting.kind,
+        this.codeSetting.content,
+        this.codeSetting.buttons
+      )
+    );
   }
 }
