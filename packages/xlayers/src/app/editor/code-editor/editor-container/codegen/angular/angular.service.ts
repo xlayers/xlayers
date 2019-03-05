@@ -7,7 +7,7 @@ import { SharedCodegen, Template } from '../shared-codegen.service';
 })
 export class AngularCodeGenService implements CodeGenFacade {
 
-  constructor(private sharedCodegen: SharedCodegen) {}
+  constructor(private sharedCodegen: SharedCodegen) { }
 
   buttons() {
     return {
@@ -38,16 +38,6 @@ export class AngularCodeGenService implements CodeGenFacade {
       {
         uri: 'xlayers.component.css',
         value: this.sharedCodegen.generateComponentStyles(ast),
-        language: 'css',
-        kind: 'angular'
-      },
-      /* @jefiozie
-      ** THIS IS JUST HERE FOR NOW;
-      * WILL BE REMOVED WHEN FINSIHED
-      */
-      {
-        uri: 'xlayers.component-optimized.css',
-        value: this.sharedCodegen.generateComponentOptimizedStyles(ast),
         language: 'css',
         kind: 'angular'
       },

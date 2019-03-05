@@ -9,6 +9,7 @@ interface StyleList {
 })
 export class StyleOptimizerService {
   private indentationSymbol = `  `; // 2 spaces ftw
+  // default host style
   private hostStyle = [
     ':host {',
     `${this.indentationSymbol}display: block;`,
@@ -17,16 +18,28 @@ export class StyleOptimizerService {
     ''
   ].join('\n');
 
+  /**
+   * This will parse the ast to return a optimized css stylesheet
+   * @param ast SketchMSLayer the ast based on sketch json
+   */
   parseStyleSheet(ast: SketchMSLayer) {
     const styles: Array<StyleList> = [];
-
-    this.buildStyleSheetAst(styles, ast);
+    this.buildAstStyleSheet(styles, ast);
     this.postProcessCss(styles);
-
     const reGenerateStyleSheet = this.reGenerateStyleSheet(styles);
-    return `${this.hostStyle} \n${reGenerateStyleSheet}`;
+    return this.combineStyles(reGenerateStyleSheet);
   }
-
+  /**
+   * The complete string of css style
+   * @param styles string of stylesheet
+   */
+  private combineStyles(styles: string): string {
+    return `${this.hostStyle} \n${styles}`;
+  }
+  /**
+   * Map over styles with normal css output
+   * @param styles optimized list of styles
+   */
   private reGenerateStyleSheet(styles: StyleList[]) {
     return styles
       .filter(e => e.declarations.length > 0)
@@ -34,16 +47,25 @@ export class StyleOptimizerService {
       .join('\n');
   }
 
-  private generateCssStyle(e: StyleList) {
+  /**
+   * Parse stylelist to understandable css class definition
+   * @param style the declaration of style
+   */
+  private generateCssStyle(style: StyleList): string[] {
     return [
-      `.${e.className} {`,
-      e.declarations.map(rule => this.indentationSymbol + rule).join('\n'),
+      `.${style.className} {`,
+      style.declarations.map(rule => this.indentationSymbol + rule).join('\n'),
       '}',
       ''
     ];
   }
 
-  private buildStyleSheetAst(styles: StyleList[], ast: SketchMSLayer) {
+  /**
+   * This is the main ast parser to go from sketch to css
+   * @param styles newly created list
+   * @param ast  sketch ast
+   */
+  private buildAstStyleSheet(styles: StyleList[], ast: SketchMSLayer): void {
     (function computeStyle(_ast: SketchMSLayer, _styles) {
       const content = (name: string, data: string[]) => {
         if (data) {
@@ -71,6 +93,15 @@ export class StyleOptimizerService {
     })(ast, styles);
   }
 
+  /**
+   * This will optimize the AST to 'better' css
+   * Basic concepts is to loop through ast and verify current & next
+   * declaration.
+   *
+   * When equals css declarations found this will be placed
+   * in a seperate css class
+   * @param stylesAst sketch ast
+   */
   postProcessCss(stylesAst: StyleList[]): void {
     const duplicates = [];
     for (let currentIndex = 0; currentIndex < stylesAst.length; currentIndex++) {
@@ -104,7 +135,13 @@ export class StyleOptimizerService {
     this.reduceDuplicates(duplicates, stylesAst);
   }
 
-  private reduceDuplicates(duplicates: any[], stylesAst: StyleList[]) {
+
+  /**
+   * Will remove the duplicates from ast
+   * @param duplicates duplicaye css styles
+   * @param stylesAst sketch ast
+   */
+  private reduceDuplicates(duplicates: { className: string, key: string }[], stylesAst: StyleList[]) {
     const deDuplicateCssValues: Object = duplicates.reduce((current, next, index, _array) => {
       if (index === 0 || !current.hasOwnProperty(next.className)) {
         current[next.className] = {
@@ -125,6 +162,14 @@ export class StyleOptimizerService {
       .map(e => stylesAst.push({ className: e.className, declarations: e.declarations }));
   }
 
+  /**
+   * Helper function to set declaration for each css declaration
+   * @param stylesAst
+   * @param currentIndex
+   * @param currentDeclarationSet
+   * @param checkingDecIndex
+   * @param checkDeclarationPropertySet
+   */
   private setValuesInAst(stylesAst: StyleList[], currentIndex: number, currentDeclarationSet: Set<string>, checkingDecIndex: number, checkDeclarationPropertySet: Set<string>) {
     stylesAst[currentIndex].declarations = Object.assign(Array.from(currentDeclarationSet.values()));
     stylesAst[checkingDecIndex].declarations = Object.assign(Array.from(checkDeclarationPropertySet.values()));
