@@ -8,6 +8,7 @@ import {
 } from '@angular/core';
 import { Store } from '@ngxs/store';
 import { CurrentLayer, UiState } from '@app/core/state/ui.state';
+import { ResourceImageData, SketchService } from './sketch.service';
 
 @Component({
   selector: 'sketch-layer',
@@ -19,8 +20,6 @@ import { CurrentLayer, UiState } from '@app/core/state/ui.state';
       [style.left.px]="layer?.frame?.x"
       [style.top.px]="layer?.frame?.y"
     >
-      <span *ngIf="textContent">{{ textContent }}</span>
-
       <sketch-layer
         sketchSelectedLayer
         (selectedLayer)="selectLayer($event)"
@@ -34,6 +33,11 @@ import { CurrentLayer, UiState } from '@app/core/state/ui.state';
         [attr.data-name]="layer?.name"
         [attr.data-class]="layer?._class"
       ></sketch-layer>
+
+      <span *ngIf="textContent">{{ textContent }}</span>
+
+      <img *ngIf="imageContent" [src]="imageContent.source" [style.height.%]="100" [style.width.%]="100"/>
+
     </div>
   `,
   styles: [
@@ -72,11 +76,13 @@ export class SketchLayerComponent implements OnInit, AfterContentInit {
   offset3d = 20;
 
   textContent: string;
+  imageContent: ResourceImageData;
 
   constructor(
     public store: Store,
     public renderer: Renderer2,
-    public element: ElementRef<HTMLElement>
+    public element: ElementRef<HTMLElement>,
+    public sketchService: SketchService
   ) {}
 
   ngOnInit() {
@@ -105,12 +111,19 @@ export class SketchLayerComponent implements OnInit, AfterContentInit {
     if (this.layer) {
       this.updateLayerStyle();
       this.isTextContent();
+      this.isImageContent();
     }
   }
 
   isTextContent() {
     if ((this.layer._class as 'text') === 'text') {
       this.textContent = (this.layer as any).text;
+    }
+  }
+
+  isImageContent() {
+    if ((this.layer._class as 'bitmap') === 'bitmap') {
+      this.imageContent = this.sketchService.getImageDataFromRef((this.layer as any).image._ref);
     }
   }
 

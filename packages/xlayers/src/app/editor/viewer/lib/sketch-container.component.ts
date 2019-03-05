@@ -18,7 +18,7 @@ import { SketchService } from './sketch.service';
       <sketch-dropzone (changed)="onFileSelected($event)"></sketch-dropzone>
     </ng-template>
 
-    <div class="layers-container" *ngIf="currentPage; else: noDataRef">
+    <div class="layers-container" *ngIf="currentPage; else noDataRef">
       <sketch-canvas
         #ref
         sketchSelectedLayer
@@ -78,12 +78,13 @@ export class SketchContainerComponent implements OnInit {
     try {
       const data = await this.service.process(file);
       this.store.dispatch(new CurrentFile(data));
-    } catch (e) {
-      this.store.dispatch(
-        new InformUser(
-          'The design was created using an unsupported version of SketchApp.'
-        )
-      );
+    } catch (error) {
+      this.store.dispatch(new InformUser(`Runtime Error: ${error}`));
+
+      // runtime errors should be report to:
+      // https://github.com/xlayers/xlayers/issues/new?assignees=&labels=&template=bug_report.md&title=Runtime Error: ${error}'
+      // for now, we just throw them in the console.
+      console.error(error);
     }
   }
 
@@ -93,7 +94,6 @@ export class SketchContainerComponent implements OnInit {
 
   @HostListener('mousewheel', ['$event'])
   OnMouseWheel(event: MouseEvent) {
-
     /**
      * Emit Zoom events only when any sketch file is selected
      * deltaY < 0 means wheel/scroll up, otherwise wheel down

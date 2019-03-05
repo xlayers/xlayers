@@ -8,6 +8,7 @@ import { getFrameMock } from './sketch-layer.component.mock';
 import { UiState } from '@app/core/state';
 import { CodeGenState } from '@app/core/state/page.state';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('SketchPageComponent', () => {
   let component: SketchPageComponent;
@@ -16,10 +17,13 @@ describe('SketchPageComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       schemas: [NO_ERRORS_SCHEMA],
-      imports: [NgxsModule.forRoot([UiState, CodeGenState]), MatSnackBarModule],
+      imports: [
+        NgxsModule.forRoot([UiState, CodeGenState]),
+        MatSnackBarModule,
+        HttpClientTestingModule
+      ],
       declarations: [SketchPageComponent]
-    })
-      .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -35,7 +39,7 @@ describe('SketchPageComponent', () => {
     component.page = {
       do_objectID: `page-layer`,
       _class: 'page',
-      layers: Array.from(Array(3).keys()).map((index) => ({
+      layers: Array.from(Array(3).keys()).map(index => ({
         do_objectID: `layer-${index}-id`,
         _class: 'layer',
         layers: [],
