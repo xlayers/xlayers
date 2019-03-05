@@ -1,9 +1,13 @@
+import { Injectable } from '@angular/core';
+
 interface StyleList {
   className: string;
   declarations: string[];
 }
-
-export class StyleSheetOptimizer {
+@Injectable({
+  providedIn: 'root'
+})
+export class StyleOptimizerService {
   private indentationSymbol = `  `; // 2 spaces ftw
   private hostStyle = [
     ':host {',

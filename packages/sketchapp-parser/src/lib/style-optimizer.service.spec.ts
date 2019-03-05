@@ -1,9 +1,20 @@
-import { StyleSheetOptimizer } from './css-optimizer';
+import { TestBed } from '@angular/core/testing';
+import { StyleOptimizerService } from './style-optimizer.service';
+
+
 
 describe('CSS Optimizer', () => {
+  let cssOptimizer: StyleOptimizerService;
+  beforeEach((() => {
+    TestBed.configureTestingModule({
+      providers: [StyleOptimizerService]
+    });
+  }));
 
+  beforeEach(() => {
+    cssOptimizer = TestBed.get(StyleOptimizerService);
+  });
   it('should combine duplicate css part', () => {
-    const cssOptimizer: StyleSheetOptimizer = new StyleSheetOptimizer();
     const styles = [
       { className: 'A_class', declarations: ['display: block', 'color: red'] },
       { className: 'B_class', declarations: ['display: block', 'margin-left: 2px'] }
@@ -16,7 +27,6 @@ describe('CSS Optimizer', () => {
       { className: 'A_class, .B_class', declarations: ['display: block'] }]);
   });
   it('should combine duplicate over muplitple css part', () => {
-    const cssOptimizer: StyleSheetOptimizer = new StyleSheetOptimizer();
     const styles = [
       {
         className: 'xly_2r92, .xly_51i6', declarations: ['display: block',

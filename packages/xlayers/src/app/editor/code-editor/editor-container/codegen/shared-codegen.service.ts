@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { StyleSheetOptimizer } from '../optimizers/css/css-optimizer';
-
+import {
+  StyleOptimizerService
+} from '@xlayers/sketchapp-parser';
 export enum Template {
   HTML,
   JSX
@@ -11,9 +12,9 @@ export enum Template {
 })
 export class SharedCodegen {
   private indentationSymbol = '  '; // 2 spaces ftw
+  constructor(private readonly optimizer: StyleOptimizerService) { }
   generateComponentOptimizedStyles(ast: SketchMSLayer) {
-    const optimizer = new StyleSheetOptimizer();
-    return optimizer.parseStyleSheet(ast);
+    return this.optimizer.parseStyleSheet(ast);
   }
   generateComponentStyles(ast: SketchMSLayer) {
     const styles: Array<string> = [
@@ -60,7 +61,7 @@ export class SharedCodegen {
   openTag(tag = 'div', attributes = []) {
     return `<${tag}${
       attributes.length !== 0 ? ' ' + attributes.join(' ') : ''
-    }>`;
+      }>`;
   }
 
   closeTag(tag = 'div') {
