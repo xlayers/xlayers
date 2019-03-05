@@ -343,7 +343,7 @@ export class SketchStyleParserService {
     if (obj.hasOwnProperty('_class') && obj._class === 'fontDescriptor') {
       return {
         'font-family': `'${obj.attributes.name}', 'Roboto', 'sans-serif'`,
-        'font-size': `${obj.attributes.size}px`
+        'font-size': `${obj.attributes.size - 2}px`
       };
     } else if (obj.hasOwnProperty('_archive')) {
       // TODO: Handle legacy
