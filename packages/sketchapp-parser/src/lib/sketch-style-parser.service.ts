@@ -213,10 +213,7 @@ export class SketchStyleParserService {
       return {
         shape: this.transformShapeSolid(layer, {
           ...this.transformFills(layer.style),
-        }),
-        style: {
-          ...this.transformFills(layer.style),
-        }
+        })
       };
 
     default:
