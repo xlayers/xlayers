@@ -1,6 +1,7 @@
+import { DragDropModule } from '@angular/cdk/drag-drop';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { CommonModule } from '@angular/common';
-import { NgModule, ErrorHandler } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
@@ -19,8 +20,8 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatTreeModule } from '@angular/material/tree';
-import { DragDropModule } from '@angular/cdk/drag-drop';
 import { ColorSketchModule } from 'ngx-color/sketch';
+import { WINDOW_PROVIDERS } from './window.service';
 
 const MatModules = [
   MatSliderModule,
@@ -48,5 +49,6 @@ const ExtraModules = [FormsModule, ColorSketchModule];
 @NgModule({
   imports: [...MatModules, ...ExtraModules],
   exports: [CommonModule, ...MatModules, ...ExtraModules],
+  providers: [...WINDOW_PROVIDERS]
 })
-export class CoreModule { }
+export class CoreModule {}
