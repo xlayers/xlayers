@@ -166,7 +166,7 @@ export class SketchStyleParserService {
   }
 
   /**
-   * Parse object attribute
+   * Latest parse object attribute for 53 and higher
    */
   parseObject(layer: any) {
     switch (layer._class) {
@@ -237,7 +237,7 @@ export class SketchStyleParserService {
   }
 
   /**
-   * Parse object attribute
+   * Parse object attribute for 52 and lower
    */
   legacyParseObject(layer: any) {
     switch (layer._class) {
