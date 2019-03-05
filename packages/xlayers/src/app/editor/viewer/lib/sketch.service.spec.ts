@@ -1,9 +1,8 @@
-import { SketchService } from './sketch.service';
-import { TestBed, async } from '@angular/core/testing';
-import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
-import { getFrameMock } from './sketch-layer.component.mock';
+import { HttpClientModule } from '@angular/common/http';
+import { async, TestBed } from '@angular/core/testing';
 import { NgxsModule } from '@ngxs/store';
+import { SketchService } from './sketch.service';
 
 describe('SketchService', () => {
   let sketchService: SketchService;
@@ -21,15 +20,17 @@ describe('SketchService', () => {
     sketchService = TestBed.get(SketchService);
   });
 
-  it('should convert sketch to json', (done: DoneFn) => {
+  it('should convert sketch to json', async(() => {
     const file = {
       lastModified: new Date('2018-11-21T15:52:43.644Z').valueOf(),
       name: 'mock-file'
     } as File;
+
     spyOn(sketchService, 'computeImage').and.returnValue({
       width: 20,
       height: 10
     });
+
     spyOn(sketchService, 'readZipEntries').and.returnValue([{
       relativePath: 'previews/preview.png',
       zipEntry: {
@@ -44,7 +45,15 @@ describe('SketchService', () => {
           return '{"data": "previews-data"}';
         }
       }
+    }, {
+      relativePath: 'images/somepage.png',
+      zipEntry: {
+        async() {
+          return 'image-data';
+        }
+      }
     }]);
+
     sketchService.sketch2Json(file).then(element => {
       expect(element).toEqual({
         pages: [{
@@ -57,9 +66,19 @@ describe('SketchService', () => {
         }],
         document: {},
         user: {},
-        meta: {}
+        meta: {},
+        resources: {
+          images: {
+            'images/somepage.png': {
+              source: 'data:image/png;base64,image-data',
+              image: {
+                width: 20,
+                height: 10
+              }
+            }
+          }
+        }
       });
-      done();
     });
-  });
+  }));
 });

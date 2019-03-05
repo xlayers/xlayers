@@ -1,9 +1,10 @@
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { NgxsModule, Store } from '@ngxs/store';
 import { UiState } from '@app/core/state';
 import { CodeGenState } from '@app/core/state/page.state';
+import { NgxsModule, Store } from '@ngxs/store';
 import { SketchLayerComponent } from './sketch-layer.component';
 import { getFrameMock } from './sketch-layer.component.mock';
 
@@ -15,7 +16,11 @@ describe('SketchLayerComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       schemas: [NO_ERRORS_SCHEMA],
-      imports: [NgxsModule.forRoot([UiState, CodeGenState]), MatSnackBarModule],
+      imports: [
+        NgxsModule.forRoot([UiState, CodeGenState]),
+        MatSnackBarModule,
+        HttpClientTestingModule
+      ],
       declarations: [SketchLayerComponent]
     }).compileComponents();
   }));
@@ -46,13 +51,12 @@ describe('SketchLayerComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should select layer', (done: DoneFn) => {
+  it('should select layer', async(() => {
     store.select(UiState.currentLayer).subscribe(element => {
       if (element !== null) {
         expect(element).toEqual(component.layer);
-        done();
       }
     });
     component.selectLayer(component.layer);
-  });
+  }));
 });

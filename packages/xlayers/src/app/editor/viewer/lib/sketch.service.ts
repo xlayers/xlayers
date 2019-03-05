@@ -1,9 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
-import { Store } from '@ngxs/store';
 import { InformUser } from '@app/core/state';
 import { environment } from '@env/environment';
+import { Store } from '@ngxs/store';
 import {
   SketchStyleParserService,
   SupportScore
@@ -21,8 +20,23 @@ export interface SketchData {
   pages: Array<SketchMSPage>;
   previews: Array<{ source: string; width: number; height: number }>;
   document: SketchMSDocumentData;
-  user: {};
+  user: {
+    [id: string]: {
+      scrollOrigin: string;
+      zoomValue: number;
+    };
+  };
   meta: SketchMSMetadata;
+  resources: {
+    images:  {
+      [id: string]: ResourceImageData
+    };
+  };
+}
+
+export interface ResourceImageData {
+  source: string;
+  image: HTMLImageElement;
 }
 
 @Injectable({
@@ -32,7 +46,6 @@ export class SketchService {
   _data: SketchData;
 
   constructor(
-    private sanitizer: DomSanitizer,
     private sketchStyleParser: SketchStyleParserService,
     private http: HttpClient,
     private store: Store
@@ -40,10 +53,11 @@ export class SketchService {
     this._data = {
       pages: [],
       previews: [],
-      document: {},
+      document: {} as any,
       user: {},
-      meta: {}
-    } as any;
+      meta: {} as any,
+      resources: [] as any
+    };
   }
 
   async process(file: File) {
@@ -58,21 +72,21 @@ export class SketchService {
     return this._data;
   }
 
-  async readZipEntries(file) {
+  async readZipEntries(file: Blob) {
     return new Promise<any[]>((resolve, reject) => {
       const reader = new FileReader();
       reader.onload = readerEvent => {
         const data = (readerEvent.target as FileReader).result;
         window['JSZip']
           .loadAsync(data)
-          .then(zip => {
+          .then((zip: any[]) => {
             const zips = [];
-            zip.forEach((relativePath, zipEntry) => {
+            zip.forEach((relativePath: string, zipEntry) => {
               zips.push({ relativePath, zipEntry });
             });
             resolve(zips);
           })
-          .catch(e => {
+          .catch((e: Error) => {
             reject(e);
           });
       };
@@ -87,41 +101,64 @@ export class SketchService {
     });
   }
 
-  async computeImage(source) {
+  async computeImage(source: string, filepath: string) {
     return new Promise<HTMLImageElement>((resolve, reject) => {
       const image = new Image();
       image.onload = _imageLoadEvent => {
         resolve(image);
       };
       image.onerror = _error => {
-        reject('Could not load a Sketch preview');
+        reject(`Could not load a Sketch preview "${filepath}"`);
       };
       image.src = source;
     });
   }
 
-  async sketch2Json(file) {
+  private async buildImage(
+    content: string,
+    relativePath: string
+  ): Promise<ResourceImageData> {
+    const source = `data:image/png;base64,${content}`;
+    return {
+      source,
+      image: await this.computeImage(source, relativePath)
+    };
+  }
+
+  async sketch2Json(file: Blob) {
     const _data: SketchData = {
       pages: [],
       previews: [],
-      document: {},
+      document: {} as any,
       user: {},
-      meta: {}
-    } as any;
+      meta: {} as any,
+      resources: {
+        images: {}
+      }
+    };
 
     const zips = await this.readZipEntries(file);
 
     await Promise.all(
       zips.map(async ({ relativePath, zipEntry }) => {
-        if (relativePath === 'previews/preview.png') {
+        if (
+          relativePath === 'previews/preview.png' ||
+          relativePath.startsWith('images/')
+        ) {
           const content = await zipEntry.async('base64');
-          const source = `data:image/png;base64,${content}`;
-          const image = await this.computeImage(source);
-          _data.previews.push({
-            source,
-            width: image.width,
-            height: image.height
-          });
+          const imageData = await this.buildImage(content, relativePath);
+
+          if (relativePath === 'previews/preview.png') {
+            // this is a preview, so add it to the previews array
+            _data.previews.push({
+              source: imageData.source,
+              width: imageData.image.width,
+              height: imageData.image.height
+            });
+          } else {
+            // this is a resource image, add it to the resource factory
+            _data.resources.images[relativePath] = imageData;
+          }
         } else if (relativePath.startsWith('pages/')) {
           const content = await zipEntry.async('string');
 
@@ -129,21 +166,8 @@ export class SketchService {
             const page = JSON.parse(content) as SketchMSPage;
             _data.pages.push(page);
           } catch (e) {
-            throw new Error('Could not load page');
+            throw new Error(`Could not load page "${relativePath}"`);
           }
-        } else if (relativePath.startsWith('images/')) {
-          const blob = await zipEntry.async('blob');
-          const objectUrl = URL.createObjectURL(blob);
-          // @todo deal with SafeResourceUrl!!
-          const source = this.sanitizer
-            .bypassSecurityTrustResourceUrl(objectUrl)
-            .toString();
-          const image = await this.computeImage(source);
-          _data.previews.push({
-            source: objectUrl,
-            width: image.width,
-            height: image.height
-          });
         } else if (relativePath.endsWith('.pdf')) {
           // text-previews/text-previews.pdf
           // removed because of: https://github.com/xlayers/xlayers/issues/200
@@ -176,5 +200,9 @@ export class SketchService {
     return this.http.get(`${repoUrl}${filename}.sketch`, {
       responseType: 'blob'
     });
+  }
+
+  getImageDataFromRef(ref: string) {
+    return this._data.resources.images[ref];
   }
 }
