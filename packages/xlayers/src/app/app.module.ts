@@ -3,12 +3,13 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Route, RouterModule } from '@angular/router';
-import { AppComponent } from './app.component';
-import { HighlightModule } from 'ngx-highlightjs';
+import * as javascript from 'highlight.js/lib/languages/javascript';
+import * as scss from 'highlight.js/lib/languages/scss';
 import * as typescript from 'highlight.js/lib/languages/typescript';
 import * as xml from 'highlight.js/lib/languages/xml';
-import * as scss from 'highlight.js/lib/languages/scss';
-import * as javascript from 'highlight.js/lib/languages/javascript';
+import { HighlightModule } from 'ngx-highlightjs';
+import { AppComponent } from './app.component';
+import { WINDOW_PROVIDERS } from './core/window.service';
 
 export const routes: Route[] = [{
   path: '', redirectTo: '/home', pathMatch: 'full'
@@ -39,9 +40,11 @@ export function hljsLanguages() {
     HighlightModule.forRoot({
       languages: hljsLanguages
     }),
+    // CoreModule
     // TODO(manekinekko): enable SW support when it's stable
     // ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production })
   ],
+  providers: [WINDOW_PROVIDERS],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -38,7 +38,7 @@ export class AngularCodeGenService implements CodeGenFacade {
       {
         uri: 'xlayers.component.css',
         value: this.sharedCodegen.generateComponentStyles(ast),
-        language: 'less',
+        language: 'css',
         kind: 'angular'
       },
       {

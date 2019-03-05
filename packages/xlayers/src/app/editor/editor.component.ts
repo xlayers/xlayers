@@ -19,6 +19,7 @@ import { environment } from '@env/environment';
 import { CodeGenState, CodeGenSettings } from '@app/core/state/page.state';
 import { ExportStackblitzService } from './exports/stackblitz/stackblitz.service';
 import { SketchContainerComponent } from './viewer/lib/sketch-container.component';
+import { PreviewBadgeService } from './preview-badge.service';
 
 @Component({
   selector: 'sketch-editor',
@@ -47,6 +48,7 @@ export class EditorComponent implements OnInit {
   codegen: CodeGenSettings;
 
   version = environment.version;
+  badge = '';
 
   shouldEnableCanvasSettings = false;
 
@@ -58,10 +60,14 @@ export class EditorComponent implements OnInit {
 
   constructor(
     private readonly store: Store,
-    private readonly exporter: ExportStackblitzService
+    private readonly exporter: ExportStackblitzService,
+    private readonly badgeService: PreviewBadgeService
   ) {}
 
   ngOnInit() {
+
+    this.badge = this.badgeService.computeBadge();
+
     this.colors = {
       background: 'transparent'
     };
