@@ -213,7 +213,10 @@ export class SketchStyleParserService {
       return {
         shape: this.transformShapeSolid(layer, {
           ...this.transformFills(layer.style),
-        })
+        }),
+        style: {
+          ...this.transformShadows(layer.style),
+        }
       };
 
     default:
@@ -343,7 +346,7 @@ export class SketchStyleParserService {
     if (obj.hasOwnProperty('_class') && obj._class === 'fontDescriptor') {
       return {
         'font-family': `'${obj.attributes.name}', 'Roboto', 'sans-serif'`,
-        'font-size': `${obj.attributes.size - 2}px`
+        'font-size': `${obj.attributes.size}px`
       };
     } else if (obj.hasOwnProperty('_archive')) {
       // TODO: Handle legacy
