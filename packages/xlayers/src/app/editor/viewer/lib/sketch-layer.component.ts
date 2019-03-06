@@ -16,7 +16,6 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
   selector: 'sketch-layer',
   template: `
     <div
-      *ngIf="!layer?.isLocked"
       [style.width.px]="layer?.frame?.width"
       [style.height.px]="layer?.frame?.height"
       [style.left.px]="layer?.frame?.x"
