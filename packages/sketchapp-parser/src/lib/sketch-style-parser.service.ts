@@ -315,7 +315,7 @@ export class SketchStyleParserService {
     const parsePoint = (point) => point.slice(1, -1).split(', ');
     const flattenSize = (point) => [
       node.frame.width * Number.parseFloat(point[0]),
-      node.frame.height * Number.parseFloat(point[1])
+      node.frame.height * (1 - Number.parseFloat(point[1]))
     ];
 
     // TODO: move to @types/sketchapp
