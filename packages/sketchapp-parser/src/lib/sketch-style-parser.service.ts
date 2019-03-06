@@ -329,9 +329,6 @@ export class SketchStyleParserService {
         if (curveTo[0] === curveFrom[0] && curveTo[1] === curveFrom[1]) {
           return `L ${currPoint[0]} ${currPoint[1]}`;
         }
-        if (!curvePoint.hasCurveFrom && curvePoint.hasCurveTo) {
-          return `C ${curveFrom[0]} ${curveFrom[1]}, ${curveTo[0]} ${curveTo[1]}, ${currPoint[0]} ${currPoint[1]}`;
-        }
         return `S ${curveTo[0]} ${curveTo[1]}, ${currPoint[0]} ${currPoint[1]}`;
       }));
 
