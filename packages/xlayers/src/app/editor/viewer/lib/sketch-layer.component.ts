@@ -135,10 +135,8 @@ export class SketchLayerComponent implements OnInit, AfterContentInit {
   }
 
   isSolidContent() {
-    if ((this.layer._class as 'shapePath') === 'shapePath') {
-      if ((this.layer as any).shape) {
-        this.shapeContent = this.sanitizer.bypassSecurityTrustHtml((this.layer as any).shape);
-      }
+    if ((this.layer as any).shape) {
+      this.shapeContent = this.sanitizer.bypassSecurityTrustHtml((this.layer as any).shape);
     }
   }
 

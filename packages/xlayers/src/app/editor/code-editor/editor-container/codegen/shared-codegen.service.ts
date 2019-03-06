@@ -96,7 +96,7 @@ export class SharedCodegen {
         innerContent.push(this.openTag('img', attributes, true));
       }
 
-      if ((ast as any)._class === 'shapePath') {
+      if ((ast as any).shape) {
         innerText.push((ast as any).shape);
       }
 
