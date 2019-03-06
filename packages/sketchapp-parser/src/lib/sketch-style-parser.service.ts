@@ -219,6 +219,14 @@ export class SketchStyleParserService {
         }
       };
 
+    case 'triangle':
+      return {
+        shape: this.transformTriangleSolid(layer, {
+          ...this.transformShadows(layer.style),
+          ...this.transformFills(layer.style)
+        })
+      };
+
     default:
       return {
         style: {
@@ -305,34 +313,13 @@ export class SketchStyleParserService {
     return node.attributedString.string;
   }
 
-  transformOvalSolid() {
-    return {
-      'border-radius': '50%'
-    };
-  }
-
-  transformShapeSolid(node: SketchMSLayer, style: {[key: string]: string}) {
-    const parsePoint = (point) => point.slice(1, -1).split(', ');
-    const flattenSize = (point) => [
-      node.frame.width * Number.parseFloat(point[0]),
-      node.frame.height * (1 - Number.parseFloat(point[1]))
-    ];
-
-    // TODO: move to @types/sketchapp
-    const origin = flattenSize(parsePoint((node as any).points[0].point));
+  transformTriangleSolid(node: SketchMSLayer, style: {[key: string]: string}) {
     const segments = (node as any).points
-      .slice(1)
       .map(((curvePoint) => {
-        const curveFrom = flattenSize(parsePoint(curvePoint.curveFrom));
-        const curveTo = flattenSize(parsePoint(curvePoint.curveTo));
-        const currPoint = flattenSize(parsePoint(curvePoint.point));
-        if (curveTo[0] === curveFrom[0] && curveTo[1] === curveFrom[1]) {
-          return `L ${currPoint[0]} ${currPoint[1]}`;
-        }
-        return `S ${curveTo[0]} ${curveTo[1]}, ${currPoint[0]} ${currPoint[1]}`;
-      }));
-
-    segments.unshift(`M${origin[0]} ${origin[1]}`);
+        const currPoint = this.parsePoint(curvePoint.point, node.frame);
+        return `${currPoint.x}, ${currPoint.y}`;
+      }))
+      .join(' ');
 
     const embeddedStyle = [];
 
@@ -342,7 +329,41 @@ export class SketchStyleParserService {
       embeddedStyle.push('fill: none');
     }
 
-    return `<svg width="${node.frame.width}" height="${node.frame.height}"><path style="${embeddedStyle.join(' ')}" d="${segments.join(' ')}" /></svg>`;
+    return this.svgCanvas(node, `<polygon style="${embeddedStyle.join(' ')}" points="${segments}" />`);
+  }
+
+  transformOvalSolid() {
+    return {
+      'border-radius': '50%'
+    };
+  }
+
+  transformShapeSolid(node: SketchMSLayer, style: {[key: string]: string}) {
+    // TODO: move to @types/sketchapp
+    const origin = this.parsePoint((node as any).points[0].point, node.frame);
+    const segments = (node as any).points
+      .slice(1)
+      .map(((curvePoint) => {
+        const curveFrom = this.parsePoint(curvePoint.curveFrom, node.frame);
+        const curveTo = this.parsePoint(curvePoint.curveTo, node.frame);
+        const currPoint = this.parsePoint(curvePoint.point, node.frame);
+        if (curveTo.x === curveFrom.x && curveTo.y === curveFrom.y) {
+          return `L ${currPoint.x} ${currPoint.y}`;
+        }
+        return `S ${curveTo.x} ${curveTo.y}, ${currPoint.x} ${currPoint.y}`;
+      }));
+
+    segments.unshift(`M${origin.x} ${origin.y}`);
+
+    const embeddedStyle = [];
+
+    if (style['background-color']) {
+      embeddedStyle.push(`fill: ${style['background-color']}`);
+    } else {
+      embeddedStyle.push('fill: none');
+    }
+
+    return this.svgCanvas(node, `<path style="${embeddedStyle.join(' ')}" d="${segments.join(' ')}" />`);
   }
 
   transformTextFont(node: SketchMSLayer) {
@@ -490,6 +511,18 @@ export class SketchStyleParserService {
           'box-shadow': shadowsStyles.join(',')
         }
       : {};
+  }
+
+  svgCanvas(node: SketchMSLayer, paths: string) {
+    return `<svg width="${node.frame.width}" height="${node.frame.height}">${paths}</svg>`;
+  }
+
+  parsePoint(point: string, frame: SketchMSRect) {
+    const parsedPoint = point.slice(1, -1).split(', ');
+    return {
+      x: frame.width * Number.parseFloat(parsedPoint[0]),
+      y: frame.height * Number.parseFloat(parsedPoint[1])
+    };
   }
 
   parseColors(color: SketchMSColor) {
