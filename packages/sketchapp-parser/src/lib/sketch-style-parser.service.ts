@@ -320,14 +320,22 @@ export class SketchStyleParserService {
 
     // TODO: move to @types/sketchapp
     const origin = flattenSize(parsePoint((node as any).points[0].point));
-    const curves = (node as any).points
+    const segments = (node as any).points
       .slice(1)
       .map(((curvePoint) => {
-        const startPoint = flattenSize(parsePoint(curvePoint.point));
-        return `L${startPoint[0]} ${startPoint[1]}`;
+        const curveFrom = flattenSize(parsePoint(curvePoint.curveFrom));
+        const curveTo = flattenSize(parsePoint(curvePoint.curveTo));
+        const currPoint = flattenSize(parsePoint(curvePoint.point));
+        if (curveTo[0] === curveFrom[0] && curveTo[1] === curveFrom[1]) {
+          return `L ${currPoint[0]} ${currPoint[1]}`;
+        }
+        if (!curvePoint.hasCurveFrom && curvePoint.hasCurveTo) {
+          return `C ${curveFrom[0]} ${curveFrom[1]}, ${curveTo[0]} ${curveTo[1]}, ${currPoint[0]} ${currPoint[1]}`;
+        }
+        return `S ${curveTo[0]} ${curveTo[1]}, ${currPoint[0]} ${currPoint[1]}`;
       }));
 
-    curves.unshift(`M${origin[0]} ${origin[1]}`);
+    segments.unshift(`M${origin[0]} ${origin[1]}`);
 
     const embeddedStyle = [];
 
@@ -337,7 +345,7 @@ export class SketchStyleParserService {
       embeddedStyle.push('fill: none');
     }
 
-    return `<svg width="${node.frame.width}" height="${node.frame.height}"><path style="${embeddedStyle.join(' ')}" d="${curves.join(' ')}" /></svg>`;
+    return `<svg width="${node.frame.width}" height="${node.frame.height}"><path style="${embeddedStyle.join(' ')}" d="${segments.join(' ')}" /></svg>`;
   }
 
   transformTextFont(node: SketchMSLayer) {
