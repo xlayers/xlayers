@@ -27,10 +27,14 @@ import { PreviewBadgeService } from './preview-badge.service';
   styleUrls: ['./editor.component.css']
 })
 export class EditorComponent implements OnInit {
+  DEFAULT_TIMEOUT = 500;
   currentPage: SketchMSLayer;
   currentLayer: SketchMSLayer;
   sketchPages: Array<SketchMSPage>;
   wireframe: boolean;
+  zoomIn: boolean;
+  zoomOut: boolean;
+  resetZoom: boolean;
   preview: boolean;
   enabled: boolean;
   colors: {
@@ -62,7 +66,7 @@ export class EditorComponent implements OnInit {
     private readonly store: Store,
     private readonly exporter: ExportStackblitzService,
     private readonly badgeService: PreviewBadgeService
-  ) {}
+  ) { }
 
   ngOnInit() {
 
@@ -93,6 +97,8 @@ export class EditorComponent implements OnInit {
     });
     this.store.select(UiState.zoomLevel).subscribe(zoomLevel => {
       this.zoomLevel = zoomLevel;
+      this.zoomIn = zoomLevel > 1;
+      this.zoomOut = zoomLevel < 1;
     });
     this.store.select(UiState.is3dView).subscribe(is3dView => {
       this.is3dView = is3dView;
@@ -175,10 +181,14 @@ export class EditorComponent implements OnInit {
 
   ZoomOut() {
     this.store.dispatch(new ZoomOut());
+
   }
 
   ZoomReset() {
+    this.resetZoom = !this.resetZoom;
+    setTimeout(() => this.resetZoom = !this.resetZoom, this.DEFAULT_TIMEOUT);
     this.store.dispatch(new ZoomReset());
+
   }
 
   toggle3d() {
