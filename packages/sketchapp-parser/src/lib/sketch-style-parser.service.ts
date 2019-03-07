@@ -209,7 +209,6 @@ export class SketchStyleParserService {
       };
 
     case 'shapePath':
-      // Preprocess style to be embedded by shape solid
       return {
         shape: this.transformShapeSolid(layer, {
           ...this.transformFills(layer.style),
@@ -551,7 +550,7 @@ export class SketchStyleParserService {
   }
 
   svgCanvas(node: SketchMSLayer, paths: string) {
-    return `<svg width="${node.frame.width}" height="${node.frame.height}">${paths}</svg>`;
+    return `<svg style="position: absolute" width="${node.frame.width}" height="${node.frame.height}">${paths}</svg>`;
   }
 
   parsePoint(point: string, frame: SketchMSRect) {
