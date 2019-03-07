@@ -213,11 +213,7 @@ export class SketchStyleParserService {
       return {
         shape: this.transformShapeSolid(layer, {
           ...this.transformFills(layer.style),
-        }),
-        style: {
-          ...this.transformBorders(layer.style),
-          ...this.transformShadows(layer.style),
-        }
+        })
       };
 
     case 'triangle':
@@ -225,10 +221,7 @@ export class SketchStyleParserService {
         shape: this.transformTriangleSolid(layer, {
           ...this.transformBorders(layer.style),
           ...this.transformFills(layer.style)
-        }),
-        style: {
-          ...this.transformShadows(layer.style)
-        }
+        })
       };
 
     default:
