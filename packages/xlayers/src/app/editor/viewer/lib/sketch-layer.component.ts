@@ -39,23 +39,23 @@ import { CurrentLayer, UiState } from '@app/core/state/ui.state';
   styles: [
     `
       :host {
-        outline: 1px solid transparent;
-        transition: outline-color 0.1s linear, transform 1s;
+        box-shadow: 0 0 0 1px transparent;
+        transition: box-shadow 0.1s linear, transform 1s;
         transform-origin: 0 0;
         transform-style: preserve-3d;
         will-change: transform, transition;
       }
 
       :host(:hover) {
-        outline-color: #51c1f8 !important;
+        box-shadow: 0 0 0 1px #51c1f8 !important;
         background-color: rgba(81, 193, 248, 0.2);
       }
       :host(.isCurrentLayer) {
-        outline-color: #ee4743 !important;
+        box-shadow: 0 0 0 1px #ee4743 !important;
         background-color: rgba(238, 71, 67, 0.2);
       }
       :host(.wireframe) {
-        outline-color: black;
+        box-shadow: 0 0 0 1px black;
       }
     `
   ]
