@@ -215,6 +215,7 @@ export class SketchStyleParserService {
           ...this.transformFills(layer.style),
         }),
         style: {
+          ...this.transformBorders(layer.style),
           ...this.transformShadows(layer.style),
         }
       };
@@ -222,9 +223,12 @@ export class SketchStyleParserService {
     case 'triangle':
       return {
         shape: this.transformTriangleSolid(layer, {
-          ...this.transformShadows(layer.style),
+          ...this.transformBorders(layer.style),
           ...this.transformFills(layer.style)
-        })
+        }),
+        style: {
+          ...this.transformShadows(layer.style)
+        }
       };
 
     default:
@@ -329,7 +333,20 @@ export class SketchStyleParserService {
       embeddedStyle.push('fill: none');
     }
 
-    return this.svgCanvas(node, `<polygon style="${embeddedStyle.join(' ')}" points="${segments}" />`);
+    const svg = [];
+
+    svg.push(`<polygon`);
+
+    const stroke = this.parseStroke(node);
+    if (stroke !== '') {
+      svg.push(stroke);
+    }
+
+    svg.push(`style="${embeddedStyle.join(' ')}"`);
+    svg.push(`points="${segments}"`);
+    svg.push('/>');
+
+    return this.svgCanvas(node, svg.join(' '));
   }
 
   transformOvalSolid() {
@@ -363,7 +380,20 @@ export class SketchStyleParserService {
       embeddedStyle.push('fill: none');
     }
 
-    return this.svgCanvas(node, `<path style="${embeddedStyle.join(' ')}" d="${segments.join(' ')}" />`);
+    const svg = [];
+
+    svg.push(`<path`);
+
+    const stroke = this.parseStroke(node);
+    if (stroke !== '') {
+      svg.push(stroke);
+    }
+
+    svg.push(`style="${embeddedStyle.join(' ')}"`);
+    svg.push(`d="${segments}"`);
+    svg.push('/>');
+
+    return this.svgCanvas(node, svg.join(' '));
   }
 
   transformTextFont(node: SketchMSLayer) {
@@ -511,6 +541,20 @@ export class SketchStyleParserService {
           'box-shadow': shadowsStyles.join(',')
         }
       : {};
+  }
+
+  parseStroke(node: SketchMSLayer) {
+    const strokeConfig = [];
+
+    // TODO: Support multiple border
+    if (node.style.borders && node.style.borders[0].thickness) {
+      strokeConfig.push(`stroke-width="${node.style.borders[0].thickness}"`);
+      const color = this.parseColors(node.style.borders[0].color);
+      strokeConfig.push(`stroke="${color.hex}"`);
+      strokeConfig.push('stroke-alignment="inner"');
+    }
+
+    return strokeConfig.join(' ');
   }
 
   svgCanvas(node: SketchMSLayer, paths: string) {
