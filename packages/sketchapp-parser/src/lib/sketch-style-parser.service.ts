@@ -482,6 +482,10 @@ export class SketchStyleParserService {
     // ignore the other fills
     const firstFill = obj[0];
 
+    if (!firstFill.isEnabled) {
+      return {};
+    }
+
     return {
       ...(() => {
         if (firstFill.gradient) {
