@@ -7,7 +7,7 @@ import { SharedCodegen, Template } from '../shared-codegen.service';
 })
 export class AngularCodeGenService implements CodeGenFacade {
 
-  constructor(private sharedCodegen: SharedCodegen) {}
+  constructor(private sharedCodegen: SharedCodegen) { }
 
   buttons() {
     return {
