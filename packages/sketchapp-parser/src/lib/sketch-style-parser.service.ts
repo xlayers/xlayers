@@ -364,6 +364,11 @@ export class SketchStyleParserService {
 
     segments.unshift(`M${origin.x} ${origin.y}`);
 
+    // TODO: isClosed to type
+    if ((node as any).isClosed) {
+      segments.push('z');
+    }
+
     const embeddedStyle = [];
 
     if (style['background-color']) {
