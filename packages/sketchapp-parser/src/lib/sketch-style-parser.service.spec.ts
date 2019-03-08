@@ -249,6 +249,7 @@ describe('SketchStyleParserService', () => {
       const obj = {
         fills: [{
           color: getSketchColorMock(),
+          isEnabled: true,
           gradient: {
             stops: [{
               color: getSketchColorMock(),
@@ -269,6 +270,7 @@ describe('SketchStyleParserService', () => {
       const obj = {
         fills: [{
           color: getSketchColorMock(),
+          isEnabled: true,
           gradient: {
             stops: [{
               color: getSketchColorMock(),
@@ -289,6 +291,7 @@ describe('SketchStyleParserService', () => {
       const obj = {
         fills: [{
           color: getSketchColorMock(),
+          isEnabled: true,
           gradient: {
             stops: [{
               color: getSketchColorMock(),

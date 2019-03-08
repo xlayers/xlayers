@@ -13,6 +13,7 @@
     "build": "run-s -l lib.build.prod app.build.prod app.build.stamp",
     "--test--": "",
     "test": "jest",
+    "test.update": "jest --updateSnapshot tests/integration",
     "test.ci": "run-s -l lib.build.prod && jest --ci --detectOpenHandles",
     "e2e": "ng e2e",
     "--lint--": "",

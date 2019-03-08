@@ -34,6 +34,8 @@ export enum SupportScore {
   providedIn: 'root'
 })
 export class SketchStyleParserService {
+  version: SupportScore;
+
   constructor(private binaryPlistParser: BinaryPropertyListParserService) {}
 
   public visit(sketch: SketchData) {
@@ -42,6 +44,8 @@ export class SketchStyleParserService {
     if (supp < SupportScore.DROPPED) {
       throw new Error('No longer supported version');
     }
+
+    this.version = supp;
 
     sketch.pages.forEach(page => {
       this.autoFixPagePosition(page);
@@ -56,9 +60,9 @@ export class SketchStyleParserService {
       return SupportScore.UNKNOWN;
     } else if (ver < 49) {
       return SupportScore.DROPPED;
-    } else if (ver >= 49 && ver < 50) {
+    } else if (ver >= 49 && ver < 52) {
       return SupportScore.LEGACY;
-    } else if (ver >= 50) {
+    } else if (ver >= 52) {
       return SupportScore.LATEST;
     } else {
       return SupportScore.EDGE;
@@ -102,7 +106,9 @@ export class SketchStyleParserService {
             this.visitObject(current[property], current, root);
           }
         } else if (property === '_class') {
-          const obj = this.parseObject(current);
+          const obj = this.version >= SupportScore.LATEST
+            ? this.parseObject(current)
+            : this.legacyParseObject(current);
           const attr = this.parseAttributeString(current);
           const grp = this.parseGroup(current);
           const pol = this.polyfill(current);
@@ -110,6 +116,7 @@ export class SketchStyleParserService {
           this.setText(current, root, attr.text);
           this.setText(current, root, obj.text);
           this.setText(current, root, pol.text);
+          this.setSolid(current, root, (obj as any).shape);
           this.setStyle(current, root, obj.style);
           this.setStyle(current, root, grp.style);
         }
@@ -159,57 +166,126 @@ export class SketchStyleParserService {
   }
 
   /**
-   * Parse object attribute
+   * Latest parse object attribute for 53 and higher
    */
   parseObject(layer: any) {
     switch (layer._class) {
-      case 'symbolMaster':
-        return {
-          style: {
-            ...this.transformSymbolMaster(layer)
-          }
-        };
+    case 'symbolMaster':
+      return {
+        style: {
+          ...this.transformSymbolMaster(layer)
+        }
+      };
 
-      case 'style':
-        return {
-          style: {
-            ...this.transformBlur(layer),
-            ...this.transformBorders(layer),
-            ...this.transformFills(layer),
-            ...this.transformShadows(layer)
-          }
-        };
+    case 'rectangle':
+      return {
+        style: {
+          ...this.transformBlur(layer.style),
+          ...this.transformBorders(layer.style),
+          ...this.transformFills(layer.style),
+          ...this.transformShadows(layer.style)
+        }
+      };
 
-      case 'text':
-        return {
-          text: this.transformTextContent(layer),
-          style: {
-            ...this.transformTextColor(layer),
-            ...this.transformParagraphStyle(layer),
-            ...this.transformTextFont(layer)
-          }
-        };
+    case 'text':
+      return {
+        text: this.transformTextContent(layer),
+        style: {
+          ...this.transformTextColor(layer),
+          ...this.transformParagraphStyle(layer),
+          ...this.transformTextFont(layer)
+        }
+      };
 
-      default:
-        return {
-          style: {
-            ...((layer as SketchMSPage).rotation
-              ? {
-                  transform: `rotate(${layer.rotation}deg)`
-                }
-              : {}),
-            ...((layer as SketchMSPage).fixedRadius
-              ? {
-                  'border-radius': `${layer.fixedRadius}px`
-                }
-              : {}),
-            ...((layer as SketchMSGraphicsContextSettings).opacity
-              ? {
-                  opacity: `${layer.opacity}`
-                }
-              : {})
-          }
-        };
+    case 'oval':
+      return {
+        style: {
+          ...this.transformOvalSolid(),
+          ...this.transformBlur(layer.style),
+          ...this.transformBorders(layer.style),
+          ...this.transformFills(layer.style),
+          ...this.transformShadows(layer.style)
+        }
+      };
+
+    case 'shapePath':
+      return {
+        shape: this.transformShapeSolid(layer, {
+          ...this.transformFills(layer.style),
+        })
+      };
+
+    case 'triangle':
+      return {
+        shape: this.transformTriangleSolid(layer, {
+          ...this.transformBorders(layer.style),
+          ...this.transformFills(layer.style)
+        })
+      };
+
+    default:
+      return {
+        style: {
+          ...(layer as SketchMSPage).rotation ? {
+            transform: `rotate(${layer.rotation}deg)`
+          } : {},
+          ...(layer as SketchMSPage).fixedRadius ? {
+            'border-radius': `${layer.fixedRadius}px`
+          } : {},
+          ...(layer as SketchMSGraphicsContextSettings).opacity ? {
+            opacity: `${layer.opacity}`
+          } : {}
+        }
+      };
+    }
+  }
+
+  /**
+   * Parse object attribute for 52 and lower
+   */
+  legacyParseObject(layer: any) {
+    switch (layer._class) {
+    case 'symbolMaster':
+      return {
+        style: {
+          ...this.transformSymbolMaster(layer)
+        }
+      };
+
+    case 'style':
+      return {
+        style: {
+          ...this.transformBlur(layer),
+          ...this.transformBorders(layer),
+          ...this.transformFills(layer),
+          ...this.transformShadows(layer)
+        }
+      };
+
+    case 'text':
+      return {
+        text: this.transformTextContent(layer),
+        style: {
+          ...this.transformTextColor(layer),
+          ...this.transformParagraphStyle(layer),
+          ...this.transformTextFont(layer)
+        }
+      };
+
+    default:
+      return {
+        style: {
+          ...(layer as SketchMSPage).rotation ? {
+            transform: `rotate(${layer.rotation}deg)`
+          } : {},
+          ...(layer as SketchMSPage).fixedRadius ? {
+            'border-radius': `${layer.fixedRadius}px`
+          } : {},
+          ...(layer as SketchMSGraphicsContextSettings).opacity ? {
+            opacity: `${layer.opacity}`
+          } : {}
+        }
+      };
     }
   }
 
@@ -231,6 +307,102 @@ export class SketchStyleParserService {
 
   transformTextContent(node: SketchMSLayer) {
     return node.attributedString.string;
+  }
+
+  transformTriangleSolid(node: SketchMSLayer, style: {[key: string]: string}) {
+    const strokeConfig = [];
+    let offset = 0;
+
+    // TODO: Support multiple border
+    if (node.style.borders && node.style.borders[0].thickness) {
+      strokeConfig.push(`stroke-width="${node.style.borders[0].thickness / 2}"`);
+      const color = this.parseColors(node.style.borders[0].color);
+      strokeConfig.push(`stroke="${color.hex}"`);
+      offset = node.style.borders[0].thickness;
+    }
+
+    const segments = (node as any).points
+      .map(((curvePoint) => {
+        const currPoint = this.parsePoint(curvePoint.point, offset / 2, node);
+        return `${currPoint.x}, ${currPoint.y}`;
+      }))
+      .join(' ');
+
+    const embeddedStyle = [];
+
+    if (style['background-color']) {
+      embeddedStyle.push(`fill: ${style['background-color']}`);
+    } else {
+      embeddedStyle.push('fill: none');
+    }
+
+    const svg = [
+      `<polygon`,
+      ...strokeConfig,
+      `style="${embeddedStyle.join(' ')}"`,
+      `points="${segments}"`,
+      '/>'
+    ];
+
+    return this.svgCanvas(node, offset, svg.join(' '));
+  }
+
+  transformOvalSolid() {
+    return {
+      'border-radius': '50%'
+    };
+  }
+
+  transformShapeSolid(node: SketchMSLayer, style: {[key: string]: string}) {
+    const strokeConfig = [];
+    let offset = 0;
+
+    // TODO: Support multiple border
+    if (node.style.borders && node.style.borders[0].thickness) {
+      strokeConfig.push(`stroke-width="${node.style.borders[0].thickness / 2}"`);
+      const color = this.parseColors(node.style.borders[0].color);
+      strokeConfig.push(`stroke="${color.hex}"`);
+      offset = node.style.borders[0].thickness;
+    }
+
+    // TODO: move to @types/sketchapp
+    const origin = this.parsePoint((node as any).points[0].point, offset, node);
+    const segments = (node as any).points
+      .slice(1)
+      .map(((curvePoint) => {
+        const curveFrom = this.parsePoint(curvePoint.curveFrom, offset, node);
+        const curveTo = this.parsePoint(curvePoint.curveTo, offset, node);
+        const currPoint = this.parsePoint(curvePoint.point, offset, node);
+        if (curveTo.x === curveFrom.x && curveTo.y === curveFrom.y) {
+          return `L ${currPoint.x} ${currPoint.y}`;
+        }
+        return `S ${curveTo.x} ${curveTo.y}, ${currPoint.x} ${currPoint.y}`;
+      }));
+
+    segments.unshift(`M${origin.x} ${origin.y}`);
+
+    // TODO: isClosed to type
+    if ((node as any).isClosed) {
+      segments.push('z');
+    }
+
+    const embeddedStyle = [];
+
+    if (style['background-color']) {
+      embeddedStyle.push(`fill: ${style['background-color']}`);
+    } else {
+      embeddedStyle.push('fill: none');
+    }
+
+    const svg = [
+      `<path`,
+      ...strokeConfig,
+      `style="${embeddedStyle.join(' ')}"`,
+      `d="${segments}"`,
+      '/>'
+    ];
+
+    return this.svgCanvas(node, offset, svg.join(' '));
   }
 
   transformTextFont(node: SketchMSLayer) {
@@ -322,6 +494,10 @@ export class SketchStyleParserService {
     // ignore the other fills
     const firstFill = obj[0];
 
+    if (!firstFill.isEnabled) {
+      return {};
+    }
+
     return {
       ...(() => {
         if (firstFill.gradient) {
@@ -380,6 +556,36 @@ export class SketchStyleParserService {
       : {};
   }
 
+  parseStroke(node: SketchMSLayer) {
+    const strokeConfig = [];
+
+    // TODO: Support multiple border
+    if (node.style.borders && node.style.borders[0].thickness) {
+      strokeConfig.push(`stroke-width="${node.style.borders[0].thickness}"`);
+      const color = this.parseColors(node.style.borders[0].color);
+      strokeConfig.push(`stroke="${color.hex}"`);
+    }
+
+    return strokeConfig;
+  }
+
+  svgCanvas(node: SketchMSLayer, offset: number, paths: string) {
+    const style = ['position: absolute;'];
+    if (offset !== 0) {
+      style.push(`top: ${-offset}px;`);
+      style.push(`left: ${-offset}px`);
+    }
+    return `<svg style="${style.join(' ')}" width="${node.frame.width + offset}" height="${node.frame.height + offset}">${paths}</svg>`;
+  }
+
+  parsePoint(point: string, offset: number, node: SketchMSLayer) {
+    const parsedPoint = point.slice(1, -1).split(', ');
+    return {
+      x: (node.frame.width * Number.parseFloat(parsedPoint[0]) + offset).toFixed(3),
+      y: (node.frame.height * Number.parseFloat(parsedPoint[1]) + offset).toFixed(3)
+    };
+  }
+
   parseColors(color: SketchMSColor) {
     const { red, green, blue, alpha } = color;
     return {
@@ -435,6 +641,13 @@ export class SketchStyleParserService {
     if (text && (!root.text || !obj.text)) {
       root.text = text;
       obj.text = text;
+    }
+  }
+
+  setSolid(obj: any, root: any, shape: string) {
+    if (shape && (!root.shape || !obj.shape)) {
+      root.shape = shape;
+      obj.shape = shape;
     }
   }
 }

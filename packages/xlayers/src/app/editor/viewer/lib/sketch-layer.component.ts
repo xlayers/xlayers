@@ -4,17 +4,17 @@ import {
   ElementRef,
   Input,
   OnInit,
-  Renderer2
+  Renderer2,
 } from '@angular/core';
 import { Store } from '@ngxs/store';
 import { CurrentLayer, UiState } from '@app/core/state/ui.state';
 import { ResourceImageData, SketchService } from './sketch.service';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 @Component({
   selector: 'sketch-layer',
   template: `
     <div
-      *ngIf="!layer?.isLocked"
       [style.width.px]="layer?.frame?.width"
       [style.height.px]="layer?.frame?.height"
       [style.left.px]="layer?.frame?.x"
@@ -38,11 +38,14 @@ import { ResourceImageData, SketchService } from './sketch.service';
 
       <img *ngIf="imageContent" [src]="imageContent.source" [style.height.%]="100" [style.width.%]="100"/>
 
+      <div *ngIf="shapeContent" [innerHtml]="shapeContent"></div>
+
     </div>
   `,
   styles: [
     `
       :host {
+        box-sizing: border-box;
         box-shadow: 0 0 0 1px transparent;
         transition: box-shadow 0.1s linear, transform 1s;
         transform-origin: 0 0;
@@ -77,12 +80,14 @@ export class SketchLayerComponent implements OnInit, AfterContentInit {
 
   textContent: string;
   imageContent: ResourceImageData;
+  shapeContent: SafeHtml;
 
   constructor(
     public store: Store,
     public renderer: Renderer2,
     public element: ElementRef<HTMLElement>,
-    public sketchService: SketchService
+    public sketchService: SketchService,
+    public sanitizer: DomSanitizer
   ) {}
 
   ngOnInit() {
@@ -111,6 +116,7 @@ export class SketchLayerComponent implements OnInit, AfterContentInit {
     if (this.layer) {
       this.updateLayerStyle();
       this.isTextContent();
+      this.isSolidContent();
       this.isImageContent();
     }
   }
@@ -124,6 +130,12 @@ export class SketchLayerComponent implements OnInit, AfterContentInit {
   isImageContent() {
     if ((this.layer._class as 'bitmap') === 'bitmap') {
       this.imageContent = this.sketchService.getImageDataFromRef((this.layer as any).image._ref);
+    }
+  }
+
+  isSolidContent() {
+    if ((this.layer as any).shape) {
+      this.shapeContent = this.sanitizer.bypassSecurityTrustHtml((this.layer as any).shape);
     }
   }
 
