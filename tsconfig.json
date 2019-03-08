@@ -15,6 +15,18 @@
     "lib": [
       "es2017",
       "dom"
-    ]
+    ],
+    "paths": {
+      "@env/*": [
+        "packages/xlayers/src/environments/*"
+      ],
+      "@app/*": [
+        "packages/xlayers/src/app/*"
+      ],
+      "@xlayers/*": [
+        "packages/*/src/lib",
+        "packages/*/src/public_api.ts"
+      ]
+    }
   }
 }
