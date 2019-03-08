@@ -21,6 +21,7 @@
           [disabled]="zoomLevel >= 3"
           matTooltip="Zoom In"
           mat-button
+          [color]="zoomIn ? 'warn' : ''"
           (click)="ZoomIn()"
         >
           <mat-icon>zoom_in</mat-icon>
@@ -29,6 +30,7 @@
           [disabled]="zoomLevel <= 0.1"
           matTooltip="Zoom Out"
           mat-button
+          [color]="zoomOut ? 'warn' : ''"
           (click)="ZoomOut()"
         >
           <mat-icon>zoom_out</mat-icon>
@@ -36,6 +38,7 @@
         <button
           matTooltip="Zoom Reset"
           mat-button
+          [color]="resetZoom ? 'warn' : ''"
           (click)="ZoomReset()"
         >
           <mat-icon>search</mat-icon>
