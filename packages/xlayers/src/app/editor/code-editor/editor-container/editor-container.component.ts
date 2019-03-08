@@ -1,7 +1,8 @@
-import { AfterContentInit, Component, OnInit } from '@angular/core';
+import { AfterContentInit, Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { CodeGen, CodeGenSettings } from '@app/core/state/page.state';
 import { Store } from '@ngxs/store';
 import { CodeGenKind, CodeGenService } from './codegen/codegen.service';
+import { PAGE_DOWN, PAGE_UP } from '@angular/cdk/keycodes';
 
 const githubIssueLink =
   // tslint:disable-next-line:max-line-length
@@ -70,6 +71,7 @@ const githubIssueLink =
             #codeContentEditor
             spellcheck="false"
             class="code-highlight-editor"
+            (keydown)="simulateContentEditorScroll($event)"
           >
             <pre><code contentEditable="true" [highlight]="file.value" (highlighted)="onEditorInit($event, codeContentEditor)"></code></pre>
           </div>
@@ -153,6 +155,7 @@ const githubIssueLink =
 })
 export class EditorContainerComponent implements OnInit, AfterContentInit {
   codeSetting: CodeGenSettings;
+  @ViewChild('codeContentEditor') codeEditor: ElementRef;
 
   frameworks: Array<{
     title: string;
@@ -210,4 +213,23 @@ export class EditorContainerComponent implements OnInit, AfterContentInit {
       )
     );
   }
+
+  simulateContentEditorScroll($event) {
+    const keyCode = $event.keyCode || $event.charCode || $event.which;
+    const scroll = Math.round(0.9 * this.codeEditor.nativeElement.clientHeight);
+
+    // Page Down
+    if (keyCode === PAGE_DOWN || $event.key === 'PageDown' || $event.code === 'PageDown') {
+      this.codeEditor.nativeElement.scrollTop += scroll;
+      return false;
+    }
+    // Page Up
+    if (keyCode === PAGE_UP || $event.key === 'PageUp' || $event.code === 'PageUp') {
+      this.codeEditor.nativeElement.scrollTop -= scroll;
+      return false;
+    }
+
+    return true;
+  }
+
 }
