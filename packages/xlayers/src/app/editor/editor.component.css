@@ -24,19 +24,25 @@
   display: flex;
   font-weight: 100;
   z-index: 1;
+  align-items: center;
+}
+
+.header-title img {
+  width: 30px;
+  height: 30px;
 }
 
 .header-title a {
   color: rgba(255, 255, 255, 0.7);
   text-decoration: none;
-  margin-left: -5px;
-  margin-top: -8px;
+  margin-left: 3px;
+  position: relative;
 }
 
 .header-title span {
-  font-size: 11px;
+  font-size: 10px;
   margin-top: -34px;
-  margin-left: 118px;
+  margin-left: 70px;
   display: block;
   color: black;
   background: white;
@@ -45,6 +51,7 @@
   height: 12px;
   line-height: 13px;
   font-weight: 500;
+  position: absolute;
 }
 
 .header-spacer {
