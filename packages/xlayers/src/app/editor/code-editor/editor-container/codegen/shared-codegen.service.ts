@@ -94,13 +94,11 @@ export class SharedCodegen {
           `src="${this.buildImageSrc(base64Content, false)}"`
         ];
         innerContent.push(this.openTag('img', attributes, true));
+      } else if ((ast as any).shape) {
+        innerContent.push((ast as any).shape);
       }
 
-      if ((ast as any).shape) {
-        innerText.push((ast as any).shape);
-      }
-
-      return innerText.join('');
+      return innerContent.join('');
     }
   }
 

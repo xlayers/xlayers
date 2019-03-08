@@ -48,9 +48,10 @@ export class SketchPageComponent extends SketchLayerComponent
     public store: Store,
     public renderer: Renderer2,
     public element: ElementRef<HTMLElement>,
-    public sketchService: SketchService
+    public sketchService: SketchService,
+    public sanitizer: DomSanitizer
   ) {
-    super(store, renderer, element, sketchService);
+    super(store, renderer, element, sketchService, sanitizer);
   }
 
   ngAfterContentInit() {

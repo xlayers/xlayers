@@ -5,7 +5,6 @@ import {
   Input,
   OnInit,
   Renderer2,
-  SecurityContext
 } from '@angular/core';
 import { Store } from '@ngxs/store';
 import { CurrentLayer, UiState } from '@app/core/state/ui.state';
@@ -21,8 +20,6 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
       [style.left.px]="layer?.frame?.x"
       [style.top.px]="layer?.frame?.y"
     >
-      <span *ngIf="textContent">{{ textContent }}</span>
-
       <sketch-layer
         sketchSelectedLayer
         (selectedLayer)="selectLayer($event)"
@@ -40,6 +37,8 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
       <span *ngIf="textContent">{{ textContent }}</span>
 
       <img *ngIf="imageContent" [src]="imageContent.source" [style.height.%]="100" [style.width.%]="100"/>
+
+      <div *ngIf="shapeContent" [innerHtml]="shapeContent"></div>
 
     </div>
   `,
@@ -86,8 +85,9 @@ export class SketchLayerComponent implements OnInit, AfterContentInit {
   constructor(
     public store: Store,
     public renderer: Renderer2,
-    public sanitizer: DomSanitizer
     public element: ElementRef<HTMLElement>,
+    public sketchService: SketchService,
+    public sanitizer: DomSanitizer
   ) {}
 
   ngOnInit() {
