@@ -34,7 +34,8 @@
     "changelog.write": "conventional-changelog -p angular -i CHANGELOG.md -s",
     "postchangelog.write": "node scripts/clean-changelog.js",
     "changelog.full": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0",
-    "postchangelog.full": "node scripts/clean-changelog.js"
+    "postchangelog.full": "node scripts/clean-changelog.js",
+    "cy:open": "cypress open"
   },
   "husky": {
     "hooks": {
@@ -91,6 +92,8 @@
     "@types/sketchapp": "^1.0.0",
     "codelyzer": "~4.5.0",
     "conventional-changelog-cli": "^2.0.12",
+    "cypress": "^3.1.5",
+    "cypress-testing-library": "^2.3.6",
     "husky": "^1.3.1",
     "jest": "^24.1.0",
     "jest-preset-angular": "^6.0.2",
