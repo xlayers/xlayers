@@ -310,9 +310,20 @@ export class SketchStyleParserService {
   }
 
   transformTriangleSolid(node: SketchMSLayer, style: {[key: string]: string}) {
+    const strokeConfig = [];
+    let offset = 0;
+
+    // TODO: Support multiple border
+    if (node.style.borders && node.style.borders[0].thickness) {
+      strokeConfig.push(`stroke-width="${node.style.borders[0].thickness / 2}"`);
+      const color = this.parseColors(node.style.borders[0].color);
+      strokeConfig.push(`stroke="${color.hex}"`);
+      offset = node.style.borders[0].thickness;
+    }
+
     const segments = (node as any).points
       .map(((curvePoint) => {
-        const currPoint = this.parsePoint(curvePoint.point, node.frame);
+        const currPoint = this.parsePoint(curvePoint.point, offset / 2, node);
         return `${currPoint.x}, ${currPoint.y}`;
       }))
       .join(' ');
@@ -325,20 +336,15 @@ export class SketchStyleParserService {
       embeddedStyle.push('fill: none');
     }
 
-    const svg = [];
+    const svg = [
+      `<polygon`,
+      ...strokeConfig,
+      `style="${embeddedStyle.join(' ')}"`,
+      `points="${segments}"`,
+      '/>'
+    ];
 
-    svg.push(`<polygon`);
-
-    const stroke = this.parseStroke(node);
-    if (stroke !== '') {
-      svg.push(stroke);
-    }
-
-    svg.push(`style="${embeddedStyle.join(' ')}"`);
-    svg.push(`points="${segments}"`);
-    svg.push('/>');
-
-    return this.svgCanvas(node, svg.join(' '));
+    return this.svgCanvas(node, offset, svg.join(' '));
   }
 
   transformOvalSolid() {
@@ -348,14 +354,25 @@ export class SketchStyleParserService {
   }
 
   transformShapeSolid(node: SketchMSLayer, style: {[key: string]: string}) {
+    const strokeConfig = [];
+    let offset = 0;
+
+    // TODO: Support multiple border
+    if (node.style.borders && node.style.borders[0].thickness) {
+      strokeConfig.push(`stroke-width="${node.style.borders[0].thickness / 2}"`);
+      const color = this.parseColors(node.style.borders[0].color);
+      strokeConfig.push(`stroke="${color.hex}"`);
+      offset = node.style.borders[0].thickness;
+    }
+
     // TODO: move to @types/sketchapp
-    const origin = this.parsePoint((node as any).points[0].point, node.frame);
+    const origin = this.parsePoint((node as any).points[0].point, offset, node);
     const segments = (node as any).points
       .slice(1)
       .map(((curvePoint) => {
-        const curveFrom = this.parsePoint(curvePoint.curveFrom, node.frame);
-        const curveTo = this.parsePoint(curvePoint.curveTo, node.frame);
-        const currPoint = this.parsePoint(curvePoint.point, node.frame);
+        const curveFrom = this.parsePoint(curvePoint.curveFrom, offset, node);
+        const curveTo = this.parsePoint(curvePoint.curveTo, offset, node);
+        const currPoint = this.parsePoint(curvePoint.point, offset, node);
         if (curveTo.x === curveFrom.x && curveTo.y === curveFrom.y) {
           return `L ${currPoint.x} ${currPoint.y}`;
         }
@@ -377,20 +394,15 @@ export class SketchStyleParserService {
       embeddedStyle.push('fill: none');
     }
 
-    const svg = [];
+    const svg = [
+      `<path`,
+      ...strokeConfig,
+      `style="${embeddedStyle.join(' ')}"`,
+      `d="${segments}"`,
+      '/>'
+    ];
 
-    svg.push(`<path`);
-
-    const stroke = this.parseStroke(node);
-    if (stroke !== '') {
-      svg.push(stroke);
-    }
-
-    svg.push(`style="${embeddedStyle.join(' ')}"`);
-    svg.push(`d="${segments}"`);
-    svg.push('/>');
-
-    return this.svgCanvas(node, svg.join(' '));
+    return this.svgCanvas(node, offset, svg.join(' '));
   }
 
   transformTextFont(node: SketchMSLayer) {
@@ -552,21 +564,25 @@ export class SketchStyleParserService {
       strokeConfig.push(`stroke-width="${node.style.borders[0].thickness}"`);
       const color = this.parseColors(node.style.borders[0].color);
       strokeConfig.push(`stroke="${color.hex}"`);
-      strokeConfig.push('stroke-alignment="inner"');
     }
 
-    return strokeConfig.join(' ');
+    return strokeConfig;
   }
 
-  svgCanvas(node: SketchMSLayer, paths: string) {
-    return `<svg style="position: absolute" width="${node.frame.width}" height="${node.frame.height}">${paths}</svg>`;
+  svgCanvas(node: SketchMSLayer, offset: number, paths: string) {
+    const style = ['position: absolute;'];
+    if (offset !== 0) {
+      style.push(`top: ${-offset}px;`);
+      style.push(`left: ${-offset}px`);
+    }
+    return `<svg style="${style.join(' ')}" width="${node.frame.width + offset}" height="${node.frame.height + offset}">${paths}</svg>`;
   }
 
-  parsePoint(point: string, frame: SketchMSRect) {
+  parsePoint(point: string, offset: number, node: SketchMSLayer) {
     const parsedPoint = point.slice(1, -1).split(', ');
     return {
-      x: frame.width * Number.parseFloat(parsedPoint[0]),
-      y: frame.height * Number.parseFloat(parsedPoint[1])
+      x: (node.frame.width * Number.parseFloat(parsedPoint[0]) + offset).toFixed(3),
+      y: (node.frame.height * Number.parseFloat(parsedPoint[1]) + offset).toFixed(3)
     };
   }
 
