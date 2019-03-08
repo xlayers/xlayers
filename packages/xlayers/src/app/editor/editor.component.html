@@ -1,7 +1,8 @@
 <mat-toolbar>
   <mat-toolbar-row class="row-header">
     <div class="header-title">
-      <a routerLink="/"> Cross Layers<span>{{badge}}</span> </a>
+      <img src="/assets/icons/icon-72x72.png" /> 
+      <a routerLink="/">xLayers<span>{{badge}}</span> </a>
     </div>
     <div class="header-spacer">
       <div [hidden]="!enabled" class="row-settings" *ngIf="currentPage && !isCodeEditor">
