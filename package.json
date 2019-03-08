@@ -36,10 +36,16 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm run lint",
+      "pre-commit": "lint-staged",
       "pre-push": "npm run test",
       "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
     }
+  },
+  "lint-staged": {
+    "linters": {
+      "*.ts": ["ng lint --fix --files", "git add"]
+    },
+    "relative": true
   },
   "private": true,
   "dependencies": {
@@ -65,6 +71,7 @@
     "file-saver": "^2.0.0",
     "highlight.js": "^9.14.2",
     "jszip": "^3.1.5",
+    "lint-staged": "^8.1.5",
     "ngx-color": "^2.0.5",
     "ngx-highlightjs": "^3.0.1",
     "rxjs": "^6.4.0",
