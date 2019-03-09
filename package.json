@@ -18,6 +18,7 @@
     "e2e": "ng e2e",
     "--lint--": "",
     "lint": "ng lint",
+    "lint.fix": "ng lint --fix",
     "--deploy--": "",
     "deploy.prod": "firebase deploy --only hosting",
     "deploy.prod.ci.setup": "firebase use $PROJECT_ID --token $FIREBASE_TOKEN",
@@ -44,7 +45,8 @@
   "lint-staged": {
     "linters": {
       "*.ts": [
-        "ng lint --fix --files",
+        "npm run lint.fix -- xlayers --files",
+        "npm run lint.fix -- sketchapp-parser --files",
         "git add"
       ]
     },
