@@ -1,7 +1,7 @@
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { Route, RouterModule } from '@angular/router';
 import * as javascript from 'highlight.js/lib/languages/javascript';
 import * as scss from 'highlight.js/lib/languages/scss';
@@ -35,12 +35,11 @@ export function hljsLanguages() {
   imports: [
     BrowserModule,
     HttpClientModule,
-    NoopAnimationsModule,
+    BrowserAnimationsModule,
     RouterModule.forRoot(routes, { useHash: true }),
     HighlightModule.forRoot({
       languages: hljsLanguages
     }),
-    // CoreModule
     // TODO(manekinekko): enable SW support when it's stable
     // ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production })
   ],
