@@ -91,7 +91,7 @@ sketch-container {
 }
 
 .sidebar.layers {
-  margin-bottom: 60px;
+  margin-bottom: 19px;
 }
 
 .sidebar.settings {
@@ -157,14 +157,32 @@ button[mat-button] {
 }
 
 footer {
-  display: block;
+  display: flex;
   bottom: 0;
-  height: 20px;
   padding: 5px;
-  font-size: 0.8em;
+  font-size: 0.6em;
   line-height: normal;
   position: fixed;
   background: #212121;
+  color: #e3e3e3;
   width: 210px;
-  height: 50px;
+  height: 12px;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid #353535;
+}
+
+footer a {
+  color: #e3e3e3;
+  text-decoration: none;
+}
+
+footer a img {
+  width: 14px;
+  height: 14px;
+}
+
+footer.footer--full {
+  width: 100%;
+  z-index: 999;
 }
