@@ -7,7 +7,7 @@ import { filter } from 'rxjs/operators';
 declare var gtag;
 
 @Component({
-  selector: 'sketch-root',
+  selector: 'xly-root',
   template: `
     <router-outlet></router-outlet>
   `,

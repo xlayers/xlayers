@@ -1,0 +1,15 @@
+<button
+  color="primary"
+  class="mat-headline"
+  mat-button
+  (click)="openFileBrowser()"
+>
+  Upload A Design From Your Computer
+</button>
+
+<input
+  #fileBrowserRef
+  type="file"
+  (input)="onFileChange($event)"
+  accept=".sketch"
+/>

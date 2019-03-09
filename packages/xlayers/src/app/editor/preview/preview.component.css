@@ -1,0 +1,77 @@
+[hidden] {
+  display: none;
+}
+
+:host ::ng-deep .mat-expansion-panel-body {
+  padding: 0 !important;
+}
+
+.transparent-bg {
+  background-color: transparent;
+  background-image: url(/assets/transparent-square-tiles.png);
+  background-repeat: repeat;
+  background-size: 130px;
+}
+
+.mat-drawer {
+  width: 220px;
+}
+
+:host,
+.mat-drawer-container {
+  display: block;
+  min-height: calc(100% - 11px);
+  height: calc(100% - 11px);
+}
+
+xly-viewer-container {
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  top: 64px;
+  position: absolute;
+}
+
+.sidebar {
+  min-width: 200px;
+}
+
+.mat-list-item.selected-page {
+  background-color: #ff4f81;
+}
+
+button[mat-button] {
+  min-width: 48px;
+}
+
+.side-nav-bottom {
+  position: absolute;
+  bottom: 0;
+}
+
+.color-preview {
+  background-color: transparent;
+  display: inline-block;
+  width: 26px;
+  height: 26px;
+  border: 1px solid white;
+  border-radius: 50%;
+  margin: 0 10px;
+}
+
+.menu-color-panel,
+.mat-menu-content {
+  box-shadow: none;
+  background-color: transparent;
+  padding: 0;
+}
+
+
+.mat-drawer-content {
+  overflow: hidden;
+}
+
+.mat-drawer {
+  top: 64px;
+}
+

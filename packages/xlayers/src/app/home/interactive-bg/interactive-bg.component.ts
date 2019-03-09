@@ -2,7 +2,7 @@ import { Component, OnInit, Input, ElementRef } from '@angular/core';
 import { Renderer2 } from '@angular/core';
 
 @Component({
-  selector: 'sketch-interactive-bg',
+  selector: 'xly-interactive-bg',
   templateUrl: './interactive-bg.component.html',
   styleUrls: ['./interactive-bg.component.css']
 })

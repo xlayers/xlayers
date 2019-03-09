@@ -1,0 +1,11 @@
+<section (drop)="onFileDrop($event)" (dragover)="dragOverHandler($event)">
+  <mat-icon class="mode__large">cloud_upload</mat-icon>
+  <h2 class="mat-headline">Drop Your Design File Here</h2>
+</section>
+
+<input
+  #fileBrowserRef
+  type="file"
+  (input)="onFileChange($event)"
+  accept=".sketch"
+/>

@@ -21,9 +21,10 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatTreeModule } from '@angular/material/tree';
 import { ColorSketchModule } from 'ngx-color/sketch';
+import { SketchService } from './sketch.service';
 import { WINDOW_PROVIDERS } from './window.service';
 
-const MatModules = [
+const MATERIAL = [
   MatSliderModule,
   MatTreeModule,
   MatSnackBarModule,
@@ -45,10 +46,13 @@ const MatModules = [
   DragDropModule
 ];
 
+const PROVIDERS = [...WINDOW_PROVIDERS, SketchService];
+
 const ExtraModules = [FormsModule, ColorSketchModule];
+
 @NgModule({
-  imports: [...MatModules, ...ExtraModules],
-  exports: [CommonModule, ...MatModules, ...ExtraModules],
-  providers: [...WINDOW_PROVIDERS]
+  imports: [...MATERIAL, ...ExtraModules],
+  exports: [CommonModule, ...MATERIAL, ...ExtraModules],
+  providers: [...PROVIDERS]
 })
 export class CoreModule {}

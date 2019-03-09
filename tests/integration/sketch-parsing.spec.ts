@@ -1,10 +1,9 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { async, TestBed } from '@angular/core/testing';
-import { SketchContainerComponent } from '@app/editor/viewer/lib/sketch-container.component';
-import { SketchData } from '@app/editor/viewer/lib/sketch.service';
-import { SketchStyleParserService } from '@xlayers/sketchapp-parser';
+import { SketchStyleParserService, SketchData } from '@xlayers/sketchapp-parser';
 import { readdirSync, readFile } from 'fs';
 import * as jszip from 'jszip';
+import { SketchContainerComponent } from '@app/editor/preview/viewer/sketch-container/sketch-container.component';
 
 const VERSION_LIST = [50, 51, 52, 53];
 const SKETCH_PATH = './packages/xlayers/src/assets/demos/sketchapp';

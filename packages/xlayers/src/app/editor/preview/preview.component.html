@@ -1,0 +1,92 @@
+<mat-drawer-container
+  autosize
+  [class.transparent-bg]="colors?.background === 'transparent'"
+>
+  <mat-drawer
+    class="sidebar layers"
+    mode="side"
+    disableClose="true"
+    [style.width.px]="settingTreeViewerWidth"
+    #settingNavRef
+  >
+    <section>
+      <mat-expansion-panel *ngIf="shouldEnableCanvasSettings">
+        <mat-expansion-panel-header>
+          <mat-panel-title> Settings </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <mat-nav-list>
+          <mat-list-item [matMenuTriggerFor]="menuColor">
+            <span
+              class="color-preview"
+              [class.transparent-bg]="colors?.background === 'transparent'"
+              [style.backgroundColor]="colors?.background"
+            ></span>
+            Canvas Color
+
+            <mat-menu
+              #menuColor="matMenu"
+              class="menu-color-panel"
+              [overlapTrigger]="false"
+            >
+              <color-sketch
+                [color]="colors.background"
+                (onChangeComplete)="changeBackgroundColor($event)"
+              >
+              </color-sketch>
+            </mat-menu>
+          </mat-list-item>
+        </mat-nav-list>
+      </mat-expansion-panel>
+
+      <mat-expansion-panel #pagesPanelRef>
+        <mat-expansion-panel-header>
+          <mat-panel-title> Pages </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <mat-nav-list>
+          <mat-list-item
+            [ngClass]="{
+              'selected-page': currentPage?.name === sketchPages[idx]?.name
+            }"
+            *ngFor="let page of sketchPages; trackBy: pageName; let idx = index"
+            (click)="setCurrentPage(page)"
+          >
+            {{ page.name }}
+          </mat-list-item>
+        </mat-nav-list>
+      </mat-expansion-panel>
+
+      <mat-expansion-panel #layersPanelRef>
+        <mat-expansion-panel-header>
+          <mat-panel-title> Layers </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <xly-tree-layout></xly-tree-layout>
+        
+      </mat-expansion-panel>
+    </section>
+  </mat-drawer>
+
+  <mat-drawer
+    class="sidebar settings"
+    mode="side"
+    opened="false"
+    position="end"
+    hasBackdrop="false"
+    [style.width.px]="settingMenuWidth"
+    #currentLayerNavRef
+  >
+    <xly-settings-container></xly-settings-container>
+
+    <mat-nav-list class="side-nav-bottom">
+      <mat-list-item (click)="closeLayerSettings()">
+        <mat-icon>keyboard_arrow_right</mat-icon>
+      </mat-list-item>
+    </mat-nav-list>
+  </mat-drawer>
+
+  <section class="mat-drawer-content">
+    <xly-viewer-container #xlyViewerContainerRef></xly-viewer-container>
+  </section>
+</mat-drawer-container>
