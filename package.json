@@ -43,7 +43,10 @@
   },
   "lint-staged": {
     "linters": {
-      "*.ts": ["ng lint --fix --files", "git add"]
+      "*.ts": [
+        "ng lint --fix --files",
+        "git add"
+      ]
     },
     "relative": true
   },
