@@ -18,7 +18,7 @@ describe('CodeGenService', () => {
     });
   });
 
-  xit('should be created', inject(
+  it('should be created', inject(
     [CodeGenService],
     (service: CodeGenService) => {
       expect(service).toBeTruthy();
