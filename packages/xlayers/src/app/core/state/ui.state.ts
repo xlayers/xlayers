@@ -1,5 +1,6 @@
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Action, Selector, State, StateContext } from '@ngxs/store';
+import { patch, iif } from '@ngxs/store/operators';
 import { SketchData } from '@app/editor/viewer/lib/sketch.service';
 
 export interface LayerCSS {
@@ -229,51 +230,52 @@ export class UiState {
 
   @Action(LayerPosition)
   layerPosition(
-    { getState, patchState }: StateContext<UiSettings>,
+    { setState }: StateContext<UiSettings>,
     action: LayerPosition
   ) {
-    const ui = { ...getState() };
-
     // reset the top/left position of the current page
     // and the root layer
-    ui.currentPage = {
-      ...ui.currentPage,
-      frame: {
-        ...ui.currentPage.frame,
-        x: action.left,
-        y: action.top
-      }
-    };
-
-    patchState({
-      currentPage: ui.currentPage
-    });
+    setState(
+      patch({
+        currentPage: patch({
+          frame: patch({
+            x: action.left,
+            y: action.top
+          })
+        })
+      })
+    );
   }
 
   @Action(ZoomReset)
-  zoomReset({ getState, setState }: StateContext<UiSettings>, action: ZoomReset) {
-    setState({
-      ...getState(),
+  zoomReset({ patchState }: StateContext<UiSettings>, action: ZoomReset) {
+    patchState({
       zoomLevel: DEFAULT_UI_STATE.zoomLevel
     });
   }
 
   @Action(ZoomIn)
   zoomIn({ getState, setState }: StateContext<UiSettings>, action: ZoomIn) {
-    const ui = { ...getState() };
-    ui.zoomLevel = parseFloat((ui.zoomLevel + action.value).toFixed(2));
-    if (ui.zoomLevel <= 3) {
-      setState(ui);
-    }
+    const zoomLevel = parseFloat((getState().zoomLevel + action.value).toFixed(2));
+
+    setState(
+      patch({
+        zoomLevel: iif(zoomLevel <= 3, zoomLevel)
+      })
+    );
   }
+
   @Action(ZoomOut)
   zoomOut({ getState, setState }: StateContext<UiSettings>, action: ZoomOut) {
-    const ui = { ...getState() };
-    ui.zoomLevel = parseFloat((ui.zoomLevel - action.value).toFixed(2));
-    if (ui.zoomLevel >= 0.1) {
-      setState(ui);
-    }
+    const zoomLevel = parseFloat((getState().zoomLevel - action.value).toFixed(2));
+
+    setState(
+      patch({
+        zoomLevel: iif(zoomLevel >= 0.1, zoomLevel)
+      })
+    );
   }
+
   @Action(Toggle3D)
   toggle3D(
     { patchState, dispatch }: StateContext<UiSettings>,
@@ -287,6 +289,7 @@ export class UiState {
       is3dView: action.value
     });
   }
+
   @Action(ToggleCodeEditor)
   toggleCodeEditor(
     { patchState, dispatch }: StateContext<UiSettings>,
@@ -297,10 +300,12 @@ export class UiState {
       isCodeEditor: action.value
     });
   }
+
   @Action(ResetUiSettings)
   resetUiSettings({ patchState }: StateContext<UiSettings>) {
     patchState(DEFAULT_UI_STATE);
   }
+
   @Action(InformUser)
   informUser({}, action: InformUser) {
     this.snackBar.open(action.message, 'CLOSE', {
