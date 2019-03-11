@@ -6,7 +6,7 @@ import { StackBlitzProjectPayload } from './stackblitz.service';
   providedIn: 'root'
 })
 export class ExportStackblitzAngularService {
-  constructor() {}
+  constructor() { }
   prepare(content: XlayersNgxEditorModel[]): StackBlitzProjectPayload {
     const files = {};
     for (let i = 0; i < content.length; i++) {

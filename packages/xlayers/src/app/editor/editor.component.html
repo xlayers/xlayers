@@ -1,7 +1,7 @@
 <mat-toolbar>
   <mat-toolbar-row class="row-header">
     <div class="header-title">
-      <img src="/assets/icons/icon-72x72.png" /> 
+      <img src="/assets/icons/icon-72x72.png" />
       <a routerLink="/">xLayers<span>{{badge}}</span> </a>
     </div>
     <div class="header-spacer">
@@ -10,15 +10,13 @@
           (click)="toggleWireframe()">
           <mat-icon>layers</mat-icon>
         </button>
-        <button [disabled]="zoomLevel >= 3" matTooltip="Zoom In" mat-button [color]="zoomIn ? 'warn' : ''"
-          (click)="ZoomIn()">
+        <button [disabled]="zoomLevel >= 3" matTooltip="Zoom In" mat-button (click)="ZoomIn()">
           <mat-icon>zoom_in</mat-icon>
         </button>
-        <button [disabled]="zoomLevel <= 0.1" matTooltip="Zoom Out" mat-button [color]="zoomOut ? 'warn' : ''"
-          (click)="ZoomOut()">
+        <button [disabled]="zoomLevel <= 0.1" matTooltip="Zoom Out" mat-button (click)="ZoomOut()">
           <mat-icon>zoom_out</mat-icon>
         </button>
-        <button matTooltip="Zoom Reset" mat-button [color]="resetZoom ? 'warn' : ''" (click)="ZoomReset()">
+        <button matTooltip="Zoom Reset" mat-button (click)="ZoomReset()">
           <mat-icon>search</mat-icon>
         </button>
         <button matTooltip="Toggle 3D" mat-button [color]="is3dView ? 'warn' : ''" (click)="toggle3d()">
@@ -30,7 +28,7 @@
       </div>
     </div>
     <div [hidden]="!enabled" class="row-settings" *ngIf="currentPage && isCodeEditor">
-      <button matTooltip="Go Back To Preview" mat-button (click)="toggleCodeEditor()">
+      <button matTooltip="Go Back To Preview" mat-button (click)="toggleCodeAndEmbedded()">
         <mat-icon>arrow_back</mat-icon>
       </button>
       <button [disabled]="!isStackblitzEnabled" (click)="openInStackblitz()" matTooltip="Open project in Stackblitz"
@@ -39,6 +37,10 @@
       </button>
       <button (click)="download()" matTooltip="Download as zip" mat-button target="__blank" rel="noopener noreferrer">
         <mat-icon>archive</mat-icon>
+      </button>
+      <button [disabled]="!isStackblitzEnabled" (click)="embedStackBlitz()" matTooltip="Preview in Stackblitz"
+        mat-button target="__blank" rel="noopener noreferrer">
+        <mat-icon>aspect_ratio</mat-icon>
       </button>
     </div>
     <div class="header-actions">
@@ -55,7 +57,7 @@
 <mat-drawer-container autosize hasBackdrop="false" [class.transparent-bg]="colors?.background === 'transparent'">
   <mat-drawer class="sidebar layers" mode="side" opened="false" disableClose="true"
     [style.width.px]="settingTreeViewerWidth" #settingNavRef>
-    
+
     <section>
       <mat-expansion-panel *ngIf="shouldEnableCanvasSettings">
         <mat-expansion-panel-header>
@@ -120,8 +122,8 @@
     </mat-toolbar>
   </mat-drawer>
 
-  <mat-drawer class="sidebar settings" mode="side" opened="false" position="end"
-    [style.width.px]="settingMenuWidth" #currentLayerNavRef>
+  <mat-drawer class="sidebar settings" mode="side" opened="false" position="end" [style.width.px]="settingMenuWidth"
+    #currentLayerNavRef>
     <sketch-settings-container></sketch-settings-container>
 
     <mat-nav-list class="side-nav-bottom">
@@ -132,14 +134,14 @@
   </mat-drawer>
 
   <section class="mat-drawer-content">
-    
-    <sketch-editor-container *ngIf="isCodeEditor"></sketch-editor-container>
-    <sketch-container #sketchContainerRef></sketch-container>
 
+    <sketch-editor-container *ngIf="isCodeEditor && !isEmbedded"></sketch-editor-container>
+    <sketch-container #sketchContainerRef></sketch-container>
+    <div id="stack"></div>
     <mat-toolbar class="footer footer--full" *ngIf="currentPage">
       <span>Build: {{ version }}</span>
     </mat-toolbar>
-    
+
   </section>
 
 </mat-drawer-container>

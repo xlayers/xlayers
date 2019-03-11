@@ -93,6 +93,7 @@ const githubIssueLink =
         min-height: 100%;
         height: 100%;
         box-sizing: border-box;
+        width:50%;
       }
       .code-highlight-editor pre {
         margin-top: 0px;
@@ -162,9 +163,9 @@ export class EditorContainerComponent implements OnInit, AfterContentInit {
     logo: FunctionStringCallback;
   }>;
 
-  constructor(private codegen: CodeGenService, private readonly store: Store) {}
+  constructor(private codegen: CodeGenService, private readonly store: Store) { }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   ngAfterContentInit() {
     this.generateAngular();

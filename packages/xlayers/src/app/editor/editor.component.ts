@@ -49,6 +49,7 @@ export class EditorComponent implements OnInit {
   isStackblitzEnabled = true;
   is3dView: boolean;
   isCodeEditor: boolean;
+  isEmbedded = false;
   codegen: CodeGenSettings;
 
   version = environment.version;
@@ -154,6 +155,12 @@ export class EditorComponent implements OnInit {
     this.store.dispatch(new ToggleCodeEditor(this.isCodeEditor));
   }
 
+  toggleCodeAndEmbedded() {
+    debugger;
+    this.isEmbedded ? this.isEmbedded = !this.isEmbedded : null;
+    this.toggleCodeEditor();
+  }
+
   setCurrentPage(page: SketchMSPage) {
     this.store.dispatch(new CurrentPage(page));
   }
@@ -208,7 +215,11 @@ export class EditorComponent implements OnInit {
   close() {
     this.store.dispatch(new ResetUiSettings());
   }
+  embedStackBlitz() {
+    this.isEmbedded = true;
+    this.exporter.embedded(this.codegen);
 
+  }
   openInStackblitz() {
     this.exporter.export(this.codegen);
   }

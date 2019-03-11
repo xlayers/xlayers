@@ -8,6 +8,7 @@ import { ExportStackblitzVueService } from './stackblitz.vue.service';
 import { ExportStackblitzWCService } from './stackblitz.wc.service';
 import { ExportStackblitzStencilService } from './stackblitz.stencil.service';
 import { ExportStackblitzLitElementService } from './stackblitz.lit-element.service';
+import { Project, EmbedOptions } from '@stackblitz/sdk/typings/interfaces';
 
 
 
@@ -31,6 +32,7 @@ export interface StackBlitzProjectPayload {
   providedIn: 'root'
 })
 export class ExportStackblitzService {
+  private embeddedConfig: EmbedOptions = { hideNavigation: true, hideDevTools: true, hideExplorer: true, height: '100%', forceEmbedLayout: true, view: 'preview' };
   constructor(
     private angularExport: ExportStackblitzAngularService,
     private reactExport: ExportStackblitzReactService,
@@ -39,9 +41,8 @@ export class ExportStackblitzService {
     private stencilExport: ExportStackblitzStencilService,
     private litElementExport: ExportStackblitzLitElementService
 
-  ) {}
-
-  async export(codegen: CodeGenSettings) {
+  ) { }
+  private getProjectSettings(codegen: CodeGenSettings): Project {
     let project: StackBlitzProjectPayload = null;
     switch (codegen.kind) {
       case CodeGenKind.React:
@@ -64,14 +65,25 @@ export class ExportStackblitzService {
         project = this.angularExport.prepare(codegen.content);
         break;
     }
+    return this.getStackBlitzProjectConfig(project);
+  }
 
-    sdk.openProject({
+  private getStackBlitzProjectConfig(project: StackBlitzProjectPayload): Project {
+    return {
       files: project.files,
-      title: project.description || 'xlayers' ,
+      title: project.description || 'xlayers',
       description: project.description || 'xLayers generated project',
       template: project.template,
       // tags: ['xlayers', ...project.tags],
       dependencies: project.dependencies || {}
-    });
+
+    };
+  }
+  async export(codegen: CodeGenSettings) {
+    sdk.openProject(this.getProjectSettings(codegen));
+  }
+
+  async embedded(codegen: CodeGenSettings) {
+    sdk.embedProject('stack', this.getProjectSettings(codegen), this.embeddedConfig);
   }
 }
