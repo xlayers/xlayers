@@ -30,7 +30,7 @@ export class PreviewComponent implements OnInit {
   @ViewChild('settingNavRef') settingNavRef: MatDrawerContainer;
   @ViewChild('currentLayerNavRef') currentLayerNavRef: MatDrawerContainer;
 
-  constructor(private readonly store: Store) {}
+  constructor(private readonly store: Store) { }
 
   ngOnInit() {
     this.colors = {
@@ -55,12 +55,6 @@ export class PreviewComponent implements OnInit {
       }
     });
 
-    // this.store.select(UiState.isPreview).subscribe(isPreview => {
-    //   this.preview = isPreview;
-    //   if (this.preview) {
-    //     this.currentLayerNavRef.open();
-    //   }
-    // });
 
     this.store.select(UiState.currentLayer).subscribe(currentLayer => {
       this.currentLayer = currentLayer;
@@ -70,16 +64,6 @@ export class PreviewComponent implements OnInit {
       } else {
         this.currentLayerNavRef.close();
       }
-    });
-
-    this.store.select(UiState.isCodeEditor).subscribe(isCodeEditor => {
-      // if (this.sketchPages.length > 0) {
-      //   if (this.isCodeEditor) {
-      //     this.settingNavRef.close();
-      //   } else {
-      //     this.settingNavRef.open();
-      //   }
-      // }
     });
   }
 

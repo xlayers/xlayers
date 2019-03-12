@@ -30,7 +30,7 @@
       </div>
     </div>
     <div [hidden]="!enabled" class="row-settings" *ngIf="currentPage && isCodeEditor">
-      <button matTooltip="Go Back To Preview" mat-button (click)="toggleCodeEditor()">
+      <button matTooltip="Go Back To Preview" mat-button (click)="togglePreview()">
         <mat-icon>arrow_back</mat-icon>
       </button>
       <button [disabled]="!isStackblitzEnabled" (click)="openInStackblitz()" matTooltip="Open project in Stackblitz"

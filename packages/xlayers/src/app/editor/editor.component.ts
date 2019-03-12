@@ -6,7 +6,6 @@ import { Store } from '@ngxs/store';
 import * as FileSaver from 'file-saver';
 import { PreviewBadgeService } from '../core/preview-badge.service';
 import { ExportStackblitzService } from './code/exports/stackblitz/stackblitz.service';
-import { Router } from '@angular/router';
 import { Navigate } from '@ngxs/router-plugin';
 
 
@@ -35,8 +34,7 @@ export class EditorComponent implements OnInit {
   constructor(
     private readonly store: Store,
     private readonly badgeService: PreviewBadgeService,
-    private readonly exporter: ExportStackblitzService,
-    private readonly router: Router
+    private readonly exporter: ExportStackblitzService
   ) { }
 
   ngOnInit() {
@@ -122,14 +120,18 @@ export class EditorComponent implements OnInit {
 
   }
 
-
-  toggleCodeEditor() {
-    this.router.navigate([
-       '/editor/code'
-    ]);
+  private toggleIsCodeEditor() {
     this.isCodeEditor = !this.isCodeEditor;
     this.store.dispatch(new ToggleCodeEditor(this.isCodeEditor));
   }
 
+  toggleCodeEditor() {
+    this.toggleIsCodeEditor();
+    this.store.dispatch(new Navigate(['/editor/code']));
+  }
+  togglePreview() {
+    this.toggleIsCodeEditor();
+    this.store.dispatch(new Navigate(['/editor/preview']));
+  }
 
 }

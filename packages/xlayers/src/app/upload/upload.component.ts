@@ -15,11 +15,10 @@ export class UploadComponent implements OnInit {
 
   constructor(
     private service: SketchService,
-    private store: Store,
-    private router: Router
-  ) {}
+    private store: Store
+  ) { }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   async onFileSelected(file: File) {
     try {
@@ -32,7 +31,6 @@ export class UploadComponent implements OnInit {
         new Navigate(['/editor/preview'])
       ]);
 
-      this.router.navigate(['/editor/preview']);
     } catch (error) {
       this.store.dispatch(new InformUser(error, ErrorType.Runtime));
     }
