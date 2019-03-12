@@ -59,6 +59,9 @@
   right: 15px;
   z-index: 999;
 }
+.meu-container button {
+  color:white;
+}
 a.request-new-library {
   text-align: center;
   color: white;
