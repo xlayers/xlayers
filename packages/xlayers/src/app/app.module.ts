@@ -2,7 +2,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { Route, RouterModule } from '@angular/router';
+import { PreloadAllModules, Route, RouterModule } from '@angular/router';
 import { WINDOW_PROVIDERS } from '@app/core/window.service';
 import { environment } from '@env/environment';
 import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
@@ -57,7 +57,12 @@ export function hljsLanguages() {
 
 const StoreDebugModule = [
   NgxsModule.forRoot([UiState, CodeGenState], {
-    /*developmentMode: !environment.production*/
+    /**
+     * WARNING: dont enbale the `developmentmode` config until it's been fixed!
+     * ENABLING THIS, WILL THROW: TypeError: Cannot assign to read only property 'microTask' of object '[object Object]'
+     * See similar issue in NgRx: https://github.com/brandonroberts/ngrx-store-freeze/issues/17
+     */
+    // developmentMode: !environment.production
   }),
   NgxsLoggerPluginModule.forRoot({ disabled: environment.production }),
   NgxsReduxDevtoolsPluginModule.forRoot({ disabled: environment.production }),
@@ -72,7 +77,11 @@ const StoreDebugModule = [
     BrowserAnimationsModule,
     StoreDebugModule,
     CoreModule,
-    RouterModule.forRoot(routes, { useHash: true, enableTracing: !environment.production }),
+    RouterModule.forRoot(routes, {
+      useHash: true,
+      enableTracing: !environment.production,
+      preloadingStrategy: PreloadAllModules
+    }),
     HighlightModule.forRoot({
       languages: hljsLanguages
     })

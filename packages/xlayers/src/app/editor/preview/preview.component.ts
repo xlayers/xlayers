@@ -55,7 +55,6 @@ export class PreviewComponent implements OnInit {
       }
     });
 
-
     this.store.select(UiState.currentLayer).subscribe(currentLayer => {
       this.currentLayer = currentLayer;
 

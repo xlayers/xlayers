@@ -8,8 +8,8 @@ import {
 } from '@angular/core';
 import { Store } from '@ngxs/store';
 import { CurrentLayer, UiState } from '@app/core/state/ui.state';
-import { ResourceImageData, SketchService } from '../../../../core/sketch.service';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { ResourceImageData, SketchService } from '@app/core/sketch.service';
 
 @Component({
   selector: 'xly-layer',
