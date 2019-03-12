@@ -30,7 +30,7 @@ export class PreviewComponent implements OnInit {
   @ViewChild('settingNavRef') settingNavRef: MatDrawerContainer;
   @ViewChild('currentLayerNavRef') currentLayerNavRef: MatDrawerContainer;
 
-  constructor(private readonly store: Store) { }
+  constructor(private readonly store: Store) {}
 
   ngOnInit() {
     this.colors = {
@@ -54,7 +54,6 @@ export class PreviewComponent implements OnInit {
         this.settingNavRef.close();
       }
     });
-
 
     this.store.select(UiState.currentLayer).subscribe(currentLayer => {
       this.currentLayer = currentLayer;

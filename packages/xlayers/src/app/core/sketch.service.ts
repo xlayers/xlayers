@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { InformUser } from '@app/core/state';
+import { InformUser, UiState, CurrentFile } from '@app/core/state';
 import { environment } from '@env/environment';
 import { Store } from '@ngxs/store';
 import {
@@ -28,8 +28,8 @@ export interface SketchData {
   };
   meta: SketchMSMetadata;
   resources: {
-    images:  {
-      [id: string]: ResourceImageData
+    images: {
+      [id: string]: ResourceImageData;
     };
   };
 }
@@ -50,26 +50,22 @@ export class SketchService {
     private http: HttpClient,
     private store: Store
   ) {
-    this._data = {
-      pages: [],
-      previews: [],
-      document: {} as any,
-      user: {},
-      meta: {} as any,
-      resources: [] as any
-    };
+    this.store.select(UiState.currentFile).subscribe(currentFile => {
+      this._data = currentFile;
+    });
   }
 
   async process(file: File) {
-    this._data = await this.sketch2Json(file);
-    if (this.sketchStyleParser.visit(this._data) === SupportScore.LEGACY) {
+    const data = await this.sketch2Json(file);
+
+    if (this.sketchStyleParser.visit(data) === SupportScore.LEGACY) {
       this.store.dispatch(
         new InformUser(
           'The design was created using a legacy version of SketchApp, so the result may not be accurate.'
         )
       );
     }
-    return this._data;
+    return data;
   }
 
   async readZipEntries(file: Blob) {

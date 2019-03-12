@@ -1,15 +1,7 @@
-import { Component, OnInit, ViewChild, HostListener } from '@angular/core';
+import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
+import { CurrentLayer, UiState, ZoomIn, ZoomOut } from '@app/core/state';
 import { Store } from '@ngxs/store';
-import {
-  CurrentFile,
-  CurrentLayer,
-  InformUser,
-  UiState,
-  ZoomIn,
-  ZoomOut
-} from '@app/core/state';
 import { SketchSelectedLayerDirective } from '../sketch-layer/selected-layer.directive';
-import { SketchService } from '@app/core/sketch.service';
 
 @Component({
   selector: 'xly-viewer-container',
