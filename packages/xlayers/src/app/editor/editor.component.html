@@ -2,62 +2,136 @@
   <mat-toolbar-row class="row-header">
     <div class="header-title">
       <img src="/assets/icons/icon-72x72.png" />
-      <a routerLink="/">xLayers<span>{{badge}}</span> </a>
+      <a routerLink="/"
+        >xLayers<span>{{ badge }}</span>
+      </a>
     </div>
     <div class="header-spacer">
-      <div [hidden]="!enabled" class="row-settings" *ngIf="currentPage && !isCodeEditor">
-        <button matTooltip="Toggle Preview Mode" [color]="wireframe ? 'warn' : ''" mat-button
-          (click)="toggleWireframe()">
+      <div
+        [hidden]="!enabled"
+        class="row-settings"
+        *ngIf="currentPage && !isCodeEditor"
+      >
+        <button
+          matTooltip="Toggle Preview Mode"
+          [color]="wireframe ? 'warn' : ''"
+          mat-button
+          (click)="toggleWireframe()"
+        >
           <mat-icon>layers</mat-icon>
         </button>
-        <button [disabled]="zoomLevel >= 3" matTooltip="Zoom In" mat-button (click)="ZoomIn()">
+        <button
+          [disabled]="zoomLevel >= 3"
+          matTooltip="Zoom In"
+          mat-button
+          (click)="ZoomIn()"
+        >
           <mat-icon>zoom_in</mat-icon>
         </button>
-        <button [disabled]="zoomLevel <= 0.1" matTooltip="Zoom Out" mat-button (click)="ZoomOut()">
+        <button
+          [disabled]="zoomLevel <= 0.1"
+          matTooltip="Zoom Out"
+          mat-button
+          (click)="ZoomOut()"
+        >
           <mat-icon>zoom_out</mat-icon>
         </button>
         <button matTooltip="Zoom Reset" mat-button (click)="ZoomReset()">
           <mat-icon>search</mat-icon>
         </button>
-        <button matTooltip="Toggle 3D" mat-button [color]="is3dView ? 'warn' : ''" (click)="toggle3d()">
+        <button
+          matTooltip="Toggle 3D"
+          mat-button
+          [color]="is3dView ? 'warn' : ''"
+          (click)="toggle3d()"
+        >
           <mat-icon>3d_rotation</mat-icon>
         </button>
-        <button matTooltip="Code generation" mat-button (click)="toggleCodeEditor()">
+        <button
+          matTooltip="Code generation"
+          mat-button
+          (click)="toggleCodeEditor()"
+        >
           <mat-icon>code</mat-icon>
         </button>
       </div>
     </div>
-    <div [hidden]="!enabled" class="row-settings" *ngIf="currentPage && isCodeEditor">
-      <button matTooltip="Go Back To Preview" mat-button (click)="toggleCodeAndEmbedded()">
+    <div
+      [hidden]="!enabled"
+      class="row-settings"
+      *ngIf="currentPage && isCodeEditor"
+    >
+      <button
+        matTooltip="Go Back To Preview"
+        mat-button
+        (click)="toggleCodeAndEmbedded()"
+      >
         <mat-icon>arrow_back</mat-icon>
       </button>
-      <button [disabled]="!isStackblitzEnabled" (click)="openInStackblitz()" matTooltip="Open project in Stackblitz"
-        mat-button target="__blank" rel="noopener noreferrer">
+      <button
+        [disabled]="!isStackblitzEnabled"
+        (click)="openInStackblitz()"
+        matTooltip="Open project in Stackblitz"
+        mat-button
+        target="__blank"
+        rel="noopener noreferrer"
+      >
         <mat-icon>offline_bolt</mat-icon>
       </button>
-      <button (click)="download()" matTooltip="Download as zip" mat-button target="__blank" rel="noopener noreferrer">
+      <button
+        (click)="download()"
+        matTooltip="Download as zip"
+        mat-button
+        target="__blank"
+        rel="noopener noreferrer"
+      >
         <mat-icon>archive</mat-icon>
       </button>
-      <button [disabled]="!isStackblitzEnabled" (click)="embedStackBlitz()" matTooltip="Preview in Stackblitz"
-        mat-button target="__blank" rel="noopener noreferrer">
+      <button
+        [disabled]="!isStackblitzEnabled"
+        (click)="embedStackBlitz()"
+        matTooltip="Preview in Stackblitz"
+        mat-button
+        target="__blank"
+        rel="noopener noreferrer"
+      >
         <mat-icon>aspect_ratio</mat-icon>
       </button>
     </div>
     <div class="header-actions">
-      <sketch-dropzone *ngIf="currentPage" matTooltip="Browse files"
-        (changed)="sketchContainerRef.onFileSelected($event)" mode="mini"></sketch-dropzone>
-      <button *ngIf="currentPage" (click)="close()" matTooltip="Close project" mat-icon-button target="__blank"
-        rel="noopener noreferrer">
+      <sketch-dropzone
+        *ngIf="currentPage"
+        matTooltip="Browse files"
+        (changed)="sketchContainerRef.onFileSelected($event)"
+        mode="mini"
+      ></sketch-dropzone>
+      <button
+        *ngIf="currentPage"
+        (click)="close()"
+        matTooltip="Close project"
+        mat-icon-button
+        target="__blank"
+        rel="noopener noreferrer"
+      >
         <mat-icon>exit_to_app</mat-icon>
       </button>
     </div>
   </mat-toolbar-row>
 </mat-toolbar>
 
-<mat-drawer-container autosize hasBackdrop="false" [class.transparent-bg]="colors?.background === 'transparent'">
-  <mat-drawer class="sidebar layers" mode="side" opened="false" disableClose="true"
-    [style.width.px]="settingTreeViewerWidth" #settingNavRef>
-
+<mat-drawer-container
+  autosize
+  hasBackdrop="false"
+  [class.transparent-bg]="colors?.background === 'transparent'"
+>
+  <mat-drawer
+    class="sidebar layers"
+    mode="side"
+    opened="false"
+    disableClose="true"
+    [style.width.px]="settingTreeViewerWidth"
+    #settingNavRef
+  >
     <section>
       <mat-expansion-panel *ngIf="shouldEnableCanvasSettings">
         <mat-expansion-panel-header>
@@ -66,12 +140,22 @@
 
         <mat-nav-list>
           <mat-list-item [matMenuTriggerFor]="menuColor">
-            <span class="color-preview" [class.transparent-bg]="colors?.background === 'transparent'"
-              [style.backgroundColor]="colors?.background"></span>
+            <span
+              class="color-preview"
+              [class.transparent-bg]="colors?.background === 'transparent'"
+              [style.backgroundColor]="colors?.background"
+            ></span>
             Canvas Color
 
-            <mat-menu #menuColor="matMenu" class="menu-color-panel" [overlapTrigger]="false">
-              <color-sketch [color]="colors.background" (onChangeComplete)="changeBackgroundColor($event)">
+            <mat-menu
+              #menuColor="matMenu"
+              class="menu-color-panel"
+              [overlapTrigger]="false"
+            >
+              <color-sketch
+                [color]="colors.background"
+                (onChangeComplete)="changeBackgroundColor($event)"
+              >
               </color-sketch>
             </mat-menu>
           </mat-list-item>
@@ -84,9 +168,13 @@
         </mat-expansion-panel-header>
 
         <mat-nav-list>
-          <mat-list-item [ngClass]="{
+          <mat-list-item
+            [ngClass]="{
               'selected-page': currentPage?.name === sketchPages[idx]?.name
-            }" *ngFor="let page of sketchPages; trackBy: pageName; let idx = index" (click)="setCurrentPage(page)">
+            }"
+            *ngFor="let page of sketchPages; trackBy: pageName; let idx = index"
+            (click)="setCurrentPage(page)"
+          >
             {{ page.name }}
           </mat-list-item>
         </mat-nav-list>
@@ -103,27 +191,49 @@
 
     <mat-toolbar class="footer">
       <span>
-        <a matTooltip="Give us your feedback" target="__blank" href="https://github.com/xlayers/xlayers/issues/new">
+        <a
+          matTooltip="Give us your feedback"
+          target="__blank"
+          href="https://github.com/xlayers/xlayers/issues/new"
+        >
           Feedback
         </a>
         ●
-        <a matTooltip="Support us" target="__blank" href="https://opencollective.com/xlayers">
+        <a
+          matTooltip="Support us"
+          target="__blank"
+          href="https://opencollective.com/xlayers"
+        >
           Support Us
         </a>
       </span>
       <span>
-        <a matTooltip="Follow us on Twitter" target="__blank" href="https://twitter.com/xlayers_">
-          <img src="/assets/twitter.png" alt="follow us on Twitter">
+        <a
+          matTooltip="Follow us on Twitter"
+          target="__blank"
+          href="https://twitter.com/xlayers_"
+        >
+          <img src="/assets/twitter.png" alt="follow us on Twitter" />
         </a>
-        <a matTooltip="Find us on Github" target="__blank" href="https://github.com/xlayers/xlayers">
-          <img src="/assets/github-circle.png" alt="Find us on Twitter">
+        <a
+          matTooltip="Find us on Github"
+          target="__blank"
+          href="https://github.com/xlayers/xlayers"
+        >
+          <img src="/assets/github-circle.png" alt="Find us on Twitter" />
         </a>
       </span>
     </mat-toolbar>
   </mat-drawer>
 
-  <mat-drawer class="sidebar settings" mode="side" opened="false" position="end" [style.width.px]="settingMenuWidth"
-    #currentLayerNavRef>
+  <mat-drawer
+    class="sidebar settings"
+    mode="side"
+    opened="false"
+    position="end"
+    [style.width.px]="settingMenuWidth"
+    #currentLayerNavRef
+  >
     <sketch-settings-container></sketch-settings-container>
 
     <mat-nav-list class="side-nav-bottom">
@@ -134,14 +244,20 @@
   </mat-drawer>
 
   <section class="mat-drawer-content">
-
-    <sketch-editor-container *ngIf="isCodeEditor && !isEmbedded"></sketch-editor-container>
-    <sketch-container #sketchContainerRef></sketch-container>
-    <div id="stack"></div>
+    <sketch-editor-container
+      *ngIf="isCodeEditor && !isEmbedded"
+    ></sketch-editor-container>
+    <sketch-container
+      *ngIf="!isCodeEditor"
+      #sketchContainerRef
+    ></sketch-container>
+    <div
+      style="margin-bottom: 100px;height: 92%;margin-top: 64px;min-width: 100%;"
+    >
+      <div id="stack"></div>
+    </div>
     <mat-toolbar class="footer footer--full" *ngIf="currentPage">
       <span>Build: {{ version }}</span>
     </mat-toolbar>
-
   </section>
-
 </mat-drawer-container>
