@@ -6,6 +6,7 @@ import { UiState } from '@app/core/state';
 import { WINDOW_PROVIDERS } from '@app/core/window.service';
 import { NgxsModule } from '@ngxs/store';
 import { EditorComponent } from './editor.component';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('EditorComponent', () => {
   let fixture: ComponentFixture<EditorComponent>;
@@ -14,7 +15,7 @@ describe('EditorComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       schemas: [NO_ERRORS_SCHEMA],
-      imports: [MatMenuModule, MatSnackBarModule, NgxsModule.forRoot([UiState])],
+      imports: [MatMenuModule, MatSnackBarModule, NgxsModule.forRoot([UiState]), RouterTestingModule.withRoutes([])],
       declarations: [EditorComponent],
       providers: [WINDOW_PROVIDERS]
     }).compileComponents();

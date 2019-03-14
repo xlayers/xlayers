@@ -1,0 +1,67 @@
+<section class="meu-container">
+  <button
+    mat-icon-button
+    [matMenuTriggerFor]="menu"
+    title="Choose framework"
+  >
+    <mat-icon>more_vert</mat-icon>
+  </button>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item (click)="generateAngular()">
+      <mat-icon svgIcon="angular"></mat-icon>
+      <span>Angular</span>
+    </button>
+    <button mat-menu-item (click)="generateVue()">
+      <mat-icon svgIcon="vue"></mat-icon>
+      <span>Vue</span>
+    </button>
+    <button mat-menu-item (click)="generateReact()">
+      <mat-icon svgIcon="react"></mat-icon>
+      <span>React</span>
+    </button>
+    <button mat-menu-item (click)="generateWc()">
+      <mat-icon svgIcon="wc"></mat-icon>
+      <span>Web Component</span>
+    </button>
+    <button mat-menu-item (click)="generateStencil()">
+      <mat-icon svgIcon="stencil"></mat-icon>
+      <span>Stencil</span>
+    </button>
+    <button mat-menu-item (click)="generateLitElement()">
+      <mat-icon svgIcon="polymer"></mat-icon>
+      <span>LitElement</span>
+    </button>
+    <a
+      class="request-new-library"
+      target="__blank"
+      href="${githubIssueLink}"
+    >
+      <span>Add a new library!</span>
+    </a>
+  </mat-menu>
+</section>
+
+<mat-tab-group
+  selectedIndex="0"
+  disableRipple="true"
+  animationDuration="0ms"
+  dynamicHeight="false"
+>
+  <mat-tab *ngFor="let file of codeSetting.content">
+    <ng-template mat-tab-label>
+      <mat-icon [svgIcon]="file.kind"></mat-icon>
+      {{ file.uri }}
+    </ng-template>
+
+    <ng-template matTabContent>
+      <div
+        #codeContentEditor
+        spellcheck="false"
+        class="code-highlight-editor"
+        (keydown)="simulateContentEditorScroll($event)"
+      >
+        <pre><code contentEditable="true" [highlight]="file.value" (highlighted)="onEditorInit($event, codeContentEditor)"></code></pre>
+      </div>
+    </ng-template>
+  </mat-tab>
+</mat-tab-group>

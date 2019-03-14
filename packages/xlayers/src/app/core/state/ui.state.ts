@@ -1,7 +1,7 @@
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { SketchData } from '@app/core/sketch.service';
 import { Action, Selector, State, StateContext } from '@ngxs/store';
-import { patch, iif } from '@ngxs/store/operators';
-import { SketchData } from '@app/editor/viewer/lib/sketch.service';
+import { iif, patch } from '@ngxs/store/operators';
 
 export interface LayerCSS {
   transform: string;
@@ -25,6 +25,11 @@ export interface UiSettings {
   zoomLevel: number;
   is3dView: boolean;
   isCodeEditor: boolean;
+}
+
+export enum ErrorType {
+  Runtime = 'Runtime Error',
+  None = ''
 }
 
 export class CurrentFile {
@@ -56,9 +61,11 @@ export class SettingsEnabled {
 }
 export class LayerPosition {
   static readonly type = '[UiSettings] Set Layer Position';
-  public left:  number;
-  public top:  number;
-  constructor({ left, top }: {left: number; top: number} = { left: 0, top: 0 }) {
+  public left: number;
+  public top: number;
+  constructor(
+    { left, top }: { left: number; top: number } = { left: 0, top: 0 }
+  ) {
     this.left = left;
     this.top = top;
   }
@@ -90,7 +97,10 @@ export class ResetUiSettings {
 
 export class InformUser {
   static readonly type = '[UiSettings] Inform user';
-  constructor(public message: string) {}
+  constructor(
+    public message: string,
+    public errorType: ErrorType = ErrorType.None
+  ) {}
 }
 
 const DEFAULT_UI_STATE = {
@@ -229,10 +239,7 @@ export class UiState {
   }
 
   @Action(LayerPosition)
-  layerPosition(
-    { setState }: StateContext<UiSettings>,
-    action: LayerPosition
-  ) {
+  layerPosition({ setState }: StateContext<UiSettings>, action: LayerPosition) {
     // reset the top/left position of the current page
     // and the root layer
     setState(
@@ -256,7 +263,9 @@ export class UiState {
 
   @Action(ZoomIn)
   zoomIn({ getState, setState }: StateContext<UiSettings>, action: ZoomIn) {
-    const zoomLevel = parseFloat((getState().zoomLevel + action.value).toFixed(2));
+    const zoomLevel = parseFloat(
+      (getState().zoomLevel + action.value).toFixed(2)
+    );
 
     setState(
       patch({
@@ -267,7 +276,9 @@ export class UiState {
 
   @Action(ZoomOut)
   zoomOut({ getState, setState }: StateContext<UiSettings>, action: ZoomOut) {
-    const zoomLevel = parseFloat((getState().zoomLevel - action.value).toFixed(2));
+    const zoomLevel = parseFloat(
+      (getState().zoomLevel - action.value).toFixed(2)
+    );
 
     setState(
       patch({
@@ -308,8 +319,25 @@ export class UiState {
 
   @Action(InformUser)
   informUser({}, action: InformUser) {
-    this.snackBar.open(action.message, 'CLOSE', {
-      duration: 5000
-    });
+    this.snackBar
+      .open(
+        action.message,
+        action.errorType === ErrorType.None ? 'CLOSE' : 'REPORT',
+        {
+          duration: action.errorType === ErrorType.None ? 5000 : 0
+        }
+      )
+      .onAction()
+      .subscribe(() => {
+        if (action.errorType !== ErrorType.None) {
+          const githubIssueUrl = `template=bug_report.md&title=${
+            action.message
+          }`;
+          window.open(
+            `https://github.com/xlayers/xlayers/issues/new?${githubIssueUrl}`,
+            '__blank'
+          );
+        }
+      });
   }
 }

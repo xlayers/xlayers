@@ -7,7 +7,7 @@
       "root": "packages/xlayers/",
       "sourceRoot": "packages/xlayers/src",
       "projectType": "application",
-      "prefix": "sketch",
+      "prefix": "xly",
       "schematics": {},
       "architect": {
         "build": {
@@ -106,7 +106,7 @@
       "root": "packages/sketchapp-parser",
       "sourceRoot": "packages/sketchapp-parser/src",
       "projectType": "library",
-      "prefix": "lib",
+      "prefix": "xly",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",

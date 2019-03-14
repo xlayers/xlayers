@@ -1,0 +1,14 @@
+<section>
+  <xly-dropzone (changed)="onFileSelected($event)"></xly-dropzone>
+
+  <span class="mat-subheading-1">OR</span>
+
+  <xly-browse-files (changed)="onFileSelected($event)"></xly-browse-files>
+  
+  <p class="sketch-select-demo-files-label">OR</p>
+  
+  <xly-select-demo-files
+    [error]="selectedDemoFileError"
+    (changed)="openSelectedDemoFile($event)"
+  ></xly-select-demo-files>
+</section>

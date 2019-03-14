@@ -1,0 +1,29 @@
+:host {
+  display: flex;
+  position: relative;
+  align-items: center;
+  justify-content: center;
+  color: #b0b0b0;
+}
+
+section {
+  width: 100%;
+  background: white;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin: 20px auto;
+}
+
+input[type='file'] {
+  display: none;
+}
+
+.mode__large {
+  font-size: 4em;
+  color: #b0b0b06b;
+  width: 200px;
+  height: 70px;
+}

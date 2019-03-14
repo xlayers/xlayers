@@ -1,0 +1,34 @@
+<mat-expansion-panel color="secondary">
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      Select A Demo File
+    </mat-panel-title>
+  </mat-expansion-panel-header>
+
+  <mat-nav-list>
+    <ng-container
+      *ngFor="let group of sketchService.getDemoFiles(); let i = index"
+    >
+      <h3 mat-subheader>
+        SketchApp v{{ group.value }}
+        <span *ngIf="i > 0">(legacy support)</span>
+      </h3>
+
+      <a
+        mat-list-item
+        *ngFor="let file of group.files"
+        color="warn"
+        (click)="confirmSelectedDemoFile(group.value + '/' + file)"
+      >
+        <mat-icon mat-list-icon>note</mat-icon>
+        <h4 mat-line>
+          <b>{{ file }}</b>
+        </h4>
+        <p mat-line>SketchApp v{{ group.value }}</p>
+      </a>
+    </ng-container>
+  </mat-nav-list>
+</mat-expansion-panel>
+<p class="sketch-select-demo-files-label-error" *ngIf="error">
+  Error: please choose different file
+</p>

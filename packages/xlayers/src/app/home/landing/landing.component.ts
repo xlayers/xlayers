@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { environment } from '@env/environment';
 
 @Component({
-  selector: 'sketch-landing',
+  selector: 'xly-landing',
   templateUrl: './landing.component.html',
   styleUrls: ['./landing.component.css']
 })
