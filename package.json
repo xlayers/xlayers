@@ -11,7 +11,7 @@
     "app.build.stamp": "bash scripts/stamp-build.bash",
     "lib.build.prod": "ng build sketchapp-parser",
     "build": "run-s -l lib.build.prod app.build.prod app.build.stamp",
-    "build.ci": "CI=1 npm i cypress && run-s -l lint test.ci build",
+    "prebuild": "CI=1 npm i cypress && run-s -l lint test.ci",
     "--test--": "",
     "test": "jest",
     "test.update": "jest --updateSnapshot tests/integration",
