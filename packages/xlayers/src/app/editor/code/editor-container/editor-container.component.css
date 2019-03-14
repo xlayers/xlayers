@@ -1,7 +1,7 @@
 :host {
   margin-top: 64px;
   position: absolute;
-  right: 0;
+  /* right: 0; */
   z-index: 9;
   background-repeat: no-repeat;
   background-size: 56px 56px;
@@ -10,7 +10,10 @@
   min-height: 100%;
   height: 100%;
   box-sizing: border-box;
+  width: 100%;
+  min-width: 100%;
 }
+/*
 .code-highlight-editor pre {
   margin-top: 0px;
 }
@@ -53,14 +56,14 @@
 }
 :host mat-icon {
   margin: 0 4px;
-}
+} */
 .meu-container {
   position: absolute;
   right: 15px;
   z-index: 999;
 }
 .meu-container button {
-  color:white;
+  color: white;
 }
 a.request-new-library {
   text-align: center;
@@ -69,4 +72,11 @@ a.request-new-library {
   width: 100%;
   font-size: 13px;
   padding-top: 10px;
+}
+.code-container {
+  height: 100%;
+  width: 100%;
+  background-color: #1e1e1e;
+  min-height: 100%;
+  padding-bottom: 64px;
 }

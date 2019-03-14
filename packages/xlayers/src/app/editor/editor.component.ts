@@ -70,7 +70,6 @@ export class EditorComponent implements OnInit {
       .subscribe(isEnbaledSettings => {
         this.enabled = isEnbaledSettings;
       });
-
   }
 
   toggleWireframe() {
@@ -100,7 +99,7 @@ export class EditorComponent implements OnInit {
   }
 
   openInStackblitz() {
-    this.exporter.export(this.codegen);
+    // this.exporter.export(this.codegen);
   }
 
 

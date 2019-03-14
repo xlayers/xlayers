@@ -2,6 +2,8 @@
   display: block;
   height: 100%;
   position: relative;
+  overflow:hidden;
+  overflow-y: auto;
 }
 
 header {

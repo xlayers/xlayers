@@ -1,9 +1,5 @@
 <section class="meu-container">
-  <button
-    mat-icon-button
-    [matMenuTriggerFor]="menu"
-    title="Choose framework"
-  >
+  <button mat-icon-button [matMenuTriggerFor]="menu" title="Choose framework">
     <mat-icon>more_vert</mat-icon>
   </button>
   <mat-menu #menu="matMenu">
@@ -31,17 +27,13 @@
       <mat-icon svgIcon="polymer"></mat-icon>
       <span>LitElement</span>
     </button>
-    <a
-      class="request-new-library"
-      target="__blank"
-      href="${githubIssueLink}"
-    >
+    <a class="request-new-library" target="__blank" href="${githubIssueLink}">
       <span>Add a new library!</span>
     </a>
   </mat-menu>
 </section>
 
-<mat-tab-group
+<!-- <mat-tab-group
   selectedIndex="0"
   disableRipple="true"
   animationDuration="0ms"
@@ -64,4 +56,7 @@
       </div>
     </ng-template>
   </mat-tab>
-</mat-tab-group>
+</mat-tab-group> -->
+<div class="code-container">
+  <div id="stack"></div>
+</div>

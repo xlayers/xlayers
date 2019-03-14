@@ -1,8 +1,20 @@
-import { AfterContentInit, Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { CodeGen, CodeGenSettings } from '@app/core/state/page.state';
+import {
+  AfterContentInit,
+  Component,
+  OnInit,
+  ViewChild,
+  ElementRef
+} from '@angular/core';
+import {
+  CodeGen,
+  CodeGenSettings,
+  CodeGenState
+} from '@app/core/state/page.state';
 import { Store } from '@ngxs/store';
 import { CodeGenKind, CodeGenService } from './codegen/codegen.service';
 import { PAGE_DOWN, PAGE_UP } from '@angular/cdk/keycodes';
+import { ExportStackblitzService } from '../exports/stackblitz/stackblitz.service';
+import {debounceTime} from 'rxjs/operators';
 
 const githubIssueLink =
   // tslint:disable-next-line:max-line-length
@@ -22,9 +34,24 @@ export class EditorContainerComponent implements OnInit, AfterContentInit {
     logo: FunctionStringCallback;
   }>;
 
-  constructor(private codegen: CodeGenService, private readonly store: Store) {}
+  constructor(
+    private codegen: CodeGenService,
+    private readonly store: Store,
+    private readonly exporter: ExportStackblitzService
+  ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.store
+      .select(CodeGenState.codegen)
+      .pipe(debounceTime(500))
+      .subscribe(codegen => {
+        if (codegen) {
+          // this.isStackblitzEnabled = codegen.buttons.stackblitz;
+          this.exporter.export(codegen);
+        }
+        // this.codegen = codegen;
+      });
+  }
 
   ngAfterContentInit() {
     this.generateAngular();
@@ -79,17 +106,24 @@ export class EditorContainerComponent implements OnInit, AfterContentInit {
     const scroll = Math.round(0.9 * this.codeEditor.nativeElement.clientHeight);
 
     // Page Down
-    if (keyCode === PAGE_DOWN || $event.key === 'PageDown' || $event.code === 'PageDown') {
+    if (
+      keyCode === PAGE_DOWN ||
+      $event.key === 'PageDown' ||
+      $event.code === 'PageDown'
+    ) {
       this.codeEditor.nativeElement.scrollTop += scroll;
       return false;
     }
     // Page Up
-    if (keyCode === PAGE_UP || $event.key === 'PageUp' || $event.code === 'PageUp') {
+    if (
+      keyCode === PAGE_UP ||
+      $event.key === 'PageUp' ||
+      $event.code === 'PageUp'
+    ) {
       this.codeEditor.nativeElement.scrollTop -= scroll;
       return false;
     }
 
     return true;
   }
-
 }

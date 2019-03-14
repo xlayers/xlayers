@@ -16,6 +16,7 @@ declare var gtag;
       position: relative;
       height: 100%;
       display: block;
+      overflow:hidden;
     }
   `]
 })
