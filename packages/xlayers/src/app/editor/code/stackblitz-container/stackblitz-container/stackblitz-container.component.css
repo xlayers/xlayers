@@ -1,0 +1,8 @@
+.container{
+    height: 88%;
+    width: 100%;
+    position:absolute;
+    background-color: #212121;
+    min-height: 87%;
+    padding-bottom: 64px;
+  }

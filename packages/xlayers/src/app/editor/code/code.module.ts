@@ -5,6 +5,7 @@ import { HighlightModule } from 'ngx-highlightjs';
 import { CodeComponent } from './code.component';
 import { CodeGenModule } from './editor-container/codegen/codegen.module';
 import { EditorContainerComponent } from './editor-container/editor-container.component';
+import { StackblitzContainerComponent } from './stackblitz-container/stackblitz-container/stackblitz-container.component';
 
 export const routes: Route[] = [
   {
@@ -20,7 +21,7 @@ export const routes: Route[] = [
     HighlightModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [EditorContainerComponent, CodeComponent],
+  declarations: [EditorContainerComponent, CodeComponent, StackblitzContainerComponent],
   exports: [EditorContainerComponent]
 })
 export class CodeModule {}

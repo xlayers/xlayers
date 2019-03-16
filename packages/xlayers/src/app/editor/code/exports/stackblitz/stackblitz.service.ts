@@ -73,11 +73,11 @@ export class ExportStackblitzService {
         dependencies: project.dependencies || {}
       },
       {
-        height: '100%',
         hideNavigation: true,
         hideDevTools: true,
         hideExplorer: false,
-        forceEmbedLayout: true
+        forceEmbedLayout: true,
+        height: '100%'
       }
     );
     // sdk.openProject({

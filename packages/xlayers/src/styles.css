@@ -24,3 +24,8 @@ html {
 button {
   transition: color 0.6s;
 }
+
+/* force remove border from iframe of stackblitz */
+iframe{
+  border:0;
+}

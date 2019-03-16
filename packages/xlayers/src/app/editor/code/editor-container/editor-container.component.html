@@ -33,30 +33,4 @@
   </mat-menu>
 </section>
 
-<!-- <mat-tab-group
-  selectedIndex="0"
-  disableRipple="true"
-  animationDuration="0ms"
-  dynamicHeight="false"
->
-  <mat-tab *ngFor="let file of codeSetting.content">
-    <ng-template mat-tab-label>
-      <mat-icon [svgIcon]="file.kind"></mat-icon>
-      {{ file.uri }}
-    </ng-template>
-
-    <ng-template matTabContent>
-      <div
-        #codeContentEditor
-        spellcheck="false"
-        class="code-highlight-editor"
-        (keydown)="simulateContentEditorScroll($event)"
-      >
-        <pre><code contentEditable="true" [highlight]="file.value" (highlighted)="onEditorInit($event, codeContentEditor)"></code></pre>
-      </div>
-    </ng-template>
-  </mat-tab>
-</mat-tab-group> -->
-<div class="code-container">
-  <div id="stack"></div>
-</div>
+<xly-stackblitz-container></xly-stackblitz-container>
