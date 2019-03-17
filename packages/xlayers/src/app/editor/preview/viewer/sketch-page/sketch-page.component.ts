@@ -73,6 +73,10 @@ export class SketchPageComponent extends SketchLayerComponent
   ngAfterContentInit() {
     super.ngAfterContentInit();
 
+    // Do nothing if nativeElement is not defined. Fixes its test case
+    if (!this.nativeElement) {
+      return;
+    }
     const elementPosition = this.nativeElement.getBoundingClientRect();
     const ne = this.element.nativeElement;
     this.renderer.setStyle(ne, 'border-width', `${this.borderWidth}px`);
