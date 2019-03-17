@@ -1,6 +1,6 @@
 import { CdkDragEnd, CdkDragMove, CdkDragStart } from '@angular/cdk/drag-drop';
 import { AfterViewInit, Component, ElementRef, Input, OnInit, Renderer2, ViewChildren, QueryList } from '@angular/core';
-import { UiState } from '@app/core/state';
+import { UiState, EndDesignDragging } from '@app/core/state';
 import { Store } from '@ngxs/store';
 import { SketchData } from '@app/core/sketch.service';
 
@@ -131,6 +131,7 @@ export class SketchCanvasComponent implements OnInit, AfterViewInit {
       event.source.element.nativeElement.style.transform,
       this.currentZoomLevel
     );
+    this.store.dispatch(new EndDesignDragging(false));
   }
 
   OnCdkDragEnded(event: CdkDragEnd) {
@@ -138,6 +139,7 @@ export class SketchCanvasComponent implements OnInit, AfterViewInit {
       event.source.element.nativeElement.style.transform,
       this.currentZoomLevel
     );
+    this.store.dispatch(new EndDesignDragging(true));
   }
 
   /**

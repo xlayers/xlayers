@@ -25,6 +25,7 @@ export interface UiSettings {
   zoomLevel: number;
   is3dView: boolean;
   isCodeEditor: boolean;
+  designDraggingEnded?: boolean;
 }
 
 export enum ErrorType {
@@ -103,6 +104,11 @@ export class InformUser {
   ) {}
 }
 
+export class EndDesignDragging {
+  static readonly type = '[UiSettings] End Design Dragging';
+  constructor(public value: boolean) {}
+}
+
 const DEFAULT_UI_STATE = {
   wireframe: false,
   preview: false,
@@ -172,6 +178,10 @@ export class UiState {
   @Selector()
   static isCodeEditor(ui: UiSettings) {
     return ui.isCodeEditor;
+  }
+  @Selector()
+  static designDraggingEnded(ui: UiSettings) {
+    return ui.designDraggingEnded;
   }
 
   // Actions
@@ -285,6 +295,16 @@ export class UiState {
         zoomLevel: iif(zoomLevel >= 0.1, zoomLevel)
       })
     );
+  }
+
+  @Action(EndDesignDragging)
+  endDesignDragging(
+    { patchState }: StateContext<UiSettings>,
+    action: EndDesignDragging
+  ) {
+    patchState({
+      designDraggingEnded: action.value
+    });
   }
 
   @Action(Toggle3D)
