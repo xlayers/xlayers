@@ -60,6 +60,7 @@ code {
 
     return {
       files,
+      onlyEditor: false,
       template: 'create-react-app',
       tags: ['react']
     };

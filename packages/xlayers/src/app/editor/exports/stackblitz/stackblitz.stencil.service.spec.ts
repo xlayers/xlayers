@@ -23,7 +23,7 @@ describe('StackBlitz Stencil', () => {
   });
 
   it('should contain 5 files', () => {
-    expect(Object.keys(files).length).toBe(5);
+    expect(Object.keys(files).length).toBe(6);
   });
 
   it('should have default config file', () => {
@@ -35,7 +35,7 @@ describe('StackBlitz Stencil', () => {
   });
 
   it('should have default index.html', () => {
-    expect(files['src/index.html']).toBeTruthy();
+    expect(files['index.html']).toBeTruthy();
   });
 
   it('should have stencil tag', () => {

@@ -12,6 +12,7 @@ import { ExportStackblitzWCService } from './stackblitz.wc.service';
 export interface StackBlitzProjectPayload {
   files: { [path: string]: string };
   title?: string;
+  onlyEditor?: boolean;
   description?: string;
   template: 'angular-cli' | 'create-react-app' | 'typescript' | 'javascript';
   tags?: string[];
@@ -69,10 +70,11 @@ export class ExportStackblitzService {
         title: project.description || 'xlayers',
         description: project.description || 'xLayers generated project',
         template: project.template,
-        // tags: ['xlayers', ...project.tags],
+        tags: [...project.tags],
         dependencies: project.dependencies || {}
       },
       {
+        view: project.onlyEditor ? 'editor' : null,
         hideNavigation: true,
         hideDevTools: true,
         hideExplorer: false,
@@ -80,13 +82,5 @@ export class ExportStackblitzService {
         height: '100%'
       }
     );
-    // sdk.openProject({
-    //   files: project.files,
-    //   title: project.description || 'xlayers' ,
-    //   description: project.description || 'xLayers generated project',
-    //   template: project.template,
-    //   // tags: ['xlayers', ...project.tags],
-    //   dependencies: project.dependencies || {}
-    // });
   }
 }

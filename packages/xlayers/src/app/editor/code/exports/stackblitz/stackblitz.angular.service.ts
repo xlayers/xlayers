@@ -49,6 +49,7 @@ platformBrowserDynamic().bootstrapModule(AppModule)
 
     return {
       files,
+      onlyEditor: false,
       template: 'angular-cli',
       tags: ['angular']
     };

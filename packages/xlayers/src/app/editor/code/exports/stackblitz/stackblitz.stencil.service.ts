@@ -6,7 +6,7 @@ import { StackBlitzProjectPayload } from './stackblitz.service';
   providedIn: 'root'
 })
 export class ExportStackblitzStencilService {
-  constructor() {}
+  constructor() { }
   prepare(content: XlayersNgxEditorModel[]): StackBlitzProjectPayload {
     const files = {};
     for (let i = 0; i < content.length; i++) {
@@ -72,7 +72,7 @@ export class ExportStackblitzStencilService {
 
    `;
 
-
+    files['index.ts'] = ``;
     files['stencil.config.ts'] = `
     import { Config } from '@stencil/core';
     export const config: Config = {
@@ -87,13 +87,13 @@ export class ExportStackblitzStencilService {
       ]
     };`;
 
-    files['src/index.html'] = `<!DOCTYPE html>
+    files['index.html'] = `<!DOCTYPE html>
     <html dir="ltr" lang="en">
     <head>
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0">
       <title>Stencil Component Starter</title>
-      <script src="/build/x-layers-component.js"></script>
+      <script src="/x-layers.component/x-layers-component.tsx"></script>
     </head>
     <body>
      <x-layers-component></x-layers-component>
@@ -104,7 +104,9 @@ export class ExportStackblitzStencilService {
     return {
       files,
       template: 'typescript',
-      tags: ['stencil']
+      dependencies: { ['@stencil/core']: '0.18.1' },
+      tags: ['stencil'],
+      onlyEditor: true
     };
   }
 }

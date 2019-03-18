@@ -77,6 +77,7 @@ export class EditorComponent implements OnInit {
     this.store.dispatch(new ToggleWireframe(this.wireframe));
   }
 
+  // todo: here we need to download from stackblitz.
   async download() {
     const zip = new window['JSZip']();
     this.codegen.content.forEach(file => {
@@ -97,11 +98,6 @@ export class EditorComponent implements OnInit {
     this.is3dView = !this.is3dView;
     this.store.dispatch(new Toggle3D(this.is3dView));
   }
-
-  openInStackblitz() {
-    // this.exporter.export(this.codegen);
-  }
-
 
   ZoomIn() {
     this.store.dispatch(new ZoomIn());

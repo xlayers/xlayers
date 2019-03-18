@@ -6,7 +6,7 @@ import { StackBlitzProjectPayload } from './stackblitz.service';
   providedIn: 'root'
 })
 export class ExportStackblitzWCService {
-  constructor() {}
+  constructor() { }
   prepare(content: XlayersNgxEditorModel[]): StackBlitzProjectPayload {
     const files = {};
     for (let i = 0; i < content.length; i++) {
@@ -35,7 +35,8 @@ export class ExportStackblitzWCService {
 
     return {
       files,
-      dependencies: {['@webcomponents/webcomponentsjs']: '2.0.2'},
+      onlyEditor: false,
+      dependencies: { ['@webcomponents/webcomponentsjs']: '2.0.2' },
       template: 'javascript',
       tags: ['web component']
     };
