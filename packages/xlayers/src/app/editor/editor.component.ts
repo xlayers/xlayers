@@ -34,7 +34,7 @@ export class EditorComponent implements OnInit {
   constructor(
     private readonly store: Store,
     private readonly badgeService: PreviewBadgeService,
-    private readonly exporter: ExportStackblitzService
+    private readonly stackBlitzService: ExportStackblitzService
   ) { }
 
   ngOnInit() {
@@ -77,11 +77,12 @@ export class EditorComponent implements OnInit {
     this.store.dispatch(new ToggleWireframe(this.wireframe));
   }
 
-  // todo: here we need to download from stackblitz.
   async download() {
     const zip = new window['JSZip']();
-    this.codegen.content.forEach(file => {
-      zip.file(file.uri, file.value);
+    await this.stackBlitzService.getContent().then(e => {
+      Object.keys(e).forEach(file => {
+        zip.file(file, e[file]);
+      });
     });
     const content = await zip.generateAsync({ type: 'blob' });
     FileSaver.saveAs(content, 'xLayers.zip');

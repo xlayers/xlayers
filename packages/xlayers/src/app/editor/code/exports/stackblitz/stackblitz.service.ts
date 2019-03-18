@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { CodeGenSettings } from '@app/core/state/page.state';
 import { CodeGenKind } from '@app/editor/code/editor-container/codegen/codegen.service';
 import sdk from '@stackblitz/sdk';
+import { VM } from '@stackblitz/sdk/typings/VM';
 import { ExportStackblitzAngularService } from './stackblitz.angular.service';
 import { ExportStackblitzLitElementService } from './stackblitz.lit-element.service';
 import { ExportStackblitzReactService } from './stackblitz.react.service';
@@ -30,6 +31,7 @@ export interface StackBlitzProjectPayload {
   providedIn: 'root'
 })
 export class ExportStackblitzService {
+  private vm: VM;
   constructor(
     private angularExport: ExportStackblitzAngularService,
     private reactExport: ExportStackblitzReactService,
@@ -81,6 +83,10 @@ export class ExportStackblitzService {
         forceEmbedLayout: true,
         height: '100%'
       }
-    );
+    ).then(vm => this.vm = vm);
+  }
+
+  public getContent() {
+    return this.vm.getFsSnapshot();
   }
 }

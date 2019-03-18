@@ -14,7 +14,7 @@ import { Store } from '@ngxs/store';
 import { CodeGenKind, CodeGenService } from './codegen/codegen.service';
 import { PAGE_DOWN, PAGE_UP } from '@angular/cdk/keycodes';
 import { ExportStackblitzService } from '../exports/stackblitz/stackblitz.service';
-import {debounceTime} from 'rxjs/operators';
+import { debounceTime } from 'rxjs/operators';
 
 const githubIssueLink =
   // tslint:disable-next-line:max-line-length
@@ -38,7 +38,7 @@ export class EditorContainerComponent implements OnInit, AfterContentInit {
     private codegen: CodeGenService,
     private readonly store: Store,
     private readonly exporter: ExportStackblitzService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.store
@@ -46,10 +46,8 @@ export class EditorContainerComponent implements OnInit, AfterContentInit {
       .pipe(debounceTime(500))
       .subscribe(codegen => {
         if (codegen) {
-          // this.isStackblitzEnabled = codegen.buttons.stackblitz;
           this.exporter.export(codegen);
         }
-        // this.codegen = codegen;
       });
   }
 
