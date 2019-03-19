@@ -12,10 +12,25 @@
   box-sizing: border-box;
   width: 100%;
   min-width: 100%;
+  background-color: #424242;
+
 }
-.meu-container{
-  background-color: #ff4f81;;
+
+.tab-icons{
+  margin-right: 8px;
 }
-.meu-container button {
-  color: white;
+.flex-container {
+  display: flex;
+  align-items: center;
+}
+::ng-deep .mat-tab-labels{
+  justify-content: center;
+}
+::ng-deep .mat-tab-label{
+  color:white;
+  opacity: 0.5;
+}
+::ng-deep .mat-tab-label[aria-selected="true"] {
+  background-color: gray;
+  opacity: 1;
 }
