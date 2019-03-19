@@ -86,43 +86,37 @@ export class SketchStyleParserService {
     }
   }
 
-  enrichCSSStyle(page: SketchMSPage) {
-    if (page.layers) {
-      page.layers.map(layer => this.visitObject(layer, page, layer));
+  enrichCSSStyle(page: SketchMSLayer) {
+    this.visitLayers(page, page);
+  }
+
+  visitLayers(current: SketchMSLayer, root?: SketchMSLayer) {
+    if (current.layers) {
+      current.layers.map(layer => {
+        if (layer.frame && layer.frame._class === 'rect') {
+          this.visitObject(layer, current, layer);
+          this.visitLayers(layer, layer);
+        } else {
+          this.visitLayers(layer, root);
+        }
+      });
     }
   }
 
-  visitObject(current: any, parent: any, root: any) {
-    for (const property in current) {
-      if (current.hasOwnProperty(property)) {
-        if (typeof current[property] === 'object') {
-          // visit child
-          if (
-            current[property].frame &&
-            current[property].frame._class === 'rect'
-          ) {
-            this.visitObject(current[property], current, current[property]);
-          } else {
-            this.visitObject(current[property], current, root);
-          }
-        } else if (property === '_class') {
-          const obj = this.version >= SupportScore.LATEST
-            ? this.parseObject(current)
-            : this.legacyParseObject(current);
-          const attr = this.parseAttributeString(current);
-          const grp = this.parseGroup(current);
-          const pol = this.polyfill(current);
+  visitObject(current: SketchMSLayer, parent: SketchMSLayer, root: SketchMSLayer) {
+    const obj = this.version >= SupportScore.LATEST
+      ? this.parseObject(current, parent)
+      : this.legacyParseObject(current);
+    const attr = this.parseAttributeString(current);
+    const grp = this.parseGroup(current);
+    const pol = this.polyfill(current);
 
-          this.setText(current, root, attr.text);
-          this.setText(current, root, (obj as any).text);
-          this.setText(current, root, pol.text);
-          this.setSolid(current, root, (obj as any).shape);
-          this.setStyle(current, root, obj.style);
-          this.setStyle(current, root, grp.style);
-        }
-      }
-    }
-    return parent;
+    this.setText(current, root, attr.text);
+    this.setText(current, root, obj.text);
+    this.setText(current, root, pol.text);
+    this.setSolid(current, root, (obj as any).shape);
+    this.setStyle(current, root, obj.style);
+    this.setStyle(current, root, grp.style);
   }
 
   /**
@@ -168,7 +162,7 @@ export class SketchStyleParserService {
   /**
    * Latest parse object attribute for 53 and higher
    */
-  parseObject(layer: any) {
+  parseObject(layer: any, parent: any) {
     switch (layer._class) {
     case 'symbolMaster':
       return {
@@ -208,10 +202,19 @@ export class SketchStyleParserService {
         }
       };
 
-    case 'shapePath':
-      return this.transformShapeSolid(layer, {
-        ...this.transformFills(layer.style),
-      });
+      case 'shapePath':
+        return parent._class !== 'shapeGroup' ? {
+          shape: this.transformShapeSolid(layer, {
+            ...this.transformFills(layer.style),
+          })
+        } : {};
+
+      case 'shapeGroup':
+        return {
+          shape: this.transformShapeGroup(layer, {
+            ...this.transformFills(layer.style),
+          })
+        };
 
     case 'triangle':
       return this.transformTriangleSolid(layer, {
@@ -389,6 +392,51 @@ export class SketchStyleParserService {
       `<path`,
       ...config,
       `d="${segments}"`,
+      '/>'
+    ];
+
+    return this.svgCanvas(node, offset, svg.join(' '));
+  }
+
+  transformShapeGroup(node: SketchMSLayer, style: {[key: string]: string}) {
+    const offset = 0;
+    const paths = node.layers.map((layer) => {
+      // TODO: move to @types/sketchapp
+      const origin = this.parsePoint((layer as any).points[0].point, offset, layer);
+      const segments = (layer as any).points
+        .slice(1)
+        .map(((curvePoint) => {
+          const curveFrom = this.parsePoint(curvePoint.curveFrom, offset, layer);
+          const curveTo = this.parsePoint(curvePoint.curveTo, offset, layer);
+          const currPoint = this.parsePoint(curvePoint.point, offset, layer);
+          if (curveTo.x === curveFrom.x && curveTo.y === curveFrom.y) {
+            return `L ${layer.frame.x + currPoint.x} ${layer.frame.y + currPoint.y}`;
+          }
+          return `S ${layer.frame.x + curveTo.x} ${layer.frame.y + curveTo.y}, ${layer.frame.x + currPoint.x} ${layer.frame.y + currPoint.y}`;
+        }));
+
+      segments.unshift(`M${layer.frame.x + origin.x} ${layer.frame.y + origin.y}`);
+
+      // TODO: isClosed to type
+      if ((layer as any).isClosed) {
+        segments.push('z');
+      }
+
+      return segments.join(' ');
+    });
+
+    const embeddedStyle = [];
+
+    if (style['background-color']) {
+      embeddedStyle.push(`fill: ${style['background-color']}`);
+    } else {
+      embeddedStyle.push('fill: none');
+    }
+
+    const svg = [
+      `<path`,
+      `style="${embeddedStyle.join(' ')}"`,
+      `d="${paths.join(' ')}"`,
       '/>'
     ];
 
@@ -573,8 +621,8 @@ export class SketchStyleParserService {
   parsePoint(point: string, offset: number, node: SketchMSLayer) {
     const parsedPoint = point.slice(1, -1).split(', ');
     return {
-      x: (node.frame.width * Number.parseFloat(parsedPoint[0]) + offset).toFixed(3),
-      y: (node.frame.height * Number.parseFloat(parsedPoint[1]) + offset).toFixed(3)
+      x: (node.frame.width * Number.parseFloat(parsedPoint[0]) + offset),
+      y: (node.frame.height * Number.parseFloat(parsedPoint[1]) + offset)
     };
   }
 
