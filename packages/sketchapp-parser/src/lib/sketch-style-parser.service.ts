@@ -1,15 +1,6 @@
 import { BinaryPropertyListParserService } from './bplist-parser.service';
 import { Injectable } from '@angular/core';
 
-// TODO: Move to @types/sketchapp
-export interface SketchData {
-  pages: Array<SketchMSPage>;
-  previews: Array<{ source: string; width: number; height: number }>;
-  document: SketchMSDocumentData;
-  user: {};
-  meta: SketchMSMetadata;
-}
-
 /**
  * border Type:
  * - 0: center
@@ -38,7 +29,7 @@ export class SketchStyleParserService {
 
   constructor(private binaryPlistParser: BinaryPropertyListParserService) {}
 
-  public visit(sketch: SketchData) {
+  public visit(sketch: SketchMSData) {
     const supp = this.checkSupport(sketch);
 
     if (supp < SupportScore.DROPPED) {
@@ -54,7 +45,7 @@ export class SketchStyleParserService {
     return supp;
   }
 
-  checkSupport(sketch: SketchData) {
+  checkSupport(sketch: SketchMSData) {
     const ver = Number.parseInt(sketch.meta.appVersion.split('.')[0], 10);
     if (Number.isNaN(ver)) {
       return SupportScore.UNKNOWN;

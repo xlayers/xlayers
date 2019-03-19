@@ -8,15 +8,7 @@ import {
   SupportScore
 } from '@xlayers/sketchapp-parser';
 
-export interface SketchUser {
-  [key: string]: {
-    // "{-1185.8387361675846, 178}"
-    scrollOrigin: string;
-    zoomValue: number;
-  };
-}
-
-export interface SketchData {
+export interface SketchMSData {
   pages: Array<SketchMSPage>;
   previews: Array<{ source: string; width: number; height: number }>;
   document: SketchMSDocumentData;
@@ -43,7 +35,7 @@ export interface ResourceImageData {
   providedIn: 'root'
 })
 export class SketchService {
-  _data: SketchData;
+  _data: SketchMSData;
 
   constructor(
     private sketchStyleParser: SketchStyleParserService,
@@ -51,12 +43,12 @@ export class SketchService {
     private store: Store
   ) {
     this.store.select(UiState.currentFile).subscribe(currentFile => {
-      this._data = currentFile;
+      this._data = currentFile as any;
     });
   }
 
   async process(file: File) {
-    const data = await this.sketch2Json(file);
+    const data = await this.sketch2Json(file) as any;
 
     if (this.sketchStyleParser.visit(data) === SupportScore.LEGACY) {
       this.store.dispatch(
@@ -122,7 +114,7 @@ export class SketchService {
   }
 
   async sketch2Json(file: Blob) {
-    const _data: SketchData = {
+    const _data: SketchMSData = {
       pages: [],
       previews: [],
       document: {} as any,

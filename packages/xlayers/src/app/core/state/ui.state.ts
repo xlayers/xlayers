@@ -1,5 +1,4 @@
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { SketchData } from '@app/core/sketch.service';
 import { Action, Selector, State, StateContext } from '@ngxs/store';
 import { iif, patch } from '@ngxs/store/operators';
 
@@ -14,7 +13,7 @@ export interface LayerCSS {
 }
 
 export interface UiSettings {
-  currentFile: SketchData;
+  currentFile: SketchMSData;
   currentPage?: SketchMSLayer;
   currentLayer?: SketchMSLayer;
   previousLayer?: SketchMSLayer;
@@ -34,7 +33,7 @@ export enum ErrorType {
 
 export class CurrentFile {
   static readonly type = '[UiSettings] Current File';
-  constructor(public data: SketchData) {}
+  constructor(public data: SketchMSData) {}
 }
 export class ToggleWireframe {
   static readonly type = '[UiSettings] Toggle Wireframe';
