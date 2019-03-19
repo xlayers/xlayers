@@ -3,22 +3,23 @@
 </h1>
 
 <p align="center" >
-
-  <img src="https://img.shields.io/github/license/xlayers/xlayers.svg"/>
-
-  <a href="https://github.com/xlayers/xlayers/compare/master...develop">
-    <img src="https://img.shields.io/github/commits-since/xlayers/xlayers/master.svg?label=commits%20to%20deploy"/>
-  </a>
-  
- <a href="https://github.com/xlayers/xlayers">
-    <img src="https://img.shields.io/github/contributors/xlayers/xlayers.svg"/>
-  </a>
   
  <a href="https://xlayers.app">
     <img src="https://img.shields.io/website-up-down-ff69b4-ff69b4/http/shields.io.svg?label=xlayers.app"/>
   </a>
 
-  <a href="https://twitter.com/manekinekko">
+ <a href="https://xlayers.dev">
+    <img src="https://img.shields.io/website-up-down-ff69b4-ff69b4/http/shields.io.svg?label=xlayers.dev"/>
+  </a>
+ 
+   <a href="https://xlayers.design">
+    <img src="https://img.shields.io/website-up-down-ff69b4-ff69b4/http/shields.io.svg?label=xlayers.design"/>
+  </a>
+</p>
+
+<p align="center" >
+  
+  <a href="https://twitter.com/xlayers_">
     <img src="https://img.shields.io/badge/say-thanks-ff69b4.svg"/>
   </a>
   
@@ -45,7 +46,18 @@
   
 </p>
 
-<p align="center">View and generate code from Sketch files online</p>
+
+<p align="center" >
+
+  <img src="https://img.shields.io/github/license/xlayers/xlayers.svg"/>
+  
+ <a href="https://github.com/xlayers/xlayers">
+    <img src="https://img.shields.io/github/contributors/xlayers/xlayers.svg"/>
+  </a>
+
+</p>
+
+<p align="center">Preview and Convert SketchApp Design Files Into ANY Framework And Library.</p>
 <img align="center" src="https://github.com/xlayers/xlayers/raw/develop/packages/xlayers/src/assets/xlayers-ui-1.png?raw=true"/>
 
 ## Want to help? [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/xlayers/xlayers/issues)
