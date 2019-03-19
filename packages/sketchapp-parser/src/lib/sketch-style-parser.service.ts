@@ -114,7 +114,7 @@ export class SketchStyleParserService {
           const pol = this.polyfill(current);
 
           this.setText(current, root, attr.text);
-          this.setText(current, root, obj.text);
+          this.setText(current, root, (obj as any).text);
           this.setText(current, root, pol.text);
           this.setSolid(current, root, (obj as any).shape);
           this.setStyle(current, root, obj.style);
@@ -209,19 +209,15 @@ export class SketchStyleParserService {
       };
 
     case 'shapePath':
-      return {
-        shape: this.transformShapeSolid(layer, {
-          ...this.transformFills(layer.style),
-        })
-      };
+      return this.transformShapeSolid(layer, {
+        ...this.transformFills(layer.style),
+      });
 
     case 'triangle':
-      return {
-        shape: this.transformTriangleSolid(layer, {
-          ...this.transformBorders(layer.style),
-          ...this.transformFills(layer.style)
-        })
-      };
+      return this.transformTriangleSolid(layer, {
+        ...this.transformBorders(layer.style),
+        ...this.transformFills(layer.style)
+      });
 
     default:
       return {
@@ -310,14 +306,14 @@ export class SketchStyleParserService {
   }
 
   transformTriangleSolid(node: SketchMSLayer, style: {[key: string]: string}) {
-    const strokeConfig = [];
+    const config = [];
     let offset = 0;
 
     // TODO: Support multiple border
     if (node.style.borders && node.style.borders[0].thickness) {
-      strokeConfig.push(`stroke-width="${node.style.borders[0].thickness / 2}"`);
+      config.push(`stroke-width="${node.style.borders[0].thickness / 2}"`);
       const color = this.parseColors(node.style.borders[0].color);
-      strokeConfig.push(`stroke="${color.hex}"`);
+      config.push(`stroke="${color.hex}"`);
       offset = node.style.borders[0].thickness;
     }
 
@@ -328,18 +324,15 @@ export class SketchStyleParserService {
       }))
       .join(' ');
 
-    const embeddedStyle = [];
-
     if (style['background-color']) {
-      embeddedStyle.push(`fill: ${style['background-color']}`);
+      config.push(`fill="${style['background-color']}"`);
     } else {
-      embeddedStyle.push('fill: none');
+      config.push('fill="none"');
     }
 
     const svg = [
       `<polygon`,
-      ...strokeConfig,
-      `style="${embeddedStyle.join(' ')}"`,
+      ...config,
       `points="${segments}"`,
       '/>'
     ];
@@ -354,14 +347,14 @@ export class SketchStyleParserService {
   }
 
   transformShapeSolid(node: SketchMSLayer, style: {[key: string]: string}) {
-    const strokeConfig = [];
+    const config = [];
     let offset = 0;
 
     // TODO: Support multiple border
     if (node.style.borders && node.style.borders[0].thickness) {
-      strokeConfig.push(`stroke-width="${node.style.borders[0].thickness / 2}"`);
+      config.push(`stroke-width="${node.style.borders[0].thickness / 2}"`);
       const color = this.parseColors(node.style.borders[0].color);
-      strokeConfig.push(`stroke="${color.hex}"`);
+      config.push(`stroke="${color.hex}"`);
       offset = node.style.borders[0].thickness;
     }
 
@@ -386,18 +379,15 @@ export class SketchStyleParserService {
       segments.push('z');
     }
 
-    const embeddedStyle = [];
-
     if (style['background-color']) {
-      embeddedStyle.push(`fill: ${style['background-color']}`);
+      config.push(`fill="${style['background-color']}"`);
     } else {
-      embeddedStyle.push('fill: none');
+      config.push('fill="none"');
     }
 
     const svg = [
       `<path`,
-      ...strokeConfig,
-      `style="${embeddedStyle.join(' ')}"`,
+      ...config,
       `d="${segments}"`,
       '/>'
     ];
@@ -557,25 +547,27 @@ export class SketchStyleParserService {
   }
 
   parseStroke(node: SketchMSLayer) {
-    const strokeConfig = [];
+    const config = [];
 
     // TODO: Support multiple border
     if (node.style.borders && node.style.borders[0].thickness) {
-      strokeConfig.push(`stroke-width="${node.style.borders[0].thickness}"`);
+      config.push(`stroke-width="${node.style.borders[0].thickness}"`);
       const color = this.parseColors(node.style.borders[0].color);
-      strokeConfig.push(`stroke="${color.hex}"`);
+      config.push(`stroke="${color.hex}"`);
     }
 
-    return strokeConfig;
+    return config;
   }
 
   svgCanvas(node: SketchMSLayer, offset: number, paths: string) {
-    const style = ['position: absolute;'];
-    if (offset !== 0) {
-      style.push(`top: ${-offset}px;`);
-      style.push(`left: ${-offset}px`);
-    }
-    return `<svg style="${style.join(' ')}" width="${node.frame.width + offset}" height="${node.frame.height + offset}">${paths}</svg>`;
+    return {
+      shape: `<svg width="${node.frame.width + offset}" height="${node.frame.height + offset}">${paths}</svg>`,
+      style: {
+        position: 'absolute',
+        top: `${-offset}px`,
+        left: `${-offset}px`
+      }
+    };
   }
 
   parsePoint(point: string, offset: number, node: SketchMSLayer) {
