@@ -310,7 +310,7 @@ export class SketchStyleParserService {
     let offset = 0;
 
     // TODO: Support multiple border
-    if (node.style.borders && node.style.borders[0].thickness) {
+    if (node.style.borders && node.style.borders.length > 0 && node.style.borders[0].thickness) {
       config.push(`stroke-width="${node.style.borders[0].thickness / 2}"`);
       const color = this.parseColors(node.style.borders[0].color);
       config.push(`stroke="${color.hex}"`);
@@ -351,7 +351,7 @@ export class SketchStyleParserService {
     let offset = 0;
 
     // TODO: Support multiple border
-    if (node.style.borders && node.style.borders[0].thickness) {
+    if (node.style.borders && node.style.borders.length > 0 && node.style.borders[0].thickness) {
       config.push(`stroke-width="${node.style.borders[0].thickness / 2}"`);
       const color = this.parseColors(node.style.borders[0].color);
       config.push(`stroke="${color.hex}"`);
