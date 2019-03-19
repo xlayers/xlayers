@@ -103,7 +103,7 @@ export class SketchStyleParserService {
     const pol = this.polyfill(current);
 
     this.setText(current, root, attr.text);
-    this.setText(current, root, obj.text);
+    this.setText(current, root, (obj as any).text);
     this.setText(current, root, pol.text);
     this.setSolid(current, root, (obj as any).shape);
     this.setStyle(current, root, obj.style);

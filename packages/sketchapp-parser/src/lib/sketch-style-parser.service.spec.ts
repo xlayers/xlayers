@@ -257,7 +257,7 @@ describe('SketchStyleParserService', () => {
             }]
           }
         }]
-      } as SketchMSStyle;
+      } as any;
       const color = sketchStyleParserService['parseColors'](obj.fills[0].color);
       const colorStop = sketchStyleParserService['parseColors'](obj.fills[0].gradient.stops[0].color);
       expect(sketchStyleParserService.transformFills(obj)).toEqual({
@@ -278,7 +278,7 @@ describe('SketchStyleParserService', () => {
             }]
           }
         }]
-      } as SketchMSStyle;
+      } as any;
       const color = sketchStyleParserService['parseColors'](obj.fills[0].color);
       const colorStop = sketchStyleParserService['parseColors'](obj.fills[0].gradient.stops[0].color);
       expect(sketchStyleParserService.transformFills(obj)).toEqual({
@@ -299,7 +299,7 @@ describe('SketchStyleParserService', () => {
             }]
           }
         }]
-      } as SketchMSStyle;
+      } as any;
       const color = sketchStyleParserService['parseColors'](obj.fills[0].color);
       const colorStop = sketchStyleParserService['parseColors'](obj.fills[0].gradient.stops[0].color);
       expect(sketchStyleParserService.transformFills(obj)).toEqual({
