@@ -66,7 +66,7 @@ Before you submit your Pull Request (PR) consider the following guidelines:
 * Make your changes in a new git branch:
 
      ```shell
-     git checkout -b my-fix-branch develop
+     git checkout -b my-fix-branch master
      ```
 
 * Create your patch, **including appropriate test cases**.
@@ -88,14 +88,14 @@ Before you submit your Pull Request (PR) consider the following guidelines:
     git push origin my-fix-branch
     ```
 
-* In GitHub, send a pull request to `xlayers:develop`.
+* In GitHub, send a pull request to `xlayers:master`.
 * If we suggest changes then:
   * Make the required updates.
   * Re-run the test suites to ensure tests are still passing.
   * Rebase your branch and force push to your GitHub repository (this will update your Pull Request):
 
     ```shell
-    git rebase develop -i
+    git rebase master -i
     git push -f
     ```
 
@@ -112,10 +112,10 @@ from the main (upstream) repository:
     git push origin --delete my-fix-branch
     ```
 
-* Check out the develop branch:
+* Check out the master branch:
 
     ```shell
-    git checkout develop -f
+    git checkout master -f
     ```
 
 * Delete the local branch:
@@ -124,10 +124,10 @@ from the main (upstream) repository:
     git branch -D my-fix-branch
     ```
 
-* Update your develop with the latest upstream version:
+* Update your master with the latest upstream version:
 
     ```shell
-    git pull --ff upstream develop
+    git pull --ff upstream master
     ```
 
 ## <a name="rules"></a> Coding Rules
@@ -186,6 +186,9 @@ The following is the list of supported scopes (there might be more added in the 
 * **core**
 * **editor**
 * **home**
+* **upload**
+* **codegen**
+* **parser**
 
 There are currently a few exceptions to the "use package name" rule:
 
