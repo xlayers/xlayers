@@ -454,4 +454,43 @@ describe('SketchStyleParserService', () => {
       });
     });
   });
+
+  it('should parse point', () => {
+    const node = {
+      frame: {
+        width: 10,
+        height: 10
+      }
+    } as SketchMSPath;
+    expect(sketchStyleParserService.parsePoint('{1, 0}', 2, node)).toEqual({
+      x: '12.000',
+      y: '2.000'
+    });
+  });
+
+  it('should parse 0 height point', () => {
+    const node = {
+      frame: {
+        width: 18,
+        height: 0
+      }
+    } as SketchMSPath;
+    expect(sketchStyleParserService.parsePoint('{1, 0}', 4, node)).toEqual({
+      x: '22.000',
+      y: '4.000'
+    });
+  });
+
+  it('should parse point with negative offset', () => {
+    const node = {
+      frame: {
+        width: 18,
+        height: 0
+      }
+    } as SketchMSPath;
+    expect(sketchStyleParserService.parsePoint('{1, 0}', -4, node)).toEqual({
+      x: '14.000',
+      y: '-4.000'
+    });
+  });
 });
