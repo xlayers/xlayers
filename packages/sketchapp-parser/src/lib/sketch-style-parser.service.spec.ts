@@ -128,69 +128,6 @@ describe('SketchStyleParserService', () => {
     });
   });
 
-  it('should set style', () => {
-    const color = getSketchColorMock();
-    const obj = { css: {} };
-    const root = {};
-    sketchStyleParserService.setStyle(obj, root, { 'background-color': color.toString() });
-    expect(obj).toEqual({ css: { 'background-color': color.toString() } });
-    expect(root).toEqual({ css: { 'background-color': color.toString() } });
-  });
-
-  it('should set text', () => {
-    const text = 'hello there';
-    const obj = {};
-    const root = {};
-    sketchStyleParserService.setText(obj, root, text);
-    expect(obj).toEqual({ text });
-    expect(root).toEqual({ text });
-  });
-
-  it('should set solid', () => {
-    const def = {
-      style: {},
-      frame: {
-        width: 1,
-        height: 2
-      },
-      points: [{
-        curveFrom: '{0, 0}',
-        curveMode: 1,
-        curveTo: '{0, 0}',
-        hasCurveFrom: false,
-        hasCurveTo: false,
-        point: '{0, 0}'
-      }, {
-        curveFrom: '{0, 1}',
-        curveMode: 1,
-        curveTo: '{0, 1}',
-        hasCurveFrom: false,
-        hasCurveTo: false,
-        point: '{0, 1}'
-      }, {
-        curveFrom: '{1, 1}',
-        curveMode: 1,
-        curveTo: '{1, 1}',
-        hasCurveFrom: false,
-        hasCurveTo: false,
-        point: '{1, 1}'
-      }, {
-        curveFrom: '{1, 0}',
-        curveMode: 1,
-        curveTo: '{1, 0}',
-        hasCurveFrom: false,
-        hasCurveTo: false,
-        point: '{1, 0}'
-      }],
-    } as SketchMSPath;
-    const shape = sketchStyleParserService.transformShapeSolid(def, {}).shape;
-    const obj = {};
-    const root = {};
-    sketchStyleParserService.setSolid(obj, root, shape);
-    expect(obj).toEqual({ shape });
-    expect(root).toEqual({ shape });
-  });
-
   it('should transform shadow', () => {
     const obj = {
       shadows: [{
@@ -547,4 +484,68 @@ describe('SketchStyleParserService', () => {
       y: '-4.000'
     });
   });
+
+  it('should set style', () => {
+    const color = getSketchColorMock();
+    const obj = { css: {} };
+    const root = {};
+    sketchStyleParserService.setStyle(obj, root, { 'background-color': color.toString() });
+    expect(obj).toEqual({ css: { 'background-color': color.toString() } });
+    expect(root).toEqual({ css: { 'background-color': color.toString() } });
+  });
+
+  it('should set text', () => {
+    const text = 'hello there';
+    const obj = {};
+    const root = {};
+    sketchStyleParserService.setText(obj, root, text);
+    expect(obj).toEqual({ text });
+    expect(root).toEqual({ text });
+  });
+
+  it('should set solid', () => {
+    const def = {
+      style: {},
+      frame: {
+        width: 1,
+        height: 2
+      },
+      points: [{
+        curveFrom: '{0, 0}',
+        curveMode: 1,
+        curveTo: '{0, 0}',
+        hasCurveFrom: false,
+        hasCurveTo: false,
+        point: '{0, 0}'
+      }, {
+        curveFrom: '{0, 1}',
+        curveMode: 1,
+        curveTo: '{0, 1}',
+        hasCurveFrom: false,
+        hasCurveTo: false,
+        point: '{0, 1}'
+      }, {
+        curveFrom: '{1, 1}',
+        curveMode: 1,
+        curveTo: '{1, 1}',
+        hasCurveFrom: false,
+        hasCurveTo: false,
+        point: '{1, 1}'
+      }, {
+        curveFrom: '{1, 0}',
+        curveMode: 1,
+        curveTo: '{1, 0}',
+        hasCurveFrom: false,
+        hasCurveTo: false,
+        point: '{1, 0}'
+      }],
+    } as SketchMSPath;
+    const shape = sketchStyleParserService.transformShapeSolid(def, {}).shape;
+    const obj = {};
+    const root = {};
+    sketchStyleParserService.setSolid(obj, root, shape);
+    expect(obj).toEqual({ shape });
+    expect(root).toEqual({ shape });
+  });
+
 });
