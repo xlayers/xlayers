@@ -374,8 +374,7 @@ export class SketchStyleParserService {
 
     segments.unshift(`M${origin.x} ${origin.y}`);
 
-    // TODO: isClosed to type
-    if ((node as any).isClosed) {
+    if (node.isClosed) {
       segments.push('z');
     }
 
