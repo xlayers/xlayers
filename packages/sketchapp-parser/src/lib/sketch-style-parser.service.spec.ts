@@ -137,6 +137,15 @@ describe('SketchStyleParserService', () => {
     expect(root).toEqual({ css: { 'background-color': color.toString() } });
   });
 
+  it('should set text', () => {
+    const text = 'hello there';
+    const obj = { css: {} };
+    const root = {};
+    sketchStyleParserService.setText(obj, root, text);
+    expect(obj).toEqual({ text });
+    expect(root).toEqual({ text });
+  });
+
   it('should transform shadow', () => {
     const obj = {
       shadows: [{
