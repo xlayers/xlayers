@@ -19,8 +19,8 @@ describe('SketchStyleParserService', () => {
     expect(sketchStyleParserService).toBeTruthy();
   });
 
-  describe('when parse text', () => {
-    it('should parse text font', () => {
+  describe('when transform text', () => {
+    it('should output font', () => {
       const obj = {
         style: {
           textStyle: {
@@ -35,14 +35,14 @@ describe('SketchStyleParserService', () => {
             }
           }
         }
-      } as any;
+      } as SketchMSLayer;
       expect(sketchStyleParserService.transformTextFont(obj)).toEqual({
         'font-family': '\'Roboto-Medium\', \'Roboto\', \'sans-serif\'',
         'font-size': '14px',
       });
     });
 
-    it('should not parse not configured font', () => {
+    it('should not output font when empty attribute', () => {
       const obj = {
         style: {
           textStyle: {
@@ -56,7 +56,7 @@ describe('SketchStyleParserService', () => {
       expect(sketchStyleParserService.transformTextFont(obj)).toEqual({});
     });
 
-    it('should parse color', () => {
+    it('should output color', () => {
       const obj = {
         style: {
           textStyle: {
@@ -90,7 +90,7 @@ describe('SketchStyleParserService', () => {
     });
   });
 
-  describe('when parse color', () => {
+  describe('when transform color', () => {
     it('should parse', () => {
       const color = {
         red: 0.53,
@@ -137,7 +137,7 @@ describe('SketchStyleParserService', () => {
     expect(root).toEqual({ css: { 'background-color': color.toString() } });
   });
 
-  it('should parse shadow', () => {
+  it('should transform shadow', () => {
     const obj = {
       shadows: [{
         offsetX: 123,
@@ -151,8 +151,8 @@ describe('SketchStyleParserService', () => {
     expect(sketchStyleParserService.transformShadows(obj)).toEqual({ 'box-shadow': `123px 53px 12px 23px ${color.rgba}`});
   });
 
-  describe('when parse blur', () => {
-    it('should parse positive radius blur', () => {
+  describe('when transform blur', () => {
+    it('should output positive radius blur', () => {
       const obj = {blur: {radius: 96}} as SketchMSStyle;
       expect(sketchStyleParserService.transformBlur(obj)).toEqual({filter: `blur(${obj.blur.radius}px);`});
     });
@@ -173,8 +173,8 @@ describe('SketchStyleParserService', () => {
     });
   });
 
-  describe('when parse border', () => {
-    it('should parse border', () => {
+  describe('when transform border', () => {
+    it('should output box shadow', () => {
       const obj = {
         borders: [{
           thickness: 129,
@@ -244,8 +244,8 @@ describe('SketchStyleParserService', () => {
     });
   });
 
-  describe('when parse fill', () => {
-    it('should parse fill', () => {
+  describe('when transform fill', () => {
+    it('should output background', () => {
       const obj = {
         fills: [{
           color: getSketchColorMock(),
@@ -257,7 +257,7 @@ describe('SketchStyleParserService', () => {
             }]
           }
         }]
-      } as SketchMSStyle;
+      } as any; // TODO: migrate @type isEnable to boolean
       const color = sketchStyleParserService['parseColors'](obj.fills[0].color);
       const colorStop = sketchStyleParserService['parseColors'](obj.fills[0].gradient.stops[0].color);
       expect(sketchStyleParserService.transformFills(obj)).toEqual({
@@ -270,7 +270,7 @@ describe('SketchStyleParserService', () => {
       const obj = {
         fills: [{
           color: getSketchColorMock(),
-          isEnabled: true,
+          isEnabled: 1, // TODO: migrate @type isEnable to boolean
           gradient: {
             stops: [{
               color: getSketchColorMock(),
@@ -291,7 +291,7 @@ describe('SketchStyleParserService', () => {
       const obj = {
         fills: [{
           color: getSketchColorMock(),
-          isEnabled: true,
+          isEnabled: 1, // TODO: migrate @type isEnable to boolean
           gradient: {
             stops: [{
               color: getSketchColorMock(),
@@ -305,6 +305,152 @@ describe('SketchStyleParserService', () => {
       expect(sketchStyleParserService.transformFills(obj)).toEqual({
         'background-color': color.rgba,
         'background': `linear-gradient(90deg, ${colorStop.rgba})`
+      });
+    });
+  });
+
+  describe('when parse solid', () => {
+    it('should transform triangle solid', () => {
+      const obj = {
+        style: {},
+        frame: {
+          width: 1,
+          height: 2
+        },
+        points: [{
+          point: '{0, 0}'
+        }, {
+          point: '{0, 1}'
+        }, {
+          point: '{1, 1}'
+        }, {
+          point: '{1, 0}'
+        }]
+      } as SketchMSPath;
+      expect(sketchStyleParserService.transformTriangleSolid(obj, {})).toEqual({
+        shape: `<svg width="${obj.frame.width}" height="${obj.frame.height}"><polygon fill="none" points="0.000, 0.000 0.000, 2.000 1.000, 2.000 1.000, 0.000" /></svg>`,
+        style: {
+          left: '0px',
+          position: 'absolute',
+          top: '0px'
+        }
+      });
+    });
+
+    it('should transform triangle shape with shape solid transformer', () => {
+      const obj = {
+        style: {},
+        frame: {
+          width: 1,
+          height: 2
+        },
+        points: [{
+          curveFrom: '{0, 0}',
+          curveMode: 1,
+          curveTo: '{0, 0}',
+          hasCurveFrom: false,
+          hasCurveTo: false,
+          point: '{0, 0}'
+        }, {
+          curveFrom: '{0, 1}',
+          curveMode: 1,
+          curveTo: '{0, 1}',
+          hasCurveFrom: false,
+          hasCurveTo: false,
+          point: '{0, 1}'
+        }, {
+          curveFrom: '{1, 1}',
+          curveMode: 1,
+          curveTo: '{1, 1}',
+          hasCurveFrom: false,
+          hasCurveTo: false,
+          point: '{1, 1}'
+        }, {
+          curveFrom: '{1, 0}',
+          curveMode: 1,
+          curveTo: '{1, 0}',
+          hasCurveFrom: false,
+          hasCurveTo: false,
+          point: '{1, 0}'
+        }],
+      } as SketchMSPath;
+      expect(sketchStyleParserService.transformShapeSolid(obj, {})).toEqual({
+        shape: `<svg width="${obj.frame.width}" height="${obj.frame.height}"><path fill="none" d="M0.000 0.000,L 0.000 2.000,L 1.000 2.000,L 1.000 0.000" /></svg>`,
+        style: {
+          left: '0px',
+          position: 'absolute',
+          top: '0px'
+        }
+      });
+    });
+
+    it('should transform triangle shape with shape solid transformer', () => {
+      const obj = {
+        style: {},
+        frame: {
+          width: 432,
+          height: 123
+        },
+        points: [{
+          curveFrom: '{0.9932432432432432, 0}',
+          curveTo: '{0.9932432432432432, 0}',
+          hasCurveFrom: false,
+          hasCurveTo: false,
+          point: '{0.9932432432432432, 0}'
+        }, {
+          curveFrom: '{0.0030405405405404635, 0}',
+          curveTo: '{0.0067567567567567571, 0}',
+          hasCurveFrom: true,
+          hasCurveTo: false,
+          point: '{0.0067567567567567571, 0}'
+        }, {
+          curveFrom: '{0, 0.027777777777777776}',
+          curveTo: '{0, 0.012499999999999685}',
+          hasCurveFrom: false,
+          hasCurveTo: true,
+          point: '{0, 0.027777777777777776}'
+        }, {
+          curveFrom: '{0, 1}',
+          curveTo: '{0, 1}',
+          hasCurveFrom: false,
+          hasCurveTo: false,
+          point: '{0, 1}'
+        }, {
+          curveFrom: '{1, 1}',
+          curveTo: '{1, 1}',
+          hasCurveFrom: false,
+          hasCurveTo: false,
+          point: '{1, 1}'
+        }, {
+          curveFrom: '{1, 0.012499999999999685}',
+          curveTo: '{1, 0.027777777777777776}',
+          hasCurveFrom: true,
+          hasCurveTo: false,
+          point: '{1, 0.027777777777777776}'
+        }, {
+          curveFrom: '{0.9932432432432432, 0}',
+          curveTo: '{0.99695945945945952, 0}',
+          hasCurveFrom: false,
+          hasCurveTo: true,
+          point: '{0.9932432432432432, 0}'
+        }]
+      } as SketchMSPath;
+      expect(sketchStyleParserService.transformShapeSolid(obj, {})).toEqual({
+        shape: `<svg width="${obj.frame.width}" height="${obj.frame.height}"><path fill="none" d="` +
+        `M429.081 0.000,S 2.919 0.000, 2.919 0.000,S 0.000 1.537, 0.000 3.417,` +
+        `L 0.000 123.000,L 432.000 123.000,S 432.000 3.417, 432.000 3.417,S 430.686 0.000, 429.081 0.000` +
+        `" /></svg>`,
+        style: {
+          left: '0px',
+          position: 'absolute',
+          top: '0px'
+        }
+      });
+    });
+
+    it('should transform oval solid', () => {
+      expect(sketchStyleParserService.transformOvalSolid()).toEqual({
+        'border-radius': '50%'
       });
     });
   });
