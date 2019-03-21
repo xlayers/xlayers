@@ -56,7 +56,7 @@ jobs:
 
   "ci/test":
     docker:
-      - image: circleci/node:10.12
+      - image: cypress/base:10
     steps:
       - checkout
       - restore_cache:
