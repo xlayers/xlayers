@@ -9,6 +9,8 @@ import { ExportStackblitzReactService } from './stackblitz.react.service';
 import { ExportStackblitzStencilService } from './stackblitz.stencil.service';
 import { ExportStackblitzVueService } from './stackblitz.vue.service';
 import { ExportStackblitzWCService } from './stackblitz.wc.service';
+import { defer, Subject, BehaviorSubject } from 'rxjs';
+import { map, tap } from 'rxjs/operators';
 
 export interface StackBlitzProjectPayload {
   files: { [path: string]: string };
@@ -31,7 +33,7 @@ export interface StackBlitzProjectPayload {
   providedIn: 'root'
 })
 export class ExportStackblitzService {
-  private vm: VM;
+  vm$: BehaviorSubject<VM> = new BehaviorSubject(null);
   constructor(
     private angularExport: ExportStackblitzAngularService,
     private reactExport: ExportStackblitzReactService,
@@ -42,6 +44,11 @@ export class ExportStackblitzService {
   ) { }
 
   async export(codegen: CodeGenSettings) {
+    await this.setupStackBlitz(codegen).then(vm => {
+      this.vm$.next(vm);
+    }, () => this.vm$.next(null));
+  }
+  private setupStackBlitz(codegen: CodeGenSettings) {
     let project: StackBlitzProjectPayload = null;
     switch (codegen.kind) {
       case CodeGenKind.React:
@@ -64,8 +71,7 @@ export class ExportStackblitzService {
         project = this.angularExport.prepare(codegen.content);
         break;
     }
-
-    sdk.embedProject(
+    return sdk.embedProject(
       'stack',
       {
         files: project.files,
@@ -80,13 +86,14 @@ export class ExportStackblitzService {
         hideNavigation: true,
         hideDevTools: true,
         hideExplorer: false,
+        clickToLoad: true,
         forceEmbedLayout: true,
         height: '100%'
       }
-    ).then(vm => this.vm = vm);
+    );
   }
 
   public getContent() {
-    return this.vm.getFsSnapshot();
+    return this.vm$.getValue().getFsSnapshot();
   }
 }

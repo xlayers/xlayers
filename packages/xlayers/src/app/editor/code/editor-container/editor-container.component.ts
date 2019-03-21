@@ -14,7 +14,7 @@ import { Store } from '@ngxs/store';
 import { CodeGenKind, CodeGenService } from './codegen/codegen.service';
 import { PAGE_DOWN, PAGE_UP } from '@angular/cdk/keycodes';
 import { ExportStackblitzService } from '../exports/stackblitz/stackblitz.service';
-import { debounceTime } from 'rxjs/operators';
+import { debounceTime, tap } from 'rxjs/operators';
 
 const githubIssueLink =
   // tslint:disable-next-line:max-line-length
@@ -28,7 +28,7 @@ const githubIssueLink =
 export class EditorContainerComponent implements OnInit, AfterContentInit {
   codeSetting: CodeGenSettings;
   @ViewChild('codeContentEditor') codeEditor: ElementRef;
-
+  loading = true;
   frameworks: Array<{
     title: string;
     logo: FunctionStringCallback;
@@ -43,10 +43,10 @@ export class EditorContainerComponent implements OnInit, AfterContentInit {
   ngOnInit() {
     this.store
       .select(CodeGenState.codegen)
-      .pipe(debounceTime(500))
+      .pipe(tap(() => this.loading = true), debounceTime(500))
       .subscribe(codegen => {
         if (codegen) {
-          this.exporter.export(codegen);
+          this.exporter.export(codegen).then(() => this.loading = false);
         }
       });
   }

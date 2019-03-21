@@ -1,15 +1,12 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'xly-stackblitz-container',
   templateUrl: './stackblitz-container.component.html',
   styleUrls: ['./stackblitz-container.component.css'],
 })
-export class StackblitzContainerComponent implements OnInit {
-
+export class StackblitzContainerComponent {
   constructor() { }
 
-  ngOnInit() {
-  }
-
+  @Input() hidden: boolean;
 }

@@ -55,4 +55,4 @@ const ExtraModules = [FormsModule, ColorSketchModule];
   exports: [CommonModule, ...MATERIAL, ...ExtraModules],
   providers: [...PROVIDERS]
 })
-export class CoreModule {}
+export class CoreModule { }

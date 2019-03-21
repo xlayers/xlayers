@@ -33,7 +33,7 @@
       <button matTooltip="Go Back To Preview" mat-button (click)="togglePreview()">
         <mat-icon>arrow_back</mat-icon>
       </button>
-      <button (click)="download()" matTooltip="Download as zip" mat-button>
+      <button (click)="download()" [disabled]="disableDownloadBtn" matTooltip="Download as zip" mat-button>
         <mat-icon>archive</mat-icon>
       </button>
     </div>

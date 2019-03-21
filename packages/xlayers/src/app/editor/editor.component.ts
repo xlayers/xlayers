@@ -7,6 +7,8 @@ import * as FileSaver from 'file-saver';
 import { PreviewBadgeService } from '../core/preview-badge.service';
 import { ExportStackblitzService } from './code/exports/stackblitz/stackblitz.service';
 import { Navigate } from '@ngxs/router-plugin';
+import { merge } from 'rxjs';
+import { mapTo } from 'rxjs/operators';
 
 
 @Component({
@@ -27,7 +29,7 @@ export class EditorComponent implements OnInit {
   wireframe = false;
   isCodeEditor = false;
   enabled = false;
-
+  disableDownloadBtn = true;
 
   version = environment.version;
   badge = '';
@@ -38,13 +40,18 @@ export class EditorComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    const codegen$ = this.store.select(CodeGenState.codegen);
+    merge(codegen$.pipe(mapTo(null)), this.stackBlitzService.vm$).subscribe(e => {
+      this.disableDownloadBtn = e === null;
+    });
+
     this.badge = this.badgeService.computeBadge();
 
     this.store.select(UiState.currentPage).subscribe(currentPage => {
       this.currentPage = currentPage;
     });
 
-    this.store.select(CodeGenState.codegen).subscribe(codegen => {
+    codegen$.subscribe(codegen => {
       if (this.codegen) {
         this.isStackblitzEnabled = codegen.buttons.stackblitz;
       }

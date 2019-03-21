@@ -5,4 +5,16 @@
     background-color: #212121;
     min-height: 87%;
     padding-bottom: 64px;
+    align-content: center;
   }
+  
+  .spinner{
+    align-content: center;
+    height: 100%;
+    width:100%;
+    position:fixed;
+    top:50%;
+    left:50%;
+    z-index: 99999;
+    background-color: #212121;
+}
