@@ -9,17 +9,12 @@ import {
 } from '@xlayers/sketchapp-parser';
 
 export interface SketchMSData {
-  pages: Array<SketchMSPage>;
-  previews: Array<{ source: string; width: number; height: number }>;
+  pages: SketchMSPage[];
+  previews: SketchMSPreview[];
   document: SketchMSDocumentData;
-  user: {
-    [id: string]: {
-      scrollOrigin: string;
-      zoomValue: number;
-    };
-  };
+  user: SketchMSUserData;
   meta: SketchMSMetadata;
-  resources: {
+  resources?: {
     images: {
       [id: string]: ResourceImageData;
     };
@@ -43,14 +38,14 @@ export class SketchService {
     private store: Store
   ) {
     this.store.select(UiState.currentFile).subscribe(currentFile => {
-      this._data = currentFile as any;
+      this._data = currentFile as SketchMSData;
     });
   }
 
   async process(file: File) {
-    const data = await this.sketch2Json(file) as any;
+    const data = await this.sketch2Json(file) as SketchMSData;
 
-    if (this.sketchStyleParser.visit(data) === SupportScore.LEGACY) {
+    if (this.sketchStyleParser.visit(data as SketchMSData) === SupportScore.LEGACY) {
       this.store.dispatch(
         new InformUser(
           'The design was created using a legacy version of SketchApp, so the result may not be accurate.'
