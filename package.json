@@ -35,7 +35,9 @@
     "postchangelog.write": "node scripts/clean-changelog.js",
     "changelog.full": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0",
     "postchangelog.full": "node scripts/clean-changelog.js",
-    "cy:open": "cypress open"
+    "cy:open": "cypress open",
+    "cy:run": "cypress run",
+    "test:e2e": "start-server-and-test start http://localhost:4200 cy:open"
   },
   "husky": {
     "hooks": {
@@ -72,6 +74,7 @@
     "ngx-color": "^2.0.5",
     "ngx-highlightjs": "^3.0.1",
     "rxjs": "^6.4.0",
+    "start-server-and-test": "^1.7.12",
     "zone.js": "^0.8.29"
   },
   "devDependencies": {
