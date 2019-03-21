@@ -76,6 +76,7 @@ jobs:
           key: v1-dependencies-{{ checksum "package.json" }}
 
       - run: npm run test.ci -- --reporters=default --reporters=jest-junit --maxWorkers=2
+      - run: npm run test:e2e
 
   "ci/lint":
     docker:
