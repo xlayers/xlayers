@@ -6,7 +6,7 @@ import { StackBlitzProjectPayload } from './stackblitz.service';
   providedIn: 'root'
 })
 export class ExportStackblitzVueService {
-  constructor() {}
+  constructor() { }
   prepare(content: XlayersNgxEditorModel[]): StackBlitzProjectPayload {
     const files = {};
     for (let i = 0; i < content.length; i++) {
@@ -67,7 +67,8 @@ module.exports = {
       dependencies: {
         ['vue']: '^2.5.21'
       },
-      tags: ['vuejs']
+      tags: ['vuejs'],
+      onlyEditor: true
     };
   }
 }
