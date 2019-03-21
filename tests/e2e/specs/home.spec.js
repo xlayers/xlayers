@@ -9,6 +9,6 @@ describe("Home page", () => {
 
   it("the getting started button should open the editor", () => {
     cy.getByText(/^get started$/i).click();
-    cy.location("hash").should("eq", "#/editor");
+    cy.location("hash").should("eq", "#/upload");
   });
 });
