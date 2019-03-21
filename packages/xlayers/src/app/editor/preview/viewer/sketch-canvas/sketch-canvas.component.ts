@@ -28,6 +28,7 @@ import { SketchData } from '@app/core/sketch.service';
   styles: [
     `
       :host {
+        display: block;
         width: 100%;
         height: calc(100% - 64px);
         transform: none;
@@ -43,7 +44,7 @@ import { SketchData } from '@app/core/sketch.service';
         top: 2px;
       }
       .canvas {
-        display: none;
+        display:block;
         cursor: move;
         left: 50%;
         position: absolute;
