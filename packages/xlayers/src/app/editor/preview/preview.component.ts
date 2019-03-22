@@ -3,7 +3,7 @@ import { MatExpansionPanel } from '@angular/material/expansion';
 import { MatDrawerContainer } from '@angular/material/sidenav';
 import { CurrentLayer, CurrentPage, UiState } from '@app/core/state';
 import { Store } from '@ngxs/store';
-import { SketchContainerComponent } from './viewer/sketch-container/sketch-container.component';
+import { SketchContainerComponent } from './viewer/container/container.component';
 
 @Component({
   selector: 'xly-preview',

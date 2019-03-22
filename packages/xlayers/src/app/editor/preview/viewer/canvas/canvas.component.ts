@@ -5,7 +5,7 @@ import { Store } from '@ngxs/store';
 import { SketchData } from '@app/core/sketch.service';
 
 @Component({
-  selector: 'xly-canvas',
+  selector: 'xly-viewer-canvas',
   template: `
     <div
       class="canvas"
@@ -17,12 +17,12 @@ import { SketchData } from '@app/core/sketch.service';
       (cdkDragEnded)="OnCdkDragEnded($event)"
       #canvas
     >
-      <xly-page
+      <xly-viewer-page
         [attr.data-id]="currentPage?.do_objectID"
         [attr.data-name]="currentPage?.name"
         [attr.data-class]="currentPage?._class"
         [page]="currentPage"
-      ></xly-page>
+      ></xly-viewer-page>
     </div>
   `,
   styles: [

@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { SketchSelectDemoFilesComponent } from './sketch-select-demo-files.component';
+import { SketchSelectDemoFilesComponent } from './select-demo-files.component';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { NgxsModule } from '@ngxs/store';
 import { HttpClientModule } from '@angular/common/http';

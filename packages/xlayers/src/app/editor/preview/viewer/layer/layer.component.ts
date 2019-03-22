@@ -12,7 +12,7 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { ResourceImageData, SketchService } from '@app/core/sketch.service';
 
 @Component({
-  selector: 'xly-layer',
+  selector: 'xly-viewer-layer',
   template: `
     <div
       [style.width.px]="layer?.frame?.width"
@@ -20,7 +20,7 @@ import { ResourceImageData, SketchService } from '@app/core/sketch.service';
       [style.left.px]="layer?.frame?.x"
       [style.top.px]="layer?.frame?.y"
     >
-      <xly-layer
+      <xly-viewer-layer
         xlySelectedLayer
         (selectedLayer)="selectLayer($event)"
         *ngFor="let layer of layer?.layers"
@@ -32,7 +32,7 @@ import { ResourceImageData, SketchService } from '@app/core/sketch.service';
         [attr.data-id]="layer?.do_objectID"
         [attr.data-name]="layer?.name"
         [attr.data-class]="layer?._class"
-      ></xly-layer>
+      ></xly-viewer-layer>
 
       <span *ngIf="textContent">{{ textContent }}</span>
 

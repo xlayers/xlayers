@@ -1,12 +1,12 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { SketchCanvasComponent } from './sketch-canvas.component';
+import { SketchCanvasComponent } from './canvas.component';
 import { NO_ERRORS_SCHEMA, Renderer2 } from '@angular/core';
 import { NgxsModule, Store } from '@ngxs/store';
 import { getSketchDataMock } from '../../../../core/sketch.service.mock';
 import { UiState, CurrentFile } from '@app/core/state';
 import { CodeGenState } from '@app/core/state/page.state';
-import { getFlatLayerMock } from '../sketch-layer/sketch-layer.component.mock';
+import { getFlatLayerMock } from '../layer/layer.component.mock';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 const renderer2Value = {

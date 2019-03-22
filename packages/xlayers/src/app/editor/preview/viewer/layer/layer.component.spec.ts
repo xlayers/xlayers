@@ -5,8 +5,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { UiState } from '@app/core/state';
 import { CodeGenState } from '@app/core/state/page.state';
 import { NgxsModule, Store } from '@ngxs/store';
-import { SketchLayerComponent } from './sketch-layer.component';
-import { getFrameMock } from './sketch-layer.component.mock';
+import { SketchLayerComponent } from './layer.component';
+import { getFrameMock } from './layer.component.mock';
 
 describe('SketchLayerComponent', () => {
   let component: SketchLayerComponent;

@@ -9,8 +9,8 @@ import { SketchService } from '@app/core/sketch.service';
 
 @Component({
   selector: 'xly-select-demo-files',
-  templateUrl: './sketch-select-demo-files.component.html',
-  styleUrls: ['./sketch-select-demo-files.component.css']
+  templateUrl: './select-demo-files.component.html',
+  styleUrls: ['./select-demo-files.component.css']
 })
 export class SketchSelectDemoFilesComponent {
   @Input() public error: boolean;

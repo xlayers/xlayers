@@ -7,14 +7,14 @@ import {
   Renderer2
 } from '@angular/core';
 import { Store } from '@ngxs/store';
-import { SketchLayerComponent } from '../sketch-layer/sketch-layer.component';
+import { SketchLayerComponent } from '../layer/layer.component';
 import { DomSanitizer } from '@angular/platform-browser';
 import { SketchService } from '@app/core/sketch.service';
 
 @Component({
-  selector: 'xly-page',
+  selector: 'xly-viewer-page',
   template: `
-    <xly-layer
+    <xly-viewer-layer
       xlySelectedLayer
       (selectedLayer)="selectLayer($event)"
       *ngFor="let layer of page?.layers"
@@ -26,7 +26,7 @@ import { SketchService } from '@app/core/sketch.service';
       [attr.data-id]="layer?.do_objectID"
       [attr.data-name]="layer?.name"
       [attr.data-class]="layer?._class"
-    ></xly-layer>
+    ></xly-viewer-layer>
   `,
   styles: [
     `

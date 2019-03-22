@@ -1,5 +1,5 @@
 import { Directive, ElementRef, EventEmitter, HostListener, Injector, OnDestroy, OnInit, Output, Renderer2 } from '@angular/core';
-import { SketchLayerComponent } from './sketch-layer.component';
+import { SketchLayerComponent } from './layer.component';
 
 @Directive({
   selector: '[xlySelectedLayer]'
@@ -32,7 +32,7 @@ export class SketchSelectedLayerDirective implements OnInit, OnDestroy {
   selectDomNode(layer: SketchMSLayer) {
     let element = null;
     if (layer) {
-      element = document.querySelector(`xly-layer[data-id="${layer.do_objectID}"]`);
+      element = document.querySelector(`xly-viewer-layer[data-id="${layer.do_objectID}"]`);
     }
 
     this.unselectSelectedLayer();
@@ -47,7 +47,7 @@ export class SketchSelectedLayerDirective implements OnInit, OnDestroy {
   }
 
   private unselectSelectedLayer() {
-    const element = document.querySelector('xly-layer.isCurrentLayer');
+    const element = document.querySelector('xly-viewer-layer.isCurrentLayer');
     try {
       element.classList.remove('isCurrentLayer');
     } catch (e) {}

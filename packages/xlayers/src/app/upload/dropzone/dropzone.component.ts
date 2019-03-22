@@ -2,8 +2,8 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'xly-dropzone',
-  templateUrl: './sketch-dropzone.component.html',
-  styleUrls: ['./sketch-dropzone.component.css']
+  templateUrl: './dropzone.component.html',
+  styleUrls: ['./dropzone.component.css']
 })
 export class SketchDropzoneComponent implements OnInit {
   @Output() changed: EventEmitter<File> = new EventEmitter();

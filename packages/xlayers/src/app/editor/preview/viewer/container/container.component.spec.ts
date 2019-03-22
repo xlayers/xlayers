@@ -7,7 +7,7 @@ import { SketchService } from '@app/core/sketch.service';
 import { UiState } from '@app/core/state';
 import { CodeGenState } from '@app/core/state/page.state';
 import { NgxsModule, Store } from '@ngxs/store';
-import { SketchContainerComponent } from './sketch-container.component';
+import { SketchContainerComponent } from './container.component';
 
 
 fdescribe('SketchContainerComponent', () => {
