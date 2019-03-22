@@ -64,7 +64,7 @@ import { SketchData } from '@app/core/sketch.service';
     `
   ]
 })
-export class SketchCanvasComponent implements OnInit, AfterViewInit {
+export class CanvasComponent implements OnInit, AfterViewInit {
   @Input() currentPage: SketchMSPage = null;
 
   @ViewChildren('canvas') canvasRef: QueryList<ElementRef<HTMLElement>>;

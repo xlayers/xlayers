@@ -3,7 +3,7 @@ import { Directive, ElementRef, HostListener, Input, Renderer2 } from '@angular/
 @Directive({
   selector: '[xlyTooltilp]'
 })
-export class SketchTooltilDirective {
+export class TooltilDirective {
 
   // tslint:disable-next-line:no-input-rename
   @Input('sketchTooltilp') name = '';

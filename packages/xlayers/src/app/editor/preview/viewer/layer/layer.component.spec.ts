@@ -5,12 +5,12 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { UiState } from '@app/core/state';
 import { CodeGenState } from '@app/core/state/page.state';
 import { NgxsModule, Store } from '@ngxs/store';
-import { SketchLayerComponent } from './layer.component';
+import { LayerComponent } from './layer.component';
 import { getFrameMock } from './layer.component.mock';
 
-describe('SketchLayerComponent', () => {
-  let component: SketchLayerComponent;
-  let fixture: ComponentFixture<SketchLayerComponent>;
+describe('LayerComponent', () => {
+  let component: LayerComponent;
+  let fixture: ComponentFixture<LayerComponent>;
   let store: Store;
 
   beforeEach(async(() => {
@@ -21,12 +21,12 @@ describe('SketchLayerComponent', () => {
         MatSnackBarModule,
         HttpClientTestingModule
       ],
-      declarations: [SketchLayerComponent]
+      declarations: [LayerComponent]
     }).compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SketchLayerComponent);
+    fixture = TestBed.createComponent(LayerComponent);
     store = fixture.debugElement.injector.get(Store);
     component = fixture.componentInstance;
     component.layer = {

@@ -5,7 +5,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { UiState } from '@app/core/state';
 import { CodeGenState } from '@app/core/state/page.state';
 import { NgxsModule } from '@ngxs/store';
-import { SketchDropzoneComponent } from './sketch-dropzone.component';
+import { SketchDropzoneComponent } from './dropzone.component';
 import { SketchService } from '@app/core/sketch.service';
 
 describe('SketchDropZone', () => {

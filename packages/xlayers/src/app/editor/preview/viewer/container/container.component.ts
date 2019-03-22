@@ -1,7 +1,7 @@
 import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
 import { CurrentLayer, UiState, ZoomIn, ZoomOut } from '@app/core/state';
 import { Store } from '@ngxs/store';
-import { SketchSelectedLayerDirective } from '../layer/selected-layer.directive';
+import { SelectedLayerDirective } from '../layer/selected-layer.directive';
 
 @Component({
   selector: 'xly-viewer-container',
@@ -43,12 +43,12 @@ import { SketchSelectedLayerDirective } from '../layer/selected-layer.directive'
     `
   ]
 })
-export class SketchContainerComponent implements OnInit {
+export class ContainerComponent implements OnInit {
   constructor(private store: Store) {}
 
   public currentPage: SketchMSLayer;
 
-  @ViewChild(SketchSelectedLayerDirective) ref: SketchSelectedLayerDirective;
+  @ViewChild(SelectedLayerDirective) ref: SelectedLayerDirective;
 
   ngOnInit() {
     this.store.select(UiState.currentPage).subscribe(currentPage => {
