@@ -6,8 +6,8 @@ import { SelectedLayerDirective } from '../layer/selected-layer.directive';
 @Component({
   selector: 'xly-viewer-container',
   template: `
-    <div class="layers-container">
-      <xly-viewer-canvas
+    <div class="layers-container" xly3dRotation [enabled]="is3dView">
+      <xly-canvas
         #ref
         xlySelectedLayer
         (click)="clearSelection()"
@@ -39,6 +39,7 @@ import { SelectedLayerDirective } from '../layer/selected-layer.directive';
         top: 0;
         left: 0;
         position: absolute;
+        will-change: transform;
       }
     `
   ]
@@ -47,12 +48,17 @@ export class ContainerComponent implements OnInit {
   constructor(private store: Store) {}
 
   public currentPage: SketchMSLayer;
+  public is3dView: boolean;
 
   @ViewChild(SelectedLayerDirective) ref: SelectedLayerDirective;
 
   ngOnInit() {
     this.store.select(UiState.currentPage).subscribe(currentPage => {
       this.currentPage = currentPage;
+    });
+
+    this.store.select(UiState.is3dView).subscribe(is3dView => {
+      this.is3dView = is3dView;
     });
 
     this.store.select(UiState.currentLayer).subscribe(currentLayer => {

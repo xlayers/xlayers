@@ -305,7 +305,7 @@ export class SketchStyleParserService {
     return node.attributedString.string;
   }
 
-  transformTriangleSolid(node: SketchMSLayer, style: {[key: string]: string}) {
+  transformTriangleSolid(node: SketchMSPath, style: {[key: string]: string}) {
     const config = [];
     let offset = 0;
 
@@ -346,7 +346,7 @@ export class SketchStyleParserService {
     };
   }
 
-  transformShapeSolid(node: SketchMSLayer, style: {[key: string]: string}) {
+  transformShapeSolid(node: SketchMSPath, style: {[key: string]: string}) {
     const config = [];
     let offset = 0;
 
@@ -374,8 +374,7 @@ export class SketchStyleParserService {
 
     segments.unshift(`M${origin.x} ${origin.y}`);
 
-    // TODO: isClosed to type
-    if ((node as any).isClosed) {
+    if (node.isClosed) {
       segments.push('z');
     }
 
@@ -559,7 +558,7 @@ export class SketchStyleParserService {
     return config;
   }
 
-  svgCanvas(node: SketchMSLayer, offset: number, paths: string) {
+  svgCanvas(node: SketchMSPath, offset: number, paths: string) {
     return {
       shape: `<svg width="${node.frame.width + offset}" height="${node.frame.height + offset}">${paths}</svg>`,
       style: {
@@ -570,7 +569,7 @@ export class SketchStyleParserService {
     };
   }
 
-  parsePoint(point: string, offset: number, node: SketchMSLayer) {
+  parsePoint(point: string, offset: number, node: SketchMSPath) {
     const parsedPoint = point.slice(1, -1).split(', ');
     return {
       x: (node.frame.width * Number.parseFloat(parsedPoint[0]) + offset).toFixed(3),

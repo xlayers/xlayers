@@ -26,7 +26,9 @@ import { SketchService } from '@app/core/sketch.service';
       [attr.data-id]="layer?.do_objectID"
       [attr.data-name]="layer?.name"
       [attr.data-class]="layer?._class"
-    ></xly-viewer-layer>
+      [style.width.px]="layer?.frame?.width"
+      [style.height.px]="layer?.frame?.height"
+    ></xly-layer>
   `,
   styles: [
     `

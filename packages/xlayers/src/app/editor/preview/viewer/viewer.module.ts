@@ -8,6 +8,7 @@ import { LayerComponent } from './layer/layer.component';
 import { PageComponent } from './page/page.component';
 import { StopEventPropagationDirective } from './stop-event-propagation.directive';
 import { TooltilDirective } from './tooltip.directive';
+import { Xly3dRotationDirective } from './3d-rotation.directive';
 
 @NgModule({
   imports: [CoreModule, SketchParserModule],
@@ -18,7 +19,8 @@ import { TooltilDirective } from './tooltip.directive';
     LayerComponent,
     StopEventPropagationDirective,
     SelectedLayerDirective,
-    TooltilDirective
+    TooltilDirective,
+    Xly3dRotationDirective
   ],
   exports: [
     CanvasComponent,
