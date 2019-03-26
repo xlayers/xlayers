@@ -16,7 +16,7 @@
     "test.update": "jest --updateSnapshot tests/integration",
     "test.ci": "run-s -l lib.build.prod && jest --ci --detectOpenHandles",
     "cy.open": "cypress open",
-    "cy.run": "cypress run"
+    "cy.run": "cypress run",
     "e2e": "start-server-and-test start http-get://localhost:4200 cy:run",
     "--lint--": "",
     "lint": "ng lint",
