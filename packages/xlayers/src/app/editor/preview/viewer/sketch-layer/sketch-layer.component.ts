@@ -17,8 +17,6 @@ import { ResourceImageData, SketchService } from '@app/core/sketch.service';
     <div
       [style.width.px]="layer?.frame?.width"
       [style.height.px]="layer?.frame?.height"
-      [style.left.px]="layer?.frame?.x"
-      [style.top.px]="layer?.frame?.y"
     >
       <xly-layer
         xlySelectedLayer
@@ -51,6 +49,7 @@ import { ResourceImageData, SketchService } from '@app/core/sketch.service';
         transform-origin: 0 0;
         transform-style: preserve-3d;
         will-change: transform, transition;
+        display: block;
       }
 
       :host(:hover) {

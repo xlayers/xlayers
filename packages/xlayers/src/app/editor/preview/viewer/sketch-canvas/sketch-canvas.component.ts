@@ -27,6 +27,7 @@ import { Store } from '@ngxs/store';
   styles: [
     `
       :host {
+        display: block;
         width: 100%;
         height: calc(100% - 64px);
         transform: none;
@@ -42,7 +43,7 @@ import { Store } from '@ngxs/store';
         top: 2px;
       }
       .canvas {
-        display: none;
+        display:block;
         cursor: move;
         left: 50%;
         position: absolute;
