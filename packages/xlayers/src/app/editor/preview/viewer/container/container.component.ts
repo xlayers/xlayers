@@ -7,7 +7,7 @@ import { ViewerSelectedLayerDirective } from '../layer/selected-layer.directive'
   selector: 'xly-viewer-container',
   template: `
     <div class="layers-container" xly3dRotation [enabled]="is3dView">
-      <xly-canvas
+      <xly-viewer-canvas
         #ref
         xlySelectedLayer
         (click)="clearSelection()"
