@@ -1,10 +1,10 @@
 import { Directive, ElementRef, EventEmitter, HostListener, Injector, OnDestroy, OnInit, Output, Renderer2 } from '@angular/core';
-import { LayerComponent } from './layer.component';
+import { ViewerLayerComponent } from './layer.component';
 
 @Directive({
   selector: '[xlySelectedLayer]'
 })
-export class SelectedLayerDirective implements OnInit, OnDestroy {
+export class ViewerSelectedLayerDirective implements OnInit, OnDestroy {
   @Output('selectedLayer') selectedLayer = new EventEmitter<SketchMSLayer>();
 
   constructor(private element: ElementRef<HTMLElement>, private renderer: Renderer2, private injector: Injector) {}
@@ -55,7 +55,7 @@ export class SelectedLayerDirective implements OnInit, OnDestroy {
 
   private emitLayer(element: HTMLElement) {
     try {
-      const layerComponent = (element as any).__angular_injector__.get(LayerComponent) as LayerComponent;
+      const layerComponent = (element as any).__angular_injector__.get(ViewerLayerComponent) as ViewerLayerComponent;
       this.selectedLayer.emit(layerComponent.layer);
     } catch (e) {}
   }

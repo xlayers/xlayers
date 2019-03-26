@@ -66,7 +66,7 @@ import { ResourceImageData, SketchService } from '@app/core/sketch.service';
     `
   ]
 })
-export class LayerComponent implements OnInit, AfterContentInit {
+export class ViewerLayerComponent implements OnInit, AfterContentInit {
   @Input() layer: SketchMSLayer;
   @Input() wireframe = false;
 

@@ -7,7 +7,7 @@ import {
   Renderer2
 } from '@angular/core';
 import { Store } from '@ngxs/store';
-import { LayerComponent } from '../layer/layer.component';
+import { ViewerLayerComponent } from '../layer/layer.component';
 import { DomSanitizer } from '@angular/platform-browser';
 import { SketchService } from '@app/core/sketch.service';
 
@@ -42,7 +42,7 @@ import { SketchService } from '@app/core/sketch.service';
     `
   ]
 })
-export class PageComponent extends LayerComponent
+export class ViewerPageComponent extends ViewerLayerComponent
   implements OnInit, AfterContentInit {
   @Input() page: SketchMSPage;
 
