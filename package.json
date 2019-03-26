@@ -15,8 +15,9 @@
     "test": "jest",
     "test.update": "jest --updateSnapshot tests/integration",
     "test.ci": "run-s -l lib.build.prod && jest --ci --detectOpenHandles",
-    "pree2e": "CI=1 npm i cypress@^3.1.5",
-    "e2e": "ng e2e",
+    "cy.open": "cypress open",
+    "cy.run": "cypress run"
+    "e2e": "start-server-and-test start http-get://localhost:4200 cy:run",
     "--lint--": "",
     "lint": "ng lint",
     "lint.fix": "ng lint --fix",
@@ -34,10 +35,7 @@
     "changelog.write": "conventional-changelog -p angular -i CHANGELOG.md -s",
     "postchangelog.write": "node scripts/clean-changelog.js",
     "changelog.full": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0",
-    "postchangelog.full": "node scripts/clean-changelog.js",
-    "cy:open": "cypress open",
-    "cy:run": "cypress run",
-    "test:e2e": "start-server-and-test start http-get://localhost:4200 cy:run"
+    "postchangelog.full": "node scripts/clean-changelog.js"
   },
   "husky": {
     "hooks": {
