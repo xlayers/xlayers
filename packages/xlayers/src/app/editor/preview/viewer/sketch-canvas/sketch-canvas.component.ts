@@ -2,7 +2,6 @@ import { CdkDragEnd, CdkDragMove, CdkDragStart } from '@angular/cdk/drag-drop';
 import { AfterViewInit, Component, ElementRef, Input, OnInit, Renderer2, ViewChildren, QueryList } from '@angular/core';
 import { UiState } from '@app/core/state';
 import { Store } from '@ngxs/store';
-import { SketchData } from '@app/core/sketch.service';
 
 @Component({
   selector: 'xly-canvas',
@@ -71,7 +70,7 @@ export class SketchCanvasComponent implements OnInit, AfterViewInit {
   @ViewChildren('canvas') canvasRef: QueryList<ElementRef<HTMLElement>>;
 
   currentZoomLevel = 1;
-  data: SketchData = {} as SketchData;
+  data: SketchMSData = {} as SketchMSData;
 
   constructor(
     private store: Store,

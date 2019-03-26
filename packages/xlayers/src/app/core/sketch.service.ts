@@ -8,26 +8,13 @@ import {
   SupportScore
 } from '@xlayers/sketchapp-parser';
 
-export interface SketchUser {
-  [key: string]: {
-    // "{-1185.8387361675846, 178}"
-    scrollOrigin: string;
-    zoomValue: number;
-  };
-}
-
-export interface SketchData {
-  pages: Array<SketchMSPage>;
-  previews: Array<{ source: string; width: number; height: number }>;
+export interface SketchMSData {
+  pages: SketchMSPage[];
+  previews: SketchMSPreview[];
   document: SketchMSDocumentData;
-  user: {
-    [id: string]: {
-      scrollOrigin: string;
-      zoomValue: number;
-    };
-  };
+  user: SketchMSUserData;
   meta: SketchMSMetadata;
-  resources: {
+  resources?: {
     images: {
       [id: string]: ResourceImageData;
     };
@@ -43,7 +30,7 @@ export interface ResourceImageData {
   providedIn: 'root'
 })
 export class SketchService {
-  _data: SketchData;
+  _data: SketchMSData;
 
   constructor(
     private sketchStyleParser: SketchStyleParserService,
@@ -51,14 +38,14 @@ export class SketchService {
     private store: Store
   ) {
     this.store.select(UiState.currentFile).subscribe(currentFile => {
-      this._data = currentFile;
+      this._data = currentFile as SketchMSData;
     });
   }
 
   async process(file: File) {
-    const data = await this.sketch2Json(file);
+    const data = await this.sketch2Json(file) as SketchMSData;
 
-    if (this.sketchStyleParser.visit(data) === SupportScore.LEGACY) {
+    if (this.sketchStyleParser.visit(data as SketchMSData) === SupportScore.LEGACY) {
       this.store.dispatch(
         new InformUser(
           'The design was created using a legacy version of SketchApp, so the result may not be accurate.'
@@ -122,7 +109,7 @@ export class SketchService {
   }
 
   async sketch2Json(file: Blob) {
-    const _data: SketchData = {
+    const _data: SketchMSData = {
       pages: [],
       previews: [],
       document: {} as any,

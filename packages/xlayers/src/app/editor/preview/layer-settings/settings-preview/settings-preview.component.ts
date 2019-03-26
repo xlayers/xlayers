@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UiState } from '@app/core/state';
 import { Store } from '@ngxs/store';
-import { SketchData } from '@app/core/sketch.service';
 
 @Component({
   selector: 'xly-settings-preview',
@@ -65,7 +64,7 @@ import { SketchData } from '@app/core/sketch.service';
 })
 export class SettingsPreviewComponent implements OnInit {
   currentLayer: SketchMSLayer;
-  data: SketchData;
+  data: SketchMSData;
   isMouseOver: boolean;
 
   constructor(private store: Store) { }
