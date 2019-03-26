@@ -388,7 +388,7 @@ export class SketchStyleParserService {
     return this.svgCanvas(node, offset, svg.join(' '));
   }
 
-  transformShapeGroup(node: SketchMSLayer, style: {[key: string]: string}) {
+  transformShapeGroup(node: SketchMSPath, style: {[key: string]: string}) {
     const offset = 0;
     const paths = node.layers.map((layer) => {
       // TODO: move to @types/sketchapp
@@ -611,8 +611,8 @@ export class SketchStyleParserService {
   parsePoint(point: string, offset: number, node: SketchMSPath) {
     const parsedPoint = point.slice(1, -1).split(', ');
     return {
-      x: (node.frame.width * Number.parseFloat(parsedPoint[0]) + offset),
-      y: (node.frame.height * Number.parseFloat(parsedPoint[1]) + offset)
+      x: Number.parseFloat((node.frame.width * Number.parseFloat(parsedPoint[0]) + offset).toFixed(3)),
+      y: Number.parseFloat((node.frame.height * Number.parseFloat(parsedPoint[1]) + offset).toFixed(3))
     };
   }
 
