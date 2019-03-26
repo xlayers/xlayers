@@ -12,7 +12,7 @@ import { SketchService } from '@app/core/sketch.service';
   templateUrl: './select-demo-files.component.html',
   styleUrls: ['./select-demo-files.component.css']
 })
-export class SketchSelectDemoFilesComponent {
+export class SelectDemoFilesComponent {
   @Input() public error: boolean;
   @Output() private changed: EventEmitter<string> = new EventEmitter();
 

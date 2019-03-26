@@ -5,7 +5,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
   templateUrl: './dropzone.component.html',
   styleUrls: ['./dropzone.component.css']
 })
-export class SketchDropzoneComponent implements OnInit {
+export class DropzoneComponent implements OnInit {
   @Output() changed: EventEmitter<File> = new EventEmitter();
 
   constructor() {}
