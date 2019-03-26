@@ -8,6 +8,7 @@ import { SketchLayerComponent } from './sketch-layer/sketch-layer.component';
 import { SketchPageComponent } from './sketch-page/sketch-page.component';
 import { SketchStopEventPropagationDirective } from './sketch-stop-event-propagation.directive';
 import { SketchTooltilDirective } from './sketch-tooltip.directive';
+import { Xly3dRotationDirective } from './3d-rotation.directive';
 
 @NgModule({
   imports: [CoreModule, SketchParserModule],
@@ -18,7 +19,8 @@ import { SketchTooltilDirective } from './sketch-tooltip.directive';
     SketchLayerComponent,
     SketchStopEventPropagationDirective,
     SketchSelectedLayerDirective,
-    SketchTooltilDirective
+    SketchTooltilDirective,
+    Xly3dRotationDirective
   ],
   exports: [
     SketchCanvasComponent,
