@@ -1,4 +1,3 @@
-import { SketchData } from './sketch.service';
 import { getFlatLayerMock } from '@app/editor/preview/viewer/layer/layer.component.mock';
 
 export function getSketchDataMock() {
@@ -7,5 +6,5 @@ export function getSketchDataMock() {
     pages: [
       getFlatLayerMock(9)
     ]
-  } as SketchData;
+  } as SketchMSData;
 }

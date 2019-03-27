@@ -240,7 +240,7 @@ describe('SketchStyleParserService', () => {
       const obj = {
         fills: [{
           color: getSketchColorMock(),
-          isEnabled: true,
+          isEnabled: 1, // TODO: migrate @type isEnable to boolean
           gradient: {
             stops: [{
               color: getSketchColorMock(),
@@ -248,7 +248,7 @@ describe('SketchStyleParserService', () => {
             }]
           }
         }]
-      } as any; // TODO: migrate @type isEnable to boolean
+      } as SketchMSStyle;
       const color = sketchStyleParserService['parseColors'](obj.fills[0].color);
       const colorStop = sketchStyleParserService['parseColors'](obj.fills[0].gradient.stops[0].color);
       expect(sketchStyleParserService.transformFills(obj)).toEqual({
@@ -319,7 +319,7 @@ describe('SketchStyleParserService', () => {
         }]
       } as SketchMSPath;
       expect(sketchStyleParserService.transformTriangleSolid(obj, {})).toEqual({
-        shape: `<svg width="${obj.frame.width}" height="${obj.frame.height}"><polygon fill="none" points="0.000, 0.000 0.000, 2.000 1.000, 2.000 1.000, 0.000" /></svg>`,
+        shape: `<svg width="${obj.frame.width}" height="${obj.frame.height}"><polygon fill="none" points="0, 0 0, 2 1, 2 1, 0" /></svg>`,
         style: {
           left: '0px',
           position: 'absolute',
@@ -366,7 +366,7 @@ describe('SketchStyleParserService', () => {
         }],
       } as SketchMSPath;
       expect(sketchStyleParserService.transformShapeSolid(obj, {})).toEqual({
-        shape: `<svg width="${obj.frame.width}" height="${obj.frame.height}"><path fill="none" d="M0.000 0.000,L 0.000 2.000,L 1.000 2.000,L 1.000 0.000" /></svg>`,
+        shape: `<svg width="${obj.frame.width}" height="${obj.frame.height}"><path fill="none" d="M0 0,L 0 2,L 1 2,L 1 0" /></svg>`,
         style: {
           left: '0px',
           position: 'absolute',
@@ -428,8 +428,8 @@ describe('SketchStyleParserService', () => {
       } as SketchMSPath;
       expect(sketchStyleParserService.transformShapeSolid(obj, {})).toEqual({
         shape: `<svg width="${obj.frame.width}" height="${obj.frame.height}"><path fill="none" d="` +
-        `M429.081 0.000,S 2.919 0.000, 2.919 0.000,S 0.000 1.537, 0.000 3.417,` +
-        `L 0.000 123.000,L 432.000 123.000,S 432.000 3.417, 432.000 3.417,S 430.686 0.000, 429.081 0.000` +
+        `M429.081 0,S 2.919 0, 2.919 0,S 0 1.537, 0 3.417,` +
+        `L 0 123,L 432 123,S 432 3.417, 432 3.417,S 430.686 0, 429.081 0` +
         `" /></svg>`,
         style: {
           left: '0px',
@@ -454,8 +454,8 @@ describe('SketchStyleParserService', () => {
       }
     } as SketchMSPath;
     expect(sketchStyleParserService.parsePoint('{1, 0}', 2, node)).toEqual({
-      x: '12.000',
-      y: '2.000'
+      x: 12,
+      y: 2
     });
   });
 
@@ -467,8 +467,8 @@ describe('SketchStyleParserService', () => {
       }
     } as SketchMSPath;
     expect(sketchStyleParserService.parsePoint('{1, 0}', 4, node)).toEqual({
-      x: '22.000',
-      y: '4.000'
+      x: 22,
+      y: 4
     });
   });
 
@@ -480,8 +480,8 @@ describe('SketchStyleParserService', () => {
       }
     } as SketchMSPath;
     expect(sketchStyleParserService.parsePoint('{1, 0}', -4, node)).toEqual({
-      x: '14.000',
-      y: '-4.000'
+      x: 14,
+      y: -4
     });
   });
 

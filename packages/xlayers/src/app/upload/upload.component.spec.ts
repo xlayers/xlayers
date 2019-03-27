@@ -4,19 +4,17 @@ import { SketchService } from '@app/core/sketch.service';
 import { getSketchDataMock } from '@app/core/sketch.service.mock';
 import { UiState } from '@app/core/state';
 import { Store, NgxsModule } from '@ngxs/store';
-import { SketchData } from '@xlayers/sketchapp-parser';
 import { UploadComponent } from './upload.component';
 import { getFileMock } from './upload.component.mock';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-
 
 describe('UploadComponent', () => {
   let component: UploadComponent;
   let fixture: ComponentFixture<UploadComponent>;
   let sketchService: SketchService;
   let store: Store;
-  let mockSketchData: SketchData;
+  let mockSketchData: SketchMSData;
   let mockFile: File;
 
   beforeEach(async(() => {
