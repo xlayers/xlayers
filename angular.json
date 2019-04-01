@@ -1,11 +1,11 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "version": 1,
-  "newProjectRoot": "packages",
+  "newProjectRoot": "projects",
   "projects": {
     "xlayers": {
-      "root": "packages/xlayers/",
-      "sourceRoot": "packages/xlayers/src",
+      "root": "",
+      "sourceRoot": "src",
       "projectType": "application",
       "prefix": "xly",
       "schematics": {},
@@ -14,28 +14,28 @@
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
             "outputPath": "dist/html",
-            "index": "packages/xlayers/src/index.html",
-            "main": "packages/xlayers/src/main.ts",
-            "polyfills": "packages/xlayers/src/polyfills.ts",
-            "tsConfig": "packages/xlayers/tsconfig.app.json",
+            "index": "src/index.html",
+            "main": "src/main.ts",
+            "polyfills": "src/polyfills.ts",
+            "tsConfig": "src/tsconfig.app.json",
             "assets": [
-              "packages/xlayers/src/favicon.ico",
-              "packages/xlayers/src/assets",
-              "packages/xlayers/src/manifest.json"
+              "src/favicon.ico",
+              "src/assets",
+              "src/manifest.json"
             ],
             "styles": [
-              "packages/xlayers/src/styles.css"
+              "src/styles.css"
             ],
             "scripts": [
-              "node_modules/jszip/dist/jszip.min.js",
+              "node_modules/jszip/dist/jszip.min.js"
             ]
           },
           "configurations": {
             "production": {
               "fileReplacements": [
                 {
-                  "replace": "packages/xlayers/src/environments/environment.ts",
-                  "with": "packages/xlayers/src/environments/environment.prod.ts"
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod.ts"
                 }
               ],
               "optimization": true,
@@ -60,8 +60,8 @@
             "hmr": {
               "fileReplacements": [
                 {
-                  "replace": "packages/xlayers/src/environments/environment.ts",
-                  "with": "packages/xlayers/src/environments/environment.hmr.ts"
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.hmr.ts"
                 }
               ]
             }
@@ -92,8 +92,8 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "packages/xlayers/tsconfig.app.json",
-              "packages/xlayers/tsconfig.spec.json"
+              "src/tsconfig.app.json",
+              "src/tsconfig.spec.json"
             ],
             "exclude": [
               "**/node_modules/**"
@@ -103,32 +103,32 @@
       }
     },
     "sketchapp-parser": {
-      "root": "packages/sketchapp-parser",
-      "sourceRoot": "packages/sketchapp-parser/src",
+      "root": "projects/sketchapp-parser",
+      "sourceRoot": "projects/sketchapp-parser/src",
       "projectType": "library",
       "prefix": "xly",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {
-            "tsConfig": "packages/sketchapp-parser/tsconfig.lib.json",
-            "project": "packages/sketchapp-parser/ng-package.json"
+            "tsConfig": "projects/sketchapp-parser/tsconfig.lib.json",
+            "project": "projects/sketchapp-parser/ng-package.json"
           }
         },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "main": "packages/sketchapp-parser/src/test.ts",
-            "tsConfig": "packages/sketchapp-parser/tsconfig.spec.json",
-            "karmaConfig": "packages/sketchapp-parser/karma.conf.js"
+            "main": "projects/sketchapp-parser/src/test.ts",
+            "tsConfig": "projects/sketchapp-parser/tsconfig.spec.json",
+            "karmaConfig": "projects/sketchapp-parser/karma.conf.js"
           }
         },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "packages/sketchapp-parser/tsconfig.lib.json",
-              "packages/sketchapp-parser/tsconfig.spec.json"
+              "projects/sketchapp-parser/tsconfig.lib.json",
+              "projects/sketchapp-parser/tsconfig.spec.json"
             ],
             "exclude": [
               "**/node_modules/**"

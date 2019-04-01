@@ -9,7 +9,7 @@ steps:
 
   - name: 'gcr.io/cross-xlayers/ngcontainer'
     id: 'Test'
-    args: ['npm', 'run', 'test:ci']
+    args: ['npm', 'run', 'test.ci']
 
   - name: 'gcr.io/cloud-builders/npm'
     id: 'Build'

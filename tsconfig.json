@@ -18,14 +18,14 @@
     ],
     "paths": {
       "@env/*": [
-        "packages/xlayers/src/environments/*"
+        "src/environments/*"
       ],
       "@app/*": [
-        "packages/xlayers/src/app/*"
+        "src/app/*"
       ],
       "@xlayers/*": [
-        "packages/*/src/lib",
-        "packages/*/src/public_api.ts"
+        "projects/*/src/lib",
+        "projects/*/src/public_api.ts"
       ]
     }
   }
