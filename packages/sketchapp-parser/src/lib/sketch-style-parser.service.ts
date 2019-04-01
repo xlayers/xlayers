@@ -194,18 +194,16 @@ export class SketchStyleParserService {
       };
 
       case 'shapePath':
-        return parent._class !== 'shapeGroup' ? {
-          shape: this.transformShapeSolid(layer, {
+        return parent._class !== 'shapeGroup'
+        ? this.transformShapeSolid(layer, {
             ...this.transformFills(layer.style),
           })
-        } : {};
+        : {};
 
       case 'shapeGroup':
-        return {
-          shape: this.transformShapeGroup(layer, {
-            ...this.transformFills(layer.style),
-          })
-        };
+        return this.transformShapeGroup(layer, {
+          ...this.transformFills(layer.style),
+        });
 
     case 'triangle':
       return this.transformTriangleSolid(layer, {
