@@ -28,7 +28,7 @@ export const routes: Route[] = [
   },
   {
     path: 'home',
-    loadChildren: './home/home.module#HomeModule'
+    loadChildren: '../home/home.module#HomeModule'
   },
   {
     path: 'editor',
