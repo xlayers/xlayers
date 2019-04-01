@@ -1,18 +1,18 @@
 import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
 import { CurrentLayer, UiState, ZoomIn, ZoomOut } from '@app/core/state';
 import { Store } from '@ngxs/store';
-import { SketchSelectedLayerDirective } from '../sketch-layer/selected-layer.directive';
+import { ViewerSelectedLayerDirective } from '../layer/selected-layer.directive';
 
 @Component({
   selector: 'xly-viewer-container',
   template: `
     <div class="layers-container" xly3dRotation [enabled]="is3dView">
-      <xly-canvas
+      <xly-viewer-canvas
         #ref
         xlySelectedLayer
         (click)="clearSelection()"
         [currentPage]="currentPage"
-      ></xly-canvas>
+      ></xly-viewer-canvas>
     </div>
   `,
   styles: [
@@ -35,7 +35,7 @@ import { SketchSelectedLayerDirective } from '../sketch-layer/selected-layer.dir
         position: absolute;
       }
 
-      xly-layer {
+      xly-viewer-layer {
         top: 0;
         left: 0;
         position: absolute;
@@ -44,13 +44,13 @@ import { SketchSelectedLayerDirective } from '../sketch-layer/selected-layer.dir
     `
   ]
 })
-export class SketchContainerComponent implements OnInit {
+export class ViewerContainerComponent implements OnInit {
   constructor(private store: Store) {}
 
   public currentPage: SketchMSLayer;
   public is3dView: boolean;
 
-  @ViewChild(SketchSelectedLayerDirective) ref: SketchSelectedLayerDirective;
+  @ViewChild(ViewerSelectedLayerDirective) ref: ViewerSelectedLayerDirective;
 
   ngOnInit() {
     this.store.select(UiState.currentPage).subscribe(currentPage => {

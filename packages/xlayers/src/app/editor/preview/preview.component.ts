@@ -3,7 +3,7 @@ import { MatExpansionPanel } from '@angular/material/expansion';
 import { MatDrawerContainer } from '@angular/material/sidenav';
 import { CurrentLayer, CurrentPage, UiState } from '@app/core/state';
 import { Store } from '@ngxs/store';
-import { SketchContainerComponent } from './viewer/sketch-container/sketch-container.component';
+import { ViewerContainerComponent } from './viewer/container/container.component';
 
 @Component({
   selector: 'xly-preview',
@@ -24,7 +24,7 @@ export class PreviewComponent implements OnInit {
   isCodeEditor: boolean;
 
   @ViewChild('xlyViewerContainerRef')
-  xlyViewerContainerRef: SketchContainerComponent;
+  xlyViewerContainerRef: ViewerContainerComponent;
   @ViewChild('pagesPanelRef') pagesPanelRef: MatExpansionPanel;
   @ViewChild('layersPanelRef') layersPanelRef: MatExpansionPanel;
   @ViewChild('settingNavRef') settingNavRef: MatDrawerContainer;

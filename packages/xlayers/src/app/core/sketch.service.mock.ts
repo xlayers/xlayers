@@ -1,4 +1,4 @@
-import { getFlatLayerMock } from '@app/editor/preview/viewer/sketch-layer/sketch-layer.component.mock';
+import { getFlatLayerMock } from '@app/editor/preview/viewer/layer/layer.component.mock';
 
 export function getSketchDataMock() {
   return {

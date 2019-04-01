@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { SketchSelectDemoFilesComponent } from './sketch-select-demo-files.component';
+import { SelectDemoFilesComponent } from './select-demo-files.component';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { NgxsModule } from '@ngxs/store';
 import { HttpClientModule } from '@angular/common/http';
@@ -8,9 +8,9 @@ import { CodeGenState } from '@app/core/state/page.state';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { SketchService } from '@app/core/sketch.service';
 
-describe('SketchSelectDemoFilesComponent', () => {
-  let component: SketchSelectDemoFilesComponent;
-  let fixture: ComponentFixture<SketchSelectDemoFilesComponent>;
+describe('SelectDemoFilesComponent', () => {
+  let component: SelectDemoFilesComponent;
+  let fixture: ComponentFixture<SelectDemoFilesComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -21,13 +21,13 @@ describe('SketchSelectDemoFilesComponent', () => {
         HttpClientModule
       ],
       providers: [SketchService],
-      declarations: [SketchSelectDemoFilesComponent]
+      declarations: [SelectDemoFilesComponent]
     })
       .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SketchSelectDemoFilesComponent);
+    fixture = TestBed.createComponent(SelectDemoFilesComponent);
     component = fixture.componentInstance;
   });
 

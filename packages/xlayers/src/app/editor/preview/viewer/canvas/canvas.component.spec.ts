@@ -1,12 +1,12 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { SketchCanvasComponent } from './sketch-canvas.component';
+import { ViewerCanvasComponent } from './canvas.component';
 import { NO_ERRORS_SCHEMA, Renderer2 } from '@angular/core';
 import { NgxsModule, Store } from '@ngxs/store';
 import { getSketchDataMock } from '../../../../core/sketch.service.mock';
 import { UiState, CurrentFile } from '@app/core/state';
 import { CodeGenState } from '@app/core/state/page.state';
-import { getFlatLayerMock } from '../sketch-layer/sketch-layer.component.mock';
+import { getFlatLayerMock } from '../layer/layer.component.mock';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 const renderer2Value = {
@@ -14,9 +14,9 @@ const renderer2Value = {
   removeClass(k, v) {},
 };
 
-describe('SketchCanvasComponent', () => {
-  let component: SketchCanvasComponent;
-  let fixture: ComponentFixture<SketchCanvasComponent>;
+describe('ViewerCanvasComponent', () => {
+  let component: ViewerCanvasComponent;
+  let fixture: ComponentFixture<ViewerCanvasComponent>;
   let store: Store;
 
   beforeEach(async(() => {
@@ -27,7 +27,7 @@ describe('SketchCanvasComponent', () => {
         MatSnackBarModule,
         NoopAnimationsModule
       ],
-      declarations: [SketchCanvasComponent],
+      declarations: [ViewerCanvasComponent],
       providers: [{
         provide: Renderer2,
         useValue: renderer2Value
@@ -38,7 +38,7 @@ describe('SketchCanvasComponent', () => {
   }));
 
   beforeEach(async() => {
-    fixture = TestBed.createComponent(SketchCanvasComponent);
+    fixture = TestBed.createComponent(ViewerCanvasComponent);
     component = fixture.componentInstance;
     component.data = getSketchDataMock();
     component.currentPage = getFlatLayerMock();

@@ -4,7 +4,7 @@ import { UiState } from '@app/core/state';
 import { Store } from '@ngxs/store';
 
 @Component({
-  selector: 'xly-canvas',
+  selector: 'xly-viewer-canvas',
   template: `
     <div
       class="canvas"
@@ -16,12 +16,12 @@ import { Store } from '@ngxs/store';
       (cdkDragEnded)="OnCdkDragEnded($event)"
       #canvas
     >
-      <xly-page
+      <xly-viewer-page
         [attr.data-id]="currentPage?.do_objectID"
         [attr.data-name]="currentPage?.name"
         [attr.data-class]="currentPage?._class"
         [page]="currentPage"
-      ></xly-page>
+      ></xly-viewer-page>
     </div>
   `,
   styles: [
@@ -64,7 +64,7 @@ import { Store } from '@ngxs/store';
     `
   ]
 })
-export class SketchCanvasComponent implements OnInit, AfterViewInit {
+export class ViewerCanvasComponent implements OnInit, AfterViewInit {
   @Input() currentPage: SketchMSPage = null;
 
   @ViewChildren('canvas') canvasRef: QueryList<ElementRef<HTMLElement>>;

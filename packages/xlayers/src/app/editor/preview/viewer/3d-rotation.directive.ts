@@ -8,7 +8,7 @@ import {
   SimpleChanges,
   OnChanges
 } from '@angular/core';
-import { SketchCanvasComponent } from './sketch-canvas/sketch-canvas.component';
+import { ViewerCanvasComponent } from './canvas/canvas.component';
 
 @Directive({
   selector: '[xly3dRotation]'
@@ -37,7 +37,7 @@ export class Xly3dRotationDirective implements AfterContentInit, OnChanges {
     y: 0
   };
 
-  @ContentChild(SketchCanvasComponent, { read: ElementRef }) canvas: ElementRef;
+  @ContentChild(ViewerCanvasComponent, { read: ElementRef }) canvas: ElementRef;
 
   constructor() {}
 

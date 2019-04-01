@@ -1,10 +1,10 @@
 import { Directive, ElementRef, EventEmitter, HostListener, Injector, OnDestroy, OnInit, Output, Renderer2 } from '@angular/core';
-import { SketchLayerComponent } from './sketch-layer.component';
+import { ViewerLayerComponent } from './layer.component';
 
 @Directive({
   selector: '[xlySelectedLayer]'
 })
-export class SketchSelectedLayerDirective implements OnInit, OnDestroy {
+export class ViewerSelectedLayerDirective implements OnInit, OnDestroy {
   @Output('selectedLayer') selectedLayer = new EventEmitter<SketchMSLayer>();
 
   constructor(private element: ElementRef<HTMLElement>, private renderer: Renderer2, private injector: Injector) {}
@@ -32,7 +32,7 @@ export class SketchSelectedLayerDirective implements OnInit, OnDestroy {
   selectDomNode(layer: SketchMSLayer) {
     let element = null;
     if (layer) {
-      element = document.querySelector(`xly-layer[data-id="${layer.do_objectID}"]`);
+      element = document.querySelector(`xly-viewer-layer[data-id="${layer.do_objectID}"]`);
     }
 
     this.unselectSelectedLayer();
@@ -47,7 +47,7 @@ export class SketchSelectedLayerDirective implements OnInit, OnDestroy {
   }
 
   private unselectSelectedLayer() {
-    const element = document.querySelector('xly-layer.isCurrentLayer');
+    const element = document.querySelector('xly-viewer-layer.isCurrentLayer');
     try {
       element.classList.remove('isCurrentLayer');
     } catch (e) {}
@@ -55,7 +55,7 @@ export class SketchSelectedLayerDirective implements OnInit, OnDestroy {
 
   private emitLayer(element: HTMLElement) {
     try {
-      const layerComponent = (element as any).__angular_injector__.get(SketchLayerComponent) as SketchLayerComponent;
+      const layerComponent = (element as any).__angular_injector__.get(ViewerLayerComponent) as ViewerLayerComponent;
       this.selectedLayer.emit(layerComponent.layer);
     } catch (e) {}
   }

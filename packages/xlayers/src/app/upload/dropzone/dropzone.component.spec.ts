@@ -5,12 +5,12 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { UiState } from '@app/core/state';
 import { CodeGenState } from '@app/core/state/page.state';
 import { NgxsModule } from '@ngxs/store';
-import { SketchDropzoneComponent } from './sketch-dropzone.component';
+import { DropzoneComponent } from './dropzone.component';
 import { SketchService } from '@app/core/sketch.service';
 
 describe('SketchDropZone', () => {
-  let component: SketchDropzoneComponent;
-  let fixture: ComponentFixture<SketchDropzoneComponent>;
+  let component: DropzoneComponent;
+  let fixture: ComponentFixture<DropzoneComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -23,13 +23,13 @@ describe('SketchDropZone', () => {
       providers: [
         SketchService
       ],
-      declarations: [SketchDropzoneComponent]
+      declarations: [DropzoneComponent]
     })
       .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SketchDropzoneComponent);
+    fixture = TestBed.createComponent(DropzoneComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

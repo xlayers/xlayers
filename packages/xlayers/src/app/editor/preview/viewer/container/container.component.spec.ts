@@ -7,12 +7,12 @@ import { SketchService } from '@app/core/sketch.service';
 import { UiState } from '@app/core/state';
 import { CodeGenState } from '@app/core/state/page.state';
 import { NgxsModule, Store } from '@ngxs/store';
-import { SketchContainerComponent } from './sketch-container.component';
+import { ViewerContainerComponent } from './container.component';
 
 
-fdescribe('SketchContainerComponent', () => {
-  let component: SketchContainerComponent;
-  let fixture: ComponentFixture<SketchContainerComponent>;
+fdescribe('ViewerContainerComponent', () => {
+  let component: ViewerContainerComponent;
+  let fixture: ComponentFixture<ViewerContainerComponent>;
   let store: Store;
 
   beforeEach(async(() => {
@@ -28,13 +28,13 @@ fdescribe('SketchContainerComponent', () => {
         provide: SketchService,
         useValue: {}
       }],
-      declarations: [SketchContainerComponent]
+      declarations: [ViewerContainerComponent]
     }).compileComponents();
     store = TestBed.get(Store);
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SketchContainerComponent);
+    fixture = TestBed.createComponent(ViewerContainerComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

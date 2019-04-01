@@ -7,14 +7,14 @@ import {
   Renderer2
 } from '@angular/core';
 import { Store } from '@ngxs/store';
-import { SketchLayerComponent } from '../sketch-layer/sketch-layer.component';
+import { ViewerLayerComponent } from '../layer/layer.component';
 import { DomSanitizer } from '@angular/platform-browser';
 import { SketchService } from '@app/core/sketch.service';
 
 @Component({
-  selector: 'xly-page',
+  selector: 'xly-viewer-page',
   template: `
-    <xly-layer
+    <xly-viewer-layer
       xlySelectedLayer
       (selectedLayer)="selectLayer($event)"
       *ngFor="let layer of page?.layers"
@@ -28,7 +28,7 @@ import { SketchService } from '@app/core/sketch.service';
       [attr.data-class]="layer?._class"
       [style.width.px]="layer?.frame?.width"
       [style.height.px]="layer?.frame?.height"
-    ></xly-layer>
+    ></xly-viewer-layer>
   `,
   styles: [
     `
@@ -42,7 +42,7 @@ import { SketchService } from '@app/core/sketch.service';
     `
   ]
 })
-export class SketchPageComponent extends SketchLayerComponent
+export class ViewerPageComponent extends ViewerLayerComponent
   implements OnInit, AfterContentInit {
   @Input() page: SketchMSPage;
 

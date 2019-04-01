@@ -1,18 +1,18 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SketchPageComponent } from './sketch-page.component';
+import { ViewerPageComponent } from './page.component';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { NgxsModule } from '@ngxs/store';
 import { By } from '@angular/platform-browser';
-import { getFrameMock } from '../sketch-layer/sketch-layer.component.mock';
+import { getFrameMock } from '../layer/layer.component.mock';
 import { UiState } from '@app/core/state';
 import { CodeGenState } from '@app/core/state/page.state';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 
-describe('SketchPageComponent', () => {
-  let component: SketchPageComponent;
-  let fixture: ComponentFixture<SketchPageComponent>;
+describe('ViewerPageComponent', () => {
+  let component: ViewerPageComponent;
+  let fixture: ComponentFixture<ViewerPageComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -22,12 +22,12 @@ describe('SketchPageComponent', () => {
         MatSnackBarModule,
         HttpClientTestingModule
       ],
-      declarations: [SketchPageComponent]
+      declarations: [ViewerPageComponent]
     }).compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SketchPageComponent);
+    fixture = TestBed.createComponent(ViewerPageComponent);
     component = fixture.componentInstance;
   });
 

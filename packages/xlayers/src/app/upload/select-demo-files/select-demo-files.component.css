@@ -2,11 +2,11 @@
   padding: 0 20px;
   min-width: 460px;
 }
-.sketch-select-demo-files-label {
+.select-demo-files-label {
   margin-bottom: 25px;
   font-size: 15px;
 }
-.sketch-select-demo-files-label-error {
+.select-demo-files-label-error {
   margin: 0;
   color: #c2185b;
   font-size: 15px;
