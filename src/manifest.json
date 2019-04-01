@@ -1,12 +1,12 @@
 {
-  "name": "xLayer",
-  "short_name": "xLayer",
-  "description":"xLayer - convert Sketch files into Angular components",
+  "name": "xLayers",
+  "short_name": "xLayers",
+  "description":"xLayers - Preview and Convert UI designs into ANY code, for ANY platform",
   "theme_color": "#212121",
   "background_color": "#ff6c5f",
   "display": "standalone",
   "scope": "/",
-  "start_url": "/#/editor",
+  "start_url": "/#/editor?pwa=1",
   "icons": [
     {
       "src": "assets/icons/icon-72x72.png",

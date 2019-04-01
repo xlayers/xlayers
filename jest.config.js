@@ -1,20 +1,21 @@
 module.exports = {
   roots: [
     "<rootDir>/tests/integration",
-    "<rootDir>/packages"
+    "<rootDir>/projects",
+    "<rootDir>/src"
   ],
   globals: {
     "ts-jest": {
-      tsConfig: "packages/xlayers/tsconfig.spec.json"
+      tsConfig: "src/tsconfig.spec.json"
     },
     __TRANSFORM_HTML__: true
   },
   preset: "jest-preset-angular",
   setupFilesAfterEnv: ["./jest.ts"],
   moduleNameMapper: {
-    "^\@app/(.*)": "<rootDir>/packages/xlayers/src/app/$1",
-    "^\@env/(.*)": "<rootDir>/packages/xlayers/src/environments/$1",
-    "^\@xlayers/(.*)": "<rootDir>/packages/$1/src/lib",
-    "^\@xlayers/(.*)": "<rootDir>/packages/$1/src/public_api.ts"
+    "^\@app/(.*)": "<rootDir>/src/app/$1",
+    "^\@env/(.*)": "<rootDir>/src/environments/$1",
+    "^\@xlayers/(.*)": "<rootDir>/projects/$1/src/lib",
+    "^\@xlayers/(.*)": "<rootDir>/projects/$1/src/public_api.ts"
   }
 }

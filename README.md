@@ -58,7 +58,7 @@
 </p>
 
 <p align="center">Preview and Convert SketchApp Design Files Into ANY Framework And Library.</p>
-<img align="center" src="https://github.com/xlayers/xlayers/raw/develop/packages/xlayers/src/assets/xlayers-ui-1.png?raw=true"/>
+<img align="center" src="https://github.com/xlayers/xlayers/raw/master/src/assets/xlayers-ui-1.png?raw=true"/>
 
 ## What is xLayers?
 
