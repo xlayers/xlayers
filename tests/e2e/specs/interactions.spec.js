@@ -23,4 +23,18 @@ describe("Editor page", () => {
       });
     });
   });
+
+  it("when selecting a layer in the left sidebar, the design should highlight the correct layer in the canvas are", () => {
+    cy.get("xly-viewer-canvas").then((subject) => {
+      cy.wrap(subject).click();
+      cy.wrap(subject).contains("YES").click();
+    });
+    cy.get("mat-tree-node.selected").contains("YES");
+
+    cy.get("xly-viewer-canvas").then((subject) => {
+      cy.wrap(subject).click();
+      cy.wrap(subject).contains("NO").click();
+    });
+    cy.get("mat-tree-node.selected").contains("NO");
+  });
 });
