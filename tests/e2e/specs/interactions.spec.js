@@ -91,4 +91,15 @@ describe("Editor page", () => {
       });
     });
   });
+
+  it("when using the toolbar buttons show layer the design canvas should react accordingly", () => {
+    cy.get('[mattooltip="Toggle Preview Mode"]').click()
+    cy.get('[mattooltip="Toggle Preview Mode"]').then((button) => {
+      expect(button).to.have.attr("ng-reflect-color", "warn");
+    });
+    cy.get('xly-viewer-layer').first().then((canvas) => {
+      expect(canvas).to.have.class("wireframe");
+    });
+    cy.get('[mattooltip="Zoom Reset"]').click()
+  });
 });
