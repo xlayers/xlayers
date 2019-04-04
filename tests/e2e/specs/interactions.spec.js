@@ -4,6 +4,7 @@ describe("Editor page", () => {
     cy.getByText(/^get started$/i).click();
     cy.getByText("Select A Demo File").click();
     cy.getByText("md-components-cards-welcome-back").click();
+    cy.wait(500);
   });
 
   it("when loading a design file, the left sidebar should render and shows the correct layers structure", () => {
@@ -16,7 +17,6 @@ describe("Editor page", () => {
     });
     cy.get('.mat-tree > [data-id="E7B1B481-EA1B-449A-A8A1-75F4E84C7B9D"]').click();
     cy.get('.mat-tree > [data-id="3FE0C2A6-A817-47D9-B070-ED2CD9D39D7D"]').contains("YES");
-    cy.wait(1000);
     cy.get('.mat-tree > [data-id="A147FF7C-F32C-4E80-B23B-2708FF7B1880"]').click();
     cy.get('.mat-tree > [data-id="B40DD28B-85D6-4D87-A801-0E543573111E"]').contains("NO");
   });
@@ -40,5 +40,11 @@ describe("Editor page", () => {
       cy.wrap(subject).contains("NO").click();
     });
     cy.get("mat-tree-node.selected").contains("NO");
+  });
+
+  it("when selecting a layer of a design file, the right sidebar should show up", () => {
+    cy.get('.settings > .mat-drawer-inner-container').should("not.be.visible");
+    cy.get("xly-viewer-layer").first().click();
+    cy.get('.settings > .mat-drawer-inner-container').should("be.visible");
   });
 });
