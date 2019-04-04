@@ -47,4 +47,18 @@ describe("Editor page", () => {
     cy.get("xly-viewer-layer").first().click();
     cy.get('.settings > .mat-drawer-inner-container').should("be.visible");
   });
+
+  it("when using the toolbar buttons zoom the design canvas should react accordingly", () => {
+    cy.get('[mattooltip="Zoom In"]').click()
+    cy.get('[mattooltip="Zoom In"]').then((button) => {
+      expect(button).to.have.attr("ng-reflect-color", "warn");
+    });
+    cy.get('xly-viewer-canvas > div').then((canvas) => {
+      expect(canvas).to.have.css("transform", "matrix(1.1, 0, 0, 1.1, 0, 0)");
+    });
+    cy.get('[mattooltip="Zoom In"]').click()
+    cy.get('xly-viewer-canvas > div').then((canvas) => {
+      expect(canvas).to.have.css("transform", "matrix(1.2, 0, 0, 1.2, 0, 0)");
+    });
+  });
 });
