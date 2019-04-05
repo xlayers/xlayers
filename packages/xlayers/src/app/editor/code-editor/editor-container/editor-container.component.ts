@@ -1,71 +1,82 @@
 import { AfterContentInit, Component, OnInit } from '@angular/core';
-import { CodeGenService, CodeGenKind, XlayersNgxEditorModel } from './codegen/codegen.service';
+import { CodeGenService, CodeGenKind } from './codegen/codegen.service';
 import { CodeGen } from '@app/core/state/page.state';
 import { Store } from '@ngxs/store';
 import { CodeGenSettings } from '@app/core/state/page.state';
 
-// tslint:disable-next-line
-const githubIssueLink = 'https://github.com/xlayers/xlayers/issues/new?assignees=&labels=type%3A+question+%2F+discussion+%2F+RFC%2C+Scope%3A+CodeGen&template=codegen--add-xxxxx-support.md&title=CodeGen%3A+add+XXXXX+support';
-
 @Component({
   selector: 'sketch-editor-container',
   template: `
-  <section class="meu-container">
-    <button mat-icon-button [matMenuTriggerFor]="menu" title="Choose framework">
-      <mat-icon>more_vert</mat-icon>
-    </button>
-    <mat-menu #menu="matMenu">
-      <button mat-menu-item (click)="generateAngular()">
-        <mat-icon svgIcon="angular"></mat-icon>
-        <span>Angular</span>
-      </button>
-      <button mat-menu-item (click)="generateVue()">
-        <mat-icon svgIcon="vue"></mat-icon>
-        <span>Vue</span>
-      </button>
-      <button mat-menu-item (click)="generateReact()">
-        <mat-icon svgIcon="react"></mat-icon>
-        <span>React</span>
-      </button>
-      <!-- uncomment this when Vue codegen is ready -->
-      <!--<button mat-menu-item (click)="generateVue()">
-        <mat-icon svgIcon="vue"></mat-icon>
-        <span>Vue</span>
-      </button>-->
-      <button mat-menu-item (click)="generateWc()">
-        <mat-icon svgIcon="wc"></mat-icon>
-        <span>Web Component</span>
-      </button>
-      <button mat-menu-item (click)="generateStencil()">
-        <mat-icon svgIcon="stencil"></mat-icon>
-        <span>Stencil</span>
-      </button>
-      <button mat-menu-item (click)="generateLitElement()">
-        <mat-icon svgIcon="polymer"></mat-icon>
-        <span>LitElement</span>
-      </button>
-      <a class="request-new-library" target="__blank" href="${githubIssueLink}">
-        <span>Add a new library!</span>
-      </a>
-    </mat-menu>
-  </section>
-
-  <mat-tab-group selectedIndex="0" disableRipple="true" animationDuration="0ms" dynamicHeight="false">
-    <mat-tab *ngFor="let file of codeSetting.content">
-
+  <section class="framework_selection">
+  <mat-tab-group color="accent" selectedIndex="0"  mat-align-tabs="center"  disableRipple="true" animationDuration="0ms" dynamicHeight="false">
+    <mat-tab>
       <ng-template mat-tab-label>
-        <mat-icon [svgIcon]="file.kind"></mat-icon>
-        {{ file.uri }}
-      </ng-template>
-
-      <ng-template matTabContent>
-      <div #codeContentEditor  spellcheck="false" class="code-highlight-editor">
-      <pre><code contentEditable="true" [highlight]="file.value" (highlighted)="onEditorInit($event, codeContentEditor)"></code></pre>
-      </div>
+        <div class="flex-container" (click)="generateAngular()">
+          <mat-icon svgIcon="angular"></mat-icon>
+            Angular
+        </div>
       </ng-template>
     </mat-tab>
-
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <div class="flex-container" (click)="generateVue()">
+          <mat-icon svgIcon="vue"></mat-icon>
+          Vue
+        </div>
+      </ng-template>
+    </mat-tab>
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <div class="flex-container" (click)="generateReact()">
+          <mat-icon svgIcon="react"></mat-icon>
+          React
+        </div>
+      </ng-template>
+    </mat-tab>
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <div class="flex-container" (click)="generateWc()">
+          <mat-icon svgIcon="wc"></mat-icon>
+          WebComponents
+        </div>
+      </ng-template>
+    </mat-tab>
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <div class="flex-container" (click)="generateStencil()">
+          <mat-icon svgIcon="stencil"></mat-icon>
+          Stencil
+        </div>
+      </ng-template>
+    </mat-tab>
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <div class="flex-container" (click)="generateLitElement()">
+          <mat-icon svgIcon="polymer"></mat-icon>
+          LitElement
+        </div>
+      </ng-template>
+    </mat-tab>
   </mat-tab-group>
+  </section>
+  <section class="file-section">
+    <mat-tab-group selectedIndex="0" disableRipple="true" animationDuration="0ms" dynamicHeight="false">
+      <mat-tab *ngFor="let file of codeSetting.content">
+
+        <ng-template mat-tab-label>
+          <mat-icon [svgIcon]="file.kind"></mat-icon>
+          {{ file.uri }}
+        </ng-template>
+
+        <ng-template matTabContent>
+        <div #codeContentEditor  spellcheck="false" class="code-highlight-editor">
+        <pre><code contentEditable="true" [highlight]="file.value" (highlighted)="onEditorInit($event, codeContentEditor)"></code></pre>
+        </div>
+        </ng-template>
+      </mat-tab>
+
+    </mat-tab-group>
+  </section>
   `,
   styles: [
     `
@@ -102,35 +113,41 @@ const githubIssueLink = 'https://github.com/xlayers/xlayers/issues/new?assignees
         min-height: 100%;
         padding-bottom: 64px;
       }
-      .mat-tab-group,
+
+      .framework_selection,
+      .framework_selection ::ng-deep .mat-tab-group{
+        background-color:#ff4f81;
+      }
+
+      .framework_selection .flex-container {
+        display: flex;
+        align-items: center;
+      }
+      .framework_selection ::ng-deep .mat-tab-labels{
+        justify-content: center;
+      }
+      .framework_selection ::ng-deep .mat-tab-label{
+        color:white;
+        opacity: 0.5;
+      }
+  
+      .framework_selection ::ng-deep .mat-tab-label[aria-selected="true"] {
+        background-color: gray;
+        opacity: 1;
+      }
       .mat-tab-group ::ng-deep .mat-tab-body-wrapper {
         height: 100%;
         position: relative;
       }
+
       .mat-tab-group ::ng-deep .mat-tab-body-wrapper .mat-tab-body .mat-tab-body-content {
         overflow: hidden;
       }
       .mat-tab-group ::ng-deep .mat-tab-body-wrapper {
         padding-top: 5px;
       }
-      .mat-tab-group ::ng-deep .mat-tab-header {
-        width: calc(100% - 60px);
-      }
       :host mat-icon {
         margin: 0 4px;
-      }
-      .meu-container {
-        position: absolute;
-        right: 15px;
-        z-index: 999;
-      }
-      a.request-new-library {
-        text-align: center;
-        color: white;
-        display: inline-block;
-        width: 100%;
-        font-size: 13px;
-        padding-top: 10px;
       }
     `
   ]
