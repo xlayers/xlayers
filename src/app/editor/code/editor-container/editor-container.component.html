@@ -1,45 +1,55 @@
-<section class="meu-container">
-  <button
-    mat-icon-button
-    [matMenuTriggerFor]="menu"
-    title="Choose framework"
-  >
-    <mat-icon>more_vert</mat-icon>
-  </button>
-  <mat-menu #menu="matMenu">
-    <button mat-menu-item (click)="generateAngular()">
-      <mat-icon svgIcon="angular"></mat-icon>
-      <span>Angular</span>
-    </button>
-    <button mat-menu-item (click)="generateVue()">
-      <mat-icon svgIcon="vue"></mat-icon>
-      <span>Vue</span>
-    </button>
-    <button mat-menu-item (click)="generateReact()">
-      <mat-icon svgIcon="react"></mat-icon>
-      <span>React</span>
-    </button>
-    <button mat-menu-item (click)="generateWc()">
-      <mat-icon svgIcon="wc"></mat-icon>
-      <span>Web Component</span>
-    </button>
-    <button mat-menu-item (click)="generateStencil()">
-      <mat-icon svgIcon="stencil"></mat-icon>
-      <span>Stencil</span>
-    </button>
-    <button mat-menu-item (click)="generateLitElement()">
-      <mat-icon svgIcon="polymer"></mat-icon>
-      <span>LitElement</span>
-    </button>
-    <a
-      class="request-new-library"
-      target="__blank"
-      href="${githubIssueLink}"
-    >
-      <span>Add a new library!</span>
-    </a>
-  </mat-menu>
-</section>
+<section class="framework_selection">
+  <mat-tab-group color="accent" selectedIndex="0"  mat-align-tabs="center"  disableRipple="true" animationDuration="0ms" dynamicHeight="false">
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <div class="flex-container" (click)="generateAngular()">
+          <mat-icon svgIcon="angular"></mat-icon>
+            Angular
+        </div>
+      </ng-template>
+    </mat-tab>
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <div class="flex-container" (click)="generateVue()">
+          <mat-icon svgIcon="vue"></mat-icon>
+          Vue
+        </div>
+      </ng-template>
+    </mat-tab>
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <div class="flex-container" (click)="generateReact()">
+          <mat-icon svgIcon="react"></mat-icon>
+          React
+        </div>
+      </ng-template>
+    </mat-tab>
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <div class="flex-container" (click)="generateWc()">
+          <mat-icon svgIcon="wc"></mat-icon>
+          WebComponents
+        </div>
+      </ng-template>
+    </mat-tab>
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <div class="flex-container" (click)="generateStencil()">
+          <mat-icon svgIcon="stencil"></mat-icon>
+          Stencil
+        </div>
+      </ng-template>
+    </mat-tab>
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <div class="flex-container" (click)="generateLitElement()">
+          <mat-icon svgIcon="polymer"></mat-icon>
+          LitElement
+        </div>
+      </ng-template>
+    </mat-tab>
+  </mat-tab-group>
+  </section>
 
 <mat-tab-group
   selectedIndex="0"

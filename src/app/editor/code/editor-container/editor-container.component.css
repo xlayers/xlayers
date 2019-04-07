@@ -54,19 +54,28 @@
 :host mat-icon {
   margin: 0 4px;
 }
-.meu-container {
-  position: absolute;
-  right: 15px;
-  z-index: 999;
+.framework_selection,
+.framework_selection ::ng-deep .mat-tab-group{
+  background-color:#ff4f81;
 }
-.meu-container button {
+.framework_selection .flex-container {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  margin:10px;
+}
+.framework_selection ::ng-deep .mat-tab-labels{
+  justify-content: center;
+}
+.framework_selection ::ng-deep .mat-tab-label{
   color:white;
 }
-a.request-new-library {
-  text-align: center;
-  color: white;
-  display: inline-block;
-  width: 100%;
-  font-size: 13px;
-  padding-top: 10px;
+
+.framework_selection ::ng-deep .mat-tab-label[aria-selected="true"] {
+  background-color: gray;
+}
+
+.framework_selection .mat-tab-group ::ng-deep .mat-tab-body-wrapper {
+  padding-top: 0px;
 }
