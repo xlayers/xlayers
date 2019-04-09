@@ -102,4 +102,15 @@ describe("Editor page", () => {
     });
     cy.get('[mattooltip="Zoom Reset"]').click()
   });
+
+  it("when using the toolbar buttons 3d the design canvas should react accordingly", () => {
+    cy.get('[mattooltip="Toggle 3D – Hold SHIFT to rotate"]').click()
+    cy.get('[mattooltip="Toggle 3D – Hold SHIFT to rotate"]').then((button) => {
+      expect(button).to.have.attr("ng-reflect-color", "warn");
+    });
+    cy.wait(1000);
+    cy.get('[data-id="6D287BF2-0FE7-43CC-AA85-84EB6F8B4ED2"]').then((layer) => {
+      expect(layer).to.have.css("transform", "matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 60, 1)");
+    });
+  });
 });
