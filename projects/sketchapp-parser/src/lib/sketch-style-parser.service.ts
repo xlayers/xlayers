@@ -312,15 +312,15 @@ export class SketchStyleParserService {
     const segments = (node as any).points
       .map(((curvePoint) => {
         const currPoint = this.parsePoint(curvePoint.point, offset / 2, node);
-        return `${currPoint.x}, ${currPoint.y}`;
+        return `${currPoint.x} ${currPoint.y}`;
       }))
       .join(' ');
 
-    if (style['background-color']) {
-      config.push(`fill="${style['background-color']}"`);
-    } else {
-      config.push('fill="none"');
-    }
+      if (node.style.fills && node.style.fills.length > 0) {
+        config.push(`fill="${this.parseColors(node.style.fills[0].color).hex.slice(0, -2)}"`);
+      } else {
+        config.push('fill="none"');
+      }
 
     const svg = [
       `<polygon`,
@@ -361,7 +361,7 @@ export class SketchStyleParserService {
         if (curveTo.x === curveFrom.x && curveTo.y === curveFrom.y) {
           return `L ${currPoint.x} ${currPoint.y}`;
         }
-        return `S ${curveTo.x} ${curveTo.y}, ${currPoint.x} ${currPoint.y}`;
+        return `S ${curveTo.x} ${curveTo.y} ${currPoint.x} ${currPoint.y}`;
       }));
 
     segments.unshift(`M${origin.x} ${origin.y}`);
@@ -370,8 +370,8 @@ export class SketchStyleParserService {
       segments.push('z');
     }
 
-    if (style['background-color']) {
-      config.push(`fill="${style['background-color']}"`);
+    if (node.style.fills && node.style.fills.length > 0) {
+      config.push(`fill="${this.parseColors(node.style.fills[0].color).hex.slice(0, -2)}"`);
     } else {
       config.push('fill="none"');
     }
@@ -379,7 +379,7 @@ export class SketchStyleParserService {
     const svg = [
       `<path`,
       ...config,
-      `d="${segments}"`,
+      `d="${segments.join(' ')}"`,
       '/>'
     ];
 

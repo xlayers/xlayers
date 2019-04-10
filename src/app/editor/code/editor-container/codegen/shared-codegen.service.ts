@@ -4,7 +4,8 @@ import { StyleOptimizerService } from '@xlayers/sketchapp-parser';
 
 export enum Template {
   HTML,
-  JSX
+  JSX,
+  XAML
 }
 
 @Injectable({

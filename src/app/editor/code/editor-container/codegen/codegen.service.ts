@@ -5,6 +5,7 @@ import { VueCodeGenService } from './vue/vue.service';
 import { WCCodeGenService } from './wc/wc.service';
 import { StencilCodeGenService } from './stencil/stencil.service';
 import { LitElementCodeGenService } from './lit-element/lit-element.service';
+import { XamarinFormsCodeGenService } from './xamarin-forms/xamarin-forms.service';
 import { Store } from '@ngxs/store';
 import { UiState } from '@app/core/state';
 import { environment } from '@env/environment.hmr';
@@ -14,7 +15,7 @@ import { CodeGenSettings } from '@app/core/state/page.state';
 declare var gtag;
 
 export interface XlayersNgxEditorModel {
-  kind: 'angular' | 'react' | 'vue' | 'wc' | 'stencil' | 'litElement' |'html' | 'text';
+  kind: 'angular' | 'react' | 'vue' | 'wc' | 'stencil' | 'litElement' |'html' | 'text' | 'xamarinForms';
   uri: string;
   value: string;
   language: string;
@@ -36,7 +37,8 @@ export enum CodeGenKind {
   Vue,
   WC,
   Stencil,
-  LitElement
+  LitElement,
+  XamarinForms
 }
 
 @Injectable({
@@ -52,6 +54,7 @@ export class CodeGenService {
     private readonly wc: WCCodeGenService,
     private readonly stencil: StencilCodeGenService,
     private readonly litElement: LitElementCodeGenService,
+    private readonly xamarinForms: XamarinFormsCodeGenService,
     private readonly store: Store
   ) {
     this.store
@@ -72,7 +75,9 @@ export class CodeGenService {
         start: '//',
         end: ''
       };
-      if (file.language.includes('html')) {
+      if (file.language.includes('html')
+       || file.language.includes('xaml')
+       || file.language.includes('xml')) {
         comment.start = '<!--';
         comment.end = '-->';
       } else if (file.language.includes('css')) {
@@ -80,13 +85,25 @@ export class CodeGenService {
         comment.end = '*/';
       }
 
-      file.value = [
-        `${comment.start} ${message} ${comment.end}`,
-        `${comment.start} ${version} ${comment.end}`,
-        `${comment.start} ${date} ${comment.end}`,
-        '',
-        file.value
-      ].join('\n');
+      if (file.language.includes('xaml')) {
+        const temp = file.value.trim().split('\n');
+        file.value = [
+          temp.shift(),
+          `${comment.start} ${message} ${comment.end}`,
+          `${comment.start} ${version} ${comment.end}`,
+          `${comment.start} ${date} ${comment.end}`,
+          '',
+          ...temp
+        ].join('\n');
+      } else {
+        file.value = [
+          `${comment.start} ${message} ${comment.end}`,
+          `${comment.start} ${version} ${comment.end}`,
+          `${comment.start} ${date} ${comment.end}`,
+          '',
+          file.value
+        ].join('\n');
+      }
 
       return file;
     });
@@ -164,6 +181,13 @@ export class CodeGenService {
         kind,
         content: this.addHeaderInfo(this.litElement.generate(this.ast)),
         buttons: this.litElement.buttons()
+      };
+
+      case CodeGenKind.XamarinForms:
+      return {
+        kind,
+        content: this.addHeaderInfo(this.xamarinForms.generate(this.ast)),
+        buttons: this.xamarinForms.buttons()
       };
     }
   }
