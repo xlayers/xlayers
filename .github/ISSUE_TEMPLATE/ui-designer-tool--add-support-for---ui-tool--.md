@@ -2,7 +2,7 @@
 name: 'UI designer tool: add support for [[UI tool]]'
 about: Request a new UI designer file format support for in the parser.
 title: 'UI designer tool: add support for [[UI tool]]'
-labels: 'effort3: hard (weeks)'
+labels: ''
 assignees: ''
 
 ---

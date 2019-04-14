@@ -2,8 +2,7 @@
 name: 'CodeGen: add [[technology]] support'
 about: Request a new technology support for the CodeGen.
 title: 'CodeGen: add [[technology]] support'
-labels: 'community-help, good first issue, effort2: medium (days), scope: CodeGen,
-  priority: Medium'
+labels: 'community-help, good first issue, priority: Medium, scope: CodeGen'
 assignees: ''
 
 ---
