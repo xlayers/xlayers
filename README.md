@@ -62,7 +62,7 @@
 
 ## What is xLayers?
 
-[xLayers](https://xLayers.dev) is a community driven effort to bridge the gap between designers, who imeplement the UI sketch, and developers who implement the code from these design sketches. Put simply, [xLayers](https://xLayers.design) is a code generation tool for your design sketches: use [xLayers](https://xLayers.app) to instantly scaffold your components out of your design.
+[xLayers](https://xLayers.dev) is a community driven effort to bridge the gap between designers, who implement the UI sketch, and developers who implement the code from these design sketches. Put simply, [xLayers](https://xLayers.design) is a code generation tool for your design sketches: use [xLayers](https://xLayers.app) to instantly scaffold your components out of your design.
 
 The xLayers project is driven by community contributions. Please send us your Pull Requests and feedback!
 
