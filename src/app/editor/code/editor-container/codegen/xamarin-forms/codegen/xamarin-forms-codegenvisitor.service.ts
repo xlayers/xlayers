@@ -11,13 +11,7 @@ import { Shape } from './shape.service';
   providedIn: 'root'
 })
 export class XamarinFormsCodeGenVisitor extends XmlCodeGenVisitor {
-  readonly SupportedTemplate: Template;
-  fileList: Array<XlayersNgxEditorModel>;
-
-  constructor() {
-    super();
-    this.SupportedTemplate = Template.XAML;
-  }
+  fileList: Array<XlayersNgxEditorModel> = [];
 
   protected visitLayer(layer: SketchMSLayer, template: string[] = [], depth: number = 0) {
     let content;
@@ -172,5 +166,11 @@ export class XamarinFormsCodeGenVisitor extends XmlCodeGenVisitor {
 
   private generateAbsoluteLayout(ast: SketchMSLayer): string {
     return `AbsoluteLayout.LayoutBounds="${Math.round(ast.frame.x)}, ${Math.round(ast.frame.y)}, ${Math.round(ast.frame.width)}, ${Math.round(ast.frame.height)}"`;
+  }
+
+  consumeFileList(): any {
+    const tempFileList: Array<XlayersNgxEditorModel> = this.fileList;
+    this.fileList = [];
+    return tempFileList;
   }
 }

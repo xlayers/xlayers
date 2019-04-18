@@ -20,9 +20,7 @@ export class XamarinFormsCodeGenService implements CodeGenFacade {
   }
 
   generate(ast: SketchMSLayer): Array<XlayersNgxEditorModel> {
-    this.codegen.fileList = [];
-    this.codegen.fileList.unshift(
-      {
+    return [{
         uri: 'README.md',
         value: this.generateReadme(),
         language: 'markdown',
@@ -32,10 +30,10 @@ export class XamarinFormsCodeGenService implements CodeGenFacade {
         uri: 'MainPage.xaml',
         value: this.generateComponent(ast),
         language: 'xaml',
-        kind: 'xamarinForms'
-      }
-    );
-    return this.codegen.fileList;
+          kind: 'xamarinForms'
+      },
+      ...this.codegen.consumeFileList()
+    ];
   }
 
   private generateReadme() {

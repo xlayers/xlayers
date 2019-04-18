@@ -5,16 +5,14 @@ import { Template } from '../../shared-codegen.service';
  * delegating the codegen to its subclasses.
  */
 export abstract class CodeGenVisitor {
-    abstract readonly SupportedTemplate: Template;
-
     /**
      * Generates a string template by visiting the tree
      * @param ast The Sketch AST
      */
-    generateTemplate(ast: SketchMSLayer, mainPageTemplate: string): string {
+    generateTemplate(ast: SketchMSLayer, mainPageTemplate: (string) => string): string {
       const template: Array<string> = [];
       this.visit(ast, template, 2);
-      return mainPageTemplate.replace('{xamlContent}', template.join('\n'));
+      return mainPageTemplate(template.join('\n'));
     }
 
     protected visit(ast: SketchMSLayer, template: string[] = [], depth: number = 0): string {
@@ -59,8 +57,8 @@ export abstract class CodeGenVisitor {
     // return colorhex: string or false
     protected checkLayersForBorder(ast: SketchMSLayer): string | boolean {
       let border: string | boolean = false;
-      for (let i = 0, len = ast.layers.length; i < len; i++) {
-        border = this.checkForBorder(ast, ast.layers[i]);
+      for (const layer of ast.layers) {
+        border = this.checkForBorder(ast, layer);
         if (border !== false) {
           return border;
         }
@@ -84,8 +82,8 @@ export abstract class CodeGenVisitor {
     // return colorhex: string or false
     protected checkLayersForBackground(ast: SketchMSLayer): string | boolean {
       let background: string | boolean = false;
-      for (let i = 0, len = ast.layers.length; i < len; i++) {
-        background = this.checkForBackground(ast, ast.layers[i]);
+      for (const layer of ast.layers) {
+        background = this.checkForBackground(ast, layer);
         if (background !== false) {
           return background;
         }

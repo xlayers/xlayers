@@ -42,7 +42,7 @@ ${codeBlock}
   `;
 };
 
-export const mainPageTemplate = `
+export const mainPageTemplate = (xamlContent: string) => `
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
@@ -51,6 +51,6 @@ export const mainPageTemplate = `
              xmlns:ffSvg="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
              x:Class="xLayers.MainPage">
   <AbsoluteLayout>
-{xamlContent}
+${xamlContent}
   </AbsoluteLayout>
 </ContentPage>`;
