@@ -1,4 +1,4 @@
-<section>
+<section (dragover)="isDragging$.next(true)" (dragleave)="isDragging$.next(false)" [class.dragging]="isDragging$ | async">
   <xly-dropzone (changed)="onFileSelected($event)"></xly-dropzone>
 
   <span class="mat-subheading-1">OR</span>

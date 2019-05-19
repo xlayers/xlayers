@@ -14,11 +14,16 @@
 
 section {
   width: 100%;
-  background: white;
   text-align: center;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
   margin: 20px auto;
+  padding: 5px;
+
+}
+.dragging {
+  border: 1px dashed #c2185c;
+  transition: all 1s ease-in-out;
 }
