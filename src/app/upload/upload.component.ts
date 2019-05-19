@@ -4,6 +4,7 @@ import { SketchService } from '@app/core/sketch.service';
 import { CurrentFile, ErrorType, InformUser, ResetUiSettings } from '@app/core/state';
 import { Navigate } from '@ngxs/router-plugin';
 import { Store } from '@ngxs/store';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'xly-upload',
@@ -12,6 +13,7 @@ import { Store } from '@ngxs/store';
 })
 export class UploadComponent implements OnInit {
   public selectedDemoFileError = false;
+  isDragging$ = new BehaviorSubject<boolean>(false);
 
   constructor(
     private service: SketchService,
@@ -23,7 +25,7 @@ export class UploadComponent implements OnInit {
   async onFileSelected(file: File) {
     try {
       const data = await this.service.process(file);
-
+      this.isDragging$.next(false);
       // Note: these actions need to be run in sequence!
       this.store.dispatch([
         new ResetUiSettings(),
