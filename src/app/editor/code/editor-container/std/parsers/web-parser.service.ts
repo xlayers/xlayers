@@ -3,6 +3,7 @@ import { BitmapParserService } from "./bitmap-parser.service";
 import { SvgParserService } from "./svg-parser.service";
 import { CodeGenRessourceFile as RessourceFile } from "../core.service";
 import { HelperParserService } from "./helper-parser.service";
+import { CssParserService } from "./css-parser.service";
 
 interface OpenTagOptions {
   autoclose?: boolean;
@@ -14,6 +15,7 @@ interface OpenTagOptions {
 export class WebParserService {
   constructor(
     private readonly helperParserService: HelperParserService,
+    private readonly cssParserService: CssParserService,
     private readonly bitmapParserService: BitmapParserService,
     private readonly svgParserService: SvgParserService
   ) {}
@@ -47,11 +49,7 @@ export class WebParserService {
   }
 
   getInfo(current: SketchMSLayer) {
-    return {
-      css: current.css,
-      className: (current as any).css__className,
-      ...(current as any).web
-    };
+    return (current as any).web;
   }
 
   private compute(
@@ -73,15 +71,11 @@ export class WebParserService {
           return this.extractImage(data, current);
         default:
           if (this.svgParserService.identify(current)) {
-            return this.svgParserService
-              .transform(data, current)
-              .map(file => {
-                files.push(file);
-                return `<img src="${file.uri}" alt="${current.name}"/>`;
-              }, [])
-              .join("\n");
+            return this.extractAndRegisterSvgFile(data, current, files);
+          } else if (this.cssParserService.identify(current)) {
+            return this.registerCssFile(data, current, files);
           }
-          return "";
+          return null;
       }
     }
   }
@@ -93,7 +87,10 @@ export class WebParserService {
     template: string[],
     depth: number
   ) {
-    if (!!this.getInfo(current) && !!this.getInfo(current).css) {
+    if (
+      !!this.cssParserService.getInfo(current) &&
+      !!this.cssParserService.getInfo(current).rules
+    ) {
       template.push(
         this.helperParserService.indent(depth, this.extractBloc(data, current))
       );
@@ -104,7 +101,10 @@ export class WebParserService {
       template.push(this.helperParserService.indent(depth + 1, content));
     }
 
-    if (!!this.getInfo(current) && !!this.getInfo(current).css) {
+    if (
+      !!this.cssParserService.getInfo(current) &&
+      !!this.cssParserService.getInfo(current).rules
+    ) {
       template.push(
         this.helperParserService.indent(depth, this.closeTag("div"))
       );
@@ -126,7 +126,7 @@ export class WebParserService {
         const base64Content = file.value.replace("data:image/png;base64", "");
 
         const attributes = [
-          `class="${this.getInfo(current).className}"`,
+          `class="${this.cssParserService.getInfo(current).className}"`,
           `role="${current._class}"`,
           `aria-label="${current.name}"`,
           `src="${this.buildImageSrc(base64Content, false)}"`
@@ -142,11 +142,38 @@ export class WebParserService {
     options?: OpenTagOptions
   ) {
     const attributes = [
-      `class="${this.getInfo(current).className}"`,
+      `class="${this.cssParserService.getInfo(current).className}"`,
       `role="${current._class}"`,
       `aria-label="${current.name}"`
     ];
     return this.openTag("div", attributes, options);
+  }
+
+  private extractAndRegisterSvgFile(
+    data: SketchMSData,
+    current: SketchMSLayer,
+    files: RessourceFile[],
+    _options?: OpenTagOptions
+  ) {
+    return this.svgParserService
+      .transform(data, current)
+      .map(file => {
+        files.push(file);
+        return `<img src="${file.uri}" alt="${current.name}"/>`;
+      }, [])
+      .join("\n");
+  }
+
+  private registerCssFile(
+    data: SketchMSData,
+    current: SketchMSLayer,
+    files: RessourceFile[],
+    _options?: OpenTagOptions
+  ) {
+    this.cssParserService.transform(data, current).map(file => {
+      files.push(file);
+    });
+    return "";
   }
 
   private openTag(

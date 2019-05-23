@@ -6,18 +6,14 @@ import { ParserFacade } from "../core.service";
 })
 export class BitmapParserService implements ParserFacade {
   transform(data: SketchMSData, current: SketchMSLayer, _options?: any) {
-    if ((current as any).image._class === "MSJSONFileReference") {
-      return [
-        {
-          kind: "bitmap",
-          language: "base64",
-          value: this.getLayerImage(data, current),
-          uri: name + ".png"
-        }
-      ];
-    }
-
-    return [];
+    return [
+      {
+        kind: "bitmap",
+        language: "base64",
+        value: this.getLayerImage(data, current),
+        uri: name + ".png"
+      }
+    ];
   }
 
   identify(current: SketchMSLayer) {
@@ -29,11 +25,10 @@ export class BitmapParserService implements ParserFacade {
   }
 
   private getLayerImage(data: SketchMSData, current: SketchMSLayer) {
-    return this.getImageDataFromRef(data, (current as any).image._ref)
-      .source;
+    return this.getImageDataFromRef(data, (current as any).image._ref);
   }
 
   private getImageDataFromRef(data: SketchMSData, reference: string) {
-    return (data.document as any).bitmap.images[reference];
+    return (data as any).images[reference];
   }
 }
