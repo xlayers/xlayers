@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { BitmapParserService } from "./bitmap-parser.service";
 import { SvgParserService } from "./svg-parser.service";
-import { CodeGenRessourceFile as RessourceFile } from "../core.service";
+import { CodeGenRessourceFile as RessourceFile } from "../blocgen";
 import { HelperParserService } from "./helper-parser.service";
 import { CssParserService } from "./css-parser.service";
 

@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { XlayersNgxEditorModel } from "../../codegen/codegen.service";
-import { CodeGenRessourceFile, CodeGenFacade } from '../core.service';
+import { CodeGenRessourceFile, CodeGenFacade } from '../blocgen';
 import { WebParserService } from "../parsers/web-parser.service";
 
 const readmeTemplate = () => `

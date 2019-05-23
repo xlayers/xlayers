@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { ParserFacade } from "../core.service";
+import { ParserFacade } from "../blocgen";
 
 @Injectable({
   providedIn: "root"
