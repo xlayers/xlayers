@@ -1,8 +1,8 @@
 import { Injectable } from "@angular/core";
 import { BitmapParserService } from "./bitmap-parser.service";
 import { SvgParserService } from "./svg-parser.service";
-import { CodeGenRessourceFile as RessourceFile } from "./core-parser.service";
-import { HelperParserService } from './helper-parser.service';
+import { CodeGenRessourceFile as RessourceFile } from "../core.service";
+import { HelperParserService } from "./helper-parser.service";
 
 interface OpenTagOptions {
   autoclose?: boolean;
@@ -66,31 +66,23 @@ export class WebParserService {
         this.visit(data, layer, files, template, depth);
       });
     } else {
-      return this.dispatch(data, current, files);
-    }
-  }
-
-  private dispatch(
-    data: SketchMSData,
-    current: SketchMSLayer,
-    files: RessourceFile[]
-  ) {
-    switch (current._class as string) {
-      case "text":
-        return this.extractText(data, current);
-      case "bitmap":
-        return this.extractImage(data, current);
-      default:
-        if (this.svgParserService.identify(current)) {
-          return this.svgParserService
-            .transform(data, current)
-            .map(file => {
-              files.push(file);
-              return `<img src="${file.uri}" alt="${current.name}"/>`;
-            }, [])
-            .join("\n");
-        }
-        return "";
+      switch (current._class as string) {
+        case "text":
+          return this.extractText(data, current);
+        case "bitmap":
+          return this.extractImage(data, current);
+        default:
+          if (this.svgParserService.identify(current)) {
+            return this.svgParserService
+              .transform(data, current)
+              .map(file => {
+                files.push(file);
+                return `<img src="${file.uri}" alt="${current.name}"/>`;
+              }, [])
+              .join("\n");
+          }
+          return "";
+      }
     }
   }
 
@@ -102,7 +94,9 @@ export class WebParserService {
     depth: number
   ) {
     if (!!this.getInfo(current) && !!this.getInfo(current).css) {
-      template.push(this.helperParserService.indent(depth, this.extractBloc(data, current)));
+      template.push(
+        this.helperParserService.indent(depth, this.extractBloc(data, current))
+      );
     }
 
     const content = this.compute(data, current, files, template, depth + 1);
@@ -111,7 +105,9 @@ export class WebParserService {
     }
 
     if (!!this.getInfo(current) && !!this.getInfo(current).css) {
-      template.push(this.helperParserService.indent(depth, this.closeTag("div")));
+      template.push(
+        this.helperParserService.indent(depth, this.closeTag("div"))
+      );
     }
   }
 

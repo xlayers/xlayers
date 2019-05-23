@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { CodeGenRessourceFile, ParserFacade } from "./core-parser.service";
+import { CodeGenRessourceFile, ParserFacade } from "../core.service";
 
 @Injectable({
   providedIn: "root"

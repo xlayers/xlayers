@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
-import { XlayersNgxEditorModel } from "../codegen/codegen.service";
-import { CodeGenRessourceFile, CodeGenFacade } from './core-parser.service';
-import { WebParserService } from "./web-parser.service";
+import { XlayersNgxEditorModel } from "../../codegen/codegen.service";
+import { CodeGenRessourceFile, CodeGenFacade } from '../core.service';
+import { WebParserService } from "../parsers/web-parser.service";
 
 const readmeTemplate = () => `
 ## How to use the Xlayers Vuejs module
@@ -28,13 +28,12 @@ export default {
 </script>
 \`\`\`
 
-3. Enjoy.
-`;
+3. Enjoy.`;
 
 const componentSpecTemplate = (name: string) => {
   const capitalizedName = name.charAt(0).toUpperCase() + name.slice(1);
 
-  return `
+  return `\
 import { shallowMount } from "@vue/test-utils";
 import ${capitalizedName} from "@/components/${name}.vue";
 import { componentSpecTemplate } from '../codegen/vue/vue.template';
@@ -45,11 +44,10 @@ describe("${capitalizedName}", () => {
     const wrapper = shallowMount(${capitalizedName}, {});
     expect(wrapper.isVueInstance()).toBeTruthy();
   });
-});
-`;
+});`;
 };
 
-const componentTemplate = (html: string, css: string) => `
+const componentTemplate = (html: string, css: string) => `\
 <template>
 ${html}
 </template>
