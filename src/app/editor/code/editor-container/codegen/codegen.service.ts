@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularCodeGenService } from './angular/angular.service';
 import { ReactCodeGenService } from './react/react.service';
-import { VueCodeGenService } from './vue/vue.service';
+import { VueCodeGenService } from "./../std/vue-codegen.service";
 import { WCCodeGenService } from './wc/wc.service';
 import { StencilCodeGenService } from './stencil/stencil.service';
 import { LitElementCodeGenService } from './lit-element/lit-element.service';
@@ -44,6 +44,7 @@ export enum CodeGenKind {
 })
 export class CodeGenService {
   private ast: SketchMSLayer;
+  private data: SketchMSData;
 
   constructor(
     private readonly angular: AngularCodeGenService,
@@ -61,6 +62,14 @@ export class CodeGenService {
           this.ast = this.generateCssClassNames(currentPage);
         }
       });
+    this.store
+      .select(UiState.currentFile)
+      .subscribe((currentFile: SketchMSData) => {
+        if (currentFile) {
+          this.data = currentFile;
+        }
+      });
+
   }
 
   private addHeaderInfo(content: Array<XlayersNgxEditorModel>) {
@@ -139,11 +148,17 @@ export class CodeGenService {
         };
       case CodeGenKind.Vue:
         this.trackFrameworkKind(CodeGenKind.Vue);
-        return {
-          kind,
-          content: this.addHeaderInfo(this.vue.generate(this.ast)),
-          buttons: this.vue.buttons()
-        };
+        try {
+          return {
+            kind,
+            content: this.addHeaderInfo(
+              this.vue.generate(this.data)
+            ),
+            buttons: this.vue.buttons()
+          };
+        } catch(e) {
+          console.error(e)
+        }
       case CodeGenKind.WC:
         this.trackFrameworkKind(CodeGenKind.WC);
         return {

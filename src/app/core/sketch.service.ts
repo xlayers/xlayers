@@ -27,7 +27,7 @@ export interface ResourceImageData {
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class SketchService {
   _data: SketchMSData;
@@ -43,12 +43,14 @@ export class SketchService {
   }
 
   async process(file: File) {
-    const data = await this.sketch2Json(file) as SketchMSData;
+    const data = (await this.sketch2Json(file)) as SketchMSData;
 
-    if (this.sketchStyleParser.visit(data as SketchMSData) === SupportScore.LEGACY) {
+    if (
+      this.sketchStyleParser.visit(data as SketchMSData) === SupportScore.LEGACY
+    ) {
       this.store.dispatch(
         new InformUser(
-          'The design was created using a legacy version of SketchApp, so the result may not be accurate.'
+          "The design was created using a legacy version of SketchApp, so the result may not be accurate."
         )
       );
     }
@@ -60,7 +62,7 @@ export class SketchService {
       const reader = new FileReader();
       reader.onload = readerEvent => {
         const data = (readerEvent.target as FileReader).result;
-        window['JSZip']
+        window["JSZip"]
           .loadAsync(data)
           .then((zip: any[]) => {
             const zips = [];
@@ -125,13 +127,13 @@ export class SketchService {
     await Promise.all(
       zips.map(async ({ relativePath, zipEntry }) => {
         if (
-          relativePath === 'previews/preview.png' ||
-          relativePath.startsWith('images/')
+          relativePath === "previews/preview.png" ||
+          relativePath.startsWith("images/")
         ) {
-          const content = await zipEntry.async('base64');
+          const content = await zipEntry.async("base64");
           const imageData = await this.buildImage(content, relativePath);
 
-          if (relativePath === 'previews/preview.png') {
+          if (relativePath === "previews/preview.png") {
             // this is a preview, so add it to the previews array
             _data.previews.push({
               source: imageData.source,
@@ -140,10 +142,15 @@ export class SketchService {
             });
           } else {
             // this is a resource image, add it to the resource factory
-            _data.resources.images[relativePath] = imageData;
+            if (!(_data.document as any).bitmap) {
+              (_data.document as any).bitmap = {
+                images: {}
+              };
+            }
+            (_data.document as any).bitmap.images[relativePath] = imageData;
           }
-        } else if (relativePath.startsWith('pages/')) {
-          const content = await zipEntry.async('string');
+        } else if (relativePath.startsWith("pages/")) {
+          const content = await zipEntry.async("string");
 
           try {
             const page = JSON.parse(content) as SketchMSPage;
@@ -151,15 +158,15 @@ export class SketchService {
           } catch (e) {
             throw new Error(`Could not load page "${relativePath}"`);
           }
-        } else if (relativePath.endsWith('.pdf')) {
+        } else if (relativePath.endsWith(".pdf")) {
           // text-previews/text-previews.pdf
           // removed because of: https://github.com/xlayers/xlayers/issues/200
         } else {
           // document.json
           // user.json
           // meta.json
-          const content = await zipEntry.async('string');
-          _data[relativePath.replace('.json', '')] = JSON.parse(content);
+          const content = await zipEntry.async("string");
+          _data[relativePath.replace(".json", "")] = JSON.parse(content);
         }
       })
     );
@@ -181,7 +188,7 @@ export class SketchService {
     const repoUrl = `${window.location.origin ||
       environment.baseUrl}/assets/demos/sketchapp/`;
     return this.http.get(`${repoUrl}${filename}.sketch`, {
-      responseType: 'blob'
+      responseType: "blob"
     });
   }
 

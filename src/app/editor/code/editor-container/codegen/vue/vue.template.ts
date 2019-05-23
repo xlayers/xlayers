@@ -9,7 +9,7 @@ export const readmeTemplate = (): XlayersNgxEditorModel => ({
 1. Download and extract the exported module into your workspace,
 
 2. Import the component into your App component or other container.
-${SharedCodegen.codeBlock}
+\`\`\`
 <template>
   <div id="app">
     <Xlayers />
@@ -26,7 +26,7 @@ export default {
   }
 }
 </script>
-${SharedCodegen.codeBlock}
+\`\`\`
 
 3. Enjoy.
 `,
