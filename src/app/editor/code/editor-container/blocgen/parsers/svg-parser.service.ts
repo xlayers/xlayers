@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { CodeGenRessourceFile, ParserFacade } from "../blocgen";
+import { RessourceFile, ParserFacade } from "../blocgen";
 
 export interface SvgParserOptions {}
 
@@ -12,14 +12,14 @@ export class SvgParserService implements ParserFacade {
     current: SketchMSLayer,
     _options?: SvgParserOptions
   ) {
-    if (this.getInfo(current)) {
+    if (this.getInfos(current)) {
       return [
         {
           kind: "svg",
           language: "svg",
-          value: this.getInfo(current),
+          value: this.getInfos(current),
           uri: current.name + ".svg"
-        } as CodeGenRessourceFile
+        } as RessourceFile
       ];
     }
     return [];
@@ -32,7 +32,7 @@ export class SvgParserService implements ParserFacade {
     );
   }
 
-  getInfo(current: SketchMSLayer) {
+  getInfos(current: SketchMSLayer) {
     return (current as any).svg || (current as any).shape;
   }
 }

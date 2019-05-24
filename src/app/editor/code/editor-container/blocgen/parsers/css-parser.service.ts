@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { ParserFacade, CodeGenRessourceFile } from "../blocgen";
+import { ParserFacade, RessourceFile } from "../blocgen.d";
 import { LintService } from "../lint.service";
 
 export interface CssParserOptions {
@@ -17,18 +17,18 @@ export class CssParserService implements ParserFacade {
   transform(
     _data: SketchMSData,
     current: SketchMSLayer,
-    options?: CssParserOptions
+    options: CssParserOptions = {}
   ) {
     this.cssDist = options.cssDist || "";
 
-    if (this.getInfo(current)) {
+    if (this.getInfos(current)) {
       return [
         {
           kind: "css",
           language: "css",
           value: this.compute(current),
           uri: `${this.cssDist}${current.name}.css`
-        } as CodeGenRessourceFile
+        } as RessourceFile
       ];
     }
     return [];
@@ -38,7 +38,7 @@ export class CssParserService implements ParserFacade {
     return !!current.style;
   }
 
-  getInfo(current: SketchMSLayer) {
+  getInfos(current: SketchMSLayer) {
     const isLegacyCss =
       current.css && (!current.css.rule && !current.css.className);
 
@@ -51,7 +51,7 @@ export class CssParserService implements ParserFacade {
   }
 
   private compute(current: SketchMSLayer) {
-    const rules = this.getInfo(current).rules;
+    const rules = this.getInfos(current).rules;
 
     return Object.entries(rules)
       .map(([key, value]) => this.lintService.indent(1, `${key}: ${value};`))

@@ -1,12 +1,12 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { InformUser, UiState, CurrentFile } from '@app/core/state';
-import { environment } from '@env/environment';
-import { Store } from '@ngxs/store';
+import { HttpClient } from "@angular/common/http";
+import { Injectable } from "@angular/core";
+import { InformUser, UiState, CurrentFile } from "@app/core/state";
+import { environment } from "@env/environment";
+import { Store } from "@ngxs/store";
 import {
   SketchStyleParserService,
   SupportScore
-} from '@xlayers/sketchapp-parser';
+} from "@xlayers/sketchapp-parser";
 
 export interface SketchMSData {
   pages: SketchMSPage[];
@@ -142,12 +142,7 @@ export class SketchService {
             });
           } else {
             // this is a resource image, add it to the resource factory
-            if (!(_data.document as any).bitmap) {
-              (_data.document as any).bitmap = {
-                images: {}
-              };
-            }
-            (_data.document as any).bitmap.images[relativePath] = imageData;
+            _data.resources.images[relativePath] = imageData;
           }
         } else if (relativePath.startsWith("pages/")) {
           const content = await zipEntry.async("string");

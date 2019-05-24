@@ -1,4 +1,4 @@
-export interface CodeGenRessourceFile {
+export interface RessourceFile {
   kind: string;
   uri: string;
   value: string;
@@ -14,9 +14,19 @@ export interface ParserFacade {
     data: SketchMSData,
     current: SketchMSLayer,
     options?: ParserFacadeTranformOptions
-  ): CodeGenRessourceFile[];
+  ): RessourceFile[];
   identify(current: SketchMSLayer): boolean;
-  getInfo(current: SketchMSLayer): any;
+  getInfos(current: SketchMSLayer): any;
+}
+
+export interface RessourceParserFacade {
+  transform(
+    data: SketchMSData,
+    current: SketchMSLayer,
+    options?: ParserFacadeTranformOptions
+  ): RessourceFile[];
+  identify(current: SketchMSLayer): boolean;
+  getResources(data: SketchMSData): any;
 }
 
 export interface NavBarButtonSetting {
@@ -32,5 +42,5 @@ export interface CodeGenFacade {
   generate(
     data: SketchMSData,
     options?: CodeGenFacadeGenerateOptions
-  ): CodeGenRessourceFile[];
+  ): RessourceFile[];
 }

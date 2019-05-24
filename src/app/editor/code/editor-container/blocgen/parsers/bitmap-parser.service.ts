@@ -1,10 +1,10 @@
 import { Injectable } from "@angular/core";
-import { ParserFacade } from "../blocgen";
+import { RessourceParserFacade } from "../blocgen";
 
 @Injectable({
   providedIn: "root"
 })
-export class BitmapParserService implements ParserFacade {
+export class BitmapParserService implements RessourceParserFacade {
   transform(data: SketchMSData, current: SketchMSLayer, _options?: any) {
     return [
       {
@@ -20,8 +20,18 @@ export class BitmapParserService implements ParserFacade {
     return (current._class as string) === "bitmap";
   }
 
-  getInfo(current: SketchMSLayer) {
-    return (current as any).bitmap;
+  getResources(data: SketchMSData) {
+    let legacyResourceRegistry =
+      (data as any).resources &&
+      (data as any).resources.images &&
+      Object.entries((data as any).resources.images).map(
+        ([relativePath, image]) => [relativePath, (image as any).source]
+      );
+    legacyResourceRegistry =
+      legacyResourceRegistry &&
+      (Object as any).fromEntries(legacyResourceRegistry);
+
+    return legacyResourceRegistry || (data as any).images;
   }
 
   private getLayerImage(data: SketchMSData, current: SketchMSLayer) {
@@ -29,6 +39,7 @@ export class BitmapParserService implements ParserFacade {
   }
 
   private getImageDataFromRef(data: SketchMSData, reference: string) {
-    return (data as any).images[reference];
+    const images = this.getResources(data);
+    return images && images[reference];
   }
 }

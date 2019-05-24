@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularCodeGenService } from './angular/angular.service';
 import { ReactCodeGenService } from './react/react.service';
-import { VueCodeGenService } from "../blocgen/codegens/vue-codegen.service";
+import { VueCodeGenService } from "../blocgen/codegens/vue/vue-codegen.service";
 import { WCCodeGenService } from './wc/wc.service';
 import { StencilCodeGenService } from './stencil/stencil.service';
 import { LitElementCodeGenService } from './lit-element/lit-element.service';
