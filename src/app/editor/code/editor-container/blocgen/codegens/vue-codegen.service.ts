@@ -1,10 +1,10 @@
 import { Injectable } from "@angular/core";
 import { XlayersNgxEditorModel } from "../../codegen/codegen.service";
-import { CodeGenRessourceFile, CodeGenFacade } from '../blocgen';
+import { CodeGenRessourceFile, CodeGenFacade } from "../blocgen";
 import { WebParserService } from "../parsers/web-parser.service";
 
-const readmeTemplate = () => `
-## How to use the Xlayers Vuejs module
+const readmeTemplate = (name: string) => `\
+## How to use the ${name} Vuejs module
 
 1. Download and extract the exported module into your workspace,
 
@@ -12,17 +12,17 @@ const readmeTemplate = () => `
 \`\`\`
 <template>
   <div id="app">
-    <Xlayers />
+    <${name} />
   </div>
 </template>
 
 <script>
-import Xlayers from './xlayers/Xlayers.vue'
+import ${name} from './components/${name}.vue'
 
 export default {
   name: 'app',
   components: {
-    Xlayers
+    ${name}
   }
 }
 </script>
@@ -30,12 +30,12 @@ export default {
 
 3. Enjoy.`;
 
-const componentSpecTemplate = (name: string) => {
-  const capitalizedName = name.charAt(0).toUpperCase() + name.slice(1);
+const componentSpecTemplate = (path: string) => {
+  const capitalizedName = path.charAt(0).toUpperCase() + path.slice(1);
 
   return `\
 import { shallowMount } from "@vue/test-utils";
-import ${capitalizedName} from "@/components/${name}.vue";
+import ${capitalizedName} from "@/components/${path}.vue";
 import { componentSpecTemplate } from '../codegen/vue/vue.template';
 import { SketchMSData } from '../../../../core/sketch.service';
 
@@ -61,6 +61,8 @@ ${css}
 </style>
 `;
 
+export interface VueCodeGenOptions {}
+
 @Injectable({
   providedIn: "root"
 })
@@ -71,15 +73,15 @@ export class VueCodeGenService implements CodeGenFacade {
     return {};
   }
 
-  generate(data: SketchMSData) {
+  generate(data: SketchMSData, options?: VueCodeGenOptions) {
     const files = (data.pages as any).flatMap(page =>
-      this.transform(data, page)
+      this.transform(data, page, options)
     );
 
     return [
       {
         kind: "vue",
-        value: readmeTemplate(),
+        value: readmeTemplate(data.meta.app),
         language: "markdown",
         uri: `README.md`
       },
@@ -87,11 +89,17 @@ export class VueCodeGenService implements CodeGenFacade {
     ] as XlayersNgxEditorModel[];
   }
 
-  transform(data: SketchMSData, current: SketchMSLayer, options?: any) {
+  transform(
+    data: SketchMSData,
+    current: SketchMSLayer,
+    options?: VueCodeGenOptions
+  ) {
     if (this.webParserService.identify(current)) {
-      return (this.webParserService.transform(data, current) as any).flatMap(
-        file => this.transformWebFile(file)
-      );
+      return (this.webParserService.transform(data, current, {
+        assetDist: "assets",
+        htmlDist: "components",
+        ...options
+      }) as any).flatMap(file => this.transformWebFile(file));
     }
     return [];
   }
@@ -111,7 +119,7 @@ export class VueCodeGenService implements CodeGenFacade {
   }
 
   transformWebHtmlFile(file: CodeGenRessourceFile) {
-    const filename = file.uri
+    const pathFilename = file.uri
       .split(".")
       .slice(0, -1)
       .join(".");
@@ -121,14 +129,14 @@ export class VueCodeGenService implements CodeGenFacade {
         ...file,
         kind: "vue",
         value: componentTemplate(file.value, ""),
-        uri: `components/${filename}.vue`
+        uri: `${pathFilename}.vue`
       },
       {
         ...file,
         kind: "vue",
-        value: componentSpecTemplate(filename),
+        value: componentSpecTemplate(pathFilename),
         language: "javascript",
-        uri: `components/${filename}.spec.js`
+        uri: `${pathFilename}.spec.js`
       }
     ];
   }

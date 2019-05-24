@@ -1,12 +1,16 @@
 import { Injectable } from "@angular/core";
 import { BitmapParserService } from "./bitmap-parser.service";
-import { SvgParserService } from "./svg-parser.service";
+import { SvgParserService, SvgParserOptions } from "./svg-parser.service";
 import { CodeGenRessourceFile as RessourceFile } from "../blocgen";
-import { HelperParserService } from "./helper-parser.service";
-import { CssParserService } from "./css-parser.service";
+import { LintService } from "../lint.service";
+import { CssParserService, CssParserOptions } from "./css-parser.service";
+import { XmlService, OpenTagOptions } from "../xml.service";
 
-interface OpenTagOptions {
-  autoclose?: boolean;
+export interface WebParserOptions {
+  htmlDist?: string;
+  assetDist?: string;
+  svg?: SvgParserOptions;
+  css?: CssParserOptions;
 }
 
 @Injectable({
@@ -14,13 +18,28 @@ interface OpenTagOptions {
 })
 export class WebParserService {
   constructor(
-    private readonly helperParserService: HelperParserService,
+    private readonly xmlService: XmlService,
+    private readonly lintService: LintService,
     private readonly cssParserService: CssParserService,
     private readonly bitmapParserService: BitmapParserService,
     private readonly svgParserService: SvgParserService
   ) {}
 
-  transform(data: SketchMSData, current: SketchMSLayer) {
+  private assetDist: string;
+  private htmlDist: string;
+  private cssOptions: CssParserOptions;
+  private svgOptions: SvgParserOptions;
+
+  transform(
+    data: SketchMSData,
+    current: SketchMSLayer,
+    options?: WebParserOptions
+  ) {
+    this.htmlDist = options.htmlDist || "";
+    this.assetDist = options.assetDist || "";
+    this.cssOptions = options.css || { cssDist: this.assetDist };
+    this.svgOptions = options.svg || {};
+
     const files = [];
     const template = [];
 
@@ -31,7 +50,7 @@ export class WebParserService {
         kind: "web",
         value: template.join("\n"),
         language: "html",
-        uri: current.name + ".html"
+        uri: `${this.htmlDist}/${current.name}.html`
       },
       ...files
     ];
@@ -71,9 +90,7 @@ export class WebParserService {
           return this.extractImage(data, current);
         default:
           if (this.svgParserService.identify(current)) {
-            return this.extractAndRegisterSvgFile(data, current, files);
-          } else if (this.cssParserService.identify(current)) {
-            return this.registerCssFile(data, current, files);
+            return this.extractImgAndRegisterSvgFile(data, current, files);
           }
           return null;
       }
@@ -87,35 +104,32 @@ export class WebParserService {
     template: string[],
     depth: number
   ) {
-    if (
-      !!this.cssParserService.getInfo(current) &&
-      !!this.cssParserService.getInfo(current).rules
-    ) {
+    if (this.cssParserService.identify(current)) {
       template.push(
-        this.helperParserService.indent(depth, this.extractBloc(data, current))
+        this.lintService.indent(
+          depth,
+          this.extractDivAndregisterCssFile(data, current, files)
+        )
       );
     }
 
     const content = this.compute(data, current, files, template, depth + 1);
     if (content) {
-      template.push(this.helperParserService.indent(depth + 1, content));
+      template.push(this.lintService.indent(depth + 1, content));
     }
 
-    if (
-      !!this.cssParserService.getInfo(current) &&
-      !!this.cssParserService.getInfo(current).rules
-    ) {
+    if (this.cssParserService.identify(current)) {
       template.push(
-        this.helperParserService.indent(depth, this.closeTag("div"))
+        this.lintService.indent(depth, this.xmlService.closeTag("div"))
       );
     }
   }
 
   private extractText(_data: SketchMSData, current: SketchMSLayer) {
     return (
-      this.openTag("span") +
+      this.xmlService.openTag("span") +
       current.attributedString.string +
-      this.closeTag("span")
+      this.xmlService.closeTag("span")
     );
   }
 
@@ -131,64 +145,52 @@ export class WebParserService {
           `aria-label="${current.name}"`,
           `src="${this.buildImageSrc(base64Content, false)}"`
         ];
-        return this.openTag("img", attributes, { autoclose: true });
+        return this.xmlService.openTag("img", attributes, { autoclose: true });
       })
       .join("\n");
   }
 
-  private extractBloc(
-    _data: SketchMSData,
+  private extractImgAndRegisterSvgFile(
+    data: SketchMSData,
     current: SketchMSLayer,
+    files: RessourceFile[]
+  ) {
+    return this.svgParserService
+      .transform(data, current, this.svgOptions)
+      .map(file => {
+        files.push({
+          ...file,
+          uri: `${this.assetDist}/${file.uri}`
+        });
+
+        return `<img src="${this.assetDist}/${file.uri}" alt="${
+          current.name
+        }"/>`;
+      }, [])
+      .join("\n");
+  }
+
+  private extractDivAndregisterCssFile(
+    data: SketchMSData,
+    current: SketchMSLayer,
+    files: RessourceFile[],
     options?: OpenTagOptions
   ) {
+    this.cssParserService
+      .transform(data, current, this.cssOptions)
+      .map(file => {
+        files.push({
+          ...file,
+          uri: `${this.htmlDist}/${current.name}`
+        });
+      });
+
     const attributes = [
       `class="${this.cssParserService.getInfo(current).className}"`,
       `role="${current._class}"`,
       `aria-label="${current.name}"`
     ];
-    return this.openTag("div", attributes, options);
-  }
-
-  private extractAndRegisterSvgFile(
-    data: SketchMSData,
-    current: SketchMSLayer,
-    files: RessourceFile[],
-    _options?: OpenTagOptions
-  ) {
-    return this.svgParserService
-      .transform(data, current)
-      .map(file => {
-        files.push(file);
-        return `<img src="${file.uri}" alt="${current.name}"/>`;
-      }, [])
-      .join("\n");
-  }
-
-  private registerCssFile(
-    data: SketchMSData,
-    current: SketchMSLayer,
-    files: RessourceFile[],
-    _options?: OpenTagOptions
-  ) {
-    this.cssParserService.transform(data, current).map(file => {
-      files.push(file);
-    });
-    return "";
-  }
-
-  private openTag(
-    tag = "div",
-    attributes: string[] = [],
-    options: OpenTagOptions = {}
-  ) {
-    const attributeStr =
-      attributes.length !== 0 ? " " + attributes.join(" ") : "";
-    const autocloseStr = options.autoclose ? "/" : "";
-    return `<${tag}${attributeStr} ${autocloseStr}>`;
-  }
-
-  private closeTag(tag = "div") {
-    return `</${tag}>`;
+    return this.xmlService.openTag("div", attributes, options);
   }
 
   /**

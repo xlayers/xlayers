@@ -1,11 +1,17 @@
 import { Injectable } from "@angular/core";
 import { CodeGenRessourceFile, ParserFacade } from "../blocgen";
 
+export interface SvgParserOptions {}
+
 @Injectable({
   providedIn: "root"
 })
 export class SvgParserService implements ParserFacade {
-  transform(_data: SketchMSData, current: SketchMSLayer, _options?: any) {
+  transform(
+    _data: SketchMSData,
+    current: SketchMSLayer,
+    _options?: SvgParserOptions
+  ) {
     if (this.getInfo(current)) {
       return [
         {
