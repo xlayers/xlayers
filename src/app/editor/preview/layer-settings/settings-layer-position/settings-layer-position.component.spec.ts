@@ -4,6 +4,7 @@ import { SettingsLayerPositionComponent } from './settings-layer-position.compon
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { NgxsModule } from '@ngxs/store';
 import { XStore } from '@app/core/state/state.mock';
+import { TranslateModule } from '@ngx-translate/core';
 
 describe('SettingsLayerPositionComponent', () => {
   let component: SettingsLayerPositionComponent;
@@ -12,7 +13,7 @@ describe('SettingsLayerPositionComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       schemas: [NO_ERRORS_SCHEMA],
-      imports: [NgxsModule.forRoot([XStore])],
+      imports: [NgxsModule.forRoot([XStore]), TranslateModule.forRoot()],
       declarations: [ SettingsLayerPositionComponent ]
     })
     .compileComponents();

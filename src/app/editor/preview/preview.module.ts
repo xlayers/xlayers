@@ -5,6 +5,7 @@ import { LayerSettingsModule } from './layer-settings/layer-settings.module';
 import { TreeViewComponent } from './layer-tree-layout/layer-tree-layout.component';
 import { PreviewComponent } from './preview.component';
 import { ViewerModule } from './viewer/viewer.module';
+import { TranslateModule } from '@ngx-translate/core';
 
 export const routes: Route[] = [
   {
@@ -17,6 +18,7 @@ export const routes: Route[] = [
   declarations: [PreviewComponent, TreeViewComponent],
   imports: [
     CoreModule,
+    TranslateModule,
     LayerSettingsModule,
     ViewerModule,
     RouterModule.forChild(routes)

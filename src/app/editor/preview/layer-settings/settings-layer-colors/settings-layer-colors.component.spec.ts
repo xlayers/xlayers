@@ -4,6 +4,7 @@ import { NgxsModule } from '@ngxs/store';
 import { MatMenuModule } from '@angular/material/menu';
 import { SettingsLayerColorsComponent } from './settings-layer-colors.component';
 import { XStore } from '@app/core/state/state.mock';
+import { TranslateModule } from '@ngx-translate/core';
 
 describe('SettingsLayerColorsComponent', () => {
   let component: SettingsLayerColorsComponent;
@@ -12,7 +13,7 @@ describe('SettingsLayerColorsComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       schemas: [NO_ERRORS_SCHEMA],
-      imports: [MatMenuModule, NgxsModule.forRoot([XStore])],
+      imports: [MatMenuModule, NgxsModule.forRoot([XStore]), TranslateModule.forRoot()],
       declarations: [ SettingsLayerColorsComponent ]
     })
     .compileComponents();

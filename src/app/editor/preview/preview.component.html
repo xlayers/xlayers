@@ -12,7 +12,9 @@
     <section>
       <mat-expansion-panel *ngIf="shouldEnableCanvasSettings">
         <mat-expansion-panel-header>
-          <mat-panel-title> Settings </mat-panel-title>
+          <mat-panel-title>
+            {{ "PREVIEW.settings" | translate }}
+          </mat-panel-title>
         </mat-expansion-panel-header>
 
         <mat-nav-list>
@@ -22,7 +24,7 @@
               [class.transparent-bg]="colors?.background === 'transparent'"
               [style.backgroundColor]="colors?.background"
             ></span>
-            Canvas Color
+            {{ "PREVIEW.canvas_color" | translate }}
 
             <mat-menu
               #menuColor="matMenu"
@@ -41,7 +43,7 @@
 
       <mat-expansion-panel #pagesPanelRef>
         <mat-expansion-panel-header>
-          <mat-panel-title> Pages </mat-panel-title>
+          <mat-panel-title> {{ "PREVIEW.pages" | translate }} </mat-panel-title>
         </mat-expansion-panel-header>
 
         <mat-nav-list>
@@ -59,11 +61,12 @@
 
       <mat-expansion-panel #layersPanelRef>
         <mat-expansion-panel-header>
-          <mat-panel-title> Layers </mat-panel-title>
+          <mat-panel-title>
+            {{ "PREVIEW.layers" | translate }}
+          </mat-panel-title>
         </mat-expansion-panel-header>
 
         <xly-tree-layout></xly-tree-layout>
-        
       </mat-expansion-panel>
     </section>
   </mat-drawer>

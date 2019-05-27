@@ -8,7 +8,7 @@ import { UiState, LayerCSS } from '@app/core/state';
   <mat-expansion-panel expanded="false" [disabled]="!bgColor || gradients.length === 0">
     <mat-expansion-panel-header>
       <mat-panel-title>
-        Style & Colors
+      {{'SETTINGS_COLORS.title' | translate}}
       </mat-panel-title>
     </mat-expansion-panel-header>
 
@@ -60,7 +60,7 @@ export class SettingsLayerColorsComponent implements OnInit {
     stop: string;
   }>;
   bgColor: string;
-  constructor(private store: Store) {}
+  constructor(private store: Store) { }
 
   ngOnInit() {
     this.store.select(UiState.currentLayer).subscribe(currentLayer => {
