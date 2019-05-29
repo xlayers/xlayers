@@ -50,7 +50,7 @@ export class CssParserService implements ParserFacade {
       rules: current.css,
       className: isLegacyCss
         ? (current as any).css__className
-        : (current as any).className
+        : (current as any).css.className
     };
   }
 
