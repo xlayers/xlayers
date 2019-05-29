@@ -5,6 +5,7 @@ import { CurrentFile, ErrorType, InformUser, ResetUiSettings } from '@app/core/s
 import { Navigate } from '@ngxs/router-plugin';
 import { Store } from '@ngxs/store';
 import { BehaviorSubject } from 'rxjs';
+import { SketchAdapterService } from '@app/editor/code/editor-container/blocgen/adapters/sketch-adapter.service';
 
 @Component({
   selector: 'xly-upload',
@@ -17,6 +18,7 @@ export class UploadComponent implements OnInit {
 
   constructor(
     private service: SketchService,
+    private sketchAdapterService: SketchAdapterService,
     private store: Store
   ) { }
 
@@ -24,7 +26,7 @@ export class UploadComponent implements OnInit {
 
   async onFileSelected(file: File) {
     try {
-      const data = await this.service.process(file);
+      const data = await this.sketchAdapterService.process(file);
       this.isDragging$.next(false);
       // Note: these actions need to be run in sequence!
       this.store.dispatch([
