@@ -33,8 +33,11 @@ export class SketchAdapterService {
           return this.addImage(data, relativePath, entry);
         } else if (relativePath.startsWith("pages/")) {
           return this.addPage(data, relativePath, entry);
-        } else if (Object.hasOwnProperty(relativePath.replace(".json", ""))) {
-          return this.addConfiguration(data, relativePath, entry);
+        } else {
+          const objectName = relativePath.replace(".json", "");
+          if (data.hasOwnProperty(objectName)) {
+            return this.addConfiguration(data, objectName, entry);
+          }
         }
         return Promise.resolve({});
       })
@@ -68,7 +71,7 @@ export class SketchAdapterService {
   }
 
   private async unzipSketchPackage(data: string | ArrayBuffer) {
-    const jszip = window["JSZip"];
+    const jszip = window["JSZip"]();
 
     if (jszipLoadAsync(jszip)) {
       const zipFileInstance = await jszip.loadAsync(data);
@@ -97,11 +100,9 @@ export class SketchAdapterService {
     relativePath: string,
     entry: unknown
   ) {
-    const content = await this.extractJson(relativePath, entry);
-
     try {
-      const page = JSON.parse(content);
-      data.pages.push(page);
+      const content = await this.extractJson(relativePath, entry);
+      data.pages.push(content);
     } catch (e) {
       throw new Error(`Could not load page "${relativePath}"`);
     }
@@ -122,12 +123,7 @@ export class SketchAdapterService {
     entry: unknown
   ) {
     const imageData = await this.extractBase64(relativePath, entry);
-
-    data.previews.push({
-      source: imageData.source,
-      width: imageData.image.width,
-      height: imageData.image.height
-    });
+    data.previews.push(imageData);
   }
 
   private async extractJson(_relativePath: string, entry: unknown) {
