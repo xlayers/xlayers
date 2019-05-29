@@ -16,7 +16,7 @@ export interface ParserFacade {
     options?: ParserFacadeTranformOptions
   ): RessourceFile[];
   identify(current: SketchMSLayer): boolean;
-  getInfos(current: SketchMSLayer): any;
+  contextOf(current: SketchMSLayer): any;
 }
 
 export interface RessourceParserFacade {

@@ -6,15 +6,15 @@ import { LintService } from "../../lint.service";
 import { CssParserService } from "../../parsers/css-parser.service";
 import { BitmapParserService } from "../../parsers/bitmap-parser.service";
 import { SvgParserService } from "../../parsers/svg-parser.service";
-import {
-  VueComponentBuilder,
-  readmeTemplate,
-  componentTemplate,
-  componentSpecTemplate
-} from "./vue-codegen.template";
+import { readmeTemplate, componentTemplate } from "./vue-codegen.template";
 
 const COMPONENTS_DIR = "components";
 const ASSETS_DIR = "assets";
+
+interface VueComponentTemplate {
+  css: string[];
+  html: string[];
+}
 
 @Injectable({
   providedIn: "root"
@@ -55,53 +55,45 @@ export class VueCodeGenService implements CodeGenFacade, ParserFacade {
       ((current._class as string) === "rect" ||
         (current._class as string) === "page" ||
         (current._class as string) === "rectangle" ||
-        (current._class as string) === "group")
+        (current._class as string) === "group" ||
+        (current._class as string) === "symbolMaster")
     );
   }
 
-  getInfos(current: SketchMSLayer) {
+  contextOf(current: SketchMSLayer) {
     return (current as any).vue;
+  }
+
+  attachContext(current: SketchMSLayer) {
+    (current as any).vue = { html: [], css: [] };
   }
 
   transform(data: SketchMSData, current: SketchMSLayer) {
     const files: RessourceFile[] = [];
-    this.compute(data, current, files);
+    this.attachContext(current);
+    this.compute(data, current, current, files);
+    files.push({
+      kind: "vue",
+      value: componentTemplate(
+        this.contextOf(current).html.join("\n"),
+        this.contextOf(current).css.join("\n")
+      ),
+      language: "html",
+      uri: `${COMPONENTS_DIR}/${current.name}.vue`
+    });
     return files;
-  }
-
-  transformWebFile(file: RessourceFile) {
-    const pathFilename = file.uri
-      .split(".")
-      .slice(0, -1)
-      .join(".");
-
-    return [
-      {
-        kind: "vue",
-        value: componentTemplate(file.value, ""),
-        uri: `${pathFilename}.vue`
-      },
-      {
-        kind: "vue",
-        value: componentSpecTemplate(pathFilename),
-        language: "javascript",
-        uri: `${pathFilename}.spec.js`
-      }
-    ];
   }
 
   private compute(
     data: SketchMSData,
     current: SketchMSLayer,
+    root: SketchMSLayer,
     files: RessourceFile[],
-    template: VueComponentBuilder = null,
     depth: number = 0
   ) {
     if (this.identify(current)) {
       current.layers.forEach(layer => {
-        this.computeIntermediateNode(current, template, files, (nextTemplate) => {
-          this.visit(data, layer, files, nextTemplate, depth);
-        });
+        this.computeIntermediateNode(data, layer, root, files, depth);
       });
     } else {
       return this.computeEdgeNodeData(data, current, files);
@@ -118,6 +110,8 @@ export class VueCodeGenService implements CodeGenFacade, ParserFacade {
         return this.extractText(data, current);
       case "bitmap":
         return this.extractImage(data, current);
+      case "symbolInstance":
+        return this.extractAndRegisterSymbolMaster(data, current, files);
       default:
         if (this.svgParserService.identify(current)) {
           return this.extractImgAndRegisterSvgFile(data, current, files);
@@ -127,66 +121,53 @@ export class VueCodeGenService implements CodeGenFacade, ParserFacade {
   }
 
   private computeIntermediateNode(
-    current: SketchMSLayer,
-    template: VueComponentBuilder,
-    files: RessourceFile[],
-    next: Function
-  ) {
-    const nextTemplate =
-      !template || (current._class as string) === "rect"
-        ? new VueComponentBuilder()
-        : template;
-
-    next(nextTemplate);
-    if (nextTemplate !== template) {
-      files.push({
-        kind: "vue",
-        value: nextTemplate.build(),
-        language: "html",
-        uri: `${COMPONENTS_DIR}/${current.name}.vue`
-      });
-    }
-  }
-
-  private visit(
     data: SketchMSData,
     current: SketchMSLayer,
+    root: SketchMSLayer,
     files: RessourceFile[],
-    template: VueComponentBuilder,
     depth: number
   ) {
-    if (this.cssParserService.identify(current)) {
-      template.appendCss(
-        this.cssParserService.getInfos(current).className + " {"
-      );
-      this.cssParserService.transform(data, current).map(file => {
-        template.appendCss(file.value);
-      });
-      template.appendCss("}");
-
-      const attributes = [
-        `class="${this.cssParserService.getInfos(current).className}"`,
-        `role="${current._class}"`,
-        `aria-label="${current.name}"`
-      ];
-      template.appendHtml(
-        this.lintService.indent(
-          depth,
-          this.xmlService.openTag("div", attributes)
-        )
+    if (
+      this.cssParserService.identify(current) &&
+      this.cssParserService.contextOf(current)
+    ) {
+      this.contextOf(root).css.push(this.extractCssRule(data, current));
+      this.contextOf(root).html.push(
+        this.lintService.indent(depth, this.extractOpenTag(data, current))
       );
     }
 
-    const content = this.compute(data, current, files, template, depth + 1);
+    const content = this.compute(data, current, root, files, depth + 1);
     if (content) {
-      template.appendHtml(this.lintService.indent(depth + 1, content));
+      this.contextOf(root).html.push(
+        this.lintService.indent(depth + 1, content)
+      );
     }
 
     if (this.cssParserService.identify(current)) {
-      template.appendHtml(
+      this.contextOf(root).html.push(
         this.lintService.indent(depth, this.xmlService.closeTag("div"))
       );
     }
+  }
+
+  private extractOpenTag(_data: SketchMSData, current: SketchMSLayer) {
+    const attributes = [
+      `class="${this.cssParserService.contextOf(current).className}"`,
+      `role="${current._class}"`,
+      `aria-label="${current.name}"`
+    ];
+    return this.xmlService.openTag("div", attributes);
+  }
+
+  private extractCssRule(data: SketchMSData, current: SketchMSLayer) {
+    return [
+      this.cssParserService.contextOf(current).className + " {",
+      this.cssParserService
+        .transform(data, current)
+        .reduce((acc, file) => acc + file.value, ""),
+      "}"
+    ].join("\n");
   }
 
   private extractText(_data: SketchMSData, current: SketchMSLayer) {
@@ -204,7 +185,7 @@ export class VueCodeGenService implements CodeGenFacade, ParserFacade {
         const base64Content = file.value.replace("data:image/png;base64", "");
 
         const attributes = [
-          `class="${this.cssParserService.getInfos(current).className}"`,
+          `class="${this.cssParserService.contextOf(current).className}"`,
           `role="${current._class}"`,
           `aria-label="${current.name}"`,
           `src="${this.buildImageSrc(base64Content, false)}"`
@@ -212,6 +193,25 @@ export class VueCodeGenService implements CodeGenFacade, ParserFacade {
         return this.xmlService.openTag("img", attributes, { autoclose: true });
       })
       .join("\n");
+  }
+
+  private extractAndRegisterSymbolMaster(
+    data: SketchMSData,
+    current: SketchMSLayer,
+    files: RessourceFile[]
+  ) {
+    const symbolMaster = data.document.foreignSymbols.find(
+      foreignSymbol =>
+        foreignSymbol.symbolMaster.symbolID === (current as any).symbolID
+    ).symbolMaster;
+
+    this.transform(data, symbolMaster).forEach(file => {
+      files.push(file);
+    });
+
+    return this.xmlService.openTag(current.name, [], {
+      autoclose: true
+    });
   }
 
   private extractImgAndRegisterSvgFile(

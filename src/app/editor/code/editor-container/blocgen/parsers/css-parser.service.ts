@@ -21,7 +21,7 @@ export class CssParserService implements ParserFacade {
   ) {
     this.cssDist = options.cssDist || "";
 
-    if (this.getInfos(current)) {
+    if (this.contextOf(current)) {
       return [
         {
           kind: "css",
@@ -38,7 +38,11 @@ export class CssParserService implements ParserFacade {
     return !!current.style;
   }
 
-  getInfos(current: SketchMSLayer) {
+  contextOf(current: SketchMSLayer) {
+    if (!current.css) {
+      return undefined;
+    }
+
     const isLegacyCss =
       current.css && (!current.css.rule && !current.css.className);
 
@@ -51,7 +55,7 @@ export class CssParserService implements ParserFacade {
   }
 
   private compute(current: SketchMSLayer) {
-    const rules = this.getInfos(current).rules;
+    const rules = this.contextOf(current).rules;
 
     return Object.entries(rules)
       .map(([key, value]) => this.lintService.indent(1, `${key}: ${value};`))

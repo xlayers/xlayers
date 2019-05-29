@@ -12,12 +12,12 @@ export class SvgParserService implements ParserFacade {
     current: SketchMSLayer,
     _options?: SvgParserOptions
   ) {
-    if (this.getInfos(current)) {
+    if (this.contextOf(current)) {
       return [
         {
           kind: "svg",
           language: "svg",
-          value: this.getInfos(current),
+          value: this.contextOf(current),
           uri: current.name + ".svg"
         } as RessourceFile
       ];
@@ -32,7 +32,7 @@ export class SvgParserService implements ParserFacade {
     );
   }
 
-  getInfos(current: SketchMSLayer) {
+  contextOf(current: SketchMSLayer) {
     return (current as any).svg || (current as any).shape;
   }
 }
