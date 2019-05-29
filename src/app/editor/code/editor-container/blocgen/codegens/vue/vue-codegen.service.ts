@@ -3,8 +3,7 @@ import { XlayersNgxEditorModel } from "../../../codegen/codegen.service";
 import { CodeGenFacade } from "../../blocgen";
 import { VueParserService } from "../../parsers/vue-parser.service";
 
-
-export const readmeTemplate = (name: string) => `\
+const readmeTemplate = (name: string) => `\
 ## How to use the ${name} Vuejs module
 
 1. Download and extract the exported module into your workspace,
@@ -13,17 +12,17 @@ export const readmeTemplate = (name: string) => `\
 \`\`\`
 <template>
   <div id="app">
-    <${name} />
+    <MyComponent />
   </div>
 </template>
 
 <script>
-import ${name} from './components/${name}.vue'
+import MyComponent from './components/MyComponent.vue'
 
 export default {
   name: 'app',
   components: {
-    ${name}
+    MyComponent
   }
 }
 </script>
@@ -42,10 +41,6 @@ export class VueCodeGenService implements CodeGenFacade {
   }
 
   generate(data: SketchMSData) {
-    const files = (data.pages as any).flatMap(page =>
-      this.vueParserService.transform(data, page)
-    );
-
     return [
       {
         kind: "vue",
@@ -53,7 +48,9 @@ export class VueCodeGenService implements CodeGenFacade {
         language: "markdown",
         uri: `README.md`
       },
-      ...files
+      ...(data.pages as any).flatMap(page =>
+        this.vueParserService.transform(data, page)
+      )
     ] as XlayersNgxEditorModel[];
   }
 }
