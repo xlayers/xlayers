@@ -156,11 +156,9 @@ export class VueParserService
       );
     }
 
-    if (this.cssParserService.identify(current)) {
-      this.contextOf(root).html.push(
-        this.lintService.indent(depth, this.xmlHelperService.closeTag("div"))
-      );
-    }
+    this.contextOf(root).html.push(
+      this.lintService.indent(depth, this.xmlHelperService.closeTag("div"))
+    );
   }
 
   private extractOpenTag(current: SketchMSLayer, options?: OpenTagOptions) {
