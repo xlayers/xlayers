@@ -21,15 +21,16 @@ export class BitmapParserService implements RessourceParserFacade {
   }
 
   getResources(data: SketchMSData) {
-    let legacyResourceRegistry =
+    const legacyResourceRegistry =
       (data as any).resources &&
       (data as any).resources.images &&
-      Object.entries((data as any).resources.images).map(
-        ([relativePath, image]) => [relativePath, (image as any).source]
+      Object.entries((data as any).resources.images).reduce(
+        (acc, [relativePath, image]) => ({
+          ...acc,
+          [relativePath]: (image as any).source
+        }),
+        {}
       );
-    legacyResourceRegistry =
-      legacyResourceRegistry &&
-      (Object as any).fromEntries(legacyResourceRegistry);
 
     return legacyResourceRegistry || (data as any).images;
   }
