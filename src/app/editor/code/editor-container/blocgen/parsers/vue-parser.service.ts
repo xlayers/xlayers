@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { RessourceFile, ParserFacade } from "../blocgen";
-import { XmlService } from "../xml.service";
+import { XmlService, OpenTagOptions } from "../xml.service";
 import { LintService } from "../lint.service";
 import { CssParserService } from "./css-parser.service";
 import { BitmapParserService } from "./bitmap-parser.service";
@@ -199,22 +199,34 @@ export class VueParserService implements ParserFacade {
       this.contextOf(root).html.push(
         this.lintService.indent(depth + 1, content)
       );
-    }
 
-    if (this.cssParserService.identify(current)) {
+      if (this.cssParserService.identify(current)) {
+        this.contextOf(root).html.push(
+          this.lintService.indent(depth, this.xmlService.closeTag("div"))
+        );
+      }
+    } else if (this.cssParserService.identify(current)) {
+      this.contextOf(root).html.pop();
       this.contextOf(root).html.push(
-        this.lintService.indent(depth, this.xmlService.closeTag("div"))
+        this.lintService.indent(
+          depth,
+          this.extractOpenTag(data, current, { autoclose: true })
+        )
       );
     }
   }
 
-  private extractOpenTag(_data: SketchMSData, current: SketchMSLayer) {
+  private extractOpenTag(
+    _data: SketchMSData,
+    current: SketchMSLayer,
+    options?: OpenTagOptions
+  ) {
     const attributes = [
       `class="${this.cssParserService.contextOf(current).className}"`,
       `role="${current._class}"`,
       `aria-label="${current.name}"`
     ];
-    return this.xmlService.openTag("div", attributes);
+    return this.xmlService.openTag("div", attributes, options);
   }
 
   private extractCssRule(data: SketchMSData, current: SketchMSLayer) {
@@ -258,12 +270,15 @@ export class VueParserService implements ParserFacade {
     root: SketchMSLayer,
     files: RessourceFile[]
   ) {
-    const symbolMaster = data.document.foreignSymbols.find(
-      foreignSymbol =>
-        foreignSymbol.symbolMaster.symbolID === (current as any).symbolID
-    ).symbolMaster;
+    const foreignSymbol = data.document.foreignSymbols.find(
+      x => x.symbolMaster.symbolID === (current as any).symbolID
+    );
 
-    this.transform(data, symbolMaster).forEach(file => {
+    if (!foreignSymbol) {
+      return null;
+    }
+
+    this.transform(data, foreignSymbol.symbolMaster).forEach(file => {
       files.push(file);
       this.contextOf(root).imports.push(current.name);
     });
