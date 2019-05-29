@@ -98,7 +98,7 @@ describe('SketchStyleParserService', () => {
         blue: 0.13,
         alpha: 1,
       } as SketchMSColor;
-      const result = sketchStyleParserService.parseColors(color);
+      const result = sketchStyleParserService.parseColor(color);
       expect(result.hex).toBe('#875221ff');
       expect(result.rgba).toBe('rgba(135,82,33,1)');
       expect(result.raw).toEqual({
@@ -116,7 +116,7 @@ describe('SketchStyleParserService', () => {
         blue: 0.233,
         alpha: 0.3,
       } as SketchMSColor;
-      const result = sketchStyleParserService.parseColors(color);
+      const result = sketchStyleParserService.parseColor(color);
       expect(result.hex).toBe('#f0003b4d');
       expect(result.rgba).toBe('rgba(240,0,59,0.3)');
       expect(result.raw).toEqual({
@@ -138,7 +138,7 @@ describe('SketchStyleParserService', () => {
         color: getSketchColorMock()
       }]
     } as SketchMSStyle;
-    const color = sketchStyleParserService['parseColors'](obj.shadows[0].color);
+    const color = sketchStyleParserService['parseColor'](obj.shadows[0].color);
     expect(sketchStyleParserService.transformShadows(obj)).toEqual({ 'box-shadow': `123px 53px 12px 23px ${color.rgba}`});
   });
 
@@ -173,7 +173,7 @@ describe('SketchStyleParserService', () => {
           color: getSketchColorMock()
         }]
       } as SketchMSStyle;
-      const color = sketchStyleParserService['parseColors'](obj.borders[0].color);
+      const color = sketchStyleParserService['parseColor'](obj.borders[0].color);
       expect(sketchStyleParserService.transformBorders(obj)).toEqual({'box-shadow': `0 0 0 129px ${color.rgba}`});
     });
 
@@ -196,7 +196,7 @@ describe('SketchStyleParserService', () => {
           color: getSketchColorMock()
         }]
       } as SketchMSStyle;
-      const color = sketchStyleParserService['parseColors'](obj.borders[0].color);
+      const color = sketchStyleParserService['parseColor'](obj.borders[0].color);
       expect(sketchStyleParserService.transformBorders(obj)).toEqual({'box-shadow': `0 0 0 129px ${color.rgba} inset`});
     });
 
@@ -208,7 +208,7 @@ describe('SketchStyleParserService', () => {
           color: getSketchColorMock()
         }]
       } as SketchMSStyle;
-      const color = sketchStyleParserService['parseColors'](obj.borders[0].color);
+      const color = sketchStyleParserService['parseColor'](obj.borders[0].color);
       expect(sketchStyleParserService.transformBorders(obj)).toEqual({'box-shadow': `0 0 0 129px ${color.rgba}`});
     });
 
@@ -220,7 +220,7 @@ describe('SketchStyleParserService', () => {
           color: getSketchColorMock()
         }]
       } as SketchMSStyle;
-      const color = sketchStyleParserService['parseColors'](obj.borders[0].color);
+      const color = sketchStyleParserService['parseColor'](obj.borders[0].color);
       expect(sketchStyleParserService.transformBorders(obj)).toEqual({'box-shadow': `0 0 0 129px ${color.rgba}`});
     });
 
@@ -249,8 +249,8 @@ describe('SketchStyleParserService', () => {
           }
         }]
       } as SketchMSStyle;
-      const color = sketchStyleParserService['parseColors'](obj.fills[0].color);
-      const colorStop = sketchStyleParserService['parseColors'](obj.fills[0].gradient.stops[0].color);
+      const color = sketchStyleParserService['parseColor'](obj.fills[0].color);
+      const colorStop = sketchStyleParserService['parseColor'](obj.fills[0].gradient.stops[0].color);
       expect(sketchStyleParserService.transformFills(obj)).toEqual({
         'background-color': color.rgba,
         'background': `linear-gradient(90deg, ${colorStop.rgba} 83.5923120242395%)`
@@ -270,8 +270,8 @@ describe('SketchStyleParserService', () => {
           }
         }]
       } as SketchMSStyle;
-      const color = sketchStyleParserService['parseColors'](obj.fills[0].color);
-      const colorStop = sketchStyleParserService['parseColors'](obj.fills[0].gradient.stops[0].color);
+      const color = sketchStyleParserService['parseColor'](obj.fills[0].color);
+      const colorStop = sketchStyleParserService['parseColor'](obj.fills[0].gradient.stops[0].color);
       expect(sketchStyleParserService.transformFills(obj)).toEqual({
         'background-color': color.rgba,
         'background': `linear-gradient(90deg, ${colorStop.rgba})`
@@ -291,8 +291,8 @@ describe('SketchStyleParserService', () => {
           }
         }]
       } as SketchMSStyle;
-      const color = sketchStyleParserService['parseColors'](obj.fills[0].color);
-      const colorStop = sketchStyleParserService['parseColors'](obj.fills[0].gradient.stops[0].color);
+      const color = sketchStyleParserService['parseColor'](obj.fills[0].color);
+      const colorStop = sketchStyleParserService['parseColor'](obj.fills[0].gradient.stops[0].color);
       expect(sketchStyleParserService.transformFills(obj)).toEqual({
         'background-color': color.rgba,
         'background': `linear-gradient(90deg, ${colorStop.rgba})`

@@ -1,11 +1,20 @@
 import { Injectable } from "@angular/core";
-import { RessourceParserFacade } from "../blocgen";
+import { ParserFacade, WithGlobalContext } from "../blocgen";
+
+export interface BitmapParserContext {}
+
+export interface BitmapParserOptions {}
 
 @Injectable({
   providedIn: "root"
 })
-export class BitmapParserService implements RessourceParserFacade {
-  transform(data: SketchMSData, current: SketchMSLayer, _options?: any) {
+export class BitmapParserService
+  implements ParserFacade, WithGlobalContext<BitmapParserContext> {
+  transform(
+    data: SketchMSData,
+    current: SketchMSLayer,
+    _options: BitmapParserOptions = {}
+  ) {
     return [
       {
         kind: "bitmap",
@@ -17,10 +26,16 @@ export class BitmapParserService implements RessourceParserFacade {
   }
 
   identify(current: SketchMSLayer) {
-    return (current._class as string) === "bitmap";
+    return ["bitmap"].includes(current._class as string);
   }
 
-  getResources(data: SketchMSData) {
+  hasGlobalContext(data: SketchMSData) {
+    const hasLegacyContext =
+      (data as any).resources && (data as any).resources.images;
+    return hasLegacyContext || (data as any).images;
+  }
+
+  globalContextOf(data: SketchMSData) {
     const legacyResourceRegistry =
       (data as any).resources &&
       (data as any).resources.images &&
@@ -40,7 +55,7 @@ export class BitmapParserService implements RessourceParserFacade {
   }
 
   private getImageDataFromRef(data: SketchMSData, reference: string) {
-    const images = this.getResources(data);
+    const images = this.globalContextOf(data);
     return images && images[reference];
   }
 }

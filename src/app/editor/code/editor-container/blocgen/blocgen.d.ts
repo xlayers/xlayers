@@ -16,17 +16,16 @@ export interface ParserFacade {
     options?: ParserFacadeTranformOptions
   ): RessourceFile[];
   identify(current: SketchMSLayer): boolean;
-  contextOf(current: SketchMSLayer): any;
 }
 
-export interface RessourceParserFacade {
-  transform(
-    data: SketchMSData,
-    current: SketchMSLayer,
-    options?: ParserFacadeTranformOptions
-  ): RessourceFile[];
-  identify(current: SketchMSLayer): boolean;
-  getResources(data: SketchMSData): any;
+export interface WithLocalContext<T> {
+  contextOf(current: SketchMSLayer): T;
+  hasContext(current: SketchMSLayer): boolean;
+}
+
+export interface WithGlobalContext<T> {
+  globalContextOf(current: SketchMSData): T;
+  hasGlobalContext(current: SketchMSData): boolean;
 }
 
 export interface NavBarButtonSetting {

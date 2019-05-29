@@ -289,7 +289,7 @@ export class SketchStyleParserService {
   transformSymbolMaster(node: SketchMSSymbolMaster) {
     const obj = node.backgroundColor;
     return {
-      'background-color': this.parseColors(obj).rgba
+      'background-color': this.parseColor(obj).rgba
     };
   }
 
@@ -304,7 +304,7 @@ export class SketchStyleParserService {
     // TODO: Support multiple border
     if (node.style.borders && node.style.borders.length > 0 && node.style.borders[0].thickness) {
       config.push(`stroke-width="${node.style.borders[0].thickness / 2}"`);
-      const color = this.parseColors(node.style.borders[0].color);
+      const color = this.parseColor(node.style.borders[0].color);
       config.push(`stroke="${color.hex}"`);
       offset = node.style.borders[0].thickness;
     }
@@ -345,7 +345,7 @@ export class SketchStyleParserService {
     // TODO: Support multiple border
     if (node.style.borders && node.style.borders.length > 0 && node.style.borders[0].thickness) {
       config.push(`stroke-width="${node.style.borders[0].thickness / 2}"`);
-      const color = this.parseColors(node.style.borders[0].color);
+      const color = this.parseColor(node.style.borders[0].color);
       config.push(`stroke="${color.hex}"`);
       offset = node.style.borders[0].thickness;
     }
@@ -463,7 +463,7 @@ export class SketchStyleParserService {
     const obj = node.style.textStyle.encodedAttributes;
     if (obj.hasOwnProperty('MSAttributedStringColorAttribute')) {
       return {
-        color: this.parseColors(obj.MSAttributedStringColorAttribute).rgba
+        color: this.parseColor(obj.MSAttributedStringColorAttribute).rgba
       };
     } else if (obj.hasOwnProperty('NSColor')) {
       // TODO: Handle legacy
@@ -493,7 +493,7 @@ export class SketchStyleParserService {
 
     const bordersStyles = obj.reduce((acc, border) => {
       if (border.thickness > 0) {
-        const color = this.parseColors(border.color);
+        const color = this.parseColor(border.color);
         let shadow = `0 0 0 ${border.thickness}px ${color.rgba}`;
         if (border.position === BorderType.INSIDE) {
           shadow += ' inset';
@@ -529,7 +529,7 @@ export class SketchStyleParserService {
         if (firstFill.gradient) {
           const fillsStyles: string[] = [];
           firstFill.gradient.stops.forEach(stop => {
-            let fill = `${this.parseColors(stop.color).rgba}`;
+            let fill = `${this.parseColor(stop.color).rgba}`;
             if (stop.position >= 0 && stop.position <= 1) {
               fill += ` ${stop.position * 100}%`;
             }
@@ -545,7 +545,7 @@ export class SketchStyleParserService {
           }
         }
       })(),
-      'background-color': `${this.parseColors(firstFill.color).rgba}`
+      'background-color': `${this.parseColor(firstFill.color).rgba}`
     };
   }
 
@@ -556,7 +556,7 @@ export class SketchStyleParserService {
 
     if (innerShadows) {
       innerShadows.forEach(innerShadow => {
-        const color = this.parseColors(innerShadow.color);
+        const color = this.parseColor(innerShadow.color);
         shadowsStyles.push(
           `${innerShadow.offsetX}px ${innerShadow.offsetY}px ${
             innerShadow.blurRadius
@@ -566,7 +566,7 @@ export class SketchStyleParserService {
     }
     if (shadows) {
       shadows.forEach(shadow => {
-        const color = this.parseColors(shadow.color);
+        const color = this.parseColor(shadow.color);
         shadowsStyles.push(
           `${shadow.offsetX}px ${shadow.offsetY}px ${shadow.blurRadius}px ${
             shadow.spread
@@ -588,7 +588,7 @@ export class SketchStyleParserService {
     // TODO: Support multiple border
     if (node.style.borders && node.style.borders[0].thickness) {
       config.push(`stroke-width="${node.style.borders[0].thickness}"`);
-      const color = this.parseColors(node.style.borders[0].color);
+      const color = this.parseColor(node.style.borders[0].color);
       config.push(`stroke="${color.hex}"`);
     }
 
@@ -614,7 +614,7 @@ export class SketchStyleParserService {
     };
   }
 
-  parseColors(color: SketchMSColor) {
+  parseColor(color: SketchMSColor) {
     const { red, green, blue, alpha } = color;
     return {
       hex: this.sketch2hex(red, green, blue, alpha),

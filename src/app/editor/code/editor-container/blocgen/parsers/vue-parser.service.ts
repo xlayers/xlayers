@@ -1,112 +1,54 @@
 import { Injectable } from "@angular/core";
-import { RessourceFile, ParserFacade } from "../blocgen";
-import { XmlService, OpenTagOptions } from "../xml.service";
-import { LintService } from "../lint.service";
-import { CssParserService } from "./css-parser.service";
-import { BitmapParserService } from "./bitmap-parser.service";
-import { SvgParserService } from "./svg-parser.service";
+import { RessourceFile, ParserFacade, WithLocalContext } from "../blocgen";
+import { XmlHelperService, OpenTagOptions } from "../xml-helper.service";
+import { FormatHelperService } from "../format-helper.service";
+import { CssParserService, CssParserOptions } from "./css-parser.service";
+import {
+  BitmapParserService,
+  BitmapParserOptions
+} from "./bitmap-parser.service";
+import { SvgParserService, SvgParserOptions } from "./svg-parser.service";
 
 const COMPONENTS_DIR = "components";
 const ASSETS_DIR = "assets";
 
-const componentSpecTemplate = (path: string) => {
-  const capitalizedName = path.charAt(0).toUpperCase() + path.slice(1);
+export interface VueParserContext {}
 
-  return `\
-import { shallowMount } from "@vue/test-utils";
-import ${capitalizedName} from "@/components/${path}.vue";
-import { componentSpecTemplate } from '../codegen/vue/vue.template';
-import { SketchMSData } from '../../../../core/sketch.service';
-
-describe("${capitalizedName}", () => {
-  it("render", () => {
-    const wrapper = shallowMount(${capitalizedName}, {});
-    expect(wrapper.isVueInstance()).toBeTruthy();
-  });
-});`;
-};
-
-const componentTemplate = (
-  html: string[],
-  css: string[],
-  components: string[]
-) => {
-  const script =
-    components.length === 0
-      ? `\
-export default {}`
-      : `\
-${components
-  .map(component => `import ${component} from "components/${component}"`)
-  .join("\n")}
-
-export default {
-  components: {
-    ${components.join(",\n    ")}
-  }
-}`;
-
-  return `\
-<template>
-${html.join("\n")}
-</template>
-
-<script>
-${script}
-</script>
-
-<style>
-${css.join("\n")}
-</style>`;
-};
-
-/**
- * Convert a Base64 content into a Blob type.
- * @param base64Data The image data encoded as Base64
- * @param contentType The desired MIME type of the result image
- */
-const base64toBlob = (base64Data: string, contentType = "image/png") => {
-  const blob = new Blob([base64Data], { type: contentType });
-  return blob;
-};
-
-/**
- * Get the image source for the codegen.
- * @param base64Data The image data encoded as Base64
- * @param useBlob Should we convert to a Blob type
- */
-const buildImageSrc = (base64Data: string, useBlob = true) => {
-  if (useBlob) {
-    const blob = base64toBlob(base64Data, "image/png");
-    return URL.createObjectURL(blob);
-  }
-
-  // use fallback output
-  return base64Data;
-};
+export interface VueParserOptions {
+  svg?: SvgParserOptions;
+  css?: CssParserOptions;
+  bitmap?: BitmapParserOptions;
+}
 
 @Injectable({
   providedIn: "root"
 })
-export class VueParserService implements ParserFacade {
+export class VueParserService
+  implements ParserFacade, WithLocalContext<VueParserContext> {
   constructor(
-    private readonly xmlService: XmlService,
-    private readonly lintService: LintService,
+    private readonly xmlHelperService: XmlHelperService,
+    private readonly lintService: FormatHelperService,
     private readonly cssParserService: CssParserService,
     private readonly bitmapParserService: BitmapParserService,
     private readonly svgParserService: SvgParserService
   ) {}
 
+  private cssOptions: CssParserOptions;
+  private svgOptions: SvgParserOptions;
+  private bitmapOptions: BitmapParserOptions;
+
   identify(current: SketchMSLayer) {
     return (
       current.layers &&
       Array.isArray(current.layers) &&
-      ((current._class as string) === "rect" ||
-        (current._class as string) === "page" ||
-        (current._class as string) === "rectangle" ||
-        (current._class as string) === "group" ||
-        (current._class as string) === "symbolMaster")
+      ["rect", "page", "rectangle", "group", "symbolMaster"].includes(
+        current._class as string
+      )
     );
+  }
+
+  hasContext(current: SketchMSLayer) {
+    return !!(current as any).vue;
   }
 
   contextOf(current: SketchMSLayer) {
@@ -117,13 +59,21 @@ export class VueParserService implements ParserFacade {
     (current as any).vue = { html: [], css: [], imports: [] };
   }
 
-  transform(data: SketchMSData, current: SketchMSLayer) {
+  transform(
+    data: SketchMSData,
+    current: SketchMSLayer,
+    options: VueParserOptions = {}
+  ) {
+    this.svgOptions = options.svg || {};
+    this.bitmapOptions = options.bitmap || {};
+    this.cssOptions = options.css || {};
+
     const files: RessourceFile[] = [];
     this.attachContext(current);
     this.compute(data, current, current, files);
     files.push({
       kind: "vue",
-      value: componentTemplate(
+      value: this.renderComponentTemplate(
         this.contextOf(current).html,
         this.contextOf(current).css,
         this.contextOf(current).imports
@@ -133,7 +83,9 @@ export class VueParserService implements ParserFacade {
     });
     files.push({
       kind: "vue",
-      value: componentSpecTemplate(`${COMPONENTS_DIR}/${current.name}`),
+      value: this.renderComponentSpecTemplate(
+        `${COMPONENTS_DIR}/${current.name}`
+      ),
       language: "javascript",
       uri: `${COMPONENTS_DIR}/${current.name}.spec.js`
     });
@@ -206,7 +158,7 @@ export class VueParserService implements ParserFacade {
 
     if (this.cssParserService.identify(current)) {
       this.contextOf(root).html.push(
-        this.lintService.indent(depth, this.xmlService.closeTag("div"))
+        this.lintService.indent(depth, this.xmlHelperService.closeTag("div"))
       );
     }
   }
@@ -215,7 +167,7 @@ export class VueParserService implements ParserFacade {
     const context = this.cssParserService.contextOf(current);
 
     if (!context) {
-      return this.xmlService.openTag("div", [], options);
+      return this.xmlHelperService.openTag("div", [], options);
     }
 
     const attributes = [
@@ -223,14 +175,14 @@ export class VueParserService implements ParserFacade {
       `role="${current._class}"`,
       `aria-label="${current.name}"`
     ];
-    return this.xmlService.openTag("div", attributes, options);
+    return this.xmlHelperService.openTag("div", attributes, options);
   }
 
   private extractCssRule(data: SketchMSData, current: SketchMSLayer) {
     return [
       this.cssParserService.contextOf(current).className + " {",
       this.cssParserService
-        .transform(data, current)
+        .transform(data, current, this.cssOptions)
         .reduce((acc, file) => acc + file.value, ""),
       "}"
     ].join("\n");
@@ -238,9 +190,9 @@ export class VueParserService implements ParserFacade {
 
   private extractText(current: SketchMSLayer) {
     return (
-      this.xmlService.openTag("span") +
+      this.xmlHelperService.openTag("span") +
       current.attributedString.string +
-      this.xmlService.closeTag("span")
+      this.xmlHelperService.closeTag("span")
     );
   }
 
@@ -248,13 +200,13 @@ export class VueParserService implements ParserFacade {
     const context = this.cssParserService.contextOf(current);
 
     if (!context) {
-      return this.xmlService.openTag("img", [], {
+      return this.xmlHelperService.openTag("img", [], {
         autoclose: true
       });
     }
 
     return this.bitmapParserService
-      .transform(data, current)
+      .transform(data, current, this.bitmapOptions)
       .map(file => {
         const base64Content = file.value.replace("data:image/png;base64", "");
 
@@ -262,9 +214,9 @@ export class VueParserService implements ParserFacade {
           `class="${this.cssParserService.contextOf(current).className}"`,
           `role="${current._class}"`,
           `aria-label="${current.name}"`,
-          `src="${buildImageSrc(base64Content, false)}"`
+          `src="${this.buildImageSrc(base64Content, false)}"`
         ];
-        return this.xmlService.openTag("img", attributes, {
+        return this.xmlHelperService.openTag("img", attributes, {
           autoclose: true
         });
       })
@@ -279,7 +231,7 @@ export class VueParserService implements ParserFacade {
     //     "}"
     //   ].join("\n")
     // );
-    // return this.xmlService.openTag(
+    // return this.xmlHelperService.openTag(
     //   "div",
     //   [`class="${this.cssParserService.contextOf(current).className}"`],
     //   { autoclose: true }
@@ -307,7 +259,7 @@ export class VueParserService implements ParserFacade {
       files.push(file);
     });
 
-    return this.xmlService.openTag(current.name, [], {
+    return this.xmlHelperService.openTag(current.name, [], {
       autoclose: true
     });
   }
@@ -318,7 +270,7 @@ export class VueParserService implements ParserFacade {
     files: RessourceFile[]
   ) {
     return this.svgParserService
-      .transform(data, current)
+      .transform(data, current, this.svgOptions)
       .map(file => {
         files.push({
           ...file,
@@ -329,5 +281,81 @@ export class VueParserService implements ParserFacade {
         return `<img src="${ASSETS_DIR}/${file.uri}" alt="${current.name}"/>`;
       }, [])
       .join("\n");
+  }
+
+  /**
+   * Convert a Base64 content into a Blob type.
+   * @param base64Data The image data encoded as Base64
+   * @param contentType The desired MIME type of the result image
+   */
+  private base64toBlob(base64Data: string, contentType = "image/png") {
+    const blob = new Blob([base64Data], { type: contentType });
+    return blob;
+  }
+
+  /**
+   * Get the image source for the codegen.
+   * @param base64Data The image data encoded as Base64
+   * @param useBlob Should we convert to a Blob type
+   */
+  private buildImageSrc(base64Data: string, useBlob = true) {
+    if (useBlob) {
+      const blob = this.base64toBlob(base64Data, "image/png");
+      return URL.createObjectURL(blob);
+    }
+
+    // use fallback output
+    return base64Data;
+  }
+
+  private renderComponentSpecTemplate(path: string) {
+    const capitalizedName = path.charAt(0).toUpperCase() + path.slice(1);
+
+    return `\
+import { shallowMount } from "@vue/test-utils";
+import ${capitalizedName} from "@/components/${path}.vue";
+import { componentSpecTemplate } from '../codegen/vue/vue.template';
+import { SketchMSData } from '../../../../core/sketch.service';
+
+describe("${capitalizedName}", () => {
+  it("render", () => {
+    const wrapper = shallowMount(${capitalizedName}, {});
+    expect(wrapper.isVueInstance()).toBeTruthy();
+  });
+});`;
+  }
+
+  private renderComponentTemplate(
+    html: string[],
+    css: string[],
+    components: string[]
+  ) {
+    const script =
+      components.length === 0
+        ? `\
+export default {}`
+        : `\
+${components
+  .map(component => `import ${component} from "components/${component}"`)
+  .join("\n")}
+
+export default {
+  components: {
+    ${components.join(",\n    ")}
+  }
+}`;
+
+    return `\
+<template>
+${html.join("\n")}
+</template>
+
+<script>
+${script}
+</script>
+
+<style>
+${css.join("\n")}
+</style>`;
   }
 }

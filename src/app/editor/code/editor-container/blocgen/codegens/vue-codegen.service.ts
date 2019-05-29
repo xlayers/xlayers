@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
-import { XlayersNgxEditorModel } from "../../../codegen/codegen.service";
-import { CodeGenFacade } from "../../blocgen";
-import { VueParserService } from "../../parsers/vue-parser.service";
+import { XlayersNgxEditorModel } from "../../codegen/codegen.service";
+import { CodeGenFacade } from "../blocgen";
+import { VueParserService } from "../parsers/vue-parser.service";
 
 const readmeTemplate = (name: string) => `\
 ## How to use the ${name} Vuejs module
