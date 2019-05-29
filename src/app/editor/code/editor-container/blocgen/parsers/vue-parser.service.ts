@@ -42,7 +42,7 @@ ${components
 
 export default {
   components: {
-    ${components.join("    ,\n")}
+    ${components.join(",\n    ")}
   }
 }`;
 
@@ -149,14 +149,14 @@ export class VueParserService implements ParserFacade {
   ) {
     if (this.identify(current)) {
       current.layers.forEach(layer => {
-        this.computeIntermediateNode(data, layer, root, files, depth);
+        this.computeIntermediateLayer(data, layer, root, files, depth);
       });
     } else {
-      return this.computeEdgeNodeData(data, current, root, files);
+      return this.computeEdgeLayer(data, current, root, files);
     }
   }
 
-  private computeEdgeNodeData(
+  private computeEdgeLayer(
     data: SketchMSData,
     current: SketchMSLayer,
     root: SketchMSLayer,
@@ -164,11 +164,13 @@ export class VueParserService implements ParserFacade {
   ) {
     switch (current._class as string) {
       case "text":
-        return this.extractText(data, current);
+        return this.extractText(current);
       case "bitmap":
         return this.extractImage(data, current);
       case "symbolInstance":
         return this.extractAndRegisterSymbolMaster(data, current, root, files);
+      case "oval":
+        return this.extractOvalSolid(current, root);
       default:
         if (this.svgParserService.identify(current)) {
           return this.extractImgAndRegisterSvgFile(data, current, files);
@@ -177,7 +179,7 @@ export class VueParserService implements ParserFacade {
     }
   }
 
-  private computeIntermediateNode(
+  private computeIntermediateLayer(
     data: SketchMSData,
     current: SketchMSLayer,
     root: SketchMSLayer,
@@ -189,40 +191,35 @@ export class VueParserService implements ParserFacade {
       this.cssParserService.contextOf(current)
     ) {
       this.contextOf(root).css.push(this.extractCssRule(data, current));
-      this.contextOf(root).html.push(
-        this.lintService.indent(depth, this.extractOpenTag(data, current))
-      );
     }
+
+    this.contextOf(root).html.push(
+      this.lintService.indent(depth, this.extractOpenTag(current))
+    );
 
     const content = this.compute(data, current, root, files, depth + 1);
     if (content) {
       this.contextOf(root).html.push(
         this.lintService.indent(depth + 1, content)
       );
+    }
 
-      if (this.cssParserService.identify(current)) {
-        this.contextOf(root).html.push(
-          this.lintService.indent(depth, this.xmlService.closeTag("div"))
-        );
-      }
-    } else if (this.cssParserService.identify(current)) {
-      this.contextOf(root).html.pop();
+    if (this.cssParserService.identify(current)) {
       this.contextOf(root).html.push(
-        this.lintService.indent(
-          depth,
-          this.extractOpenTag(data, current, { autoclose: true })
-        )
+        this.lintService.indent(depth, this.xmlService.closeTag("div"))
       );
     }
   }
 
-  private extractOpenTag(
-    _data: SketchMSData,
-    current: SketchMSLayer,
-    options?: OpenTagOptions
-  ) {
+  private extractOpenTag(current: SketchMSLayer, options?: OpenTagOptions) {
+    const context = this.cssParserService.contextOf(current);
+
+    if (!context) {
+      return this.xmlService.openTag("div", [], options);
+    }
+
     const attributes = [
-      `class="${this.cssParserService.contextOf(current).className}"`,
+      `class="${context.className}"`,
       `role="${current._class}"`,
       `aria-label="${current.name}"`
     ];
@@ -239,7 +236,7 @@ export class VueParserService implements ParserFacade {
     ].join("\n");
   }
 
-  private extractText(_data: SketchMSData, current: SketchMSLayer) {
+  private extractText(current: SketchMSLayer) {
     return (
       this.xmlService.openTag("span") +
       current.attributedString.string +
@@ -248,6 +245,14 @@ export class VueParserService implements ParserFacade {
   }
 
   private extractImage(data: SketchMSData, current: SketchMSLayer) {
+    const context = this.cssParserService.contextOf(current);
+
+    if (!context) {
+      return this.xmlService.openTag("img", [], {
+        autoclose: true
+      });
+    }
+
     return this.bitmapParserService
       .transform(data, current)
       .map(file => {
@@ -259,9 +264,26 @@ export class VueParserService implements ParserFacade {
           `aria-label="${current.name}"`,
           `src="${buildImageSrc(base64Content, false)}"`
         ];
-        return this.xmlService.openTag("img", attributes, { autoclose: true });
+        return this.xmlService.openTag("img", attributes, {
+          autoclose: true
+        });
       })
       .join("\n");
+  }
+
+  private extractOvalSolid(current: SketchMSLayer, root: SketchMSLayer) {
+    // this.contextOf(root).css.push(
+    //   [
+    //     this.cssParserService.contextOf(current).className + " {",
+    //     "  border-radius: 50%",
+    //     "}"
+    //   ].join("\n")
+    // );
+    // return this.xmlService.openTag(
+    //   "div",
+    //   [`class="${this.cssParserService.contextOf(current).className}"`],
+    //   { autoclose: true }
+    // );
   }
 
   private extractAndRegisterSymbolMaster(
@@ -279,8 +301,10 @@ export class VueParserService implements ParserFacade {
     }
 
     this.transform(data, foreignSymbol.symbolMaster).forEach(file => {
+      if (file.kind === "vue" && file.uri.endsWith(".vue")) {
+        this.contextOf(root).imports.push(current.name);
+      }
       files.push(file);
-      this.contextOf(root).imports.push(current.name);
     });
 
     return this.xmlService.openTag(current.name, [], {
