@@ -90,24 +90,35 @@ export class CssParserService
       return `${this.classNamePrefix}${randomString()}`;
     };
 
-    const rules = this.extractStyles(current);
+    const rules = {
+      ...this.extractObjectStyles(current),
+      ...this.extractFrameStyles(current)
+    };
 
-    if (Object.entries(rules).length > 0) {
-      (current as any).css = {
-        ...this.contextOf(current),
-        rules,
-        className: `${generateCssClassName()}`
-      };
-    } else {
-      (current as any).css = {
-        ...this.contextOf(current),
-        rules: {},
-        className: ""
-      };
-    }
+    (current as any).css = {
+      ...this.contextOf(current),
+      rules,
+      className: generateCssClassName()
+    };
   }
 
-  private extractStyles(current: SketchMSLayer) {
+  private extractFrameStyles(current: SketchMSLayer) {
+    if (!current.frame) {
+      return {};
+    }
+
+    return {
+      display: "block",
+      position: "absolute",
+      left: `${current.frame.x}px`,
+      top: `${current.frame.y}px`,
+      width: `${current.frame.width}px`,
+      height: `${current.frame.height}px`,
+      visibility: current.isVisible ? "visible" : "hidden"
+    };
+  }
+
+  private extractObjectStyles(current: SketchMSLayer) {
     switch (current._class as string) {
       case "symbolMaster":
         return {
