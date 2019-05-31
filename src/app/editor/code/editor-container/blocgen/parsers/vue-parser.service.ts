@@ -8,6 +8,7 @@ import {
   BitmapParserOptions
 } from "./bitmap-parser.service";
 import { SvgParserService, SvgParserOptions } from "./svg-parser.service";
+import { TextParserService } from "./text-parser.service";
 
 const COMPONENTS_DIR = "components";
 const ASSETS_DIR = "assets";
@@ -30,7 +31,8 @@ export class VueParserService
     private readonly lintService: FormatHelperService,
     private readonly cssParserService: CssParserService,
     private readonly bitmapParserService: BitmapParserService,
-    private readonly svgParserService: SvgParserService
+    private readonly svgParserService: SvgParserService,
+    private readonly textParserService: TextParserService
   ) {}
 
   private cssOptions: CssParserOptions;
@@ -116,7 +118,7 @@ export class VueParserService
   ) {
     switch (current._class as string) {
       case "text":
-        return this.extractText(current);
+        return this.extractText(data, current);
       case "bitmap":
         return this.extractImage(data, current);
       case "symbolInstance":
@@ -194,12 +196,15 @@ export class VueParserService
     return [context.className + " {", cssRules, "}"].join("\n");
   }
 
-  private extractText(current: SketchMSLayer) {
-    return (
-      this.xmlHelperService.openTag("span") +
-      current.attributedString.string +
-      this.xmlHelperService.closeTag("span")
-    );
+  private extractText(data: SketchMSData, current: SketchMSLayer) {
+    return this.textParserService
+      .transform(data, current)
+      .map(
+        file =>
+          this.xmlHelperService.openTag("span") +
+          file.value +
+          this.xmlHelperService.closeTag("span")
+      );
   }
 
   private extractImage(data: SketchMSData, current: SketchMSLayer) {
