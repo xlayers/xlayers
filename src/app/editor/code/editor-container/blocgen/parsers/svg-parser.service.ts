@@ -89,17 +89,35 @@ export class SvgParserService
       current.style.borders[0].thickness
     ) {
       config.push(`stroke-width="${current.style.borders[0].thickness / 2}"`);
-      const color = this.styleHelperService.parseColorAsHex(current.style.borders[0].color);
+      const color = this.styleHelperService.parseColorAsHex(
+        current.style.borders[0].color
+      );
       config.push(`stroke="${color}"`);
       offset = current.style.borders[0].thickness;
     }
 
     // TODO: move to @types/sketchapp
-    const origin = this.shapeHelperService.parsePoint((current as any).points[0].point, offset, current);
+    const origin = this.shapeHelperService.parsePoint(
+      (current as any).points[0].point,
+      offset,
+      current
+    );
     const segments = (current as any).points.slice(1).map(curvePoint => {
-      const curveFrom = this.shapeHelperService.parsePoint(curvePoint.curveFrom, offset, current);
-      const curveTo = this.shapeHelperService.parsePoint(curvePoint.curveTo, offset, current);
-      const currPoint = this.shapeHelperService.parsePoint(curvePoint.point, offset, current);
+      const curveFrom = this.shapeHelperService.parsePoint(
+        curvePoint.curveFrom,
+        offset,
+        current
+      );
+      const curveTo = this.shapeHelperService.parsePoint(
+        curvePoint.curveTo,
+        offset,
+        current
+      );
+      const currPoint = this.shapeHelperService.parsePoint(
+        curvePoint.point,
+        offset,
+        current
+      );
       if (curveTo.x === curveFrom.x && curveTo.y === curveFrom.y) {
         return `L ${currPoint.x} ${currPoint.y}`;
       }
@@ -210,7 +228,7 @@ export class SvgParserService
   private formatSvg(current: SketchMSLayer, paths: string, offset: number) {
     return [
       `<svg width="${current.frame.width + offset}" height="${current.frame
-        .height + offset}">`,
+        .height + offset}" role="img">`,
       this.formatHelperService.indent(1, paths),
       `</svg>`
     ].join("\n");
