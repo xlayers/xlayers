@@ -1,9 +1,9 @@
 import { Injectable } from "@angular/core";
 import { XlayersNgxEditorModel } from "../../codegen/codegen.service";
 import { CodeGenFacade } from "../blocgen";
-import { VueParserService } from "../parsers/vue-parser.service";
+import { VueBlocGenService } from "../parsers/vue-blocgen/vue-blocgen.service";
 
-const readmeTemplate = (name: string) => `\
+const renderReadme = (name: string) => `\
 ## How to use the ${name} Vuejs module
 
 1. Download and extract the exported module into your workspace,
@@ -34,7 +34,7 @@ export default {
   providedIn: "root"
 })
 export class VueCodeGenService implements CodeGenFacade {
-  constructor(private readonly vueParserService: VueParserService) {}
+  constructor(private readonly vueBlocGenService: VueBlocGenService) {}
 
   buttons() {
     return {};
@@ -44,12 +44,12 @@ export class VueCodeGenService implements CodeGenFacade {
     return [
       {
         kind: "vue",
-        value: readmeTemplate(data.meta.app),
+        value: renderReadme(data.meta.app),
         language: "markdown",
         uri: `README.md`
       },
       ...(data.pages as any).flatMap(page =>
-        this.vueParserService.transform(data, page)
+        this.vueBlocGenService.transform(data, page)
       )
     ] as XlayersNgxEditorModel[];
   }

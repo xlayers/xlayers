@@ -1,107 +1,54 @@
 import { Injectable } from "@angular/core";
-import { RessourceFile, ParserFacade, WithLocalContext } from "../blocgen";
-import { XmlHelperService, OpenTagOptions } from "../xml-helper.service";
-import { FormatHelperService } from "../format-helper.service";
-import { CssParserService, CssParserOptions } from "./css-parser.service";
+import { RessourceFile } from "../../blocgen";
+import { XmlHelperService, OpenTagOptions } from "../../xml-helper.service";
+import { FormatHelperService } from "../../format-helper.service";
 import {
-  BitmapParserService,
-  BitmapParserOptions
-} from "./bitmap-parser.service";
-import { SvgParserService, SvgParserOptions } from "./svg-parser.service";
-import { TextParserService } from "./text-parser.service";
+  CssBlocGenService,
+  CssBlocGenOptions
+} from "../css-blocgen/css-blocgen.service";
+import {
+  BitmapBlocGenService,
+  BitmapBlocGenOptions
+} from "../bitmap-blocgen/bitmap-blocgen.service";
+import {
+  SvgBlocGenService,
+  SvgParserOptions
+} from "../svg-blocgen/svg-blocgen.service";
+import { TextBlocGenService } from "../text-blocgen/text-blocgen.service";
+import { VueContextService } from "./vue-context.service";
+import { SvgContextService } from "../svg-blocgen/svg-context.service";
+import { CssContextService } from "../css-blocgen/css-context.service";
 
-const COMPONENTS_DIR = "components";
 const ASSETS_DIR = "assets";
-
-export interface VueParserContext {}
-
-export interface VueParserOptions {
-  svg?: SvgParserOptions;
-  css?: CssParserOptions;
-  bitmap?: BitmapParserOptions;
-}
 
 @Injectable({
   providedIn: "root"
 })
-export class VueParserService
-  implements ParserFacade, WithLocalContext<VueParserContext> {
+export class VueParserService {
   constructor(
     private readonly xmlHelperService: XmlHelperService,
     private readonly lintService: FormatHelperService,
-    private readonly cssParserService: CssParserService,
-    private readonly bitmapParserService: BitmapParserService,
-    private readonly svgParserService: SvgParserService,
-    private readonly textParserService: TextParserService
+    private readonly cssParserService: CssBlocGenService,
+    private readonly bitmapParserService: BitmapBlocGenService,
+    private readonly svgParserService: SvgBlocGenService,
+    private readonly vueContextService: VueContextService,
+    private readonly textParserService: TextBlocGenService,
+    private readonly cssContextService: CssContextService,
+    private readonly svgContextService: SvgContextService
   ) {}
 
-  private cssOptions: CssParserOptions;
+  private cssOptions: CssBlocGenOptions;
   private svgOptions: SvgParserOptions;
-  private bitmapOptions: BitmapParserOptions;
+  private bitmapOptions: BitmapBlocGenOptions;
 
-  identify(current: SketchMSLayer) {
-    return (
-      current.layers &&
-      Array.isArray(current.layers) &&
-      ["rect", "page", "rectangle", "group", "symbolMaster"].includes(
-        current._class as string
-      )
-    );
-  }
-
-  hasContext(current: SketchMSLayer) {
-    return !!(current as any).vue;
-  }
-
-  contextOf(current: SketchMSLayer) {
-    return (current as any).vue;
-  }
-
-  attachContext(current: SketchMSLayer) {
-    (current as any).vue = { html: [], css: [], imports: [] };
-  }
-
-  transform(
-    data: SketchMSData,
-    current: SketchMSLayer,
-    options: VueParserOptions = {}
-  ) {
-    this.svgOptions = options.svg || {};
-    this.bitmapOptions = options.bitmap || {};
-    this.cssOptions = options.css || {};
-
-    const files: RessourceFile[] = [];
-    this.attachContext(current);
-    this.compute(data, current, current, files);
-    files.push({
-      kind: "vue",
-      value: this.renderComponentTemplate(
-        this.contextOf(current).html,
-        this.contextOf(current).css,
-        this.contextOf(current).imports
-      ),
-      language: "html",
-      uri: `${COMPONENTS_DIR}/${current.name}.vue`
-    });
-    files.push({
-      kind: "vue",
-      value: this.renderComponentSpecTemplate(
-        `${COMPONENTS_DIR}/${current.name}`
-      ),
-      language: "javascript",
-      uri: `${COMPONENTS_DIR}/${current.name}.spec.js`
-    });
-    return files;
-  }
-
-  private compute(
+  compute(
     data: SketchMSData,
     current: SketchMSLayer,
     root: SketchMSLayer,
     files: RessourceFile[],
     depth: number = 0
   ) {
-    if (this.identify(current)) {
+    if (this.vueContextService.identify(current)) {
       current.layers.forEach(layer => {
         this.computeIntermediateLayer(data, layer, root, files, depth);
       });
@@ -126,7 +73,7 @@ export class VueParserService
       case "oval":
         return this.extractOvalSolid(current, root);
       default:
-        if (this.svgParserService.identify(current)) {
+        if (this.svgContextService.identify(current)) {
           return this.extractImgAndRegisterSvgFile(data, current, files);
         }
         return null;
@@ -142,33 +89,39 @@ export class VueParserService
   ) {
     const cssRules = this.cssParserService
       .transform(data, current, this.cssOptions)
-      .reduce((acc, file) => acc + file.value, "");
+      .map(file => file.value);
 
     if (cssRules) {
-      this.contextOf(root).css.push(cssRules);
-      this.contextOf(root).html.push(
-        this.lintService.indent(depth, this.extractCssOpenTag(current))
-      );
+      this.vueContextService.contextOf(root).css.push(cssRules);
+      this.vueContextService
+        .contextOf(root)
+        .html.push(
+          this.lintService.indent(depth, this.extractCssOpenTag(current))
+        );
     } else {
-      this.contextOf(root).html.push(
-        this.lintService.indent(depth, this.extractOpenTag(current))
-      );
+      this.vueContextService
+        .contextOf(root)
+        .html.push(
+          this.lintService.indent(depth, this.extractOpenTag(current))
+        );
     }
 
     const content = this.compute(data, current, root, files, depth + 1);
     if (content) {
-      this.contextOf(root).html.push(
-        this.lintService.indent(depth + 1, content)
-      );
+      this.vueContextService
+        .contextOf(root)
+        .html.push(this.lintService.indent(depth + 1, content));
     }
 
-    this.contextOf(root).html.push(
-      this.lintService.indent(depth, this.xmlHelperService.closeTag("div"))
-    );
+    this.vueContextService
+      .contextOf(root)
+      .html.push(
+        this.lintService.indent(depth, this.xmlHelperService.closeTag("div"))
+      );
   }
 
   private extractCssOpenTag(current: SketchMSLayer, options?: OpenTagOptions) {
-    const context = this.cssParserService.contextOf(current);
+    const context = this.cssContextService.contextOf(current);
     const attributes = [
       `class="${context.className}"`,
       `role="${current._class}"`,
@@ -198,7 +151,7 @@ export class VueParserService
   }
 
   private extractImage(data: SketchMSData, current: SketchMSLayer) {
-    const context = this.cssParserService.contextOf(current);
+    const context = this.vueContextService.contextOf(current);
 
     if (!context) {
       return this.xmlHelperService.openTag("img", [], {
@@ -212,7 +165,7 @@ export class VueParserService
         const base64Content = file.value.replace("data:image/png;base64", "");
 
         const attributes = [
-          `class="${this.cssParserService.contextOf(current).className}"`,
+          `class="${this.vueContextService.contextOf(current).className}"`,
           `role="${current._class}"`,
           `aria-label="${current.name}"`,
           `src="${this.buildImageSrc(base64Content, false)}"`
@@ -225,16 +178,16 @@ export class VueParserService
   }
 
   private extractOvalSolid(current: SketchMSLayer, root: SketchMSLayer) {
-    // this.contextOf(root).css.push(
+    // this.vueContextService.contextOf(root).css.push(
     //   [
-    //     this.cssParserService.contextOf(current).className + " {",
+    //     this.vueContextService.contextOf(current).className + " {",
     //     "  border-radius: 50%",
     //     "}"
     //   ].join("\n")
     // );
     // return this.xmlHelperService.openTag(
     //   "div",
-    //   [`class="${this.cssParserService.contextOf(current).className}"`],
+    //   [`class="${this.vueContextService.contextOf(current).className}"`],
     //   { autoclose: true }
     // );
   }
@@ -253,9 +206,17 @@ export class VueParserService
       return null;
     }
 
-    this.transform(data, foreignSymbol.symbolMaster).forEach(file => {
+    const vueFiles = [];
+    this.compute(
+      data,
+      foreignSymbol.symbolMaster,
+      foreignSymbol.symbolMaster,
+      vueFiles
+    );
+
+    vueFiles.forEach(file => {
       if (file.kind === "vue" && file.uri.endsWith(".vue")) {
-        this.contextOf(root).imports.push(current.name);
+        this.vueContextService.contextOf(root).imports.push(current.name);
       }
       files.push(file);
     });
@@ -307,56 +268,5 @@ export class VueParserService
 
     // use fallback output
     return base64Data;
-  }
-
-  private renderComponentSpecTemplate(path: string) {
-    const capitalizedName = path.charAt(0).toUpperCase() + path.slice(1);
-
-    return `\
-import { shallowMount } from "@vue/test-utils";
-import ${capitalizedName} from "@/components/${path}.vue";
-import { componentSpecTemplate } from '../codegen/vue/vue.template';
-import { SketchMSData } from '../../../../core/sketch.service';
-
-describe("${capitalizedName}", () => {
-  it("render", () => {
-    const wrapper = shallowMount(${capitalizedName}, {});
-    expect(wrapper.isVueInstance()).toBeTruthy();
-  });
-});`;
-  }
-
-  private renderComponentTemplate(
-    html: string[],
-    css: string[],
-    components: string[]
-  ) {
-    const script =
-      components.length === 0
-        ? `\
-export default {}`
-        : `\
-${components
-  .map(component => `import ${component} from "components/${component}"`)
-  .join("\n")}
-
-export default {
-  components: {
-    ${components.join(",\n    ")}
-  }
-}`;
-
-    return `\
-<template>
-${html.join("\n")}
-</template>
-
-<script>
-${script}
-</script>
-
-<style>
-${css.join("\n")}
-</style>`;
   }
 }

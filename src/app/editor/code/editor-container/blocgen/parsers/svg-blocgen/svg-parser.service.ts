@@ -1,62 +1,29 @@
 import { Injectable } from "@angular/core";
-import { RessourceFile, ParserFacade, WithLocalContext } from "../blocgen";
-import { ShapeHelperService } from "../shape-helper.service";
-import { StyleHelperService } from "../style-helper.service";
-import { FormatHelperService } from "../format-helper.service";
-
-export interface SvgParserOptions {}
-
-export interface SvgParserContext {
-  paths: string;
-  offset: number;
-}
+import { ShapeHelperService } from "../../shape-helper.service";
+import { StyleHelperService } from "../../style-helper.service";
+import { SvgContextService } from "./svg-context.service";
 
 @Injectable({
   providedIn: "root"
 })
-export class SvgParserService
-  implements ParserFacade, WithLocalContext<SvgParserContext> {
+export class SvgParserService {
   constructor(
-    private readonly formatHelperService: FormatHelperService,
     private readonly shapeHelperService: ShapeHelperService,
-    private readonly styleHelperService: StyleHelperService
+    private readonly styleHelperService: StyleHelperService,
+    private readonly svgContextService: SvgContextService
   ) {}
-  transform(
-    _data: SketchMSData,
-    current: SketchMSLayer,
-    _options?: SvgParserOptions
-  ) {
-    if (!this.hasContext(current)) {
-      this.compute(current);
-    }
 
-    const context = this.contextOf(current);
-    return [this.renderSvgRessourceFile(context, current)];
-  }
-
-  identify(current: SketchMSLayer) {
-    return ["shapePath", "shapeGroup"].includes(current._class as string);
-  }
-
-  hasContext(current: SketchMSLayer) {
-    return !!this.contextOf(current);
-  }
-
-  contextOf(current: SketchMSLayer) {
-    return (current as any).svg || (current as any).paths;
-  }
-
-  private compute(current: SketchMSLayer) {
-    (current as any).svg = {
-      ...this.contextOf(current),
+  compute(current: SketchMSLayer) {
+    this.svgContextService.putContext(current, {
+      ...this.svgContextService.contextOf(current),
       ...this.extractShapes(current)
-    };
+    });
   }
 
   private extractShapes(current: SketchMSLayer) {
     switch (current._class as string) {
       case "shapePath":
-        return this.extractShapeSolid(current);
+        return this.extractShapePath(current);
       case "shapeGroup":
         return this.extractShapeGroup(current);
       case "triangle":
@@ -66,19 +33,7 @@ export class SvgParserService
     }
   }
 
-  private renderSvgRessourceFile(
-    context: SvgParserContext,
-    current: SketchMSLayer
-  ) {
-    return {
-      kind: "svg",
-      language: "svg",
-      value: this.formatSvg(current, context.paths, context.offset),
-      uri: `${current.name}.svg`
-    } as RessourceFile;
-  }
-
-  private extractShapeSolid(current: SketchMSLayer) {
+  private extractShapePath(current: SketchMSLayer) {
     const config = [];
     let offset = 0;
 
@@ -223,14 +178,5 @@ export class SvgParserService
       offset,
       paths: `<path d="${paths.join(" ")}"/>`
     };
-  }
-
-  private formatSvg(current: SketchMSLayer, paths: string, offset: number) {
-    return [
-      `<svg width="${current.frame.width + offset}" height="${current.frame
-        .height + offset}" role="img">`,
-      this.formatHelperService.indent(1, paths),
-      `</svg>`
-    ].join("\n");
   }
 }
