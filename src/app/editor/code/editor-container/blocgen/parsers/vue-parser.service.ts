@@ -204,7 +204,8 @@ export class VueParserService
           this.xmlHelperService.openTag("span") +
           file.value +
           this.xmlHelperService.closeTag("span")
-      );
+      )
+      .join("\n");
   }
 
   private extractImage(data: SketchMSData, current: SketchMSLayer) {
