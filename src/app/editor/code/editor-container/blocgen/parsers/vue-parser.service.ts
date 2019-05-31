@@ -138,16 +138,18 @@ export class VueParserService
     files: RessourceFile[],
     depth: number
   ) {
-    if (
-      this.cssParserService.identify(current) &&
-      this.cssParserService.contextOf(current)
-    ) {
-      this.contextOf(root).css.push(this.extractCssRule(data, current));
-    }
+    const cssRules = this.extractCssRule(data, current);
 
-    this.contextOf(root).html.push(
-      this.lintService.indent(depth, this.extractOpenTag(current))
-    );
+    if (cssRules) {
+      this.contextOf(root).css.push(cssRules);
+      this.contextOf(root).html.push(
+        this.lintService.indent(depth, this.extractCssOpenTag(current))
+      );
+    } else {
+      this.contextOf(root).html.push(
+        this.lintService.indent(depth, this.extractOpenTag(current))
+      );
+    }
 
     const content = this.compute(data, current, root, files, depth + 1);
     if (content) {
@@ -161,13 +163,8 @@ export class VueParserService
     );
   }
 
-  private extractOpenTag(current: SketchMSLayer, options?: OpenTagOptions) {
+  private extractCssOpenTag(current: SketchMSLayer, options?: OpenTagOptions) {
     const context = this.cssParserService.contextOf(current);
-
-    if (!context) {
-      return this.xmlHelperService.openTag("div", [], options);
-    }
-
     const attributes = [
       `class="${context.className}"`,
       `role="${current._class}"`,
@@ -176,14 +173,25 @@ export class VueParserService
     return this.xmlHelperService.openTag("div", attributes, options);
   }
 
+  private extractOpenTag(current: SketchMSLayer, options?: OpenTagOptions) {
+    const attributes = [
+      `role="${current._class}"`,
+      `aria-label="${current.name}"`
+    ];
+    return this.xmlHelperService.openTag("div", attributes, options);
+  }
+
   private extractCssRule(data: SketchMSData, current: SketchMSLayer) {
-    return [
-      this.cssParserService.contextOf(current).className + " {",
-      this.cssParserService
-        .transform(data, current, this.cssOptions)
-        .reduce((acc, file) => acc + file.value, ""),
-      "}"
-    ].join("\n");
+    const cssRules = this.cssParserService
+      .transform(data, current, this.cssOptions)
+      .reduce((acc, file) => acc + file.value, "");
+
+    if (!cssRules) {
+      return "";
+    }
+
+    const context = this.cssParserService.contextOf(current);
+    return [context.className + " {", cssRules, "}"].join("\n");
   }
 
   private extractText(current: SketchMSLayer) {

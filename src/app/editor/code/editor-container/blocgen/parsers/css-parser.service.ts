@@ -3,11 +3,8 @@ import { ParserFacade, WithLocalContext } from "../blocgen";
 import { StyleHelperService } from "../style-helper.service";
 import { FormatHelperService } from "../format-helper.service";
 
-export interface CssRules {
-  [key: string]: string;
-}
 export interface CssParserContext {
-  rules: CssRules;
+  rules: { [key: string]: string };
   className: string;
 }
 
@@ -57,33 +54,28 @@ export class CssParserService
       return undefined;
     }
 
-    const isLegacyCss =
-      current.css && (!current.css.rule && !current.css.className);
-
     return {
-      rules: current.css,
-      className: isLegacyCss
-        ? (current as any).css__className
-        : (current as any).css.className
+      rules:
+        ((current.css as unknown) as CssParserContext).rules || current.css,
+      className:
+        ((current.css as unknown) as CssParserContext).className ||
+        (current as any).css__className
     };
   }
 
-  private formatCss(rules: CssRules) {
-    return Object.entries(rules)
+  private formatCss(context: CssParserContext) {
+    return Object.entries(context.rules)
       .map(([key, value]) =>
         this.formatHelperService.indent(1, `${key}: ${value};`)
       )
       .join("\n");
   }
 
-  private renderCssRessourceFile(
-    context: CssParserContext,
-    path: string
-  ) {
+  private renderCssRessourceFile(context: CssParserContext, path: string) {
     return {
       kind: "css",
       language: "css",
-      value: this.formatCss(context.rules),
+      value: this.formatCss(context),
       uri: `${path}.css`
     };
   }
@@ -95,14 +87,24 @@ export class CssParserService
           .toString(36)
           .substring(2, 6);
 
-      return `xly_${randomString()}`;
+      return `${this.classNamePrefix}${randomString()}`;
     };
 
-    (current as any).css = {
-      ...this.contextOf(current),
-      rules: this.extractStyles(current),
-      className: `${this.classNamePrefix}${generateCssClassName()}`
-    };
+    const rules = this.extractStyles(current);
+
+    if (Object.entries(rules).length > 0) {
+      (current as any).css = {
+        ...this.contextOf(current),
+        rules,
+        className: `${generateCssClassName()}`
+      };
+    } else {
+      (current as any).css = {
+        ...this.contextOf(current),
+        rules: {},
+        className: ""
+      };
+    }
   }
 
   private extractStyles(current: SketchMSLayer) {
@@ -159,10 +161,10 @@ export class CssParserService
 
   private extractLayerStyle(current: SketchMSLayer) {
     return {
-      ...this.maybeUnstableProperty(this.extractBlur(current)),
-      ...this.maybeUnstableProperty(this.extractBorders(current)),
-      ...this.maybeUnstableProperty(this.extractFills(current)),
-      ...this.maybeUnstableProperty(this.extractShadows(current))
+      ...this.extractBlur(current),
+      ...this.extractBorders(current),
+      ...this.extractFills(current),
+      ...this.extractShadows(current)
     };
   }
 
@@ -236,6 +238,10 @@ export class CssParserService
   private extractBlur(current: SketchMSLayer) {
     const obj = (current as any).blur;
 
+    if (!obj) {
+      return {};
+    }
+
     if (obj.radius <= 0) {
       return {};
     }
@@ -253,6 +259,10 @@ export class CssParserService
     }
 
     const obj = (current as any).borders;
+
+    if (!obj) {
+      return {};
+    }
 
     if (obj.length === 0) {
       return {};
@@ -281,6 +291,10 @@ export class CssParserService
 
   private extractFills(current: SketchMSLayer) {
     const obj = (current as any).fills;
+
+    if (!obj) {
+      return {};
+    }
 
     if (obj.length === 0) {
       return {};
@@ -365,9 +379,9 @@ export class CssParserService
     };
   }
 
-  private maybeUnstableProperty(callback) {
+  private maybeUnstableProperty(data) {
     try {
-      return callback();
+      return data;
     } catch (e) {
       if (e instanceof TypeError) {
         return {};
