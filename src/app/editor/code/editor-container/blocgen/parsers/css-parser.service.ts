@@ -63,14 +63,6 @@ export class CssParserService
     };
   }
 
-  private formatCss(context: CssParserContext) {
-    return Object.entries(context.rules)
-      .map(([key, value]) =>
-        this.formatHelperService.indent(1, `${key}: ${value};`)
-      )
-      .join("\n");
-  }
-
   private renderCssRessourceFile(context: CssParserContext, path: string) {
     return {
       kind: "css",
@@ -78,6 +70,18 @@ export class CssParserService
       value: this.formatCss(context),
       uri: `${path}.css`
     };
+  }
+
+  private formatCss(context: CssParserContext) {
+    return [
+      context.className + " {",
+      Object.entries(context.rules)
+        .map(([key, value]) =>
+          this.formatHelperService.indent(1, `${key}: ${value};`)
+        )
+        .join("\n"),
+      "}"
+    ].join("\n");
   }
 
   private compute(current: SketchMSLayer) {

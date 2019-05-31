@@ -140,7 +140,9 @@ export class VueParserService
     files: RessourceFile[],
     depth: number
   ) {
-    const cssRules = this.extractCssRule(data, current);
+    const cssRules = this.cssParserService
+      .transform(data, current, this.cssOptions)
+      .reduce((acc, file) => acc + file.value, "");
 
     if (cssRules) {
       this.contextOf(root).css.push(cssRules);
@@ -181,19 +183,6 @@ export class VueParserService
       `aria-label="${current.name}"`
     ];
     return this.xmlHelperService.openTag("div", attributes, options);
-  }
-
-  private extractCssRule(data: SketchMSData, current: SketchMSLayer) {
-    const cssRules = this.cssParserService
-      .transform(data, current, this.cssOptions)
-      .reduce((acc, file) => acc + file.value, "");
-
-    if (!cssRules) {
-      return "";
-    }
-
-    const context = this.cssParserService.contextOf(current);
-    return [context.className + " {", cssRules, "}"].join("\n");
   }
 
   private extractText(data: SketchMSData, current: SketchMSLayer) {
