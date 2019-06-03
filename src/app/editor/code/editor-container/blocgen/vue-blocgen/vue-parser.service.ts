@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
-import { RessourceFile } from "../../blocgen";
-import { XmlHelperService, OpenTagOptions } from "../../xml-helper.service";
-import { FormatHelperService } from "../../format-helper.service";
+import { RessourceFile } from "../blocgen";
+import { XmlService, OpenTagOptions } from "../xml.service";
+import { FormatService } from "../format.service";
 import {
   CssBlocGenService,
   CssBlocGenOptions
@@ -26,8 +26,8 @@ const ASSETS_DIR = "assets";
 })
 export class VueParserService {
   constructor(
-    private readonly xmlHelperService: XmlHelperService,
-    private readonly lintService: FormatHelperService,
+    private readonly xmlHelperService: XmlService,
+    private readonly lintService: FormatService,
     private readonly cssParserService: CssBlocGenService,
     private readonly bitmapParserService: BitmapBlocGenService,
     private readonly svgParserService: SvgBlocGenService,

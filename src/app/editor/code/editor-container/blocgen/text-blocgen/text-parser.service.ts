@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { BinaryHelperService } from "../../bplist-helper.service";
+import { BinaryService } from "../bplist.service";
 import { TextContextService } from "./text-context.service";
 
 @Injectable({
@@ -8,7 +8,7 @@ import { TextContextService } from "./text-context.service";
 export class TextParserService {
   constructor(
     private readonly textContextService: TextContextService,
-    private readonly binaryHelperService: BinaryHelperService
+    private readonly binaryHelperService: BinaryService
   ) {}
 
   compute(current: SketchMSLayer) {

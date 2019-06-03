@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { FormatHelperService } from "../../format-helper.service";
+import { FormatService } from "../format.service";
 import {
   SvgParserContext as SvgBlocGenContext,
   SvgParserOptions
@@ -11,7 +11,7 @@ import { SvgContextService } from "./svg-context.service";
 })
 export class SvgRenderService {
   constructor(
-    private readonly formatHelperService: FormatHelperService,
+    private readonly formatHelperService: FormatService,
     private readonly svgContextService: SvgContextService
   ) {}
 

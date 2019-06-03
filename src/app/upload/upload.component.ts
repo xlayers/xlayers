@@ -5,7 +5,7 @@ import { CurrentFile, ErrorType, InformUser, ResetUiSettings } from '@app/core/s
 import { Navigate } from '@ngxs/router-plugin';
 import { Store } from '@ngxs/store';
 import { BehaviorSubject } from 'rxjs';
-import { SketchAdapterService } from '@app/editor/code/editor-container/blocgen/adapters/sketch-adapter.service';
+import { SketchAdapterService } from '@app/editor/code/editor-container/blocgen/sketch-adapter/sketch-adapter.service';
 
 @Component({
   selector: 'xly-upload',

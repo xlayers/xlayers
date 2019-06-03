@@ -86,7 +86,7 @@ TRAILER
 @Injectable({
   providedIn: 'root'
 })
-export class BinaryHelperService {
+export class BinaryService {
   /**
    * The property list data.
    */

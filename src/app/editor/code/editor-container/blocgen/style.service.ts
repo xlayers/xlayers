@@ -3,7 +3,7 @@ import { Injectable } from "@angular/core";
 @Injectable({
   providedIn: "root"
 })
-export class StyleHelperService {
+export class StyleService {
   parseColors(color: SketchMSColor) {
     const { red, green, blue, alpha } = color;
     return {

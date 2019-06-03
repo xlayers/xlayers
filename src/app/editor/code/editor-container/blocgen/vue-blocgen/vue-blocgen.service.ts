@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { RessourceFile } from "../../blocgen";
+import { RessourceFile } from "../blocgen";
 import { BitmapBlocGenOptions } from "../bitmap-blocgen/bitmap-blocgen.service";
 import { SvgParserOptions } from "../svg-blocgen/svg-blocgen.service";
 import { CssBlocGenOptions } from "../css-blocgen/css-blocgen.service";

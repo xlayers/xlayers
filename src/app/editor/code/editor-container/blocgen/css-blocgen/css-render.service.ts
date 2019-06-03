@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { FormatHelperService } from "../../format-helper.service";
+import { FormatService } from "../format.service";
 import { CssContextService } from "./css-context.service";
 
 export interface CssParserContext {
@@ -17,7 +17,7 @@ export interface CssParserOptions {
 export class CssRenderService {
   constructor(
     private readonly cssContextService: CssContextService,
-    private readonly formatHelperService: FormatHelperService
+    private readonly formatHelperService: FormatService
   ) {}
 
   render(

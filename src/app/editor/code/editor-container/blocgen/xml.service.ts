@@ -7,7 +7,7 @@ export interface OpenTagOptions {
 @Injectable({
   providedIn: "root"
 })
-export class XmlHelperService {
+export class XmlService {
   openTag(
     tag = "div",
     attributes: string[] = [],

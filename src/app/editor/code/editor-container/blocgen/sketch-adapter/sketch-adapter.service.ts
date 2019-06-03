@@ -1,5 +1,4 @@
 import { Injectable } from "@angular/core";
-import * as jszip from "jszip";
 
 const entryAsyncCheck = (entry: any): entry is { async: Function } => {
   return !!entry && typeof entry === "object" && "async" in entry;

@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { StyleHelperService } from "../../style-helper.service";
+import { StyleService } from "../style.service";
 import { CssContextService } from "./css-context.service";
 import { CssBlocGenOptions } from "./css-blocgen.service";
 
@@ -13,7 +13,7 @@ export interface CssBlocGenContext {
 })
 export class CssParserService {
   constructor(
-    private readonly styleHelperService: StyleHelperService,
+    private readonly styleHelperService: StyleService,
     private readonly cssContextService: CssContextService
   ) {}
 

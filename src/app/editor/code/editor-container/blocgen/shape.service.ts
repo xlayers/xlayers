@@ -3,7 +3,7 @@ import { Injectable } from "@angular/core";
 @Injectable({
   providedIn: "root"
 })
-export class ShapeHelperService {
+export class ShapeService {
   parsePoint(point: string, offset: number, node: SketchMSLayer) {
     const parsedPoint = point.slice(1, -1).split(", ");
     return {

@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
-import { ShapeHelperService } from "../../shape-helper.service";
-import { StyleHelperService } from "../../style-helper.service";
+import { ShapeService } from "../shape.service";
+import { StyleService } from "../style.service";
 import { SvgContextService } from "./svg-context.service";
 
 @Injectable({
@@ -8,8 +8,8 @@ import { SvgContextService } from "./svg-context.service";
 })
 export class SvgParserService {
   constructor(
-    private readonly shapeHelperService: ShapeHelperService,
-    private readonly styleHelperService: StyleHelperService,
+    private readonly shapeHelperService: ShapeService,
+    private readonly styleHelperService: StyleService,
     private readonly svgContextService: SvgContextService
   ) {}
 
