@@ -19,8 +19,8 @@ export class CssParserService {
 
   private classNamePrefix: string;
 
-  compute(current: SketchMSLayer, options?: CssBlocGenOptions) {
-    this.classNamePrefix = options.classNamePrefix;
+  compute(current: SketchMSLayer, opts?: CssBlocGenOptions) {
+    this.classNamePrefix = opts.classNamePrefix || "xly_";
 
     const rules = {
       ...this.extractObjectStyles(current),
@@ -284,14 +284,12 @@ export class CssParserService {
   }
 
   private extractShadows(current: SketchMSLayer) {
-    const shadows = [
-      this.extractInnerShadow(current),
-      this.extractOuterShadow(current)
-    ].join(",");
+    const innerShadow = this.extractInnerShadow(current);
+    const outterShadow = this.extractOuterShadow(current);
 
-    return shadows != ""
+    return innerShadow + outterShadow !== ""
       ? {
-          "box-shadow": shadows
+          "box-shadow": [innerShadow, outterShadow].join()
         }
       : {};
   }

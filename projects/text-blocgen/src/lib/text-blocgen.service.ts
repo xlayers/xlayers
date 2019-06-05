@@ -5,11 +5,6 @@ import { TextRenderService } from "./text-render.service";
 
 export interface TextBlocGenOptions {}
 
-export interface TextParserContext {
-  paths: string;
-  offset: number;
-}
-
 @Injectable({
   providedIn: "root"
 })
@@ -23,12 +18,12 @@ export class TextBlocGenService {
   transform(
     data: SketchMSData,
     current: SketchMSLayer,
-    options?: TextBlocGenOptions
+    opts?: TextBlocGenOptions
   ) {
     if (!this.textContextService.hasContext(current)) {
       this.textParserService.compute(current);
     }
 
-    return this.textRenderService.render(data, current, options);
+    return this.textRenderService.render(data, current, opts);
   }
 }

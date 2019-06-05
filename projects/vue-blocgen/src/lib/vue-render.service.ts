@@ -1,34 +1,49 @@
 import { Injectable } from "@angular/core";
 import { VueBlocGenOptions } from "./vue-blocgen.service";
 import { VueContextService, VueBlocGenContext } from "./vue-context.service";
-
-const COMPONENTS_DIR = "components";
+import { SvgRenderService, SvgContextService } from "@xlayers/svg-blocgen/";
+import {
+  BitmapContextService,
+  BitmapRenderService
+} from "@xlayers/bitmap-blocgen";
 
 @Injectable({
   providedIn: "root"
 })
 export class VueRenderService {
-  constructor(private readonly vueContextService: VueContextService) {}
+  constructor(
+    private readonly vueContextService: VueContextService,
+    private readonly svgContextService: SvgContextService,
+    private readonly bitmapContextService: BitmapContextService,
+    private readonly svgRenderService: SvgRenderService,
+    private readonly bitmapRenderService: BitmapRenderService
+  ) {}
+
+  private assetDir: string;
+  private componentDir: string;
 
   render(
-    _data: SketchMSData,
+    data: SketchMSData,
     current: SketchMSLayer,
-    _options: VueBlocGenOptions = {}
+    opts: VueBlocGenOptions = {}
   ) {
+    this.assetDir = (opts && opts.assetDir) || "assets";
+    this.componentDir = (opts && opts.componentDir) || "components";
     if (this.vueContextService.hasContext(current)) {
       const context = this.vueContextService.contextOf(current);
       return [
+        ...this.traverse(data, current).map(file => ({ ...file, kind: "vue" })),
         {
           kind: "vue",
           value: this.formatContext(context),
           language: "html",
-          uri: `${COMPONENTS_DIR}/${current.name}.vue`
+          uri: `${this.componentDir}/${current.name}.vue`
         },
         {
           kind: "vue",
-          value: this.renderComponentSpec(`${COMPONENTS_DIR}/${current.name}`),
+          value: this.renderComponentSpec(current.name),
           language: "javascript",
-          uri: `${COMPONENTS_DIR}/${current.name}.spec.js`
+          uri: `${this.componentDir}/${current.name}.spec.js`
         }
       ];
     }
@@ -36,12 +51,52 @@ export class VueRenderService {
     return [];
   }
 
-  private renderComponentSpec(path: string) {
-    const capitalizedName = path.charAt(0).toUpperCase() + path.slice(1);
+  private traverse(data: SketchMSData, current: SketchMSLayer) {
+    if (this.vueContextService.identify(current)) {
+      return (current.layers as any).flatMap(layer =>
+        this.traverse(data, layer)
+      );
+    }
+    return this.retrieveFiles(data, current);
+  }
+
+  private retrieveFiles(data: SketchMSData, current: SketchMSLayer) {
+    if ((current._class as string) === "symbolInstance") {
+      return this.retrieveSymbolMaster(data, current);
+    }
+    if (this.bitmapContextService.identify(current)) {
+      return this.bitmapRenderService.render(data, current).map(file => ({
+        ...file,
+        uri: [this.assetDir, file.uri].join("/")
+      }));
+    }
+    if (this.svgContextService.identify(current)) {
+      return this.svgRenderService.render(data, current).map(file => ({
+        ...file,
+        uri: [this.assetDir, file.uri].join("/")
+      }));
+    }
+    return [];
+  }
+
+  private retrieveSymbolMaster(data: SketchMSData, current: SketchMSLayer) {
+    const foreignSymbol = data.document.foreignSymbols.find(
+      x => x.symbolMaster.symbolID === (current as any).symbolID
+    );
+
+    if (!foreignSymbol) {
+      return [];
+    }
+
+    return this.render(data, foreignSymbol.symbolMaster);
+  }
+
+  private renderComponentSpec(name: string) {
+    const capitalizedName = name.charAt(0).toUpperCase() + name.slice(1);
 
     return `\
 import { shallowMount } from "@vue/test-utils";
-import ${capitalizedName} from "@/components/${path}.vue";
+import ${capitalizedName} from "@/${[this.componentDir, name].join("/")}.vue";
 import { componentSpecTemplate } from '../codegen/vue/vue.template';
 import { SketchMSData } from '../../../../core/sketch.service';
 
@@ -70,7 +125,12 @@ ${context.css.join("\n\n")}
 
   private renderScript(components: string[]) {
     const imports = components
-      .map(component => `import ${component} from "components/${component}"`)
+      .map(
+        component =>
+          `import ${component} from "${[this.componentDir, component].join(
+            "/"
+          )}"`
+      )
       .join("\n");
 
     return components.length === 0

@@ -1,16 +1,11 @@
 import { Injectable } from "@angular/core";
-import { BitmapBlocGenOptions } from "@xlayers/bitmap-blocgen";
-import { SvgParserOptions } from "@xlayers/svg-blocgen";
-import { CssBlocGenOptions } from "@xlayers/css-blocgen";
 import { VueContextService } from "./vue-context.service";
 import { VueParserService } from "./vue-parser.service";
 import { VueRenderService } from "./vue-render.service";
-import { RessourceFile } from '@xlayers/std-blocgen';
 
 export interface VueBlocGenOptions {
-  svg?: SvgParserOptions;
-  css?: CssBlocGenOptions;
-  bitmap?: BitmapBlocGenOptions;
+  assetDir?: string;
+  componentDir?: string;
 }
 
 @Injectable({
@@ -26,19 +21,12 @@ export class VueBlocGenService {
   transform(
     data: SketchMSData,
     current: SketchMSLayer,
-    options?: VueBlocGenOptions
+    opts?: VueBlocGenOptions
   ) {
-    const files: RessourceFile[] = [];
-
     if (!this.vueContextService.hasContext(current)) {
-      this.vueContextService.putContext(current);
-      this.vueParserService.compute(data, current, current, files);
-      return [
-        ...files,
-        ...this.vueRenderService.render(data, current, options)
-      ];
+      this.vueParserService.compute(data, current);
     }
 
-    return this.vueRenderService.render(data, current, options);
+    return this.vueRenderService.render(data, current, opts);
   }
 }

@@ -3,7 +3,7 @@ import { SvgContextService } from "./svg-context.service";
 import { SvgRenderService } from "./svg-render.service";
 import { SvgParserService } from "./svg-parser.service";
 
-export interface SvgParserOptions {}
+export interface SvgBlocGenOptions {}
 
 export interface SvgBlocGenContext {
   paths: string;
@@ -23,12 +23,12 @@ export class SvgBlocGenService {
   transform(
     data: SketchMSData,
     current: SketchMSLayer,
-    options?: SvgParserOptions
+    opts?: SvgBlocGenOptions
   ) {
     if (!this.svgContextService.hasContext(current)) {
       this.svgParserService.compute(current);
     }
 
-    return this.svgRenderService.render(data, current, options);
+    return this.svgRenderService.render(data, current, opts);
   }
 }

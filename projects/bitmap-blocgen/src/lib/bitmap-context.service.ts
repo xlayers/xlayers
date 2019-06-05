@@ -6,6 +6,10 @@ export interface BitmapParserContext {}
   providedIn: "root"
 })
 export class BitmapContextService {
+  identify(current: SketchMSLayer) {
+    return ["bitmap"].includes(current._class as string);
+  }
+
   hasGlobalContext(data: SketchMSData) {
     const hasLegacyContext =
       (data as any).resources && (data as any).resources.images;

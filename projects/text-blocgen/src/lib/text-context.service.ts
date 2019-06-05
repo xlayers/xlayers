@@ -10,7 +10,7 @@ export interface TextParserContext {
 })
 export class TextContextService {
   identify(current: SketchMSLayer) {
-    return ["shapePath", "shapeGroup"].includes(current._class as string);
+    return ["text"].includes(current._class as string);
   }
 
   hasContext(current: SketchMSLayer) {

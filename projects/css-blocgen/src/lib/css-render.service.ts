@@ -1,15 +1,7 @@
 import { Injectable } from "@angular/core";
 import { FormatService } from "@xlayers/std-blocgen";
-import { CssContextService } from "./css-context.service";
-
-export interface CssParserContext {
-  rules: { [key: string]: string };
-  className: string;
-}
-
-export interface CssParserOptions {
-  classNamePrefix?: string;
-}
+import { CssContextService, CssBlocGenContext } from "./css-context.service";
+import { CssBlocGenOptions } from './css-blocgen.service';
 
 @Injectable({
   providedIn: "root"
@@ -23,7 +15,7 @@ export class CssRenderService {
   render(
     _data: SketchMSData,
     current: SketchMSLayer,
-    _options: CssParserOptions = {}
+    _options: CssBlocGenOptions = {}
   ) {
     if (this.cssContextService.hasContext(current)) {
       const context = this.cssContextService.contextOf(current);
@@ -40,7 +32,7 @@ export class CssRenderService {
     return [];
   }
 
-  private formatContext(context: CssParserContext) {
+  private formatContext(context: CssBlocGenContext) {
     return [
       `${context.className} {`,
       this.flattenAndIndentRules(context),
@@ -48,7 +40,7 @@ export class CssRenderService {
     ].join("\n");
   }
 
-  private flattenAndIndentRules(context: CssParserContext) {
+  private flattenAndIndentRules(context: CssBlocGenContext) {
     return Object.entries(context.rules)
       .map(([key, value]) =>
         this.formatHelperService.indent(1, `${key}: ${value};`)

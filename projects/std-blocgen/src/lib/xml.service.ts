@@ -11,11 +11,11 @@ export class XmlService {
   openTag(
     tag = "div",
     attributes: string[] = [],
-    options: OpenTagOptions = {}
+    opts: OpenTagOptions = {}
   ) {
     const attributeStr =
       attributes.length !== 0 ? " " + attributes.join(" ") : "";
-    const autocloseStr = options.autoclose ? " /" : "";
+    const autocloseStr = opts.autoclose ? " /" : "";
     return `<${tag}${attributeStr}${autocloseStr}>`;
   }
 

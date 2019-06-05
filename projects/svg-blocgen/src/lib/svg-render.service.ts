@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { FormatService } from "@xlayers/std-blocgen";
-import { SvgBlocGenContext, SvgParserOptions } from "./svg-blocgen.service";
+import { SvgBlocGenContext, SvgBlocGenOptions } from "./svg-blocgen.service";
 import { SvgContextService } from "./svg-context.service";
 
 @Injectable({
@@ -15,7 +15,7 @@ export class SvgRenderService {
   render(
     _data: SketchMSData,
     current: SketchMSLayer,
-    _options?: SvgParserOptions
+    _options?: SvgBlocGenOptions
   ) {
     const context = this.svgContextService.contextOf(current);
 
