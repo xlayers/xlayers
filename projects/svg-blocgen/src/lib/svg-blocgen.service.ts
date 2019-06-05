@@ -15,9 +15,9 @@ export interface SvgBlocGenContext {
 })
 export class SvgBlocGenService {
   constructor(
-    private readonly svgContextService: SvgContextService,
-    private readonly svgParserService: SvgParserService,
-    private readonly svgRenderService: SvgRenderService
+    private svgContextService: SvgContextService,
+    private svgParserService: SvgParserService,
+    private svgRenderService: SvgRenderService
   ) {}
 
   transform(

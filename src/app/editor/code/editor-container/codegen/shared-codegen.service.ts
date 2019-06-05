@@ -16,8 +16,8 @@ export class SharedCodegen {
   private indentationSymbol = '  ';
 
   constructor(
-    private readonly sketchService: SketchService,
-    private readonly optimizer: StyleOptimizerService
+    private sketchService: SketchService,
+    private optimizer: StyleOptimizerService
   ) { }
 
   generateComponentStyles(ast: SketchMSLayer) {

@@ -13,10 +13,10 @@ export interface CssBlocGenOptions {
 })
 export class CssBlocGenService {
   constructor(
-    private readonly cssContextService: CssContextService,
-    private readonly cssComputeService: CssParserService,
-    private readonly cssRenderService: CssRenderService,
-    private readonly cssOptimizerService: CssOptimizerService
+    private cssContextService: CssContextService,
+    private cssComputeService: CssParserService,
+    private cssRenderService: CssRenderService,
+    private cssOptimizerService: CssOptimizerService
   ) {}
 
   transform(

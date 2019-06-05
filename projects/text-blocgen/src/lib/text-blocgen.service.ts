@@ -10,9 +10,9 @@ export interface TextBlocGenOptions {}
 })
 export class TextBlocGenService {
   constructor(
-    private readonly textContextService: TextContextService,
-    private readonly textParserService: TextParserService,
-    private readonly textRenderService: TextRenderService
+    private textContextService: TextContextService,
+    private textParserService: TextParserService,
+    private textRenderService: TextRenderService
   ) {}
 
   transform(

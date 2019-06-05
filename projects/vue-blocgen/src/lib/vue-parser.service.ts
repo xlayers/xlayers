@@ -17,17 +17,17 @@ import { VueBlocGenOptions } from "./vue-blocgen.service";
 })
 export class VueParserService {
   constructor(
-    private readonly xmlHelperService: XmlService,
-    private readonly lintService: FormatService,
-    private readonly cssParserService: CssBlocGenService,
-    private readonly bitmapParserService: BitmapBlocGenService,
-    private readonly bitmapContextService: BitmapContextService,
-    private readonly svgParserService: SvgBlocGenService,
-    private readonly vueContextService: VueContextService,
-    private readonly textParserService: TextBlocGenService,
-    private readonly textContextService: TextContextService,
-    private readonly cssContextService: CssContextService,
-    private readonly svgContextService: SvgContextService
+    private xmlHelperService: XmlService,
+    private lintService: FormatService,
+    private cssParserService: CssBlocGenService,
+    private bitmapParserService: BitmapBlocGenService,
+    private bitmapContextService: BitmapContextService,
+    private svgParserService: SvgBlocGenService,
+    private vueContextService: VueContextService,
+    private textParserService: TextBlocGenService,
+    private textContextService: TextContextService,
+    private cssContextService: CssContextService,
+    private svgContextService: SvgContextService
   ) {}
 
   private assetDir: string;
@@ -49,11 +49,7 @@ export class VueParserService {
   ) {
     if (this.vueContextService.identify(current)) {
       current.layers.forEach(layer => {
-        this.vueContextService.putContext(root, {
-          html: [],
-          css: [],
-          components: []
-        });
+        this.vueContextService.putContext(root);
         this.traverseIntermediateLayer(data, layer, root, depth);
       });
     } else {
@@ -62,7 +58,7 @@ export class VueParserService {
   }
 
   private traverseEdgeLayer(data: SketchMSData, current: SketchMSLayer) {
-    if (current._class as string === "symbolInstance") {
+    if ((current._class as string) === "symbolInstance") {
       return this.extractAndRegisterSymbolMaster(data, current);
     }
     if (this.bitmapContextService.identify(current)) {
@@ -184,21 +180,6 @@ export class VueParserService {
         });
       })
       .join("\n");
-  }
-
-  private extractOvalSolid() {
-    // this.vueContextService.contextOf(root).css.push(
-    //   [
-    //     this.vueContextService.contextOf(current).className + " {",
-    //     "  border-radius: 50%",
-    //     "}"
-    //   ].join("\n")
-    // );
-    // return this.xmlHelperService.openTag(
-    //   "div",
-    //   [`class="${this.vueContextService.contextOf(current).className}"`],
-    //   { autoclose: true }
-    // );
   }
 
   private extractAndRegisterSymbolMaster(

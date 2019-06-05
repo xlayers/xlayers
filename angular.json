@@ -346,6 +346,111 @@
           }
         }
       }
+    },
+    "xlayers-blocgen": {
+      "root": "projects/xlayers-blocgen",
+      "sourceRoot": "projects/xlayers-blocgen/src",
+      "projectType": "library",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/xlayers-blocgen/tsconfig.lib.json",
+            "project": "projects/xlayers-blocgen/ng-package.json"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/xlayers-blocgen/src/test.ts",
+            "tsConfig": "projects/xlayers-blocgen/tsconfig.spec.json",
+            "karmaConfig": "projects/xlayers-blocgen/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/xlayers-blocgen/tsconfig.lib.json",
+              "projects/xlayers-blocgen/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "preview-blocgen": {
+      "root": "projects/preview-blocgen",
+      "sourceRoot": "projects/preview-blocgen/src",
+      "projectType": "library",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/preview-blocgen/tsconfig.lib.json",
+            "project": "projects/preview-blocgen/ng-package.json"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/preview-blocgen/src/test.ts",
+            "tsConfig": "projects/preview-blocgen/tsconfig.spec.json",
+            "karmaConfig": "projects/preview-blocgen/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/preview-blocgen/tsconfig.lib.json",
+              "projects/preview-blocgen/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "sketch-blocgen": {
+      "root": "projects/sketch-blocgen",
+      "sourceRoot": "projects/sketch-blocgen/src",
+      "projectType": "library",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/sketch-blocgen/tsconfig.lib.json",
+            "project": "projects/sketch-blocgen/ng-package.json"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/sketch-blocgen/src/test.ts",
+            "tsConfig": "projects/sketch-blocgen/tsconfig.spec.json",
+            "karmaConfig": "projects/sketch-blocgen/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/sketch-blocgen/tsconfig.lib.json",
+              "projects/sketch-blocgen/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
     }
   },
   "defaultProject": "xlayers"

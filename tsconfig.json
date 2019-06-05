@@ -62,6 +62,24 @@
       ],
       "bitmap-blocgen/*": [
         "dist/bitmap-blocgen/*"
+      ],
+      "xlayers-blocgen": [
+        "dist/xlayers-blocgen"
+      ],
+      "xlayers-blocgen/*": [
+        "dist/xlayers-blocgen/*"
+      ],
+      "preview-blocgen": [
+        "dist/preview-blocgen"
+      ],
+      "preview-blocgen/*": [
+        "dist/preview-blocgen/*"
+      ],
+      "sketch-blocgen": [
+        "dist/sketch-blocgen"
+      ],
+      "sketch-blocgen/*": [
+        "dist/sketch-blocgen/*"
       ]
     }
   }

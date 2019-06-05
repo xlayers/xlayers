@@ -4,15 +4,22 @@ import {
   ElementRef,
   Input,
   OnInit,
-  Renderer2,
-} from '@angular/core';
-import { Store } from '@ngxs/store';
-import { CurrentLayer, UiState } from '@app/core/state/ui.state';
-import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
-import { ResourceImageData, SketchService } from '@app/core/sketch.service';
+  Renderer2
+} from "@angular/core";
+import { Store } from "@ngxs/store";
+import { CurrentLayer, UiState } from "@app/core/state/ui.state";
+import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
+import { SketchService } from "@app/core/sketch.service";
+import { CssContextService } from "@xlayers/css-blocgen";
+import { SvgRenderService, SvgContextService } from "@xlayers/svg-blocgen";
+import { TextContextService, TextRenderService } from "@xlayers/text-blocgen";
+import {
+  BitmapRenderService,
+  BitmapContextService
+} from "@xlayers/bitmap-blocgen";
 
 @Component({
-  selector: 'xly-viewer-layer',
+  selector: "xly-viewer-layer",
   template: `
     <div
       [style.width.px]="layer?.frame?.width"
@@ -20,24 +27,29 @@ import { ResourceImageData, SketchService } from '@app/core/sketch.service';
     >
       <xly-viewer-layer
         xlySelectedLayer
-        (selectedLayer)="selectLayer($event)"
         *ngFor="let layer of layer?.layers"
         class="layer"
+        [ngClass]="{ wireframe: wireframe }"
+        [data]="data"
         [layer]="layer"
         [level]="level + 1"
         [wireframe]="wireframe"
-        [ngClass]="{ wireframe: wireframe }"
         [attr.data-id]="layer?.do_objectID"
         [attr.data-name]="layer?.name"
         [attr.data-class]="layer?._class"
+        (selectedLayer)="selectLayer($event)"
       ></xly-viewer-layer>
 
-      <span *ngIf="textContent">{{ textContent }}</span>
+      <span *ngFor="let text of texts">{{ text }}</span>
 
-      <img *ngIf="imageContent" [src]="imageContent.source" [style.height.%]="100" [style.width.%]="100"/>
+      <img
+        *ngFor="let image of images"
+        [src]="image"
+        [style.height.%]="100"
+        [style.width.%]="100"
+      />
 
-      <div *ngIf="shapeContent" [innerHtml]="shapeContent"></div>
-
+      <div *ngFor="let shape of shapes" [innerHtml]="shape"></div>
     </div>
   `,
   styles: [
@@ -67,110 +79,120 @@ import { ResourceImageData, SketchService } from '@app/core/sketch.service';
   ]
 })
 export class ViewerLayerComponent implements OnInit, AfterContentInit {
+  @Input() data: SketchMSData;
   @Input() layer: SketchMSLayer;
-  @Input() wireframe = false;
 
+  @Input() wireframe = false;
   @Input() level = 0;
 
-  borderWidth = 1;
   nativeElement: HTMLElement;
 
+  borderWidth = 1;
   offset3d = 20;
 
-  textContent: string;
-  imageContent: ResourceImageData;
-  shapeContent: SafeHtml;
+  texts: string[];
+  images: string[];
+  shapes: SafeHtml[];
 
   constructor(
     public store: Store,
     public renderer: Renderer2,
     public element: ElementRef<HTMLElement>,
     public sketchService: SketchService,
-    public sanitizer: DomSanitizer
+    public sanitizer: DomSanitizer,
+    public cssContextService: CssContextService,
+    public bitmapContextService: BitmapContextService,
+    public bitmapRenderService: BitmapRenderService,
+    public svgContextService: SvgContextService,
+    public svgRenderService: SvgRenderService,
+    public textContextService: TextContextService,
+    public textRenderService: TextRenderService
   ) {}
 
   ngOnInit() {
-    this.nativeElement = this.element.nativeElement;
     this.store.select(UiState.isWireframe).subscribe(isWireframe => {
       this.wireframe = isWireframe;
     });
+
     this.store.select(UiState.is3dView).subscribe(is3dView => {
-      if (this.nativeElement) {
-        if (is3dView === true) {
-          if (this.level > 0) {
-            this.renderer.setStyle(
-              this.nativeElement,
-              'transform',
-              `translateZ(${(this.level * this.offset3d).toFixed(3)}px)`
-            );
-          }
-        } else {
-          this.renderer.setStyle(this.nativeElement, 'transform', `none`);
-        }
+      if (is3dView) {
+        this.enable3dStyle();
+      } else {
+        this.disable3dStyle();
       }
     });
   }
 
   ngAfterContentInit() {
-    if (this.layer) {
-      this.updateLayerStyle();
-      this.isTextContent();
-      this.isSolidContent();
-      this.isImageContent();
+    this.applyHighlightStyles();
+    this.applyLayerStyles();
+    this.loadText();
+    this.loadSolid();
+    this.loadImage();
+  }
+
+  loadText() {
+    if (this.textContextService.hasContext(this.layer)) {
+      this.texts = this.textRenderService
+        .render(this.data, this.layer)
+        .map(file => file.value);
     }
   }
 
-  isTextContent() {
-    if ((this.layer._class as 'text') === 'text') {
-      this.textContent = (this.layer as any).text;
+  loadImage() {
+    if (this.bitmapContextService.identify(this.layer)) {
+      this.images = this.bitmapRenderService
+        .render(this.data, this.layer)
+        .map(file => file.value);
     }
   }
 
-  isImageContent() {
-    if ((this.layer._class as 'bitmap') === 'bitmap') {
-      this.imageContent = this.sketchService.getImageDataFromRef((this.layer as any).image._ref);
+  loadSolid() {
+    if (this.svgContextService.hasContext(this.layer)) {
+      this.shapes = this.svgRenderService
+        .render({} as SketchMSData, this.layer)
+        .map(file => this.sanitizer.bypassSecurityTrustHtml(file.value));
     }
   }
 
-  isSolidContent() {
-    if ((this.layer as any).shape) {
-      this.shapeContent = this.sanitizer.bypassSecurityTrustHtml((this.layer as any).shape);
+  applyLayerStyles() {
+    if (this.cssContextService.hasContext(this.layer)) {
+      const context = this.cssContextService.contextOf(this.layer);
+      Object.entries(context.rules).forEach(([property, value]) => {
+        this.renderer.setStyle(this.element.nativeElement, property, value);
+      });
     }
   }
 
-  updateLayerStyle() {
-    if (this.layer && this.nativeElement) {
-      const elementPosition = this.nativeElement.getBoundingClientRect();
-      this.renderer.setStyle(
-        this.nativeElement,
-        'border-width',
-        `${this.borderWidth}px`
-      );
-      this.renderer.setStyle(
-        this.nativeElement,
-        'left',
-        `${elementPosition.left - this.borderWidth}px`
-      );
-      this.renderer.setStyle(
-        this.nativeElement,
-        'top',
-        `${elementPosition.top - this.borderWidth}px`
-      );
-      this.applyDefaultStyles();
-    }
+  applyHighlightStyles() {
+    const elementPosition = this.element.nativeElement.getBoundingClientRect();
+    this.renderer.setStyle(
+      this.element.nativeElement,
+      "border-width",
+      `${this.borderWidth}px`
+    );
+    this.renderer.setStyle(
+      this.element.nativeElement,
+      "left",
+      `${elementPosition.left - this.borderWidth}px`
+    );
+    this.renderer.setStyle(
+      this.element.nativeElement,
+      "top",
+      `${elementPosition.top - this.borderWidth}px`
+    );
   }
 
-  toggleSelected(_layer: SketchMSSymbolMaster) {}
+  enable3dStyle() {
+    this.renderer.setStyle(
+      this.element.nativeElement,
+      "transform",
+      `translateZ(${(this.level * this.offset3d).toFixed(3)}px)`
+    );
+  }
 
-  applyDefaultStyles() {
-    const css = (this.layer as any).css as { [key: string]: string };
-    if (css) {
-      for (const property in css) {
-        if (css.hasOwnProperty(property)) {
-          this.renderer.setStyle(this.nativeElement, property, css[property]);
-        }
-      }
-    }
+  disable3dStyle() {
+    this.renderer.setStyle(this.element.nativeElement, "transform", `none`);
   }
 
   selectLayer(layer: SketchMSLayer) {

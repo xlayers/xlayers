@@ -13,8 +13,8 @@ export interface LayerCSS {
 }
 
 export interface UiSettings {
-  currentFile: SketchMSData;
-  currentPage?: SketchMSLayer;
+  currentData: SketchMSData;
+  currentPage?: SketchMSPage;
   currentLayer?: SketchMSLayer;
   previousLayer?: SketchMSLayer;
   availablePages?: Array<SketchMSPage>;
@@ -106,10 +106,10 @@ const DEFAULT_UI_STATE = {
   wireframe: false,
   preview: false,
   availablePages: [],
-  currentLayer: null,
   previousLayer: null,
-  currentFile: null,
+  currentData: null,
   currentPage: null,
+  currentLayer: null,
   zoomLevel: 1,
   is3dView: false,
   isCodeEditor: false
@@ -123,8 +123,8 @@ export class UiState {
   constructor(private snackBar: MatSnackBar) {}
 
   @Selector()
-  static currentFile(ui: UiSettings) {
-    return ui.currentFile;
+  static currentData(ui: UiSettings) {
+    return ui.currentData;
   }
   @Selector()
   static isWireframe(ui: UiSettings) {
@@ -176,7 +176,7 @@ export class UiState {
   // Actions
 
   @Action(CurrentFile)
-  currentFile(
+  currentData(
     { patchState, dispatch }: StateContext<UiSettings>,
     action: CurrentFile
   ) {
@@ -188,7 +188,7 @@ export class UiState {
       new ToggleCodeEditor(false)
     ]);
     patchState({
-      currentFile: { ...action.data }
+      currentData: { ...action.data }
     });
   }
 

@@ -7,7 +7,7 @@ export interface BitmapBlocGenOptions {}
   providedIn: "root"
 })
 export class BitmapBlocGenService {
-  constructor(private readonly bitmapRenderService: BitmapRenderService) {}
+  constructor(private bitmapRenderService: BitmapRenderService) {}
   transform(
     data: SketchMSData,
     current: SketchMSLayer,

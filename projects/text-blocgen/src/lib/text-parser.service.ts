@@ -7,8 +7,8 @@ import { TextContextService } from "./text-context.service";
 })
 export class TextParserService {
   constructor(
-    private readonly textContextService: TextContextService,
-    private readonly binaryHelperService: BplistService
+    private textContextService: TextContextService,
+    private binaryHelperService: BplistService
   ) {}
 
   compute(current: SketchMSLayer) {

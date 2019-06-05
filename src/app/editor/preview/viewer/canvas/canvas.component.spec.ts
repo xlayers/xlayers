@@ -50,10 +50,10 @@ describe('ViewerCanvasComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('it toggles currentFile', () => {
+  it('it toggles currentData', () => {
     store.dispatch(new CurrentFile(getSketchDataMock()));
-    store.selectOnce(UiState.currentFile).subscribe(currentFile => {
-      expect(currentFile).toBeTruthy();
+    store.selectOnce(UiState.currentData).subscribe(currentData => {
+      expect(currentData).toBeTruthy();
     });
   });
 

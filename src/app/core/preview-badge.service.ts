@@ -7,7 +7,7 @@ import { WINDOW } from '@app/core/window.service';
 export class PreviewBadgeService {
   badge = 'BETA';
 
-  constructor(@Inject(WINDOW) private readonly window: Window) {}
+  constructor(@Inject(WINDOW) private window: Window) {}
 
   computeBadge() {
     try {

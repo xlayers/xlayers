@@ -7,7 +7,7 @@ import { Injectable } from "@angular/core";
   providedIn: "root"
 })
 export class XmlCodegenUtilService {
-  private readonly indentationSymbol = "  "; // 2 spaces ftw
+  private indentationSymbol = "  "; // 2 spaces ftw
 
   tag(tag: string, attr: string[] = [], content: string = "") {
     const autoclose = content.length === 0;

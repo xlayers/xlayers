@@ -1,12 +1,13 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { InformUser, UiState, CurrentFile } from "@app/core/state";
+import { UiState } from "@app/core/state";
 import { environment } from "@env/environment";
 import { Store } from "@ngxs/store";
-import {
-  SketchStyleParserService,
-  SupportScore
-} from "@xlayers/sketchapp-parser";
+import { CssParserService, CssContextService } from "@xlayers/css-blocgen";
+import { SketchIngestorService } from "@xlayers/sketch-blocgen";
+import { SvgParserService, SvgContextService } from "@xlayers/svg-blocgen";
+import { TextParserService } from "../../../projects/text-blocgen/src/lib/text-parser.service";
+import { TextContextService } from "@xlayers/text-blocgen";
 
 export interface SketchMSData {
   pages: SketchMSPage[];
@@ -33,144 +34,49 @@ export class SketchService {
   _data: SketchMSData;
 
   constructor(
-    private sketchStyleParser: SketchStyleParserService,
+    private sketchIngestorService: SketchIngestorService,
     private http: HttpClient,
+    private cssParserService: CssParserService,
+    private svgParserService: SvgParserService,
+    private textParserService: TextParserService,
+    private svgContextService: SvgContextService,
+    private textContextService: TextContextService,
     private store: Store
   ) {
-    this.store.select(UiState.currentFile).subscribe(currentFile => {
-      this._data = currentFile as SketchMSData;
+    this.store.select(UiState.currentData).subscribe(currentData => {
+      this._data = currentData as SketchMSData;
     });
   }
 
   async process(file: File) {
-    const data = (await this.sketch2Json(file)) as SketchMSData;
-
-    if (
-      this.sketchStyleParser.visit(data as SketchMSData) === SupportScore.LEGACY
-    ) {
-      this.store.dispatch(
-        new InformUser(
-          "The design was created using a legacy version of SketchApp, so the result may not be accurate."
-        )
-      );
-    }
+    const data = await this.sketchIngestorService.process(file);
+    (data.pages as any).forEach(page => this.traverse(data, page));
     return data;
   }
 
-  async readZipEntries(file: Blob) {
-    return new Promise<any[]>((resolve, reject) => {
-      const reader = new FileReader();
-      reader.onload = readerEvent => {
-        const data = (readerEvent.target as FileReader).result;
-        window["JSZip"]
-          .loadAsync(data)
-          .then((zip: any[]) => {
-            const zips = [];
-            zip.forEach((relativePath: string, zipEntry) => {
-              zips.push({ relativePath, zipEntry });
-            });
-            resolve(zips);
-          })
-          .catch((e: Error) => {
-            reject(e);
-          });
-      };
-      reader.onerror = e => {
-        reject(e);
-      };
-      try {
-        reader.readAsArrayBuffer(file);
-      } catch (error) {
-        reject(error);
-      }
-    });
-  }
+  private traverse(data: SketchMSData, current: SketchMSLayer) {
+    if (Array.isArray(current.layers)) {
+      current.layers.forEach(layer => {
+        this.cssParserService.compute(layer);
+        this.traverse(data, layer);
+      });
+    } else {
+      if ((current._class as string) === "symbolInstance") {
+        const foreignSymbol = data.document.foreignSymbols.find(
+          x => x.symbolMaster.symbolID === (current as any).symbolID
+        );
 
-  async computeImage(source: string, filepath: string) {
-    return new Promise<HTMLImageElement>((resolve, reject) => {
-      const image = new Image();
-      image.onload = _imageLoadEvent => {
-        resolve(image);
-      };
-      image.onerror = _error => {
-        reject(`Could not load a Sketch preview "${filepath}"`);
-      };
-      image.src = source;
-    });
-  }
-
-  private async buildImage(
-    content: string,
-    relativePath: string
-  ): Promise<ResourceImageData> {
-    const source = `data:image/png;base64,${content}`;
-    return {
-      source,
-      image: await this.computeImage(source, relativePath)
-    };
-  }
-
-  async sketch2Json(file: Blob) {
-    const _data: SketchMSData = {
-      pages: [],
-      previews: [],
-      document: {} as any,
-      user: {},
-      meta: {} as any,
-      resources: {
-        images: {}
-      }
-    };
-
-    const zips = await this.readZipEntries(file);
-
-    await Promise.all(
-      zips.map(async ({ relativePath, zipEntry }) => {
-        if (
-          relativePath === "previews/preview.png" ||
-          relativePath.startsWith("images/")
-        ) {
-          const content = await zipEntry.async("base64");
-          const imageData = await this.buildImage(content, relativePath);
-
-          if (relativePath === "previews/preview.png") {
-            // this is a preview, so add it to the previews array
-            _data.previews.push({
-              source: imageData.source,
-              width: imageData.image.width,
-              height: imageData.image.height
-            });
-          } else {
-            // this is a resource image, add it to the resource factory
-            _data.resources.images[relativePath] = imageData;
-          }
-        } else if (relativePath.startsWith("pages/")) {
-          const content = await zipEntry.async("string");
-
-          try {
-            const page = JSON.parse(content) as SketchMSPage;
-            _data.pages.push(page);
-          } catch (e) {
-            throw new Error(`Could not load page "${relativePath}"`);
-          }
-        } else if (relativePath.endsWith(".pdf")) {
-          // text-previews/text-previews.pdf
-          // removed because of: https://github.com/xlayers/xlayers/issues/200
-        } else {
-          // document.json
-          // user.json
-          // meta.json
-          const content = await zipEntry.async("string");
-          _data[relativePath.replace(".json", "")] = JSON.parse(content);
+        if (foreignSymbol) {
+          this.traverse(data, foreignSymbol.symbolMaster);
         }
-      })
-    );
-
-    return _data;
-  }
-
-  getPages(): SketchMSPage[] {
-    return this._data.pages;
+      }
+      if (this.textContextService.identify(current)) {
+        this.textParserService.compute(current);
+      }
+      if (this.svgContextService.identify(current)) {
+        this.svgParserService.compute(current);
+      }
+    }
   }
 
   getDemoFiles() {

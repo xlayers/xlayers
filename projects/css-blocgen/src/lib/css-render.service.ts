@@ -8,14 +8,14 @@ import { CssBlocGenOptions } from './css-blocgen.service';
 })
 export class CssRenderService {
   constructor(
-    private readonly cssContextService: CssContextService,
-    private readonly formatHelperService: FormatService
+    private cssContextService: CssContextService,
+    private formatHelperService: FormatService
   ) {}
 
   render(
     _data: SketchMSData,
     current: SketchMSLayer,
-    _options: CssBlocGenOptions = {}
+    _opts: CssBlocGenOptions = {}
   ) {
     if (this.cssContextService.hasContext(current)) {
       const context = this.cssContextService.contextOf(current);

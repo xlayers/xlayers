@@ -3,6 +3,7 @@
  */
 
 export * from "./lib/text-blocgen.service";
+export * from "./lib/text-parser.service";
 export * from "./lib/text-context.service";
-export * from './lib/text-render.service';
-export * from './lib/text-blocgen.module';
+export * from "./lib/text-render.service";
+export * from "./lib/text-blocgen.module";

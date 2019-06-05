@@ -6,12 +6,12 @@ import { BitmapBlocGenOptions } from "./bitmap-blocgen.service";
   providedIn: "root"
 })
 export class BitmapRenderService {
-  constructor(private readonly bitmapContextService: BitmapContextService) {}
+  constructor(private bitmapContextService: BitmapContextService) {}
 
   render(
     data: SketchMSData,
     current: SketchMSLayer,
-    _options: BitmapBlocGenOptions = {}
+    _opts: BitmapBlocGenOptions = {}
   ) {
     if (this.bitmapContextService.hasGlobalContext(data)) {
       return [

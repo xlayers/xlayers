@@ -47,13 +47,13 @@ export class CodeGenService {
   private data: SketchMSData;
 
   constructor(
-    private readonly angular: AngularCodeGenService,
-    private readonly react: ReactCodeGenService,
-    private readonly vue: VueCodeGenService,
-    private readonly wc: WCCodeGenService,
-    private readonly stencil: StencilCodeGenService,
-    private readonly litElement: LitElementCodeGenService,
-    private readonly store: Store
+    private angular: AngularCodeGenService,
+    private react: ReactCodeGenService,
+    private vue: VueCodeGenService,
+    private wc: WCCodeGenService,
+    private stencil: StencilCodeGenService,
+    private litElement: LitElementCodeGenService,
+    private store: Store
   ) {
     this.store
       .select(UiState.currentPage)
@@ -63,10 +63,10 @@ export class CodeGenService {
         }
       });
     this.store
-      .select(UiState.currentFile)
-      .subscribe((currentFile: SketchMSData) => {
-        if (currentFile) {
-          this.data = currentFile;
+      .select(UiState.currentData)
+      .subscribe((currentData: SketchMSData) => {
+        if (currentData) {
+          this.data = currentData;
         }
       });
 

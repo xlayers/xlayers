@@ -8,9 +8,9 @@ import { SvgContextService } from "./svg-context.service";
 })
 export class SvgParserService {
   constructor(
-    private readonly shapeHelperService: ShapeService,
-    private readonly styleHelperService: StyleService,
-    private readonly svgContextService: SvgContextService
+    private shapeHelperService: ShapeService,
+    private styleHelperService: StyleService,
+    private svgContextService: SvgContextService
   ) {}
 
   compute(current: SketchMSLayer) {

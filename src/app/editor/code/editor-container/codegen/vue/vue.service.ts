@@ -33,7 +33,7 @@ export default {
   providedIn: "root"
 })
 export class VueCodeGenService {
-  constructor(private readonly vueBlocGenService: VueBlocGenService) {}
+  constructor(private vueBlocGenService: VueBlocGenService) {}
 
   buttons() {
     return {};

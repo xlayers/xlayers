@@ -1,23 +1,24 @@
-import { Component, OnInit } from '@angular/core';
-import { UiState } from '@app/core/state';
-import { Store } from '@ngxs/store';
+import { Component, OnInit } from "@angular/core";
+import { UiState } from "@app/core/state";
+import { Store } from "@ngxs/store";
+import { BitmapRenderService } from "../../../../../../projects/bitmap-blocgen/src/lib/bitmap-render.service";
 
 @Component({
-  selector: 'xly-settings-preview',
+  selector: "xly-settings-preview",
   template: `
     <mat-expansion-panel expanded="true">
       <mat-expansion-panel-header>
         <mat-panel-title> Preview </mat-panel-title>
       </mat-expansion-panel-header>
 
-      <ng-container *ngFor="let image of data?.previews">
+      <ng-container *ngFor="let image of previews">
         <div class="preview-image">
-          <img [src]="image.source"/>
-          <a [href]="image.source" [download]="image.source">
+          <img [src]="image" />
+          <a [href]="image" [download]="image">
             <div class="overlay">
-                <mat-icon>cloud_download</mat-icon>
-              </div>
-            </a>
+              <mat-icon>cloud_download</mat-icon>
+            </div>
+          </a>
         </div>
       </ng-container>
     </mat-expansion-panel>
@@ -63,15 +64,15 @@ import { Store } from '@ngxs/store';
   ]
 })
 export class SettingsPreviewComponent implements OnInit {
-  currentLayer: SketchMSLayer;
-  data: SketchMSData;
-  isMouseOver: boolean;
+  previews: string[];
 
-  constructor(private store: Store) { }
+  constructor(private store: Store) {}
 
   ngOnInit() {
-    this.store.select(UiState.currentFile).subscribe(currentFile => {
-      this.data = currentFile;
+    this.store.select(UiState.currentData).subscribe(currentData => {
+      this.previews = currentData.previews.map(preview => {
+        return `data:image/jpg;base64,${preview}`;
+      });
     });
   }
 }

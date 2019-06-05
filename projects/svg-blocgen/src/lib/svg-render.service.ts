@@ -8,14 +8,14 @@ import { SvgContextService } from "./svg-context.service";
 })
 export class SvgRenderService {
   constructor(
-    private readonly formatHelperService: FormatService,
-    private readonly svgContextService: SvgContextService
+    private formatHelperService: FormatService,
+    private svgContextService: SvgContextService
   ) {}
 
   render(
     _data: SketchMSData,
     current: SketchMSLayer,
-    _options?: SvgBlocGenOptions
+    _opts?: SvgBlocGenOptions
   ) {
     const context = this.svgContextService.contextOf(current);
 

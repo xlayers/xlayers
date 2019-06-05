@@ -45,7 +45,7 @@ fdescribe('ViewerContainerComponent', () => {
 
   describe('should clear current page', () => {
     it('currentPage is truthy', async(() => {
-      component.currentPage = {} as any;
+      component.data = {} as any;
       component.clearSelection();
       store.select(UiState.currentLayer).subscribe(element => {
         expect(element).toBe(null);
@@ -53,7 +53,7 @@ fdescribe('ViewerContainerComponent', () => {
     }));
 
     it('currentPage is falsy', async(() => {
-      component.currentPage = null;
+      component.data = null;
       component.clearSelection();
       store.select(UiState.currentLayer).subscribe(element => {
         expect(element).toBe(null);

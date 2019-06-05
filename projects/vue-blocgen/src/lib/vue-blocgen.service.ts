@@ -13,9 +13,9 @@ export interface VueBlocGenOptions {
 })
 export class VueBlocGenService {
   constructor(
-    private readonly vueContextService: VueContextService,
-    private readonly vueParserService: VueParserService,
-    private readonly vueRenderService: VueRenderService
+    private vueContextService: VueContextService,
+    private vueParserService: VueParserService,
+    private vueRenderService: VueRenderService
   ) {}
 
   transform(

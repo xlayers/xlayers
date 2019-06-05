@@ -6,12 +6,12 @@ import { TextBlocGenOptions } from "./text-blocgen.service";
   providedIn: "root"
 })
 export class TextRenderService {
-  constructor(private readonly textContextService: TextContextService) {}
+  constructor(private textContextService: TextContextService) {}
 
   render(
     _data: SketchMSData,
     current: SketchMSLayer,
-    _options: TextBlocGenOptions
+    _opts?: TextBlocGenOptions
   ) {
     const context = this.textContextService.contextOf(current);
     return [

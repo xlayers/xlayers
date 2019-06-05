@@ -12,11 +12,11 @@ import {
 })
 export class VueRenderService {
   constructor(
-    private readonly vueContextService: VueContextService,
-    private readonly svgContextService: SvgContextService,
-    private readonly bitmapContextService: BitmapContextService,
-    private readonly svgRenderService: SvgRenderService,
-    private readonly bitmapRenderService: BitmapRenderService
+    private vueContextService: VueContextService,
+    private svgContextService: SvgContextService,
+    private bitmapContextService: BitmapContextService,
+    private svgRenderService: SvgRenderService,
+    private bitmapRenderService: BitmapRenderService
   ) {}
 
   private assetDir: string;

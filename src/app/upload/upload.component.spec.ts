@@ -48,7 +48,7 @@ describe('UploadComponent', () => {
     );
     await component.onFileSelected(mockFile);
 
-    store.selectOnce(UiState.currentFile).subscribe(data => {
+    store.selectOnce(UiState.currentData).subscribe(data => {
       expect(data).toEqual(mockSketchData);
     });
   });

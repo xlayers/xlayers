@@ -32,9 +32,9 @@ export class EditorComponent implements OnInit {
   version = environment.version;
   badge = '';
   constructor(
-    private readonly store: Store,
-    private readonly badgeService: PreviewBadgeService,
-    private readonly exporter: ExportStackblitzService
+    private store: Store,
+    private badgeService: PreviewBadgeService,
+    private exporter: ExportStackblitzService
   ) { }
 
   ngOnInit() {

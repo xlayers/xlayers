@@ -1,10 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { SketchService } from '@app/core/sketch.service';
-import { CurrentFile, ErrorType, InformUser, ResetUiSettings } from '@app/core/state';
+import {
+  CurrentFile,
+  ErrorType,
+  InformUser,
+  ResetUiSettings
+} from '@app/core/state';
 import { Navigate } from '@ngxs/router-plugin';
 import { Store } from '@ngxs/store';
 import { BehaviorSubject } from 'rxjs';
-import { SketchService as SketchAdapterService } from "@xlayers/std-blocgen";
 
 @Component({
   selector: 'xly-upload',
@@ -16,16 +20,16 @@ export class UploadComponent implements OnInit {
   isDragging$ = new BehaviorSubject<boolean>(false);
 
   constructor(
-    private service: SketchService,
-    private sketchAdapterService: SketchAdapterService,
+    private sketchService: SketchService,
     private store: Store
-  ) { }
+  ) {}
 
-  ngOnInit() { }
+  ngOnInit() {}
 
   async onFileSelected(file: File) {
     try {
-      const data = await this.sketchAdapterService.process(file);
+      const data = await this.sketchService.process(file);
+
       this.isDragging$.next(false);
       // Note: these actions need to be run in sequence!
       this.store.dispatch([
@@ -33,7 +37,6 @@ export class UploadComponent implements OnInit {
         new CurrentFile(data),
         new Navigate(['/editor/preview'])
       ]);
-
     } catch (error) {
       this.store.dispatch(new InformUser(error, ErrorType.Runtime));
     }
@@ -41,7 +44,7 @@ export class UploadComponent implements OnInit {
 
   openSelectedDemoFile(fileName: string) {
     this.selectedDemoFileError = false;
-    this.service.getSketchDemoFile(fileName).subscribe(
+    this.sketchService.getSketchDemoFile(fileName).subscribe(
       async (file: Blob) => {
         await this.onFileSelected(new File([file], `${fileName}.sketch`));
       },

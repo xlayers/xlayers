@@ -3,24 +3,19 @@ import { StyleService } from "@xlayers/std-blocgen";
 import { CssContextService } from "./css-context.service";
 import { CssBlocGenOptions } from "./css-blocgen.service";
 
-export interface CssBlocGenContext {
-  rules: { [key: string]: string };
-  className: string;
-}
-
 @Injectable({
   providedIn: "root"
 })
 export class CssParserService {
   constructor(
-    private readonly styleHelperService: StyleService,
-    private readonly cssContextService: CssContextService
+    private styleHelperService: StyleService,
+    private cssContextService: CssContextService
   ) {}
 
   private classNamePrefix: string;
 
   compute(current: SketchMSLayer, opts?: CssBlocGenOptions) {
-    this.classNamePrefix = opts.classNamePrefix || "xly_";
+    this.classNamePrefix = (opts && opts.classNamePrefix) || "xly_";
 
     const rules = {
       ...this.extractObjectStyles(current),
@@ -193,7 +188,7 @@ export class CssParserService {
   }
 
   private extractBlur(current: SketchMSLayer) {
-    const obj = (current as any).blur;
+    const obj = (current as any).style.blur;
     return obj && obj.hasOwnProperty("radius") && obj.radius > 0
       ? {
           filter: `blur(${obj.radius}px);`
@@ -208,7 +203,7 @@ export class CssParserService {
       CENTER = 0
     }
 
-    const obj = (current as any).borders;
+    const obj = (current as any).style.borders;
 
     if (obj && obj.length > 0) {
       const bordersStyles = obj.reduce((acc, border) => {
@@ -237,7 +232,7 @@ export class CssParserService {
   }
 
   private extractFills(current: SketchMSLayer) {
-    const obj = (current as any).fills;
+    const obj = (current as any).style.fills;
 
     if (obj && obj.length > 0) {
       // we only support one fill: take the first one!
@@ -295,7 +290,7 @@ export class CssParserService {
   }
 
   private extractInnerShadow(current: SketchMSLayer) {
-    const innerShadows = (current as any).innerShadows;
+    const innerShadows = (current as any).style.innerShadows;
 
     if (innerShadows) {
       return innerShadows.map(innerShadow => {
@@ -318,7 +313,7 @@ export class CssParserService {
   }
 
   private extractOuterShadow(current: SketchMSLayer) {
-    const outerShadows = (current as any).shadows;
+    const outerShadows = (current as any).style.shadows;
     if (outerShadows) {
       return outerShadows.map(shadow => {
         const shadowColor = this.styleHelperService.parseColorAsRgba(

@@ -17,7 +17,7 @@ export class InteractiveBgComponent implements OnInit {
   lastUiSection: ElementRef;
   lastbtn: HTMLButtonElement;
 
-  constructor(private readonly renderer: Renderer2) {}
+  constructor(private renderer: Renderer2) {}
 
   ngOnInit() {
     this.backgroundImageSrc = {

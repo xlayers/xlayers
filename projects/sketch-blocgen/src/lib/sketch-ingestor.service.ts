@@ -11,7 +11,7 @@ const jszipLoadAsync = (jszip: any): jszip is { loadAsync: Function } => {
 @Injectable({
   providedIn: "root"
 })
-export class SketchService {
+export class SketchIngestorService {
   async process(file: File) {
     const data = {
       images: {},
