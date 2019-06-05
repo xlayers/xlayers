@@ -97,8 +97,6 @@ export class VueRenderService {
     return `\
 import { shallowMount } from "@vue/test-utils";
 import ${capitalizedName} from "@/${[this.componentDir, name].join("/")}.vue";
-import { componentSpecTemplate } from '../codegen/vue/vue.template';
-import { SketchMSData } from '../../../../core/sketch.service';
 
 describe("${capitalizedName}", () => {
   it("render", () => {
