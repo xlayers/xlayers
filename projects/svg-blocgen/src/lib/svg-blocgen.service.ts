@@ -5,11 +5,6 @@ import { SvgParserService } from "./svg-parser.service";
 
 export interface SvgBlocGenOptions {}
 
-export interface SvgBlocGenContext {
-  paths: string;
-  offset: number;
-}
-
 @Injectable({
   providedIn: "root"
 })

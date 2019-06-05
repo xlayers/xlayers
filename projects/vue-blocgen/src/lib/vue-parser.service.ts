@@ -38,6 +38,7 @@ export class VueParserService {
     opts?: VueBlocGenOptions
   ) {
     this.assetDir = (opts && opts.assetDir) || "assets";
+    this.vueContextService.putContext(current);
     this.traverse(data, current, current);
   }
 
@@ -49,7 +50,6 @@ export class VueParserService {
   ) {
     if (this.vueContextService.identify(current)) {
       current.layers.forEach(layer => {
-        this.vueContextService.putContext(root);
         this.traverseIntermediateLayer(data, layer, root, depth);
       });
     } else {
@@ -79,11 +79,11 @@ export class VueParserService {
     root: SketchMSLayer,
     depth: number
   ) {
-    const cssRules = this.cssParserService
-      .transform(data, current)
-      .map(file => file.value);
+    if (this.cssContextService.identify(current)) {
+      const cssRules = this.cssParserService
+        .transform(data, current)
+        .map(file => file.value);
 
-    if (cssRules) {
       this.vueContextService.putContext(root, {
         ...this.vueContextService.contextOf(root),
         css: [...this.vueContextService.contextOf(root).css, ...cssRules]

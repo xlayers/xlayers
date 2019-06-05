@@ -10,9 +10,18 @@ export interface CssBlocGenContext {
 })
 export class CssContextService {
   identify(current: SketchMSLayer) {
-    return ["rect", "page", "rectangle", "group", "symbolMaster"].includes(
-      current._class as string
-    );
+    return [
+      "rect",
+      "page",
+      "rectangle",
+      "group",
+      "symbolMaster",
+      "shapePath",
+      "shapeGroup",
+      "triangle",
+      "oval",
+      "text"
+    ].includes(current._class as string);
   }
 
   hasContext(current: SketchMSLayer) {

@@ -6,6 +6,7 @@ import { VueRenderService } from "./vue-render.service";
 export interface VueBlocGenOptions {
   assetDir?: string;
   componentDir?: string;
+  cssOptimization?: boolean;
 }
 
 @Injectable({

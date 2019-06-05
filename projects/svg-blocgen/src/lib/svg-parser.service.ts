@@ -2,6 +2,8 @@ import { Injectable } from "@angular/core";
 import { ShapeService } from "@xlayers/std-blocgen";
 import { StyleService } from "@xlayers/std-blocgen";
 import { SvgContextService } from "./svg-context.service";
+import { CssContextService } from "../../../css-blocgen/src/lib/css-context.service";
+import { CssParserService } from "../../../css-blocgen/src/lib/css-parser.service";
 
 @Injectable({
   providedIn: "root"
@@ -10,6 +12,7 @@ export class SvgParserService {
   constructor(
     private shapeHelperService: ShapeService,
     private styleHelperService: StyleService,
+    private cssContextService: CssContextService,
     private svgContextService: SvgContextService
   ) {}
 
@@ -87,12 +90,17 @@ export class SvgParserService {
 
     return {
       offset,
-      paths: [`<path`, ...config, `d="${segments}"`, "/>"].join("")
+      paths: [
+        {
+          type: "path",
+          attributes: [...config, `d="${segments}"`]
+        }
+      ]
     };
   }
 
   private extractTriangleShape(current: SketchMSLayer) {
-    const attributes = [];
+    const config = [];
     let offset = 0;
 
     // TODO: Support multiple border
@@ -101,13 +109,11 @@ export class SvgParserService {
       current.style.borders.length > 0 &&
       current.style.borders[0].thickness
     ) {
-      attributes.push(
-        `stroke-width="${current.style.borders[0].thickness / 2}"`
-      );
+      config.push(`stroke-width="${current.style.borders[0].thickness / 2}"`);
       const color = this.styleHelperService.parseColorAsHex(
         current.style.borders[0].color
       );
-      attributes.push(`stroke="${color}"`);
+      config.push(`stroke="${color}"`);
       offset = current.style.borders[0].thickness;
     }
 
@@ -124,7 +130,12 @@ export class SvgParserService {
 
     return {
       offset,
-      paths: [`<polygon`, ...attributes, `points="${segments}"/>`].join("")
+      paths: [
+        {
+          type: "polygon",
+          attributes: [...config, `points="${segments}"`]
+        }
+      ]
     };
   }
 
@@ -176,7 +187,12 @@ export class SvgParserService {
 
     return {
       offset,
-      paths: `<path d="${paths.join(" ")}"/>`
+      paths: [
+        {
+          type: "path",
+          attributes: [`d="${paths.join(" ")}"`]
+        }
+      ]
     };
   }
 }

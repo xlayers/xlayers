@@ -6,6 +6,7 @@ import {
   BitmapContextService,
   BitmapRenderService
 } from "@xlayers/bitmap-blocgen";
+import { CssOptimizerService } from "@xlayers/css-blocgen";
 
 @Injectable({
   providedIn: "root"
@@ -16,26 +17,26 @@ export class VueRenderService {
     private svgContextService: SvgContextService,
     private bitmapContextService: BitmapContextService,
     private svgRenderService: SvgRenderService,
+    private cssOptimizerService: CssOptimizerService,
     private bitmapRenderService: BitmapRenderService
   ) {}
 
   private assetDir: string;
   private componentDir: string;
+  private cssOptimization: boolean;
 
-  render(
-    data: SketchMSData,
-    current: SketchMSLayer,
-    opts: VueBlocGenOptions = {}
-  ) {
+  render(data: SketchMSData, current: SketchMSLayer, opts?: VueBlocGenOptions) {
     this.assetDir = (opts && opts.assetDir) || "assets";
     this.componentDir = (opts && opts.componentDir) || "components";
+    this.cssOptimization = (opts && opts.cssOptimization) || true;
+
     if (this.vueContextService.hasContext(current)) {
       const context = this.vueContextService.contextOf(current);
       return [
         ...this.traverse(data, current).map(file => ({ ...file, kind: "vue" })),
         {
           kind: "vue",
-          value: this.formatContext(context),
+          value: this.renderComponent(current, context),
           language: "html",
           uri: `${this.componentDir}/${current.name}.vue`
         },
@@ -106,7 +107,7 @@ describe("${capitalizedName}", () => {
 });`;
   }
 
-  private formatContext(context: VueBlocGenContext) {
+  private renderComponent(current: SketchMSLayer, context: VueBlocGenContext) {
     return `\
 <template>
 ${context.html.join("\n")}
@@ -117,7 +118,11 @@ ${this.renderScript(context.components)}
 </script>
 
 <style>
-${context.css.join("\n\n")}
+${
+  this.cssOptimization
+    ? this.cssOptimizerService.parseStyleSheet(current)
+    : context.css.join("\n\n")
+}
 </style>`;
   }
 

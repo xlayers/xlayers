@@ -1,7 +1,12 @@
 import { Injectable } from "@angular/core";
 
-export interface SvgParserContext {
-  paths: string;
+export interface SvgBlocGenContextPath {
+  type: string;
+  attributes: string[];
+}
+
+export interface SvgBlocGenContext {
+  paths: SvgBlocGenContextPath[];
   offset: number;
 }
 
@@ -23,7 +28,7 @@ export class SvgContextService {
 
   putContext(
     current: SketchMSLayer,
-    context: SvgParserContext = { paths: "", offset: 0 }
+    context: SvgBlocGenContext = { paths: [], offset: 0 }
   ) {
     (current as any).svg = context;
   }
