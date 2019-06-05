@@ -26,6 +26,42 @@
       "@xlayers/*": [
         "projects/*/src/lib",
         "projects/*/src/public_api.ts"
+      ],
+      "vue-blocgen": [
+        "dist/vue-blocgen"
+      ],
+      "vue-blocgen/*": [
+        "dist/vue-blocgen/*"
+      ],
+      "std-blocgen": [
+        "dist/std-blocgen"
+      ],
+      "std-blocgen/*": [
+        "dist/std-blocgen/*"
+      ],
+      "text-blocgen": [
+        "dist/text-blocgen"
+      ],
+      "text-blocgen/*": [
+        "dist/text-blocgen/*"
+      ],
+      "svg-blocgen": [
+        "dist/svg-blocgen"
+      ],
+      "svg-blocgen/*": [
+        "dist/svg-blocgen/*"
+      ],
+      "css-blocgen": [
+        "dist/css-blocgen"
+      ],
+      "css-blocgen/*": [
+        "dist/css-blocgen/*"
+      ],
+      "bitmap-blocgen": [
+        "dist/bitmap-blocgen"
+      ],
+      "bitmap-blocgen/*": [
+        "dist/bitmap-blocgen/*"
       ]
     }
   }

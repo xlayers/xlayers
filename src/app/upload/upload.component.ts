@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { SketchService } from '@app/core/sketch.service';
 import { CurrentFile, ErrorType, InformUser, ResetUiSettings } from '@app/core/state';
 import { Navigate } from '@ngxs/router-plugin';
 import { Store } from '@ngxs/store';
 import { BehaviorSubject } from 'rxjs';
-import { SketchAdapterService } from '@app/editor/code/editor-container/blocgen/sketch-adapter/sketch-adapter.service';
+import { SketchService as SketchAdapterService } from "@xlayers/std-blocgen";
 
 @Component({
   selector: 'xly-upload',

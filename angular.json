@@ -136,6 +136,216 @@
           }
         }
       }
+    },
+    "vue-blocgen": {
+      "root": "projects/vue-blocgen",
+      "sourceRoot": "projects/vue-blocgen/src",
+      "projectType": "library",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/vue-blocgen/tsconfig.lib.json",
+            "project": "projects/vue-blocgen/ng-package.json"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/vue-blocgen/src/test.ts",
+            "tsConfig": "projects/vue-blocgen/tsconfig.spec.json",
+            "karmaConfig": "projects/vue-blocgen/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/vue-blocgen/tsconfig.lib.json",
+              "projects/vue-blocgen/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "std-blocgen": {
+      "root": "projects/std-blocgen",
+      "sourceRoot": "projects/std-blocgen/src",
+      "projectType": "library",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/std-blocgen/tsconfig.lib.json",
+            "project": "projects/std-blocgen/ng-package.json"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/std-blocgen/src/test.ts",
+            "tsConfig": "projects/std-blocgen/tsconfig.spec.json",
+            "karmaConfig": "projects/std-blocgen/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/std-blocgen/tsconfig.lib.json",
+              "projects/std-blocgen/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "text-blocgen": {
+      "root": "projects/text-blocgen",
+      "sourceRoot": "projects/text-blocgen/src",
+      "projectType": "library",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/text-blocgen/tsconfig.lib.json",
+            "project": "projects/text-blocgen/ng-package.json"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/text-blocgen/src/test.ts",
+            "tsConfig": "projects/text-blocgen/tsconfig.spec.json",
+            "karmaConfig": "projects/text-blocgen/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/text-blocgen/tsconfig.lib.json",
+              "projects/text-blocgen/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "svg-blocgen": {
+      "root": "projects/svg-blocgen",
+      "sourceRoot": "projects/svg-blocgen/src",
+      "projectType": "library",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/svg-blocgen/tsconfig.lib.json",
+            "project": "projects/svg-blocgen/ng-package.json"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/svg-blocgen/src/test.ts",
+            "tsConfig": "projects/svg-blocgen/tsconfig.spec.json",
+            "karmaConfig": "projects/svg-blocgen/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/svg-blocgen/tsconfig.lib.json",
+              "projects/svg-blocgen/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "css-blocgen": {
+      "root": "projects/css-blocgen",
+      "sourceRoot": "projects/css-blocgen/src",
+      "projectType": "library",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/css-blocgen/tsconfig.lib.json",
+            "project": "projects/css-blocgen/ng-package.json"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/css-blocgen/src/test.ts",
+            "tsConfig": "projects/css-blocgen/tsconfig.spec.json",
+            "karmaConfig": "projects/css-blocgen/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/css-blocgen/tsconfig.lib.json",
+              "projects/css-blocgen/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "bitmap-blocgen": {
+      "root": "projects/bitmap-blocgen",
+      "sourceRoot": "projects/bitmap-blocgen/src",
+      "projectType": "library",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/bitmap-blocgen/tsconfig.lib.json",
+            "project": "projects/bitmap-blocgen/ng-package.json"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/bitmap-blocgen/src/test.ts",
+            "tsConfig": "projects/bitmap-blocgen/tsconfig.spec.json",
+            "karmaConfig": "projects/bitmap-blocgen/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/bitmap-blocgen/tsconfig.lib.json",
+              "projects/bitmap-blocgen/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
     }
   },
   "defaultProject": "xlayers"

@@ -1,7 +1,6 @@
 import { Injectable } from "@angular/core";
 import { XlayersNgxEditorModel } from "../codegen.service";
-import { CodeGenFacade } from "../../blocgen/blocgen";
-import { VueBlocGenService } from "../../blocgen/vue-blocgen/vue-blocgen.service";
+import { VueBlocGenService } from "@xlayers/vue-blocgen";
 
 const renderReadme = (name: string) => `\
 ## How to use the ${name} Vuejs module
@@ -33,7 +32,7 @@ export default {
 @Injectable({
   providedIn: "root"
 })
-export class VueCodeGenService implements CodeGenFacade {
+export class VueCodeGenService {
   constructor(private readonly vueBlocGenService: VueBlocGenService) {}
 
   buttons() {
