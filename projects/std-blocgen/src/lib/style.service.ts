@@ -4,37 +4,31 @@ import { Injectable } from "@angular/core";
   providedIn: "root"
 })
 export class StyleService {
-  parseColors(color: SketchMSColor) {
-    const { red, green, blue, alpha } = color;
+  parseColor(color: SketchMSColor) {
     return {
-      red: this.percentToRgba(red),
-      green: this.percentToRgba(green),
-      blue: this.percentToRgba(blue),
-      alpha
+      red: this.percentToRgba(color.red),
+      green: this.percentToRgba(color.green),
+      blue: this.percentToRgba(color.blue),
+      alpha: color.alpha
     };
   }
 
   parseColorAsRgba(color: SketchMSColor) {
-    const colorObject = this.parseColors(color);
-    const colorString = [
-      colorObject.red,
-      colorObject.green,
-      colorObject.blue,
-      colorObject.alpha
-    ].join(",");
+    const c = this.parseColor(color);
+    const colorString = [c.red, c.green, c.blue, c.alpha].join(",");
     return `rgba(${colorString})`;
   }
 
   parseColorAsHex(color: SketchMSColor) {
-    const colorObject = this.parseColors(color);
+    const c = this.parseColor(color);
 
     return (
       "#" +
-      ((256 + this.percentToRgba(colorObject.red)).toString(16).substr(1) +
+      ((256 + c.red).toString(16).substr(1) +
         (
-          ((1 << 24) + (this.percentToRgba(colorObject.green) << 16)) |
-          (this.percentToRgba(colorObject.blue) << 8) |
-          this.percentToRgba(colorObject.alpha)
+          ((1 << 24) + (c.green << 16)) |
+          (c.blue << 8) |
+          this.percentToRgba(c.alpha)
         )
           .toString(16)
           .substr(1))

@@ -1,11 +1,9 @@
-import { AfterContentInit, Component, Input, OnInit } from "@angular/core";
-import { ViewerLayerComponent } from "../layer/layer.component";
+import { Component, Input } from "@angular/core";
 
 @Component({
   selector: "xly-viewer-page",
   template: `
     <xly-viewer-layer
-      xlySelectedLayer
       *ngFor="let layer of page.layers"
       class="layer"
       [ngClass]="{ wireframe: wireframe }"
@@ -18,7 +16,6 @@ import { ViewerLayerComponent } from "../layer/layer.component";
       [attr.data-class]="layer?._class"
       [style.width.px]="layer?.frame?.width"
       [style.height.px]="layer?.frame?.height"
-      (selectedLayer)="selectLayer($event)"
     ></xly-viewer-layer>
   `,
   styles: [
@@ -33,7 +30,10 @@ import { ViewerLayerComponent } from "../layer/layer.component";
     `
   ]
 })
-export class ViewerPageComponent extends ViewerLayerComponent {
+export class ViewerPageComponent {
   @Input() data: SketchMSData;
   @Input() page: SketchMSPage;
+
+  @Input() wireframe = false;
+  @Input() level = 0;
 }

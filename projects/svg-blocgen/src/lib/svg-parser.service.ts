@@ -2,8 +2,6 @@ import { Injectable } from "@angular/core";
 import { ShapeService } from "@xlayers/std-blocgen";
 import { StyleService } from "@xlayers/std-blocgen";
 import { SvgContextService } from "./svg-context.service";
-import { CssContextService } from "../../../css-blocgen/src/lib/css-context.service";
-import { CssParserService } from "../../../css-blocgen/src/lib/css-parser.service";
 
 @Injectable({
   providedIn: "root"
@@ -12,7 +10,6 @@ export class SvgParserService {
   constructor(
     private shapeHelperService: ShapeService,
     private styleHelperService: StyleService,
-    private cssContextService: CssContextService,
     private svgContextService: SvgContextService
   ) {}
 
@@ -46,10 +43,11 @@ export class SvgParserService {
       current.style.borders.length > 0 &&
       current.style.borders[0].thickness
     ) {
-      config.push(`stroke-width="${current.style.borders[0].thickness / 2}"`);
+      config.push(`stroke-width="${current.style.borders[0].thickness}"`);
       const color = this.styleHelperService.parseColorAsHex(
         current.style.borders[0].color
       );
+
       config.push(`stroke="${color}"`);
       offset = current.style.borders[0].thickness;
     }
@@ -87,13 +85,15 @@ export class SvgParserService {
     if ((current as any).isClosed) {
       segments.push("z");
     }
+      const fillStyle = this.extractFillStyle(current);
+
 
     return {
       offset,
       paths: [
         {
           type: "path",
-          attributes: [...config, `d="${segments}"`]
+          attributes: [...config, fillStyle, `d="${segments}"`]
         }
       ]
     };
@@ -128,12 +128,14 @@ export class SvgParserService {
       })
       .join(" ");
 
-    return {
+      const fillStyle = this.extractFillStyle(current);
+
+      return {
       offset,
       paths: [
         {
           type: "polygon",
-          attributes: [...config, `points="${segments}"`]
+          attributes: [...config,fillStyle, `points="${segments}"`]
         }
       ]
     };
@@ -185,14 +187,37 @@ export class SvgParserService {
       return segments.join(" ");
     });
 
-    return {
+      const fillStyle = this.extractFillStyle(current);
+
+      return {
       offset,
       paths: [
         {
           type: "path",
-          attributes: [`d="${paths.join(" ")}"`]
+          attributes: [fillStyle, `d="${paths.join(" ")}"`]
         }
       ]
     };
   }
+
+  private extractFillStyle(current: SketchMSLayer) {
+    const obj = (current as any).style.fills;
+
+    if (obj && obj.length > 0) {
+      // we only support one fill: take the first one!
+      // ignore the other fills
+      const firstFill = obj[0];
+
+      if (firstFill.isEnabled) {
+        const fillColor = this.styleHelperService.parseColorAsRgba(
+          firstFill.color
+        );
+
+        return `fill=${fillColor}`
+      }
+    }
+
+    return 'fill="none"';
+  }
+
 }

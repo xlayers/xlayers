@@ -15,7 +15,7 @@ export interface SvgBlocGenContext {
 })
 export class SvgContextService {
   identify(current: SketchMSLayer) {
-    return ["shapePath", "shapeGroup"].includes(current._class as string);
+    return ["triangle", "shapePath", "shapeGroup"].includes(current._class as string);
   }
 
   hasContext(current: SketchMSLayer) {

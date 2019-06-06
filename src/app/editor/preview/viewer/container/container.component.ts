@@ -6,7 +6,12 @@ import { ViewerSelectedLayerDirective } from "../layer/selected-layer.directive"
 @Component({
   selector: "xly-viewer-container",
   template: `
-    <div class="layers-container" xly3dRotation [enabled]="is3dView">
+    <div
+      *ngIf="data"
+      class="layers-container"
+      xly3dRotation
+      [enabled]="is3dView"
+    >
       <xly-viewer-canvas
         #ref
         xlySelectedLayer

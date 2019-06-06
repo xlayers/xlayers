@@ -118,11 +118,7 @@ ${this.renderScript(context.components)}
 </script>
 
 <style>
-${
-  this.cssOptimization
-    ? this.cssOptimizerService.parseStyleSheet(current)
-    : context.css.join("\n\n")
-}
+${context.css.join("\n\n")}
 </style>`;
   }
 

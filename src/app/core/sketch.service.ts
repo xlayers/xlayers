@@ -93,7 +93,8 @@ export class SketchService {
     });
   }
 
+  // TODO: Remove for V2
   getImageDataFromRef(ref: string) {
-    return this._data.resources.images[ref];
+    return (this._data as any).images[ref];
   }
 }

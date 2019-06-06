@@ -16,9 +16,6 @@ export class CssContextService {
       "rectangle",
       "group",
       "symbolMaster",
-      "shapePath",
-      "shapeGroup",
-      "triangle",
       "oval",
       "text"
     ].includes(current._class as string);
@@ -38,7 +35,7 @@ export class CssContextService {
         ((current.css as unknown) as CssBlocGenContext).rules || current.css,
       className:
         ((current.css as unknown) as CssBlocGenContext).className ||
-        (current as any).css__className
+        (current as any).css.className
     };
   }
 

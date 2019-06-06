@@ -112,7 +112,7 @@ export class CodeGenService {
       if (_ast.layers && _ast.layers.length > 0) {
         _ast.layers.forEach(layer => {
           if (layer.css) {
-            (layer as any).css__className = `xly_${randomString()}`;
+            (layer as any).css.className = `xly_${randomString()}`;
           }
           addCssClassNames(layer);
         });

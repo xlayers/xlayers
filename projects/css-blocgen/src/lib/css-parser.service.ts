@@ -66,12 +66,6 @@ export class CssParserService {
           ...this.addOvalShape(),
           ...this.extractLayerStyle(current)
         };
-      case "shapePath":
-        return this.extractFills(current);
-      case "shapeGroup":
-        return this.extractFills(current);
-      case "triangle":
-        return this.extractFills(current);
       default:
         return this.extractContainerStyle(current);
     }
@@ -208,7 +202,7 @@ export class CssParserService {
     if (obj && obj.length > 0) {
       const bordersStyles = obj.reduce((acc, border) => {
         if (border.thickness > 0) {
-          const borderColor = this.styleHelperService.parseColors(border.color);
+          const borderColor = this.styleHelperService.parseColorAsRgba(border.color);
           const inset = border.position === BorderType.INSIDE ? "inset" : "";
           const shadow = [
             `0 0 0 ${border.thickness}px ${borderColor}`,

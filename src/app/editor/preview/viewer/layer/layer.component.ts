@@ -8,7 +8,7 @@ import {
 } from "@angular/core";
 import { Store } from "@ngxs/store";
 import { CurrentLayer, UiState } from "@app/core/state/ui.state";
-import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
+import { DomSanitizer, SafeHtml, SafeUrl } from "@angular/platform-browser";
 import { SketchService } from "@app/core/sketch.service";
 import { CssContextService } from "@xlayers/css-blocgen";
 import { SvgRenderService, SvgContextService } from "@xlayers/svg-blocgen";
@@ -37,6 +37,20 @@ import {
         [attr.data-id]="layer?.do_objectID"
         [attr.data-name]="layer?.name"
         [attr.data-class]="layer?._class"
+        (selectedLayer)="selectLayer($event)"
+      ></xly-viewer-layer>
+
+      <xly-viewer-layer
+        xlySelectedLayer
+        *ngIf="symbolMaster"
+        class="layer"
+        [data]="data"
+        [layer]="symbolMaster"
+        [level]="level + 1"
+        [wireframe]="wireframe"
+        [attr.data-id]="symbolMaster?.do_objectID"
+        [attr.data-name]="symbolMaster?.name"
+        [attr.data-class]="symbolMaster?._class"
         (selectedLayer)="selectLayer($event)"
       ></xly-viewer-layer>
 
@@ -91,8 +105,9 @@ export class ViewerLayerComponent implements OnInit, AfterContentInit {
   offset3d = 20;
 
   texts: string[];
-  images: string[];
+  images: SafeUrl[];
   shapes: SafeHtml[];
+  symbolMaster: SketchMSLayer;
 
   constructor(
     public store: Store,
@@ -127,8 +142,9 @@ export class ViewerLayerComponent implements OnInit, AfterContentInit {
     this.applyHighlightStyles();
     this.applyLayerStyles();
     this.loadText();
-    this.loadSolid();
     this.loadImage();
+    this.loadShapes();
+    this.loadSymbolMaster();
   }
 
   loadText() {
@@ -141,17 +157,32 @@ export class ViewerLayerComponent implements OnInit, AfterContentInit {
 
   loadImage() {
     if (this.bitmapContextService.identify(this.layer)) {
-      this.images = this.bitmapRenderService
+    this.images =  this.bitmapRenderService
         .render(this.data, this.layer)
-        .map(file => file.value);
+        .map(file =>
+          this.sanitizer.bypassSecurityTrustResourceUrl(
+            `data:image/jpg;base64,${file.value}`
+          )
+        );
     }
   }
 
-  loadSolid() {
-    if (this.svgContextService.hasContext(this.layer)) {
-      this.shapes = this.svgRenderService
+  loadShapes() {
+    if (this.svgContextService.identify(this.layer)) {
+    this.shapes = this.svgRenderService
         .render({} as SketchMSData, this.layer)
-        .map(file => this.sanitizer.bypassSecurityTrustHtml(file.value));
+        .map(file =>
+          this.sanitizer.bypassSecurityTrustHtml(file.value)
+        );
+    }
+  }
+
+  loadSymbolMaster() {
+    if (this.layer._class as string === "symbolInstance") {
+      const foreignSymbol = this.data.document.foreignSymbols.find(
+        x => x.symbolMaster.symbolID === (this.layer as any).symbolID
+      );
+      this.symbolMaster = foreignSymbol.symbolMaster;
     }
   }
 

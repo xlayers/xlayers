@@ -1,6 +1,5 @@
 import { CdkDragEnd, CdkDragMove, CdkDragStart } from "@angular/cdk/drag-drop";
 import {
-  AfterViewInit,
   Component,
   ElementRef,
   Input,
@@ -27,10 +26,10 @@ import { Store } from "@ngxs/store";
     >
       <xly-viewer-page
         [data]="data"
-        [page]="currentPage"
-        [attr.data-id]="currentPage?.do_objectID"
-        [attr.data-name]="currentPage?.name"
-        [attr.data-class]="currentPage?._class"
+        [page]="page"
+        [attr.data-id]="page?.do_objectID"
+        [attr.data-name]="page?.name"
+        [attr.data-class]="page?._class"
       ></xly-viewer-page>
     </div>
   `,
@@ -53,7 +52,7 @@ import { Store } from "@ngxs/store";
         top: 2px;
       }
       .canvas {
-        display: block;
+        display: none;
         cursor: move;
         left: 50%;
         position: absolute;

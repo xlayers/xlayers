@@ -37,25 +37,22 @@ export class SvgRenderService {
 
   private formatContext(context: SvgBlocGenContext, current: SketchMSLayer) {
     const attributes = [
-      'style="position: absolute"',
-      `top="${-context.offset}px"`,
-      `left="${-context.offset}px"`,
-      `width="${current.frame.width + context.offset}"`,
-      `height="${current.frame.height + context.offset}"`,
+      `style="${[
+        "position: absolute",
+        `top: ${-context.offset}px`,
+        `left: ${-context.offset}px`
+      ].join("; ")}"`,
+      `width="${current.frame.width + context.offset * 2}"`,
+      `height="${current.frame.height + context.offset * 2}"`,
       `role="img"`
     ].join(" ");
-
-    const fillStyle = this.extractFillStyle(current);
 
     return [
       `<svg ${attributes}>`,
       context.paths.map(path =>
         this.formatHelperService.indent(
           1,
-          this.renderPath({
-            ...path,
-            attributes: [...path.attributes, fillStyle]
-          })
+          this.renderPath(path)
         )
       ),
       `</svg>`
@@ -64,15 +61,5 @@ export class SvgRenderService {
 
   private renderPath(path: SvgBlocGenContextPath) {
     return `<${path.type} ${path.attributes.join(" ")}/>`;
-  }
-
-  private extractFillStyle(current: SketchMSLayer) {
-    if (this.cssContextService.hasContext(current)) {
-      const context = this.cssContextService.contextOf(current);
-      if (context.rules.hasOwnProperty("background-color")) {
-        return `fill="${context.rules["background-color"]}"`;
-      }
-    }
-    return 'fill="none"';
   }
 }

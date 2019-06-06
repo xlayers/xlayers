@@ -59,7 +59,7 @@ export class VueParserService {
 
   private traverseEdgeLayer(data: SketchMSData, current: SketchMSLayer) {
     if ((current._class as string) === "symbolInstance") {
-      return this.extractAndRegisterSymbolMaster(data, current);
+      return this.extractSymbolMaster(data, current);
     }
     if (this.bitmapContextService.identify(current)) {
       return this.extractImage(data, current);
@@ -68,7 +68,7 @@ export class VueParserService {
       return this.extractText(data, current);
     }
     if (this.svgContextService.identify(current)) {
-      return this.extractImgAndRegisterSvgFile(data, current);
+      return this.extractShape(data, current);
     }
     return null;
   }
@@ -182,17 +182,10 @@ export class VueParserService {
       .join("\n");
   }
 
-  private extractAndRegisterSymbolMaster(
-    data: SketchMSData,
-    current: SketchMSLayer
-  ) {
+  private extractSymbolMaster(data: SketchMSData, current: SketchMSLayer) {
     const foreignSymbol = data.document.foreignSymbols.find(
       x => x.symbolMaster.symbolID === (current as any).symbolID
     );
-
-    if (!foreignSymbol) {
-      return null;
-    }
 
     this.compute(data, foreignSymbol.symbolMaster);
 
@@ -201,10 +194,7 @@ export class VueParserService {
     });
   }
 
-  private extractImgAndRegisterSvgFile(
-    data: SketchMSData,
-    current: SketchMSLayer
-  ) {
+  private extractShape(data: SketchMSData, current: SketchMSLayer) {
     return this.svgParserService
       .transform(data, current)
       .map(
