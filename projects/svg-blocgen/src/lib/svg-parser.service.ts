@@ -85,8 +85,7 @@ export class SvgParserService {
     if ((current as any).isClosed) {
       segments.push("z");
     }
-      const fillStyle = this.extractFillStyle(current);
-
+    const fillStyle = this.extractFillStyle(current);
 
     return {
       offset,
@@ -128,14 +127,14 @@ export class SvgParserService {
       })
       .join(" ");
 
-      const fillStyle = this.extractFillStyle(current);
+    const fillStyle = this.extractFillStyle(current);
 
-      return {
+    return {
       offset,
       paths: [
         {
           type: "polygon",
-          attributes: [...config,fillStyle, `points="${segments}"`]
+          attributes: [...config, fillStyle, `points="${segments}"`]
         }
       ]
     };
@@ -187,9 +186,9 @@ export class SvgParserService {
       return segments.join(" ");
     });
 
-      const fillStyle = this.extractFillStyle(current);
+    const fillStyle = this.extractFillStyle(current);
 
-      return {
+    return {
       offset,
       paths: [
         {
@@ -213,11 +212,10 @@ export class SvgParserService {
           firstFill.color
         );
 
-        return `fill=${fillColor}`
+        return `fill="${fillColor}"`;
       }
     }
 
     return 'fill="none"';
   }
-
 }
