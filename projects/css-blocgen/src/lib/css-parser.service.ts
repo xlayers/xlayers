@@ -284,7 +284,7 @@ export class CssParserService {
 
     return innerShadow + outterShadow !== ""
       ? {
-          "box-shadow": [innerShadow, outterShadow].join()
+          "box-shadow": innerShadow + outterShadow
         }
       : {};
   }
