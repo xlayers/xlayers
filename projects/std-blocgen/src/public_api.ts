@@ -2,7 +2,7 @@
  * Public API Surface of std-blocgen
  */
 
-export * from './std-blocgen';
+export * from './std-blocgen.d';
 export * from './lib/bplist.service';
 export * from './lib/format.service';
 export * from './lib/shape.service';
