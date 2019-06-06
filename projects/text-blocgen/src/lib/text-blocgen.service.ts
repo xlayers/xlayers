@@ -3,8 +3,6 @@ import { TextContextService } from './text-context.service';
 import { TextParserService } from './text-parser.service';
 import { TextRenderService } from './text-render.service';
 
-export interface TextBlocGenOptions {}
-
 @Injectable({
   providedIn: 'root'
 })
@@ -15,15 +13,11 @@ export class TextBlocGenService {
     private textRenderService: TextRenderService
   ) {}
 
-  transform(
-    data: SketchMSData,
-    current: SketchMSLayer,
-    opts?: TextBlocGenOptions
-  ) {
+  transform(current: SketchMSLayer, data?: SketchMSData) {
     if (!this.textContextService.hasContext(current)) {
       this.textParserService.compute(current);
     }
 
-    return this.textRenderService.render(data, current, opts);
+    return this.textRenderService.render(current, data);
   }
 }

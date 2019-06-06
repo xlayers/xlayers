@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { TextContextService } from './text-context.service';
-import { TextBlocGenOptions } from './text-blocgen.service';
 
 @Injectable({
   providedIn: 'root'
@@ -8,11 +7,7 @@ import { TextBlocGenOptions } from './text-blocgen.service';
 export class TextRenderService {
   constructor(private textContextService: TextContextService) {}
 
-  render(
-    _data: SketchMSData,
-    current: SketchMSLayer,
-    _opts?: TextBlocGenOptions
-  ) {
+  render(current: SketchMSLayer, _data?: SketchMSData) {
     const context = this.textContextService.contextOf(current);
     return [
       {

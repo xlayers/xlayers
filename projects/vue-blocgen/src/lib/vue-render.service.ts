@@ -1,11 +1,5 @@
 import { Injectable } from '@angular/core';
-import { VueBlocGenOptions } from './vue-blocgen.service';
 import { VueContextService, VueBlocGenContext } from './vue-context.service';
-import { SvgRenderService, SvgContextService } from '@xlayers/svg-blocgen/';
-import {
-  BitmapContextService,
-  BitmapRenderService
-} from '@xlayers/bitmap-blocgen';
 import { CssOptimizerService } from '@xlayers/css-blocgen';
 
 @Injectable({
@@ -17,13 +11,10 @@ export class VueRenderService {
     private cssOptimizerService: CssOptimizerService
   ) {}
 
-  private componentDir: string;
-  private cssOptimization: boolean;
+  private componentDir = 'components';
+  private cssOptimization: true;
 
-  render(data: SketchMSData, current: SketchMSLayer, opts?: VueBlocGenOptions) {
-    this.componentDir = (opts && opts.componentDir) || 'components';
-    this.cssOptimization = (opts && opts.cssOptimization) || true;
-
+  render(current: SketchMSLayer, data?: SketchMSData) {
     if (this.vueContextService.hasContext(current)) {
       const context = this.vueContextService.contextOf(current);
       return [
@@ -71,7 +62,7 @@ export class VueRenderService {
       return [];
     }
 
-    return this.render(data, foreignSymbol.symbolMaster);
+    return this.render(foreignSymbol.symbolMaster, data);
   }
 
   private renderComponentSpec(name: string) {

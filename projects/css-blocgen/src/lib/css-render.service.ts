@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { FormatService } from '@xlayers/std-blocgen';
 import { CssContextService, CssBlocGenContext } from './css-context.service';
-import { CssBlocGenOptions } from './css-blocgen.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,11 +11,7 @@ export class CssRenderService {
     private formatHelperService: FormatService
   ) {}
 
-  render(
-    _data: SketchMSData,
-    current: SketchMSLayer,
-    _opts: CssBlocGenOptions = {}
-  ) {
+  render(current: SketchMSLayer, _data?: SketchMSData) {
     if (this.cssContextService.hasContext(current)) {
       const context = this.cssContextService.contextOf(current);
       return [

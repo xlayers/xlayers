@@ -3,8 +3,6 @@ import { SvgContextService } from './svg-context.service';
 import { SvgRenderService } from './svg-render.service';
 import { SvgParserService } from './svg-parser.service';
 
-export interface SvgBlocGenOptions {}
-
 @Injectable({
   providedIn: 'root'
 })
@@ -15,15 +13,11 @@ export class SvgBlocGenService {
     private svgRenderService: SvgRenderService
   ) {}
 
-  transform(
-    data: SketchMSData,
-    current: SketchMSLayer,
-    opts?: SvgBlocGenOptions
-  ) {
+  transform(current: SketchMSLayer, data?: SketchMSData) {
     if (!this.svgContextService.hasContext(current)) {
       this.svgParserService.compute(current);
     }
 
-    return this.svgRenderService.render(data, current, opts);
+    return this.svgRenderService.render(current, data);
   }
 }

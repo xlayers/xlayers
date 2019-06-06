@@ -3,12 +3,6 @@ import { VueContextService } from './vue-context.service';
 import { VueParserService } from './vue-parser.service';
 import { VueRenderService } from './vue-render.service';
 
-export interface VueBlocGenOptions {
-  assetDir?: string;
-  componentDir?: string;
-  cssOptimization?: boolean;
-}
-
 @Injectable({
   providedIn: 'root'
 })
@@ -19,15 +13,11 @@ export class VueBlocGenService {
     private vueRenderService: VueRenderService
   ) {}
 
-  transform(
-    data: SketchMSData,
-    current: SketchMSLayer,
-    opts?: VueBlocGenOptions
-  ) {
+  transform(current: SketchMSLayer, data?: SketchMSData) {
     if (!this.vueContextService.hasContext(current)) {
       this.vueParserService.compute(data, current);
     }
 
-    return this.vueRenderService.render(data, current, opts);
+    return this.vueRenderService.render(current, data);
   }
 }

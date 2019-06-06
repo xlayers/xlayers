@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
 
-export interface BitmapParserContext {}
-
 @Injectable({
   providedIn: 'root'
 })

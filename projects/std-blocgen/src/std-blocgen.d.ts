@@ -11,8 +11,8 @@ export interface ParserFacadeTranformOptions {
 
 export interface ParserFacade {
   transform(
-    data: SketchMSData,
     current: SketchMSLayer,
+    data?: SketchMSData,
     opts?: ParserFacadeTranformOptions
   ): RessourceFile[];
   identify(current: SketchMSLayer): boolean;

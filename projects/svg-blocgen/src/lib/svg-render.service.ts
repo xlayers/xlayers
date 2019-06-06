@@ -1,12 +1,10 @@
 import { Injectable } from '@angular/core';
 import { FormatService } from '@xlayers/std-blocgen';
-import { SvgBlocGenOptions } from './svg-blocgen.service';
 import {
   SvgBlocGenContext,
   SvgContextService,
   SvgBlocGenContextPath
 } from './svg-context.service';
-import { CssContextService } from '@xlayers/css-blocgen';
 
 @Injectable({
   providedIn: 'root'
@@ -14,15 +12,10 @@ import { CssContextService } from '@xlayers/css-blocgen';
 export class SvgRenderService {
   constructor(
     private formatHelperService: FormatService,
-    private cssContextService: CssContextService,
     private svgContextService: SvgContextService
   ) {}
 
-  render(
-    _data: SketchMSData,
-    current: SketchMSLayer,
-    _opts?: SvgBlocGenOptions
-  ) {
+  render(current: SketchMSLayer, _data?: SketchMSData) {
     const context = this.svgContextService.contextOf(current);
 
     return [
@@ -50,10 +43,7 @@ export class SvgRenderService {
     return [
       `<svg ${attributes}>`,
       context.paths.map(path =>
-        this.formatHelperService.indent(
-          1,
-          this.renderPath(path)
-        )
+        this.formatHelperService.indent(1, this.renderPath(path))
       ),
       `</svg>`
     ].join('\n');

@@ -48,7 +48,7 @@ export class VueCodeGenService {
         uri: `README.md`
       },
       ...(data.pages as any).flatMap(page =>
-        this.vueBlocGenService.transform(data, page)
+        this.vueBlocGenService.transform(page, data)
       )
     ] as XlayersNgxEditorModel[];
   }

@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { BitmapContextService } from './bitmap-context.service';
-import { BitmapBlocGenOptions } from './bitmap-blocgen.service';
 
 @Injectable({
   providedIn: 'root'
@@ -8,11 +7,7 @@ import { BitmapBlocGenOptions } from './bitmap-blocgen.service';
 export class BitmapRenderService {
   constructor(private bitmapContextService: BitmapContextService) {}
 
-  render(
-    data: SketchMSData,
-    current: SketchMSLayer,
-    _opts: BitmapBlocGenOptions = {}
-  ) {
+  render(current: SketchMSLayer, data?: SketchMSData) {
     if (this.bitmapContextService.hasGlobalContext(data)) {
       return [
         {

@@ -1,18 +1,12 @@
 import { Injectable } from '@angular/core';
 import { BitmapRenderService } from './bitmap-render.service';
 
-export interface BitmapBlocGenOptions {}
-
 @Injectable({
   providedIn: 'root'
 })
 export class BitmapBlocGenService {
   constructor(private bitmapRenderService: BitmapRenderService) {}
-  transform(
-    data: SketchMSData,
-    current: SketchMSLayer,
-    opts?: BitmapBlocGenOptions
-  ) {
-    return this.bitmapRenderService.render(data, current, opts);
+  transform(current: SketchMSLayer, data?: SketchMSData) {
+    return this.bitmapRenderService.render(current, data);
   }
 }

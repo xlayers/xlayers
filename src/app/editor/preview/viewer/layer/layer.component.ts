@@ -150,7 +150,7 @@ export class ViewerLayerComponent implements OnInit, AfterContentInit {
   loadText() {
     if (this.textContextService.hasContext(this.layer)) {
       this.texts = this.textRenderService
-        .render(this.data, this.layer)
+        .render(this.layer, this.data)
         .map(file => file.value);
     }
   }
@@ -158,7 +158,7 @@ export class ViewerLayerComponent implements OnInit, AfterContentInit {
   loadImage() {
     if (this.bitmapContextService.identify(this.layer)) {
     this.images =  this.bitmapRenderService
-        .render(this.data, this.layer)
+        .render(this.layer, this.data)
         .map(file =>
           this.sanitizer.bypassSecurityTrustResourceUrl(
             `data:image/jpg;base64,${file.value}`
@@ -170,10 +170,8 @@ export class ViewerLayerComponent implements OnInit, AfterContentInit {
   loadShapes() {
     if (this.svgContextService.identify(this.layer)) {
     this.shapes = this.svgRenderService
-        .render({} as SketchMSData, this.layer)
-        .map(file =>
-          this.sanitizer.bypassSecurityTrustHtml(file.value)
-        );
+      .render(this.layer, this.data)
+      .map(file => this.sanitizer.bypassSecurityTrustHtml(file.value));
     }
   }
 

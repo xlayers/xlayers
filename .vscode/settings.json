@@ -15,4 +15,5 @@
     "**/bazel-out": true,
     "**/dist": true,
   },
+  "search.usePCRE2": true,
 }

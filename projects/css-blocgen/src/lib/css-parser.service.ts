@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { StyleService } from '@xlayers/std-blocgen';
 import { CssContextService } from './css-context.service';
-import { CssBlocGenOptions } from './css-blocgen.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,11 +11,9 @@ export class CssParserService {
     private cssContextService: CssContextService
   ) {}
 
-  private classNamePrefix: string;
+  private classNamePrefix = 'xly_';
 
-  compute(current: SketchMSLayer, opts?: CssBlocGenOptions) {
-    this.classNamePrefix = (opts && opts.classNamePrefix) || 'xly_';
-
+  compute(current: SketchMSLayer) {
     const rules = {
       ...this.extractObjectStyles(current),
       ...this.extractFrameStyles(current)
@@ -202,7 +199,9 @@ export class CssParserService {
     if (obj && obj.length > 0) {
       const bordersStyles = obj.reduce((acc, border) => {
         if (border.thickness > 0) {
-          const borderColor = this.styleHelperService.parseColorAsRgba(border.color);
+          const borderColor = this.styleHelperService.parseColorAsRgba(
+            border.color
+          );
           const inset = border.position === BorderType.INSIDE ? 'inset' : '';
           const shadow = [
             `0 0 0 ${border.thickness}px ${borderColor}`,

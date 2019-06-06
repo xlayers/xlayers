@@ -98,7 +98,7 @@ export class SharedCodegen {
         ];
         innerContent.push(this.openTag('img', attributes, true));
       } else if ((ast as any).svg) {
-        this.svgRenderService.render({} as SketchMSData, ast).map(file => {
+        this.svgRenderService.render(ast).map(file => {
           innerContent.push(file.value);
         });
       }

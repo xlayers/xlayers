@@ -11,7 +11,7 @@ export class XmlService {
   openTag(
     tag = 'div',
     attributes: string[] = [],
-    opts: OpenTagOptions = {}
+    opts: OpenTagOptions = { autoclose: false }
   ) {
     const attributeStr =
       attributes.length !== 0 ? ' ' + attributes.join(' ') : '';

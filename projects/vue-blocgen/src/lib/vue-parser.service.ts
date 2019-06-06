@@ -8,9 +8,8 @@ import { TextBlocGenService } from '@xlayers/text-blocgen';
 import { VueContextService } from './vue-context.service';
 import { SvgContextService } from '@xlayers/svg-blocgen';
 import { CssContextService } from '@xlayers/css-blocgen';
-import { TextContextService } from '../../../text-blocgen/src/lib/text-context.service';
-import { BitmapContextService } from '../../../bitmap-blocgen/src/lib/bitmap-context.service';
-import { VueBlocGenOptions } from './vue-blocgen.service';
+import { TextContextService } from '@xlayers/text-blocgen';
+import { BitmapContextService } from '@xlayers/bitmap-blocgen';
 
 @Injectable({
   providedIn: 'root'
@@ -30,14 +29,9 @@ export class VueParserService {
     private svgContextService: SvgContextService
   ) {}
 
-  private assetDir: string;
+  private assetDir = 'assets';
 
-  compute(
-    data: SketchMSData,
-    current: SketchMSLayer,
-    opts?: VueBlocGenOptions
-  ) {
-    this.assetDir = (opts && opts.assetDir) || 'assets';
+  compute(data: SketchMSData, current: SketchMSLayer) {
     this.vueContextService.putContext(current);
     this.traverse(data, current, current);
   }
@@ -85,7 +79,7 @@ export class VueParserService {
   ) {
     if (this.cssContextService.identify(current)) {
       const cssRules = this.cssParserService
-        .transform(data, current)
+        .transform(current, data)
         .map(file => file.value);
 
       this.vueContextService.putContext(root, {
@@ -126,22 +120,22 @@ export class VueParserService {
     });
   }
 
-  private extractCssOpenTag(current: SketchMSLayer, opts?: OpenTagOptions) {
+  private extractCssOpenTag(current: SketchMSLayer) {
     const context = this.cssContextService.contextOf(current);
     const attributes = [
       `class="${context.className}"`,
       `role="${current._class}"`,
       `aria-label="${current.name}"`
     ];
-    return this.xmlHelperService.openTag('div', attributes, opts);
+    return this.xmlHelperService.openTag('div', attributes);
   }
 
-  private extractOpenTag(current: SketchMSLayer, opts?: OpenTagOptions) {
+  private extractOpenTag(current: SketchMSLayer) {
     const attributes = [
       `role="${current._class}"`,
       `aria-label="${current.name}"`
     ];
-    return this.xmlHelperService.openTag('div', attributes, opts);
+    return this.xmlHelperService.openTag('div', attributes);
   }
 
   private extractText(
@@ -150,7 +144,7 @@ export class VueParserService {
     depth: number
   ) {
     const content = this.textBlocGenService
-      .transform(data, current)
+      .transform(current, data)
       .map(
         file =>
           this.xmlHelperService.openTag('span') +
@@ -169,7 +163,7 @@ export class VueParserService {
   ) {
     const context = this.cssContextService.contextOf(current);
     const content = this.bitmapBlocGenService
-      .transform(data, current)
+      .transform(current, data)
       .map(file => {
         const attributes = [
           `class="${context.className}"`,
@@ -210,7 +204,7 @@ export class VueParserService {
     depth: number
   ) {
     return this.svgBlocGenService
-      .transform(data, current)
+      .transform(current, data)
       .map(file =>
         file.value
           .split('\n')
