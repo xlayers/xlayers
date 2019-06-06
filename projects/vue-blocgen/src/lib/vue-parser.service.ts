@@ -22,7 +22,7 @@ export class VueParserService {
     private cssParserService: CssBlocGenService,
     private bitmapBlocGenService: BitmapBlocGenService,
     private bitmapContextService: BitmapContextService,
-    private svgParserService: SvgBlocGenService,
+    private svgBlocGenService: SvgBlocGenService,
     private vueContextService: VueContextService,
     private textBlocGenService: TextBlocGenService,
     private textContextService: TextContextService,
@@ -209,7 +209,7 @@ export class VueParserService {
     current: SketchMSLayer,
     depth: number
   ) {
-    return this.svgParserService
+    return this.svgBlocGenService
       .transform(data, current)
       .map(file =>
         file.value
