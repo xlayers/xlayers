@@ -75,16 +75,16 @@ export class StyleOptimizerService {
       if (_ast.layers && Array.isArray(_ast.layers)) {
         _ast.layers.forEach(layer => {
           const rules: string[] = [];
-          if (layer.css) {
+          if (layer.css.rules && layer.css.className) {
             // tslint:disable-next-line:forin
-            for (const prop in layer.css) {
-              rules.push(`${prop}: ${layer.css[prop]};`);
-            }
-            content(`${(layer as any).css__className}`, rules);
+            Object.entries(layer.css.rules).forEach(([prop, value]) => {
+              rules.push(`${prop}: ${value};`);
+            });
+            content(`${(layer as any).css.className}`, rules);
           }
           computeStyle(layer, [
             {
-              className: `${(layer as any).css__className}`,
+              className: `${(layer as any).css.className}`,
               declarations: rules
             }
           ]);

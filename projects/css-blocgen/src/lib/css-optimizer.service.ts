@@ -76,7 +76,7 @@ export class CssOptimizerService {
       if (_ast.layers && Array.isArray(_ast.layers)) {
         _ast.layers.forEach(layer => {
           const rules: string[] = [];
-          if (layer.css.rules) {
+          if (layer.css.rules && layer.css.className) {
             // tslint:disable-next-line:forin
             Object.entries(layer.css.rules).forEach(
               ([prop, value]) => {
