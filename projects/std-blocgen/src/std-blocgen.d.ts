@@ -13,7 +13,7 @@ export interface ParserFacade {
   transform(
     data: SketchMSData,
     current: SketchMSLayer,
-    options?: ParserFacadeTranformOptions
+    opts?: ParserFacadeTranformOptions
   ): RessourceFile[];
   identify(current: SketchMSLayer): boolean;
 }
@@ -40,6 +40,6 @@ export interface CodeGenFacade {
   buttons(): NavBarButtonSetting;
   generate(
     data: SketchMSData,
-    options?: CodeGenFacadeGenerateOptions
+    opts?: CodeGenFacadeGenerateOptions
   ): RessourceFile[];
 }

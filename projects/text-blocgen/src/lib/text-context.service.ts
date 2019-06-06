@@ -1,4 +1,4 @@
-import { Injectable } from "@angular/core";
+import { Injectable } from '@angular/core';
 
 export interface TextParserContext {
   paths: string;
@@ -6,11 +6,11 @@ export interface TextParserContext {
 }
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root'
 })
 export class TextContextService {
   identify(current: SketchMSLayer) {
-    return ["text"].includes(current._class as string);
+    return ['text'].includes(current._class as string);
   }
 
   hasContext(current: SketchMSLayer) {

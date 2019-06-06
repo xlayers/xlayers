@@ -1,25 +1,25 @@
-import { Injectable } from "@angular/core";
+import { Injectable } from '@angular/core';
 
 export interface OpenTagOptions {
   autoclose?: boolean;
 }
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root'
 })
 export class XmlService {
   openTag(
-    tag = "div",
+    tag = 'div',
     attributes: string[] = [],
     opts: OpenTagOptions = {}
   ) {
     const attributeStr =
-      attributes.length !== 0 ? " " + attributes.join(" ") : "";
-    const autocloseStr = opts.autoclose ? " /" : "";
+      attributes.length !== 0 ? ' ' + attributes.join(' ') : '';
+    const autocloseStr = opts.autoclose ? ' /' : '';
     return `<${tag}${attributeStr}${autocloseStr}>`;
   }
 
-  closeTag(tag = "div") {
+  closeTag(tag = 'div') {
     return `</${tag}>`;
   }
 }

@@ -1,13 +1,13 @@
-import { HttpClient } from "@angular/common/http";
-import { Injectable } from "@angular/core";
-import { UiState } from "@app/core/state";
-import { environment } from "@env/environment";
-import { Store } from "@ngxs/store";
-import { CssParserService, CssContextService } from "@xlayers/css-blocgen";
-import { SketchIngestorService } from "@xlayers/sketch-blocgen";
-import { SvgParserService, SvgContextService } from "@xlayers/svg-blocgen";
-import { TextParserService } from "../../../projects/text-blocgen/src/lib/text-parser.service";
-import { TextContextService } from "@xlayers/text-blocgen";
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { UiState } from '@app/core/state';
+import { environment } from '@env/environment';
+import { Store } from '@ngxs/store';
+import { CssParserService, CssContextService } from '@xlayers/css-blocgen';
+import { SketchIngestorService } from '@xlayers/sketch-blocgen';
+import { SvgParserService, SvgContextService } from '@xlayers/svg-blocgen';
+import { TextParserService } from '../../../projects/text-blocgen/src/lib/text-parser.service';
+import { TextContextService } from '@xlayers/text-blocgen';
 
 export interface SketchMSData {
   pages: SketchMSPage[];
@@ -28,7 +28,7 @@ export interface ResourceImageData {
 }
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root'
 })
 export class SketchService {
   _data: SketchMSData;
@@ -61,7 +61,7 @@ export class SketchService {
         this.traverse(data, layer);
       });
     } else {
-      if ((current._class as string) === "symbolInstance") {
+      if ((current._class as string) === 'symbolInstance') {
         const foreignSymbol = data.document.foreignSymbols.find(
           x => x.symbolMaster.symbolID === (current as any).symbolID
         );
@@ -89,7 +89,7 @@ export class SketchService {
     const repoUrl = `${window.location.origin ||
       environment.baseUrl}/assets/demos/sketchapp/`;
     return this.http.get(`${repoUrl}${filename}.sketch`, {
-      responseType: "blob"
+      responseType: 'blob'
     });
   }
 

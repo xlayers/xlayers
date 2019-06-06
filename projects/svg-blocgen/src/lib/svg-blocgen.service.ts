@@ -1,12 +1,12 @@
-import { Injectable } from "@angular/core";
-import { SvgContextService } from "./svg-context.service";
-import { SvgRenderService } from "./svg-render.service";
-import { SvgParserService } from "./svg-parser.service";
+import { Injectable } from '@angular/core';
+import { SvgContextService } from './svg-context.service';
+import { SvgRenderService } from './svg-render.service';
+import { SvgParserService } from './svg-parser.service';
 
 export interface SvgBlocGenOptions {}
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root'
 })
 export class SvgBlocGenService {
   constructor(

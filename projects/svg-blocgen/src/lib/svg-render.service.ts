@@ -1,15 +1,15 @@
-import { Injectable } from "@angular/core";
-import { FormatService } from "@xlayers/std-blocgen";
-import { SvgBlocGenOptions } from "./svg-blocgen.service";
+import { Injectable } from '@angular/core';
+import { FormatService } from '@xlayers/std-blocgen';
+import { SvgBlocGenOptions } from './svg-blocgen.service';
 import {
   SvgBlocGenContext,
   SvgContextService,
   SvgBlocGenContextPath
-} from "./svg-context.service";
-import { CssContextService } from "@xlayers/css-blocgen";
+} from './svg-context.service';
+import { CssContextService } from '@xlayers/css-blocgen';
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root'
 })
 export class SvgRenderService {
   constructor(
@@ -27,8 +27,8 @@ export class SvgRenderService {
 
     return [
       {
-        kind: "svg",
-        language: "svg",
+        kind: 'svg',
+        language: 'svg',
         value: this.formatContext(context, current),
         uri: `${current.name}.svg`
       }
@@ -38,14 +38,14 @@ export class SvgRenderService {
   private formatContext(context: SvgBlocGenContext, current: SketchMSLayer) {
     const attributes = [
       `style="${[
-        "position: absolute",
+        'position: absolute',
         `top: ${-context.offset}px`,
         `left: ${-context.offset}px`
-      ].join("; ")}"`,
+      ].join('; ')}"`,
       `width="${current.frame.width + context.offset * 2}"`,
       `height="${current.frame.height + context.offset * 2}"`,
       `role="img"`
-    ].join(" ");
+    ].join(' ');
 
     return [
       `<svg ${attributes}>`,
@@ -56,10 +56,10 @@ export class SvgRenderService {
         )
       ),
       `</svg>`
-    ].join("\n");
+    ].join('\n');
   }
 
   private renderPath(path: SvgBlocGenContextPath) {
-    return `<${path.type} ${path.attributes.join(" ")}/>`;
+    return `<${path.type} ${path.attributes.join(' ')}/>`;
   }
 }

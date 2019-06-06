@@ -1,7 +1,7 @@
-import { Injectable } from "@angular/core";
-import { VueContextService } from "./vue-context.service";
-import { VueParserService } from "./vue-parser.service";
-import { VueRenderService } from "./vue-render.service";
+import { Injectable } from '@angular/core';
+import { VueContextService } from './vue-context.service';
+import { VueParserService } from './vue-parser.service';
+import { VueRenderService } from './vue-render.service';
 
 export interface VueBlocGenOptions {
   assetDir?: string;
@@ -10,7 +10,7 @@ export interface VueBlocGenOptions {
 }
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root'
 })
 export class VueBlocGenService {
   constructor(

@@ -1,9 +1,9 @@
-import { Injectable } from "@angular/core";
-import { TextContextService } from "./text-context.service";
-import { TextBlocGenOptions } from "./text-blocgen.service";
+import { Injectable } from '@angular/core';
+import { TextContextService } from './text-context.service';
+import { TextBlocGenOptions } from './text-blocgen.service';
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root'
 })
 export class TextRenderService {
   constructor(private textContextService: TextContextService) {}
@@ -16,8 +16,8 @@ export class TextRenderService {
     const context = this.textContextService.contextOf(current);
     return [
       {
-        kind: "text",
-        language: "utf8",
+        kind: 'text',
+        language: 'utf8',
         value: context.content,
         uri: `${current.name}.txt`
       }

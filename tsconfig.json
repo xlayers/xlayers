@@ -9,78 +9,12 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "target": "es5",
-    "typeRoots": [
-      "node_modules/@types"
-    ],
-    "lib": [
-      "es2017",
-      "dom"
-    ],
+    "typeRoots": ["node_modules/@types"],
+    "lib": ["es2017", "dom"],
     "paths": {
-      "@env/*": [
-        "src/environments/*"
-      ],
-      "@app/*": [
-        "src/app/*"
-      ],
-      "@xlayers/*": [
-        "projects/*/src/lib",
-        "projects/*/src/public_api.ts"
-      ],
-      "vue-blocgen": [
-        "dist/vue-blocgen"
-      ],
-      "vue-blocgen/*": [
-        "dist/vue-blocgen/*"
-      ],
-      "std-blocgen": [
-        "dist/std-blocgen"
-      ],
-      "std-blocgen/*": [
-        "dist/std-blocgen/*"
-      ],
-      "text-blocgen": [
-        "dist/text-blocgen"
-      ],
-      "text-blocgen/*": [
-        "dist/text-blocgen/*"
-      ],
-      "svg-blocgen": [
-        "dist/svg-blocgen"
-      ],
-      "svg-blocgen/*": [
-        "dist/svg-blocgen/*"
-      ],
-      "css-blocgen": [
-        "dist/css-blocgen"
-      ],
-      "css-blocgen/*": [
-        "dist/css-blocgen/*"
-      ],
-      "bitmap-blocgen": [
-        "dist/bitmap-blocgen"
-      ],
-      "bitmap-blocgen/*": [
-        "dist/bitmap-blocgen/*"
-      ],
-      "xlayers-blocgen": [
-        "dist/xlayers-blocgen"
-      ],
-      "xlayers-blocgen/*": [
-        "dist/xlayers-blocgen/*"
-      ],
-      "preview-blocgen": [
-        "dist/preview-blocgen"
-      ],
-      "preview-blocgen/*": [
-        "dist/preview-blocgen/*"
-      ],
-      "sketch-blocgen": [
-        "dist/sketch-blocgen"
-      ],
-      "sketch-blocgen/*": [
-        "dist/sketch-blocgen/*"
-      ]
+      "@env/*": ["src/environments/*"],
+      "@app/*": ["src/app/*"],
+      "@xlayers/*": ["projects/*/src/lib", "projects/*/src/public_api.ts"]
     }
   }
 }

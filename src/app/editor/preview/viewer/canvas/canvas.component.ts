@@ -1,4 +1,4 @@
-import { CdkDragEnd, CdkDragMove, CdkDragStart } from "@angular/cdk/drag-drop";
+import { CdkDragEnd, CdkDragMove, CdkDragStart } from '@angular/cdk/drag-drop';
 import {
   Component,
   ElementRef,
@@ -7,12 +7,12 @@ import {
   Renderer2,
   ViewChildren,
   QueryList
-} from "@angular/core";
-import { UiState } from "@app/core/state";
-import { Store } from "@ngxs/store";
+} from '@angular/core';
+import { UiState } from '@app/core/state';
+import { Store } from '@ngxs/store';
 
 @Component({
-  selector: "xly-viewer-canvas",
+  selector: 'xly-viewer-canvas',
   template: `
     <div
       cdkDrag
@@ -76,7 +76,7 @@ import { Store } from "@ngxs/store";
 export class ViewerCanvasComponent implements OnInit {
   @Input() data: SketchMSData;
 
-  @ViewChildren("canvas") canvasRef: QueryList<ElementRef<HTMLElement>>;
+  @ViewChildren('canvas') canvasRef: QueryList<ElementRef<HTMLElement>>;
 
   currentPage: SketchMSPage;
 
@@ -95,9 +95,9 @@ export class ViewerCanvasComponent implements OnInit {
 
     this.store.select(UiState.is3dView).subscribe(is3dView => {
       if (is3dView === true) {
-        this.renderer.addClass(this.element.nativeElement, "is-3d-view");
+        this.renderer.addClass(this.element.nativeElement, 'is-3d-view');
       } else {
-        this.renderer.removeClass(this.element.nativeElement, "is-3d-view");
+        this.renderer.removeClass(this.element.nativeElement, 'is-3d-view');
       }
     });
 

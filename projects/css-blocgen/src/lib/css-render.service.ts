@@ -1,10 +1,10 @@
-import { Injectable } from "@angular/core";
-import { FormatService } from "@xlayers/std-blocgen";
-import { CssContextService, CssBlocGenContext } from "./css-context.service";
+import { Injectable } from '@angular/core';
+import { FormatService } from '@xlayers/std-blocgen';
+import { CssContextService, CssBlocGenContext } from './css-context.service';
 import { CssBlocGenOptions } from './css-blocgen.service';
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root'
 })
 export class CssRenderService {
   constructor(
@@ -21,8 +21,8 @@ export class CssRenderService {
       const context = this.cssContextService.contextOf(current);
       return [
         {
-          kind: "css",
-          language: "css",
+          kind: 'css',
+          language: 'css',
           value: this.formatContext(context),
           uri: `${current.name}.css`
         }
@@ -36,8 +36,8 @@ export class CssRenderService {
     return [
       `${context.className} {`,
       this.flattenAndIndentRules(context),
-      "}"
-    ].join("\n");
+      '}'
+    ].join('\n');
   }
 
   private flattenAndIndentRules(context: CssBlocGenContext) {
@@ -45,6 +45,6 @@ export class CssRenderService {
       .map(([key, value]) =>
         this.formatHelperService.indent(1, `${key}: ${value};`)
       )
-      .join("\n");
+      .join('\n');
   }
 }

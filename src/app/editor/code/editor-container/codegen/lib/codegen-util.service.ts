@@ -1,24 +1,24 @@
-import { Injectable } from "@angular/core";
+import { Injectable } from '@angular/core';
 
 /**
  * @see CodeGenVisitor implementation that can be used to generate code in an XML-based representation.
  */
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root'
 })
 export class CodeGenUtilService {
   colorRatioToHex(color: SketchMSColor) {
     return (
-      "#" +
+      '#' +
       Math.round(color.red * 255)
         .toString(16)
-        .padStart(2, "0") +
+        .padStart(2, '0') +
       Math.round(color.green * 255)
         .toString(16)
-        .padStart(2, "0") +
+        .padStart(2, '0') +
       Math.round(color.blue * 255)
         .toString(16)
-        .padStart(2, "0")
+        .padStart(2, '0')
     );
   }
 

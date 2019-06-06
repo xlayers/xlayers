@@ -1,7 +1,7 @@
-import { Component, Input } from "@angular/core";
+import { Component, Input } from '@angular/core';
 
 @Component({
-  selector: "xly-viewer-page",
+  selector: 'xly-viewer-page',
   template: `
     <xly-viewer-layer
       *ngFor="let layer of page.layers"

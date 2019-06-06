@@ -1,13 +1,13 @@
-import { Injectable } from "@angular/core";
+import { Injectable } from '@angular/core';
 
 export interface BitmapParserContext {}
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root'
 })
 export class BitmapContextService {
   identify(current: SketchMSLayer) {
-    return ["bitmap"].includes(current._class as string);
+    return ['bitmap'].includes(current._class as string);
   }
 
   hasGlobalContext(data: SketchMSData) {

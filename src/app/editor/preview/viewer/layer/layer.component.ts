@@ -5,21 +5,21 @@ import {
   Input,
   OnInit,
   Renderer2
-} from "@angular/core";
-import { Store } from "@ngxs/store";
-import { CurrentLayer, UiState } from "@app/core/state/ui.state";
-import { DomSanitizer, SafeHtml, SafeUrl } from "@angular/platform-browser";
-import { SketchService } from "@app/core/sketch.service";
-import { CssContextService } from "@xlayers/css-blocgen";
-import { SvgRenderService, SvgContextService } from "@xlayers/svg-blocgen";
-import { TextContextService, TextRenderService } from "@xlayers/text-blocgen";
+} from '@angular/core';
+import { Store } from '@ngxs/store';
+import { CurrentLayer, UiState } from '@app/core/state/ui.state';
+import { DomSanitizer, SafeHtml, SafeUrl } from '@angular/platform-browser';
+import { SketchService } from '@app/core/sketch.service';
+import { CssContextService } from '@xlayers/css-blocgen';
+import { SvgRenderService, SvgContextService } from '@xlayers/svg-blocgen';
+import { TextContextService, TextRenderService } from '@xlayers/text-blocgen';
 import {
   BitmapRenderService,
   BitmapContextService
-} from "@xlayers/bitmap-blocgen";
+} from '@xlayers/bitmap-blocgen';
 
 @Component({
-  selector: "xly-viewer-layer",
+  selector: 'xly-viewer-layer',
   template: `
     <div
       [style.width.px]="layer?.frame?.width"
@@ -178,7 +178,7 @@ export class ViewerLayerComponent implements OnInit, AfterContentInit {
   }
 
   loadSymbolMaster() {
-    if (this.layer._class as string === "symbolInstance") {
+    if (this.layer._class as string === 'symbolInstance') {
       const foreignSymbol = this.data.document.foreignSymbols.find(
         x => x.symbolMaster.symbolID === (this.layer as any).symbolID
       );
@@ -199,17 +199,17 @@ export class ViewerLayerComponent implements OnInit, AfterContentInit {
     const elementPosition = this.element.nativeElement.getBoundingClientRect();
     this.renderer.setStyle(
       this.element.nativeElement,
-      "border-width",
+      'border-width',
       `${this.borderWidth}px`
     );
     this.renderer.setStyle(
       this.element.nativeElement,
-      "left",
+      'left',
       `${elementPosition.left - this.borderWidth}px`
     );
     this.renderer.setStyle(
       this.element.nativeElement,
-      "top",
+      'top',
       `${elementPosition.top - this.borderWidth}px`
     );
   }
@@ -217,13 +217,13 @@ export class ViewerLayerComponent implements OnInit, AfterContentInit {
   enable3dStyle() {
     this.renderer.setStyle(
       this.element.nativeElement,
-      "transform",
+      'transform',
       `translateZ(${(this.level * this.offset3d).toFixed(3)}px)`
     );
   }
 
   disable3dStyle() {
-    this.renderer.setStyle(this.element.nativeElement, "transform", `none`);
+    this.renderer.setStyle(this.element.nativeElement, 'transform', `none`);
   }
 
   selectLayer(layer: SketchMSLayer) {

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularCodeGenService } from './angular/angular.service';
 import { ReactCodeGenService } from './react/react.service';
-import { VueCodeGenService } from "./vue/vue.service";
+import { VueCodeGenService } from './vue/vue.service';
 import { WCCodeGenService } from './wc/wc.service';
 import { StencilCodeGenService } from './stencil/stencil.service';
 import { LitElementCodeGenService } from './lit-element/lit-element.service';
@@ -10,11 +10,18 @@ import { UiState } from '@app/core/state';
 import { environment } from '@env/environment.hmr';
 import { CodeGenSettings } from '@app/core/state/page.state';
 
-
 declare var gtag;
 
 export interface XlayersNgxEditorModel {
-  kind: 'angular' | 'react' | 'vue' | 'wc' | 'stencil' | 'litElement' |'html' | 'text';
+  kind:
+    | 'angular'
+    | 'react'
+    | 'vue'
+    | 'wc'
+    | 'stencil'
+    | 'litElement'
+    | 'html'
+    | 'text';
   uri: string;
   value: string;
   language: string;
@@ -69,7 +76,6 @@ export class CodeGenService {
           this.data = currentData;
         }
       });
-
   }
 
   private addHeaderInfo(content: Array<XlayersNgxEditorModel>) {
@@ -125,8 +131,8 @@ export class CodeGenService {
 
   trackFrameworkKind(kind: CodeGenKind) {
     gtag('event', 'code_gen', {
-      'event_category': 'web',
-      'event_label': kind
+      event_category: 'web',
+      event_label: kind
     });
   }
 
@@ -148,17 +154,12 @@ export class CodeGenService {
         };
       case CodeGenKind.Vue:
         this.trackFrameworkKind(CodeGenKind.Vue);
-        try {
-          return {
-            kind,
-            content: this.addHeaderInfo(
-              this.vue.generate(this.data)
-            ),
-            buttons: this.vue.buttons()
-          };
-        } catch(e) {
-          console.error(e)
-        }
+        return {
+          kind,
+          content: this.addHeaderInfo(this.vue.generate(this.data)),
+          buttons: this.vue.buttons()
+        };
+
       case CodeGenKind.WC:
         this.trackFrameworkKind(CodeGenKind.WC);
         return {
@@ -168,18 +169,18 @@ export class CodeGenService {
         };
 
       case CodeGenKind.Stencil:
-      return {
-        kind,
-        content: this.addHeaderInfo(this.stencil.generate(this.ast)),
-        buttons: this.stencil.buttons()
-      };
+        return {
+          kind,
+          content: this.addHeaderInfo(this.stencil.generate(this.ast)),
+          buttons: this.stencil.buttons()
+        };
 
       case CodeGenKind.LitElement:
-      return {
-        kind,
-        content: this.addHeaderInfo(this.litElement.generate(this.ast)),
-        buttons: this.litElement.buttons()
-      };
+        return {
+          kind,
+          content: this.addHeaderInfo(this.litElement.generate(this.ast)),
+          buttons: this.litElement.buttons()
+        };
     }
   }
 }

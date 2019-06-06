@@ -1,7 +1,7 @@
-import { Injectable } from "@angular/core";
+import { Injectable } from '@angular/core';
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root'
 })
 export class StyleService {
   parseColor(color: SketchMSColor) {
@@ -15,7 +15,7 @@ export class StyleService {
 
   parseColorAsRgba(color: SketchMSColor) {
     const c = this.parseColor(color);
-    const colorString = [c.red, c.green, c.blue, c.alpha].join(",");
+    const colorString = [c.red, c.green, c.blue, c.alpha].join(',');
     return `rgba(${colorString})`;
   }
 
@@ -23,7 +23,7 @@ export class StyleService {
     const c = this.parseColor(color);
 
     return (
-      "#" +
+      '#' +
       ((256 + c.red).toString(16).substr(1) +
         (
           ((1 << 24) + (c.green << 16)) |

@@ -1,4 +1,4 @@
-import { Injectable } from "@angular/core";
+import { Injectable } from '@angular/core';
 
 export interface SvgBlocGenContextPath {
   type: string;
@@ -11,11 +11,11 @@ export interface SvgBlocGenContext {
 }
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root'
 })
 export class SvgContextService {
   identify(current: SketchMSLayer) {
-    return ["triangle", "shapePath", "shapeGroup"].includes(current._class as string);
+    return ['triangle', 'shapePath', 'shapeGroup'].includes(current._class as string);
   }
 
   hasContext(current: SketchMSLayer) {

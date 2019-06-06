@@ -1,10 +1,10 @@
-import { Component, OnInit } from "@angular/core";
-import { UiState } from "@app/core/state";
-import { Store } from "@ngxs/store";
-import { BitmapRenderService } from "../../../../../../projects/bitmap-blocgen/src/lib/bitmap-render.service";
+import { Component, OnInit } from '@angular/core';
+import { UiState } from '@app/core/state';
+import { Store } from '@ngxs/store';
+import { BitmapRenderService } from '../../../../../../projects/bitmap-blocgen/src/lib/bitmap-render.service';
 
 @Component({
-  selector: "xly-settings-preview",
+  selector: 'xly-settings-preview',
   template: `
     <mat-expansion-panel expanded="true">
       <mat-expansion-panel-header>

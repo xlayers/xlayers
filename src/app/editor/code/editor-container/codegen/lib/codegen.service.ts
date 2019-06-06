@@ -1,4 +1,4 @@
-import { XlayersNgxEditorModel } from "../codegen.service";
+import { XlayersNgxEditorModel } from '../codegen.service';
 
 /**
  * Visitor-like pattern used for code generation purposes, by iterating through an AST and
@@ -13,9 +13,9 @@ export abstract class CodeGen {
     if (ast.layers && Array.isArray(ast.layers)) {
       ast.layers.forEach(layer => this.visitLayer(layer, template, depth));
     } else {
-      if ((ast as any)._class === "text") {
+      if ((ast as any)._class === 'text') {
         return this.visitText(ast);
-      } else if ((ast as any)._class === "bitmap") {
+      } else if ((ast as any)._class === 'bitmap') {
         return this.visitBitmap(ast);
       } else if ((ast as any).shape) {
         return this.visitShape(ast);

@@ -1,11 +1,11 @@
-import { Injectable } from "@angular/core";
+import { Injectable } from '@angular/core';
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root'
 })
 export class ShapeService {
   parsePoint(point: string, offset: number, node: SketchMSLayer) {
-    const parsedPoint = point.slice(1, -1).split(", ");
+    const parsedPoint = point.slice(1, -1).split(', ');
     return {
       x: Number.parseFloat(
         (node.frame.width * Number.parseFloat(parsedPoint[0]) + offset).toFixed(

@@ -1,11 +1,11 @@
-import { Injectable } from "@angular/core";
+import { Injectable } from '@angular/core';
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root'
 })
 export class FormatService {
   indent(n: number, content: string) {
-    const indentation = !!n ? "  ".repeat(n) : "";
+    const indentation = !!n ? '  '.repeat(n) : '';
     return indentation + content;
   }
 }

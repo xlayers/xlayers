@@ -1,9 +1,9 @@
-import { Injectable } from "@angular/core";
-import { BitmapContextService } from "./bitmap-context.service";
-import { BitmapBlocGenOptions } from "./bitmap-blocgen.service";
+import { Injectable } from '@angular/core';
+import { BitmapContextService } from './bitmap-context.service';
+import { BitmapBlocGenOptions } from './bitmap-blocgen.service';
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root'
 })
 export class BitmapRenderService {
   constructor(private bitmapContextService: BitmapContextService) {}
@@ -16,8 +16,8 @@ export class BitmapRenderService {
     if (this.bitmapContextService.hasGlobalContext(data)) {
       return [
         {
-          kind: "bitmap",
-          language: "base64",
+          kind: 'bitmap',
+          language: 'base64',
           value: this.getLayerImage(data, current),
           uri: `${name}.png`
         }

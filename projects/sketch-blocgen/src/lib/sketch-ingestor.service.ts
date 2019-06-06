@@ -1,15 +1,15 @@
-import { Injectable } from "@angular/core";
+import { Injectable } from '@angular/core';
 
 const entryAsyncCheck = (entry: any): entry is { async: Function } => {
-  return !!entry && typeof entry === "object" && "async" in entry;
+  return !!entry && typeof entry === 'object' && 'async' in entry;
 };
 
 const jszipLoadAsync = (jszip: any): jszip is { loadAsync: Function } => {
-  return !!jszip && typeof jszip === "object" && "loadAsync" in jszip;
+  return !!jszip && typeof jszip === 'object' && 'loadAsync' in jszip;
 };
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root'
 })
 export class SketchIngestorService {
   async process(file: File) {
@@ -26,14 +26,14 @@ export class SketchIngestorService {
 
     await Promise.all(
       Object.entries(files).map(async ([relativePath, entry]) => {
-        if (relativePath === "previews/preview.png") {
+        if (relativePath === 'previews/preview.png') {
           return this.addPreviewImage(data, relativePath, entry);
-        } else if (relativePath.startsWith("images/")) {
+        } else if (relativePath.startsWith('images/')) {
           return this.addImage(data, relativePath, entry);
-        } else if (relativePath.startsWith("pages/")) {
+        } else if (relativePath.startsWith('pages/')) {
           return this.addPage(data, relativePath, entry);
         } else {
-          const objectName = relativePath.replace(".json", "");
+          const objectName = relativePath.replace('.json', '');
           if (data.hasOwnProperty(objectName)) {
             return this.addConfiguration(data, objectName, entry);
           }
@@ -70,7 +70,7 @@ export class SketchIngestorService {
   }
 
   private async unzipSketchPackage(data: string | ArrayBuffer) {
-    const jszip = window["JSZip"]();
+    const jszip = window['JSZip']();
 
     if (jszipLoadAsync(jszip)) {
       const zipFileInstance = await jszip.loadAsync(data);
@@ -81,7 +81,7 @@ export class SketchIngestorService {
       });
       return files;
     } else {
-      throw new Error("JSzip not loaded");
+      throw new Error('JSzip not loaded');
     }
   }
 
@@ -127,18 +127,18 @@ export class SketchIngestorService {
 
   private async extractJson(_relativePath: string, entry: unknown) {
     if (entryAsyncCheck(entry)) {
-      const content = await entry.async("string");
+      const content = await entry.async('string');
       return JSON.parse(content);
     } else {
-      throw new Error("JSZip undefined async function");
+      throw new Error('JSZip undefined async function');
     }
   }
 
   private async extractBase64(relativePath: string, entry: unknown) {
     if (entryAsyncCheck(entry)) {
-      return entry.async("base64");
+      return entry.async('base64');
     } else {
-      throw new Error("JSZip undefined async function");
+      throw new Error('JSZip undefined async function');
     }
   }
 }

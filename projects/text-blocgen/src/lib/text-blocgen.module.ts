@@ -1,6 +1,6 @@
-import { NgModule } from "@angular/core";
-import { TextBlocGenService } from "./text-blocgen.service";
-import { TextContextService } from "./text-context.service";
+import { NgModule } from '@angular/core';
+import { TextBlocGenService } from './text-blocgen.service';
+import { TextContextService } from './text-context.service';
 
 @NgModule({
   declarations: [TextBlocGenService, TextContextService],

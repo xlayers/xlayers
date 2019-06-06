@@ -1,15 +1,15 @@
-import { Injectable } from "@angular/core";
-import { VueBlocGenOptions } from "./vue-blocgen.service";
-import { VueContextService, VueBlocGenContext } from "./vue-context.service";
-import { SvgRenderService, SvgContextService } from "@xlayers/svg-blocgen/";
+import { Injectable } from '@angular/core';
+import { VueBlocGenOptions } from './vue-blocgen.service';
+import { VueContextService, VueBlocGenContext } from './vue-context.service';
+import { SvgRenderService, SvgContextService } from '@xlayers/svg-blocgen/';
 import {
   BitmapContextService,
   BitmapRenderService
-} from "@xlayers/bitmap-blocgen";
-import { CssOptimizerService } from "@xlayers/css-blocgen";
+} from '@xlayers/bitmap-blocgen';
+import { CssOptimizerService } from '@xlayers/css-blocgen';
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root'
 })
 export class VueRenderService {
   constructor(
@@ -21,23 +21,23 @@ export class VueRenderService {
   private cssOptimization: boolean;
 
   render(data: SketchMSData, current: SketchMSLayer, opts?: VueBlocGenOptions) {
-    this.componentDir = (opts && opts.componentDir) || "components";
+    this.componentDir = (opts && opts.componentDir) || 'components';
     this.cssOptimization = (opts && opts.cssOptimization) || true;
 
     if (this.vueContextService.hasContext(current)) {
       const context = this.vueContextService.contextOf(current);
       return [
-        ...this.traverse(data, current).map(file => ({ ...file, kind: "vue" })),
+        ...this.traverse(data, current).map(file => ({ ...file, kind: 'vue' })),
         {
-          kind: "vue",
+          kind: 'vue',
           value: this.renderComponent(current, context),
-          language: "html",
+          language: 'html',
           uri: `${this.componentDir}/${current.name}.vue`
         },
         {
-          kind: "vue",
+          kind: 'vue',
           value: this.renderComponentSpec(current.name),
-          language: "javascript",
+          language: 'javascript',
           uri: `${this.componentDir}/${current.name}.spec.js`
         }
       ];
@@ -56,7 +56,7 @@ export class VueRenderService {
   }
 
   private retrieveFiles(data: SketchMSData, current: SketchMSLayer) {
-    if ((current._class as string) === "symbolInstance") {
+    if ((current._class as string) === 'symbolInstance') {
       return this.retrieveSymbolMaster(data, current);
     }
     return [];
@@ -79,7 +79,7 @@ export class VueRenderService {
 
     return `\
 import { shallowMount } from "@vue/test-utils";
-import ${capitalizedName} from "@/${[this.componentDir, name].join("/")}.vue";
+import ${capitalizedName} from "@/${[this.componentDir, name].join('/')}.vue";
 
 describe("${capitalizedName}", () => {
   it("render", () => {
@@ -92,7 +92,7 @@ describe("${capitalizedName}", () => {
   private renderComponent(current: SketchMSLayer, context: VueBlocGenContext) {
     return `\
 <template>
-${context.html.join("\n")}
+${context.html.join('\n')}
 </template>
 
 <script>
@@ -103,7 +103,7 @@ ${this.renderScript(context.components)}
 ${
   this.cssOptimization
     ? this.cssOptimizerService.parseStyleSheet(current)
-    : context.css.join("\n\n")
+    : context.css.join('\n\n')
 }
 </style>`;
   }
@@ -113,10 +113,10 @@ ${
       .map(
         component =>
           `import ${component} from "${[this.componentDir, component].join(
-            "/"
+            '/'
           )}"`
       )
-      .join("\n");
+      .join('\n');
 
     return components.length === 0
       ? `\
@@ -126,7 +126,7 @@ ${imports}
 
 export default {
   components: {
-    ${components.join(",\n    ")}
+    ${components.join(',\n    ')}
   }
 }`;
   }

@@ -1,19 +1,19 @@
-import { Injectable } from "@angular/core";
-import { XmlService, OpenTagOptions } from "@xlayers/std-blocgen";
-import { FormatService } from "@xlayers/std-blocgen";
-import { CssBlocGenService } from "@xlayers/css-blocgen";
-import { BitmapBlocGenService } from "@xlayers/bitmap-blocgen";
-import { SvgBlocGenService } from "@xlayers/svg-blocgen";
-import { TextBlocGenService } from "@xlayers/text-blocgen";
-import { VueContextService } from "./vue-context.service";
-import { SvgContextService } from "@xlayers/svg-blocgen";
-import { CssContextService } from "@xlayers/css-blocgen";
-import { TextContextService } from "../../../text-blocgen/src/lib/text-context.service";
-import { BitmapContextService } from "../../../bitmap-blocgen/src/lib/bitmap-context.service";
-import { VueBlocGenOptions } from "./vue-blocgen.service";
+import { Injectable } from '@angular/core';
+import { XmlService, OpenTagOptions } from '@xlayers/std-blocgen';
+import { FormatService } from '@xlayers/std-blocgen';
+import { CssBlocGenService } from '@xlayers/css-blocgen';
+import { BitmapBlocGenService } from '@xlayers/bitmap-blocgen';
+import { SvgBlocGenService } from '@xlayers/svg-blocgen';
+import { TextBlocGenService } from '@xlayers/text-blocgen';
+import { VueContextService } from './vue-context.service';
+import { SvgContextService } from '@xlayers/svg-blocgen';
+import { CssContextService } from '@xlayers/css-blocgen';
+import { TextContextService } from '../../../text-blocgen/src/lib/text-context.service';
+import { BitmapContextService } from '../../../bitmap-blocgen/src/lib/bitmap-context.service';
+import { VueBlocGenOptions } from './vue-blocgen.service';
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root'
 })
 export class VueParserService {
   constructor(
@@ -37,7 +37,7 @@ export class VueParserService {
     current: SketchMSLayer,
     opts?: VueBlocGenOptions
   ) {
-    this.assetDir = (opts && opts.assetDir) || "assets";
+    this.assetDir = (opts && opts.assetDir) || 'assets';
     this.vueContextService.putContext(current);
     this.traverse(data, current, current);
   }
@@ -62,7 +62,7 @@ export class VueParserService {
     current: SketchMSLayer,
     depth: number
   ) {
-    if ((current._class as string) === "symbolInstance") {
+    if ((current._class as string) === 'symbolInstance') {
       return this.extractSymbolMaster(data, current, depth);
     }
     if (this.bitmapContextService.identify(current)) {
@@ -121,7 +121,7 @@ export class VueParserService {
       ...this.vueContextService.contextOf(root),
       html: [
         ...this.vueContextService.contextOf(root).html,
-        this.lintService.indent(depth, this.xmlHelperService.closeTag("div"))
+        this.lintService.indent(depth, this.xmlHelperService.closeTag('div'))
       ]
     });
   }
@@ -133,7 +133,7 @@ export class VueParserService {
       `role="${current._class}"`,
       `aria-label="${current.name}"`
     ];
-    return this.xmlHelperService.openTag("div", attributes, opts);
+    return this.xmlHelperService.openTag('div', attributes, opts);
   }
 
   private extractOpenTag(current: SketchMSLayer, opts?: OpenTagOptions) {
@@ -141,7 +141,7 @@ export class VueParserService {
       `role="${current._class}"`,
       `aria-label="${current.name}"`
     ];
-    return this.xmlHelperService.openTag("div", attributes, opts);
+    return this.xmlHelperService.openTag('div', attributes, opts);
   }
 
   private extractText(
@@ -153,11 +153,11 @@ export class VueParserService {
       .transform(data, current)
       .map(
         file =>
-          this.xmlHelperService.openTag("span") +
+          this.xmlHelperService.openTag('span') +
           file.value +
-          this.xmlHelperService.closeTag("span")
+          this.xmlHelperService.closeTag('span')
       )
-      .join("\n");
+      .join('\n');
 
     return this.lintService.indent(depth, content);
   }
@@ -177,11 +177,11 @@ export class VueParserService {
           `aria-label="${current.name}"`,
           `src="data:image/jpg;base64,${file.value}"`
         ];
-        return this.xmlHelperService.openTag("img", attributes, {
+        return this.xmlHelperService.openTag('img', attributes, {
           autoclose: true
         });
       })
-      .join("\n");
+      .join('\n');
 
     return this.lintService.indent(depth, content);
   }
@@ -213,10 +213,10 @@ export class VueParserService {
       .transform(data, current)
       .map(file =>
         file.value
-          .split("\n")
+          .split('\n')
           .map(line => this.lintService.indent(depth, line))
-          .join("\n")
+          .join('\n')
       )
-      .join("\n");
+      .join('\n');
   }
 }

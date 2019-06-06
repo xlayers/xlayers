@@ -1,9 +1,9 @@
-import { Injectable } from "@angular/core";
-import { BplistService } from "@xlayers/std-blocgen";
-import { TextContextService } from "./text-context.service";
+import { Injectable } from '@angular/core';
+import { BplistService } from '@xlayers/std-blocgen';
+import { TextContextService } from './text-context.service';
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root'
 })
 export class TextParserService {
   constructor(
@@ -25,7 +25,7 @@ export class TextParserService {
   private extractAttributedStringText(current: SketchMSLayer) {
     const obj = current.attributedString;
 
-    if (obj && obj.hasOwnProperty("archivedAttributedString")) {
+    if (obj && obj.hasOwnProperty('archivedAttributedString')) {
       const archive = this.binaryHelperService.parse64Content(
         obj.archivedAttributedString._archive
       );
@@ -35,15 +35,15 @@ export class TextParserService {
       }
     }
 
-    return "";
+    return '';
   }
 
   private decodeRrchiveString(archive) {
     switch (archive.$key) {
-      case "ascii":
+      case 'ascii':
         return archive.$value;
       default:
-        return "";
+        return '';
     }
   }
 }
