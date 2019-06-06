@@ -14,19 +14,13 @@ import { CssOptimizerService } from "@xlayers/css-blocgen";
 export class VueRenderService {
   constructor(
     private vueContextService: VueContextService,
-    private svgContextService: SvgContextService,
-    private bitmapContextService: BitmapContextService,
-    private svgRenderService: SvgRenderService,
-    private cssOptimizerService: CssOptimizerService,
-    private bitmapRenderService: BitmapRenderService
+    private cssOptimizerService: CssOptimizerService
   ) {}
 
-  private assetDir: string;
   private componentDir: string;
   private cssOptimization: boolean;
 
   render(data: SketchMSData, current: SketchMSLayer, opts?: VueBlocGenOptions) {
-    this.assetDir = (opts && opts.assetDir) || "assets";
     this.componentDir = (opts && opts.componentDir) || "components";
     this.cssOptimization = (opts && opts.cssOptimization) || true;
 
@@ -64,18 +58,6 @@ export class VueRenderService {
   private retrieveFiles(data: SketchMSData, current: SketchMSLayer) {
     if ((current._class as string) === "symbolInstance") {
       return this.retrieveSymbolMaster(data, current);
-    }
-    if (this.bitmapContextService.identify(current)) {
-      return this.bitmapRenderService.render(data, current).map(file => ({
-        ...file,
-        uri: [this.assetDir, file.uri].join("/")
-      }));
-    }
-    if (this.svgContextService.identify(current)) {
-      return this.svgRenderService.render(data, current).map(file => ({
-        ...file,
-        uri: [this.assetDir, file.uri].join("/")
-      }));
     }
     return [];
   }
@@ -118,7 +100,11 @@ ${this.renderScript(context.components)}
 </script>
 
 <style>
-${context.css.join("\n\n")}
+${
+  this.cssOptimization
+    ? this.cssOptimizerService.parseStyleSheet(current)
+    : context.css.join("\n\n")
+}
 </style>`;
   }
 

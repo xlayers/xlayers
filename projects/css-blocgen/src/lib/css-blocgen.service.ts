@@ -15,8 +15,7 @@ export class CssBlocGenService {
   constructor(
     private cssContextService: CssContextService,
     private cssComputeService: CssParserService,
-    private cssRenderService: CssRenderService,
-    private cssOptimizerService: CssOptimizerService
+    private cssRenderService: CssRenderService
   ) {}
 
   transform(
@@ -26,7 +25,6 @@ export class CssBlocGenService {
   ) {
     if (!this.cssContextService.hasContext(current)) {
       this.cssComputeService.compute(current, options);
-      this.cssOptimizerService.parseStyleSheet(current);
     }
 
     return this.cssRenderService.render(data, current, options);

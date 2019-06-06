@@ -20,11 +20,11 @@ export class VueParserService {
     private xmlHelperService: XmlService,
     private lintService: FormatService,
     private cssParserService: CssBlocGenService,
-    private bitmapParserService: BitmapBlocGenService,
+    private bitmapBlocGenService: BitmapBlocGenService,
     private bitmapContextService: BitmapContextService,
     private svgParserService: SvgBlocGenService,
     private vueContextService: VueContextService,
-    private textParserService: TextBlocGenService,
+    private textBlocGenService: TextBlocGenService,
     private textContextService: TextContextService,
     private cssContextService: CssContextService,
     private svgContextService: SvgContextService
@@ -53,22 +53,26 @@ export class VueParserService {
         this.traverseIntermediateLayer(data, layer, root, depth);
       });
     } else {
-      return this.traverseEdgeLayer(data, current);
+      return this.traverseEdgeLayer(data, current, depth);
     }
   }
 
-  private traverseEdgeLayer(data: SketchMSData, current: SketchMSLayer) {
+  private traverseEdgeLayer(
+    data: SketchMSData,
+    current: SketchMSLayer,
+    depth: number
+  ) {
     if ((current._class as string) === "symbolInstance") {
-      return this.extractSymbolMaster(data, current);
+      return this.extractSymbolMaster(data, current, depth);
     }
     if (this.bitmapContextService.identify(current)) {
-      return this.extractImage(data, current);
+      return this.extractImage(data, current, depth);
     }
     if (this.textContextService.identify(current)) {
-      return this.extractText(data, current);
+      return this.extractText(data, current, depth);
     }
     if (this.svgContextService.identify(current)) {
-      return this.extractShape(data, current);
+      return this.extractShape(data, current, depth);
     }
     return null;
   }
@@ -109,10 +113,7 @@ export class VueParserService {
     if (content) {
       this.vueContextService.putContext(root, {
         ...this.vueContextService.contextOf(root),
-        html: [
-          ...this.vueContextService.contextOf(root).html,
-          this.lintService.indent(depth + 1, content)
-        ]
+        html: [...this.vueContextService.contextOf(root).html, content]
       });
     }
 
@@ -143,8 +144,12 @@ export class VueParserService {
     return this.xmlHelperService.openTag("div", attributes, opts);
   }
 
-  private extractText(data: SketchMSData, current: SketchMSLayer) {
-    return this.textParserService
+  private extractText(
+    data: SketchMSData,
+    current: SketchMSLayer,
+    depth: number
+  ) {
+    const content = this.textBlocGenService
       .transform(data, current)
       .map(
         file =>
@@ -153,81 +158,65 @@ export class VueParserService {
           this.xmlHelperService.closeTag("span")
       )
       .join("\n");
+
+    return this.lintService.indent(depth, content);
   }
 
-  private extractImage(data: SketchMSData, current: SketchMSLayer) {
-    const context = this.vueContextService.contextOf(current);
-
-    if (!context) {
-      return this.xmlHelperService.openTag("img", [], {
-        autoclose: true
-      });
-    }
-
-    return this.bitmapParserService
+  private extractImage(
+    data: SketchMSData,
+    current: SketchMSLayer,
+    depth: number
+  ) {
+    const context = this.cssContextService.contextOf(current);
+    const content = this.bitmapBlocGenService
       .transform(data, current)
       .map(file => {
-        const base64Content = file.value.replace("data:image/png;base64", "");
-
         const attributes = [
-          `class="${this.vueContextService.contextOf(current).className}"`,
+          `class="${context.className}"`,
           `role="${current._class}"`,
           `aria-label="${current.name}"`,
-          `src="${this.buildImageSrc(base64Content, false)}"`
+          `src="data:image/jpg;base64,${file.value}"`
         ];
         return this.xmlHelperService.openTag("img", attributes, {
           autoclose: true
         });
       })
       .join("\n");
+
+    return this.lintService.indent(depth, content);
   }
 
-  private extractSymbolMaster(data: SketchMSData, current: SketchMSLayer) {
+  private extractSymbolMaster(
+    data: SketchMSData,
+    current: SketchMSLayer,
+    depth: number
+  ) {
     const foreignSymbol = data.document.foreignSymbols.find(
       x => x.symbolMaster.symbolID === (current as any).symbolID
     );
 
     this.compute(data, foreignSymbol.symbolMaster);
 
-    return this.xmlHelperService.openTag(current.name, [], {
+    const content = this.xmlHelperService.openTag(current.name, [], {
       autoclose: true
     });
+
+    return this.lintService.indent(depth, content);
   }
 
-  private extractShape(data: SketchMSData, current: SketchMSLayer) {
+  private extractShape(
+    data: SketchMSData,
+    current: SketchMSLayer,
+    depth: number
+  ) {
     return this.svgParserService
       .transform(data, current)
-      .map(
-        file =>
-          `<img src="${[this.assetDir, file.uri].join("/")}" alt="${
-            current.name
-          }"/>`
+      .map(file =>
+        file.value
+          .split("\n")
+          .map(line => this.lintService.indent(depth, line))
+          .join("\n")
       )
       .join("\n");
-  }
-
-  /**
-   * Convert a Base64 content into a Blob type.
-   * @param base64Data The image data encoded as Base64
-   * @param contentType The desired MIME type of the result image
-   */
-  private base64toBlob(base64Data: string, contentType = "image/png") {
-    const blob = new Blob([base64Data], { type: contentType });
-    return blob;
-  }
-
-  /**
-   * Get the image source for the codegen.
-   * @param base64Data The image data encoded as Base64
-   * @param useBlob Should we convert to a Blob type
-   */
-  private buildImageSrc(base64Data: string, useBlob = true) {
-    if (useBlob) {
-      const blob = this.base64toBlob(base64Data, "image/png");
-      return URL.createObjectURL(blob);
-    }
-
-    // use fallback output
-    return base64Data;
   }
 }
