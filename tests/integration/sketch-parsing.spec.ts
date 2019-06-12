@@ -1,6 +1,6 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { async, TestBed } from '@angular/core/testing';
-import { SketchStyleParserService, SketchData } from '@xlayers/sketchapp-parser';
+import { SketchStyleParserService, SketchData } from 'sketchapp-parser';
 import { readdirSync, readFile } from 'fs';
 import * as jszip from 'jszip';
 import { ViewerContainerComponent } from '@app/editor/preview/viewer/container/container.component';

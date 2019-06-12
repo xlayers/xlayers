@@ -10,13 +10,13 @@ import { Store } from '@ngxs/store';
 import { CurrentLayer, UiState } from '@app/core/state/ui.state';
 import { DomSanitizer, SafeHtml, SafeUrl } from '@angular/platform-browser';
 import { SketchService } from '@app/core/sketch.service';
-import { CssContextService } from '@xlayers/css-blocgen';
-import { SvgRenderService, SvgContextService } from '@xlayers/svg-blocgen';
-import { TextContextService, TextRenderService } from '@xlayers/text-blocgen';
+import { CssContextService } from 'css-blocgen';
+import { SvgRenderService, SvgContextService } from 'svg-blocgen';
+import { TextContextService, TextRenderService } from 'text-blocgen';
 import {
   BitmapRenderService,
   BitmapContextService
-} from '@xlayers/bitmap-blocgen';
+} from 'bitmap-blocgen';
 
 @Component({
   selector: 'xly-viewer-layer',

@@ -3,11 +3,11 @@ import { Injectable } from '@angular/core';
 import { UiState } from '@app/core/state';
 import { environment } from '@env/environment';
 import { Store } from '@ngxs/store';
-import { CssParserService, CssContextService } from '@xlayers/css-blocgen';
-import { SketchIngestorService } from '@xlayers/sketch-blocgen';
-import { SvgParserService, SvgContextService } from '@xlayers/svg-blocgen';
+import { CssParserService, CssContextService } from 'css-blocgen';
+import { SketchIngestorService } from 'sketch-blocgen';
+import { SvgParserService, SvgContextService } from 'svg-blocgen';
 import { TextParserService } from '../../../projects/text-blocgen/src/lib/text-parser.service';
-import { TextContextService } from '@xlayers/text-blocgen';
+import { TextContextService } from 'text-blocgen';
 
 export interface SketchMSData {
   pages: SketchMSPage[];

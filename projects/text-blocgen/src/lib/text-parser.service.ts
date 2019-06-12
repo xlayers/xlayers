@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BplistService } from '@xlayers/std-blocgen';
+import { BplistService } from 'std-blocgen';
 import { TextContextService } from './text-context.service';
 
 @Injectable({

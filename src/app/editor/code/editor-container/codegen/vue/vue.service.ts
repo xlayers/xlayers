@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { XlayersNgxEditorModel } from '../codegen.service';
-import { VueBlocGenService } from '@xlayers/vue-blocgen';
+import { VueBlocGenService } from 'vue-blocgen';
 
 const renderReadme = (name: string) => `\
 ## How to use the ${name} Vuejs module

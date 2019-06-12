@@ -15,7 +15,7 @@ module.exports = {
   moduleNameMapper: {
     "^\@app/(.*)": "<rootDir>/src/app/$1",
     "^\@env/(.*)": "<rootDir>/src/environments/$1",
-    "^\@xlayers/(.*)": "<rootDir>/projects/$1/src/lib",
-    "^\@xlayers/(.*)": "<rootDir>/projects/$1/src/public_api.ts"
+    "^\(.*)": "<rootDir>/projects/$1/src/lib",
+    "^\(.*)": "<rootDir>/projects/$1/src/public_api.ts"
   }
 }

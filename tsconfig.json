@@ -14,7 +14,22 @@
     "paths": {
       "@env/*": ["src/environments/*"],
       "@app/*": ["src/app/*"],
-      "@xlayers/*": ["projects/*/src/lib", "projects/*/src/public_api.ts"]
+      "sketchapp-parser": ["dist/sketchapp-parser"],
+      "sketchapp-parser/*": ["dist/sketchapp-parser/*"],
+      "sketch-blocgen": ["dist/sketch-blocgen"],
+      "sketch-blocgen/*": ["dist/sketch-blocgen/*"],
+      "std-blocgen": ["dist/std-blocgen"],
+      "std-blocgen/*": ["dist/std-blocgen/*"],
+      "css-blocgen": ["dist/css-blocgen"],
+      "css-blocgen/*": ["dist/css-blocgen/*"],
+      "text-blocgen": ["dist/text-blocgen"],
+      "text-blocgen/*": ["dist/text-blocgen/*"],
+      "svg-blocgen": ["dist/svg-blocgen"],
+      "svg-blocgen/*": ["dist/svg-blocgen/*"],
+      "vue-blocgen": ["dist/vue-blocgen"],
+      "vue-blocgen/*": ["dist/vue-blocgen/*"],
+      "bitmap-blocgen": ["dist/bitmap-blocgen"],
+      "bitmap-blocgen/*": ["dist/bitmap-blocgen/*"]
     }
   }
 }

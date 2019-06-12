@@ -1,9 +1,10 @@
 import { NgModule } from '@angular/core';
 import { TextBlocGenService } from './text-blocgen.service';
 import { TextContextService } from './text-context.service';
+import { StdBlocgenModule } from 'std-blocgen';
 
 @NgModule({
-  declarations: [TextBlocGenService, TextContextService],
-  exports: [TextBlocGenService, TextContextService]
+  imports: [StdBlocgenModule],
+  providers: [TextBlocGenService, TextContextService]
 })
 export class TextBlocgenModule {}

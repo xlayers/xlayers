@@ -1,9 +1,10 @@
 import { NgModule } from '@angular/core';
 import { SvgBlocGenService } from './svg-blocgen.service';
 import { SvgContextService } from './svg-context.service';
+  import { StdBlocgenModule } from 'std-blocgen';
 
 @NgModule({
-  declarations: [SvgBlocGenService, SvgContextService],
-  exports: [SvgBlocGenService, SvgContextService]
+  imports: [StdBlocgenModule],
+  providers: [SvgBlocGenService, SvgContextService]
 })
 export class SvgBlocgenModule {}

@@ -1,15 +1,15 @@
 import { Injectable } from '@angular/core';
-import { XmlService, OpenTagOptions } from '@xlayers/std-blocgen';
-import { FormatService } from '@xlayers/std-blocgen';
-import { CssBlocGenService } from '@xlayers/css-blocgen';
-import { BitmapBlocGenService } from '@xlayers/bitmap-blocgen';
-import { SvgBlocGenService } from '@xlayers/svg-blocgen';
-import { TextBlocGenService } from '@xlayers/text-blocgen';
+import { XmlService } from 'std-blocgen';
+import { FormatService } from 'std-blocgen';
+import { CssBlocGenService } from 'css-blocgen';
+import { BitmapBlocGenService } from 'bitmap-blocgen';
+import { SvgBlocGenService } from 'svg-blocgen';
+import { TextBlocGenService } from 'text-blocgen';
 import { VueContextService } from './vue-context.service';
-import { SvgContextService } from '@xlayers/svg-blocgen';
-import { CssContextService } from '@xlayers/css-blocgen';
-import { TextContextService } from '@xlayers/text-blocgen';
-import { BitmapContextService } from '@xlayers/bitmap-blocgen';
+import { SvgContextService } from 'svg-blocgen';
+import { CssContextService } from 'css-blocgen';
+import { TextContextService } from 'text-blocgen';
+import { BitmapContextService } from 'bitmap-blocgen';
 
 @Injectable({
   providedIn: 'root'

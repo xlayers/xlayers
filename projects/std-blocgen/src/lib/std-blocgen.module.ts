@@ -6,14 +6,7 @@ import { ShapeService } from './shape.service';
 import { StyleService } from './style.service';
 
 @NgModule({
-  declarations: [
-    XmlService,
-    BplistService,
-    FormatService,
-    ShapeService,
-    StyleService
-  ],
-  exports: [
+  providers: [
     XmlService,
     BplistService,
     FormatService,
