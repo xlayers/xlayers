@@ -50,7 +50,7 @@ export class ViewerContainerComponent implements OnInit {
   public currentPage: SketchMSLayer;
   public is3dView: boolean;
 
-  @ViewChild(ViewerSelectedLayerDirective) ref: ViewerSelectedLayerDirective;
+  @ViewChild(ViewerSelectedLayerDirective, {static: true}) ref: ViewerSelectedLayerDirective;
 
   ngOnInit() {
     this.store.select(UiState.currentPage).subscribe(currentPage => {

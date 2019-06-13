@@ -14,7 +14,7 @@ import {
 })
 export class BrowseFilesComponent implements OnInit {
   @Output() changed: EventEmitter<File> = new EventEmitter();
-  @ViewChild('fileBrowserRef') fileBrowserRef: ElementRef;
+  @ViewChild('fileBrowserRef', {static: true}) fileBrowserRef: ElementRef;
 
   constructor() {}
 
