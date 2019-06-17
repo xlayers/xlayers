@@ -62,12 +62,12 @@
 
 ## What is xLayers?
 
-[xLayers](https://xLayers.dev) is a community driven effort to bridge the gap between designers, who implement the UI sketch, and developers who implement the code from these design sketches. Put simply, [xLayers](https://xLayers.design) is a code generation tool for your design sketches: use [xLayers](https://xLayers.app) to instantly scaffold your components out of your design.
+[xLayers](https://xLayers.dev) is a community-driven effort to bridge the gap between designers, who implement the UI sketch and developers who implement the code from these design sketches. Put simply, [xLayers](https://xLayers.design) is a code generation tool for your design sketches: use [xLayers](https://xLayers.app) to instantly scaffold your components out of your design.
 
 The xLayers project is driven by community contributions. Please send us your Pull Requests and feedback!
 
 ## Want to help? [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/xlayers/xlayers/issues)
-Want to file a bug, contribute some code, or improve documentation? Excellent! Read up on our guidelines for [contributing](https://github.com/xlayers/xlayers/blob/master/CONTRIBUTING.md) and then check out one of our issues in the hotlist: [community-help](https://github.com/xlayers/xlayers/issues).
+Want to file a bug, contribute some code, or improve the documentation? Excellent! Read up on our guidelines for [contributing](https://github.com/xlayers/xlayers/blob/master/CONTRIBUTING.md) and then check out one of our issues in the hotlist: [community-help](https://github.com/xlayers/xlayers/issues).
 
 ## Contributors
  This project exists thanks to all the people who contribute. [[Contribute](CONTRIBUTING.md)].

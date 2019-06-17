@@ -6,6 +6,8 @@ import { WCCodeGenService } from './wc/wc.service';
 import { StencilCodeGenService } from './stencil/stencil.service';
 import { AngularCodeGenService } from './angular/angular.service';
 import { LitElementCodeGenService } from './lit-element/lit-element.service';
+import { XamarinFormsCodeGenService } from './xamarin-forms/xamarin-forms.service';
+import { XamarinFormsCodeGenVisitor } from './xamarin-forms/codegen/xamarin-forms-codegenvisitor.service';
 import { SharedCodegen } from './shared-codegen.service';
 
 @NgModule({
@@ -17,7 +19,9 @@ import { SharedCodegen } from './shared-codegen.service';
       VueCodeGenService,
       WCCodeGenService,
       StencilCodeGenService,
-      LitElementCodeGenService
+      LitElementCodeGenService,
+      XamarinFormsCodeGenService,
+      XamarinFormsCodeGenVisitor
   ]
 })
 export class CodeGenModule {}

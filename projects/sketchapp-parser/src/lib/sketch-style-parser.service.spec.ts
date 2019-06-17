@@ -319,7 +319,7 @@ describe('SketchStyleParserService', () => {
         }]
       } as SketchMSPath;
       expect(sketchStyleParserService.transformTriangleSolid(obj, {})).toEqual({
-        shape: `<svg width="${obj.frame.width}" height="${obj.frame.height}"><polygon fill="none" points="0, 0 0, 2 1, 2 1, 0" /></svg>`,
+        shape: `<svg width="${obj.frame.width}" height="${obj.frame.height}"><polygon fill="none" points="0 0 0 2 1 2 1 0" /></svg>`,
         style: {
           left: '0px',
           position: 'absolute',
@@ -366,7 +366,7 @@ describe('SketchStyleParserService', () => {
         }],
       } as SketchMSPath;
       expect(sketchStyleParserService.transformShapeSolid(obj, {})).toEqual({
-        shape: `<svg width="${obj.frame.width}" height="${obj.frame.height}"><path fill="none" d="M0 0,L 0 2,L 1 2,L 1 0" /></svg>`,
+        shape: `<svg width="${obj.frame.width}" height="${obj.frame.height}"><path fill="none" d="M0 0 L 0 2 L 1 2 L 1 0" /></svg>`,
         style: {
           left: '0px',
           position: 'absolute',
@@ -428,8 +428,8 @@ describe('SketchStyleParserService', () => {
       } as SketchMSPath;
       expect(sketchStyleParserService.transformShapeSolid(obj, {})).toEqual({
         shape: `<svg width="${obj.frame.width}" height="${obj.frame.height}"><path fill="none" d="` +
-        `M429.081 0,S 2.919 0, 2.919 0,S 0 1.537, 0 3.417,` +
-        `L 0 123,L 432 123,S 432 3.417, 432 3.417,S 430.686 0, 429.081 0` +
+        `M429.081 0 S 2.919 0 2.919 0 S 0 1.537 0 3.417 ` +
+        `L 0 123 L 432 123 S 432 3.417 432 3.417 S 430.686 0 429.081 0` +
         `" /></svg>`,
         style: {
           left: '0px',
