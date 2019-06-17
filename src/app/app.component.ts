@@ -35,6 +35,7 @@ export class AppComponent {
       iconRegistry.addSvgIcon('litElement', sanitizer.bypassSecurityTrustResourceUrl('assets/codegen/litElement.svg'));
       iconRegistry.addSvgIcon('html', sanitizer.bypassSecurityTrustResourceUrl('assets/codegen/html.svg'));
       iconRegistry.addSvgIcon('text', sanitizer.bypassSecurityTrustResourceUrl('assets/codegen/text.svg'));
+      iconRegistry.addSvgIcon('xamarinForms', sanitizer.bypassSecurityTrustResourceUrl('assets/codegen/xamarinForms.svg'));
 
       router.events.pipe(
         filter(event => event instanceof NavigationEnd)

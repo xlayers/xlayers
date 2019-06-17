@@ -64,6 +64,11 @@ export class EditorContainerComponent implements OnInit, AfterContentInit {
     this.updateState();
   }
 
+  generateXamarinForms() {
+    this.codeSetting = this.codegen.generate(CodeGenKind.XamarinForms);
+    this.updateState();
+  }
+
   updateState() {
     this.store.dispatch(
       new CodeGen(

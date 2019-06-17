@@ -9,9 +9,7 @@
       "webRoot": "${workspaceFolder}",
       "sourceMaps": true,
       "userDataDir": "${workspaceFolder}/.vscode/chrome",
-      "runtimeArgs": [
-        "--disable-session-crashed-bubble"
-      ]
+      "runtimeArgs": ["--disable-session-crashed-bubble"]
     },
     {
       "name": "Attach Chrome",
@@ -19,6 +17,23 @@
       "request": "attach",
       "url": "http://localhost:4200",
       "port": 9222,
+      "webRoot": "${workspaceFolder}",
+      "sourceMaps": true
+    },
+    {
+      "name": "Launch Edge",
+      "type": "edge",
+      "request": "launch",
+      "version": "canary",
+      "url": "http://localhost:4200",
+      "webRoot": "${workspaceFolder}",
+      "sourceMaps": true
+    },
+    {
+      "name": "Attach Edge",
+      "type": "edge",
+      "request": "attach",
+      "port": 2015,
       "webRoot": "${workspaceFolder}",
       "sourceMaps": true
     }

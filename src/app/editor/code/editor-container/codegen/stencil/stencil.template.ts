@@ -1,6 +1,6 @@
 export const componentTemplate = (ast) => {
   return `
-  import { Component } from '@stencil/core';
+  import { Component, h } from '@stencil/core';
 
   @Component({
     tag: 'x-layers-component',
@@ -18,12 +18,12 @@ export const testE2ETemplate = () => {
   return `
   import { newE2EPage } from '@stencil/core/testing';
 
-describe('x-layers-component', () => {
-  it('renders', async () => {
-    const page = await newE2EPage();
-    await page.setContent('<x-layers-component></x-layers-component>');
-    const element = await page.find('x-layers-component');
-    expect(element).toHaveClass('hydrated');
+  describe('x-layers-component', () => {
+    it('renders', async () => {
+      const page = await newE2EPage();
+      await page.setContent('<x-layers-component></x-layers-component>');
+      const element = await page.find('x-layers-component');
+      expect(element).toHaveClass('hydrated');
   });
 });`;
 };
