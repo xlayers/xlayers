@@ -5,6 +5,7 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { XStore } from '@app/core/state/state.mock';
 import { NgxsModule } from '@ngxs/store';
 import { MatMenuModule } from '@angular/material/menu';
+import { TranslateModule } from '@ngx-translate/core';
 
 describe('SettingsPreviewComponent', () => {
   let component: SettingsPreviewComponent;
@@ -13,7 +14,7 @@ describe('SettingsPreviewComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       schemas: [NO_ERRORS_SCHEMA],
-      imports: [MatMenuModule, NgxsModule.forRoot([XStore])],
+      imports: [MatMenuModule, NgxsModule.forRoot([XStore]), TranslateModule.forRoot()],
       declarations: [ SettingsPreviewComponent ]
     })
     .compileComponents();

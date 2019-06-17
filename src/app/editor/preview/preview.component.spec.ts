@@ -4,6 +4,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { XStore } from '@app/core/state/state.mock';
 import { NgxsModule } from '@ngxs/store';
 import { PreviewComponent } from './preview.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 
 describe('PreviewComponent', () => {
@@ -13,7 +14,7 @@ describe('PreviewComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [PreviewComponent],
-      imports: [MatMenuModule, NgxsModule.forRoot([XStore])],
+      imports: [MatMenuModule, NgxsModule.forRoot([XStore]), TranslateModule.forRoot()],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
   }));

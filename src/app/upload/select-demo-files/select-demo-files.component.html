@@ -1,7 +1,7 @@
 <mat-expansion-panel color="secondary">
   <mat-expansion-panel-header>
     <mat-panel-title>
-      Select A Demo File
+    {{ 'SELECTDEMO.text' | translate}}    
     </mat-panel-title>
   </mat-expansion-panel-header>
 
@@ -10,8 +10,8 @@
       *ngFor="let group of sketchService.getDemoFiles(); let i = index"
     >
       <h3 mat-subheader>
-        SketchApp v{{ group.value }}
-        <span *ngIf="i > 0">(legacy support)</span>
+        {{ 'SELECTDEMO.version' | translate}}{{ group.value }}
+        <span *ngIf="i > 0">({{'SELECTDEMO.legacy' | translate}})</span>
       </h3>
 
       <a
@@ -24,11 +24,11 @@
         <h4 mat-line>
           <b>{{ file }}</b>
         </h4>
-        <p mat-line>SketchApp v{{ group.value }}</p>
+        <p mat-line>{{ 'SELECTDEMO.version' | translate}}{{ group.value }}</p>
       </a>
     </ng-container>
   </mat-nav-list>
 </mat-expansion-panel>
 <p class="select-demo-files-label-error" *ngIf="error">
-  Error: please choose different file
+  {{ 'SELECTDEMO.error' | translate}}
 </p>

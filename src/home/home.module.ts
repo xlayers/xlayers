@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LandingComponent } from './landing/landing.component';
 import { InteractiveBgComponent } from './interactive-bg/interactive-bg.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 export const routes: Route[] = [
   {
@@ -12,7 +13,7 @@ export const routes: Route[] = [
 ];
 
 @NgModule({
-  imports: [CommonModule, RouterModule.forChild(routes)],
+  imports: [CommonModule, TranslateModule, RouterModule.forChild(routes)],
   declarations: [LandingComponent, InteractiveBgComponent]
 })
 export class HomeModule {}

@@ -8,7 +8,7 @@ import { UiState } from '@app/core/state';
   <mat-expansion-panel expanded="false" [disabled]="!currentLayer?.frame.height">
     <mat-expansion-panel-header>
       <mat-panel-title>
-        Size
+        {{'SETTINGS_SIZE.title' | translate}}
       </mat-panel-title>
     </mat-expansion-panel-header>
 
@@ -16,14 +16,14 @@ import { UiState } from '@app/core/state';
       <input matInput
         disabled
         type="text"
-        placeholder="Height"
+        placeholder="{{'SETTINGS_SIZE.height' | translate}}"
         [ngModel]="currentLayer?.frame.height.toFixed(0) + 'px'">
     </mat-form-field>
     <mat-form-field>
       <input matInput
         disabled
         type="text"
-        placeholder="Width"
+        placeholder="{{'SETTINGS_SIZE.width' | translate}}"
         [ngModel]="currentLayer?.frame.width.toFixed(0) + 'px'">
     </mat-form-field>
   </mat-expansion-panel>
@@ -31,7 +31,7 @@ import { UiState } from '@app/core/state';
   <mat-expansion-panel expanded="false">
     <mat-expansion-panel-header>
       <mat-panel-title>
-        Position
+      {{'SETTINGS_POSITION.title' | translate}}
       </mat-panel-title>
     </mat-expansion-panel-header>
 
@@ -39,14 +39,14 @@ import { UiState } from '@app/core/state';
       <input matInput
         disabled
         type="text"
-        placeholder="Left"
+        placeholder="{{'SETTINGS_POSITION.left' | translate}}"
         [ngModel]="currentLayer?.frame.x.toFixed(0) + 'px'">
     </mat-form-field>
     <mat-form-field>
       <input matInput
         disabled
         type="text"
-        placeholder="Top"
+        placeholder="{{'SETTINGS_POSITION.top' | translate}}"
         [ngModel]="currentLayer?.frame.y.toFixed(0) + 'px'">
     </mat-form-field>
   </mat-expansion-panel>
@@ -72,7 +72,7 @@ import { UiState } from '@app/core/state';
 export class SettingsLayerPositionComponent implements OnInit {
   currentLayer: SketchMSLayer;
 
-  constructor(private store: Store) {}
+  constructor(private store: Store) { }
 
   ngOnInit() {
     this.store.select(UiState.currentLayer).subscribe(currentLayer => {

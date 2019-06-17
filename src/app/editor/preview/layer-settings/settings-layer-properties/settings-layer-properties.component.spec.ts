@@ -4,6 +4,7 @@ import { SettingsLayerPropertiesComponent } from './settings-layer-properties.co
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { XStore } from '@app/core/state/state.mock';
 import { NgxsModule } from '@ngxs/store';
+import { TranslateModule } from '@ngx-translate/core';
 
 describe('SettingsLayerPropertiesComponent', () => {
   let component: SettingsLayerPropertiesComponent;
@@ -12,7 +13,7 @@ describe('SettingsLayerPropertiesComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       schemas: [NO_ERRORS_SCHEMA],
-      imports: [NgxsModule.forRoot([XStore])],
+      imports: [NgxsModule.forRoot([XStore]), TranslateModule.forRoot()],
       declarations: [ SettingsLayerPropertiesComponent ]
     })
     .compileComponents();

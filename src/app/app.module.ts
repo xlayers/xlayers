@@ -1,4 +1,4 @@
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -19,6 +19,9 @@ import { CoreModule } from './core/core.module';
 import { UiState } from './core/state';
 import { CodeGenState } from './core/state/page.state';
 import { EditorGuardService } from './editor-guard.service';
+import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
+import {TranslateHttpLoader} from '@ngx-translate/http-loader';
+
 
 export const routes: Route[] = [
   {
@@ -69,6 +72,12 @@ const StoreDebugModule = [
   NgxsRouterPluginModule.forRoot()
 ];
 
+// AoT requires an exported function for factories
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http);
+}
+
+
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -77,6 +86,11 @@ const StoreDebugModule = [
     BrowserAnimationsModule,
     StoreDebugModule,
     CoreModule,
+    TranslateModule.forRoot({ loader: {
+      provide: TranslateLoader,
+      useFactory: HttpLoaderFactory,
+      deps: [HttpClient]
+  }}),
     RouterModule.forRoot(routes, {
       useHash: true,
       enableTracing: !environment.production,

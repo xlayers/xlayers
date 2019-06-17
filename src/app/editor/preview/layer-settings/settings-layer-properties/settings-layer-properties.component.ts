@@ -8,15 +8,15 @@ import { Component, OnInit } from '@angular/core';
   <mat-expansion-panel expanded="false" [disabled]="!currentLayer?.name">
   <mat-expansion-panel-header>
     <mat-panel-title>
-      Properties
+      {{'SETTINGS_PROPERTIES.properties' | translate}}
     </mat-panel-title>
   </mat-expansion-panel-header>
 
   <mat-form-field class="large">
-    <input disabled matInput type="text" placeholder="Name" [ngModel]="currentLayer?.name">
+    <input disabled matInput type="text" placeholder="{{'SETTINGS_PROPERTIES.name' | translate }}" [ngModel]="currentLayer?.name">
   </mat-form-field>
   <mat-form-field class="large">
-    <input disabled matInput type="text" placeholder="Kind" [ngModel]="currentLayer?._class">
+    <input disabled matInput type="text" placeholder="{{'SETTINGS_PROPERTIES.kind' | translate }}" [ngModel]="currentLayer?._class">
   </mat-form-field>
 
   </mat-expansion-panel>

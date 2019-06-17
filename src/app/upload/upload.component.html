@@ -1,11 +1,11 @@
 <section (dragover)="isDragging$.next(true)" (dragleave)="isDragging$.next(false)" [class.dragging]="isDragging$ | async">
   <xly-dropzone (changed)="onFileSelected($event)"></xly-dropzone>
 
-  <span class="mat-subheading-1">OR</span>
+  <span class="mat-subheading-1">{{'UPLOAD.OR' | translate}}</span>
 
   <xly-browse-files (changed)="onFileSelected($event)"></xly-browse-files>
 
-  <p class="select-demo-files-label">OR</p>
+  <p class="select-demo-files-label">{{'UPLOAD.OR' | translate}}</p>
 
   <xly-select-demo-files
     [error]="selectedDemoFileError"
