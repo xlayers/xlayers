@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { VueBlocGenService } from './vue-blocgen.service';
 import { VueContextService } from './vue-context.service';
-import { TextBlocgenModule } from 'text-blocgen';
-import { BitmapBlocgenModule } from 'bitmap-blocgen';
-import { CssBlocgenModule } from 'css-blocgen';
-import { StdBlocgenModule } from 'std-blocgen';
-import { SvgBlocgenModule } from 'svg-blocgen';
+import { TextBlocgenModule } from '@xlayers/text-blocgen';
+import { BitmapBlocgenModule } from '@xlayers/bitmap-blocgen';
+import { CssBlocgenModule } from '@xlayers/css-blocgen';
+import { StdBlocgenModule } from '@xlayers/std-blocgen';
+import { SvgBlocgenModule } from '@xlayers/svg-blocgen';
 
 @NgModule({
   imports: [

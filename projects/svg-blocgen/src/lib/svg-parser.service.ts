@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { ShapeService } from 'std-blocgen';
-import { StyleService } from 'std-blocgen';
+import { ShapeService } from '@xlayers/std-blocgen';
+import { StyleService } from '@xlayers/std-blocgen';
 import { SvgContextService } from './svg-context.service';
 
 @Injectable({

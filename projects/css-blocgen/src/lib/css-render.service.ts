@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { FormatService } from 'std-blocgen';
+import { FormatService } from '@xlayers/std-blocgen';
 import { CssContextService, CssBlocGenContext } from './css-context.service';
 
 @Injectable({

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { SketchService } from '@app/core/sketch.service';
-import { StyleOptimizerService } from 'sketchapp-parser';
-import { SvgRenderService } from 'svg-blocgen';
+import { StyleOptimizerService } from '@xlayers/sketchapp-parser';
+import { SvgRenderService } from '@xlayers/svg-blocgen';
 
 export enum Template {
   HTML,

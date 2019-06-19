@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { VueContextService, VueBlocGenContext } from './vue-context.service';
-import { CssOptimizerService } from 'css-blocgen';
+import { CssOptimizerService } from '@xlayers/css-blocgen';
 
 @Injectable({
   providedIn: 'root'
