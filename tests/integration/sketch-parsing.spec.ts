@@ -3,7 +3,6 @@ import { async, TestBed } from '@angular/core/testing';
 import { SketchStyleParserService, SketchData } from '@xlayers/sketchapp-parser';
 import { readdirSync, readFile } from 'fs';
 import * as jszip from 'jszip';
-import { ViewerContainerComponent } from '@app/editor/preview/viewer/container/container.component';
 
 const VERSION_LIST = [50, 51, 52, 53];
 const SKETCH_PATH = './src/assets/demos/sketchapp';
@@ -66,7 +65,7 @@ describe('sketch parser', () => {
     TestBed.configureTestingModule({
       schemas: [NO_ERRORS_SCHEMA],
       providers: [SketchStyleParserService],
-      declarations: [ViewerContainerComponent]
+      declarations: []
     }).compileComponents();
     sketchStyleParserService = TestBed.get(SketchStyleParserService);
   }));
@@ -75,7 +74,7 @@ describe('sketch parser', () => {
     const fileNames = readdirSync(`${SKETCH_PATH}/${version}`);
 
     fileNames.forEach(fileName => {
-      it(`should match ${fileName} snapshot for ${version}`, (done: DoneFn) => {
+      it(`should match ${fileName} snapshot for ${version}`, (done) => {
         loadSketch(version, fileName)
           .then(data => {
             sketchStyleParserService.visit(data);
