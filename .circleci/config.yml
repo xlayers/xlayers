@@ -27,7 +27,7 @@ jobs:
       - run:
           command: npm run app.build.prod
 
-  "ci/build-lib":
+  "ci/build-sketchapp-parser":
     docker:
       - image: circleci/node:10.12
 
@@ -52,7 +52,196 @@ jobs:
           key: v1-dependencies-{{ checksum "package.json" }}
 
       - run:
-          command: npm run lib.build.prod
+          command: npm run sketchappparser.build.prod
+
+  "ci/build-sketch-blocgen":
+    docker:
+      - image: circleci/node:10.12
+
+    working_directory: ~/repo
+
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "package.json" }}
+            # fallback to using the latest cache if no exact match is found
+            - v1-dependencies-
+
+      - run: npm install
+      - run:
+          name: Install JUnit coverage reporter
+          command: npm i -D jest-junit
+
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "package.json" }}
+
+      - run:
+          command: npm run sketch-blocgen.build.prod
+
+  "ci/build-bitmap-blocgen":
+    docker:
+      - image: circleci/node:10.12
+
+    working_directory: ~/repo
+
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "package.json" }}
+            # fallback to using the latest cache if no exact match is found
+            - v1-dependencies-
+
+      - run: npm install
+      - run:
+          name: Install JUnit coverage reporter
+          command: npm i -D jest-junit
+
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "package.json" }}
+
+      - run:
+          command: npm run bitmap-blocgen.build.prod
+
+  "ci/build-css-blocgen":
+    docker:
+      - image: circleci/node:10.12
+
+    working_directory: ~/repo
+
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "package.json" }}
+            # fallback to using the latest cache if no exact match is found
+            - v1-dependencies-
+
+      - run: npm install
+      - run:
+          name: Install JUnit coverage reporter
+          command: npm i -D jest-junit
+
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "package.json" }}
+
+      - run:
+          command: npm run css-blocgen.build.prod
+
+  "ci/build-std-blocgen":
+    docker:
+      - image: circleci/node:10.12
+
+    working_directory: ~/repo
+
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "package.json" }}
+            # fallback to using the latest cache if no exact match is found
+            - v1-dependencies-
+
+      - run: npm install
+      - run:
+          name: Install JUnit coverage reporter
+          command: npm i -D jest-junit
+
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "package.json" }}
+
+      - run:
+          command: npm run std-blocgen.build.prod
+
+  "ci/build-svg-blocgen":
+    docker:
+      - image: circleci/node:10.12
+
+    working_directory: ~/repo
+
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "package.json" }}
+            # fallback to using the latest cache if no exact match is found
+            - v1-dependencies-
+
+      - run: npm install
+      - run:
+          name: Install JUnit coverage reporter
+          command: npm i -D jest-junit
+
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "package.json" }}
+
+      - run:
+          command: npm run svg-blocgen.build.prod
+
+  "ci/build-text-blocgen":
+    docker:
+      - image: circleci/node:10.12
+
+    working_directory: ~/repo
+
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "package.json" }}
+            # fallback to using the latest cache if no exact match is found
+            - v1-dependencies-
+
+      - run: npm install
+      - run:
+          name: Install JUnit coverage reporter
+          command: npm i -D jest-junit
+
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "package.json" }}
+
+      - run:
+          command: npm run text-blocgen.build.prod
+
+  "ci/build-vue-blocgen":
+    docker:
+      - image: circleci/node:10.12
+
+    working_directory: ~/repo
+
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "package.json" }}
+            # fallback to using the latest cache if no exact match is found
+            - v1-dependencies-
+
+      - run: npm install
+      - run:
+          name: Install JUnit coverage reporter
+          command: npm i -D jest-junit
+
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "package.json" }}
+
+      - run:
+          command: npm run vue-blocgen.build.prod
 
   "ci/test":
     docker:
@@ -106,9 +295,6 @@ workflows:
   #     - test:
   #         requires:
   #           - lint
-  #     - "build-lib":
-  #         requires:
-  #           - test
   #     - "build-app":
   #         requires:
   #           - test
@@ -118,9 +304,6 @@ workflows:
   "ci/test":
     jobs:
       - "ci/test"
-  "ci/build-lib":
-    jobs:
-      - "ci/build-lib"
   "ci/build-app":
     jobs:
       - "ci/build-app"
