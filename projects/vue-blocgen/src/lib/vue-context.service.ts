@@ -14,15 +14,9 @@ export class VueContextService {
     return (
       current.layers &&
       Array.isArray(current.layers) &&
-      [
-        'rect',
-        'page',
-        'rectangle',
-        'group',
-        'symbolMaster',
-        'shapePath',
-        'shapeGroup'
-      ].includes(current._class as string)
+      ['rect', 'page', 'rectangle', 'group', 'symbolMaster'].includes(
+        current._class as string
+      )
     );
   }
 

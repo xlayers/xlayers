@@ -17,9 +17,7 @@ export class CssContextService {
       'group',
       'symbolMaster',
       'oval',
-      'text',
-      'shapePath',
-      'shapeGroupe'
+      'text'
     ].includes(current._class as string);
   }
 

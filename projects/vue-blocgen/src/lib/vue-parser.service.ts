@@ -18,7 +18,7 @@ export class VueParserService {
   constructor(
     private xmlHelperService: XmlService,
     private lintService: FormatService,
-    private cssParserService: CssBlocGenService,
+    private cssBlocGenService: CssBlocGenService,
     private bitmapBlocGenService: BitmapBlocGenService,
     private bitmapContextService: BitmapContextService,
     private svgBlocGenService: SvgBlocGenService,
@@ -42,7 +42,13 @@ export class VueParserService {
   ) {
     if (this.vueContextService.identify(current)) {
       current.layers.forEach(layer => {
-        this.traverseIntermediateLayer(data, layer, root, depth);
+        if (this.svgContextService.identify(layer)) {
+          this.traverseSvgLayer(data, layer, root, depth);
+        } else if (this.cssContextService.identify(layer)) {
+          this.traverseStyledLayer(data, layer, root, depth);
+        } else {
+          this.traverseLayer(data, layer, root, depth);
+        }
       });
     } else {
       return this.traverseEdgeLayer(data, current, depth);
@@ -69,38 +75,78 @@ export class VueParserService {
     return null;
   }
 
-  private traverseIntermediateLayer(
+  private traverseSvgLayer(
     data: SketchMSData,
     current: SketchMSLayer,
     root: SketchMSLayer,
     depth: number
   ) {
-    if (this.cssContextService.identify(current)) {
-      const cssRules = this.cssParserService
-        .transform(current, data)
-        .map(file => file.value);
+    const cssRules = this.cssBlocGenService
+      .transform(current, data)
+      .map(file => file.value);
 
+    this.vueContextService.putContext(root, {
+      ...this.vueContextService.contextOf(root),
+      css: [...this.vueContextService.contextOf(root).css, ...cssRules]
+    });
+
+    const content = this.traverse(data, current, root, depth);
+    if (content) {
       this.vueContextService.putContext(root, {
         ...this.vueContextService.contextOf(root),
-        css: [...this.vueContextService.contextOf(root).css, ...cssRules]
-      });
-      this.vueContextService.putContext(root, {
-        ...this.vueContextService.contextOf(root),
-        html: [
-          ...this.vueContextService.contextOf(root).html,
-          this.lintService.indent(depth, this.extractCssOpenTag(current))
-        ]
-      });
-    } else {
-      this.vueContextService.putContext(root, {
-        ...this.vueContextService.contextOf(root),
-        html: [
-          ...this.vueContextService.contextOf(root).html,
-          this.lintService.indent(depth, this.extractOpenTag(current))
-        ]
+        html: [...this.vueContextService.contextOf(root).html, content]
       });
     }
+  }
 
+  private traverseStyledLayer(
+    data: SketchMSData,
+    current: SketchMSLayer,
+    root: SketchMSLayer,
+    depth: number
+  ) {
+    const cssRules = this.cssBlocGenService
+      .transform(current, data)
+      .map(file => file.value);
+
+    this.vueContextService.putContext(root, {
+      ...this.vueContextService.contextOf(root),
+      css: [...this.vueContextService.contextOf(root).css, ...cssRules]
+    });
+    this.vueContextService.putContext(root, {
+      ...this.vueContextService.contextOf(root),
+      html: [
+        ...this.vueContextService.contextOf(root).html,
+        this.lintService.indent(depth, this.extractCssOpenTag(current))
+      ]
+    });
+
+    this.closingLayer(data, current, root, depth);
+  }
+
+  private traverseLayer(
+    data: SketchMSData,
+    current: SketchMSLayer,
+    root: SketchMSLayer,
+    depth: number
+  ) {
+    this.vueContextService.putContext(root, {
+      ...this.vueContextService.contextOf(root),
+      html: [
+        ...this.vueContextService.contextOf(root).html,
+        this.lintService.indent(depth, this.extractOpenTag(current))
+      ]
+    });
+
+    this.closingLayer(data, current, root, depth);
+  }
+
+  private closingLayer(
+    data: SketchMSData,
+    current: SketchMSLayer,
+    root: SketchMSLayer,
+    depth: number
+  ) {
     const content = this.traverse(data, current, root, depth + 1);
     if (content) {
       this.vueContextService.putContext(root, {
