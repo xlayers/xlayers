@@ -29,8 +29,6 @@ export class VueParserService {
     private svgContextService: SvgContextService
   ) {}
 
-  private assetDir = 'assets';
-
   compute(data: SketchMSData, current: SketchMSLayer) {
     this.vueContextService.putContext(current);
     this.traverse(data, current, current);

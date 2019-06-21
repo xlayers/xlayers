@@ -12,7 +12,6 @@ export class VueRenderService {
   ) {}
 
   private componentDir = 'components';
-  private cssOptimization: true;
 
   render(current: SketchMSLayer, data?: SketchMSData) {
     if (this.vueContextService.hasContext(current)) {
@@ -91,11 +90,7 @@ ${this.renderScript(context.components)}
 </script>
 
 <style>
-${
-  this.cssOptimization
-    ? this.cssOptimizerService.parseStyleSheet(current)
-    : context.css.join('\n\n')
-}
+${this.cssOptimizerService.parseStyleSheet(current)}
 </style>`;
   }
 
