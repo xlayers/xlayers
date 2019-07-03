@@ -1,5 +1,5 @@
 module.exports = {
-  roots: ["<rootDir>/tests/integration", "<rootDir>/projects", "<rootDir>/src"],
+  roots: ["<rootDir>/tests", "<rootDir>/projects", "<rootDir>/src"],
   globals: {
     "ts-jest": {
       tsConfig: "src/tsconfig.spec.json"
@@ -11,10 +11,8 @@ module.exports = {
   moduleNameMapper: {
     "^@app/(.*)": "<rootDir>/src/app/$1",
     "^@env/(.*)": "<rootDir>/src/environments/$1",
-    "^@xlayers/sketchapp-parser": "<rootDir>/projects/sketchapp-parser/src/public_api.ts",
-    "^@xlayers/sketchapp-parser/(.*)": "<rootDir>/projects/sketchapp-parser/src/lib/$1",
-    "^@xlayers/sketch-blocgen": "<rootDir>/projects/sketch-blocgen/src/public_api.ts",
-    "^@xlayers/sketch-blocgen/(.*)": "<rootDir>/projects/sketch-blocgen/src/lib/$1",
+    "^@xlayers/sketch-ingestor": "<rootDir>/projects/sketch-ingestor/src/public_api.ts",
+    "^@xlayers/sketch-ingestor/(.*)": "<rootDir>/projects/sketch-ingestor/src/lib/$1",
     "^@xlayers/std-blocgen": "<rootDir>/projects/std-blocgen/src/public_api.ts",
     "^@xlayers/std-blocgen/(.*)": "<rootDir>/projects/std-blocgen/src/lib/$1",
     "^@xlayers/css-blocgen": "<rootDir>/projects/css-blocgen/src/public_api.ts",

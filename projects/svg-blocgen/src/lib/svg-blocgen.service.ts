@@ -15,9 +15,29 @@ export class SvgBlocGenService {
 
   transform(current: SketchMSLayer, data?: SketchMSData) {
     if (!this.svgContextService.hasContext(current)) {
-      this.svgParserService.compute(current);
+      this.compute(current);
     }
 
+    return this.render(current, data);
+  }
+
+  compute(current: SketchMSLayer) {
+    this.svgParserService.compute(current);
+  }
+
+  render(current: SketchMSLayer, data?: SketchMSData) {
     return this.svgRenderService.render(current, data);
+  }
+
+  identify(current: SketchMSLayer) {
+    return this.svgContextService.identify(current);
+  }
+
+  hasContext(current: SketchMSLayer) {
+    return this.svgContextService.hasContext(current);
+  }
+
+  contextOf(current: SketchMSLayer) {
+    return this.svgContextService.contextOf(current);
   }
 }

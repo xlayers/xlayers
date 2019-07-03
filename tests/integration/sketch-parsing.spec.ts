@@ -1,8 +1,8 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { async, TestBed } from '@angular/core/testing';
-import { SketchStyleParserService, SketchData } from '@xlayers/sketchapp-parser';
 import { readdirSync, readFile } from 'fs';
 import * as jszip from 'jszip';
+import { CssBlocGenService } from '@xlayers/css-blocgen';
 
 const VERSION_LIST = [50, 51, 52, 53];
 const SKETCH_PATH = './src/assets/demos/sketchapp';
@@ -14,7 +14,7 @@ async function loadSketch(version, fileName) {
     document: {},
     user: {},
     meta: {}
-  } as SketchData;
+  };
 
   const sketch = await new Promise((resolve, reject) => {
     readFile(`${SKETCH_PATH}/${version}/${fileName}`, (err, file) => {
@@ -59,27 +59,28 @@ async function loadSketch(version, fileName) {
 }
 
 describe('sketch parser', () => {
-  let sketchStyleParserService: SketchStyleParserService;
+  let cssBlocGenService: CssBlocGenService;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       schemas: [NO_ERRORS_SCHEMA],
-      providers: [SketchStyleParserService],
+      providers: [CssBlocGenService],
       declarations: []
     }).compileComponents();
-    sketchStyleParserService = TestBed.get(SketchStyleParserService);
+    cssBlocGenService = TestBed.get(CssBlocGenService);
   }));
 
   VERSION_LIST.forEach(version => {
     const fileNames = readdirSync(`${SKETCH_PATH}/${version}`);
 
     fileNames.forEach(fileName => {
-      it(`should match ${fileName} snapshot for ${version}`, (done) => {
+      it(`should match ${fileName} snapshot for ${version}`, done => {
         loadSketch(version, fileName)
-          .then(data => {
-            sketchStyleParserService.visit(data);
-            return data;
-          })
+          .then(data =>
+            data.pages.map(layers =>
+              cssBlocGenService.transform(layers, data as SketchMSData)
+            )
+          )
           .then(sketch => {
             expect(sketch).toMatchSnapshot();
             done();

@@ -14,10 +14,8 @@
     "paths": {
       "@env/*": ["src/environments/*"],
       "@app/*": ["src/app/*"],
-      "@xlayers/sketchapp-parser": ["projects/sketchapp-parser/src/public_api"],
-      "@xlayers/sketchapp-parser/*": ["projects/sketchapp-parser/src/lib/*"],
-      "@xlayers/sketch-blocgen": ["projects/sketch-blocgen/src/public_api"],
-      "@xlayers/sketch-blocgen/*": ["projects/sketch-blocgen/src/lib/*"],
+      "@xlayers/sketch-ingestor": ["projects/sketch-ingestor/src/public_api"],
+      "@xlayers/sketch-ingestor/*": ["projects/sketch-ingestor/src/lib/*"],
       "@xlayers/std-blocgen": ["projects/std-blocgen/src/public_api"],
       "@xlayers/std-blocgen/*": ["projects/std-blocgen/src/lib/*"],
       "@xlayers/css-blocgen": ["projects/css-blocgen/src/public_api"],

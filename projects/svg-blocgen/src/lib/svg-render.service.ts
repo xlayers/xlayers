@@ -5,7 +5,6 @@ import {
   SvgContextService,
   SvgBlocGenContextPath
 } from './svg-context.service';
-import { CssContextService } from '@xlayers/css-blocgen';
 
 @Injectable({
   providedIn: 'root'
@@ -13,8 +12,7 @@ import { CssContextService } from '@xlayers/css-blocgen';
 export class SvgRenderService {
   constructor(
     private formatHelperService: FormatService,
-    private svgContextService: SvgContextService,
-    private cssContextService: CssContextService
+    private svgContextService: SvgContextService
   ) {}
 
   render(current: SketchMSLayer, _data?: SketchMSData) {
@@ -32,10 +30,10 @@ export class SvgRenderService {
 
   private formatContext(context: SvgBlocGenContext, current: SketchMSLayer) {
     const attributes = [
-      `class=${this.cssContextService.contextOf(current).className}`,
+      `xmlns="http://www.w3.org/2000/svg"`,
+      `xmlns:xlink="http://www.w3.org/1999/xlink"`,
       `width="${current.frame.width + context.offset * 2}"`,
-      `height="${current.frame.height + context.offset * 2}"`,
-      `role="img"`
+      `height="${current.frame.height + context.offset * 2}"`
     ].join(' ');
 
     return [

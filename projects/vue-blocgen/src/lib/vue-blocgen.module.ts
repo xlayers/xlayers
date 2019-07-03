@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { VueBlocGenService } from './vue-blocgen.service';
-import { VueContextService } from './vue-context.service';
 import { TextBlocgenModule } from '@xlayers/text-blocgen';
 import { BitmapBlocgenModule } from '@xlayers/bitmap-blocgen';
 import { CssBlocgenModule } from '@xlayers/css-blocgen';
@@ -15,6 +14,6 @@ import { SvgBlocgenModule } from '@xlayers/svg-blocgen';
     BitmapBlocgenModule,
     TextBlocgenModule
   ],
-  providers: [VueBlocGenService, VueContextService]
+  providers: [VueBlocGenService]
 })
 export class VueBlocgenModule {}

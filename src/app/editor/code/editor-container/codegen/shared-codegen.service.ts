@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { SketchService } from '@app/core/sketch.service';
-import { StyleOptimizerService } from '@xlayers/sketchapp-parser';
+import { CssOptimizerService } from '@xlayers/css-blocgen';
 import { SvgRenderService } from '@xlayers/svg-blocgen';
 
 export enum Template {
@@ -17,7 +17,7 @@ export class SharedCodegen {
 
   constructor(
     private sketchService: SketchService,
-    private optimizer: StyleOptimizerService,
+    private optimizer: CssOptimizerService,
     private svgRenderService: SvgRenderService
   ) {}
 

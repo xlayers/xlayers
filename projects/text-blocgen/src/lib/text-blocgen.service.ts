@@ -15,9 +15,29 @@ export class TextBlocGenService {
 
   transform(current: SketchMSLayer, data?: SketchMSData) {
     if (!this.textContextService.hasContext(current)) {
-      this.textParserService.compute(current);
+      this.compute(current);
     }
 
+    return this.render(current, data);
+  }
+
+  compute(current: SketchMSLayer) {
+    this.textParserService.compute(current);
+  }
+
+  render(current: SketchMSLayer, data?: SketchMSData) {
     return this.textRenderService.render(current, data);
+  }
+
+  identify(current: SketchMSLayer) {
+    return this.textContextService.identify(current);
+  }
+
+  hasContext(current: SketchMSLayer) {
+    return this.textContextService.hasContext(current);
+  }
+
+  contextOf(current: SketchMSLayer) {
+    return this.textContextService.contextOf(current);
   }
 }

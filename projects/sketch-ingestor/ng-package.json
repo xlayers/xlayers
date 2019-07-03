@@ -1,6 +1,6 @@
 {
   "$schema": "../../node_modules/ng-packagr/ng-package.schema.json",
-  "dest": "../../dist/sketch-blocgen",
+  "dest": "../../dist/sketch-ingestor",
   "lib": {
     "entryFile": "src/public_api.ts"
   }

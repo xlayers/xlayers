@@ -102,41 +102,6 @@
         }
       }
     },
-    "sketchapp-parser": {
-      "root": "projects/sketchapp-parser",
-      "sourceRoot": "projects/sketchapp-parser/src",
-      "projectType": "library",
-      "prefix": "xly",
-      "architect": {
-        "build": {
-          "builder": "@angular-devkit/build-ng-packagr:build",
-          "options": {
-            "tsConfig": "projects/sketchapp-parser/tsconfig.lib.json",
-            "project": "projects/sketchapp-parser/ng-package.json"
-          }
-        },
-        "test": {
-          "builder": "@angular-devkit/build-angular:karma",
-          "options": {
-            "main": "projects/sketchapp-parser/src/test.ts",
-            "tsConfig": "projects/sketchapp-parser/tsconfig.spec.json",
-            "karmaConfig": "projects/sketchapp-parser/karma.conf.js"
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "projects/sketchapp-parser/tsconfig.lib.json",
-              "projects/sketchapp-parser/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
-          }
-        }
-      }
-    },
     "vue-blocgen": {
       "root": "projects/vue-blocgen",
       "sourceRoot": "projects/vue-blocgen/src",
@@ -347,33 +312,33 @@
         }
       }
     },
-    "sketch-blocgen": {
-      "root": "projects/sketch-blocgen",
-      "sourceRoot": "projects/sketch-blocgen/src",
+    "sketch-ingestor": {
+      "root": "projects/sketch-ingestor",
+      "sourceRoot": "projects/sketch-ingestor/src",
       "projectType": "library",
       "prefix": "lib",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {
-            "tsConfig": "projects/sketch-blocgen/tsconfig.lib.json",
-            "project": "projects/sketch-blocgen/ng-package.json"
+            "tsConfig": "projects/sketch-ingestor/tsconfig.lib.json",
+            "project": "projects/sketch-ingestor/ng-package.json"
           }
         },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "main": "projects/sketch-blocgen/src/test.ts",
-            "tsConfig": "projects/sketch-blocgen/tsconfig.spec.json",
-            "karmaConfig": "projects/sketch-blocgen/karma.conf.js"
+            "main": "projects/sketch-ingestor/src/test.ts",
+            "tsConfig": "projects/sketch-ingestor/tsconfig.spec.json",
+            "karmaConfig": "projects/sketch-ingestor/karma.conf.js"
           }
         },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "projects/sketch-blocgen/tsconfig.lib.json",
-              "projects/sketch-blocgen/tsconfig.spec.json"
+              "projects/sketch-ingestor/tsconfig.lib.json",
+              "projects/sketch-ingestor/tsconfig.spec.json"
             ],
             "exclude": [
               "**/node_modules/**"

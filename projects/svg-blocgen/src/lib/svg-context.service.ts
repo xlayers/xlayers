@@ -7,6 +7,7 @@ export interface SvgBlocGenContextPath {
 
 export interface SvgBlocGenContext {
   paths: SvgBlocGenContextPath[];
+  attributes: string[];
   offset: number;
 }
 
@@ -15,7 +16,10 @@ export interface SvgBlocGenContext {
 })
 export class SvgContextService {
   identify(current: SketchMSLayer) {
-    return ['triangle', 'shapePath', 'shapeGroup'].includes(current._class as string);
+    // TODO: Fix double rendered ShapePath and ShapeGroup
+    return ['triangle', 'shapePath', /*"shapeGroup"*/].includes(
+      current._class as string
+    );
   }
 
   hasContext(current: SketchMSLayer) {
@@ -28,7 +32,7 @@ export class SvgContextService {
 
   putContext(
     current: SketchMSLayer,
-    context: SvgBlocGenContext = { paths: [], offset: 0 }
+    context: SvgBlocGenContext = { paths: [], offset: 0, attributes: [] }
   ) {
     (current as any).svg = context;
   }
