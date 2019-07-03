@@ -137,33 +137,33 @@
         }
       }
     },
-    "std-blocgen": {
-      "root": "projects/std-blocgen",
-      "sourceRoot": "projects/std-blocgen/src",
+    "std-library": {
+      "root": "projects/std-library",
+      "sourceRoot": "projects/std-library/src",
       "projectType": "library",
       "prefix": "lib",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {
-            "tsConfig": "projects/std-blocgen/tsconfig.lib.json",
-            "project": "projects/std-blocgen/ng-package.json"
+            "tsConfig": "projects/std-library/tsconfig.lib.json",
+            "project": "projects/std-library/ng-package.json"
           }
         },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "main": "projects/std-blocgen/src/test.ts",
-            "tsConfig": "projects/std-blocgen/tsconfig.spec.json",
-            "karmaConfig": "projects/std-blocgen/karma.conf.js"
+            "main": "projects/std-library/src/test.ts",
+            "tsConfig": "projects/std-library/tsconfig.spec.json",
+            "karmaConfig": "projects/std-library/karma.conf.js"
           }
         },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "projects/std-blocgen/tsconfig.lib.json",
-              "projects/std-blocgen/tsconfig.spec.json"
+              "projects/std-library/tsconfig.lib.json",
+              "projects/std-library/tsconfig.spec.json"
             ],
             "exclude": [
               "**/node_modules/**"

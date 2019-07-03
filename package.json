@@ -12,7 +12,7 @@
     "sketchingestor.build.prod": "ng build sketch-ingestor",
     "bitmapblocgen.build.prod": "ng build bitmap-blocgen",
     "cssblocgen.build.prod": "ng build css-blocgen",
-    "stdblocgen.build.prod": "ng build std-blocgen",
+    "stdblocgen.build.prod": "ng build std-library",
     "svgblocgen.build.prod": "ng build svg-blocgen",
     "textblocgen.build.prod": "ng build text-blocgen",
     "vueblocgen.build.prod": "ng build vue-blocgen",

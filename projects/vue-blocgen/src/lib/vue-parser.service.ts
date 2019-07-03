@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { XmlService } from '@xlayers/std-blocgen';
-import { FormatService } from '@xlayers/std-blocgen';
+import { XmlService } from '@xlayers/std-library';
+import { FormatService } from '@xlayers/std-library';
 import { CssBlocGenService } from '@xlayers/css-blocgen';
 import { BitmapBlocGenService } from '@xlayers/bitmap-blocgen';
 import { SvgBlocGenService } from '@xlayers/svg-blocgen';

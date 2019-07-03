@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CssBlocGenService } from './css-blocgen.service';
-import { StdBlocgenModule } from '@xlayers/std-blocgen';
+import { StdLibraryModule } from '@xlayers/std-library';
 
 @NgModule({
-  imports: [StdBlocgenModule],
+  imports: [StdLibraryModule],
   providers: [CssBlocGenService]
 })
 export class CssBlocgenModule {}

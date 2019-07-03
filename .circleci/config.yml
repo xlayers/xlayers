@@ -108,7 +108,7 @@ jobs:
       - run:
           command: npm run css-blocgen.build.prod
 
-  "ci/build-std-blocgen":
+  "ci/build-std-library":
     docker:
       - image: circleci/node:10.12
 
@@ -133,7 +133,7 @@ jobs:
           key: v1-dependencies-{{ checksum "package.json" }}
 
       - run:
-          command: npm run std-blocgen.build.prod
+          command: npm run std-library.build.prod
 
   "ci/build-svg-blocgen":
     docker:

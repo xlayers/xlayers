@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { StyleService } from '@xlayers/std-blocgen';
+import { StyleService } from '@xlayers/std-library';
 import { CssContextService } from './css-context.service';
 
 @Injectable({

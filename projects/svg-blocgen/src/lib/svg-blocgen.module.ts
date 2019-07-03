@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { SvgBlocGenService } from './svg-blocgen.service';
-import { StdBlocgenModule } from '@xlayers/std-blocgen';
+import { StdLibraryModule } from '@xlayers/std-library';
 
 @NgModule({
-  imports: [StdBlocgenModule],
+  imports: [StdLibraryModule],
   providers: [SvgBlocGenService]
 })
 export class SvgBlocgenModule {}

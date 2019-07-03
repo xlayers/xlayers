@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { FormatService } from '@xlayers/std-blocgen';
+import { FormatService } from '@xlayers/std-library';
 import {
   SvgBlocGenContext,
   SvgContextService,
