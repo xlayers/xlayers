@@ -16,7 +16,7 @@ import { TextBlocGenService } from '@xlayers/text-blocgen';
 import { BitmapBlocGenService } from '@xlayers/bitmap-blocgen';
 
 @Component({
-  selector: "xly-viewer-layer",
+  selector: 'xly-viewer-layer',
   template: `
     <div
       [style.width.px]="layer?.frame?.width"
@@ -45,8 +45,6 @@ import { BitmapBlocGenService } from '@xlayers/bitmap-blocgen';
         [style.height.%]="100"
         [style.width.%]="100"
       />
-
-      <img *ngFor="let shape of shapes" [src]="shape" />
     </div>
   `,
   styles: [
@@ -93,7 +91,6 @@ export class ViewerLayerComponent implements OnInit, AfterContentInit {
 
   texts: string[] = [];
   images: SafeUrl[] = [];
-  shapes: SafeUrl[] = [];
   layers: SketchMSLayer[] = [];
 
   constructor(
@@ -133,19 +130,21 @@ export class ViewerLayerComponent implements OnInit, AfterContentInit {
 
   loadText() {
     if (this.textBlocGenService.hasContext(this.layer)) {
-      this.texts = this.textBlocGenService
+      this.textBlocGenService
         .transform(this.layer, this.data)
-        .map(file => file.value);
+        .forEach(file => this.texts.push(file.value));
     }
   }
 
   loadImage() {
     if (this.bitmapBlocGenService.identify(this.layer)) {
-      this.images = this.bitmapBlocGenService
+      this.bitmapBlocGenService
         .transform(this.layer, this.data)
-        .map(file =>
-          this.sanitizer.bypassSecurityTrustResourceUrl(
-            `data:image/jpg;base64,${file.value}`
+        .forEach(file =>
+          this.images.push(
+            this.sanitizer.bypassSecurityTrustResourceUrl(
+              `data:image/jpg;base64,${file.value}`
+            )
           )
         );
     }
@@ -153,11 +152,13 @@ export class ViewerLayerComponent implements OnInit, AfterContentInit {
 
   loadShapes() {
     if (this.svgBlocGenService.identify(this.layer)) {
-      this.shapes = this.svgBlocGenService
+      this.svgBlocGenService
         .transform(this.layer, this.data)
-        .map(file =>
-          this.sanitizer.bypassSecurityTrustResourceUrl(
-            `data:image/svg+xml;utf8,${file.value}`
+        .forEach(file =>
+          this.images.push(
+            this.sanitizer.bypassSecurityTrustResourceUrl(
+              `data:image/svg+xml;base64,${btoa(file.value)}`
+            )
           )
         );
     }
@@ -172,16 +173,14 @@ export class ViewerLayerComponent implements OnInit, AfterContentInit {
   }
 
   loadSymbolMaster() {
-    if ((this.layer._class as string) === "symbolInstance") {
+    if ((this.layer._class as string) === 'symbolInstance') {
       const foreignSymbol = this.data.document.foreignSymbols.find(
         x => x.symbolMaster.symbolID === (this.layer as any).symbolID
       );
 
       if (foreignSymbol) {
-      debugger;
         this.layers = [foreignSymbol.symbolMaster];
       }
-      debugger;
     }
   }
 
@@ -198,17 +197,17 @@ export class ViewerLayerComponent implements OnInit, AfterContentInit {
     const elementPosition = this.element.nativeElement.getBoundingClientRect();
     this.renderer.setStyle(
       this.element.nativeElement,
-      "border-width",
+      'border-width',
       `${this.borderWidth}px`
     );
     this.renderer.setStyle(
       this.element.nativeElement,
-      "left",
+      'left',
       `${elementPosition.left - this.borderWidth}px`
     );
     this.renderer.setStyle(
       this.element.nativeElement,
-      "top",
+      'top',
       `${elementPosition.top - this.borderWidth}px`
     );
   }
@@ -216,13 +215,13 @@ export class ViewerLayerComponent implements OnInit, AfterContentInit {
   enable3dStyle() {
     this.renderer.setStyle(
       this.element.nativeElement,
-      "transform",
+      'transform',
       `translateZ(${(this.level * this.offset3d).toFixed(3)}px)`
     );
   }
 
   disable3dStyle() {
-    this.renderer.setStyle(this.element.nativeElement, "transform", `none`);
+    this.renderer.setStyle(this.element.nativeElement, 'transform', `none`);
   }
 
   selectLayer(layer: SketchMSLayer) {
