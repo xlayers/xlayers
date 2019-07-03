@@ -69,9 +69,11 @@ export class SettingsPreviewComponent implements OnInit {
 
   ngOnInit() {
     this.store.select(UiState.currentData).subscribe(currentData => {
-      this.previews = currentData.previews.map(preview => {
-        return `data:image/jpg;base64,${preview}`;
-      });
+      if (currentData) {
+        this.previews = currentData.previews.map(preview => {
+          return `data:image/jpg;base64,${preview}`;
+        });
+      }
     });
   }
 }
