@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { VueContextService, VueBlocGenContext } from './vue-context.service';
-import { CssOptimizerService } from "@xlayers/css-blocgen";
-import { AstService } from "@xlayers/std-library";
+import { CssOptimizerService } from '@xlayers/css-blocgen';
+import { AstService } from '@xlayers/std-library';
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root'
 })
 export class VueRenderService {
   constructor(
@@ -13,23 +13,23 @@ export class VueRenderService {
     private cssOptimizerService: CssOptimizerService
   ) {}
 
-  private componentDir = "components";
+  private componentDir = 'components';
 
   render(current: SketchMSLayer, data?: SketchMSData) {
     if (this.vueContextService.hasContext(current)) {
       const context = this.vueContextService.contextOf(current);
       return [
-        ...this.traverse(data, current).map(file => ({ ...file, kind: "vue" })),
+        ...this.traverse(data, current).map(file => ({ ...file, kind: 'vue' })),
         {
-          kind: "vue",
+          kind: 'vue',
           value: this.renderComponent(current, context),
-          language: "html",
+          language: 'html',
           uri: `${this.componentDir}/${current.name}.vue`
         },
         {
-          kind: "vue",
+          kind: 'vue',
           value: this.renderComponentSpec(current.name),
-          language: "javascript",
+          language: 'javascript',
           uri: `${this.componentDir}/${current.name}.spec.js`
         }
       ];
@@ -48,7 +48,7 @@ export class VueRenderService {
   }
 
   private retrieveFiles(data: SketchMSData, current: SketchMSLayer) {
-    if ((current._class as string) === "symbolInstance") {
+    if ((current._class as string) === 'symbolInstance') {
       return this.retrieveSymbolMaster(data, current);
     }
     return [];
@@ -69,7 +69,7 @@ export class VueRenderService {
 
     return `\
 import { shallowMount } from "@vue/test-utils";
-import ${capitalizedName} from "@/${[this.componentDir, name].join("/")}.vue";
+import ${capitalizedName} from "@/${[this.componentDir, name].join('/')}.vue";
 
 describe("${capitalizedName}", () => {
   it("render", () => {
@@ -82,7 +82,7 @@ describe("${capitalizedName}", () => {
   private renderComponent(current: SketchMSLayer, context: VueBlocGenContext) {
     return `\
 <template>
-${context.html.join("\n")}
+${context.html.join('\n')}
 </template>
 
 <script>
@@ -99,10 +99,10 @@ ${this.cssOptimizerService.parseStyleSheet(current)}
       .map(
         component =>
           `import ${component} from "${[this.componentDir, component].join(
-            "/"
+            '/'
           )}"`
       )
-      .join("\n");
+      .join('\n');
 
     return components.length === 0
       ? `\
@@ -112,7 +112,7 @@ ${imports}
 
 export default {
   components: {
-    ${components.join(",\n    ")}
+    ${components.join(',\n    ')}
   }
 }`;
   }
