@@ -57,6 +57,6 @@ describe('ViewerLayerComponent', () => {
         expect(element).toEqual(component.layer);
       }
     });
-    component.onSelectLayer(component.layer);
+    component.selectLayer(component.layer);
   }));
 });

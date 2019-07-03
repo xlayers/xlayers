@@ -6,7 +6,8 @@
     "types": [
       "jest",
       "node",
-      "sketchapp"
+      "sketchapp",
+      "cypress"
     ]
   },
   "files": [

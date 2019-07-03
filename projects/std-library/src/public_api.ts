@@ -2,6 +2,7 @@
  * Public API Surface of std-library
  */
 
+export * from "./lib/ast.service";
 export * from './lib/bplist.service';
 export * from './lib/format.service';
 export * from './lib/shape.service';

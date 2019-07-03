@@ -1,36 +1,28 @@
-import { Injectable } from '@angular/core';
-import { XmlService } from '@xlayers/std-library';
-import { FormatService } from '@xlayers/std-library';
-import { CssBlocGenService } from '@xlayers/css-blocgen';
-import { BitmapBlocGenService } from '@xlayers/bitmap-blocgen';
-import { SvgBlocGenService } from '@xlayers/svg-blocgen';
-import { TextBlocGenService } from '@xlayers/text-blocgen';
-import { VueContextService } from './vue-context.service';
-import { SvgContextService } from '@xlayers/svg-blocgen';
-import { CssContextService } from '@xlayers/css-blocgen';
-import { TextContextService } from '@xlayers/text-blocgen';
-import { BitmapContextService } from '@xlayers/bitmap-blocgen';
+import { Injectable } from "@angular/core";
+import { XmlService, FormatService, AstService } from "@xlayers/std-library";
+import { CssBlocGenService } from "@xlayers/css-blocgen";
+import { BitmapBlocGenService } from "@xlayers/bitmap-blocgen";
+import { SvgBlocGenService } from "@xlayers/svg-blocgen";
+import { TextBlocGenService } from "@xlayers/text-blocgen";
+import { VueContextService } from "./vue-context.service";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class VueParserService {
   constructor(
-    private xmlHelperService: XmlService,
+    private xmlService: XmlService,
     private lintService: FormatService,
+    private astService: AstService,
     private cssBlocGenService: CssBlocGenService,
     private bitmapBlocGenService: BitmapBlocGenService,
-    private bitmapContextService: BitmapContextService,
     private svgBlocGenService: SvgBlocGenService,
-    private vueContextService: VueContextService,
-    private textBlocGenService: TextBlocGenService,
-    private textContextService: TextContextService,
-    private cssContextService: CssContextService,
-    private svgContextService: SvgContextService
+    private vueBlocGenService: VueContextService,
+    private textBlocGenService: TextBlocGenService
   ) {}
 
   compute(data: SketchMSData, current: SketchMSLayer) {
-    this.vueContextService.putContext(current);
+    this.vueBlocGenService.putContext(current);
     this.traverse(data, current, current);
   }
 
@@ -40,11 +32,11 @@ export class VueParserService {
     root: SketchMSLayer,
     depth: number = 0
   ) {
-    if (this.vueContextService.identify(current)) {
+    if (this.vueBlocGenService.identify(current)) {
       current.layers.forEach(layer => {
-        if (this.svgContextService.identify(layer)) {
+        if (this.svgBlocGenService.identify(layer)) {
           this.traverseSvgLayer(data, layer, root, depth);
-        } else if (this.cssContextService.identify(layer)) {
+        } else if (this.cssBlocGenService.identify(layer)) {
           this.traverseStyledLayer(data, layer, root, depth);
         } else {
           this.traverseLayer(data, layer, root, depth);
@@ -60,16 +52,16 @@ export class VueParserService {
     current: SketchMSLayer,
     depth: number
   ) {
-    if ((current._class as string) === 'symbolInstance') {
+    if ((current._class as string) === "symbolInstance") {
       return this.extractSymbolMaster(data, current, depth);
     }
-    if (this.bitmapContextService.identify(current)) {
+    if (this.bitmapBlocGenService.identify(current)) {
       return this.extractImage(data, current, depth);
     }
-    if (this.textContextService.identify(current)) {
+    if (this.textBlocGenService.identify(current)) {
       return this.extractText(data, current, depth);
     }
-    if (this.svgContextService.identify(current)) {
+    if (this.svgBlocGenService.identify(current)) {
       return this.extractShape(data, current, depth);
     }
     return null;
@@ -85,16 +77,16 @@ export class VueParserService {
       .transform(current, data)
       .map(file => file.value);
 
-    this.vueContextService.putContext(root, {
-      ...this.vueContextService.contextOf(root),
-      css: [...this.vueContextService.contextOf(root).css, ...cssRules]
+    this.vueBlocGenService.putContext(root, {
+      ...this.vueBlocGenService.contextOf(root),
+      css: [...this.vueBlocGenService.contextOf(root).css, ...cssRules]
     });
 
     const content = this.traverse(data, current, root, depth);
     if (content) {
-      this.vueContextService.putContext(root, {
-        ...this.vueContextService.contextOf(root),
-        html: [...this.vueContextService.contextOf(root).html, content]
+      this.vueBlocGenService.putContext(root, {
+        ...this.vueBlocGenService.contextOf(root),
+        html: [...this.vueBlocGenService.contextOf(root).html, content]
       });
     }
   }
@@ -109,14 +101,14 @@ export class VueParserService {
       .transform(current, data)
       .map(file => file.value);
 
-    this.vueContextService.putContext(root, {
-      ...this.vueContextService.contextOf(root),
-      css: [...this.vueContextService.contextOf(root).css, ...cssRules]
+    this.vueBlocGenService.putContext(root, {
+      ...this.vueBlocGenService.contextOf(root),
+      css: [...this.vueBlocGenService.contextOf(root).css, ...cssRules]
     });
-    this.vueContextService.putContext(root, {
-      ...this.vueContextService.contextOf(root),
+    this.vueBlocGenService.putContext(root, {
+      ...this.vueBlocGenService.contextOf(root),
       html: [
-        ...this.vueContextService.contextOf(root).html,
+        ...this.vueBlocGenService.contextOf(root).html,
         this.lintService.indent(depth, this.extractCssOpenTag(current))
       ]
     });
@@ -130,10 +122,10 @@ export class VueParserService {
     root: SketchMSLayer,
     depth: number
   ) {
-    this.vueContextService.putContext(root, {
-      ...this.vueContextService.contextOf(root),
+    this.vueBlocGenService.putContext(root, {
+      ...this.vueBlocGenService.contextOf(root),
       html: [
-        ...this.vueContextService.contextOf(root).html,
+        ...this.vueBlocGenService.contextOf(root).html,
         this.lintService.indent(depth, this.extractOpenTag(current))
       ]
     });
@@ -149,29 +141,29 @@ export class VueParserService {
   ) {
     const content = this.traverse(data, current, root, depth + 1);
     if (content) {
-      this.vueContextService.putContext(root, {
-        ...this.vueContextService.contextOf(root),
-        html: [...this.vueContextService.contextOf(root).html, content]
+      this.vueBlocGenService.putContext(root, {
+        ...this.vueBlocGenService.contextOf(root),
+        html: [...this.vueBlocGenService.contextOf(root).html, content]
       });
     }
 
-    this.vueContextService.putContext(root, {
-      ...this.vueContextService.contextOf(root),
+    this.vueBlocGenService.putContext(root, {
+      ...this.vueBlocGenService.contextOf(root),
       html: [
-        ...this.vueContextService.contextOf(root).html,
-        this.lintService.indent(depth, this.xmlHelperService.closeTag('div'))
+        ...this.vueBlocGenService.contextOf(root).html,
+        this.lintService.indent(depth, this.xmlService.closeTag("div"))
       ]
     });
   }
 
   private extractCssOpenTag(current: SketchMSLayer) {
-    const context = this.cssContextService.contextOf(current);
+    const context = this.cssBlocGenService.contextOf(current);
     const attributes = [
       `class="${context.className}"`,
       `role="${current._class}"`,
       `aria-label="${current.name}"`
     ];
-    return this.xmlHelperService.openTag('div', attributes);
+    return this.xmlService.openTag("div", attributes);
   }
 
   private extractOpenTag(current: SketchMSLayer) {
@@ -179,7 +171,7 @@ export class VueParserService {
       `role="${current._class}"`,
       `aria-label="${current.name}"`
     ];
-    return this.xmlHelperService.openTag('div', attributes);
+    return this.xmlService.openTag("div", attributes);
   }
 
   private extractText(
@@ -191,11 +183,11 @@ export class VueParserService {
       .transform(current, data)
       .map(
         file =>
-          this.xmlHelperService.openTag('span') +
+          this.xmlService.openTag("span") +
           file.value +
-          this.xmlHelperService.closeTag('span')
+          this.xmlService.closeTag("span")
       )
-      .join('\n');
+      .join("\n");
 
     return this.lintService.indent(depth, content);
   }
@@ -205,7 +197,7 @@ export class VueParserService {
     current: SketchMSLayer,
     depth: number
   ) {
-    const context = this.cssContextService.contextOf(current);
+    const context = this.cssBlocGenService.contextOf(current);
     const content = this.bitmapBlocGenService
       .transform(current, data)
       .map(file => {
@@ -215,11 +207,11 @@ export class VueParserService {
           `aria-label="${current.name}"`,
           `src="data:image/jpg;base64,${file.value}"`
         ];
-        return this.xmlHelperService.openTag('img', attributes, {
+        return this.xmlService.openTag("img", attributes, {
           autoclose: true
         });
       })
-      .join('\n');
+      .join("\n");
 
     return this.lintService.indent(depth, content);
   }
@@ -229,17 +221,17 @@ export class VueParserService {
     current: SketchMSLayer,
     depth: number
   ) {
-    const foreignSymbol = data.document.foreignSymbols.find(
-      x => x.symbolMaster.symbolID === (current as any).symbolID
-    );
+    const symbolMaster = this.astService.maybeFindSymbolMaster(current, data);
 
-    this.compute(data, foreignSymbol.symbolMaster);
+    if (symbolMaster) {
+      this.compute(data, symbolMaster);
 
-    const content = this.xmlHelperService.openTag(current.name, [], {
-      autoclose: true
-    });
+      const content = this.xmlService.openTag(current.name, [], {
+        autoclose: true
+      });
 
-    return this.lintService.indent(depth, content);
+      return this.lintService.indent(depth, content);
+    }
   }
 
   private extractShape(
@@ -251,10 +243,10 @@ export class VueParserService {
       .transform(current, data)
       .map(file =>
         file.value
-          .split('\n')
+          .split("\n")
           .map(line => this.lintService.indent(depth, line))
-          .join('\n')
+          .join("\n")
       )
-      .join('\n');
+      .join("\n");
   }
 }

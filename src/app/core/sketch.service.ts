@@ -5,6 +5,7 @@ import { CssBlocGenService } from '@xlayers/css-blocgen';
 import { SketchIngestorService } from '@xlayers/sketch-ingestor';
 import { SvgBlocGenService } from '@xlayers/svg-blocgen';
 import { TextBlocGenService } from '@xlayers/text-blocgen';
+import { AstService } from '../../../projects/std-library/src/lib/ast.service';
 
 export interface SketchMSData {
   pages: SketchMSPage[];
@@ -19,6 +20,7 @@ export interface SketchMSData {
 })
 export class SketchService {
   constructor(
+    private astService: AstService,
     private sketchIngestorService: SketchIngestorService,
     private http: HttpClient,
     private cssBlocGenService: CssBlocGenService,
@@ -26,38 +28,13 @@ export class SketchService {
     private svgBlocGenService: SvgBlocGenService
   ) {}
 
-  async process(file: File) {
+  async loadSketchFile(file: File) {
     const data = await this.sketchIngestorService.process(file);
     (data.pages as any).forEach(page => this.traverse(data, page));
     return data;
   }
 
-  private traverse(data: SketchMSData, current: SketchMSLayer) {
-    if (Array.isArray(current.layers)) {
-      current.layers.forEach(layer => {
-        this.cssBlocGenService.compute(layer);
-        this.traverse(data, layer);
-      });
-    } else {
-      if ((current._class as string) === 'symbolInstance') {
-        const foreignSymbol = data.document.foreignSymbols.find(
-          x => x.symbolMaster.symbolID === (current as any).symbolID
-        );
-
-        if (foreignSymbol) {
-          this.traverse(data, foreignSymbol.symbolMaster);
-        }
-      }
-      if (this.textBlocGenService.identify(current)) {
-        this.textBlocGenService.compute(current);
-      }
-      if (this.svgBlocGenService.identify(current)) {
-        this.svgBlocGenService.compute(current);
-      }
-    }
-  }
-
-  getDemoFiles() {
+  listDemoFiles() {
     return environment.demoFiles
       .filter(meta => !meta.disabled)
       .sort((m1, m2) => m2.value - m1.value);
@@ -69,5 +46,28 @@ export class SketchService {
     return this.http.get(`${repoUrl}${filename}.sketch`, {
       responseType: 'blob'
     });
+  }
+
+  private traverse(data: SketchMSData, current: SketchMSLayer) {
+    if (Array.isArray(current.layers)) {
+      current.layers.forEach(layer => {
+        this.cssBlocGenService.compute(layer);
+        this.traverse(data, layer);
+      });
+    } else {
+      if ((current._class as string) === 'symbolInstance') {
+        const symbolMaster = this.astService.maybeFindSymbolMaster(current, data);
+
+        if (symbolMaster) {
+          this.traverse(data, symbolMaster);
+        }
+      }
+      if (this.textBlocGenService.identify(current)) {
+        this.textBlocGenService.compute(current);
+      }
+      if (this.svgBlocGenService.identify(current)) {
+        this.svgBlocGenService.compute(current);
+      }
+    }
   }
 }

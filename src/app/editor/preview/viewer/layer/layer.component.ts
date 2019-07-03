@@ -9,11 +9,11 @@ import {
 import { Store } from '@ngxs/store';
 import { CurrentLayer, UiState } from '@app/core/state/ui.state';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
-import { SketchService } from '@app/core/sketch.service';
 import { CssContextService } from '@xlayers/css-blocgen';
 import { SvgBlocGenService } from '@xlayers/svg-blocgen';
 import { TextBlocGenService } from '@xlayers/text-blocgen';
 import { BitmapBlocGenService } from '@xlayers/bitmap-blocgen';
+import { AstService } from '@xlayers/std-library';
 
 @Component({
   selector: 'xly-viewer-layer',
@@ -94,15 +94,15 @@ export class ViewerLayerComponent implements OnInit, AfterContentInit {
   layers: SketchMSLayer[] = [];
 
   constructor(
-    public store: Store,
-    public renderer: Renderer2,
-    public element: ElementRef<HTMLElement>,
-    public sketchService: SketchService,
-    public sanitizer: DomSanitizer,
-    public cssContextService: CssContextService,
-    public bitmapBlocGenService: BitmapBlocGenService,
-    public svgBlocGenService: SvgBlocGenService,
-    public textBlocGenService: TextBlocGenService
+    private store: Store,
+    private renderer: Renderer2,
+    private element: ElementRef<HTMLElement>,
+    private sanitizer: DomSanitizer,
+    private astService: AstService,
+    private cssContextService: CssContextService,
+    private bitmapBlocGenService: BitmapBlocGenService,
+    private svgBlocGenService: SvgBlocGenService,
+    private textBlocGenService: TextBlocGenService
   ) {}
 
   ngOnInit() {
@@ -174,12 +174,13 @@ export class ViewerLayerComponent implements OnInit, AfterContentInit {
 
   loadSymbolMaster() {
     if ((this.layer._class as string) === 'symbolInstance') {
-      const foreignSymbol = this.data.document.foreignSymbols.find(
-        x => x.symbolMaster.symbolID === (this.layer as any).symbolID
+      const symbolMaster = this.astService.maybeFindSymbolMaster(
+        this.layer,
+        this.data
       );
 
-      if (foreignSymbol) {
-        this.layers = [foreignSymbol.symbolMaster];
+      if (symbolMaster) {
+        this.layers = [symbolMaster];
       }
     }
   }
