@@ -1,8 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { UiState } from '@app/core/state';
 import { environment } from '@env/environment';
-import { Store } from '@ngxs/store';
 import { CssBlocGenService } from '@xlayers/css-blocgen';
 import { SketchIngestorService } from '@xlayers/sketch-ingestor';
 import { SvgBlocGenService } from '@xlayers/svg-blocgen';
@@ -14,36 +12,19 @@ export interface SketchMSData {
   document: SketchMSDocumentData;
   user: SketchMSUserData;
   meta: SketchMSMetadata;
-  resources?: {
-    images: {
-      [id: string]: ResourceImageData;
-    };
-  };
-}
-
-export interface ResourceImageData {
-  source: string;
-  image: HTMLImageElement;
 }
 
 @Injectable({
   providedIn: 'root'
 })
 export class SketchService {
-  _data: SketchMSData;
-
   constructor(
     private sketchIngestorService: SketchIngestorService,
     private http: HttpClient,
     private cssBlocGenService: CssBlocGenService,
     private textBlocGenService: TextBlocGenService,
-    private svgBlocGenService: SvgBlocGenService,
-    private store: Store
-  ) {
-    this.store.select(UiState.currentData).subscribe(currentData => {
-      this._data = currentData as SketchMSData;
-    });
-  }
+    private svgBlocGenService: SvgBlocGenService
+  ) {}
 
   async process(file: File) {
     const data = await this.sketchIngestorService.process(file);
@@ -88,10 +69,5 @@ export class SketchService {
     return this.http.get(`${repoUrl}${filename}.sketch`, {
       responseType: 'blob'
     });
-  }
-
-  // TODO: Remove for V2
-  getImageDataFromRef(ref: string) {
-    return (this._data as any).images[ref];
   }
 }

@@ -16,7 +16,7 @@ export class BitmapBlocGenService {
   }
 
   render(current: SketchMSLayer, data?: SketchMSData) {
-    this.bitmapRenderService.render(current, data);
+    return this.bitmapRenderService.render(current, data);
   }
 
   identify(current: SketchMSLayer) {

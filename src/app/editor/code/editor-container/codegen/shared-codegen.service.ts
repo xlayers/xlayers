@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { SketchService } from '@app/core/sketch.service';
 import { CssOptimizerService } from '@xlayers/css-blocgen';
-import { SvgRenderService } from '@xlayers/svg-blocgen';
+import { SvgBlocGenService } from '@xlayers/svg-blocgen';
+import { BitmapBlocGenService } from '@xlayers/bitmap-blocgen';
 
 export enum Template {
   HTML,
@@ -16,9 +16,9 @@ export class SharedCodegen {
   private indentationSymbol = '  ';
 
   constructor(
-    private sketchService: SketchService,
     private optimizer: CssOptimizerService,
-    private svgRenderService: SvgRenderService
+    private svgBlocGenService: SvgBlocGenService,
+    private bitmapBlocGenService: BitmapBlocGenService
   ) {}
 
   generateComponentStyles(ast: SketchMSLayer) {
@@ -85,10 +85,7 @@ export class SharedCodegen {
         innerContent.push(ast.attributedString.string);
         innerContent.push(this.closeTag('span'));
       } else if ((ast as any)._class === 'bitmap') {
-        let base64Content = this.sketchService.getImageDataFromRef(
-          (ast as any).image._ref
-        ).source;
-        base64Content = base64Content.replace('data:image/png;base64', '');
+        const base64Content = this.bitmapBlocGenService.render(ast)[0].value;
 
         const attributes = [
           `${classNameAttr}="${(ast as any).css.className}"`,
@@ -98,7 +95,7 @@ export class SharedCodegen {
         ];
         innerContent.push(this.openTag('img', attributes, true));
       } else if ((ast as any).svg) {
-        this.svgRenderService.render(ast).map(file => {
+        this.svgBlocGenService.render(ast).map(file => {
           innerContent.push(file.value);
         });
       }
