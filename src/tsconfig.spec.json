@@ -4,10 +4,8 @@
     "outDir": "../out-tsc/spec",
     "module": "commonjs",
     "types": [
-      "jest",
       "node",
-      "sketchapp",
-      "cypress"
+      "sketchapp"
     ]
   },
   "files": [
