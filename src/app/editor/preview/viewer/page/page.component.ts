@@ -1,4 +1,6 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { Store } from '@ngxs/store';
+import { UiState } from '@app/core/state';
 
 @Component({
   selector: 'xly-viewer-page',
@@ -27,13 +29,23 @@ import { Component, Input } from '@angular/core';
         overflow: visible;
         transition: transform 1s;
       }
+      :host(.wireframe) {
+        box-shadow: 0 0 0 1px black;
+      }
     `
   ]
 })
-export class ViewerPageComponent {
+export class ViewerPageComponent implements OnInit {
   @Input() data: SketchMSData;
   @Input() page: SketchMSPage;
 
   @Input() wireframe = false;
   @Input() level = 0;
+
+  constructor(private store: Store) {}
+  ngOnInit() {
+    this.store.select(UiState.isWireframe).subscribe(isWireframe => {
+      this.wireframe = isWireframe;
+    });
+  }
 }
