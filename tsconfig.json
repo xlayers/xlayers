@@ -1,6 +1,7 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "skipLibCheck": true,
     "baseUrl": "./",
     "outDir": "./dist/out-tsc/src",
     "sourceMap": true,
@@ -9,8 +10,6 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "target": "es5",
-    "typeRoots": ["node_modules/@types"],
-    "types": ["cypress", "jest", "node", "sketchapp"],
     "lib": ["es2017", "dom"],
     "paths": {
       "@env/*": ["src/environments/*"],
