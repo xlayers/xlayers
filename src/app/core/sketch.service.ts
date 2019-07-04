@@ -5,7 +5,7 @@ import { CssBlocGenService } from '@xlayers/css-blocgen';
 import { SketchIngestorService } from '@xlayers/sketch-ingestor';
 import { SvgBlocGenService } from '@xlayers/svg-blocgen';
 import { TextBlocGenService } from '@xlayers/text-blocgen';
-import { AstService } from '../../../projects/std-library/src/lib/ast.service';
+import { AstService } from '@xlayers/std-library';
 
 export interface SketchMSData {
   pages: SketchMSPage[];
@@ -30,7 +30,7 @@ export class SketchService {
 
   async loadSketchFile(file: File) {
     const data = await this.sketchIngestorService.process(file);
-    (data.pages as any).forEach(page => this.traverse(data, page));
+    data.pages.forEach(page => this.traverse(data, page));
     return data;
   }
 
@@ -56,7 +56,10 @@ export class SketchService {
       });
     } else {
       if ((current._class as string) === 'symbolInstance') {
-        const symbolMaster = this.astService.maybeFindSymbolMaster(current, data);
+        const symbolMaster = this.astService.maybeFindSymbolMaster(
+          current,
+          data
+        );
 
         if (symbolMaster) {
           this.traverse(data, symbolMaster);
