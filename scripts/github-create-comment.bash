@@ -1,6 +1,8 @@
 #!/bin/bash
 
-set -u
+set -o errexit
+set -o nounset
+set -o pipefail
 
 access_token=$GITHUB_ACCESS_TOKEN
 

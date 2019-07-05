@@ -1,6 +1,8 @@
 #!/bin/bash
 
-set -u
+set -o errexit
+set -o nounset
+set -o pipefail
 
 export SHORT_SHA=`git rev-parse --short HEAD`
 export BRANCH=`git rev-parse --abbrev-ref HEAD`
