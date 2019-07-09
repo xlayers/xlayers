@@ -1,0 +1,90 @@
+{
+  "APP": {
+    "preview": "Preview and Convert SketchApp Design Files Into ANY Framework And Library.",
+    "get_started": "Get Started",
+    "explore_viewer": "Explore the Viewer interface",
+    "explore_codegen": "Explore the Codegen interface",
+    "designers_sketch": "Designers will usually use the SketchApp<sup>1</sup> app to create beautiful UI components...",
+    "designer_drag": "Now, Designers can simply drag and drop the SketchApp project file (*.sketch) containing the UI component into xLayers to preview their creation directly inside the browser.",
+    "3d_view": "xLayers even has a 3D viewing mode allowing both Designers and Developers to preview all the layers that compose the UI component, and inspect their size, position and color properties.",
+    "developer_opt": "Developers would usually use xLayers to export the UI component made with the SketchApp app as an Angular, Vue or React component and import it into an existing application.",
+    "xlayers_oss": "xLayers is fully Open Source and available on GitHub.",
+    "great_contributers": "great contributors",
+    "madeBy": "Made with ♡ by",
+    "xlayers_bunch": "and a bunch of",
+    "xlayers_dev_design": "for both Designers and Developers.",
+    "xlayers_release": "xLayers is still in ALPHA release, the UI and UX might change in the final release.",
+    "xlayers_support": "Supported SketchApp version",
+    "sketch_version": "v50 and above",
+    "xlayers_logo": "xLayers logo is kindly contributed by",
+    "warranty": "This project is provided as is without any warranties. Use at your own risk. By using xLayers.app you agree with its",
+    "privacy_policy": "Privacy Policy",
+    "license": "License",
+    "join": "Join Us On GitHub",
+    "and": "and",
+    "build": "Build"
+  },
+  "DROPZONE": {
+    "text": "Drop Your Design File Here"
+  },
+  "FILEBROWSE": {
+    "text": "Upload A Design From Your Computer"
+  },
+  "SELECTDEMO": {
+    "text": "Select A Demo File",
+    "version": "SketchApp v",
+    "error": "Error: please choose different file",
+    "legacy": "legacy support"
+  },
+  "UPLOAD": {
+    "OR": "OR"
+  },
+  "BADGE_SERVICE": {
+    "LOCAL": "LOCAL PREVIEW",
+    "MASTER": "MASTER PREVIEW",
+    "PR": "PR PREVIEW"
+  },
+  "PREVIEW": {
+    "settings": "Settings",
+    "pages": "Pages",
+    "layers": "Layers",
+    "canvas_color": "Canvas color"
+  },
+  "EDITOR": {
+    "preview_mode": "Toggle Preview Mode",
+    "zoom_in": "Zoom In",
+    "zoom_out": "Zoom Out",
+    "zoom_reset": "Zoom Reset",
+    "toggle_rotate": "Toggle 3D – Hold SHIFT to rotate",
+    "codegeneration": "Code Generation",
+    "back": "Go Back To Preview",
+    "stackblitz": "Open project in Stackblitz",
+    "download_zip": "Download as zip",
+    "close_project": "Close Project",
+    "feedback": "Give us your feedback",
+    "support": "Support us",
+    "twitter": "Follow us on twitter",
+    "github": "Find us on Github"
+  },
+  "SETTINGS_PREVIEW": {
+    "preview": "Preview"
+  },
+  "SETTINGS_PROPERTIES": {
+    "properties": "Properties",
+    "name": "Name",
+    "kind": "Kind"
+  },
+  "SETTINGS_SIZE": {
+    "title": "Size",
+    "height": "Heigth",
+    "width": "Width"
+  },
+  "SETTINGS_POSITION": {
+    "title": "Position",
+    "left": "Left",
+    "top": "Top"
+  },
+  "SETTINGS_COLORS": {
+    "title": "Style & Colors"
+  }
+}

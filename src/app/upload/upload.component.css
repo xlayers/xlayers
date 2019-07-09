@@ -1,0 +1,29 @@
+:host {
+  display: flex;
+  height: 100%;
+  min-height: 100%;
+  position: relative;
+  align-items: center;
+  justify-content: center;
+  color: #b0b0b0;
+}
+
+:host ::ng-deep .mat-expansion-panel-body {
+  padding: 0 !important;
+}
+
+section {
+  width: 100%;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin: 20px auto;
+  padding: 5px;
+
+}
+.dragging {
+  border: 1px dashed #c2185c;
+  transition: all 1s ease-in-out;
+}

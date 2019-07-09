@@ -1,0 +1,37 @@
+:host {
+  padding: 0 20px;
+  min-width: 460px;
+}
+.select-demo-files-label {
+  margin-bottom: 25px;
+  font-size: 15px;
+}
+.select-demo-files-label-error {
+  margin: 0;
+  color: #c2185b;
+  font-size: 15px;
+}
+.mat-nav-list {
+  display: block;
+  height: 400px;
+  overflow: auto;
+  color: black;
+  background: white;
+}
+.mat-list-icon,
+.mat-list-item,
+h3 {
+  color: rgba(0, 0, 0, 0.54);
+  text-align: left;
+}
+h3 span {
+  display: inline-block;
+  margin-left: 5px;
+  color: gray;
+}
+.mat-list-item:hover {
+  background-color: rgba(194, 24, 91, 0.4);
+}
+.mat-subheader {
+  color: rgba(0, 0, 0, 1);
+}

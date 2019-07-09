@@ -1,0 +1,15 @@
+<button
+  color="primary"
+  class="mat-headline"
+  mat-button
+  (click)="openFileBrowser()"
+>
+  {{'FILEBROWSE.text' | translate}}
+</button>
+
+<input
+  #fileBrowserRef
+  type="file"
+  (input)="onFileChange($event)"
+  accept=".sketch"
+/>
