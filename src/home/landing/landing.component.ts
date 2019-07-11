@@ -14,46 +14,46 @@ export class LandingComponent implements OnInit {
       frame: {
         width: '240px',
         left: '447px',
-        top: '50px',
+        top: '110px',
         height: '50px'
       },
       tooltip: {
         direction: 'right',
         left: '140px',
-        top: '12px'
+        top: '75px'
       },
       button: {
-        top: '66px',
-        left: '414px'
+        top: '125px',
+        left: '420px'
       },
       description:
       'Quick access to layers inspection, zooming functionalities and 3D mode, with the addition of the codegen editor (see below for more details).'
     },
     {
       frame: {
-        width: '166px',
-        left: '45px',
+        width: '145px',
+        left: '0px',
         top: '120px',
         height: '560px'
       },
       tooltip: {
         direction: 'left',
-        left: '230px',
+        left: '155px',
         top: '338px'
       },
       button: {
         top: '370px',
-        left: '100px'
+        left: '80px'
       },
       description:
         'Quickly access and inspect the layers hierarchy of the Sketch design.'
     },
     {
       frame: {
-        width: '686px',
-        left: '226px',
-        top: '103px',
-        height: '629px'
+        width: '840px',
+        left: '150px',
+        top: '159px',
+        height: '527px'
       },
       tooltip: {
         direction: 'right',
@@ -69,38 +69,38 @@ export class LandingComponent implements OnInit {
     },
     {
       frame: {
-        width: '176px',
-        left: '916px',
-        top: '103px',
-        height: '325px'
+        width: '136px',
+        left: '1000px',
+        top: '206px',
+        height: '220px'
       },
       tooltip: {
         direction: 'right',
-        left: '610px',
+        left: '710px',
         top: '215px'
       },
       button: {
-        top: '270px',
-        left: '995px'
+        top: '285px',
+        left: '1050px'
       },
       description:
         'Quick access and download the original design as it was exported by SketchApp.'
     },
     {
       frame: {
-        width: '176px',
-        left: '916px',
+        width: '136px',
+        left: '1000px',
         top: '440px',
-        height: '291px'
+        height: '125px'
       },
       tooltip: {
         direction: 'right',
-        left: '610px',
-        top: '535px'
+        left: '700px',
+        top: '435px'
       },
       button: {
-        top: '584px',
-        left: '1000px'
+        top: '484px',
+        left: '1050px'
       },
       description:
         'Complementary property inspector of each layer including size and dimensions, style information and much more. '
@@ -111,26 +111,26 @@ export class LandingComponent implements OnInit {
     frame: {
       width: '175px',
       left: '485px',
-      top: '50px',
-      height: '50px'
+      top: '119px',
+      height: '35px'
     },
     tooltip: {
       direction: 'right',
       left: '180px',
-      top: '24px'
+      top: '85px'
     },
     button: {
-      top: '67px',
+      top: '130px',
       left: '472px'
     },
     description:
       'Additional export options to external editors and IDEs, and a handy archive download feature for local development.'
   }, {
     frame: {
-      width: '1046px',
-      left: '46px',
-      top: '99px',
-      height: '632px'
+      width: '1136px',
+      left: '0px',
+      top: '195px',
+      height: '496px'
     },
     tooltip: {
       direction: 'right',
@@ -145,19 +145,19 @@ export class LandingComponent implements OnInit {
       'A code editor to quickly view the generated code of the current design for the selected technology.'
   }, {
     frame: {
-      width: '140px',
-      left: '940px',
-      top: '135px',
-      height: '150px'
+      width: '840px',
+      left: '120px',
+      top: '150px',
+      height: '50px'
     },
     tooltip: {
-      direction: 'right',
-      left: '634px',
-      top: '136px'
+      direction: 'left',
+      left: '750px',
+      top: '130px'
     },
     button: {
-      top: '152px',
-      left: '1042px'
+      top: '162px',
+      left: '700px'
     },
     description:
       'Many ouput Web technologies including but not limited to Angular, Vue.js, React, Web Components, etc...'
