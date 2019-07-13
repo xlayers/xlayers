@@ -24,6 +24,16 @@
     "and": "and",
     "build": "Build"
   },
+  "LANDING": {
+    "quick_access_toolbar": "Quick access to layers inspection, zooming functionalities and 3D mode, with the addition of the codegen editor (see below for more details).",
+    "quick_access_preview_download": "Quick access and download the original design as it was exported by SketchApp.",
+    "design_editor_info": "A fully fledged design viewer with both 2D and 3D inspection mode allowing you to access all the layers of your design.",
+    "sketch_layer_list": "Quickly access and inspect the layers hierarchy of the Sketch design.",
+    "property_panel": "Complementary property inspector of each layer including size and dimensions, style information and much more.",
+    "code_editor_options": "Additional export options to external editors and IDEs, and a handy archive download feature for local development.",
+    "code_editor_tech_list": "Many ouput Web technologies including but not limited to Angular, Vue.js, React, Web Components, etc...",
+    "code_editor_content": "A code editor to quickly view the generated code of the current design for the selected technology."
+  },
   "DROPZONE": {
     "text": "Drop Your Design File Here"
   },
