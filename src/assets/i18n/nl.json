@@ -24,6 +24,16 @@
     "and": "en",
     "build": "Versie"
   },
+  "LANDING": {
+    "quick_access_toolbar": "Snelle toegang om de verschillende lagen te kunnen bekijken, zoomfuncties, 3D-modues en de codegen-editor",
+    "quick_access_preview_download": "Eenvoudig het orginele ontwerp, zoals het werd geëxporteerd door de SkechtApp downloaden",
+    "design_editor_info": "Een editor met zowel 2D- als 3D modus waarmee u toegang heeft tot alle ontwerp lagen.",
+    "sketch_layer_list": "Krijg snel toegang tot de verschillende lagen van het schetsontwerp en inspecteer deze.",
+    "property_panel": "De eigenschappen van elke laag, inclusief groote en afmetingen, stijlinformatie en nog veel meer",
+    "code_editor_options": "Extra exportopties voor externe editors, IDE's en een handige download functie voor lokale ontwikkeling.",
+    "code_editor_tech_list": "De mogelijkheid om naar een aantal verschillende frameworks te kunnen exporteren",
+    "code_editor_content": "Een code-editor om snel de gegenereerde code van het huidige ontwerp voor de geselecteerde technologie te bekijken."
+  },
   "DROPZONE": {
     "text": "Sleep je sketch bestanden hierin"
   },

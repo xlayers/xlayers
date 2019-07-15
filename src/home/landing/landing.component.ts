@@ -27,7 +27,7 @@ export class LandingComponent implements OnInit {
         left: '414px'
       },
       description:
-      'Quick access to layers inspection, zooming functionalities and 3D mode, with the addition of the codegen editor (see below for more details).'
+      'LANDING.quick_access_toolbar'
     },
     {
       frame: {
@@ -46,7 +46,7 @@ export class LandingComponent implements OnInit {
         left: '100px'
       },
       description:
-        'Quickly access and inspect the layers hierarchy of the Sketch design.'
+        'LANDING.sketch_layer_list'
     },
     {
       frame: {
@@ -65,7 +65,7 @@ export class LandingComponent implements OnInit {
         left: '592px'
       },
       description:
-        'A fully fledged design viewer with both 2D and 3D inspection mode allowing you to access all the layers of your design.'
+        'LANDING.design_editor_info'
     },
     {
       frame: {
@@ -84,7 +84,7 @@ export class LandingComponent implements OnInit {
         left: '995px'
       },
       description:
-        'Quick access and download the original design as it was exported by SketchApp.'
+        'LANDING.quick_access_preview_download'
     },
     {
       frame: {
@@ -103,7 +103,7 @@ export class LandingComponent implements OnInit {
         left: '1000px'
       },
       description:
-        'Complementary property inspector of each layer including size and dimensions, style information and much more. '
+        'LANDING.property_panel'
     }
   ];
 
@@ -124,7 +124,7 @@ export class LandingComponent implements OnInit {
       left: '472px'
     },
     description:
-      'Additional export options to external editors and IDEs, and a handy archive download feature for local development.'
+      'LANDING.code_editor_options'
   }, {
     frame: {
       width: '1046px',
@@ -142,7 +142,7 @@ export class LandingComponent implements OnInit {
       left: '520px'
     },
     description:
-      'A code editor to quickly view the generated code of the current design for the selected technology.'
+      'LANDING.code_editor_content'
   }, {
     frame: {
       width: '140px',
@@ -160,7 +160,7 @@ export class LandingComponent implements OnInit {
       left: '1042px'
     },
     description:
-      'Many ouput Web technologies including but not limited to Angular, Vue.js, React, Web Components, etc...'
+      'LANDING.code_editor_tech_list'
   }];
 
   constructor() {}
