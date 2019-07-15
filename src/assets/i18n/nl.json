@@ -25,13 +25,13 @@
     "build": "Versie"
   },
   "LANDING": {
-    "quick_access_toolbar": "Snelle toegang tot lageninspectie, zoomfuncties en 3D-modus, met de toevoeging van de codegen-editor (zie hieronder voor meer details).",
-    "quick_access_preview_download": "Snelle toegang en download het originele ontwerp zoals het werd geëxporteerd door SketchApp.",
-    "design_editor_info": "Een volwaardige ontwerpkijker met zowel 2D- als 3D-inspectiemodus waarmee u toegang hebt tot alle lagen van uw ontwerp.",
-    "sketch_layer_list": "Krijg snel toegang tot de lagenhiërarchie van het schetsontwerp en inspecteer deze.",
-    "property_panel": "Complementaire eigenschappeninspecteur van elke laag, inclusief grootte en afmetingen, stijlinformatie en nog veel meer.",
-    "code_editor_options": "Extra exportopties voor externe editors en IDE's en een handige archiveringsdownloadfunctie voor lokale ontwikkeling.",
-    "code_editor_tech_list": "Veel ouput-webtechnologieën, inclusief maar niet beperkt tot Angular, Vue.js, React, Web Components, enz ...",
+    "quick_access_toolbar": "Snelle toegang om de verschillende lagen te kunnen bekijken, zoomfuncties, 3D-modues en de codegen-editor",
+    "quick_access_preview_download": "Eenvoudig het orginele ontwerp, zoals het werd geëxporteerd door de SkechtApp downloaden",
+    "design_editor_info": "Een editor met zowel 2D- als 3D modus waarmee u toegang heeft tot alle ontwerp lagen.",
+    "sketch_layer_list": "Krijg snel toegang tot de verschillende lagen van het schetsontwerp en inspecteer deze.",
+    "property_panel": "De eigenschappen van elke laag, inclusief groote en afmetingen, stijlinformatie en nog veel meer",
+    "code_editor_options": "Extra exportopties voor externe editors, IDE's en een handige download functie voor lokale ontwikkeling.",
+    "code_editor_tech_list": "De mogelijkheid om naar een aantal verschillende frameworks te kunnen exporteren",
     "code_editor_content": "Een code-editor om snel de gegenereerde code van het huidige ontwerp voor de geselecteerde technologie te bekijken."
   },
   "DROPZONE": {
