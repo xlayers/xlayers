@@ -4,7 +4,6 @@ import { environment } from '@env/environment';
 import { CssBlocGenService } from '@xlayers/css-blocgen';
 import { SketchIngestorService } from '@xlayers/sketch-ingestor';
 import { SvgBlocGenService } from '@xlayers/svg-blocgen';
-import { TextBlocGenService } from '@xlayers/text-blocgen';
 import { AstService } from '@xlayers/std-library';
 
 export interface SketchMSData {
@@ -24,7 +23,7 @@ export class SketchService {
     private sketchIngestorService: SketchIngestorService,
     private http: HttpClient,
     private cssBlocGenService: CssBlocGenService,
-    private textBlocGenService: TextBlocGenService,
+    private textService: AstService,
     private svgBlocGenService: SvgBlocGenService
   ) {}
 
@@ -56,17 +55,14 @@ export class SketchService {
       });
     } else {
       if (this.astService.identifySymbolInstance(current)) {
-        const symbolMaster = this.astService.maybeFindSymbolMaster(
-          current,
-          data
-        );
+        const symbolMaster = this.astService.lookupSymbolMaster(current, data);
 
         if (symbolMaster) {
           this.traverse(data, symbolMaster);
         }
       }
-      if (this.textBlocGenService.identify(current)) {
-        this.textBlocGenService.compute(current);
+      if (this.textService.identifyText(current)) {
+        this.textService.lookupText(current);
       }
       if (this.svgBlocGenService.identify(current)) {
         this.svgBlocGenService.compute(current);

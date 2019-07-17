@@ -20,14 +20,10 @@
       "@xlayers/std-library/*": ["projects/std-library/src/lib/*"],
       "@xlayers/css-blocgen": ["projects/css-blocgen/src/public_api"],
       "@xlayers/css-blocgen/*": ["projects/css-blocgen/src/lib/*"],
-      "@xlayers/text-blocgen": ["projects/text-blocgen/src/public_api"],
-      "@xlayers/text-blocgen/*": ["projects/text-blocgen/src/lib/*"],
       "@xlayers/svg-blocgen": ["projects/svg-blocgen/src/public_api"],
       "@xlayers/svg-blocgen/*": ["projects/svg-blocgen/src/lib/*"],
       "@xlayers/vue-blocgen": ["projects/vue-blocgen/src/public_api"],
-      "@xlayers/vue-blocgen/*": ["projects/vue-blocgen/src/lib/*"],
-      "@xlayers/bitmap-blocgen": ["projects/bitmap-blocgen/src/public_api"],
-      "@xlayers/bitmap-blocgen/*": ["projects/bitmap-blocgen/src/lib/*"]
+      "@xlayers/vue-blocgen/*": ["projects/vue-blocgen/src/lib/*"]
     }
   }
 }

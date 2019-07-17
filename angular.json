@@ -172,41 +172,6 @@
         }
       }
     },
-    "text-blocgen": {
-      "root": "projects/text-blocgen",
-      "sourceRoot": "projects/text-blocgen/src",
-      "projectType": "library",
-      "prefix": "lib",
-      "architect": {
-        "build": {
-          "builder": "@angular-devkit/build-ng-packagr:build",
-          "options": {
-            "tsConfig": "projects/text-blocgen/tsconfig.lib.json",
-            "project": "projects/text-blocgen/ng-package.json"
-          }
-        },
-        "test": {
-          "builder": "@angular-devkit/build-angular:karma",
-          "options": {
-            "main": "projects/text-blocgen/src/test.ts",
-            "tsConfig": "projects/text-blocgen/tsconfig.spec.json",
-            "karmaConfig": "projects/text-blocgen/karma.conf.js"
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "projects/text-blocgen/tsconfig.lib.json",
-              "projects/text-blocgen/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
-          }
-        }
-      }
-    },
     "svg-blocgen": {
       "root": "projects/svg-blocgen",
       "sourceRoot": "projects/svg-blocgen/src",
@@ -269,41 +234,6 @@
             "tsConfig": [
               "projects/css-blocgen/tsconfig.lib.json",
               "projects/css-blocgen/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
-          }
-        }
-      }
-    },
-    "bitmap-blocgen": {
-      "root": "projects/bitmap-blocgen",
-      "sourceRoot": "projects/bitmap-blocgen/src",
-      "projectType": "library",
-      "prefix": "lib",
-      "architect": {
-        "build": {
-          "builder": "@angular-devkit/build-ng-packagr:build",
-          "options": {
-            "tsConfig": "projects/bitmap-blocgen/tsconfig.lib.json",
-            "project": "projects/bitmap-blocgen/ng-package.json"
-          }
-        },
-        "test": {
-          "builder": "@angular-devkit/build-angular:karma",
-          "options": {
-            "main": "projects/bitmap-blocgen/src/test.ts",
-            "tsConfig": "projects/bitmap-blocgen/tsconfig.spec.json",
-            "karmaConfig": "projects/bitmap-blocgen/karma.conf.js"
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "projects/bitmap-blocgen/tsconfig.lib.json",
-              "projects/bitmap-blocgen/tsconfig.spec.json"
             ],
             "exclude": [
               "**/node_modules/**"

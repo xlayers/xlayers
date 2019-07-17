@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { CssOptimizerService } from '@xlayers/css-blocgen';
 import { SvgBlocGenService } from '@xlayers/svg-blocgen';
-import { BitmapBlocGenService } from '@xlayers/bitmap-blocgen';
+import { Store } from '@ngxs/store';
+import { UiState } from '@app/core/state/ui.state';
+import { RegistryService } from '@xlayers/std-library';
 
 export enum Template {
   HTML,
@@ -14,12 +16,22 @@ export enum Template {
 export class SharedCodegen {
   // 2 spaces
   private indentationSymbol = '  ';
+  private data: SketchMSData;
 
   constructor(
+    private store: Store,
     private optimizer: CssOptimizerService,
     private svgBlocGenService: SvgBlocGenService,
-    private bitmapBlocGenService: BitmapBlocGenService
-  ) {}
+    private registryService: RegistryService
+  ) {
+    this.store
+      .select(UiState.currentData)
+      .subscribe((currentData: SketchMSData) => {
+        if (currentData) {
+          this.data = currentData;
+        }
+      });
+  }
 
   generateComponentStyles(ast: SketchMSLayer) {
     return this.optimizer.parseStyleSheet(ast);
@@ -85,7 +97,10 @@ export class SharedCodegen {
         innerContent.push(ast.attributedString.string);
         innerContent.push(this.closeTag('span'));
       } else if ((ast as any)._class === 'bitmap') {
-        const base64Content = this.bitmapBlocGenService.render(ast)[0].value;
+        const base64Content = this.registryService.lookupBitmap(
+          ast,
+          this.data
+        );
 
         const attributes = [
           `${classNameAttr}="${(ast as any).css.className}"`,

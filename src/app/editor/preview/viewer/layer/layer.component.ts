@@ -9,11 +9,9 @@ import {
 import { Store } from '@ngxs/store';
 import { CurrentLayer, UiState } from '@app/core/state/ui.state';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
-import { CssContextService } from '@xlayers/css-blocgen';
 import { SvgBlocGenService } from '@xlayers/svg-blocgen';
-import { TextBlocGenService } from '@xlayers/text-blocgen';
-import { BitmapBlocGenService } from '@xlayers/bitmap-blocgen';
-import { AstService } from '@xlayers/std-library';
+import { AstService, RegistryService } from '@xlayers/std-library';
+import { CssBlocGenService } from '../../../../../../projects/css-blocgen/src/lib/css-blocgen.service';
 
 @Component({
   selector: 'xly-viewer-layer',
@@ -99,10 +97,9 @@ export class ViewerLayerComponent implements OnInit, AfterContentInit {
     private element: ElementRef<HTMLElement>,
     private sanitizer: DomSanitizer,
     private astService: AstService,
-    private cssContextService: CssContextService,
-    private bitmapBlocGenService: BitmapBlocGenService,
+    private cssBlocGenService: CssBlocGenService,
     private svgBlocGenService: SvgBlocGenService,
-    private textBlocGenService: TextBlocGenService
+    private registryService: RegistryService
   ) {}
 
   ngOnInit() {
@@ -129,31 +126,27 @@ export class ViewerLayerComponent implements OnInit, AfterContentInit {
   }
 
   loadText() {
-    if (this.textBlocGenService.hasContext(this.layer)) {
-      this.textBlocGenService
-        .transform(this.layer, this.data)
-        .forEach(file => this.texts.push(file.value));
+    if (this.astService.identifyText(this.layer)) {
+      const content = this.astService.lookupText(this.layer);
+      this.texts.push(content);
     }
   }
 
   loadImage() {
-    if (this.bitmapBlocGenService.identify(this.layer)) {
-      this.bitmapBlocGenService
-        .transform(this.layer, this.data)
-        .forEach(file =>
-          this.images.push(
-            this.sanitizer.bypassSecurityTrustResourceUrl(
-              `data:image/jpg;base64,${file.value}`
-            )
-          )
-        );
+    if (this.registryService.identifyBitmap(this.layer)) {
+      const content = this.registryService.lookupBitmap(this.layer, this.data);
+      this.images.push(
+        this.sanitizer.bypassSecurityTrustResourceUrl(
+          `data:image/jpg;base64,${content}`
+        )
+      );
     }
   }
 
   loadShapes() {
     if (this.svgBlocGenService.identify(this.layer)) {
       this.svgBlocGenService
-        .transform(this.layer, this.data)
+        .transform(this.layer)
         .forEach(file =>
           this.images.push(
             this.sanitizer.bypassSecurityTrustResourceUrl(
@@ -173,8 +166,8 @@ export class ViewerLayerComponent implements OnInit, AfterContentInit {
   }
 
   loadSymbolMaster() {
-    if ((this.layer._class as string) === 'symbolInstance') {
-      const symbolMaster = this.astService.maybeFindSymbolMaster(
+    if (this.astService.identifySymbolInstance(this.layer)) {
+      const symbolMaster = this.astService.lookupSymbolMaster(
         this.layer,
         this.data
       );
@@ -186,8 +179,8 @@ export class ViewerLayerComponent implements OnInit, AfterContentInit {
   }
 
   applyLayerStyles() {
-    if (this.cssContextService.hasContext(this.layer)) {
-      const context = this.cssContextService.contextOf(this.layer);
+    if (this.cssBlocGenService.hasContext(this.layer)) {
+      const context = this.cssBlocGenService.contextOf(this.layer);
       Object.entries(context.rules).forEach(([property, value]) => {
         this.renderer.setStyle(this.element.nativeElement, property, value);
       });

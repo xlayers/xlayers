@@ -13,20 +13,20 @@ export class CssBlocGenService {
     private cssRenderService: CssRenderService
   ) {}
 
-  transform(current: SketchMSLayer, data?: SketchMSData) {
+  transform(current: SketchMSLayer) {
     if (!this.cssContextService.hasContext(current)) {
       this.compute(current);
     }
 
-    return this.render(current, data);
+    return this.render(current);
   }
 
   compute(current: SketchMSLayer) {
     this.cssParserService.compute(current);
   }
 
-  render(current: SketchMSLayer, data?: SketchMSData) {
-    return this.cssRenderService.render(current, data);
+  render(current: SketchMSLayer) {
+    return this.cssRenderService.render(current);
   }
 
   identify(current: SketchMSLayer) {

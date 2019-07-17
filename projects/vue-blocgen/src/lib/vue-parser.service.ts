@@ -1,9 +1,12 @@
 import { Injectable } from '@angular/core';
-import { XmlService, FormatService, AstService } from '@xlayers/std-library';
+import {
+  XmlService,
+  FormatService,
+  RegistryService
+} from '@xlayers/std-library';
 import { CssBlocGenService } from '@xlayers/css-blocgen';
-import { BitmapBlocGenService } from '@xlayers/bitmap-blocgen';
 import { SvgBlocGenService } from '@xlayers/svg-blocgen';
-import { TextBlocGenService } from '@xlayers/text-blocgen';
+import { AstService } from '@xlayers/std-library';
 import { VueContextService } from './vue-context.service';
 
 @Injectable({
@@ -11,14 +14,14 @@ import { VueContextService } from './vue-context.service';
 })
 export class VueParserService {
   constructor(
+    private astService: AstService,
     private xmlService: XmlService,
     private lintService: FormatService,
-    private astService: AstService,
+    private registryService: RegistryService,
     private cssBlocGenService: CssBlocGenService,
-    private bitmapBlocGenService: BitmapBlocGenService,
     private svgBlocGenService: SvgBlocGenService,
     private vueBlocGenService: VueContextService,
-    private textBlocGenService: TextBlocGenService
+    private textService: AstService
   ) {}
 
   compute(data: SketchMSData, current: SketchMSLayer) {
@@ -51,14 +54,14 @@ export class VueParserService {
     if (this.astService.identifySymbolInstance(current)) {
       return this.extractSymbolMaster(data, current, depth);
     }
-    if (this.bitmapBlocGenService.identify(current)) {
-      return this.extractImage(data, current, depth);
+    if (this.registryService.identifyBitmap(current)) {
+      return this.extractBitmap(data, current, depth);
     }
-    if (this.textBlocGenService.identify(current)) {
-      return this.extractText(data, current, depth);
+    if (this.textService.identifyText(current)) {
+      return this.extractText(current, depth);
     }
     if (this.svgBlocGenService.identify(current)) {
-      return this.extractShape(data, current, depth);
+      return this.extractShape(current, depth);
     }
     return null;
   }
@@ -70,7 +73,7 @@ export class VueParserService {
     depth: number
   ) {
     const cssRules = this.cssBlocGenService
-      .transform(current, data)
+      .transform(current)
       .map(file => file.value);
 
     this.vueBlocGenService.putContext(root, {
@@ -121,46 +124,34 @@ export class VueParserService {
     return this.xmlService.openTag('div', attributes);
   }
 
-  private extractText(
-    data: SketchMSData,
-    current: SketchMSLayer,
-    depth: number
-  ) {
-    const content = this.textBlocGenService
-      .transform(current, data)
-      .map(
-        file =>
-          this.xmlService.openTag('span') +
-          file.value +
-          this.xmlService.closeTag('span')
-      )
-      .join('\n');
+  private extractText(current: SketchMSLayer, depth: number) {
+    const content = this.textService.lookupText(current);
+    const tag =
+      this.xmlService.openTag('span') +
+      content +
+      this.xmlService.closeTag('span');
 
-    return this.lintService.indent(depth, content);
+    return this.lintService.indent(depth, tag);
   }
 
-  private extractImage(
+  private extractBitmap(
     data: SketchMSData,
     current: SketchMSLayer,
     depth: number
   ) {
     const context = this.cssBlocGenService.contextOf(current);
-    const content = this.bitmapBlocGenService
-      .transform(current, data)
-      .map(file => {
-        const attributes = [
-          `class="${context.className}"`,
-          `role="${current._class}"`,
-          `aria-label="${current.name}"`,
-          `src="data:image/jpg;base64,${file.value}"`
-        ];
-        return this.xmlService.openTag('img', attributes, {
-          autoclose: true
-        });
-      })
-      .join('\n');
+    const content = this.registryService.lookupBitmap(current, data);
+    const attributes = [
+      `class="${context.className}"`,
+      `role="${current._class}"`,
+      `aria-label="${current.name}"`,
+      `src="data:image/jpg;base64,${content}"`
+    ];
+    const tag = this.xmlService.openTag('img', attributes, {
+      autoclose: true
+    });
 
-    return this.lintService.indent(depth, content);
+    return this.lintService.indent(depth, tag);
   }
 
   private extractSymbolMaster(
@@ -168,7 +159,7 @@ export class VueParserService {
     current: SketchMSLayer,
     depth: number
   ) {
-    const symbolMaster = this.astService.maybeFindSymbolMaster(current, data);
+    const symbolMaster = this.astService.lookupSymbolMaster(current, data);
 
     if (symbolMaster) {
       this.compute(data, symbolMaster);
@@ -181,13 +172,9 @@ export class VueParserService {
     }
   }
 
-  private extractShape(
-    data: SketchMSData,
-    current: SketchMSLayer,
-    depth: number
-  ) {
+  private extractShape(current: SketchMSLayer, depth: number) {
     return this.svgBlocGenService
-      .transform(current, data)
+      .transform(current)
       .map(file =>
         file.value
           .split('\n')

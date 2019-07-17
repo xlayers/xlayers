@@ -13,7 +13,7 @@ export class VueBlocGenService {
     private vueRenderService: VueRenderService
   ) {}
 
-  transform(current: SketchMSLayer, data?: SketchMSData) {
+  transform(current: SketchMSLayer, data: SketchMSData) {
     if (!this.vueContextService.hasContext(current)) {
       this.compute(data, current);
     }
@@ -25,7 +25,7 @@ export class VueBlocGenService {
     this.vueParserService.compute(data, current);
   }
 
-  render(current: SketchMSLayer, data?: SketchMSData) {
+  render(current: SketchMSLayer, data: SketchMSData) {
     return this.vueRenderService.render(current, data);
   }
 

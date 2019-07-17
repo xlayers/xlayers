@@ -13,20 +13,20 @@ export class SvgBlocGenService {
     private svgRenderService: SvgRenderService
   ) {}
 
-  transform(current: SketchMSLayer, data?: SketchMSData) {
+  transform(current: SketchMSLayer) {
     if (!this.svgContextService.hasContext(current)) {
       this.compute(current);
     }
 
-    return this.render(current, data);
+    return this.render(current);
   }
 
   compute(current: SketchMSLayer) {
     this.svgParserService.compute(current);
   }
 
-  render(current: SketchMSLayer, data?: SketchMSData) {
-    return this.svgRenderService.render(current, data);
+  render(current: SketchMSLayer) {
+    return this.svgRenderService.render(current);
   }
 
   identify(current: SketchMSLayer) {

@@ -11,20 +11,16 @@ export class CssRenderService {
     private formatHelperService: FormatService
   ) {}
 
-  render(current: SketchMSLayer, _data?: SketchMSData) {
-    if (this.cssContextService.hasContext(current)) {
-      const context = this.cssContextService.contextOf(current);
-      return [
-        {
-          kind: 'css',
-          language: 'css',
-          value: this.formatContext(context),
-          uri: `${current.name}.css`
-        }
-      ];
-    }
-
-    return [];
+  render(current: SketchMSLayer) {
+    const context = this.cssContextService.contextOf(current);
+    return [
+      {
+        kind: 'css',
+        language: 'css',
+        value: this.formatContext(context),
+        uri: `${current.name}.css`
+      }
+    ];
   }
 
   private formatContext(context: CssBlocGenContext) {

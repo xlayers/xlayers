@@ -6,6 +6,10 @@ import {
   SvgBlocGenContextPath
 } from './svg-context.service';
 
+export interface SvgRenderOptions {
+  xmlHeaders: boolean;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -15,23 +19,28 @@ export class SvgRenderService {
     private svgContextService: SvgContextService
   ) {}
 
-  render(current: SketchMSLayer, _data?: SketchMSData) {
+  render(
+    current: SketchMSLayer,
+    options: SvgRenderOptions = { xmlHeaders: true }
+  ) {
     const context = this.svgContextService.contextOf(current);
-
     return [
       {
         kind: 'svg',
         language: 'svg',
-        value: this.formatContext(context, current),
+        value: this.formatContext(context, current, options),
         uri: `${current.name}.svg`
       }
     ];
   }
 
-  private formatContext(context: SvgBlocGenContext, current: SketchMSLayer) {
+  private formatContext(
+    context: SvgBlocGenContext,
+    current: SketchMSLayer,
+    options: SvgRenderOptions
+  ) {
     const attributes = [
-      `xmlns="http://www.w3.org/2000/svg"`,
-      `xmlns:xlink="http://www.w3.org/1999/xlink"`,
+      ...this.maybeXmlHearder(options),
       `width="${current.frame.width + context.offset * 2}"`,
       `height="${current.frame.height + context.offset * 2}"`
     ].join(' ');
@@ -43,6 +52,16 @@ export class SvgRenderService {
       ),
       `</svg>`
     ].join('\n');
+  }
+
+  private maybeXmlHearder(options?: SvgRenderOptions) {
+    if (options.xmlHeaders) {
+      return [
+        `xmlns="http://www.w3.org/2000/svg"`,
+        `xmlns:xlink="http://www.w3.org/1999/xlink"`
+      ];
+    }
+    return [];
   }
 
   private renderPath(path: SvgBlocGenContextPath) {

@@ -15,7 +15,7 @@ export class VueRenderService {
 
   private componentDir = 'components';
 
-  render(current: SketchMSLayer, data?: SketchMSData) {
+  render(current: SketchMSLayer, data: SketchMSData) {
     if (this.vueContextService.hasContext(current)) {
       const context = this.vueContextService.contextOf(current);
 
@@ -56,7 +56,7 @@ export class VueRenderService {
   }
 
   private retrieveSymbolMaster(data: SketchMSData, current: SketchMSLayer) {
-    const symbolMaster = this.astService.maybeFindSymbolMaster(current, data);
+    const symbolMaster = this.astService.lookupSymbolMaster(current, data);
 
     if (symbolMaster) {
       return this.render(symbolMaster, data);

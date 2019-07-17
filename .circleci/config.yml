@@ -54,33 +54,6 @@ jobs:
       - run:
           command: npm run sketch-ingestor.build.prod
 
-  "ci/build-bitmap-blocgen":
-    docker:
-      - image: circleci/node:10.12
-
-    working_directory: ~/repo
-
-    steps:
-      - checkout
-      - restore_cache:
-          keys:
-            - v1-dependencies-{{ checksum "package.json" }}
-            # fallback to using the latest cache if no exact match is found
-            - v1-dependencies-
-
-      - run: npm install
-      - run:
-          name: Install JUnit coverage reporter
-          command: npm i -D jest-junit
-
-      - save_cache:
-          paths:
-            - node_modules
-          key: v1-dependencies-{{ checksum "package.json" }}
-
-      - run:
-          command: npm run bitmap-blocgen.build.prod
-
   "ci/build-css-blocgen":
     docker:
       - image: circleci/node:10.12
@@ -161,33 +134,6 @@ jobs:
 
       - run:
           command: npm run svg-blocgen.build.prod
-
-  "ci/build-text-blocgen":
-    docker:
-      - image: circleci/node:10.12
-
-    working_directory: ~/repo
-
-    steps:
-      - checkout
-      - restore_cache:
-          keys:
-            - v1-dependencies-{{ checksum "package.json" }}
-            # fallback to using the latest cache if no exact match is found
-            - v1-dependencies-
-
-      - run: npm install
-      - run:
-          name: Install JUnit coverage reporter
-          command: npm i -D jest-junit
-
-      - save_cache:
-          paths:
-            - node_modules
-          key: v1-dependencies-{{ checksum "package.json" }}
-
-      - run:
-          command: npm run text-blocgen.build.prod
 
   "ci/build-vue-blocgen":
     docker:
