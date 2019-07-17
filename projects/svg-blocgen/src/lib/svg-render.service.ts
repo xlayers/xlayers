@@ -15,7 +15,7 @@ export interface SvgRenderOptions {
 })
 export class SvgRenderService {
   constructor(
-    private formatHelperService: FormatService,
+    private formatService: FormatService,
     private svgContextService: SvgContextService
   ) {}
 
@@ -29,7 +29,7 @@ export class SvgRenderService {
         kind: 'svg',
         language: 'svg',
         value: this.formatContext(context, current, options),
-        uri: `${current.name}.svg`
+        uri: `${this.formatService.normalizeName(current.name)}.svg`
       }
     ];
   }
@@ -48,7 +48,7 @@ export class SvgRenderService {
     return [
       `<svg ${attributes}>`,
       context.paths.map(path =>
-        this.formatHelperService.indent(1, this.renderPath(path))
+        this.formatService.indent(1, this.renderPath(path))
       ),
       `</svg>`
     ].join('\n');

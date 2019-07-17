@@ -8,4 +8,8 @@ export class FormatService {
     const indentation = !!n ? '  '.repeat(n) : '';
     return indentation + content;
   }
+
+  normalizeName(name: String) {
+    return name.replace(/[^a-zA-Z ]/g, "");
+  }
 }

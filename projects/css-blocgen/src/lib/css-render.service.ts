@@ -8,7 +8,7 @@ import { CssContextService, CssBlocGenContext } from './css-context.service';
 export class CssRenderService {
   constructor(
     private cssContextService: CssContextService,
-    private formatHelperService: FormatService
+    private formatService: FormatService
   ) {}
 
   render(current: SketchMSLayer) {
@@ -18,7 +18,7 @@ export class CssRenderService {
         kind: 'css',
         language: 'css',
         value: this.formatContext(context),
-        uri: `${current.name}.css`
+        uri: `${this.formatService.normalizeName(current.name)}.css`
       }
     ];
   }
@@ -34,7 +34,7 @@ export class CssRenderService {
   private flattenAndIndentRules(context: CssBlocGenContext) {
     return Object.entries(context.rules)
       .map(([key, value]) =>
-        this.formatHelperService.indent(1, `${key}: ${value};`)
+        this.formatService.indent(1, `${key}: ${value};`)
       )
       .join('\n');
   }

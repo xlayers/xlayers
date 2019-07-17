@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
 import { VueContextService, VueBlocGenContext } from './vue-context.service';
 import { CssOptimizerService } from '@xlayers/css-blocgen';
-import { AstService } from '@xlayers/std-library';
+import { AstService, FormatService } from '@xlayers/std-library';
 
 @Injectable({
   providedIn: 'root'
 })
 export class VueRenderService {
   constructor(
+    private formatService: FormatService,
     private astService: AstService,
     private vueContextService: VueContextService,
     private cssOptimizerService: CssOptimizerService
@@ -16,27 +17,23 @@ export class VueRenderService {
   private componentDir = 'components';
 
   render(current: SketchMSLayer, data: SketchMSData) {
-    if (this.vueContextService.hasContext(current)) {
-      const context = this.vueContextService.contextOf(current);
+    const context = this.vueContextService.contextOf(current);
 
-      return [
-        ...this.traverse(data, current).map(file => ({ ...file, kind: 'vue' })),
-        {
-          kind: 'vue',
-          value: this.renderComponent(current, context),
-          language: 'html',
-          uri: `${this.componentDir}/${current.name}.vue`
-        },
-        {
-          kind: 'vue',
-          value: this.renderComponentSpec(current.name),
-          language: 'javascript',
-          uri: `${this.componentDir}/${current.name}.spec.js`
-        }
-      ];
-    }
-
-    return [];
+    return [
+      ...this.traverse(data, current).map(file => ({ ...file, kind: 'vue' })),
+      {
+        kind: 'vue',
+        value: this.renderComponent(current, context),
+        language: 'html',
+        uri: `${this.componentDir}/${this.formatService.normalizeName(current.name)}.vue`
+      },
+      {
+        kind: 'vue',
+        value: this.renderComponentSpec(this.formatService.normalizeName(current.name)),
+        language: 'javascript',
+        uri: `${this.componentDir}/${this.formatService.normalizeName(current.name)}.spec.js`
+      }
+    ];
   }
 
   private traverse(data: SketchMSData, current: SketchMSLayer) {

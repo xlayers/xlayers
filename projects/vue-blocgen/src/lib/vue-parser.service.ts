@@ -1,22 +1,22 @@
-import { Injectable } from '@angular/core';
+import { Injectable } from "@angular/core";
 import {
   XmlService,
   FormatService,
   RegistryService
-} from '@xlayers/std-library';
-import { CssBlocGenService } from '@xlayers/css-blocgen';
-import { SvgBlocGenService } from '@xlayers/svg-blocgen';
-import { AstService } from '@xlayers/std-library';
-import { VueContextService } from './vue-context.service';
+} from "@xlayers/std-library";
+import { CssBlocGenService } from "@xlayers/css-blocgen";
+import { SvgBlocGenService } from "@xlayers/svg-blocgen";
+import { AstService } from "@xlayers/std-library";
+import { VueContextService } from "./vue-context.service";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class VueParserService {
   constructor(
     private astService: AstService,
     private xmlService: XmlService,
-    private lintService: FormatService,
+    private formatService: FormatService,
     private registryService: RegistryService,
     private cssBlocGenService: CssBlocGenService,
     private svgBlocGenService: SvgBlocGenService,
@@ -41,6 +41,8 @@ export class VueParserService {
       current.layers.forEach(layer => {
         this.traverseLayer(data, layer, root, depth);
       });
+    } else if (this.astService.identifySymbolInstance(current)) {
+      return this.traverseSymbolMaster(data, current, root, depth);
     } else {
       return this.extractLayerContent(data, current, depth);
     }
@@ -51,9 +53,6 @@ export class VueParserService {
     current: SketchMSLayer,
     depth: number
   ) {
-    if (this.astService.identifySymbolInstance(current)) {
-      return this.extractSymbolMaster(data, current, depth);
-    }
     if (this.registryService.identifyBitmap(current)) {
       return this.extractBitmap(data, current, depth);
     }
@@ -84,7 +83,7 @@ export class VueParserService {
       ...this.vueBlocGenService.contextOf(root),
       html: [
         ...this.vueBlocGenService.contextOf(root).html,
-        this.lintService.indent(depth, this.extractOpenTag(current))
+        this.formatService.indent(depth, this.extractOpenTag(current))
       ]
     });
 
@@ -109,7 +108,7 @@ export class VueParserService {
       ...this.vueBlocGenService.contextOf(root),
       html: [
         ...this.vueBlocGenService.contextOf(root).html,
-        this.lintService.indent(depth, this.xmlService.closeTag('div'))
+        this.formatService.indent(depth, this.xmlService.closeTag("div"))
       ]
     });
   }
@@ -119,19 +118,19 @@ export class VueParserService {
     const attributes = [
       `class="${context.className}"`,
       `role="${current._class}"`,
-      `aria-label="${current.name}"`
+      `aria-label="${this.formatService.normalizeName(current.name)}"`
     ];
-    return this.xmlService.openTag('div', attributes);
+    return this.xmlService.openTag("div", attributes);
   }
 
   private extractText(current: SketchMSLayer, depth: number) {
     const content = this.textService.lookupText(current);
     const tag =
-      this.xmlService.openTag('span') +
+      this.xmlService.openTag("span") +
       content +
-      this.xmlService.closeTag('span');
+      this.xmlService.closeTag("span");
 
-    return this.lintService.indent(depth, tag);
+    return this.formatService.indent(depth, tag);
   }
 
   private extractBitmap(
@@ -144,19 +143,20 @@ export class VueParserService {
     const attributes = [
       `class="${context.className}"`,
       `role="${current._class}"`,
-      `aria-label="${current.name}"`,
+      `aria-label="${this.formatService.normalizeName(current.name)}"`,
       `src="data:image/jpg;base64,${content}"`
     ];
-    const tag = this.xmlService.openTag('img', attributes, {
+    const tag = this.xmlService.openTag("img", attributes, {
       autoclose: true
     });
 
-    return this.lintService.indent(depth, tag);
+    return this.formatService.indent(depth, tag);
   }
 
-  private extractSymbolMaster(
+  private traverseSymbolMaster(
     data: SketchMSData,
     current: SketchMSLayer,
+    root: SketchMSLayer,
     depth: number
   ) {
     const symbolMaster = this.astService.lookupSymbolMaster(current, data);
@@ -164,11 +164,21 @@ export class VueParserService {
     if (symbolMaster) {
       this.compute(data, symbolMaster);
 
-      const content = this.xmlService.openTag(current.name, [], {
+      const tagName = this.formatService.normalizeName(current.name);
+
+      this.vueBlocGenService.putContext(root, {
+        ...this.vueBlocGenService.contextOf(root),
+        components: [
+          ...this.vueBlocGenService.contextOf(root).components,
+          tagName
+        ]
+      });
+
+      const content = this.xmlService.openTag(tagName, [], {
         autoclose: true
       });
 
-      return this.lintService.indent(depth, content);
+      return this.formatService.indent(depth, content);
     }
   }
 
@@ -177,10 +187,10 @@ export class VueParserService {
       .transform(current)
       .map(file =>
         file.value
-          .split('\n')
-          .map(line => this.lintService.indent(depth, line))
-          .join('\n')
+          .split("\n")
+          .map(line => this.formatService.indent(depth, line))
+          .join("\n")
       )
-      .join('\n');
+      .join("\n");
   }
 }
