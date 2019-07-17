@@ -22,7 +22,9 @@ export class VueParserService {
   ) {}
 
   compute(data: SketchMSData, current: SketchMSLayer) {
-    this.vueBlocGenService.putContext(current);
+    if (!this.vueBlocGenService.hasContext(current)) {
+      this.vueBlocGenService.putContext(current);
+    }
     this.traverse(data, current, current);
   }
 
@@ -34,20 +36,14 @@ export class VueParserService {
   ) {
     if (this.vueBlocGenService.identify(current)) {
       current.layers.forEach(layer => {
-        if (this.svgBlocGenService.identify(layer)) {
-          this.traverseSvgLayer(data, layer, root, depth);
-        } else if (this.cssBlocGenService.identify(layer)) {
-          this.traverseStyledLayer(data, layer, root, depth);
-        } else {
-          this.traverseLayer(data, layer, root, depth);
-        }
+        this.traverseLayer(data, layer, root, depth);
       });
     } else {
-      return this.traverseEdgeLayer(data, current, depth);
+      return this.extractLayerContent(data, current, depth);
     }
   }
 
-  private traverseEdgeLayer(
+  private extractLayerContent(
     data: SketchMSData,
     current: SketchMSLayer,
     depth: number
@@ -67,61 +63,20 @@ export class VueParserService {
     return null;
   }
 
-  private traverseSvgLayer(
-    data: SketchMSData,
-    current: SketchMSLayer,
-    root: SketchMSLayer,
-    depth: number
-  ) {
-    const cssRules = this.cssBlocGenService
-      .transform(current, data)
-      .map(file => file.value);
-
-    this.vueBlocGenService.putContext(root, {
-      ...this.vueBlocGenService.contextOf(root),
-      css: [...this.vueBlocGenService.contextOf(root).css, ...cssRules]
-    });
-
-    const content = this.traverse(data, current, root, depth);
-    if (content) {
-      this.vueBlocGenService.putContext(root, {
-        ...this.vueBlocGenService.contextOf(root),
-        html: [...this.vueBlocGenService.contextOf(root).html, content]
-      });
-    }
-  }
-
-  private traverseStyledLayer(
-    data: SketchMSData,
-    current: SketchMSLayer,
-    root: SketchMSLayer,
-    depth: number
-  ) {
-    const cssRules = this.cssBlocGenService
-      .transform(current, data)
-      .map(file => file.value);
-
-    this.vueBlocGenService.putContext(root, {
-      ...this.vueBlocGenService.contextOf(root),
-      css: [...this.vueBlocGenService.contextOf(root).css, ...cssRules]
-    });
-    this.vueBlocGenService.putContext(root, {
-      ...this.vueBlocGenService.contextOf(root),
-      html: [
-        ...this.vueBlocGenService.contextOf(root).html,
-        this.lintService.indent(depth, this.extractCssOpenTag(current))
-      ]
-    });
-
-    this.closingLayer(data, current, root, depth);
-  }
-
   private traverseLayer(
     data: SketchMSData,
     current: SketchMSLayer,
     root: SketchMSLayer,
     depth: number
   ) {
+    const cssRules = this.cssBlocGenService
+      .transform(current, data)
+      .map(file => file.value);
+
+    this.vueBlocGenService.putContext(root, {
+      ...this.vueBlocGenService.contextOf(root),
+      css: [...this.vueBlocGenService.contextOf(root).css, ...cssRules]
+    });
     this.vueBlocGenService.putContext(root, {
       ...this.vueBlocGenService.contextOf(root),
       html: [
@@ -156,18 +111,10 @@ export class VueParserService {
     });
   }
 
-  private extractCssOpenTag(current: SketchMSLayer) {
+  private extractOpenTag(current: SketchMSLayer) {
     const context = this.cssBlocGenService.contextOf(current);
     const attributes = [
       `class="${context.className}"`,
-      `role="${current._class}"`,
-      `aria-label="${current.name}"`
-    ];
-    return this.xmlService.openTag('div', attributes);
-  }
-
-  private extractOpenTag(current: SketchMSLayer) {
-    const attributes = [
       `role="${current._class}"`,
       `aria-label="${current.name}"`
     ];
