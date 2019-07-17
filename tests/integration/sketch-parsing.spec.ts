@@ -63,7 +63,7 @@ async function loadSketch(version, fileName) {
 describe("sketch parser", () => {
   let cssBlocGenService: CssBlocGenService;
   let svgBlocGenService: SvgBlocGenService;
-  let textService: AstService;
+  let astService: AstService;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -73,7 +73,7 @@ describe("sketch parser", () => {
     }).compileComponents();
     svgBlocGenService = TestBed.get(SvgBlocGenService);
     cssBlocGenService = TestBed.get(CssBlocGenService);
-    textService = TestBed.get(AstService);
+    astService = TestBed.get(AstService);
   }));
 
   VERSION_LIST.forEach(version => {
@@ -82,19 +82,18 @@ describe("sketch parser", () => {
     fileNames.forEach(fileName => {
       it(`should match ${fileName} snapshot for ${version}`, done => {
         loadSketch(version, fileName)
-          .then(data =>
-            data.pages.map(layer => {
+          .then(data => {
+            data.pages.forEach(layer => {
               if (cssBlocGenService.hasContext(layer)) {
                 cssBlocGenService.compute(layer);
               }
               if (svgBlocGenService.hasContext(layer)) {
                 svgBlocGenService.compute(layer);
               }
-              if (textService.hasContext(layer)) {
-                textService.compute(layer);
-              }
-            })
-          )
+            });
+
+            return data;
+          })
           .then(sketch => {
             expect(sketch).toMatchSnapshot();
             done();
