@@ -2,7 +2,7 @@
  * Public API Surface of std-library
  */
 
-export * from './lib/registry.service';
+export * from './lib/resource.service';
 export * from './lib/ast.service';
 export * from './lib/bplist.service';
 export * from './lib/format.service';

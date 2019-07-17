@@ -10,7 +10,7 @@ import { Store } from '@ngxs/store';
 import { CurrentLayer, UiState } from '@app/core/state/ui.state';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { SvgBlocGenService } from '@xlayers/svg-blocgen';
-import { AstService, RegistryService } from '@xlayers/std-library';
+import { AstService, ResourceService } from '@xlayers/std-library';
 import { CssBlocGenService } from '../../../../../../projects/css-blocgen/src/lib/css-blocgen.service';
 
 @Component({
@@ -99,7 +99,7 @@ export class ViewerLayerComponent implements OnInit, AfterContentInit {
     private astService: AstService,
     private cssBlocGenService: CssBlocGenService,
     private svgBlocGenService: SvgBlocGenService,
-    private registryService: RegistryService
+    private resourceService: ResourceService
   ) {}
 
   ngOnInit() {
@@ -133,8 +133,8 @@ export class ViewerLayerComponent implements OnInit, AfterContentInit {
   }
 
   loadImage() {
-    if (this.registryService.identifyBitmap(this.layer)) {
-      const content = this.registryService.lookupBitmap(this.layer, this.data);
+    if (this.resourceService.identifyBitmap(this.layer)) {
+      const content = this.resourceService.lookupBitmap(this.layer, this.data);
       this.images.push(
         this.sanitizer.bypassSecurityTrustResourceUrl(
           `data:image/jpg;base64,${content}`
@@ -166,8 +166,8 @@ export class ViewerLayerComponent implements OnInit, AfterContentInit {
   }
 
   loadSymbolMaster() {
-    if (this.astService.identifySymbolInstance(this.layer)) {
-      const symbolMaster = this.astService.lookupSymbolMaster(
+    if (this.resourceService.identifySymbolInstance(this.layer)) {
+      const symbolMaster = this.resourceService.lookupSymbolMaster(
         this.layer,
         this.data
       );

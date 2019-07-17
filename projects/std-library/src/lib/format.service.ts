@@ -10,6 +10,6 @@ export class FormatService {
   }
 
   normalizeName(name: String) {
-    return name.replace(/[^a-zA-Z ]/g, "");
+    return name.replace(/[^a-zA-Z ]/g, '');
   }
 }

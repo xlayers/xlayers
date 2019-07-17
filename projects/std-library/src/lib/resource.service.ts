@@ -3,7 +3,19 @@ import { Injectable } from '@angular/core';
 @Injectable({
   providedIn: 'root'
 })
-export class RegistryService {
+export class ResourceService {
+  identifySymbolInstance(current: SketchMSLayer) {
+    return (current._class as string) === 'symbolInstance';
+  }
+
+  lookupSymbolMaster(current: SketchMSLayer, data: SketchMSData) {
+    const foreignSymbol = data.document.foreignSymbols.find(
+      x => x.symbolMaster.symbolID === (current as any).symbolID
+    );
+
+    return foreignSymbol.symbolMaster;
+  }
+
   identifyBitmap(current: SketchMSLayer) {
     return (current._class as string) === 'bitmap';
   }

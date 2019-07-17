@@ -7,18 +7,6 @@ import { BplistService } from './bplist.service';
 export class AstService {
   constructor(private binaryHelperService: BplistService) {}
 
-  identifySymbolInstance(current: SketchMSLayer) {
-    return (current._class as string) === 'symbolInstance';
-  }
-
-  lookupSymbolMaster(current: SketchMSLayer, data: SketchMSData) {
-    const foreignSymbol = data.document.foreignSymbols.find(
-      x => x.symbolMaster.symbolID === (current as any).symbolID
-    );
-
-    return foreignSymbol.symbolMaster;
-  }
-
   identifyText(current: SketchMSLayer) {
     return (current._class as string) === 'text';
   }

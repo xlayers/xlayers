@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { VueContextService, VueBlocGenContext } from './vue-context.service';
 import { CssOptimizerService } from '@xlayers/css-blocgen';
-import { AstService, FormatService } from '@xlayers/std-library';
+import { ResourceService, FormatService } from '@xlayers/std-library';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +9,7 @@ import { AstService, FormatService } from '@xlayers/std-library';
 export class VueRenderService {
   constructor(
     private formatService: FormatService,
-    private astService: AstService,
+    private resourceService: ResourceService,
     private vueContextService: VueContextService,
     private cssOptimizerService: CssOptimizerService
   ) {}
@@ -25,13 +25,19 @@ export class VueRenderService {
         kind: 'vue',
         value: this.renderComponent(current, context),
         language: 'html',
-        uri: `${this.componentDir}/${this.formatService.normalizeName(current.name)}.vue`
+        uri: `${this.componentDir}/${this.formatService.normalizeName(
+          current.name
+        )}.vue`
       },
       {
         kind: 'vue',
-        value: this.renderComponentSpec(this.formatService.normalizeName(current.name)),
+        value: this.renderComponentSpec(
+          this.formatService.normalizeName(current.name)
+        ),
         language: 'javascript',
-        uri: `${this.componentDir}/${this.formatService.normalizeName(current.name)}.spec.js`
+        uri: `${this.componentDir}/${this.formatService.normalizeName(
+          current.name
+        )}.spec.js`
       }
     ];
   }
@@ -46,14 +52,14 @@ export class VueRenderService {
   }
 
   private retrieveFiles(data: SketchMSData, current: SketchMSLayer) {
-    if (this.astService.identifySymbolInstance(current)) {
+    if (this.resourceService.identifySymbolInstance(current)) {
       return this.retrieveSymbolMaster(data, current);
     }
     return [];
   }
 
   private retrieveSymbolMaster(data: SketchMSData, current: SketchMSLayer) {
-    const symbolMaster = this.astService.lookupSymbolMaster(current, data);
+    const symbolMaster = this.resourceService.lookupSymbolMaster(current, data);
 
     if (symbolMaster) {
       return this.render(symbolMaster, data);

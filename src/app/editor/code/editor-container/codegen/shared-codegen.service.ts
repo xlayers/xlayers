@@ -3,7 +3,7 @@ import { CssOptimizerService } from '@xlayers/css-blocgen';
 import { SvgBlocGenService } from '@xlayers/svg-blocgen';
 import { Store } from '@ngxs/store';
 import { UiState } from '@app/core/state/ui.state';
-import { RegistryService } from '@xlayers/std-library';
+import { ResourceService } from '@xlayers/std-library';
 
 export enum Template {
   HTML,
@@ -22,7 +22,7 @@ export class SharedCodegen {
     private store: Store,
     private optimizer: CssOptimizerService,
     private svgBlocGenService: SvgBlocGenService,
-    private registryService: RegistryService
+    private resourceService: ResourceService
   ) {
     this.store
       .select(UiState.currentData)
@@ -97,7 +97,7 @@ export class SharedCodegen {
         innerContent.push(ast.attributedString.string);
         innerContent.push(this.closeTag('span'));
       } else if ((ast as any)._class === 'bitmap') {
-        const base64Content = this.registryService.lookupBitmap(
+        const base64Content = this.resourceService.lookupBitmap(
           ast,
           this.data
         );
