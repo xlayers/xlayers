@@ -48,7 +48,7 @@ export class VueParserService {
     current: SketchMSLayer,
     depth: number
   ) {
-    if ((current._class as string) === 'symbolInstance') {
+    if (this.astService.identifySymbolInstance(current)) {
       return this.extractSymbolMaster(data, current, depth);
     }
     if (this.bitmapBlocGenService.identify(current)) {

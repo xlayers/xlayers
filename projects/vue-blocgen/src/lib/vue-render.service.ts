@@ -18,6 +18,7 @@ export class VueRenderService {
   render(current: SketchMSLayer, data?: SketchMSData) {
     if (this.vueContextService.hasContext(current)) {
       const context = this.vueContextService.contextOf(current);
+
       return [
         ...this.traverse(data, current).map(file => ({ ...file, kind: 'vue' })),
         {
@@ -48,7 +49,7 @@ export class VueRenderService {
   }
 
   private retrieveFiles(data: SketchMSData, current: SketchMSLayer) {
-    if ((current._class as string) === 'symbolInstance') {
+    if (this.astService.identifySymbolInstance(current)) {
       return this.retrieveSymbolMaster(data, current);
     }
     return [];
@@ -57,11 +58,11 @@ export class VueRenderService {
   private retrieveSymbolMaster(data: SketchMSData, current: SketchMSLayer) {
     const symbolMaster = this.astService.maybeFindSymbolMaster(current, data);
 
-    if (!symbolMaster) {
-      return [];
+    if (symbolMaster) {
+      return this.render(symbolMaster, data);
     }
 
-    return this.render(symbolMaster, data);
+    return [];
   }
 
   private renderComponentSpec(name: string) {

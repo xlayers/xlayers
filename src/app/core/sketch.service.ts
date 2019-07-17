@@ -55,7 +55,7 @@ export class SketchService {
         this.traverse(data, layer);
       });
     } else {
-      if ((current._class as string) === 'symbolInstance') {
+      if (this.astService.identifySymbolInstance(current)) {
         const symbolMaster = this.astService.maybeFindSymbolMaster(
           current,
           data
