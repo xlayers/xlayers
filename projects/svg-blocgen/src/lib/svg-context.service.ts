@@ -6,9 +6,9 @@ export interface SvgBlocGenContextPath {
 }
 
 export interface SvgBlocGenContext {
-  paths: SvgBlocGenContextPath[];
-  attributes: string[];
-  offset: number;
+  paths?: SvgBlocGenContextPath[];
+  attributes?: string[];
+  offset?: number;
 }
 
 @Injectable({
@@ -32,8 +32,11 @@ export class SvgContextService {
 
   putContext(
     current: SketchMSLayer,
-    context: SvgBlocGenContext = { paths: [], offset: 0, attributes: [] }
+    newContext: SvgBlocGenContext = { paths: [], offset: 0, attributes: [] }
   ) {
-    (current as any).svg = context;
+    (current as any).svg = {
+      ...((current as any).svg || {}),
+      ...newContext
+    };
   }
 }

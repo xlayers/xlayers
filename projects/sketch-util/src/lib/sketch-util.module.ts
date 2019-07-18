@@ -14,4 +14,4 @@ import { StyleService } from './style.service';
     StyleService
   ]
 })
-export class StdLibraryModule {}
+export class SketchUtilModule {}

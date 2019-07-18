@@ -1,16 +1,17 @@
-import { Injectable } from '@angular/core';
+import { Injectable } from "@angular/core";
 import {
   XmlService,
   FormatService,
   ResourceService
-} from '@xlayers/std-library';
-import { CssBlocGenService } from '@xlayers/css-blocgen';
-import { SvgBlocGenService } from '@xlayers/svg-blocgen';
-import { AstService } from '@xlayers/std-library';
-import { VueContextService } from './vue-context.service';
+} from "@xlayers/sketch-util";
+import { CssBlocGenService } from "@xlayers/css-blocgen";
+import { SvgBlocGenService } from "@xlayers/svg-blocgen";
+import { AstService } from "@xlayers/sketch-util";
+import { VueContextService } from "./vue-context.service";
+import { VueBlocGenOptions } from "@xlayers/vue-blocgen";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class VueParserService {
   constructor(
@@ -23,37 +24,92 @@ export class VueParserService {
     private vueBlocGenService: VueContextService
   ) {}
 
-  compute(data: SketchMSData, current: SketchMSLayer) {
+  compute(
+    data: SketchMSData,
+    current: SketchMSLayer,
+    options: VueBlocGenOptions
+  ) {
     if (!this.vueBlocGenService.hasContext(current)) {
       this.vueBlocGenService.putContext(current);
     }
-    this.traverse(data, current, current);
+    this.visit(data, current, current, 0, options);
   }
 
-  traverse(
+  private visit(
     data: SketchMSData,
     current: SketchMSLayer,
     root: SketchMSLayer,
-    depth: number = 0
+    depth: number,
+    options: VueBlocGenOptions
+  ) {
+    const className = this.generateCssClassName(options);
+    this.putCss(current, root, className);
+    this.putOpenTag(current, root, depth, className);
+    this.putContent(data, current, root, depth, options);
+    this.putClosingTag(root, depth);
+  }
+
+  private traverseLayer(
+    data: SketchMSData,
+    current: SketchMSLayer,
+    root: SketchMSLayer,
+    depth: number,
+    options: VueBlocGenOptions
   ) {
     if (this.vueBlocGenService.identify(current)) {
       current.layers.forEach(layer => {
-        this.traverseLayer(data, layer, root, depth);
+        this.visit(data, layer, root, depth, options);
       });
     } else if (this.resourceService.identifySymbolInstance(current)) {
-      return this.traverseSymbolMaster(data, current, root, depth);
+      return this.traverseSymbolMaster(
+        data,
+        current,
+        root,
+        depth,
+        options
+      );
     } else {
-      return this.extractLayerContent(data, current, depth);
+      return this.extractLayerContent(current, depth, options);
     }
   }
 
-  private extractLayerContent(
+  private traverseSymbolMaster(
     data: SketchMSData,
     current: SketchMSLayer,
-    depth: number
+    root: SketchMSLayer,
+    depth: number,
+    options: VueBlocGenOptions
+  ) {
+    const symbolMaster = this.resourceService.lookupSymbolMaster(current, data);
+
+    if (symbolMaster) {
+      this.compute(data, symbolMaster, options);
+
+      const tagName = this.formatService.normalizeName(current.name);
+
+      this.vueBlocGenService.putContext(root, {
+        ...this.vueBlocGenService.contextOf(root),
+        components: [
+          ...this.vueBlocGenService.contextOf(root).components,
+          this.formatService.normalizeName(tagName)
+        ]
+      });
+
+      const tag = `<${tagName}/>`;
+
+      return this.formatService.indent(depth, tag);
+    }
+
+    return "";
+  }
+
+  private extractLayerContent(
+    current: SketchMSLayer,
+    depth: number,
+    options: VueBlocGenOptions
   ) {
     if (this.resourceService.identifyBitmap(current)) {
-      return this.extractBitmap(data, current, depth);
+      return this.extractBitmap(current, depth, options);
     }
     if (this.astService.identifyText(current)) {
       return this.extractText(current, depth);
@@ -64,132 +120,107 @@ export class VueParserService {
     return null;
   }
 
-  private traverseLayer(
-    data: SketchMSData,
+  private extractBitmap(
     current: SketchMSLayer,
-    root: SketchMSLayer,
-    depth: number
+    depth: number,
+    options: VueBlocGenOptions
   ) {
-    const cssRules = this.cssBlocGenService
-      .transform(current)
-      .map(file => file.value);
-
-    this.vueBlocGenService.putContext(root, {
-      ...this.vueBlocGenService.contextOf(root),
-      css: [...this.vueBlocGenService.contextOf(root).css, ...cssRules]
-    });
-    this.vueBlocGenService.putContext(root, {
-      ...this.vueBlocGenService.contextOf(root),
-      html: [
-        ...this.vueBlocGenService.contextOf(root).html,
-        this.formatService.indent(depth, this.extractOpenTag(current))
-      ]
-    });
-
-    this.closingLayer(data, current, root, depth);
-  }
-
-  private closingLayer(
-    data: SketchMSData,
-    current: SketchMSLayer,
-    root: SketchMSLayer,
-    depth: number
-  ) {
-    const content = this.traverse(data, current, root, depth + 1);
-    if (content) {
-      this.vueBlocGenService.putContext(root, {
-        ...this.vueBlocGenService.contextOf(root),
-        html: [...this.vueBlocGenService.contextOf(root).html, content]
-      });
-    }
-
-    this.vueBlocGenService.putContext(root, {
-      ...this.vueBlocGenService.contextOf(root),
-      html: [
-        ...this.vueBlocGenService.contextOf(root).html,
-        this.formatService.indent(depth, this.xmlService.closeTag('div'))
-      ]
-    });
-  }
-
-  private extractOpenTag(current: SketchMSLayer) {
-    const context = this.cssBlocGenService.contextOf(current);
+    const className = this.generateCssClassName(options);
     const attributes = [
-      `class="${context.className}"`,
+      `class="${className}"`,
       `role="${current._class}"`,
-      `aria-label="${this.formatService.normalizeName(current.name)}"`
+      `aria-label="${this.formatService.normalizeName(current.name)}"`,
+      `src="${options.assetDir}/${this.formatService.normalizeName(
+        current.name
+      )}.jpg"`
     ];
-    return this.xmlService.openTag('div', attributes);
+    const tag = ["<img", ...attributes].join(" ") + ">";
+
+    return this.formatService.indent(depth, tag);
   }
 
   private extractText(current: SketchMSLayer, depth: number) {
     const content = this.astService.lookupText(current);
-    const tag =
-      this.xmlService.openTag('span') +
-      content +
-      this.xmlService.closeTag('span');
+    const tag = `<span>${content}</span>`;
 
     return this.formatService.indent(depth, tag);
-  }
-
-  private extractBitmap(
-    data: SketchMSData,
-    current: SketchMSLayer,
-    depth: number
-  ) {
-    const context = this.cssBlocGenService.contextOf(current);
-    const content = this.resourceService.lookupBitmap(current, data);
-    const attributes = [
-      `class="${context.className}"`,
-      `role="${current._class}"`,
-      `aria-label="${this.formatService.normalizeName(current.name)}"`,
-      `src="data:image/jpg;base64,${content}"`
-    ];
-    const tag = this.xmlService.openTag('img', attributes, {
-      autoclose: true
-    });
-
-    return this.formatService.indent(depth, tag);
-  }
-
-  private traverseSymbolMaster(
-    data: SketchMSData,
-    current: SketchMSLayer,
-    root: SketchMSLayer,
-    depth: number
-  ) {
-    const symbolMaster = this.resourceService.lookupSymbolMaster(current, data);
-
-    if (symbolMaster) {
-      this.compute(data, symbolMaster);
-
-      const tagName = this.formatService.normalizeName(current.name);
-
-      this.vueBlocGenService.putContext(root, {
-        ...this.vueBlocGenService.contextOf(root),
-        components: [
-          ...this.vueBlocGenService.contextOf(root).components,
-          tagName
-        ]
-      });
-
-      const content = this.xmlService.openTag(tagName, [], {
-        autoclose: true
-      });
-
-      return this.formatService.indent(depth, content);
-    }
   }
 
   private extractShape(current: SketchMSLayer, depth: number) {
     return this.svgBlocGenService
-      .transform(current)
+      .transform(current, { xmlNamespace: false })
       .map(file =>
         file.value
-          .split('\n')
+          .split("\n")
           .map(line => this.formatService.indent(depth, line))
-          .join('\n')
+          .join("\n")
       )
-      .join('\n');
+      .join("\n");
+  }
+
+  private putContent(
+    data: SketchMSData,
+    current: SketchMSLayer,
+    root: SketchMSLayer,
+    depth: number,
+    options: VueBlocGenOptions
+  ) {
+    const content = this.traverseLayer(data, current, root, depth + 1, options);
+    if (content) {
+      const context = this.vueBlocGenService.contextOf(root);
+      this.vueBlocGenService.putContext(root, {
+        html: [...context.html, content]
+      });
+    }
+  }
+
+  private putCss(
+    current: SketchMSLayer,
+    root: SketchMSLayer,
+    className: string
+  ) {
+    const cssRules = this.cssBlocGenService
+      .transform(current, { className })
+      .map(file => file.value);
+    const context = this.vueBlocGenService.contextOf(root);
+    this.vueBlocGenService.putContext(root, {
+      css: [...context.css, cssRules]
+    });
+  }
+
+  private putOpenTag(
+    current: SketchMSLayer,
+    root: SketchMSLayer,
+    depth: number,
+    className: string
+  ) {
+    const attributes = [
+      `class="${className}"`,
+      `role="${current._class}"`,
+      `aria-label="${this.formatService.normalizeName(current.name)}"`
+    ];
+    const tag = ["<div", ...attributes].join(" ") + ">";
+
+    const context = this.vueBlocGenService.contextOf(root);
+    this.vueBlocGenService.putContext(root, {
+      html: [...context.html, this.formatService.indent(depth, tag)]
+    });
+  }
+
+  private putClosingTag(root: SketchMSLayer, depth: number) {
+    const tag = this.xmlService.closeTag("div");
+
+    const context = this.vueBlocGenService.contextOf(root);
+    this.vueBlocGenService.putContext(root, {
+      html: [...context.html, this.formatService.indent(depth, tag)]
+    });
+  }
+
+  private generateCssClassName(options: VueBlocGenOptions) {
+    const randomString = Math.random()
+      .toString(36)
+      .substring(2, 6);
+
+    return `${options.prefix}${randomString}`;
   }
 }

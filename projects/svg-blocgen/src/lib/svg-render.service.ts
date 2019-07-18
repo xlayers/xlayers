@@ -1,14 +1,11 @@
 import { Injectable } from '@angular/core';
-import { FormatService } from '@xlayers/std-library';
+import { FormatService } from '@xlayers/sketch-util';
 import {
   SvgBlocGenContext,
   SvgContextService,
   SvgBlocGenContextPath
 } from './svg-context.service';
-
-export interface SvgRenderOptions {
-  xmlHeaders: boolean;
-}
+import { SvgBlocGenOptions } from '@xlayers/svg-blocgen';
 
 @Injectable({
   providedIn: 'root'
@@ -19,51 +16,57 @@ export class SvgRenderService {
     private svgContextService: SvgContextService
   ) {}
 
-  render(
-    current: SketchMSLayer,
-    options: SvgRenderOptions = { xmlHeaders: true }
-  ) {
+  render(current: SketchMSLayer, options: SvgBlocGenOptions) {
     const context = this.svgContextService.contextOf(current);
     return [
       {
         kind: 'svg',
         language: 'svg',
-        value: this.formatContext(context, current, options),
+        value: this.renderFile(context, current, options),
         uri: `${this.formatService.normalizeName(current.name)}.svg`
       }
     ];
   }
 
-  private formatContext(
+  private renderFile(
     context: SvgBlocGenContext,
     current: SketchMSLayer,
-    options: SvgRenderOptions
+    options: SvgBlocGenOptions
   ) {
-    const attributes = [
-      ...this.maybeXmlHearder(options),
-      `width="${current.frame.width + context.offset * 2}"`,
-      `height="${current.frame.height + context.offset * 2}"`
-    ].join(' ');
-
+    const attributes = this.xmlHearderAttribute(context, current, options);
     return [
-      `<svg ${attributes}>`,
-      context.paths.map(path =>
-        this.formatService.indent(1, this.renderPath(path))
-      ),
+      ["<svg", ...attributes].join(" ") + ">",
+      this.renderPaths(context),
       `</svg>`
-    ].join('\n');
+    ].join("\n");
   }
 
-  private maybeXmlHearder(options?: SvgRenderOptions) {
-    if (options.xmlHeaders) {
+  private xmlHearderAttribute(
+    context: SvgBlocGenContext,
+    current: SketchMSLayer,
+    options: SvgBlocGenOptions
+  ) {
+    const defaultAttributes = [
+      `width="${current.frame.width + context.offset * 2}"`,
+      `height="${current.frame.height + context.offset * 2}"`
+    ];
+
+    if (options.xmlNamespace) {
       return [
+        ...defaultAttributes,
         `xmlns="http://www.w3.org/2000/svg"`,
         `xmlns:xlink="http://www.w3.org/1999/xlink"`
       ];
     }
-    return [];
+
+    return defaultAttributes;
   }
 
+  private renderPaths(context: SvgBlocGenContext) {
+    return context.paths.map(path =>
+      this.formatService.indent(1, this.renderPath(path))
+    );
+  }
   private renderPath(path: SvgBlocGenContextPath) {
     return `<${path.type} ${path.attributes.join(' ')}/>`;
   }

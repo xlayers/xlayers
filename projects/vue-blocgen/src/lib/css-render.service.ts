@@ -8,7 +8,7 @@ interface StyleList {
 @Injectable({
   providedIn: 'root'
 })
-export class CssOptimizerService {
+export class CssRenderService {
   private indentationSymbol = `  `; // 2 spaces ftw
   // default host style
   private hostStyle = [
@@ -23,7 +23,7 @@ export class CssOptimizerService {
    * This will parse the ast to return a optimized css stylesheet
    * @param ast SketchMSLayer the ast based on sketch json
    */
-  parseStyleSheet(ast: SketchMSLayer) {
+  render(ast: SketchMSLayer) {
     const styles: Array<StyleList> = [];
     this.buildAstStyleSheet(styles, ast);
     this.postProcessCss(styles);

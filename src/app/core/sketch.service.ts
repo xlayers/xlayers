@@ -4,7 +4,7 @@ import { environment } from '@env/environment';
 import { CssBlocGenService } from '@xlayers/css-blocgen';
 import { SketchIngestorService } from '@xlayers/sketch-ingestor';
 import { SvgBlocGenService } from '@xlayers/svg-blocgen';
-import { AstService, ResourceService } from '@xlayers/std-library';
+import { AstService, ResourceService } from '@xlayers/sketch-util';
 
 export interface SketchMSData {
   pages: SketchMSPage[];

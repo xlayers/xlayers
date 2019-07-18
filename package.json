@@ -11,7 +11,7 @@
     "app.build.stamp": "bash scripts/stamp-build.bash",
     "sketchingestor.build.prod": "ng build sketch-ingestor",
     "cssblocgen.build.prod": "ng build css-blocgen",
-    "stdblocgen.build.prod": "ng build std-library",
+    "sketchutil.build.prod": "ng build sketch-util",
     "svgblocgen.build.prod": "ng build svg-blocgen",
     "vueblocgen.build.prod": "ng build vue-blocgen",
     "build": "run-s -l app.build.prod app.build.stamp",
@@ -68,7 +68,6 @@
     "big-integer": "^1.6.41",
     "buffer": "^5.2.1",
     "core-js": "^2.6.4",
-    "cypress": "^3.1.5",
     "file-saver": "^2.0.0",
     "hammerjs": "^2.0.8",
     "highlight.js": "^9.14.2",
@@ -80,6 +79,7 @@
     "zone.js": "^0.8.29"
   },
   "devDependencies": {
+    "cypress": "^3.1.5",
     "@angular-devkit/build-angular": "^0.14.0-beta.0",
     "@angular-devkit/build-ng-packagr": "0.14.0-beta.0",
     "@angular-devkit/build-optimizer": "0.14.0-beta.0",

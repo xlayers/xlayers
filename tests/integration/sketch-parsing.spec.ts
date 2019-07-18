@@ -4,7 +4,7 @@ import { readdirSync, readFile } from "fs";
 import * as jszip from "jszip";
 import { CssBlocGenService } from "@xlayers/css-blocgen";
 import { SvgBlocGenService } from "@xlayers/svg-blocgen";
-import { AstService } from "@xlayers/std-library";
+import { AstService } from "@xlayers/sketch-util";
 
 const VERSION_LIST = [50, 51, 52, 53];
 const SKETCH_PATH = "./src/assets/demos/sketchapp";

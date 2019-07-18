@@ -1,10 +1,22 @@
-import { Injectable } from '@angular/core';
-import { VueContextService } from './vue-context.service';
-import { VueParserService } from './vue-parser.service';
-import { VueRenderService } from './vue-render.service';
+import { Injectable } from "@angular/core";
+import { VueContextService } from "./vue-context.service";
+import { VueParserService } from "./vue-parser.service";
+import { VueRenderService } from "./vue-render.service";
+
+const DEFAULT_OPTIONS: VueBlocGenOptions = {
+  prefix: "xly_",
+  componentDir: "components",
+  assetDir: "assets"
+};
+
+export interface VueBlocGenOptions {
+  prefix?: string;
+  componentDir?: string;
+  assetDir?: string;
+}
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class VueBlocGenService {
   constructor(
@@ -13,20 +25,32 @@ export class VueBlocGenService {
     private vueRenderService: VueRenderService
   ) {}
 
-  transform(current: SketchMSLayer, data: SketchMSData) {
+  transform(
+    current: SketchMSLayer,
+    data: SketchMSData,
+    options?: VueBlocGenOptions
+  ) {
     if (!this.vueContextService.hasContext(current)) {
-      this.compute(data, current);
+      this.compute(data, current, options);
     }
 
-    return this.render(current, data);
+    return this.render(current, data, options);
   }
 
-  compute(data: SketchMSData, current: SketchMSLayer) {
-    this.vueParserService.compute(data, current);
+  compute(
+    data: SketchMSData,
+    current: SketchMSLayer,
+    options: VueBlocGenOptions = DEFAULT_OPTIONS
+  ) {
+    this.vueParserService.compute(data, current, options);
   }
 
-  render(current: SketchMSLayer, data: SketchMSData) {
-    return this.vueRenderService.render(current, data);
+  render(
+    current: SketchMSLayer,
+    data: SketchMSData,
+    options: VueBlocGenOptions = DEFAULT_OPTIONS
+  ) {
+    return this.vueRenderService.render(current, data, options);
   }
 
   identify(current: SketchMSLayer) {

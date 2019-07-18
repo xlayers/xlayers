@@ -1,9 +1,13 @@
-import { Injectable } from '@angular/core';
-import { FormatService } from '@xlayers/std-library';
-import { CssContextService, CssBlocGenContext } from './css-context.service';
+import { Injectable } from "@angular/core";
+import { FormatService } from "@xlayers/sketch-util";
+import { CssContextService, CssBlocGenContext } from "./css-context.service";
+
+export interface CssRenderOptions {
+  className: string;
+}
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class CssRenderService {
   constructor(
@@ -11,31 +15,38 @@ export class CssRenderService {
     private formatService: FormatService
   ) {}
 
-  render(current: SketchMSLayer) {
+  render(
+    current: SketchMSLayer,
+    options: CssRenderOptions = { className: null }
+  ) {
     const context = this.cssContextService.contextOf(current);
     return [
       {
-        kind: 'css',
-        language: 'css',
-        value: this.formatContext(context),
+        kind: "css",
+        language: "css",
+        value: this.renderFile(context, options),
         uri: `${this.formatService.normalizeName(current.name)}.css`
       }
     ];
   }
 
-  private formatContext(context: CssBlocGenContext) {
-    return [
-      `${context.className} {`,
-      this.flattenAndIndentRules(context),
-      '}'
-    ].join('\n');
+  private renderFile(context: CssBlocGenContext, options: CssRenderOptions) {
+    const rules = this.rulesIntoKeyValue(context);
+
+    if (options.className) {
+      return [
+        `${options.className} {`,
+        ...rules.map(rule => this.formatService.indent(1, rule)),
+        "}"
+      ].join("\n");
+    }
+
+    return rules.join("\n");
   }
 
-  private flattenAndIndentRules(context: CssBlocGenContext) {
-    return Object.entries(context.rules)
-      .map(([key, value]) =>
-        this.formatService.indent(1, `${key}: ${value};`)
-      )
-      .join('\n');
+  private rulesIntoKeyValue(context: CssBlocGenContext) {
+    return Object.entries(context.rules).map(
+      ([key, value]) => `${key}: ${value};`
+    );
   }
 }

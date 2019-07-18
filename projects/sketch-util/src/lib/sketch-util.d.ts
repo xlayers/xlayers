@@ -1,7 +1,7 @@
 export interface RessourceFile {
   kind: string;
   uri: string;
-  value: string;
+  value: any;
   language: string;
 }
 

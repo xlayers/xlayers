@@ -10,8 +10,8 @@ import { Store } from '@ngxs/store';
 import { CurrentLayer, UiState } from '@app/core/state/ui.state';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { SvgBlocGenService } from '@xlayers/svg-blocgen';
-import { AstService, ResourceService } from '@xlayers/std-library';
-import { CssBlocGenService } from '../../../../../../projects/css-blocgen/src/lib/css-blocgen.service';
+import { AstService, ResourceService } from '@xlayers/sketch-util';
+import { CssBlocGenService } from '@xlayers/css-blocgen';
 
 @Component({
   selector: 'xly-viewer-layer',

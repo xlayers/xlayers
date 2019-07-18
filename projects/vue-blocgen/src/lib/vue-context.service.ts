@@ -1,20 +1,20 @@
-import { Injectable } from '@angular/core';
+import { Injectable } from "@angular/core";
 
 export interface VueBlocGenContext {
-  html: string[];
-  css: string[];
-  components: string[];
+  html?: string[];
+  css?: string[];
+  components?: string[];
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class VueContextService {
   identify(current: SketchMSLayer) {
     return (
       current.layers &&
       Array.isArray(current.layers) &&
-      ['rect', 'page', 'rectangle', 'group', 'symbolMaster'].includes(
+      ["rect", "page", "rectangle", "group", "symbolMaster"].includes(
         current._class as string
       )
     );
@@ -30,8 +30,11 @@ export class VueContextService {
 
   putContext(
     current: SketchMSLayer,
-    newContext: VueBlocGenContext = { html: [], css: [], components: [] }
+    nextContext: VueBlocGenContext = { html: [], css: [], components: [] }
   ) {
-    (current as any).vue = newContext;
+    (current as any).vue = {
+      ...((current as any).vue || {}),
+      ...nextContext
+    };
   }
 }

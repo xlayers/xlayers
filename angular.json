@@ -137,33 +137,33 @@
         }
       }
     },
-    "std-library": {
-      "root": "projects/std-library",
-      "sourceRoot": "projects/std-library/src",
+    "sketch-util": {
+      "root": "projects/sketch-util",
+      "sourceRoot": "projects/sketch-util/src",
       "projectType": "library",
       "prefix": "lib",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {
-            "tsConfig": "projects/std-library/tsconfig.lib.json",
-            "project": "projects/std-library/ng-package.json"
+            "tsConfig": "projects/sketch-util/tsconfig.lib.json",
+            "project": "projects/sketch-util/ng-package.json"
           }
         },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "main": "projects/std-library/src/test.ts",
-            "tsConfig": "projects/std-library/tsconfig.spec.json",
-            "karmaConfig": "projects/std-library/karma.conf.js"
+            "main": "projects/sketch-util/src/test.ts",
+            "tsConfig": "projects/sketch-util/tsconfig.spec.json",
+            "karmaConfig": "projects/sketch-util/karma.conf.js"
           }
         },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "projects/std-library/tsconfig.lib.json",
-              "projects/std-library/tsconfig.spec.json"
+              "projects/sketch-util/tsconfig.lib.json",
+              "projects/sketch-util/tsconfig.spec.json"
             ],
             "exclude": [
               "**/node_modules/**"

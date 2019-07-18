@@ -15,8 +15,8 @@ module.exports = {
       "<rootDir>/projects/sketch-ingestor/src/public_api.ts",
     "^@xlayers/sketch-ingestor/(.*)":
       "<rootDir>/projects/sketch-ingestor/src/lib/$1",
-    "^@xlayers/std-library": "<rootDir>/projects/std-library/src/public_api.ts",
-    "^@xlayers/std-library/(.*)": "<rootDir>/projects/std-library/src/lib/$1",
+    "^@xlayers/sketch-util": "<rootDir>/projects/sketch-util/src/public_api.ts",
+    "^@xlayers/sketch-util/(.*)": "<rootDir>/projects/sketch-util/src/lib/$1",
     "^@xlayers/css-blocgen": "<rootDir>/projects/css-blocgen/src/public_api.ts",
     "^@xlayers/css-blocgen/(.*)": "<rootDir>/projects/css-blocgen/src/lib/$1",
     "^@xlayers/svg-blocgen": "<rootDir>/projects/svg-blocgen/src/public_api.ts",
