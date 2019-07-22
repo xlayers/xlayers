@@ -12,29 +12,29 @@ export class LandingComponent implements OnInit {
   viewerSections = [
     {
       frame: {
-        width: '240px',
-        left: '447px',
-        top: '110px',
+        width: '340px',
+        left: '400px',
+        top: '54px',
         height: '50px'
       },
       tooltip: {
         direction: 'right',
-        left: '140px',
-        top: '75px'
+        left: '90px',
+        top: '20px'
       },
       button: {
-        top: '125px',
-        left: '420px'
+        top: '70px',
+        left: '375px'
       },
       description:
       'Quick access to layers inspection, zooming functionalities and 3D mode, with the addition of the codegen editor (see below for more details).'
     },
     {
       frame: {
-        width: '145px',
+        width: '200px',
         left: '0px',
         top: '120px',
-        height: '560px'
+        height: '640px'
       },
       tooltip: {
         direction: 'left',
@@ -50,10 +50,10 @@ export class LandingComponent implements OnInit {
     },
     {
       frame: {
-        width: '840px',
-        left: '150px',
-        top: '159px',
-        height: '527px'
+        width: '730px',
+        left: '203px',
+        top: '110px',
+        height: '650px'
       },
       tooltip: {
         direction: 'right',
@@ -69,10 +69,10 @@ export class LandingComponent implements OnInit {
     },
     {
       frame: {
-        width: '136px',
-        left: '1000px',
-        top: '206px',
-        height: '220px'
+        width: '180px',
+        left: '950px',
+        top: '179px',
+        height: '290px'
       },
       tooltip: {
         direction: 'right',
@@ -88,19 +88,19 @@ export class LandingComponent implements OnInit {
     },
     {
       frame: {
-        width: '136px',
-        left: '1000px',
-        top: '440px',
-        height: '125px'
+        width: '195px',
+        left: '940px',
+        top: '480px',
+        height: '180px'
       },
       tooltip: {
         direction: 'right',
-        left: '700px',
-        top: '435px'
+        left: '650px',
+        top: '520px'
       },
       button: {
-        top: '484px',
-        left: '1050px'
+        top: '550px',
+        left: '1020px'
       },
       description:
         'Complementary property inspector of each layer including size and dimensions, style information and much more. '
