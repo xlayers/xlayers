@@ -2,12 +2,12 @@ import { Injectable } from "@angular/core";
 import { ResourceService, FormatService } from "@xlayers/sketch-lib";
 import { WebOptimizerService } from "./web-optimizer.service";
 import { WebContextService } from "./web-context.service";
-import { WebBlocGenOptions } from "./web-blocgen.d";
+import { WebBlocGenContext, WebBlocGenOptions } from "./web-blocgen.d";
 
 @Injectable({
   providedIn: "root"
 })
-export class WebRenderService {
+export class ReactRenderService {
   constructor(
     private format: FormatService,
     private resource: ResourceService,
@@ -26,19 +26,25 @@ export class WebRenderService {
     return [
       ...this.traverse(data, current, options).map(file => ({
         ...file,
-        kind: "web"
+        kind: "react"
       })),
       {
-        kind: "web",
-        value: context.html.join("\n"),
-        language: "html",
-        uri: `${options.componentDir}/${name}.html`
+        kind: "react",
+        value: this.renderComponent(name, context, options).join("\n"),
+        language: "javascript",
+        uri: `${options.componentDir}/${name}.js`
       },
       {
-        kind: "web",
+        kind: "react",
         value: this.webOptimizer.optimize(current),
         language: "css",
         uri: `${options.componentDir}/${name}.css`
+      },
+      {
+        kind: "react",
+        value: this.renderSpec(name).join("\n"),
+        language: "javascript",
+        uri: `${options.componentDir}/${name}.js`
       }
     ];
   }
@@ -93,7 +99,7 @@ export class WebRenderService {
 
     return [
       {
-        kind: "web",
+        kind: "react",
         value: image,
         language: "binary",
         uri: `${options.assetDir}/${this.format.normalizeName(
@@ -101,6 +107,47 @@ export class WebRenderService {
         )}.jpg`
       }
     ];
+  }
+
+  private renderComponent(
+    name: string,
+    context: WebBlocGenContext,
+    options: WebBlocGenOptions
+  ) {
+    const importStatements = [
+      "import React from 'react';",
+      ...context.components.map(component =>
+        this.renderImport(component, options)
+      ),
+      `import './${name}.css';`
+    ];
+
+    return [
+      ...importStatements,
+      "",
+      `export const ${name} = () => (`,
+      ...context.html.map(html => `  ${html}`),
+      ");",
+      ""
+    ];
+  }
+
+  private renderSpec(name: string) {
+    return [
+      "import React from 'react';",
+      "import ReactDOM from 'react-dom';",
+      `import ${name} from './${name}';`,
+      "",
+      "it('renders without crashing', () => {",
+      "  const div = document.createElement('div');",
+      `  ReactDOM.render(<${name} />, div);`,
+      "  ReactDOM.unmountComponentAtNode(div);",
+      "});"
+    ];
+  }
+
+  private renderImport(name, options) {
+    return `import ${name} from "${[options.componentDir, name].join("/")}";`;
   }
 
   private lookupImage(current: SketchMSLayer, data: SketchMSData) {

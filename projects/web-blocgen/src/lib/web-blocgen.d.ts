@@ -1,5 +1,6 @@
 export interface WebBlocGenOptions {
   mode?: string;
+  jsx?: boolean;
   xmlPrefix?: string;
   cssPrefix?: string;
   componentDir?: string;

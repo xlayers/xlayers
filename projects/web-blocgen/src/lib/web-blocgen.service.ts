@@ -4,10 +4,13 @@ import { WebParserService } from "./web-parser.service";
 import { WebRenderService } from "./web-render.service";
 import { VueRenderService } from "./vue-render.service";
 import { AngularRenderService } from "./angular-render.service";
+import { ReactRenderService } from "./react-render.service";
+import { LitElementRenderService } from "./lit-element-render.service";
 import { WebBlocGenOptions } from "./web-blocgen.d";
 
 const DEFAULT_OPTIONS: WebBlocGenOptions = {
   mode: "web",
+  jsx: false,
   xmlPrefix: "xly-",
   cssPrefix: "xly_",
   componentDir: "components",
@@ -23,7 +26,9 @@ export class WebBlocGenService {
     private webParser: WebParserService,
     private webRender: WebRenderService,
     private vueRender: VueRenderService,
-    private angularRender: AngularRenderService
+    private angularRender: AngularRenderService,
+    private litElementRender: LitElementRenderService,
+    private reactRender: ReactRenderService
   ) {}
 
   transform(
@@ -62,6 +67,12 @@ export class WebBlocGenService {
 
       case "angular":
         return this.angularRender.render(current, data, defaultOptions);
+
+      case "lit-element":
+        return this.litElementRender.render(current, data, defaultOptions);
+
+      case "react":
+        return this.reactRender.render(current, data, defaultOptions);
 
       default:
         return this.webRender.render(current, data, defaultOptions);

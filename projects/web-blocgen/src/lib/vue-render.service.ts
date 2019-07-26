@@ -1,5 +1,6 @@
 import { Injectable } from "@angular/core";
 import { ResourceService, FormatService } from "@xlayers/sketch-lib";
+import { WebOptimizerService } from "./web-optimizer.service";
 import { WebContextService } from "./web-context.service";
 import { WebBlocGenContext, WebBlocGenOptions } from "./web-blocgen.d";
 
@@ -10,7 +11,8 @@ export class VueRenderService {
   constructor(
     private format: FormatService,
     private resource: ResourceService,
-    private webContext: WebContextService
+    private webContext: WebContextService,
+    private webOptimizer: WebOptimizerService
   ) {}
 
   render(
@@ -34,7 +36,7 @@ export class VueRenderService {
       },
       {
         kind: "vue",
-        value: this.renderComponentSpec(name, options).join("\n"),
+        value: this.renderSpec(name, options).join("\n"),
         language: "javascript",
         uri: `${options.componentDir}/${name}.spec.js`
       }
@@ -115,7 +117,7 @@ export class VueRenderService {
       "</script>",
       "",
       "<style>",
-      ...context.css.flatMap(rule => ["", rule]),
+      this.webOptimizer.optimize(current),
       "</style>"
     ];
   }
@@ -148,7 +150,7 @@ export class VueRenderService {
     return ["export default {}"];
   }
 
-  private renderComponentSpec(name: string, options: WebBlocGenOptions) {
+  private renderSpec(name: string, options: WebBlocGenOptions) {
     const capitalizedName = name.charAt(0).toUpperCase() + name.slice(1);
     const importPath = [options.componentDir, name].join("/");
 

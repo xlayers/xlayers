@@ -36,7 +36,7 @@ export class AngularRenderService {
       },
       {
         kind: "angular",
-        value: context.css.join("\n\n"),
+        value: this.webOptimizer.optimize(current),
         language: "css",
         uri: `${options.componentDir}/${name}.css`
       },
@@ -48,7 +48,7 @@ export class AngularRenderService {
       },
       {
         kind: "angular",
-        value: this.renderComponentSpec(name, options).join("\n"),
+        value: this.renderSpec(name, options).join("\n"),
         language: "javascript",
         uri: `${options.componentDir}/${name}.spec.js`
       }
@@ -122,7 +122,7 @@ export class AngularRenderService {
   ) {
     const capitalizedName = this.capitalizeName(name);
 
-    const importStatementss = [
+    const importStatements = [
       "import { Component, OnInit } from '@angular/core';",
       ...context.components.map(component =>
         this.renderImport(component, options)
@@ -142,10 +142,10 @@ export class AngularRenderService {
       "}"
     ];
 
-    return [...importStatementss, "", ...component];
+    return [...importStatements, "", ...component];
   }
 
-  private renderComponentSpec(name: string, options: WebBlocGenOptions) {
+  private renderSpec(name: string, options: WebBlocGenOptions) {
     const capitalizedName = this.capitalizeName(name);
     const importStatements = this.renderImport(name, options);
 

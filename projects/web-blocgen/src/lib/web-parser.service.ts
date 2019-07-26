@@ -22,8 +22,7 @@ export class WebParserService {
     private resource: ResourceService,
     private cssBlocGen: CssBlocGenService,
     private svgBlocGen: SvgBlocGenService,
-    private webBlocGen: WebContextService,
-    private webOptimizer: WebOptimizerService
+    private webBlocGen: WebContextService
   ) {}
 
   compute(
@@ -35,7 +34,6 @@ export class WebParserService {
       this.webBlocGen.putContext(current);
     }
     this.visit(data, current, current, 0, options);
-    this.webOptimizer.optimize(current);
   }
 
   private visit(
@@ -94,7 +92,7 @@ export class WebParserService {
 
       const tag = `<${tagName}/>`;
 
-      return this.format.indent(depth, tag);
+      return [this.format.indent(depth, tag)];
     }
 
     return "";
@@ -114,7 +112,7 @@ export class WebParserService {
     if (this.svgBlocGen.identify(current)) {
       return this.extractShape(current, depth);
     }
-    return null;
+    return [];
   }
 
   private extractBitmap(
@@ -124,33 +122,29 @@ export class WebParserService {
   ) {
     const className = this.generateCssClassName(options);
     const attributes = [
-      `class="${className}"`,
+      `${options.jsx ? "className" : "class"}="${className}"`,
       `role="${current._class}"`,
       `aria-label="${this.format.normalizeName(current.name)}"`,
       `src="${options.assetDir}/${this.format.normalizeName(current.name)}.jpg"`
     ];
     const tag = ["<img", ...attributes].join(" ") + ">";
 
-    return this.format.indent(depth, tag);
+    return [this.format.indent(depth, tag)];
   }
 
   private extractText(current: SketchMSLayer, depth: number) {
     const content = this.ast.lookupText(current);
     const tag = `<span>${content}</span>`;
 
-    return this.format.indent(depth, tag);
+    return [this.format.indent(depth, tag)];
   }
 
   private extractShape(current: SketchMSLayer, depth: number) {
     return this.svgBlocGen
       .transform(current, { xmlNamespace: false })
-      .map(file =>
-        file.value
-          .split("\n")
-          .map(line => this.format.indent(depth, line))
-          .join("\n")
-      )
-      .join("\n");
+      .flatMap(file =>
+        file.value.split("\n").map(line => this.format.indent(depth, line))
+      );
   }
 
   private putContent(
@@ -164,7 +158,7 @@ export class WebParserService {
     if (content) {
       const context = this.webBlocGen.contextOf(root);
       this.webBlocGen.putContext(root, {
-        html: [...context.html, content]
+        html: [...context.html, ...content]
       });
     }
   }
@@ -179,7 +173,7 @@ export class WebParserService {
       .map(file => file.value);
     const context = this.webBlocGen.contextOf(root);
     this.webBlocGen.putContext(root, {
-      css: [...context.css, cssRules]
+      css: [...context.css, ...cssRules]
     });
   }
 

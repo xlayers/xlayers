@@ -2,38 +2,11 @@ import { Injectable } from "@angular/core";
 import { XlayersNgxEditorModel } from "../codegen.service";
 import { WebBlocGenService } from "@xlayers/web-blocgen";
 
-const renderReadme = (name: string) => `\
-## How to use the ${name} Vuejs module
-
-1. Download and extract the exported module into your workspace,
-
-2. Import the component into your App component or other container.
-\`\`\`
-<template>
-  <div id="app">
-    <MyComponent />
-  </div>
-</template>
-
-<script>
-import MyComponent from './components/MyComponent.vue'
-
-export default {
-  name: 'app',
-  components: {
-    MyComponent
-  }
-}
-</script>
-\`\`\`
-
-3. Enjoy.`;
-
 @Injectable({
   providedIn: "root"
 })
 export class VueCodeGenService {
-  constructor(private webBlocDenService: WebBlocGenService) {}
+  constructor(private webBlocGen: WebBlocGenService) {}
 
   buttons() {
     return {};
@@ -43,13 +16,43 @@ export class VueCodeGenService {
     return [
       {
         kind: "vue",
-        value: renderReadme(data.meta.app),
+        value: this.renderReadme(data.meta.app).join("\n"),
         language: "markdown",
         uri: `README.md`
       },
       ...(data.pages as any).flatMap(page =>
-        this.webBlocDenService.transform(page, data, { mode: "vue" })
+        this.webBlocGen.transform(page, data, { mode: "vue" })
       )
     ] as XlayersNgxEditorModel[];
+  }
+
+  private renderReadme(name: string) {
+    return [
+      `## How to use the ${name} Vue module`,
+      "",
+      "1. Download and extract the exported module into your workspace,",
+      "",
+      "2. Import the component into your App component or other container.",
+      "```",
+      "<template>",
+      '  <div id="app">',
+      "    <MyComponent />",
+      "  </div>",
+      "</template>",
+      "",
+      "<script>",
+      "import MyComponent from './components/MyComponent.vue'",
+      "",
+      "export default {",
+      "  name: 'app',",
+      "  components: {",
+      "    MyComponent",
+      "  }",
+      "}",
+      "</script>",
+      "```",
+      "",
+      "3. Enjoy."
+    ];
   }
 }

@@ -2,12 +2,12 @@ import { Injectable } from "@angular/core";
 import { ResourceService, FormatService } from "@xlayers/sketch-lib";
 import { WebOptimizerService } from "./web-optimizer.service";
 import { WebContextService } from "./web-context.service";
-import { WebBlocGenOptions } from "./web-blocgen.d";
+import { WebBlocGenContext, WebBlocGenOptions } from "./web-blocgen.d";
 
 @Injectable({
   providedIn: "root"
 })
-export class WebRenderService {
+export class LitElementRenderService {
   constructor(
     private format: FormatService,
     private resource: ResourceService,
@@ -30,15 +30,9 @@ export class WebRenderService {
       })),
       {
         kind: "web",
-        value: context.html.join("\n"),
+        value: this.renderComponent(name, current, context).join("\n"),
         language: "html",
         uri: `${options.componentDir}/${name}.html`
-      },
-      {
-        kind: "web",
-        value: this.webOptimizer.optimize(current),
-        language: "css",
-        uri: `${options.componentDir}/${name}.css`
       }
     ];
   }
@@ -100,6 +94,38 @@ export class WebRenderService {
           current.name
         )}.jpg`
       }
+    ];
+  }
+
+  private renderComponent(
+    name: string,
+    current: SketchMSLayer,
+    context: WebBlocGenContext
+  ) {
+    const cssRules = this.webOptimizer
+      .optimize(current)
+      .split("\n")
+      .map(line => `      ${line}`);
+
+    return [
+      "import { LitElement, html, css } from 'lit-element';",
+      "",
+      `class ${name} extends LitElement {`,
+      "",
+      "  static get styles() {",
+      "    return css`",
+      ...cssRules,
+      "    `",
+      "  }",
+      "",
+      "  render(){",
+      "    return html`",
+      ...context.html.map(html => `      ${html}`),
+      "    `",
+      "  }",
+      "}",
+      "",
+      "customElements.define('x-layers-element' , XLayersElement);"
     ];
   }
 
