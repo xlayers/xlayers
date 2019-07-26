@@ -1,9 +1,9 @@
-import { Injectable } from '@angular/core';
-import { SvgBlocGenService } from '@xlayers/svg-blocgen';
-import { Store } from '@ngxs/store';
-import { UiState } from '@app/core/state/ui.state';
-import { ResourceService } from '@xlayers/sketch-util';
-import { CssRenderService } from '@xlayers/vue-blocgen/css-render.service';
+import { Injectable } from "@angular/core";
+import { SvgBlocGenService } from "@xlayers/svg-blocgen";
+import { Store } from "@ngxs/store";
+import { UiState } from "@app/core/state/ui.state";
+import { ResourceService } from "@xlayers/sketch-lib";
+import { WebOptimizerService } from "projects/web-blocgen/src/lib/web-optimizer.service";
 
 export enum Template {
   HTML,
@@ -20,7 +20,7 @@ export class SharedCodegen {
 
   constructor(
     private store: Store,
-    private optimizer: CssRenderService,
+    private optimizer: WebOptimizerService,
     private svgBlocGenService: SvgBlocGenService,
     private resourceService: ResourceService
   ) {
@@ -34,7 +34,7 @@ export class SharedCodegen {
   }
 
   generateComponentStyles(ast: SketchMSLayer) {
-    return this.optimizer.render(ast);
+    return this.optimizer.optimize(ast);
   }
 
   openTag(tag = "div", attributes = [], autoclose = false) {

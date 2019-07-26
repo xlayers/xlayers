@@ -1,5 +1,5 @@
 export const litElementTemplate = (domContent: string, style: string) => {
-  const strTplWrap = (code) =>  '`' + code + '`'  ;
+  const strTplWrap = code => "`" + code + "`";
 
   return `
 import { LitElement, html, css } from 'lit-element';
@@ -19,26 +19,23 @@ class XLayersElement extends LitElement {
   }
 }
 
-customElements.define( 'x-layers-element' , XLayersElement);
-  `;
+customElements.define('x-layers-element' , XLayersElement);`;
 };
 
-export const readmeTemplate = () => {
-  const codeBlock = '```';
-  return `
+export const readmeTemplate = () => `\
 ## How to use the Xlayers Web Components built with LitElement
 
 This implementation export the assets as single file web component that can be consumed in the following ways:
 
-${codeBlock}
+\`\`\`
   // index.html
   <script src="./x-layers-element.js"></script>
   <x-layers-element></x-layers-element>
-${codeBlock}
+\`\`\`
 
 > Needed polyfills must be imported, in most cases you can import it globally or use different strategy. For example:
 
-${codeBlock}
+\`\`\`
   //index.html
   <!-- Load polyfills; note that "loader" will load these async -->
   <script src="node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js" defer></script>
@@ -52,9 +49,7 @@ ${codeBlock}
 
   <!-- Use the custom element -->
   <x-layers-element></x-layers-element>
-${codeBlock}
+\`\`\`
 
 >  [LitElement website](https://lit-element.polymer-project.org/)
->  For more information about [web components and browser support](https://github.com/WebComponents/webcomponentsjs#browser-support)
-  `;
-};
+>  For more information about [web components and browser support](https://github.com/WebComponents/webcomponentsjs#browser-support)`;

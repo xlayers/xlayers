@@ -1,15 +1,10 @@
 import { Injectable } from "@angular/core";
-
-export interface VueBlocGenContext {
-  html?: string[];
-  css?: string[];
-  components?: string[];
-}
+import { WebBlocGenContext } from "./web-blocgen.d";
 
 @Injectable({
   providedIn: "root"
 })
-export class VueContextService {
+export class WebContextService {
   identify(current: SketchMSLayer) {
     return (
       current.layers &&
@@ -30,7 +25,7 @@ export class VueContextService {
 
   putContext(
     current: SketchMSLayer,
-    nextContext: VueBlocGenContext = { html: [], css: [], components: [] }
+    nextContext: WebBlocGenContext = { html: [], css: [], components: [] }
   ) {
     (current as any).vue = {
       ...((current as any).vue || {}),

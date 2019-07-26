@@ -1,6 +1,6 @@
-import { Injectable } from '@angular/core';
-import { XlayersNgxEditorModel } from '../codegen.service';
-import { VueBlocGenService } from '@xlayers/vue-blocgen';
+import { Injectable } from "@angular/core";
+import { XlayersNgxEditorModel } from "../codegen.service";
+import { WebBlocGenService } from "@xlayers/web-blocgen";
 
 const renderReadme = (name: string) => `\
 ## How to use the ${name} Vuejs module
@@ -30,10 +30,10 @@ export default {
 3. Enjoy.`;
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class VueCodeGenService {
-  constructor(private vueBlocGenService: VueBlocGenService) {}
+  constructor(private webBlocDenService: WebBlocGenService) {}
 
   buttons() {
     return {};
@@ -42,13 +42,13 @@ export class VueCodeGenService {
   generate(data: SketchMSData) {
     return [
       {
-        kind: 'vue',
+        kind: "vue",
         value: renderReadme(data.meta.app),
-        language: 'markdown',
+        language: "markdown",
         uri: `README.md`
       },
       ...(data.pages as any).flatMap(page =>
-        this.vueBlocGenService.transform(page, data)
+        this.webBlocDenService.transform(page, data, { mode: "vue" })
       )
     ] as XlayersNgxEditorModel[];
   }

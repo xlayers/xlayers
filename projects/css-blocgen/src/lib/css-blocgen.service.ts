@@ -1,7 +1,7 @@
-import { Injectable } from '@angular/core';
-import { CssContextService } from './css-context.service';
-import { CssParserService } from './css-parser.service';
-import { CssRenderService, CssRenderOptions } from './css-render.service';
+import { Injectable } from "@angular/core";
+import { CssContextService } from "./css-context.service";
+import { CssParserService } from "./css-parser.service";
+import { CssRenderService, CssRenderOptions } from "./css-render.service";
 
 @Injectable({
   providedIn: "root"

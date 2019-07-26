@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { FormatService } from "@xlayers/sketch-util";
+import { FormatService } from "@xlayers/sketch-lib";
 import { CssContextService, CssBlocGenContext } from "./css-context.service";
 
 export interface CssRenderOptions {

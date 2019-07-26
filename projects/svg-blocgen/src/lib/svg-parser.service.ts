@@ -1,10 +1,10 @@
-import { Injectable } from "@angular/core";
-import { ShapeService } from "@xlayers/sketch-util";
-import { StyleService } from "@xlayers/sketch-util";
-import { SvgContextService } from "./svg-context.service";
+import { Injectable } from '@angular/core';
+import { ShapeService } from '@xlayers/sketch-lib';
+import { StyleService } from '@xlayers/sketch-lib';
+import { SvgContextService } from './svg-context.service';
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root'
 })
 export class SvgParserService {
   constructor(
@@ -19,11 +19,11 @@ export class SvgParserService {
 
   private extractShapes(current: SketchMSLayer) {
     switch (current._class as string) {
-      case "shapePath":
+      case 'shapePath':
         return this.extractShapePath(current);
-      case "shapeGroup":
+      case 'shapeGroup':
         return this.extractShapeGroup(current);
-      case "triangle":
+      case 'triangle':
         return this.extractTriangleShape(current);
       default:
         return {};
@@ -80,7 +80,7 @@ export class SvgParserService {
     segments.unshift(`M${origin.x} ${origin.y}`);
 
     if ((current as any).isClosed) {
-      segments.push("z");
+      segments.push('z');
     }
     const fillStyle = this.extractFillStyle(current);
 
@@ -88,7 +88,7 @@ export class SvgParserService {
       offset,
       paths: [
         {
-          type: "path",
+          type: 'path',
           attributes: [...config, fillStyle, `d="${segments}"`]
         }
       ]
@@ -122,7 +122,7 @@ export class SvgParserService {
         );
         return `${currPoint.x}, ${currPoint.y}`;
       })
-      .join(" ");
+      .join(' ');
 
     const fillStyle = this.extractFillStyle(current);
 
@@ -130,7 +130,7 @@ export class SvgParserService {
       offset,
       paths: [
         {
-          type: "polygon",
+          type: 'polygon',
           attributes: [...config, fillStyle, `points="${segments}"`]
         }
       ]
@@ -177,10 +177,10 @@ export class SvgParserService {
 
       // TODO: isClosed to type
       if ((layer as any).isClosed) {
-        segments.push("z");
+        segments.push('z');
       }
 
-      return segments.join(" ");
+      return segments.join(' ');
     });
 
     const fillStyle = this.extractFillStyle(current);
@@ -189,8 +189,8 @@ export class SvgParserService {
       offset,
       paths: [
         {
-          type: "path",
-          attributes: [fillStyle, `d="${paths.join(" ")}"`]
+          type: 'path',
+          attributes: [fillStyle, `d="${paths.join(' ')}"`]
         }
       ]
     };

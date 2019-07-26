@@ -10,7 +10,7 @@ import { Store } from '@ngxs/store';
 import { CurrentLayer, UiState } from '@app/core/state/ui.state';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { SvgBlocGenService } from '@xlayers/svg-blocgen';
-import { AstService, ResourceService } from '@xlayers/sketch-util';
+import { AstService, ResourceService } from '@xlayers/sketch-lib';
 import { CssBlocGenService } from '@xlayers/css-blocgen';
 
 @Component({

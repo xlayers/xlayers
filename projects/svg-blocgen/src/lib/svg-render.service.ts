@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { FormatService } from '@xlayers/sketch-util';
+import { FormatService } from '@xlayers/sketch-lib';
 import {
   SvgBlocGenContext,
   SvgContextService,
@@ -35,10 +35,10 @@ export class SvgRenderService {
   ) {
     const attributes = this.xmlHearderAttribute(context, current, options);
     return [
-      ["<svg", ...attributes].join(" ") + ">",
+      ['<svg', ...attributes].join(' ') + '>',
       this.renderPaths(context),
       `</svg>`
-    ].join("\n");
+    ].join('\n');
   }
 
   private xmlHearderAttribute(

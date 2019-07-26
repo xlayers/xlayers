@@ -1,11 +1,11 @@
-import { Injectable } from "@angular/core";
+import { Injectable } from '@angular/core';
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root'
 })
 export class ResourceService {
   identifySymbolInstance(current: SketchMSLayer) {
-    return (current._class as string) === "symbolInstance";
+    return (current._class as string) === 'symbolInstance';
   }
 
   lookupSymbolMaster(current: SketchMSLayer, data: SketchMSData) {
@@ -17,7 +17,7 @@ export class ResourceService {
   }
 
   identifyBitmap(current: SketchMSLayer) {
-    return (current._class as string) === "bitmap";
+    return (current._class as string) === 'bitmap';
   }
 
   lookupBitmap(current: SketchMSLayer, data: SketchMSData) {

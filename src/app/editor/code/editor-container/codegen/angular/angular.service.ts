@@ -1,5 +1,6 @@
 import { Injectable } from "@angular/core";
 import { XlayersNgxEditorModel } from "../codegen.service";
+import { WebBlocGenService } from "@xlayers/web-blocgen";
 
 const renderReadme = () => `\
 ## How to use the Xlayers Angular module
@@ -73,6 +74,8 @@ export class XlayersRoutingModule {}
   providedIn: "root"
 })
 export class AngularCodeGenService {
+  constructor(private webBlocGenService: WebBlocGenService) {}
+
   buttons() {
     return {
       stackblitz: true
@@ -98,7 +101,10 @@ export class AngularCodeGenService {
         value: renderRoutingModule(),
         language: "typescript",
         kind: "angular"
-      }
+      },
+      ...(data.pages as any).flatMap(page =>
+        this.webBlocGenService.transform(page, data, { mode: "angular" })
+      )
     ];
   }
 }

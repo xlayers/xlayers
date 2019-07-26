@@ -1,5 +1,5 @@
 /*
- * Public API Surface of sketch-util
+ * Public API Surface of sketch-lib
  */
 
 export * from './lib/resource.service';
@@ -9,4 +9,4 @@ export * from './lib/format.service';
 export * from './lib/shape.service';
 export * from './lib/style.service';
 export * from './lib/xml.service';
-export * from './lib/sketch-util.module';
+export * from './lib/sketch-lib.module';
