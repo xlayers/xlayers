@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { FormatService } from "@xlayers/sketch-lib";
-import { CssBlocGenService } from "@xlayers/css-blocgen";
+import { CssRenderService } from "./css-render.service";
 import { WebContextService } from "./web-context.service";
 import { WebBlocGenOptions } from "./web-blocgen";
 
@@ -11,11 +11,11 @@ export class WebRenderService {
   constructor(
     private format: FormatService,
     private webContext: WebContextService,
-    private cssBlocGen: CssBlocGenService
+    private cssRender: CssRenderService
   ) {}
 
   render(current: SketchMSLayer, options: WebBlocGenOptions) {
-    const name = this.format.snakeName(current.name);
+    const fileName = this.format.fileName(current.name);
     const context = this.webContext.contextOf(current);
 
     return [
@@ -23,13 +23,13 @@ export class WebRenderService {
         kind: "web",
         value: context.html.join("\n"),
         language: "html",
-        uri: `${options.componentDir}/${name}.html`
+        uri: `${options.componentDir}/${fileName}.html`
       },
       {
         kind: "web",
-        value: this.cssBlocGen.transform(current),
+        value: this.cssRender.render(current),
         language: "css",
-        uri: `${options.componentDir}/${name}.css`
+        uri: `${options.componentDir}/${fileName}.css`
       }
     ];
   }

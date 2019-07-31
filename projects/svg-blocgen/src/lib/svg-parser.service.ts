@@ -1,29 +1,29 @@
-import { Injectable } from '@angular/core';
-import { ShapeService } from '@xlayers/sketch-lib';
-import { StyleService } from '@xlayers/sketch-lib';
-import { SvgContextService } from './svg-context.service';
+import { Injectable } from "@angular/core";
+import { ShapeService } from "@xlayers/sketch-lib";
+import { StyleService } from "@xlayers/sketch-lib";
+import { SvgContextService } from "./svg-context.service";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class SvgParserService {
   constructor(
-    private shapeHelperService: ShapeService,
-    private styleHelperService: StyleService,
-    private svgContextService: SvgContextService
+    private shape: ShapeService,
+    private style: StyleService,
+    private svgContext: SvgContextService
   ) {}
 
   compute(current: SketchMSLayer) {
-    this.svgContextService.putContext(current, this.extractShapes(current));
+    this.svgContext.putContext(current, this.extractShapes(current));
   }
 
   private extractShapes(current: SketchMSLayer) {
     switch (current._class as string) {
-      case 'shapePath':
+      case "shapePath":
         return this.extractShapePath(current);
-      case 'shapeGroup':
+      case "shapeGroup":
         return this.extractShapeGroup(current);
-      case 'triangle':
+      case "triangle":
         return this.extractTriangleShape(current);
       default:
         return {};
@@ -41,32 +41,30 @@ export class SvgParserService {
       current.style.borders[0].thickness
     ) {
       config.push(`stroke-width="${current.style.borders[0].thickness}"`);
-      const color = this.styleHelperService.parseColorAsHex(
-        current.style.borders[0].color
-      );
+      const color = this.style.parseColorAsHex(current.style.borders[0].color);
 
       config.push(`stroke="${color}"`);
       offset = current.style.borders[0].thickness;
     }
 
     // TODO: move to @types/sketchapp
-    const origin = this.shapeHelperService.parsePoint(
+    const origin = this.shape.parsePoint(
       (current as any).points[0].point,
       offset,
       current
     );
     const segments = (current as any).points.slice(1).map(curvePoint => {
-      const curveFrom = this.shapeHelperService.parsePoint(
+      const curveFrom = this.shape.parsePoint(
         curvePoint.curveFrom,
         offset,
         current
       );
-      const curveTo = this.shapeHelperService.parsePoint(
+      const curveTo = this.shape.parsePoint(
         curvePoint.curveTo,
         offset,
         current
       );
-      const currPoint = this.shapeHelperService.parsePoint(
+      const currPoint = this.shape.parsePoint(
         curvePoint.point,
         offset,
         current
@@ -80,7 +78,7 @@ export class SvgParserService {
     segments.unshift(`M${origin.x} ${origin.y}`);
 
     if ((current as any).isClosed) {
-      segments.push('z');
+      segments.push("z");
     }
     const fillStyle = this.extractFillStyle(current);
 
@@ -88,7 +86,7 @@ export class SvgParserService {
       offset,
       paths: [
         {
-          type: 'path',
+          type: "path",
           attributes: [...config, fillStyle, `d="${segments}"`]
         }
       ]
@@ -106,23 +104,21 @@ export class SvgParserService {
       current.style.borders[0].thickness
     ) {
       config.push(`stroke-width="${current.style.borders[0].thickness / 2}"`);
-      const color = this.styleHelperService.parseColorAsHex(
-        current.style.borders[0].color
-      );
+      const color = this.style.parseColorAsHex(current.style.borders[0].color);
       config.push(`stroke="${color}"`);
       offset = current.style.borders[0].thickness;
     }
 
     const segments = (current as any).points
       .map(curvePoint => {
-        const currPoint = this.shapeHelperService.parsePoint(
+        const currPoint = this.shape.parsePoint(
           curvePoint.point,
           offset / 2,
           current
         );
         return `${currPoint.x}, ${currPoint.y}`;
       })
-      .join(' ');
+      .join(" ");
 
     const fillStyle = this.extractFillStyle(current);
 
@@ -130,7 +126,7 @@ export class SvgParserService {
       offset,
       paths: [
         {
-          type: 'polygon',
+          type: "polygon",
           attributes: [...config, fillStyle, `points="${segments}"`]
         }
       ]
@@ -141,23 +137,23 @@ export class SvgParserService {
     const offset = 0;
     const paths = current.layers.map(layer => {
       // TODO: move to @types/sketchapp
-      const origin = this.shapeHelperService.parsePoint(
+      const origin = this.shape.parsePoint(
         (layer as any).points[0].point,
         offset,
         layer
       );
       const segments = (layer as any).points.slice(1).map(curvePoint => {
-        const curveFrom = this.shapeHelperService.parsePoint(
+        const curveFrom = this.shape.parsePoint(
           curvePoint.curveFrom,
           offset,
           layer
         );
-        const curveTo = this.shapeHelperService.parsePoint(
+        const curveTo = this.shape.parsePoint(
           curvePoint.curveTo,
           offset,
           layer
         );
-        const currPoint = this.shapeHelperService.parsePoint(
+        const currPoint = this.shape.parsePoint(
           curvePoint.point,
           offset,
           layer
@@ -177,10 +173,10 @@ export class SvgParserService {
 
       // TODO: isClosed to type
       if ((layer as any).isClosed) {
-        segments.push('z');
+        segments.push("z");
       }
 
-      return segments.join(' ');
+      return segments.join(" ");
     });
 
     const fillStyle = this.extractFillStyle(current);
@@ -189,8 +185,8 @@ export class SvgParserService {
       offset,
       paths: [
         {
-          type: 'path',
-          attributes: [fillStyle, `d="${paths.join(' ')}"`]
+          type: "path",
+          attributes: [fillStyle, `d="${paths.join(" ")}"`]
         }
       ]
     };
@@ -205,9 +201,7 @@ export class SvgParserService {
       const firstFill = obj[0];
 
       if (firstFill.isEnabled) {
-        const fillColor = this.styleHelperService.parseColorAsRgba(
-          firstFill.color
-        );
+        const fillColor = this.style.parseColorAsRgba(firstFill.color);
 
         return `fill="${fillColor}"`;
       }

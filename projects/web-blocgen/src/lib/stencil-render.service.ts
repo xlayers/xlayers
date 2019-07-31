@@ -13,40 +13,42 @@ export class StencilRenderService {
   ) {}
 
   render(current: SketchMSLayer, options: WebBlocGenOptions) {
-    const name = this.format.snakeName(current.name);
+    const fileName = this.format.fileName(current.name);
     const files = this.webRender.render(current, options);
-    const html = files.find(file => file.kind === "html");
+    const html = files.find(file => file.language === "html");
 
     return [
-      files.filter(file => file.kind !== "html"),
+      files.filter(file => file.language !== "html"),
       {
         kind: "stencil",
         value: this.renderE2e(name).join("\n"),
         language: "typescript",
-        uri: `${options.componentDir}/${name}.e2e.ts`
+        uri: `${options.componentDir}/${fileName}.e2e.ts`
       },
       {
         kind: "stencil",
         value: this.renderComponent(html.value, options).join("\n"),
         language: "typescript",
-        uri: `${options.componentDir}/${name}.tsx`
+        uri: `${options.componentDir}/${fileName}.tsx`
       }
     ];
   }
 
   private renderComponent(html: string, options: WebBlocGenOptions) {
-    const capitalizedName = this.format.capitalizeName(name);
+    const fileName = this.format.fileName(name);
+    const componentName = this.format.componentName(name);
+    const tagName = this.format.fileName(name);
 
     return [
       "import { Component } from '@angular/core';",
-      `import ${name} from "${options.componentDir}/${name}";`,
+      `import ${componentName} from "./${options.componentDir}/${fileName}";`,
       "",
       "@Component({",
-      `  selector: '${options.xmlPrefix}${name}',`,
-      `  styleUrl: './${name}.component.css'`,
+      `  selector: '${options.xmlPrefix}${tagName}',`,
+      `  styleUrl: './${fileName}.component.css'`,
       "  shadow: true",
       "})",
-      `export class ${capitalizedName}Component {`,
+      `export class ${componentName}Component {`,
       "  render() {",
       "    return (",
       ...this.format.indentFile(3, html),
@@ -57,13 +59,16 @@ export class StencilRenderService {
   }
 
   private renderE2e(name: string) {
+    const componentName = this.format.componentName(name);
+    const tagName = this.format.fileName(name);
+
     return [
-      `describe('${name}', () => {`,
+      `describe('${componentName}', () => {`,
       "  it('renders', async () => {",
       "    const page = await newE2EPage();",
       "",
-      `    await page.setContent('<${name}></${name}>');`,
-      `    const element = await page.find('${name}');`,
+      `    await page.setContent('<${tagName}></${tagName}>');`,
+      `    const element = await page.find('${tagName}');`,
       `    expect(element).toHaveClass('hydrated');`,
       "  });",
       "});"

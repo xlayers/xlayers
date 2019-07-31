@@ -10,23 +10,23 @@ import { WebContextService } from "./web-context.service";
 export class ReactRenderService {
   constructor(
     private format: FormatService,
-    private webContextService: WebContextService,
+    private webContext: WebContextService,
     private webRender: WebRenderService
   ) {}
 
   render(current: SketchMSLayer, options: WebBlocGenOptions) {
-    const name = this.format.snakeName(current.name);
-    const context = this.webContextService.contextOf(current);
+    const fileName = this.format.fileName(current.name);
+    const context = this.webContext.contextOf(current);
     const files = this.webRender.render(current, options);
-    const html = files.find(file => file.kind === "html");
+    const html = files.find(file => file.language === "html");
 
     return [
-      files.filter(file => file.kind !== "html"),
+      files.filter(file => file.language !== "html"),
       {
         kind: "react",
         value: this.renderSpec(name).join("\n"),
         language: "javascript",
-        uri: `${options.componentDir}/${name}.js`
+        uri: `${options.componentDir}/${fileName}.js`
       },
       {
         kind: "react",
@@ -37,7 +37,7 @@ export class ReactRenderService {
           options
         ).join("\n"),
         language: "javascript",
-        uri: `${options.componentDir}/${name}.jsx`
+        uri: `${options.componentDir}/${fileName}.jsx`
       }
     ];
   }
@@ -48,15 +48,18 @@ export class ReactRenderService {
     components: string[],
     options: WebBlocGenOptions
   ) {
+    const componentName = this.format.componentName(name);
+    const fileName = this.format.fileName(name);
+
     return [
       "import React from 'react';",
       ...components.map(
         component =>
           `import ${component} from "${options.componentDir}/${component}";`
       ),
-      `import './${name}.css';`,
+      `import './${fileName}.css';`,
       "",
-      `export const ${name} = () => (`,
+      `export const ${componentName} = () => (`,
       ...this.format.indentFile(1, html),
       ");",
       ""
@@ -64,14 +67,17 @@ export class ReactRenderService {
   }
 
   private renderSpec(name: string) {
+    const componentName = this.format.componentName(name);
+    const fileName = this.format.fileName(name);
+
     return [
       "import React from 'react';",
       "import ReactDOM from 'react-dom';",
-      `import ${name} from './${name}';`,
+      `import ${componentName} from './${fileName}';`,
       "",
       "it('renders without crashing', () => {",
       "  const div = document.createElement('div');",
-      `  ReactDOM.render(<${name} />, div);`,
+      `  ReactDOM.render(<${componentName} />, div);`,
       "  ReactDOM.unmountComponentAtNode(div);",
       "});"
     ];

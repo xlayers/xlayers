@@ -63,7 +63,7 @@ async function loadSketch(version, fileName) {
 describe("sketch parser", () => {
   let cssBlocGen: CssBlocGenService;
   let svgBlocGenService: SvgBlocGenService;
-  let astService: TextService;
+  let text: TextService;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({

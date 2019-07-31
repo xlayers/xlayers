@@ -13,7 +13,7 @@ export class AngularRenderService {
   ) {}
 
   render(current: SketchMSLayer, options: WebBlocGenOptions) {
-    const name = this.format.snakeName(current.name);
+    const fileName = this.format.fileName(current.name);
 
     return [
       ...this.webRender.render(current, options).map(file => ({
@@ -22,60 +22,58 @@ export class AngularRenderService {
       })),
       {
         kind: "angular",
-        value: this.renderComponent(name, options),
+        value: this.renderComponent(current.name, options),
         language: "typescript",
-        uri: `${options.componentDir}/${name}.ts`
+        uri: `${options.componentDir}/${fileName}.ts`
       },
       {
         kind: "angular",
-        value: this.renderSpec(name, options),
+        value: this.renderSpec(current.name, options),
         language: "typescript",
-        uri: `${options.componentDir}/${name}.spec.ts`
+        uri: `${options.componentDir}/${fileName}.spec.ts`
       }
     ];
   }
 
   private renderComponent(name: string, options: WebBlocGenOptions) {
-    const capitalizedName = this.format.capitalizeName(name);
+    const componentName = this.format.componentName(name);
+    const fileName = this.format.fileName(name);
+    const tagName = this.format.fileName(name);
 
-    const importStatements = [
+    return [
       "import { Component } from '@angular/core';",
-      this.renderImport(name, options)
-    ];
-
-    const component = [
+      `import ${componentName} from "./${options.componentDir}/${fileName}";`,
+      "",
       "@Component({",
-      `  selector: '${options.xmlPrefix}${name}',`,
-      `  templateUrl: './${name}.component.html',`,
-      `  styleUrls: ['./${name}.component.css']`,
+      `  selector: '${options.xmlPrefix}${tagName}',`,
+      `  templateUrl: './${fileName}.component.html',`,
+      `  styleUrls: ['./${fileName}.component.css']`,
       "})",
-      `export class ${capitalizedName}Component {}`
-    ];
-
-    return [...importStatements, "", ...component].join("\n");
+      `export class ${componentName}Component {}`
+    ].join("\n");
   }
 
   private renderSpec(name: string, options: WebBlocGenOptions) {
-    const capitalizedName = this.format.capitalizeName(name);
-    const importStatements = this.renderImport(name, options);
+    const componentName = this.format.componentName(name);
+    const fileName = this.format.fileName(name);
 
     return [
       "import { async, ComponentFixture, TestBed } from '@angular/core/testing';",
-      importStatements,
+      `import ${componentName} from "./${options.componentDir}/${fileName}";`,
       "",
-      `describe('${capitalizedName}Component', () => {`,
-      `  let component: ${capitalizedName}Component;`,
-      `  let fixture: ComponentFixture<${capitalizedName}Component>;`,
+      `describe('${componentName}Component', () => {`,
+      `  let component: ${componentName}Component;`,
+      `  let fixture: ComponentFixture<${componentName}Component>;`,
       "",
       "  beforeEach(async(() => {",
       "    TestBed.configureTestingModule({",
-      `      declarations: [ ${capitalizedName}Component ]`,
+      `      declarations: [ ${componentName}Component ]`,
       "    })",
       "    .compileComponents();",
       "  }));",
       "",
       "  beforeEach(() => {",
-      `    fixture = TestBed.createComponent(${capitalizedName}Component);`,
+      `    fixture = TestBed.createComponent(${componentName}Component);`,
       "    component = fixture.componentInstance;",
       "    fixture.detectChanges();",
       "  });",
@@ -85,9 +83,5 @@ export class AngularRenderService {
       "  });",
       "});"
     ].join("\n");
-  }
-
-  private renderImport(name, options) {
-    return `import ${name} from "${[options.componentDir, name].join("/")}";`;
   }
 }

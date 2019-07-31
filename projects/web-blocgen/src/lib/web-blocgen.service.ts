@@ -83,7 +83,7 @@ export class WebBlocGenService {
       case "angular":
         return [
           ...this.traverse(data, current, defaultOptions),
-          ...this.angularRender.render(current, options)
+          ...this.angularRender.render(current, defaultOptions)
         ];
 
       case "lit-element":
@@ -183,7 +183,7 @@ export class WebBlocGenService {
         kind: "web",
         value: image,
         language: "binary",
-        uri: `${options.assetDir}/${this.format.snakeName(current.name)}.jpg`
+        uri: `${options.assetDir}/${this.format.fileName(current.name)}.jpg`
       }
     ];
   }

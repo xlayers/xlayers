@@ -8,7 +8,7 @@ import { CssContextService } from "./css-context.service";
 export class CssParserService {
   constructor(
     private styleHelperService: StyleService,
-    private cssContextService: CssContextService
+    private cssContext: CssContextService
   ) {}
 
   compute(current: SketchMSLayer) {
@@ -17,7 +17,7 @@ export class CssParserService {
       ...this.extractFrameStyles(current)
     };
 
-    this.cssContextService.putContext(current, {
+    this.cssContext.putContext(current, {
       rules
     });
   }

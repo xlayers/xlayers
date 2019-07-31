@@ -1,4 +1,7 @@
 import { Injectable } from "@angular/core";
+import paramCase from "param-case";
+import snakeCase from "snake-case";
+import pascalCase from "pascal-case";
 
 @Injectable({
   providedIn: "root"
@@ -13,14 +16,11 @@ export class FormatService {
     return contents.split("\n").map(line => this.indent(n, line));
   }
 
-  capitalizeName(name) {
-    return name.charAt(0).toUpperCase() + name.slice(1);
+  componentName(name: string) {
+    return pascalCase(name);
   }
 
-  snakeName(name: String) {
-    return name
-      .replace(/[^a-zA-Z ]/g, "")
-      .replace(/\.?([A-Z]+)/g, (_x, y) => "_" + y.toLowerCase())
-      .replace(/^_/, "");
+  fileName(name: string) {
+    return snakeCase(name);
   }
 }

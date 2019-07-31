@@ -13,26 +13,28 @@ export class LitElementRenderService {
   ) {}
 
   render(current: SketchMSLayer, options: WebBlocGenOptions) {
-    const name = this.format.snakeName(current.name);
+    const fileName = this.format.fileName(current.name);
     const files = this.webRender.render(current, options);
-    const html = files.find(file => file.kind === "html");
-    const css = files.find(file => file.kind === "css");
+    const html = files.find(file => file.language === "html");
+    const css = files.find(file => file.language === "css");
 
     return [
       {
         kind: "web",
         value: this.renderComponent(name, html.value, css.value),
         language: "html",
-        uri: `${options.componentDir}/${name}.html`
+        uri: `${options.componentDir}/${fileName}.html`
       }
     ];
   }
 
   private renderComponent(name: string, html: string, css: string) {
+    const componentName = this.format.componentName(name);
+
     return [
       "import { LitElement, html, css } from 'lit-element';",
       "",
-      `class ${name} extends LitElement {`,
+      `class ${componentName} extends LitElement {`,
       "",
       "  static get styles() {",
       "    return css`",

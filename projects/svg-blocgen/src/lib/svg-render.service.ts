@@ -12,18 +12,18 @@ import { SvgBlocGenOptions } from "@xlayers/svg-blocgen";
 })
 export class SvgRenderService {
   constructor(
-    private formatService: FormatService,
-    private svgContextService: SvgContextService
+    private format: FormatService,
+    private svgContext: SvgContextService
   ) {}
 
   render(current: SketchMSLayer, options: SvgBlocGenOptions) {
-    const context = this.svgContextService.contextOf(current);
+    const context = this.svgContext.contextOf(current);
     return [
       {
         kind: "svg",
         language: "svg",
         value: this.renderFile(context, current, options),
-        uri: `${this.formatService.snakeName(current.name)}.svg`
+        uri: `${this.format.fileName(current.name)}.svg`
       }
     ];
   }
@@ -64,7 +64,7 @@ export class SvgRenderService {
 
   private renderPaths(context: SvgBlocGenContext) {
     return context.paths.map(path =>
-      this.formatService.indent(1, this.renderPath(path))
+      this.format.indent(1, this.renderPath(path))
     );
   }
   private renderPath(path: SvgBlocGenContextPath) {

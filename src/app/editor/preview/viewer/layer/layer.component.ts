@@ -96,7 +96,7 @@ export class ViewerLayerComponent implements OnInit, AfterContentInit {
     private renderer: Renderer2,
     private element: ElementRef<HTMLElement>,
     private sanitizer: DomSanitizer,
-    private astService: TextService,
+    private text: TextService,
     private cssBlocGen: CssBlocGenService,
     private svgBlocGen: SvgBlocGenService,
     private resource: SymbolService,
@@ -127,8 +127,8 @@ export class ViewerLayerComponent implements OnInit, AfterContentInit {
   }
 
   loadText() {
-    if (this.astService.identifyText(this.layer)) {
-      const content = this.astService.lookupText(this.layer);
+    if (this.text.identify(this.layer)) {
+      const content = this.text.lookup(this.layer);
       this.texts.push(content);
     }
   }

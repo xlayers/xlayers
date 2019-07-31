@@ -74,7 +74,10 @@
     "jszip": "^3.1.5",
     "ngx-color": "^2.0.5",
     "ngx-highlightjs": "^3.0.1",
+    "param-case": "^2.1.1",
+    "pascal-case": "^2.0.1",
     "rxjs": "^6.4.0",
+    "snake-case": "^2.1.0",
     "start-server-and-test": "^1.7.12",
     "zone.js": "^0.8.29"
   },

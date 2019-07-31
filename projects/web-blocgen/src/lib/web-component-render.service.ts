@@ -13,32 +13,35 @@ export class WebComponentRenderService {
   ) {}
 
   render(current: SketchMSLayer, options: WebBlocGenOptions) {
-    const name = this.format.snakeName(current.name);
+    const fileName = this.format.fileName(current.name);
     const files = this.webRender.render(current, options);
-    const html = files.find(file => file.kind === "html");
+    const html = files.find(file => file.language === "html");
 
     return [
-      files.filter(file => file.kind !== "html"),
+      files.filter(file => file.language !== "html"),
       {
         kind: "wc",
         value: this.renderComponent(name, html.value).join("\n"),
         language: "javascript",
-        uri: `${options.componentDir}/${name}.js`
+        uri: `${options.componentDir}/${fileName}.js`
       }
     ];
   }
 
   private renderComponent(name: string, html: string) {
+    const componentName = this.format.componentName(name);
+    const tagName = this.format.fileName(name);
+
     return [
-      `class ${name} extends HTMLElement {`,
-      `  static is = '${name}';`,
+      `class ${componentName} extends HTMLElement {`,
+      `  static is = '${tagName}';`,
       "",
       "  render() {",
       ...this.format.indentFile(2, html),
       "  }",
       "}",
       "",
-      `customElements.define(${name}.is , ${name});`
+      `customElements.define(${componentName}.is , ${componentName});`
     ];
   }
 }

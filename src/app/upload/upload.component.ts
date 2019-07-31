@@ -24,19 +24,20 @@ export class UploadComponent implements OnInit {
   ngOnInit() {}
 
   async onFileSelected(file: File) {
-    // try {
-    const data = await this.sketchService.loadSketchFile(file);
+    try {
+      const data = await this.sketchService.loadSketchFile(file);
 
-    this.isDragging$.next(false);
-    // Note: these actions need to be run in sequence!
-    this.store.dispatch([
-      new ResetUiSettings(),
-      new CurrentFile(data),
-      new Navigate(["/editor/preview"])
-    ]);
-    // } catch (error) {
-    //   this.store.dispatch(new InformUser(error, ErrorType.Runtime));
-    // }
+      this.isDragging$.next(false);
+      // Note: these actions need to be run in sequence!
+      this.store.dispatch([
+        new ResetUiSettings(),
+        new CurrentFile(data),
+        new Navigate(["/editor/preview"])
+      ]);
+    } catch (error) {
+      this.store.dispatch(new InformUser(error, ErrorType.Runtime));
+      throw error;
+    }
   }
 
   openSelectedDemoFile(fileName: string) {

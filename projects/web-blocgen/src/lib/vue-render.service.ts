@@ -15,18 +15,18 @@ export class VueRenderService {
   ) {}
 
   render(current: SketchMSLayer, options: WebBlocGenOptions) {
-    const name = this.format.snakeName(current.name);
+    const fileName = this.format.fileName(current.name);
     const context = this.webContext.contextOf(current);
     const files = this.webRender.render(current, options);
-    const html = files.find(file => file.kind === "html");
-    const css = files.find(file => file.kind === "css");
+    const html = files.find(file => file.language === "html");
+    const css = files.find(file => file.language === "css");
 
     return [
       {
         kind: "vue",
         value: this.renderSpec(name, options).join("\n"),
         language: "javascript",
-        uri: `${options.componentDir}/${name}.spec.js`
+        uri: `${options.componentDir}/${fileName}.spec.js`
       },
       {
         kind: "vue",
@@ -37,7 +37,7 @@ export class VueRenderService {
           options
         ).join("\n"),
         language: "html",
-        uri: `${options.componentDir}/${name}.vue`
+        uri: `${options.componentDir}/${fileName}.vue`
       }
     ];
   }
@@ -91,16 +91,16 @@ export class VueRenderService {
   }
 
   private renderSpec(name: string, options: WebBlocGenOptions) {
-    const capitalizedName = this.format.capitalizeName(name);
-    const importPath = [options.componentDir, name].join("/");
+    const componentName = this.format.componentName(name);
+    const fileName = this.format.componentName(name);
 
     return [
       'import { shallowMount } from "@vue/test-utils";',
-      `import ${capitalizedName} from "./${importPath}";`,
+      `import ${componentName} from "./${options.componentDir}/${fileName}";`,
       "",
-      `describe("${capitalizedName}", () => {`,
+      `describe("${componentName}", () => {`,
       '  it("render", () => {',
-      `    const wrapper = shallowMount(${capitalizedName}, {});`,
+      `    const wrapper = shallowMount(${componentName}, {});`,
       "    expect(wrapper.isVueInstance()).toBeTruthy();",
       "  });",
       "});"

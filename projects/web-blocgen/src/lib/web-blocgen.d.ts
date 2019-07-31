@@ -8,6 +8,7 @@ export interface WebBlocGenOptions {
 }
 
 export interface WebBlocGenContext {
+  className?: string;
   html?: string[];
   css?: string[];
   components?: string[];

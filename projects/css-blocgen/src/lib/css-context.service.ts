@@ -1,22 +1,22 @@
-import { Injectable } from '@angular/core';
+import { Injectable } from "@angular/core";
 
 export interface CssBlocGenContext {
   rules: { [key: string]: string };
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class CssContextService {
   identify(current: SketchMSLayer) {
     return [
-      'rect',
-      'page',
-      'rectangle',
-      'group',
-      'symbolMaster',
-      'oval',
-      'text'
+      "rect",
+      "page",
+      "rectangle",
+      "group",
+      "symbolMaster",
+      "oval",
+      "text"
     ].includes(current._class as string);
   }
 

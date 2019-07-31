@@ -1,17 +1,17 @@
-import { Injectable } from '@angular/core';
-import { BplistService } from './bplist.service';
+import { Injectable } from "@angular/core";
+import { BplistService } from "./bplist.service";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class TextService {
   constructor(private binaryHelperService: BplistService) {}
 
-  identifyText(current: SketchMSLayer) {
-    return (current._class as string) === 'text';
+  identify(current: SketchMSLayer) {
+    return (current._class as string) === "text";
   }
 
-  lookupText(current: SketchMSLayer) {
+  lookup(current: SketchMSLayer) {
     return (
       current.attributedString.string ||
       this.extractAttributedStringText(current)
@@ -21,7 +21,7 @@ export class TextService {
   private extractAttributedStringText(current: SketchMSLayer) {
     const obj = current.attributedString;
 
-    if (obj && obj.hasOwnProperty('archivedAttributedString')) {
+    if (obj && obj.hasOwnProperty("archivedAttributedString")) {
       const archive = this.binaryHelperService.parse64Content(
         obj.archivedAttributedString._archive
       );
@@ -31,15 +31,15 @@ export class TextService {
       }
     }
 
-    return '';
+    return "";
   }
 
   private decodeArchiveString(archive) {
     switch (archive.$key) {
-      case 'ascii':
+      case "ascii":
         return archive.$value;
       default:
-        return '';
+        return "";
     }
   }
 }

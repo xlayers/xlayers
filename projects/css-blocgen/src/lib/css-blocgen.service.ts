@@ -2,43 +2,42 @@ import { Injectable } from "@angular/core";
 import { CssContextService } from "./css-context.service";
 import { CssParserService } from "./css-parser.service";
 import { CssRenderService } from "./css-render.service";
-import { RuleRenderService } from "./rule-render.service";
 
 @Injectable({
   providedIn: "root"
 })
 export class CssBlocGenService {
   constructor(
-    private cssContextService: CssContextService,
-    private cssParserService: CssParserService,
-    private cssBlocGen: RuleRenderService
+    private cssContext: CssContextService,
+    private cssParser: CssParserService,
+    private cssRender: CssRenderService
   ) {}
 
-  transform(current: SketchMSLayer, options?) {
-    if (!this.cssContextService.hasContext(current)) {
+  transform(current: SketchMSLayer) {
+    if (!this.cssContext.hasContext(current)) {
       this.compute(current);
     }
 
-    return this.render(current, options);
+    return this.render(current);
   }
 
   compute(current: SketchMSLayer) {
-    this.cssParserService.compute(current);
+    this.cssParser.compute(current);
   }
 
-  render(current: SketchMSLayer, options?) {
-    return this.cssBlocGen.render(current, options);
+  render(current: SketchMSLayer) {
+    return this.cssRender.render(current);
   }
 
   identify(current: SketchMSLayer) {
-    return this.cssContextService.identify(current);
+    return this.cssContext.identify(current);
   }
 
   hasContext(current: SketchMSLayer) {
-    return this.cssContextService.hasContext(current);
+    return this.cssContext.hasContext(current);
   }
 
   contextOf(current: SketchMSLayer) {
-    return this.cssContextService.contextOf(current);
+    return this.cssContext.contextOf(current);
   }
 }

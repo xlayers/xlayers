@@ -10,6 +10,7 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "target": "es5",
+    "esModuleInterop": true,
     "lib": ["esnext", "es2017", "dom"],
     "paths": {
       "@env/*": ["src/environments/*"],
