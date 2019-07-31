@@ -1,7 +1,8 @@
 import { Injectable } from "@angular/core";
 import { CssContextService } from "./css-context.service";
 import { CssParserService } from "./css-parser.service";
-import { CssRenderService, CssRenderOptions } from "./css-render.service";
+import { CssRenderService } from "./css-render.service";
+import { RuleRenderService } from "./rule-render.service";
 
 @Injectable({
   providedIn: "root"
@@ -10,10 +11,10 @@ export class CssBlocGenService {
   constructor(
     private cssContextService: CssContextService,
     private cssParserService: CssParserService,
-    private cssRenderService: CssRenderService
+    private cssBlocGen: RuleRenderService
   ) {}
 
-  transform(current: SketchMSLayer, options?: CssRenderOptions) {
+  transform(current: SketchMSLayer, options?) {
     if (!this.cssContextService.hasContext(current)) {
       this.compute(current);
     }
@@ -25,8 +26,8 @@ export class CssBlocGenService {
     this.cssParserService.compute(current);
   }
 
-  render(current: SketchMSLayer, options?: CssRenderOptions) {
-    return this.cssRenderService.render(current, options);
+  render(current: SketchMSLayer, options?) {
+    return this.cssBlocGen.render(current, options);
   }
 
   identify(current: SketchMSLayer) {

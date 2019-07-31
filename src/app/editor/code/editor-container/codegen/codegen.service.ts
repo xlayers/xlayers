@@ -50,7 +50,6 @@ export enum CodeGenKind {
   providedIn: "root"
 })
 export class CodeGenService {
-  private ast: SketchMSLayer;
   private data: SketchMSData;
 
   constructor(
@@ -62,13 +61,6 @@ export class CodeGenService {
     private litElement: LitElementCodeGenService,
     private store: Store
   ) {
-    this.store
-      .select(UiState.currentPage)
-      .subscribe((currentPage: SketchMSLayer) => {
-        if (currentPage) {
-          this.ast = this.generateCssClassNames(currentPage);
-        }
-      });
     this.store
       .select(UiState.currentData)
       .subscribe((currentData: SketchMSData) => {
@@ -109,28 +101,6 @@ export class CodeGenService {
     });
   }
 
-  private generateCssClassNames(ast: SketchMSLayer) {
-    function randomString() {
-      return Math.random()
-        .toString(36)
-        .substring(2, 6);
-    }
-
-    function addCssClassNames(_ast: SketchMSLayer) {
-      if (_ast.layers && _ast.layers.length > 0) {
-        _ast.layers.forEach(layer => {
-          if (layer.css) {
-            (layer as any).css.className = `xly_${randomString()}`;
-          }
-          addCssClassNames(layer);
-        });
-      }
-      return _ast;
-    }
-
-    return addCssClassNames(ast);
-  }
-
   trackFrameworkKind(kind: CodeGenKind) {
     gtag("event", "code_gen", {
       event_category: "web",
@@ -166,18 +136,20 @@ export class CodeGenService {
         this.trackFrameworkKind(CodeGenKind.WC);
         return {
           kind,
-          content: this.addHeaderInfo(this.wc.generate(this.ast)),
+          content: this.addHeaderInfo(this.wc.generate(this.data)),
           buttons: this.wc.buttons()
         };
 
       case CodeGenKind.Stencil:
+        this.trackFrameworkKind(CodeGenKind.Stencil);
         return {
           kind,
-          content: this.addHeaderInfo(this.stencil.generate(this.ast)),
+          content: this.addHeaderInfo(this.stencil.generate(this.data)),
           buttons: this.stencil.buttons()
         };
 
       case CodeGenKind.LitElement:
+        this.trackFrameworkKind(CodeGenKind.LitElement);
         return {
           kind,
           content: this.addHeaderInfo(this.litElement.generate(this.data)),

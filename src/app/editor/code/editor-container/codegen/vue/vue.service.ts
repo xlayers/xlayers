@@ -1,9 +1,9 @@
-import { Injectable } from "@angular/core";
-import { XlayersNgxEditorModel } from "../codegen.service";
-import { WebBlocGenService } from "@xlayers/web-blocgen";
+import { Injectable } from '@angular/core';
+import { XlayersNgxEditorModel } from '../codegen.service';
+import { WebBlocGenService } from '@xlayers/web-blocgen';
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root'
 })
 export class VueCodeGenService {
   constructor(private webBlocGen: WebBlocGenService) {}
@@ -15,13 +15,13 @@ export class VueCodeGenService {
   generate(data: SketchMSData) {
     return [
       {
-        kind: "vue",
-        value: this.renderReadme(data.meta.app).join("\n"),
-        language: "markdown",
+        kind: 'vue',
+        value: this.renderReadme(data.meta.app).join('\n'),
+        language: 'markdown',
         uri: `README.md`
       },
       ...(data.pages as any).flatMap(page =>
-        this.webBlocGen.transform(page, data, { mode: "vue" })
+        this.webBlocGen.transform(page, data, { mode: 'vue' })
       )
     ] as XlayersNgxEditorModel[];
   }
@@ -29,30 +29,30 @@ export class VueCodeGenService {
   private renderReadme(name: string) {
     return [
       `## How to use the ${name} Vue module`,
-      "",
-      "1. Download and extract the exported module into your workspace,",
-      "",
-      "2. Import the component into your App component or other container.",
-      "```",
-      "<template>",
+      '',
+      '1. Download and extract the exported module into your workspace,',
+      '',
+      '2. Import the component into your App component or other container.',
+      '```',
+      '<template>',
       '  <div id="app">',
-      "    <MyComponent />",
-      "  </div>",
-      "</template>",
-      "",
-      "<script>",
-      "import MyComponent from './components/MyComponent.vue'",
-      "",
-      "export default {",
-      "  name: 'app',",
-      "  components: {",
-      "    MyComponent",
-      "  }",
-      "}",
-      "</script>",
-      "```",
-      "",
-      "3. Enjoy."
+      '    <MyComponent />',
+      '  </div>',
+      '</template>',
+      '',
+      '<script>',
+      'import MyComponent from \'./components/MyComponent.vue\'',
+      '',
+      'export default {',
+      '  name: \'app\',',
+      '  components: {',
+      '    MyComponent',
+      '  }',
+      '}',
+      '</script>',
+      '```',
+      '',
+      '3. Enjoy.'
     ];
   }
 }

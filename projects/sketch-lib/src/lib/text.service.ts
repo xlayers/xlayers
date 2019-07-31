@@ -4,7 +4,7 @@ import { BplistService } from './bplist.service';
 @Injectable({
   providedIn: 'root'
 })
-export class AstService {
+export class TextService {
   constructor(private binaryHelperService: BplistService) {}
 
   identifyText(current: SketchMSLayer) {
@@ -27,14 +27,14 @@ export class AstService {
       );
 
       if (archive) {
-        return this.decodeRrchiveString(archive);
+        return this.decodeArchiveString(archive);
       }
     }
 
     return '';
   }
 
-  private decodeRrchiveString(archive) {
+  private decodeArchiveString(archive) {
     switch (archive.$key) {
       case 'ascii':
         return archive.$value;

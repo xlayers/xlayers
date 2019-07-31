@@ -1,8 +1,7 @@
 import { Injectable } from "@angular/core";
-import { ResourceService, FormatService } from "@xlayers/sketch-lib";
-import { WebOptimizerService } from "./web-optimizer.service";
-import { WebContextService } from "./web-context.service";
-import { WebBlocGenContext, WebBlocGenOptions } from "./web-blocgen.d";
+import { FormatService } from "@xlayers/sketch-lib";
+import { WebRenderService } from "./web-render.service";
+import { WebBlocGenOptions } from "./web-blocgen";
 
 @Injectable({
   providedIn: "root"
@@ -10,103 +9,26 @@ import { WebBlocGenContext, WebBlocGenOptions } from "./web-blocgen.d";
 export class LitElementRenderService {
   constructor(
     private format: FormatService,
-    private resource: ResourceService,
-    private webContext: WebContextService,
-    private webOptimizer: WebOptimizerService
+    private webRender: WebRenderService
   ) {}
 
-  render(
-    current: SketchMSLayer,
-    data: SketchMSData,
-    options: WebBlocGenOptions
-  ) {
-    const name = this.format.normalizeName(current.name);
-    const context = this.webContext.contextOf(current);
+  render(current: SketchMSLayer, options: WebBlocGenOptions) {
+    const name = this.format.snakeName(current.name);
+    const files = this.webRender.render(current, options);
+    const html = files.find(file => file.kind === "html");
+    const css = files.find(file => file.kind === "css");
 
     return [
-      ...this.traverse(data, current, options).map(file => ({
-        ...file,
-        kind: "web"
-      })),
       {
         kind: "web",
-        value: this.renderComponent(name, current, context).join("\n"),
+        value: this.renderComponent(name, html.value, css.value),
         language: "html",
         uri: `${options.componentDir}/${name}.html`
       }
     ];
   }
 
-  private traverse(
-    data: SketchMSData,
-    current: SketchMSLayer,
-    options: WebBlocGenOptions
-  ) {
-    if (this.webContext.identify(current)) {
-      return (current.layers as any).flatMap(layer =>
-        this.traverse(data, layer, options)
-      );
-    }
-    return this.retrieveFiles(data, current, options);
-  }
-
-  private retrieveFiles(
-    data: SketchMSData,
-    current: SketchMSLayer,
-    options: WebBlocGenOptions
-  ) {
-    if (this.resource.identifySymbolInstance(current)) {
-      return this.retrieveSymbolMaster(data, current, options);
-    }
-    if (this.resource.identifyBitmap(current)) {
-      return this.retrieveBitmap(data, current, options);
-    }
-    return [];
-  }
-
-  private retrieveSymbolMaster(
-    data: SketchMSData,
-    current: SketchMSLayer,
-    options: WebBlocGenOptions
-  ) {
-    const symbolMaster = this.resource.lookupSymbolMaster(current, data);
-
-    if (symbolMaster) {
-      return this.render(symbolMaster, data, options);
-    }
-
-    return [];
-  }
-
-  private retrieveBitmap(
-    data: SketchMSData,
-    current: SketchMSLayer,
-    options: WebBlocGenOptions
-  ) {
-    const image = this.lookupImage(current, data);
-
-    return [
-      {
-        kind: "web",
-        value: image,
-        language: "binary",
-        uri: `${options.assetDir}/${this.format.normalizeName(
-          current.name
-        )}.jpg`
-      }
-    ];
-  }
-
-  private renderComponent(
-    name: string,
-    current: SketchMSLayer,
-    context: WebBlocGenContext
-  ) {
-    const cssRules = this.webOptimizer
-      .optimize(current)
-      .split("\n")
-      .map(line => `      ${line}`);
-
+  private renderComponent(name: string, html: string, css: string) {
     return [
       "import { LitElement, html, css } from 'lit-element';",
       "",
@@ -114,28 +36,18 @@ export class LitElementRenderService {
       "",
       "  static get styles() {",
       "    return css`",
-      ...cssRules,
+      ...this.format.indentFile(3, css),
       "    `",
       "  }",
       "",
       "  render(){",
       "    return html`",
-      ...context.html.map(html => `      ${html}`),
+      ...this.format.indentFile(3, html),
       "    `",
       "  }",
       "}",
       "",
       "customElements.define('x-layers-element' , XLayersElement);"
-    ];
-  }
-
-  private lookupImage(current: SketchMSLayer, data: SketchMSData) {
-    const content = this.resource.lookupBitmap(current, data);
-    const bin = atob(content);
-    const buf = new Uint8Array(bin.length);
-    Array.prototype.forEach.call(bin, (ch, i) => {
-      buf[i] = ch.charCodeAt(0);
-    });
-    return buf;
+    ].join("\n");
   }
 }

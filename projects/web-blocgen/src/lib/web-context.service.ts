@@ -1,15 +1,15 @@
-import { Injectable } from "@angular/core";
-import { WebBlocGenContext } from "./web-blocgen.d";
+import { Injectable } from '@angular/core';
+import { WebBlocGenContext } from './web-blocgen.d';
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root'
 })
 export class WebContextService {
   identify(current: SketchMSLayer) {
     return (
       current.layers &&
       Array.isArray(current.layers) &&
-      ["rect", "page", "rectangle", "group", "symbolMaster"].includes(
+      ['rect', 'page', 'rectangle', 'group', 'symbolMaster'].includes(
         current._class as string
       )
     );

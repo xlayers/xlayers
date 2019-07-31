@@ -6,18 +6,16 @@ import { WCCodeGenService } from './wc/wc.service';
 import { StencilCodeGenService } from './stencil/stencil.service';
 import { AngularCodeGenService } from './angular/angular.service';
 import { LitElementCodeGenService } from './lit-element/lit-element.service';
-import { SharedCodegen } from './shared-codegen.service';
 
 @NgModule({
   providers: [
-      CodeGenService,
-      SharedCodegen,
-      AngularCodeGenService,
-      ReactCodeGenService,
-      VueCodeGenService,
-      WCCodeGenService,
-      StencilCodeGenService,
-      LitElementCodeGenService
+    CodeGenService,
+    AngularCodeGenService,
+    ReactCodeGenService,
+    VueCodeGenService,
+    WCCodeGenService,
+    StencilCodeGenService,
+    LitElementCodeGenService
   ]
 })
 export class CodeGenModule {}

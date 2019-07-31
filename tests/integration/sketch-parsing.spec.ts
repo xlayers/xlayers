@@ -4,7 +4,7 @@ import { readdirSync, readFile } from "fs";
 import * as jszip from "jszip";
 import { CssBlocGenService } from "@xlayers/css-blocgen";
 import { SvgBlocGenService } from "@xlayers/svg-blocgen";
-import { AstService } from "@xlayers/sketch-lib";
+import { TextService } from "@xlayers/sketch-lib";
 
 const VERSION_LIST = [50, 51, 52, 53];
 const SKETCH_PATH = "./src/assets/demos/sketchapp";
@@ -61,19 +61,19 @@ async function loadSketch(version, fileName) {
 }
 
 describe("sketch parser", () => {
-  let cssBlocGenService: CssBlocGenService;
+  let cssBlocGen: CssBlocGenService;
   let svgBlocGenService: SvgBlocGenService;
-  let astService: AstService;
+  let astService: TextService;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       schemas: [NO_ERRORS_SCHEMA],
-      providers: [CssBlocGenService, SvgBlocGenService, AstService],
+      providers: [CssBlocGenService, SvgBlocGenService, TextService],
       declarations: []
     }).compileComponents();
     svgBlocGenService = TestBed.get(SvgBlocGenService);
-    cssBlocGenService = TestBed.get(CssBlocGenService);
-    astService = TestBed.get(AstService);
+    cssBlocGen = TestBed.get(CssBlocGenService);
+    astService = TestBed.get(TextService);
   }));
 
   VERSION_LIST.forEach(version => {
@@ -84,8 +84,8 @@ describe("sketch parser", () => {
         loadSketch(version, fileName)
           .then(data => {
             data.pages.forEach(layer => {
-              if (cssBlocGenService.hasContext(layer)) {
-                cssBlocGenService.compute(layer);
+              if (cssBlocGen.hasContext(layer)) {
+                cssBlocGen.compute(layer);
               }
               if (svgBlocGenService.hasContext(layer)) {
                 svgBlocGenService.compute(layer);

@@ -1,25 +1,24 @@
 import { Injectable } from "@angular/core";
 import {
-  XmlService,
+  ImageService,
   FormatService,
-  ResourceService
+  SymbolService
 } from "@xlayers/sketch-lib";
 import { CssBlocGenService } from "@xlayers/css-blocgen";
 import { SvgBlocGenService } from "@xlayers/svg-blocgen";
-import { AstService } from "@xlayers/sketch-lib";
+import { TextService } from "@xlayers/sketch-lib";
 import { WebContextService } from "./web-context.service";
 import { WebBlocGenOptions } from "./web-blocgen.d";
-import { WebOptimizerService } from "./web-optimizer.service";
 
 @Injectable({
   providedIn: "root"
 })
 export class WebParserService {
   constructor(
-    private ast: AstService,
-    private xml: XmlService,
+    private ast: TextService,
     private format: FormatService,
-    private resource: ResourceService,
+    private symbol: SymbolService,
+    private image: ImageService,
     private cssBlocGen: CssBlocGenService,
     private svgBlocGen: SvgBlocGenService,
     private webBlocGen: WebContextService
@@ -44,7 +43,7 @@ export class WebParserService {
     options: WebBlocGenOptions
   ) {
     const className = this.generateCssClassName(options);
-    this.putCss(current, root, className);
+    this.putStyle(current, root);
     this.putOpenTag(current, root, depth, className);
     this.putContent(data, current, root, depth, options);
     this.putClosingTag(root, depth);
@@ -61,7 +60,7 @@ export class WebParserService {
       current.layers.forEach(layer => {
         this.visit(data, layer, root, depth, options);
       });
-    } else if (this.resource.identifySymbolInstance(current)) {
+    } else if (this.symbol.identify(current)) {
       return this.traverseSymbolMaster(data, current, root, depth, options);
     } else {
       return this.extractLayerContent(current, depth, options);
@@ -75,19 +74,16 @@ export class WebParserService {
     depth: number,
     options: WebBlocGenOptions
   ) {
-    const symbolMaster = this.resource.lookupSymbolMaster(current, data);
+    const symbolMaster = this.symbol.lookup(current, data);
 
     if (symbolMaster) {
       this.compute(symbolMaster, data, options);
 
-      const tagName = this.format.normalizeName(current.name);
+      const tagName = this.format.snakeName(current.name);
 
       this.webBlocGen.putContext(root, {
         ...this.webBlocGen.contextOf(root),
-        components: [
-          ...this.webBlocGen.contextOf(root).components,
-          this.format.normalizeName(tagName)
-        ]
+        components: [...this.webBlocGen.contextOf(root).components, tagName]
       });
 
       const tag = `<${tagName}/>`;
@@ -103,7 +99,7 @@ export class WebParserService {
     depth: number,
     options: WebBlocGenOptions
   ) {
-    if (this.resource.identifyBitmap(current)) {
+    if (this.image.identify(current)) {
       return this.extractBitmap(current, depth, options);
     }
     if (this.ast.identifyText(current)) {
@@ -124,8 +120,8 @@ export class WebParserService {
     const attributes = [
       `${options.jsx ? "className" : "class"}="${className}"`,
       `role="${current._class}"`,
-      `aria-label="${this.format.normalizeName(current.name)}"`,
-      `src="${options.assetDir}/${this.format.normalizeName(current.name)}.jpg"`
+      `aria-label="${this.format.snakeName(current.name)}"`,
+      `src="${options.assetDir}/${this.format.snakeName(current.name)}.jpg"`
     ];
     const tag = ["<img", ...attributes].join(" ") + ">";
 
@@ -163,14 +159,8 @@ export class WebParserService {
     }
   }
 
-  private putCss(
-    current: SketchMSLayer,
-    root: SketchMSLayer,
-    className: string
-  ) {
-    const cssRules = this.cssBlocGen
-      .transform(current, { className })
-      .map(file => file.value);
+  private putStyle(current: SketchMSLayer, root: SketchMSLayer) {
+    const cssRules = this.cssBlocGen.transform(current).map(file => file.value);
     const context = this.webBlocGen.contextOf(root);
     this.webBlocGen.putContext(root, {
       css: [...context.css, ...cssRules]
@@ -186,7 +176,7 @@ export class WebParserService {
     const attributes = [
       `class="${className}"`,
       `role="${current._class}"`,
-      `aria-label="${this.format.normalizeName(current.name)}"`
+      `aria-label="${this.format.snakeName(current.name)}"`
     ];
     const tag = ["<div", ...attributes].join(" ") + ">";
 
@@ -197,11 +187,9 @@ export class WebParserService {
   }
 
   private putClosingTag(root: SketchMSLayer, depth: number) {
-    const tag = this.xml.closeTag("div");
-
     const context = this.webBlocGen.contextOf(root);
     this.webBlocGen.putContext(root, {
-      html: [...context.html, this.format.indent(depth, tag)]
+      html: [...context.html, this.format.indent(depth, "</div>")]
     });
   }
 

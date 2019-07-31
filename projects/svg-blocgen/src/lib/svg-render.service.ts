@@ -1,14 +1,14 @@
-import { Injectable } from '@angular/core';
-import { FormatService } from '@xlayers/sketch-lib';
+import { Injectable } from "@angular/core";
+import { FormatService } from "@xlayers/sketch-lib";
 import {
   SvgBlocGenContext,
   SvgContextService,
   SvgBlocGenContextPath
-} from './svg-context.service';
-import { SvgBlocGenOptions } from '@xlayers/svg-blocgen';
+} from "./svg-context.service";
+import { SvgBlocGenOptions } from "@xlayers/svg-blocgen";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class SvgRenderService {
   constructor(
@@ -20,10 +20,10 @@ export class SvgRenderService {
     const context = this.svgContextService.contextOf(current);
     return [
       {
-        kind: 'svg',
-        language: 'svg',
+        kind: "svg",
+        language: "svg",
         value: this.renderFile(context, current, options),
-        uri: `${this.formatService.normalizeName(current.name)}.svg`
+        uri: `${this.formatService.snakeName(current.name)}.svg`
       }
     ];
   }
@@ -35,10 +35,10 @@ export class SvgRenderService {
   ) {
     const attributes = this.xmlHearderAttribute(context, current, options);
     return [
-      ['<svg', ...attributes].join(' ') + '>',
+      ["<svg", ...attributes].join(" ") + ">",
       this.renderPaths(context),
       `</svg>`
-    ].join('\n');
+    ].join("\n");
   }
 
   private xmlHearderAttribute(
@@ -68,6 +68,6 @@ export class SvgRenderService {
     );
   }
   private renderPath(path: SvgBlocGenContextPath) {
-    return `<${path.type} ${path.attributes.join(' ')}/>`;
+    return `<${path.type} ${path.attributes.join(" ")}/>`;
   }
 }

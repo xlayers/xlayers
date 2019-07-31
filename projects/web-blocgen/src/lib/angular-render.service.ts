@@ -1,8 +1,7 @@
 import { Injectable } from "@angular/core";
-import { WebContextService } from "./web-context.service";
-import { WebOptimizerService } from "./web-optimizer.service";
-import { ResourceService, FormatService } from "@xlayers/sketch-lib";
-import { WebBlocGenContext, WebBlocGenOptions } from "./web-blocgen.d";
+import { WebBlocGenOptions } from "./web-blocgen";
+import { WebRenderService } from "./web-render.service";
+import { FormatService } from "@xlayers/sketch-lib";
 
 @Injectable({
   providedIn: "root"
@@ -10,123 +9,38 @@ import { WebBlocGenContext, WebBlocGenOptions } from "./web-blocgen.d";
 export class AngularRenderService {
   constructor(
     private format: FormatService,
-    private resource: ResourceService,
-    private webContext: WebContextService,
-    private webOptimizer: WebOptimizerService
+    private webRender: WebRenderService
   ) {}
 
-  render(
-    current: SketchMSLayer,
-    data: SketchMSData,
-    options: WebBlocGenOptions
-  ) {
-    const name = this.format.normalizeName(current.name);
-    const context = this.webContext.contextOf(current);
+  render(current: SketchMSLayer, options: WebBlocGenOptions) {
+    const name = this.format.snakeName(current.name);
 
     return [
-      ...this.traverse(data, current, options).map(file => ({
+      ...this.webRender.render(current, options).map(file => ({
         ...file,
         kind: "angular"
       })),
       {
         kind: "angular",
-        value: context.html.join("\n"),
-        language: "html",
-        uri: `${options.componentDir}/${name}.html`
+        value: this.renderComponent(name, options),
+        language: "typescript",
+        uri: `${options.componentDir}/${name}.ts`
       },
       {
         kind: "angular",
-        value: this.webOptimizer.optimize(current),
-        language: "css",
-        uri: `${options.componentDir}/${name}.css`
-      },
-      {
-        kind: "angular",
-        value: this.renderComponent(name, context, options).join("\n"),
-        language: "javascript",
-        uri: `${options.componentDir}/${name}.spec.js`
-      },
-      {
-        kind: "angular",
-        value: this.renderSpec(name, options).join("\n"),
-        language: "javascript",
-        uri: `${options.componentDir}/${name}.spec.js`
+        value: this.renderSpec(name, options),
+        language: "typescript",
+        uri: `${options.componentDir}/${name}.spec.ts`
       }
     ];
   }
 
-  private traverse(
-    data: SketchMSData,
-    current: SketchMSLayer,
-    options: WebBlocGenOptions
-  ) {
-    if (this.webContext.identify(current)) {
-      return (current.layers as any).flatMap(layer =>
-        this.traverse(data, layer, options)
-      );
-    }
-    return this.retrieveFiles(data, current, options);
-  }
-
-  private retrieveFiles(
-    data: SketchMSData,
-    current: SketchMSLayer,
-    options: WebBlocGenOptions
-  ) {
-    if (this.resource.identifySymbolInstance(current)) {
-      return this.retrieveSymbolMaster(data, current, options);
-    }
-    if (this.resource.identifyBitmap(current)) {
-      return this.retrieveBitmap(data, current, options);
-    }
-    return [];
-  }
-
-  private retrieveSymbolMaster(
-    data: SketchMSData,
-    current: SketchMSLayer,
-    options: WebBlocGenOptions
-  ) {
-    const symbolMaster = this.resource.lookupSymbolMaster(current, data);
-
-    if (symbolMaster) {
-      return this.render(symbolMaster, data, options);
-    }
-
-    return [];
-  }
-
-  private retrieveBitmap(
-    data: SketchMSData,
-    current: SketchMSLayer,
-    options: WebBlocGenOptions
-  ) {
-    const image = this.lookupImage(current, data);
-
-    return [
-      {
-        kind: "angular",
-        value: image,
-        language: "binary",
-        uri: `${options.assetDir}/${this.format.normalizeName(
-          current.name
-        )}.jpg`
-      }
-    ];
-  }
-
-  private renderComponent(
-    name: string,
-    context: WebBlocGenContext,
-    options: WebBlocGenOptions
-  ) {
-    const capitalizedName = this.capitalizeName(name);
+  private renderComponent(name: string, options: WebBlocGenOptions) {
+    const capitalizedName = this.format.capitalizeName(name);
 
     const importStatements = [
-      "import { Component, OnInit } from '@angular/core';",
-      ...context.components.map(component =>
-        this.renderImport(component, options)
-      )
+      "import { Component } from '@angular/core';",
+      this.renderImport(name, options)
     ];
 
     const component = [
@@ -135,18 +49,14 @@ export class AngularRenderService {
       `  templateUrl: './${name}.component.html',`,
       `  styleUrls: ['./${name}.component.css']`,
       "})",
-      `export class ${capitalizedName}Component implements OnInit {`,
-      "  constructor() { }",
-      "  ngOnInit() {",
-      "  }",
-      "}"
+      `export class ${capitalizedName}Component {}`
     ];
 
-    return [...importStatements, "", ...component];
+    return [...importStatements, "", ...component].join("\n");
   }
 
   private renderSpec(name: string, options: WebBlocGenOptions) {
-    const capitalizedName = this.capitalizeName(name);
+    const capitalizedName = this.format.capitalizeName(name);
     const importStatements = this.renderImport(name, options);
 
     return [
@@ -174,24 +84,10 @@ export class AngularRenderService {
       "    expect(component).toBeTruthy();",
       "  });",
       "});"
-    ];
+    ].join("\n");
   }
 
   private renderImport(name, options) {
     return `import ${name} from "${[options.componentDir, name].join("/")}";`;
-  }
-
-  private capitalizeName(name) {
-    return name.charAt(0).toUpperCase() + name.slice(1);
-  }
-
-  private lookupImage(current: SketchMSLayer, data: SketchMSData) {
-    const content = this.resource.lookupBitmap(current, data);
-    const bin = atob(content);
-    const buf = new Uint8Array(bin.length);
-    Array.prototype.forEach.call(bin, (ch, i) => {
-      buf[i] = ch.charCodeAt(0);
-    });
-    return buf;
   }
 }

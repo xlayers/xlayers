@@ -5,16 +5,16 @@ import {
   Input,
   OnInit,
   Renderer2
-} from '@angular/core';
-import { Store } from '@ngxs/store';
-import { CurrentLayer, UiState } from '@app/core/state/ui.state';
-import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
-import { SvgBlocGenService } from '@xlayers/svg-blocgen';
-import { AstService, ResourceService } from '@xlayers/sketch-lib';
-import { CssBlocGenService } from '@xlayers/css-blocgen';
+} from "@angular/core";
+import { Store } from "@ngxs/store";
+import { CurrentLayer, UiState } from "@app/core/state/ui.state";
+import { DomSanitizer, SafeUrl } from "@angular/platform-browser";
+import { SvgBlocGenService } from "@xlayers/svg-blocgen";
+import { TextService, SymbolService, ImageService } from "@xlayers/sketch-lib";
+import { CssBlocGenService } from "@xlayers/css-blocgen";
 
 @Component({
-  selector: 'xly-viewer-layer',
+  selector: "xly-viewer-layer",
   template: `
     <div
       [style.width.px]="layer?.frame?.width"
@@ -96,10 +96,11 @@ export class ViewerLayerComponent implements OnInit, AfterContentInit {
     private renderer: Renderer2,
     private element: ElementRef<HTMLElement>,
     private sanitizer: DomSanitizer,
-    private astService: AstService,
-    private cssBlocGenService: CssBlocGenService,
-    private svgBlocGenService: SvgBlocGenService,
-    private resourceService: ResourceService
+    private astService: TextService,
+    private cssBlocGen: CssBlocGenService,
+    private svgBlocGen: SvgBlocGenService,
+    private resource: SymbolService,
+    private image: ImageService
   ) {}
 
   ngOnInit() {
@@ -133,8 +134,8 @@ export class ViewerLayerComponent implements OnInit, AfterContentInit {
   }
 
   loadImage() {
-    if (this.resourceService.identifyBitmap(this.layer)) {
-      const content = this.resourceService.lookupBitmap(this.layer, this.data);
+    if (this.image.identify(this.layer)) {
+      const content = this.image.lookup(this.layer, this.data);
       this.images.push(
         this.sanitizer.bypassSecurityTrustResourceUrl(
           `data:image/jpg;base64,${content}`
@@ -144,8 +145,8 @@ export class ViewerLayerComponent implements OnInit, AfterContentInit {
   }
 
   loadShapes() {
-    if (this.svgBlocGenService.identify(this.layer)) {
-      this.svgBlocGenService
+    if (this.svgBlocGen.identify(this.layer)) {
+      this.svgBlocGen
         .transform(this.layer)
         .forEach(file =>
           this.images.push(
@@ -166,11 +167,8 @@ export class ViewerLayerComponent implements OnInit, AfterContentInit {
   }
 
   loadSymbolMaster() {
-    if (this.resourceService.identifySymbolInstance(this.layer)) {
-      const symbolMaster = this.resourceService.lookupSymbolMaster(
-        this.layer,
-        this.data
-      );
+    if (this.resource.identify(this.layer)) {
+      const symbolMaster = this.resource.lookup(this.layer, this.data);
 
       if (symbolMaster) {
         this.layers = [symbolMaster];
@@ -179,8 +177,8 @@ export class ViewerLayerComponent implements OnInit, AfterContentInit {
   }
 
   applyLayerStyles() {
-    if (this.cssBlocGenService.hasContext(this.layer)) {
-      const context = this.cssBlocGenService.contextOf(this.layer);
+    if (this.cssBlocGen.hasContext(this.layer)) {
+      const context = this.cssBlocGen.contextOf(this.layer);
       Object.entries(context.rules).forEach(([property, value]) => {
         this.renderer.setStyle(this.element.nativeElement, property, value);
       });
@@ -191,17 +189,17 @@ export class ViewerLayerComponent implements OnInit, AfterContentInit {
     const elementPosition = this.element.nativeElement.getBoundingClientRect();
     this.renderer.setStyle(
       this.element.nativeElement,
-      'border-width',
+      "border-width",
       `${this.borderWidth}px`
     );
     this.renderer.setStyle(
       this.element.nativeElement,
-      'left',
+      "left",
       `${elementPosition.left - this.borderWidth}px`
     );
     this.renderer.setStyle(
       this.element.nativeElement,
-      'top',
+      "top",
       `${elementPosition.top - this.borderWidth}px`
     );
   }
@@ -209,13 +207,13 @@ export class ViewerLayerComponent implements OnInit, AfterContentInit {
   enable3dStyle() {
     this.renderer.setStyle(
       this.element.nativeElement,
-      'transform',
+      "transform",
       `translateZ(${(this.level * this.offset3d).toFixed(3)}px)`
     );
   }
 
   disable3dStyle() {
-    this.renderer.setStyle(this.element.nativeElement, 'transform', `none`);
+    this.renderer.setStyle(this.element.nativeElement, "transform", `none`);
   }
 
   selectLayer(layer: SketchMSLayer) {
