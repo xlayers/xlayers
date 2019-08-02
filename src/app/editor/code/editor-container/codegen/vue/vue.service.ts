@@ -21,7 +21,7 @@ export class VueCodeGenService {
         uri: `README.md`
       },
       ...(data.pages as any).flatMap(page =>
-        this.webBlocGen.transform(page, data, { mode: 'vue' })
+        this.webBlocGen.render(page, data, { mode: 'vue' })
       )
     ] as XlayersNgxEditorModel[];
   }

@@ -23,7 +23,7 @@ export class StencilCodeGenService {
         kind: 'text'
       },
       ...(data.pages as any).flatMap(page =>
-        this.webBlocGen.transform(page, data, { mode: 'stencil' })
+        this.webBlocGen.render(page, data, { mode: 'stencil' })
       )
     ];
   }

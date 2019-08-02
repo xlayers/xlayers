@@ -23,7 +23,7 @@ export class ReactCodeGenService {
         kind: 'text'
       },
       ...(data.pages as any).flatMap(page =>
-        this.webBlocGen.transform(page, data, { mode: 'react' })
+        this.webBlocGen.render(page, data, { mode: 'react' })
       )
     ];
   }

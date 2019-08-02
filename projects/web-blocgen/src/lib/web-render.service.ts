@@ -1,36 +1,34 @@
-import { Injectable } from "@angular/core";
-import { FormatService } from "@xlayers/sketch-lib";
-import { CssRenderService } from "./css-render.service";
-import { WebContextService } from "./web-context.service";
-import { WebBlocGenOptions } from "./web-blocgen";
+import { Injectable } from '@angular/core';
+import { FormatService } from '@xlayers/sketch-lib';
+import { WebContextService } from './web-context.service';
+import { WebBlocGenOptions } from './web-blocgen';
+import { CssBlocGenService } from '@xlayers/css-blocgen';
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root'
 })
 export class WebRenderService {
   constructor(
     private format: FormatService,
     private webContext: WebContextService,
-    private cssRender: CssRenderService
+    private cssBlocGen: CssBlocGenService
   ) {}
 
   render(current: SketchMSLayer, options: WebBlocGenOptions) {
-    const fileName = this.format.fileName(current.name);
+    const fileName = this.format.normalizeName(current.name);
     const context = this.webContext.contextOf(current);
 
     return [
       {
-        kind: "web",
-        value: context.html.join("\n"),
-        language: "html",
+        kind: 'web',
+        value: context.html.join('\n'),
+        language: 'html',
         uri: `${options.componentDir}/${fileName}.html`
       },
-      {
-        kind: "web",
-        value: this.cssRender.render(current),
-        language: "css",
-        uri: `${options.componentDir}/${fileName}.css`
-      }
+      ...this.cssBlocGen.render(current, options).map(file => ({
+        ...file,
+        kind: 'web'
+      }))
     ];
   }
 }

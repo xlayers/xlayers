@@ -1,19 +1,19 @@
-import { Component, OnInit } from "@angular/core";
-import { SketchService } from "@app/core/sketch.service";
+import { Component, OnInit } from '@angular/core';
+import { SketchService } from '@app/core/sketch.service';
 import {
   CurrentFile,
   ErrorType,
   InformUser,
   ResetUiSettings
-} from "@app/core/state";
-import { Navigate } from "@ngxs/router-plugin";
-import { Store } from "@ngxs/store";
-import { BehaviorSubject } from "rxjs";
+} from '@app/core/state';
+import { Navigate } from '@ngxs/router-plugin';
+import { Store } from '@ngxs/store';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
-  selector: "xly-upload",
-  templateUrl: "./upload.component.html",
-  styleUrls: ["./upload.component.css"]
+  selector: 'xly-upload',
+  templateUrl: './upload.component.html',
+  styleUrls: ['./upload.component.css']
 })
 export class UploadComponent implements OnInit {
   public selectedDemoFileError = false;
@@ -32,7 +32,7 @@ export class UploadComponent implements OnInit {
       this.store.dispatch([
         new ResetUiSettings(),
         new CurrentFile(data),
-        new Navigate(["/editor/preview"])
+        new Navigate(['/editor/preview'])
       ]);
     } catch (error) {
       this.store.dispatch(new InformUser(error, ErrorType.Runtime));

@@ -1,23 +1,13 @@
-import { Injectable } from "@angular/core";
-
-export interface SvgBlocGenContextPath {
-  type: string;
-  attributes: string[];
-}
-
-export interface SvgBlocGenContext {
-  paths?: SvgBlocGenContextPath[];
-  attributes?: string[];
-  offset?: number;
-}
+import { Injectable } from '@angular/core';
+import { SvgBlocGenContext } from './svg-blocgen';
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root'
 })
 export class SvgContextService {
   identify(current: SketchMSLayer) {
     // TODO: Fix double rendered ShapePath and ShapeGroup
-    return ["triangle", "shapePath" /*"shapeGroup"*/].includes(
+    return ['triangle', 'shapePath' /*"shapeGroup"*/].includes(
       current._class as string
     );
   }
@@ -27,7 +17,7 @@ export class SvgContextService {
   }
 
   contextOf(current: SketchMSLayer) {
-    return (current as any).svg || (current as any).paths;
+    return (current as any).svg || { paths: [], offset: 0, attributes: [] };
   }
 
   putContext(

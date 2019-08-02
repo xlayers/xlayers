@@ -51,7 +51,7 @@ export class AngularCodeGenService {
         kind: 'angular'
       },
       ...(data.pages as any).flatMap(page =>
-        this.webBlocGen.transform(page, data, { mode: 'angular' })
+        this.webBlocGen.render(page, data, { mode: 'angular' })
       )
     ];
   }

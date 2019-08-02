@@ -5,16 +5,16 @@ import {
   Input,
   OnInit,
   Renderer2
-} from "@angular/core";
-import { Store } from "@ngxs/store";
-import { CurrentLayer, UiState } from "@app/core/state/ui.state";
-import { DomSanitizer, SafeUrl } from "@angular/platform-browser";
-import { SvgBlocGenService } from "@xlayers/svg-blocgen";
-import { TextService, SymbolService, ImageService } from "@xlayers/sketch-lib";
-import { CssBlocGenService } from "@xlayers/css-blocgen";
+} from '@angular/core';
+import { Store } from '@ngxs/store';
+import { CurrentLayer, UiState } from '@app/core/state/ui.state';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+import { SvgBlocGenService } from '@xlayers/svg-blocgen';
+import { TextService, SymbolService, ImageService } from '@xlayers/sketch-lib';
+import { CssBlocGenService } from '@xlayers/css-blocgen';
 
 @Component({
-  selector: "xly-viewer-layer",
+  selector: 'xly-viewer-layer',
   template: `
     <div
       [style.width.px]="layer?.frame?.width"
@@ -129,25 +129,29 @@ export class ViewerLayerComponent implements OnInit, AfterContentInit {
   loadText() {
     if (this.text.identify(this.layer)) {
       const content = this.text.lookup(this.layer);
-      this.texts.push(content);
+      if (content) {
+        this.texts.push(content);
+      }
     }
   }
 
   loadImage() {
     if (this.image.identify(this.layer)) {
       const content = this.image.lookup(this.layer, this.data);
-      this.images.push(
-        this.sanitizer.bypassSecurityTrustResourceUrl(
-          `data:image/jpg;base64,${content}`
-        )
-      );
+      if (content) {
+        this.images.push(
+          this.sanitizer.bypassSecurityTrustResourceUrl(
+            `data:image/jpg;base64,${content}`
+          )
+        );
+      }
     }
   }
 
   loadShapes() {
     if (this.svgBlocGen.identify(this.layer)) {
       this.svgBlocGen
-        .transform(this.layer)
+        .render(this.layer)
         .forEach(file =>
           this.images.push(
             this.sanitizer.bypassSecurityTrustResourceUrl(
@@ -177,9 +181,9 @@ export class ViewerLayerComponent implements OnInit, AfterContentInit {
   }
 
   applyLayerStyles() {
-    if (this.cssBlocGen.hasContext(this.layer)) {
-      const context = this.cssBlocGen.contextOf(this.layer);
-      Object.entries(context.rules).forEach(([property, value]) => {
+    if (this.cssBlocGen.identify(this.layer)) {
+      const rules = this.cssBlocGen.context(this.layer).rules;
+      Object.entries(rules).forEach(([property, value]) => {
         this.renderer.setStyle(this.element.nativeElement, property, value);
       });
     }
@@ -189,17 +193,17 @@ export class ViewerLayerComponent implements OnInit, AfterContentInit {
     const elementPosition = this.element.nativeElement.getBoundingClientRect();
     this.renderer.setStyle(
       this.element.nativeElement,
-      "border-width",
+      'border-width',
       `${this.borderWidth}px`
     );
     this.renderer.setStyle(
       this.element.nativeElement,
-      "left",
+      'left',
       `${elementPosition.left - this.borderWidth}px`
     );
     this.renderer.setStyle(
       this.element.nativeElement,
-      "top",
+      'top',
       `${elementPosition.top - this.borderWidth}px`
     );
   }
@@ -207,13 +211,13 @@ export class ViewerLayerComponent implements OnInit, AfterContentInit {
   enable3dStyle() {
     this.renderer.setStyle(
       this.element.nativeElement,
-      "transform",
+      'transform',
       `translateZ(${(this.level * this.offset3d).toFixed(3)}px)`
     );
   }
 
   disable3dStyle() {
-    this.renderer.setStyle(this.element.nativeElement, "transform", `none`);
+    this.renderer.setStyle(this.element.nativeElement, 'transform', `none`);
   }
 
   selectLayer(layer: SketchMSLayer) {

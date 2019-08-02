@@ -1,49 +1,44 @@
-import { Injectable } from "@angular/core";
-import { SvgContextService } from "./svg-context.service";
-import { SvgRenderService } from "./svg-render.service";
-import { SvgParserService } from "./svg-parser.service";
-
-const DEFAULT_OPTIONS = { xmlNamespace: true };
-
-export interface SvgBlocGenOptions {
-  xmlNamespace: boolean;
-}
+import { Injectable } from '@angular/core';
+import { SvgContextService } from './svg-context.service';
+import { SvgRenderService } from './svg-render.service';
+import { SvgParserService } from './svg-parser.service';
+import { SvgBlocGenOptions } from './svg-blocgen';
+import { SketchMSData } from '../../../../src/app/core/sketch.service';
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root'
 })
 export class SvgBlocGenService {
   constructor(
     private svgContext: SvgContextService,
     private svgParser: SvgParserService,
-    private svgRenderService: SvgRenderService
+    private svgRender: SvgRenderService
   ) {}
 
-  transform(current: SketchMSLayer, options?: SvgBlocGenOptions) {
-    if (!this.svgContext.hasContext(current)) {
-      this.compute(current);
-    }
-
-    return this.render(current, options);
+  compute(
+    current: SketchMSLayer,
+    data: SketchMSData,
+    options?: SvgBlocGenOptions
+  ) {
+    this.svgParser.compute(current, data, this.compileOptions(options));
   }
 
-  compute(current: SketchMSLayer) {
-    this.svgParser.compute(current);
-  }
-
-  render(current: SketchMSLayer, options: SvgBlocGenOptions = DEFAULT_OPTIONS) {
-    return this.svgRenderService.render(current, options);
+  render(current: SketchMSLayer, options?: SvgBlocGenOptions) {
+    return this.svgRender.render(current, this.compileOptions(options));
   }
 
   identify(current: SketchMSLayer) {
     return this.svgContext.identify(current);
   }
 
-  hasContext(current: SketchMSLayer) {
-    return this.svgContext.hasContext(current);
+  context(current: SketchMSLayer) {
+    return this.svgContext.contextOf(current);
   }
 
-  contextOf(current: SketchMSLayer) {
-    return this.svgContext.contextOf(current);
+  private compileOptions(options: SvgBlocGenOptions) {
+    return {
+      xmlNamespace: true,
+      ...options
+    };
   }
 }

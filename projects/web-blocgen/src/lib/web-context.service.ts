@@ -1,17 +1,13 @@
-import { Injectable } from "@angular/core";
-import { WebBlocGenContext } from "./web-blocgen.d";
+import { Injectable } from '@angular/core';
+import { WebBlocGenContext } from './web-blocgen.d';
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root'
 })
 export class WebContextService {
   identify(current: SketchMSLayer) {
-    return (
-      current.layers &&
-      Array.isArray(current.layers) &&
-      ["rect", "page", "rectangle", "group", "symbolMaster"].includes(
-        current._class as string
-      )
+    return ['rect', 'page', 'rectangle', 'group', 'symbolMaster'].includes(
+      current._class as string
     );
   }
 
@@ -20,7 +16,7 @@ export class WebContextService {
   }
 
   contextOf(current: SketchMSLayer) {
-    return (current as any).web;
+    return (current as any).web || { html: [], css: [], components: [] };
   }
 
   putContext(

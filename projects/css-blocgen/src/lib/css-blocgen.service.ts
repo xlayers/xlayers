@@ -1,10 +1,12 @@
-import { Injectable } from "@angular/core";
-import { CssContextService } from "./css-context.service";
-import { CssParserService } from "./css-parser.service";
-import { CssRenderService } from "./css-render.service";
+import { Injectable } from '@angular/core';
+import { CssContextService } from './css-context.service';
+import { CssParserService } from './css-parser.service';
+import { CssRenderService } from './css-render.service';
+import { CssBlocGenOptions } from './css-blocgen';
+import { SketchMSData } from '../../../../src/app/core/sketch.service';
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root'
 })
 export class CssBlocGenService {
   constructor(
@@ -13,31 +15,31 @@ export class CssBlocGenService {
     private cssRender: CssRenderService
   ) {}
 
-  transform(current: SketchMSLayer) {
-    if (!this.cssContext.hasContext(current)) {
-      this.compute(current);
-    }
-
-    return this.render(current);
+  compute(
+    current: SketchMSLayer,
+    data: SketchMSData,
+    options?: CssBlocGenOptions
+  ) {
+    this.cssParser.compute(current, data, this.compileOptions(options));
   }
 
-  compute(current: SketchMSLayer) {
-    this.cssParser.compute(current);
-  }
-
-  render(current: SketchMSLayer) {
-    return this.cssRender.render(current);
+  render(current: SketchMSLayer, options?: CssBlocGenOptions) {
+    return this.cssRender.render(current, this.compileOptions(options));
   }
 
   identify(current: SketchMSLayer) {
     return this.cssContext.identify(current);
   }
 
-  hasContext(current: SketchMSLayer) {
-    return this.cssContext.hasContext(current);
+  context(current: SketchMSLayer) {
+    return this.cssContext.contextOf(current);
   }
 
-  contextOf(current: SketchMSLayer) {
-    return this.cssContext.contextOf(current);
+  private compileOptions(options: CssBlocGenOptions) {
+    return {
+      cssPrefix: 'xly_',
+      componentDir: 'components',
+      ...options
+    };
   }
 }

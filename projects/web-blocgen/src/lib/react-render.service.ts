@@ -1,11 +1,11 @@
-import { Injectable } from "@angular/core";
-import { FormatService } from "@xlayers/sketch-lib";
-import { WebRenderService } from "./web-render.service";
-import { WebBlocGenOptions } from "./web-blocgen";
-import { WebContextService } from "./web-context.service";
+import { Injectable } from '@angular/core';
+import { FormatService } from '@xlayers/sketch-lib';
+import { WebRenderService } from './web-render.service';
+import { WebBlocGenOptions } from './web-blocgen';
+import { WebContextService } from './web-context.service';
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root'
 })
 export class ReactRenderService {
   constructor(
@@ -15,30 +15,35 @@ export class ReactRenderService {
   ) {}
 
   render(current: SketchMSLayer, options: WebBlocGenOptions) {
-    const fileName = this.format.fileName(current.name);
+    const fileName = this.format.normalizeName(current.name);
     const context = this.webContext.contextOf(current);
     const files = this.webRender.render(current, options);
-    const html = files.find(file => file.language === "html");
+    const html = files.find(file => file.language === 'html');
 
     return [
-      files.filter(file => file.language !== "html"),
       {
-        kind: "react",
-        value: this.renderSpec(name).join("\n"),
-        language: "javascript",
-        uri: `${options.componentDir}/${fileName}.js`
-      },
-      {
-        kind: "react",
+        kind: 'react',
         value: this.renderComponent(
-          name,
+          current.name,
           html.value,
           context.components,
           options
-        ).join("\n"),
-        language: "javascript",
+        ).join('\n'),
+        language: 'javascript',
         uri: `${options.componentDir}/${fileName}.jsx`
-      }
+      },
+      {
+        kind: 'react',
+        value: this.renderSpec(current.name).join('\n'),
+        language: 'javascript',
+        uri: `${options.componentDir}/${fileName}.spec.js`
+      },
+      ...files
+        .filter(file => file.language !== 'html')
+        .map(file => ({
+          ...file,
+          kind: 'react'
+        }))
     ];
   }
 
@@ -49,37 +54,37 @@ export class ReactRenderService {
     options: WebBlocGenOptions
   ) {
     const componentName = this.format.componentName(name);
-    const fileName = this.format.fileName(name);
+    const fileName = this.format.normalizeName(name);
 
     return [
-      "import React from 'react';",
+      'import React from \'react\';',
       ...components.map(
         component =>
           `import ${component} from "${options.componentDir}/${component}";`
       ),
       `import './${fileName}.css';`,
-      "",
+      '',
       `export const ${componentName} = () => (`,
       ...this.format.indentFile(1, html),
-      ");",
-      ""
+      ');',
+      ''
     ];
   }
 
   private renderSpec(name: string) {
     const componentName = this.format.componentName(name);
-    const fileName = this.format.fileName(name);
+    const fileName = this.format.normalizeName(name);
 
     return [
-      "import React from 'react';",
-      "import ReactDOM from 'react-dom';",
+      'import React from \'react\';',
+      'import ReactDOM from \'react-dom\';',
       `import ${componentName} from './${fileName}';`,
-      "",
-      "it('renders without crashing', () => {",
-      "  const div = document.createElement('div');",
+      '',
+      'it(\'renders without crashing\', () => {',
+      '  const div = document.createElement(\'div\');',
       `  ReactDOM.render(<${componentName} />, div);`,
-      "  ReactDOM.unmountComponentAtNode(div);",
-      "});"
+      '  ReactDOM.unmountComponentAtNode(div);',
+      '});'
     ];
   }
 }

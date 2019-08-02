@@ -1,22 +1,19 @@
-import { Injectable } from "@angular/core";
-
-export interface CssBlocGenContext {
-  rules: { [key: string]: string };
-}
+import { Injectable } from '@angular/core';
+import { CssBlocGenContext } from './css-blocgen';
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root'
 })
 export class CssContextService {
   identify(current: SketchMSLayer) {
     return [
-      "rect",
-      "page",
-      "rectangle",
-      "group",
-      "symbolMaster",
-      "oval",
-      "text"
+      'rect',
+      'page',
+      'rectangle',
+      'group',
+      'symbolMaster',
+      'oval',
+      'text'
     ].includes(current._class as string);
   }
 
@@ -25,19 +22,12 @@ export class CssContextService {
   }
 
   contextOf(current: SketchMSLayer) {
-    if (!current.css) {
-      return undefined;
-    }
-
-    return {
-      rules:
-        ((current.css as unknown) as CssBlocGenContext).rules || current.css
-    };
+    return (current as any).css || { rules: {}, className: '' };
   }
 
   putContext(
     current: SketchMSLayer,
-    nextContext: CssBlocGenContext = { rules: {} }
+    nextContext: CssBlocGenContext = { rules: {}, className: '' }
   ) {
     (current as any).css = {
       ...((current as any).css || {}),

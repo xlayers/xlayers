@@ -77,7 +77,6 @@
     "param-case": "^2.1.1",
     "pascal-case": "^2.0.1",
     "rxjs": "^6.4.0",
-    "snake-case": "^2.1.0",
     "start-server-and-test": "^1.7.12",
     "zone.js": "^0.8.29"
   },

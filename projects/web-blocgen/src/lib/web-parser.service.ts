@@ -1,17 +1,17 @@
-import { Injectable } from "@angular/core";
+import { Injectable } from '@angular/core';
 import {
   ImageService,
   FormatService,
   SymbolService
-} from "@xlayers/sketch-lib";
-import { CssBlocGenService } from "@xlayers/css-blocgen";
-import { SvgBlocGenService } from "@xlayers/svg-blocgen";
-import { TextService } from "@xlayers/sketch-lib";
-import { WebBlocGenOptions } from "./web-blocgen.d";
-import { WebContextService } from "./web-context.service";
+} from '@xlayers/sketch-lib';
+import { CssBlocGenService } from '@xlayers/css-blocgen';
+import { SvgBlocGenService } from '@xlayers/svg-blocgen';
+import { TextService } from '@xlayers/sketch-lib';
+import { WebBlocGenOptions } from './web-blocgen.d';
+import { WebContextService } from './web-context.service';
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root'
 })
 export class WebParserService {
   constructor(
@@ -29,9 +29,8 @@ export class WebParserService {
     data: SketchMSData,
     options: WebBlocGenOptions
   ) {
-    if (!this.webContext.hasContext(current)) {
-      this.webContext.putContext(current);
-    }
+    this.svgBlocGen.compute(current, data);
+    this.cssBlocGen.compute(current, data, options);
     this.visit(data, current, current, 0, options);
   }
 
@@ -42,32 +41,32 @@ export class WebParserService {
     depth: number,
     options: WebBlocGenOptions
   ) {
-    const className = this.generateCssClassName(options);
-    this.putStyle(current, className);
-    this.putOpenTag(current, root, depth, className);
-    this.putContent(data, current, root, depth, options);
+    this.putOpenTag(current, root, depth, options);
+    this.putContent(current, root, data, depth, options);
     this.putClosingTag(root, depth);
   }
 
   private traverseLayer(
-    data: SketchMSData,
     current: SketchMSLayer,
     root: SketchMSLayer,
+    data: SketchMSData,
     depth: number,
     options: WebBlocGenOptions
   ) {
-    if (this.webContext.identify(current)) {
+    if (current.layers && Array.isArray(current.layers)) {
       current.layers.forEach(layer => {
-        this.visit(data, layer, root, depth, options);
+        if (this.webContext.identify(current)) {
+          this.visit(data, layer, root, depth, options);
+        }
       });
     } else if (this.symbol.identify(current)) {
-      return this.traverseSymbolMaster(data, current, root, depth, options);
+      return this.traverseSymbol(data, current, root, depth, options);
     } else {
       return this.extractLayerContent(current, depth, options);
     }
   }
 
-  private traverseSymbolMaster(
+  private traverseSymbol(
     data: SketchMSData,
     current: SketchMSLayer,
     root: SketchMSLayer,
@@ -79,7 +78,7 @@ export class WebParserService {
     if (symbolMaster) {
       this.compute(symbolMaster, data, options);
 
-      const tagName = this.format.fileName(current.name);
+      const tagName = this.format.normalizeName(current.name);
 
       this.webContext.putContext(root, {
         ...this.webContext.contextOf(root),
@@ -91,7 +90,7 @@ export class WebParserService {
       return [this.format.indent(depth, tag)];
     }
 
-    return "";
+    return '';
   }
 
   private extractLayerContent(
@@ -116,14 +115,16 @@ export class WebParserService {
     depth: number,
     options: WebBlocGenOptions
   ) {
-    const className = this.generateCssClassName(options);
+    const className = this.cssBlocGen.context(current).className;
     const attributes = [
-      `${options.jsx ? "className" : "class"}="${className}"`,
+      ...(className
+        ? [`${options.jsx ? 'className' : 'class'}="${className}"`]
+        : []),
       `role="${current._class}"`,
       `aria-label="${current.name}"`,
-      `src="${options.assetDir}/${this.format.fileName(current.name)}.jpg"`
+      `src="${options.assetDir}/${this.format.normalizeName(current.name)}.jpg"`
     ];
-    const tag = ["<img", ...attributes].join(" ") + ">";
+    const tag = ['<img', ...attributes].join(' ') + '>';
 
     return [this.format.indent(depth, tag)];
   }
@@ -137,20 +138,20 @@ export class WebParserService {
 
   private extractShape(current: SketchMSLayer, depth: number) {
     return this.svgBlocGen
-      .transform(current, { xmlNamespace: false })
+      .render(current, { xmlNamespace: false })
       .flatMap(file =>
-        file.value.split("\n").map(line => this.format.indent(depth, line))
+        file.value.split('\n').map(line => this.format.indent(depth, line))
       );
   }
 
   private putContent(
-    data: SketchMSData,
     current: SketchMSLayer,
     root: SketchMSLayer,
+    data: SketchMSData,
     depth: number,
     options: WebBlocGenOptions
   ) {
-    const content = this.traverseLayer(data, current, root, depth + 1, options);
+    const content = this.traverseLayer(current, root, data, depth + 1, options);
     if (content) {
       const context = this.webContext.contextOf(root);
       this.webContext.putContext(root, {
@@ -159,29 +160,21 @@ export class WebParserService {
     }
   }
 
-  private putStyle(current: SketchMSLayer, className: string) {
-    const css = this.cssBlocGen
-      .transform(current)
-      .flatMap(file => file.value.split("\n"));
-
-    this.webContext.putContext(current, {
-      className,
-      css
-    });
-  }
-
   private putOpenTag(
     current: SketchMSLayer,
     root: SketchMSLayer,
     depth: number,
-    className: string
+    options: WebBlocGenOptions
   ) {
+    const className = this.cssBlocGen.context(current).className;
     const attributes = [
-      `class="${className}"`,
+      ...(className
+        ? [`${options.jsx ? 'className' : 'class'}="${className}"`]
+        : []),
       `role="${current._class}"`,
       `aria-label="${current.name}"`
     ];
-    const tag = ["<div", ...attributes].join(" ") + ">";
+    const tag = ['<div', ...attributes].join(' ') + '>';
 
     const context = this.webContext.contextOf(root);
     this.webContext.putContext(root, {
@@ -192,15 +185,7 @@ export class WebParserService {
   private putClosingTag(root: SketchMSLayer, depth: number) {
     const context = this.webContext.contextOf(root);
     this.webContext.putContext(root, {
-      html: [...context.html, this.format.indent(depth, "</div>")]
+      html: [...context.html, this.format.indent(depth, '</div>')]
     });
-  }
-
-  private generateCssClassName(options: WebBlocGenOptions) {
-    const randomString = Math.random()
-      .toString(36)
-      .substring(2, 6);
-
-    return `${options.cssPrefix}${randomString}`;
   }
 }

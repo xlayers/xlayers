@@ -1,14 +1,14 @@
-import { Injectable } from "@angular/core";
-import { FormatService } from "./format.service";
+import { Injectable } from '@angular/core';
+import { FormatService } from './format.service';
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root'
 })
 export class ImageService {
   constructor(private format: FormatService) {}
 
   identify(current: SketchMSLayer) {
-    return (current._class as string) === "bitmap";
+    return (current._class as string) === 'bitmap';
   }
 
   lookup(current: SketchMSLayer, data: SketchMSData) {

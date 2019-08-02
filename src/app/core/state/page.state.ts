@@ -1,9 +1,9 @@
-import { State, Action, StateContext, Selector } from "@ngxs/store";
+import { State, Action, StateContext, Selector } from '@ngxs/store';
 import {
   CodeGenKind,
   XlayersExporterNavBar,
   XlayersNgxEditorModel
-} from "@app/editor/code/editor-container/codegen/codegen.service";
+} from '@app/editor/code/editor-container/codegen/codegen.service';
 
 export interface CodeGenSettings {
   content: XlayersNgxEditorModel[];
@@ -12,7 +12,7 @@ export interface CodeGenSettings {
 }
 
 export class CodeGen {
-  static readonly type = "[CodeGen] CodeGen";
+  static readonly type = '[CodeGen] CodeGen';
   constructor(
     public kind: CodeGenKind,
     public content: XlayersNgxEditorModel[],
@@ -21,7 +21,7 @@ export class CodeGen {
 }
 
 @State<SketchMSPage>({
-  name: "codegen"
+  name: 'codegen'
 })
 export class CodeGenState {
   @Selector()

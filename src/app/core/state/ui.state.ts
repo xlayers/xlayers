@@ -1,14 +1,14 @@
-import { MatSnackBar } from "@angular/material/snack-bar";
-import { Action, Selector, State, StateContext } from "@ngxs/store";
-import { iif, patch } from "@ngxs/store/operators";
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Action, Selector, State, StateContext } from '@ngxs/store';
+import { iif, patch } from '@ngxs/store/operators';
 
 export interface LayerCSS {
   transform: string;
-  "border-radius": number;
+  'border-radius': number;
   opacity: number;
   filter: string;
-  "box-shadow": string;
-  "background-color": string;
+  'box-shadow': string;
+  'background-color': string;
   background: string;
 }
 
@@ -27,39 +27,39 @@ export interface UiSettings {
 }
 
 export enum ErrorType {
-  Runtime = "Runtime Error",
-  None = ""
+  Runtime = 'Runtime Error',
+  None = ''
 }
 
 export class CurrentFile {
-  static readonly type = "[UiSettings] Current File";
+  static readonly type = '[UiSettings] Current File';
   constructor(public data: SketchMSData) {}
 }
 export class ToggleWireframe {
-  static readonly type = "[UiSettings] Toggle Wireframe";
+  static readonly type = '[UiSettings] Toggle Wireframe';
   constructor(public value: boolean) {}
 }
 
 export class AvailablePages {
-  static readonly type = "[UiSettings] Available Pages";
+  static readonly type = '[UiSettings] Available Pages';
   constructor(public pages: SketchMSPage[]) {}
 }
 
 export class CurrentPage {
-  static readonly type = "[UiSettings] Current Page";
+  static readonly type = '[UiSettings] Current Page';
   constructor(public page: SketchMSPage) {}
 }
 
 export class CurrentLayer {
-  static readonly type = "[UiSettings] Current Layer";
+  static readonly type = '[UiSettings] Current Layer';
   constructor(public layer: SketchMSLayer) {}
 }
 
 export class SettingsEnabled {
-  static readonly type = "[UiSettings] Enable Settings";
+  static readonly type = '[UiSettings] Enable Settings';
 }
 export class LayerPosition {
-  static readonly type = "[UiSettings] Set Layer Position";
+  static readonly type = '[UiSettings] Set Layer Position';
   public left: number;
   public top: number;
   constructor(
@@ -70,32 +70,32 @@ export class LayerPosition {
   }
 }
 export class ZoomIn {
-  static readonly type = "[UiSettings] Zoom In";
+  static readonly type = '[UiSettings] Zoom In';
   constructor(public value: number = 0.1) {}
 }
 export class ZoomOut {
-  static readonly type = "[UiSettings] Zoom Out";
+  static readonly type = '[UiSettings] Zoom Out';
   constructor(public value: number = 0.1) {}
 }
 export class ZoomReset {
-  static readonly type = "[UiSettings] Zoom Reset";
+  static readonly type = '[UiSettings] Zoom Reset';
   constructor() {}
 }
 export class Toggle3D {
-  static readonly type = "[UiSettings] Toggle 3D";
+  static readonly type = '[UiSettings] Toggle 3D';
   constructor(public value: boolean) {}
 }
 export class ToggleCodeEditor {
-  static readonly type = "[UiSettings] Toggle Code Editor";
+  static readonly type = '[UiSettings] Toggle Code Editor';
   constructor(public value: boolean) {}
 }
 
 export class ResetUiSettings {
-  static readonly type = "[UiSettings] Reset UI Settings";
+  static readonly type = '[UiSettings] Reset UI Settings';
 }
 
 export class InformUser {
-  static readonly type = "[UiSettings] Inform user";
+  static readonly type = '[UiSettings] Inform user';
   constructor(
     public message: string,
     public errorType: ErrorType = ErrorType.None
@@ -116,7 +116,7 @@ const DEFAULT_UI_STATE = {
 };
 
 @State<UiSettings>({
-  name: "ui",
+  name: 'ui',
   defaults: DEFAULT_UI_STATE
 })
 export class UiState {
@@ -321,7 +321,7 @@ export class UiState {
     this.snackBar
       .open(
         action.message,
-        action.errorType === ErrorType.None ? "CLOSE" : "REPORT",
+        action.errorType === ErrorType.None ? 'CLOSE' : 'REPORT',
         {
           duration: action.errorType === ErrorType.None ? 5000 : 0
         }
@@ -334,7 +334,7 @@ export class UiState {
           }`;
           window.open(
             `https://github.com/xlayers/xlayers/issues/new?${githubIssueUrl}`,
-            "__blank"
+            '__blank'
           );
         }
       });

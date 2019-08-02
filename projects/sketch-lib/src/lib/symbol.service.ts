@@ -1,11 +1,11 @@
-import { Injectable } from "@angular/core";
+import { Injectable } from '@angular/core';
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root'
 })
 export class SymbolService {
   identify(current: SketchMSLayer) {
-    return (current._class as string) === "symbolInstance";
+    return (current._class as string) === 'symbolInstance';
   }
 
   lookup(current: SketchMSLayer, data: SketchMSData) {
