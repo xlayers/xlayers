@@ -1,5 +1,5 @@
 export interface SvgBlocGenOptions {
-  xmlNamespace: boolean;
+  xmlNamespace?: boolean;
 }
 
 export interface SvgBlocGenContextPath {
