@@ -2,22 +2,6 @@ import { Injectable } from '@angular/core';
 import { XlayersNgxEditorModel } from '../codegen.service';
 import { WebBlocGenService } from '@xlayers/web-blocgen';
 
-const renderRoutingModule = () => `\
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-
-const xlayersRoutes: Routes = [{
-  path: 'xlayers',
-  loadChildren: 'app/xlayers/xlayers.module#XlayersModule'
-}];
-
-@NgModule({
-  imports: [ RouterModule.forChild(xlayersRoutes) ],
-  exports: [ RouterModule ]
-})
-export class XlayersRoutingModule {}
-`;
-
 @Injectable({
   providedIn: 'root'
 })
@@ -46,13 +30,31 @@ export class AngularCodeGenService {
       },
       {
         uri: 'xlayers-routing.module.ts',
-        value: renderRoutingModule(),
+        value: this.renderRoutingModule().join('\n'),
         language: 'typescript',
         kind: 'angular'
       },
       ...(data.pages as any).flatMap(page =>
         this.webBlocGen.render(page, data, { mode: 'angular' })
       )
+    ];
+  }
+
+  private renderRoutingModule() {
+    return [
+      'import { NgModule } from \'@angular/core\'',
+      'import { RouterModule, Routes } from \'@angular/router\';',
+      '',
+      'const xlayersRoutes: Routes = [{',
+      '  path: \'xlayers\',',
+      '  loadChildren: \'app/xlayers/xlayers.module#XlayersModule\'',
+      '}];',
+      '',
+      '@NgModule({',
+      '  imports: [ RouterModule.forChild(xlayersRoutes) ],',
+      '  exports: [ RouterModule ]',
+      '})',
+      'export class XlayersRoutingModule {}'
     ];
   }
 
@@ -97,14 +99,14 @@ export class AngularCodeGenService {
     return [
       'import { NgModule } from \'@angular/core\';',
       'import { CommonModule } from \'@angular/common\';',
-      'import { XlayersComponent } from \'./xlayers.component\';',
+      'import { MyComponent } from \'./components/my-component.component\';',
       '',
       '@NgModule({',
       '  declarations: [',
-      '    XlayersComponent',
+      '    MyComponent',
       '  ],',
       '  exports: [',
-      '    XlayersComponent',
+      '    MyComponent',
       '  ],',
       '  imports: [',
       '    CommonModule',
