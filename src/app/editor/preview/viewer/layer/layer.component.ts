@@ -141,7 +141,7 @@ export class ViewerLayerComponent implements OnInit, AfterContentInit {
       if (content) {
         this.images.push(
           this.sanitizer.bypassSecurityTrustResourceUrl(
-            `data:image/jpg;base64,${content}`
+            `data:image/png;base64,${content}`
           )
         );
       }
