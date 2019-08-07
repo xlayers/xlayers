@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import {
   ImageService,
   FormatService,
-  SymbolService
+  SymbolService,
+  LayerService
 } from '@xlayers/sketch-lib';
 import { CssBlocGenService } from '@xlayers/css-blocgen';
 import { SvgBlocGenService } from '@xlayers/svg-blocgen';
@@ -19,6 +20,7 @@ export class WebParserService {
     private format: FormatService,
     private symbol: SymbolService,
     private image: ImageService,
+    private layer: LayerService,
     private cssBlocGen: CssBlocGenService,
     private svgBlocGen: SvgBlocGenService,
     private webContext: WebContextService
@@ -53,7 +55,7 @@ export class WebParserService {
     depth: number,
     options: WebBlocGenOptions
   ) {
-    if (current.layers && Array.isArray(current.layers)) {
+    if (this.layer.identify(current)) {
       current.layers.forEach(layer => {
         if (this.webContext.identify(current)) {
           this.visit(data, layer, root, depth, options);

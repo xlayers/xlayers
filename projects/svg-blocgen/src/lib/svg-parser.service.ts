@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ShapeService, SymbolService } from '@xlayers/sketch-lib';
+import { ShapeService, SymbolService, LayerService } from '@xlayers/sketch-lib';
 import { StyleService } from '@xlayers/sketch-lib';
 import { SvgContextService } from './svg-context.service';
 import { SvgBlocGenOptions } from './svg-blocgen';
@@ -11,6 +11,7 @@ export class SvgParserService {
   constructor(
     private shape: ShapeService,
     private style: StyleService,
+    private layer: LayerService,
     private symbol: SymbolService,
     private svgContext: SvgContextService
   ) {}
@@ -44,7 +45,7 @@ export class SvgParserService {
     data: SketchMSData,
     options: SvgBlocGenOptions
   ) {
-    if (current.layers && Array.isArray(current.layers)) {
+    if (this.layer.identify(current)) {
       current.layers.forEach(layer => {
         this.visit(layer, data, options);
       });

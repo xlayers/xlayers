@@ -21,6 +21,19 @@ export class ImageService {
     return buf;
   }
 
+  render(current: SketchMSLayer, data: SketchMSData, options: any) {
+    return [
+      {
+        kind: 'file',
+        value: this.lookup(current, data),
+        language: 'binary',
+        uri: `${options.assetDir}/${this.format.normalizeName(
+          current.name
+        )}.jpg`
+      }
+    ];
+  }
+
   private getImageDataFromRef(data: SketchMSData, reference: string) {
     const bitmaps = this.bitmapRegistryOf(data);
     return bitmaps[reference];

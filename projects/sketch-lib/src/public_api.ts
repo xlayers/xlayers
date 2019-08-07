@@ -3,6 +3,7 @@
  */
 
 export * from './lib/image.service';
+export * from './lib/layer.service';
 export * from './lib/symbol.service';
 export * from './lib/text.service';
 export * from './lib/bplist.service';

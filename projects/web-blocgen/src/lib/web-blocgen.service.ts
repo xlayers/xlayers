@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import {
   FormatService,
   ImageService,
-  SymbolService
+  SymbolService,
+  LayerService
 } from '@xlayers/sketch-lib';
 import { WebContextService } from './web-context.service';
 import { WebParserService } from './web-parser.service';
@@ -31,7 +32,8 @@ export class WebBlocGenService {
     private litElementRender: LitElementRenderService,
     private reactRender: ReactRenderService,
     private stencilRender: StencilRenderService,
-    private webRender: WebRenderService
+    private webRender: WebRenderService,
+    private layer: LayerService
   ) {}
 
   compute(
@@ -110,10 +112,10 @@ export class WebBlocGenService {
     data: SketchMSData,
     options: WebBlocGenOptions
   ) {
-    if (current.layers && Array.isArray(current.layers)) {
-      return (current.layers as any).flatMap(layer =>
-        this.traverse(layer, data, options)
-      );
+    if (this.layer.identify(current)) {
+      return this.layer
+        .lookup(current, data)
+        .flatMap(layer => this.traverse(layer, data, options));
     }
     return this.retrieveFiles(data, current, options);
   }
@@ -127,7 +129,7 @@ export class WebBlocGenService {
       return this.retrieveSymbolMaster(current, data, options);
     }
     if (this.image.identify(current)) {
-      return this.retrieveBitmap(current, data, options);
+      return this.render(current, data, options);
     }
     return [];
   }
@@ -144,25 +146,6 @@ export class WebBlocGenService {
     }
 
     return [];
-  }
-
-  private retrieveBitmap(
-    current: SketchMSLayer,
-    data: SketchMSData,
-    options: WebBlocGenOptions
-  ) {
-    const image = this.image.lookup(current, data);
-
-    return [
-      {
-        kind: 'web',
-        value: image,
-        language: 'binary',
-        uri: `${options.assetDir}/${this.format.normalizeName(
-          current.name
-        )}.jpg`
-      }
-    ];
   }
 
   private compileOptions(options: WebBlocGenOptions) {

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { StyleService, SymbolService } from '@xlayers/sketch-lib';
+import { StyleService, SymbolService, LayerService } from '@xlayers/sketch-lib';
 import { CssContextService } from './css-context.service';
 import { CssBlocGenOptions } from './css-blocgen';
 
@@ -10,7 +10,8 @@ export class CssParserService {
   constructor(
     private styleHelperService: StyleService,
     private cssContext: CssContextService,
-    private symbol: SymbolService
+    private symbol: SymbolService,
+    private layer: LayerService
   ) {}
 
   compute(
@@ -37,7 +38,7 @@ export class CssParserService {
     data: SketchMSData,
     options: CssBlocGenOptions
   ) {
-    if (current.layers && Array.isArray(current.layers)) {
+    if (this.layer.identify(current)) {
       current.layers.forEach(layer => {
         this.visit(layer, data, options);
       });
