@@ -6,7 +6,7 @@ import { WebBlocGenContext } from './web-blocgen.d';
 })
 export class WebContextService {
   identify(current: SketchMSLayer) {
-    return ['rect', 'page', 'rectangle', 'group', 'symbolMaster'].includes(
+    return ['rect', 'rectangle', 'group', 'symbolMaster'].includes(
       current._class as string
     );
   }
@@ -24,7 +24,7 @@ export class WebContextService {
     nextContext: WebBlocGenContext = { html: [], css: [], components: [] }
   ) {
     (current as any).web = {
-      ...((current as any).web || {}),
+      ...this.contextOf(current),
       ...nextContext
     };
   }

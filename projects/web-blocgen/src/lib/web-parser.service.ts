@@ -31,9 +31,16 @@ export class WebParserService {
     data: SketchMSData,
     options: WebBlocGenOptions
   ) {
-    this.svgBlocGen.compute(current, data);
+    this.svgBlocGen.compute(current, data, options);
     this.cssBlocGen.compute(current, data, options);
-    this.visit(data, current, current, 0, options);
+
+    if (current._class === 'page') {
+      current.layers.forEach(layer => {
+        this.visit(data, layer, current, 0, options);
+      });
+    } else {
+      this.visit(data, current, current, 0, options);
+    }
   }
 
   private visit(
@@ -44,8 +51,7 @@ export class WebParserService {
     options: WebBlocGenOptions
   ) {
     this.putOpenTag(current, root, depth, options);
-    this.putContent(current, root, data, depth, options);
-    this.putClosingTag(root, depth);
+    this.putClosingTag(current, root, data, depth, options);
   }
 
   private traverseLayer(
@@ -83,7 +89,6 @@ export class WebParserService {
       const tagName = this.format.normalizeName(current.name);
 
       this.webContext.putContext(root, {
-        ...this.webContext.contextOf(root),
         components: [...this.webContext.contextOf(root).components, tagName]
       });
 
@@ -92,7 +97,7 @@ export class WebParserService {
       return [this.format.indent(depth, tag)];
     }
 
-    return '';
+    return [];
   }
 
   private extractLayerContent(
@@ -146,7 +151,24 @@ export class WebParserService {
       );
   }
 
-  private putContent(
+  private putOpenTag(
+    current: SketchMSLayer,
+    root: SketchMSLayer,
+    depth: number,
+    options: WebBlocGenOptions
+  ) {
+    const attributes = this.extractTagAttributes(current, options);
+    const tag = ['<div', ...attributes].join(' ') + '>';
+
+    this.webContext.putContext(root, {
+      html: [
+        ...this.webContext.contextOf(root).html,
+        this.format.indent(depth, tag)
+      ]
+    });
+  }
+
+  private putClosingTag(
     current: SketchMSLayer,
     root: SketchMSLayer,
     data: SketchMSData,
@@ -155,39 +177,30 @@ export class WebParserService {
   ) {
     const content = this.traverseLayer(current, root, data, depth + 1, options);
     if (content) {
-      const context = this.webContext.contextOf(root);
       this.webContext.putContext(root, {
-        html: [...context.html, ...content]
+        html: [...this.webContext.contextOf(root).html, ...content]
       });
     }
+
+    this.webContext.putContext(root, {
+      html: [
+        ...this.webContext.contextOf(root).html,
+        this.format.indent(depth, '</div>')
+      ]
+    });
   }
 
-  private putOpenTag(
+  private extractTagAttributes(
     current: SketchMSLayer,
-    root: SketchMSLayer,
-    depth: number,
     options: WebBlocGenOptions
   ) {
     const className = this.cssBlocGen.context(current).className;
-    const attributes = [
+    return [
       ...(className
         ? [`${options.jsx ? 'className' : 'class'}="${className}"`]
         : []),
       `role="${current._class}"`,
       `aria-label="${current.name}"`
     ];
-    const tag = ['<div', ...attributes].join(' ') + '>';
-
-    const context = this.webContext.contextOf(root);
-    this.webContext.putContext(root, {
-      html: [...context.html, this.format.indent(depth, tag)]
-    });
-  }
-
-  private putClosingTag(root: SketchMSLayer, depth: number) {
-    const context = this.webContext.contextOf(root);
-    this.webContext.putContext(root, {
-      html: [...context.html, this.format.indent(depth, '</div>')]
-    });
   }
 }
