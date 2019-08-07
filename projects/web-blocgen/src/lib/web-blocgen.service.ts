@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import {
-  FormatService,
   ImageService,
   SymbolService,
   LayerService
@@ -23,7 +22,6 @@ export class WebBlocGenService {
   constructor(
     private symbol: SymbolService,
     private image: ImageService,
-    private format: FormatService,
     private webContext: WebContextService,
     private webParser: WebParserService,
     private webComponentRender: WebComponentRenderService,
@@ -129,7 +127,7 @@ export class WebBlocGenService {
       return this.retrieveSymbolMaster(current, data, options);
     }
     if (this.image.identify(current)) {
-      return this.render(current, data, options);
+      return this.image.render(current, data, options);
     }
     return [];
   }
