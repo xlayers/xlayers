@@ -84,8 +84,8 @@ export class WebBlocGenService {
 
       case 'react':
         return [
-          ...this.traverse(current, data, options),
-          ...this.reactRender.render(current, options)
+          ...this.traverse(current, data, {...options, jsx: true}),
+          ...this.reactRender.render(current, {...options, jsx: true})
         ];
 
       case 'webComponent':

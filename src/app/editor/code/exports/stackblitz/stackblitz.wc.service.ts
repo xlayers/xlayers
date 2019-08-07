@@ -18,7 +18,7 @@ export class ExportStackblitzWCService {
     }
 
     // add extra files
-    files['index.html'] = `
+    files['index.html'] = `\
 <!DOCTYPE html>
 <html lang="en">
   <head>
