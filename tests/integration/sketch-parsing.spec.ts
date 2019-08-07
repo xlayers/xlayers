@@ -2,9 +2,7 @@ import { NO_ERRORS_SCHEMA } from "@angular/core";
 import { async, TestBed } from "@angular/core/testing";
 import { readdirSync, readFile } from "fs";
 import * as jszip from "jszip";
-import { CssBlocGenService } from "@xlayers/css-blocgen";
-import { SvgBlocGenService } from "@xlayers/svg-blocgen";
-import { TextService } from "@xlayers/sketch-lib";
+import { WebBlocGenService } from "@xlayers/web-blocgen";
 
 const VERSION_LIST = [50, 51, 52, 53];
 const SKETCH_PATH = "./src/assets/demos/sketchapp";
@@ -16,7 +14,7 @@ async function loadSketch(version, fileName) {
     document: {},
     user: {},
     meta: {}
-  };
+  } as SketchMSData;
 
   const sketch = await new Promise((resolve, reject) => {
     readFile(`${SKETCH_PATH}/${version}/${fileName}`, (err, file) => {
@@ -61,19 +59,15 @@ async function loadSketch(version, fileName) {
 }
 
 describe("sketch parser", () => {
-  let cssBlocGen: CssBlocGenService;
-  let svgBlocGenService: SvgBlocGenService;
-  let text: TextService;
+  let webBlocGen: WebBlocGenService;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       schemas: [NO_ERRORS_SCHEMA],
-      providers: [CssBlocGenService, SvgBlocGenService, TextService],
+      providers: [WebBlocGenService],
       declarations: []
     }).compileComponents();
-    svgBlocGenService = TestBed.get(SvgBlocGenService);
-    cssBlocGen = TestBed.get(CssBlocGenService);
-    astService = TestBed.get(TextService);
+    webBlocGen = TestBed.get(WebBlocGenService);
   }));
 
   VERSION_LIST.forEach(version => {
@@ -83,13 +77,10 @@ describe("sketch parser", () => {
       it(`should match ${fileName} snapshot for ${version}`, done => {
         loadSketch(version, fileName)
           .then(data => {
-            data.pages.forEach(layer => {
-              if (cssBlocGen.hasContext(layer)) {
-                cssBlocGen.compute(layer);
-              }
-              if (svgBlocGenService.hasContext(layer)) {
-                svgBlocGenService.compute(layer);
-              }
+            data.pages.forEach(page => {
+              webBlocGen.compute(page, data, {
+                generateClassName: false
+              });
             });
 
             return data;

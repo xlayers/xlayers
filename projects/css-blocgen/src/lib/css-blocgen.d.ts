@@ -1,4 +1,5 @@
 export interface CssBlocGenOptions {
+  generateClassName?: boolean;
   cssPrefix?: string;
   componentDir?: string;
 }

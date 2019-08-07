@@ -77,16 +77,18 @@ export class CssParserService {
     current: SketchMSLayer,
     options: CssBlocGenOptions
   ) {
-    const rules = {
-      ...this.extractObjectStyles(current),
-      ...this.extractFrameStyles(current)
-    };
-    const className = this.generateCssClassName(options);
-
     this.cssContext.putContext(current, {
-      rules,
-      className
+      rules: {
+        ...this.extractObjectStyles(current),
+        ...this.extractFrameStyles(current)
+      }
     });
+
+    if (options.generateClassName) {
+      this.cssContext.putContext(current, {
+        className: this.generateCssClassName(options)
+      });
+    }
   }
 
   private extractFrameStyles(current: SketchMSLayer) {

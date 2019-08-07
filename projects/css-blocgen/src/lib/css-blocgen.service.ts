@@ -37,6 +37,7 @@ export class CssBlocGenService {
 
   private compileOptions(options: CssBlocGenOptions) {
     return {
+      generateClassName: true,
       cssPrefix: 'xly_',
       componentDir: 'components',
       ...options
