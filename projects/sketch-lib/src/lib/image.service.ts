@@ -12,24 +12,25 @@ export class ImageService {
   }
 
   lookup(current: SketchMSLayer, data: SketchMSData) {
+    return this.getImageDataFromRef(data, (current as any).image._ref);
+  }
+
+  render(current: SketchMSLayer, data: SketchMSData, options: any) {
     const content = this.getImageDataFromRef(data, (current as any).image._ref);
     const bin = atob(content);
     const buf = new Uint8Array(bin.length);
     Array.prototype.forEach.call(bin, (ch, i) => {
       buf[i] = ch.charCodeAt(0);
     });
-    return buf;
-  }
 
-  render(current: SketchMSLayer, data: SketchMSData, options: any) {
     return [
       {
         kind: 'file',
-        value: this.lookup(current, data),
+        value: buf,
         language: 'binary',
         uri: `${options.assetDir}/${this.format.normalizeName(
           current.name
-        )}.jpg`
+        )}.png`
       }
     ];
   }
