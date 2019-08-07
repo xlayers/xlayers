@@ -11,14 +11,18 @@ export class CssContextService {
       'page',
       'rectangle',
       'group',
-      'symbolMaster',
       'oval',
-      'text'
+      'slice',
+      'MSImmutableHotspotLayer',
+      'text',
+      'triangle',
+      'shapePath',
+      'shapeGroup'
     ].includes(current._class as string);
   }
 
   hasContext(current: SketchMSLayer) {
-    return !!this.contextOf(current);
+    return !!(current as any).css;
   }
 
   contextOf(current: SketchMSLayer) {
@@ -30,7 +34,7 @@ export class CssContextService {
     nextContext: CssBlocGenContext = { rules: {}, className: '' }
   ) {
     (current as any).css = {
-      ...((current as any).css || {}),
+      ...this.contextOf(current),
       ...nextContext
     };
   }

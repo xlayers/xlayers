@@ -19,7 +19,14 @@ export class CssParserService {
     data: SketchMSData,
     options: CssBlocGenOptions
   ) {
-    this.visit(current, data, options);
+    if (current._class === 'page') {
+      current.layers.forEach(layer => {
+        this.flattenLayer(layer);
+        this.visit(layer, data, options);
+      });
+    } else {
+      this.visit(current, data, options);
+    }
   }
 
   private visit(
@@ -28,9 +35,16 @@ export class CssParserService {
     options: CssBlocGenOptions
   ) {
     if (this.cssContext.identify(current)) {
-      this.extractLayerContent(current, options);
+      if (!this.cssContext.hasContext(current)) {
+        this.extractLayerContent(current, options);
+      }
     }
     this.traverseLayer(current, data, options);
+  }
+
+  private flattenLayer(current: SketchMSLayer) {
+    current.frame.x = 0;
+    current.frame.y = 0;
   }
 
   private traverseLayer(
@@ -76,23 +90,22 @@ export class CssParserService {
   }
 
   private extractFrameStyles(current: SketchMSLayer) {
-    return current.frame
-      ? {
-          display: 'block',
-          position: 'absolute',
-          left: `${current.frame.x}px`,
-          top: `${current.frame.y}px`,
-          width: `${current.frame.width}px`,
-          height: `${current.frame.height}px`,
-          visibility: current.isVisible ? 'visible' : 'hidden'
-        }
-      : {};
+    if (current.frame) {
+      return {
+        display: 'block',
+        position: 'absolute',
+        left: `${current.frame.x}px`,
+        top: `${current.frame.y}px`,
+        width: `${current.frame.width}px`,
+        height: `${current.frame.height}px`,
+        visibility: current.isVisible ? 'visible' : 'hidden'
+      };
+    }
+    return {};
   }
 
   private extractObjectStyles(current: SketchMSLayer) {
     switch (current._class as string) {
-      case 'symbolMaster':
-        return this.extractFills(current);
       case 'rectangle':
         return this.extractLayerStyle(current);
       case 'text':
