@@ -31,10 +31,7 @@ export class SvgParserService {
   ) {
     if (this.svgContext.identify(current)) {
       if (!this.svgContext.hasContext(current)) {
-        this.svgContext.putContext(current, {
-          ...this.svgContext.contextOf(current),
-          ...this.extractLayerContent(current)
-        });
+        this.svgContext.putContext(current, this.extractLayerContent(current));
       }
     }
     this.traverseLayer(current, data, options);
