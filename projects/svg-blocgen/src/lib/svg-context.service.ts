@@ -13,7 +13,7 @@ export class SvgContextService {
   }
 
   hasContext(current: SketchMSLayer) {
-    return !!this.contextOf(current);
+    return !!(current as any).svg;
   }
 
   contextOf(current: SketchMSLayer) {
@@ -25,7 +25,7 @@ export class SvgContextService {
     newContext: SvgBlocGenContext = { paths: [], offset: 0, attributes: [] }
   ) {
     (current as any).svg = {
-      ...((current as any).svg || {}),
+      ...this.contextOf(current),
       ...newContext
     };
   }
