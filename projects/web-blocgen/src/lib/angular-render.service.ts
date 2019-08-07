@@ -61,7 +61,6 @@ export class AngularRenderService {
 
     return [
       'import { Component } from \'@angular/core\';',
-      `import ${componentName} from "./${options.componentDir}/${fileName}";`,
       '',
       '@Component({',
       `  selector: '${options.xmlPrefix}${tagName}',`,
