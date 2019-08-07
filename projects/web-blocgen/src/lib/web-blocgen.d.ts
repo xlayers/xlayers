@@ -1,4 +1,5 @@
 export interface WebBlocGenOptions {
+  xmlNamespace?: boolean;
   mode?: string;
   jsx?: boolean;
   xmlPrefix?: string;
