@@ -32,7 +32,7 @@ describe('StackBlitz Lit Element', () => {
   });
 
   it('should have default index.js', () => {
-    expect(files['index.js']).toBe(`import './x-layers-element.js';`);
+    expect(files['index.js']).toBe(`import './my-element.js';`);
   });
 
   it('should have web component and lit-element tag', () => {

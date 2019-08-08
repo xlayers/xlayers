@@ -12,7 +12,7 @@ export class ExportStackblitzStencilService {
     for (let i = 0; i < content.length; i++) {
       for (const prop in content[i]) {
         if (prop === 'uri') {
-          files[`src/components/my-component/` + content[i].uri] = content[i].value;
+          files[`src/components/` + content[i].uri] = content[i].value;
         }
       }
     }
@@ -68,7 +68,6 @@ export class ExportStackblitzStencilService {
     "node_modules"
   ]
 }`;
-
 
     files['stencil.config.ts'] = `\
 import { Config } from '@stencil/core';

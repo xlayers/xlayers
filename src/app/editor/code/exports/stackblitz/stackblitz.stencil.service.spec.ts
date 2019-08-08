@@ -31,7 +31,7 @@ describe('StackBlitz Stencil', () => {
   });
 
   it('should contain uri files', () => {
-    expect(files['src/components/x-layers-component/uri']).toBe('string');
+    expect(files['src/components/uri']).toBe('string');
   });
 
   it('should have default index.html', () => {
