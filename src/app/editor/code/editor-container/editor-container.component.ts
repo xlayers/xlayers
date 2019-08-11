@@ -15,7 +15,7 @@ const githubIssueLink =
 })
 export class EditorContainerComponent implements OnInit, AfterContentInit {
   codeSetting: CodeGenSettings;
-  @ViewChild('codeContentEditor', {static: true}) codeEditor: ElementRef;
+  @ViewChild('codeContentEditor', {static: false}) codeEditor: ElementRef;
 
   frameworks: Array<{
     title: string;
