@@ -22,7 +22,7 @@ export class EditorContainerComponent implements OnInit, AfterContentInit {
     logo: FunctionStringCallback;
   }>;
 
-  constructor(private codegen: CodeGenService, private readonly store: Store) {}
+  constructor(private codegen: CodeGenService, private store: Store) {}
 
   ngOnInit() {}
 

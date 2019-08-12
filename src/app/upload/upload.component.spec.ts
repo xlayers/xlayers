@@ -20,12 +20,11 @@ describe('UploadComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ UploadComponent ],
+      declarations: [UploadComponent],
       providers: [SketchService],
       imports: [NgxsModule.forRoot([]), HttpClientTestingModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot()],
       schemas: [NO_ERRORS_SCHEMA]
-    })
-    .compileComponents();
+    }).compileComponents();
     sketchService = TestBed.get(SketchService);
     mockSketchData = getSketchDataMock();
     mockFile = getFileMock();
@@ -42,16 +41,14 @@ describe('UploadComponent', () => {
     expect(component).toBeTruthy();
   });
 
-
   it('should process selected file', async () => {
-    spyOn(sketchService, 'process').and.returnValue(
+    spyOn(sketchService, 'loadSketchFile').and.returnValue(
       Promise.resolve(mockSketchData)
     );
     await component.onFileSelected(mockFile);
 
-    store.selectOnce(UiState.currentFile).subscribe(data => {
+    store.selectOnce(UiState.currentData).subscribe(data => {
       expect(data).toEqual(mockSketchData);
     });
   });
-
 });

@@ -17,9 +17,9 @@ export class ExportStackblitzLitElementService {
         }
       }
     }
-    files['index.js'] = `import './x-layers-element.js';`;
+    files['index.js'] = `import './my-component.js';`;
     // add extra files
-    files['index.html'] = `
+    files['index.html'] = `\
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -30,11 +30,10 @@ export class ExportStackblitzLitElementService {
     <title>xLayers Custom Element using : LitElement</title>
   </head>
   <body>
-    <x-layers-element></x-layers-element>
+    <my-component></my-component>
   </body>
   <script src="./index.js"></script>
 </html>`;
-
 
     return {
       files,

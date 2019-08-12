@@ -4,12 +4,14 @@ import {
   ElementRef,
   Input,
   OnInit,
-  Renderer2,
+  Renderer2
 } from '@angular/core';
 import { Store } from '@ngxs/store';
 import { CurrentLayer, UiState } from '@app/core/state/ui.state';
-import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
-import { ResourceImageData, SketchService } from '@app/core/sketch.service';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+import { SvgBlocGenService } from '@xlayers/svg-blocgen';
+import { TextService, SymbolService, ImageService } from '@xlayers/sketch-lib';
+import { CssBlocGenService } from '@xlayers/css-blocgen';
 
 @Component({
   selector: 'xly-viewer-layer',
@@ -20,24 +22,27 @@ import { ResourceImageData, SketchService } from '@app/core/sketch.service';
     >
       <xly-viewer-layer
         xlySelectedLayer
-        (selectedLayer)="selectLayer($event)"
-        *ngFor="let layer of layer?.layers"
+        *ngFor="let layer of layers"
         class="layer"
+        [ngClass]="{ wireframe: wireframe }"
+        [data]="data"
         [layer]="layer"
         [level]="level + 1"
         [wireframe]="wireframe"
-        [ngClass]="{ wireframe: wireframe }"
         [attr.data-id]="layer?.do_objectID"
         [attr.data-name]="layer?.name"
         [attr.data-class]="layer?._class"
+        (selectedLayer)="selectLayer($event)"
       ></xly-viewer-layer>
 
-      <span *ngIf="textContent">{{ textContent }}</span>
+      <span *ngFor="let text of texts">{{ text }}</span>
 
-      <img *ngIf="imageContent" [src]="imageContent.source" [style.height.%]="100" [style.width.%]="100"/>
-
-      <div *ngIf="shapeContent" [innerHtml]="shapeContent"></div>
-
+      <img
+        *ngFor="let image of images"
+        [src]="image"
+        [style.height.%]="100"
+        [style.width.%]="100"
+      />
     </div>
   `,
   styles: [
@@ -63,114 +68,156 @@ import { ResourceImageData, SketchService } from '@app/core/sketch.service';
       :host(.wireframe) {
         box-shadow: 0 0 0 1px black;
       }
+
+      :host * {
+        position: absolute;
+      }
     `
   ]
 })
 export class ViewerLayerComponent implements OnInit, AfterContentInit {
+  @Input() data: SketchMSData;
   @Input() layer: SketchMSLayer;
-  @Input() wireframe = false;
 
+  @Input() wireframe = false;
   @Input() level = 0;
 
-  borderWidth = 1;
   nativeElement: HTMLElement;
 
+  borderWidth = 1;
   offset3d = 20;
 
-  textContent: string;
-  imageContent: ResourceImageData;
-  shapeContent: SafeHtml;
+  texts: string[] = [];
+  images: SafeUrl[] = [];
+  layers: SketchMSLayer[] = [];
 
   constructor(
-    public store: Store,
-    public renderer: Renderer2,
-    public element: ElementRef<HTMLElement>,
-    public sketchService: SketchService,
-    public sanitizer: DomSanitizer
+    private store: Store,
+    private renderer: Renderer2,
+    private element: ElementRef<HTMLElement>,
+    private sanitizer: DomSanitizer,
+    private text: TextService,
+    private cssBlocGen: CssBlocGenService,
+    private svgBlocGen: SvgBlocGenService,
+    private resource: SymbolService,
+    private image: ImageService
   ) {}
 
   ngOnInit() {
-    this.nativeElement = this.element.nativeElement;
     this.store.select(UiState.isWireframe).subscribe(isWireframe => {
       this.wireframe = isWireframe;
     });
+
     this.store.select(UiState.is3dView).subscribe(is3dView => {
-      if (this.nativeElement) {
-        if (is3dView === true) {
-          if (this.level > 0) {
-            this.renderer.setStyle(
-              this.nativeElement,
-              'transform',
-              `translateZ(${(this.level * this.offset3d).toFixed(3)}px)`
-            );
-          }
-        } else {
-          this.renderer.setStyle(this.nativeElement, 'transform', `none`);
-        }
+      if (is3dView) {
+        this.enable3dStyle();
+      } else {
+        this.disable3dStyle();
       }
     });
   }
 
   ngAfterContentInit() {
-    if (this.layer) {
-      this.updateLayerStyle();
-      this.isTextContent();
-      this.isSolidContent();
-      this.isImageContent();
-    }
+    this.applyHighlightStyles();
+    this.applyLayerStyles();
+    this.loadText();
+    this.loadImage();
+    this.loadShapes();
+    this.loadLayers();
   }
 
-  isTextContent() {
-    if ((this.layer._class as 'text') === 'text') {
-      this.textContent = (this.layer as any).text;
-    }
-  }
-
-  isImageContent() {
-    if ((this.layer._class as 'bitmap') === 'bitmap') {
-      this.imageContent = this.sketchService.getImageDataFromRef((this.layer as any).image._ref);
-    }
-  }
-
-  isSolidContent() {
-    if ((this.layer as any).shape) {
-      this.shapeContent = this.sanitizer.bypassSecurityTrustHtml((this.layer as any).shape);
-    }
-  }
-
-  updateLayerStyle() {
-    if (this.layer && this.nativeElement) {
-      const elementPosition = this.nativeElement.getBoundingClientRect();
-      this.renderer.setStyle(
-        this.nativeElement,
-        'border-width',
-        `${this.borderWidth}px`
-      );
-      this.renderer.setStyle(
-        this.nativeElement,
-        'left',
-        `${elementPosition.left - this.borderWidth}px`
-      );
-      this.renderer.setStyle(
-        this.nativeElement,
-        'top',
-        `${elementPosition.top - this.borderWidth}px`
-      );
-      this.applyDefaultStyles();
-    }
-  }
-
-  toggleSelected(_layer: SketchMSSymbolMaster) {}
-
-  applyDefaultStyles() {
-    const css = (this.layer as any).css as { [key: string]: string };
-    if (css) {
-      for (const property in css) {
-        if (css.hasOwnProperty(property)) {
-          this.renderer.setStyle(this.nativeElement, property, css[property]);
-        }
+  loadText() {
+    if (this.text.identify(this.layer)) {
+      const content = this.text.lookup(this.layer);
+      if (content) {
+        this.texts.push(content);
       }
     }
+  }
+
+  loadImage() {
+    if (this.image.identify(this.layer)) {
+      const content = this.image.lookup(this.layer, this.data);
+      if (content) {
+        this.images.push(
+          this.sanitizer.bypassSecurityTrustResourceUrl(
+            `data:image/png;base64,${content}`
+          )
+        );
+      }
+    }
+  }
+
+  loadShapes() {
+    if (this.svgBlocGen.identify(this.layer)) {
+      this.svgBlocGen
+        .render(this.layer)
+        .forEach(file =>
+          this.images.push(
+            this.sanitizer.bypassSecurityTrustResourceUrl(
+              `data:image/svg+xml;base64,${btoa(file.value)}`
+            )
+          )
+        );
+    }
+  }
+
+  loadLayers() {
+    if (this.layer.layers) {
+      this.layers = this.layer.layers;
+    } else {
+      this.loadSymbolMaster();
+    }
+  }
+
+  loadSymbolMaster() {
+    if (this.resource.identify(this.layer)) {
+      const symbolMaster = this.resource.lookup(this.layer, this.data);
+
+      if (symbolMaster) {
+        this.layers = [symbolMaster];
+      }
+    }
+  }
+
+  applyLayerStyles() {
+    if (this.cssBlocGen.identify(this.layer)) {
+      const rules = this.cssBlocGen.context(this.layer).rules;
+      Object.entries(rules).forEach(([property, value]) => {
+        this.renderer.setStyle(this.element.nativeElement, property, value);
+      });
+    }
+  }
+
+  applyHighlightStyles() {
+    const elementPosition = this.element.nativeElement.getBoundingClientRect();
+    this.renderer.setStyle(
+      this.element.nativeElement,
+      'border-width',
+      `${this.borderWidth}px`
+    );
+    this.renderer.setStyle(
+      this.element.nativeElement,
+      'left',
+      `${elementPosition.left - this.borderWidth}px`
+    );
+    this.renderer.setStyle(
+      this.element.nativeElement,
+      'top',
+      `${elementPosition.top - this.borderWidth}px`
+    );
+  }
+
+  enable3dStyle() {
+    this.renderer.setStyle(
+      this.element.nativeElement,
+      'transform',
+      `translateZ(${(this.level * this.offset3d).toFixed(3)}px)`
+    );
+  }
+
+  disable3dStyle() {
+    this.renderer.setStyle(this.element.nativeElement, 'transform', `none`);
   }
 
   selectLayer(layer: SketchMSLayer) {

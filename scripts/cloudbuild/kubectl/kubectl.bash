@@ -1,5 +1,9 @@
 #!/bin/bash
 
+set -o errexit
+set -o nounset
+set -o pipefail
+
 # If there is no current context, get one.
 if [[ $(kubectl config current-context 2> /dev/null) == "" ]]; then
     cluster=$(gcloud config get-value container/cluster 2> /dev/null)

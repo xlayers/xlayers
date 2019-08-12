@@ -1,13 +1,12 @@
 import { Injectable } from '@angular/core';
-import { CodeGenFacade, XlayersNgxEditorModel } from '../codegen.service';
-import { SharedCodegen, Template } from '../shared-codegen.service';
+import { XlayersNgxEditorModel } from '../codegen.service';
+import { WebBlocGenService } from '@xlayers/web-blocgen';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AngularCodeGenService implements CodeGenFacade {
-
-  constructor(private sharedCodegen: SharedCodegen) { }
+export class AngularCodeGenService {
+  constructor(private webBlocGen: WebBlocGenService) {}
 
   buttons() {
     return {
@@ -15,189 +14,105 @@ export class AngularCodeGenService implements CodeGenFacade {
     };
   }
 
-  generate(ast: SketchMSLayer): Array<XlayersNgxEditorModel> {
+  generate(data: SketchMSData): Array<XlayersNgxEditorModel> {
     return [
       {
         uri: 'README.md',
-        value: this.generateReadme(),
+        value: this.renderReadme(data.meta.app).join('\n'),
         language: 'markdown',
         kind: 'text'
       },
       {
-        uri: 'xlayers.component.ts',
-        value: this.generateComponent(ast),
-        language: 'typescript',
-        kind: 'angular'
-      },
-      {
-        uri: 'xlayers.component.html',
-        value: this.sharedCodegen.generateComponentTemplate(ast, Template.HTML),
-        language: 'html',
-        kind: 'angular'
-      },
-      {
-        uri: 'xlayers.component.css',
-        value: this.sharedCodegen.generateComponentStyles(ast),
-        language: 'css',
-        kind: 'angular'
-      },
-      {
-        uri: 'xlayers.component.spec.ts',
-        value: this.generateComponentSpec(),
-        language: 'typescript',
-        kind: 'angular'
-      },
-      {
         uri: 'xlayers.module.ts',
-        value: this.generateModule(),
+        value: this.renderModule().join('\n'),
         language: 'typescript',
         kind: 'angular'
       },
       {
         uri: 'xlayers-routing.module.ts',
-        value: this.generateRoutingModule(),
+        value: this.renderRoutingModule().join('\n'),
         language: 'typescript',
         kind: 'angular'
-      }
+      },
+      ...(data.pages as any).flatMap(page =>
+        this.webBlocGen.render(page, data, { mode: 'angular' })
+      )
     ];
   }
 
-  private generateReadme() {
-    const codeBlock = '```';
-    return `
-## How to use the Xlayers Angular module
-
-1. Download and extract the exported module into your workspace,
-
-2. Option #1: Import eagerly the XlayersModule into your AppModule or other module.
-${codeBlock}
-import { XlayersModule } from './xlayers/xlayers.module';
-@NgModule({
-  imports: [
-    XlayersModule,
-    ...
-  ],
-})
-export class AppModule {}
-${codeBlock}
-
-2. Option #2: Import lazily the XlayersModule routing configuration into your AppModule or other module.
-Make sure your router is setup properly in order to use this option (see: https://angular.io/guide/lazy-loading-ngmodules).
-${codeBlock}
-import { XlayersRoutingModule } from './xlayers/xlayers-routing.module';
-@NgModule({
-  imports: [
-    XlayersRoutingModule,
-    ...
-  ],
-})
-export class AppModule {}
-${codeBlock}
-
-3. Enjoy.
-`;
+  private renderRoutingModule() {
+    return [
+      'import { NgModule } from \'@angular/core\'',
+      'import { RouterModule, Routes } from \'@angular/router\';',
+      '',
+      'const xlayersRoutes: Routes = [{',
+      '  path: \'xlayers\',',
+      '  loadChildren: \'app/xlayers/xlayers.module#XlayersModule\'',
+      '}];',
+      '',
+      '@NgModule({',
+      '  imports: [ RouterModule.forChild(xlayersRoutes) ],',
+      '  exports: [ RouterModule ]',
+      '})',
+      'export class XlayersRoutingModule {}'
+    ];
   }
 
-  private generateModule() {
-    return (
-      '' +
-      `
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { XlayersComponent } from './xlayers.component';
-
-@NgModule({
-  declarations: [
-    XlayersComponent
-  ],
-  exports: [
-    XlayersComponent
-  ],
-  imports: [
-    CommonModule
-  ]
-})
-export class XlayersModule { }
-    `
-    );
+  private renderReadme(name: string) {
+    return [
+      `## How to use the ${name} Vue module`,
+      '',
+      '1. Download and extract the exported module into your workspace,',
+      '',
+      '2. Option #1: Import eagerly the XlayersModule into your AppModule or other module.',
+      '```',
+      'import { XlayersModule } from \'./xlayers/xlayers.module\';',
+      '',
+      '@NgModule({',
+      '  imports: [',
+      '    XlayersModule,',
+      '    ...',
+      '  ],',
+      '})',
+      'export class AppModule {}',
+      '```',
+      '',
+      '2. Option #2: Import lazily the XlayersModule routing configuration into your AppModule or other module.',
+      'Make sure your router is setup properly in order to use this option (see: https://angular.io/guide/lazy-loading-ngmodules).',
+      '',
+      '```',
+      'import { XlayersRoutingModule } from \'./xlayers/xlayers-routing.module\';',
+      '@NgModule({',
+      '  imports: [',
+      '    XlayersRoutingModule,',
+      '    ...',
+      '  ],',
+      '})',
+      'export class AppModule {}',
+      '```',
+      '',
+      '3. Enjoy.'
+    ];
   }
 
-  private generateRoutingModule() {
-    return (
-      '' +
-      `
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-
-const xlayersRoutes: Routes = [{
-  path: 'xlayers',
-  loadChildren: 'app/xlayers/xlayers.module#XlayersModule'
-}];
-
-@NgModule({
-  imports: [ RouterModule.forChild(xlayersRoutes) ],
-  exports: [ RouterModule ]
-})
-export class XlayersRoutingModule {}
-    `
-    );
-  }
-
-  private generateComponent(ast: SketchMSLayer) {
-    return (
-      '' +
-      `
-import { Component, OnInit } from '@angular/core';
-
-@Component({
-  selector: 'app-xlayers',
-  templateUrl: './xlayers.component.html',
-  styleUrls: ['./xlayers.component.css']
-})
-export class XlayersComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit() {
-  }
-
-}
-`
-    );
-  }
-
-  /**
-   * @todo make this dynamic
-   */
-  private generateComponentSpec() {
-    return (
-      '' +
-      `
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { XlayersComponent } from './xlayers.component';
-
-describe('XlayersComponent', () => {
-  let component: XlayersComponent;
-  let fixture: ComponentFixture<XlayersComponent>;
-
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ XlayersComponent ]
-    })
-    .compileComponents();
-  }));
-
-  beforeEach(() => {
-    fixture = TestBed.createComponent(XlayersComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
-
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});
-    `
-    );
+  private renderModule() {
+    return [
+      'import { NgModule } from \'@angular/core\';',
+      'import { CommonModule } from \'@angular/common\';',
+      'import { MyComponent } from \'./components/my-component.component\';',
+      '',
+      '@NgModule({',
+      '  declarations: [',
+      '    MyComponent',
+      '  ],',
+      '  exports: [',
+      '    MyComponent',
+      '  ],',
+      '  imports: [',
+      '    CommonModule',
+      '  ]',
+      '})',
+      'export class XlayersModule { }'
+    ];
   }
 }

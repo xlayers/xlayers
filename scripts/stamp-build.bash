@@ -1,5 +1,8 @@
 #!/bin/bash
 
+set -o errexit
+set -o nounset
+set -o pipefail
 
 if [[ -n "$BUILD_ID" ]]; then
     echo "Cloud Build environment detected!"

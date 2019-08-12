@@ -18,31 +18,30 @@ export class ExportStackblitzReactService {
     }
 
     // add extra files
-    files['public/index.html'] = `
-    <!DOCTYPE html>
-    <html lang="en">
-      <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <title>React App</title>
-      </head>
-      <body>
-        <noscript>
-          You need to enable JavaScript to run this app.
-        </noscript>
-        <div id="root"></div>
-      </body>
-    </html>`;
+    files['public/index.html'] = `\
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>React App</title>
+  </head>
+  <body>
+    <noscript>
+      You need to enable JavaScript to run this app.
+    </noscript>
+    <div id="root"></div>
+  </body>
+</html>`;
 
-    files['src/index.js'] = `
+    files['src/index.js'] = `\
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import XLayers from './XLayers';
+import MyComponent from './components/my-component';
 
-ReactDOM.render(<XLayers />, document.getElementById('root'));
-`;
-    files['src/index.css'] = `
+ReactDOM.render(<MyComponent />, document.getElementById('root'));`;
+    files['src/index.css'] = `\
 body {
   margin: 0;
   padding: 0;

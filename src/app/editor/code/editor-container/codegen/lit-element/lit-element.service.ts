@@ -1,14 +1,12 @@
 import { Injectable } from '@angular/core';
-import { CodeGenFacade, XlayersNgxEditorModel } from '../codegen.service';
-import { SharedCodegen, Template } from '../shared-codegen.service';
-import { litElementTemplate, readmeTemplate } from './lit-element.template';
+import { XlayersNgxEditorModel } from '../codegen.service';
+import { WebBlocGenService } from '@xlayers/web-blocgen';
 
 @Injectable({
   providedIn: 'root'
 })
-export class LitElementCodeGenService implements CodeGenFacade {
-
-  constructor(private sharedCodegen: SharedCodegen) {}
+export class LitElementCodeGenService {
+  constructor(private webBlocGen: WebBlocGenService) {}
 
   buttons() {
     return {
@@ -16,31 +14,52 @@ export class LitElementCodeGenService implements CodeGenFacade {
     };
   }
 
-  generate(ast: SketchMSLayer): Array<XlayersNgxEditorModel> {
+  generate(data: SketchMSData): Array<XlayersNgxEditorModel> {
     return [
       {
         uri: 'README.md',
-        value: this.generateReadme(),
+        value: this.renderReadme(data.meta.app).join('\n'),
         language: 'markdown',
         kind: 'text'
       },
-      {
-        uri: 'x-layers-element.js',
-        value: this.generateComponent(ast),
-        language: 'javascript',
-        kind: 'litElement'
-      }
+      ...(data.pages as any).flatMap(page =>
+        this.webBlocGen.render(page, data, { mode: 'litElement' })
+      )
     ];
   }
 
-  private generateReadme() {
-    return readmeTemplate();
-  }
-
-  private generateComponent(ast: SketchMSLayer) {
-    return litElementTemplate(
-      this.sharedCodegen.generateComponentTemplate(ast, Template.HTML),
-      this.sharedCodegen.generateComponentStyles(ast)
-    );
+  private renderReadme(name: string) {
+    return [
+      `## How to use the ${name} Web Components built with LitElement`,
+      '',
+      'This implementation export the assets as single file web component that can be consumed in the following ways:',
+      '',
+      '```html',
+      '<!–– index.html ––>',
+      '<script src="./x-layers-element.js"></script>',
+      '<x-layers-element></x-layers-element>',
+      '```',
+      '',
+      '> Needed polyfills must be imported, in most cases you can import it globally or use different strategy. For example:',
+      '',
+      '```html',
+      '<!–– index.html ––>',
+      '<!-- Load polyfills; note that "loader" will load these async -->',
+      '<script src="node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js" defer></script>',
+      '',
+      '<!-- Load a custom element definitions in \'waitFor\' and return a promise -->',
+      '<script type="module">',
+      '  WebComponents.waitFor(() => {',
+      '    return import(\'./x-layers-element.js\');',
+      '  });',
+      '</script>',
+      '',
+      '<!-- Use the custom element -->',
+      '<x-layers-element></x-layers-element>',
+      '```',
+      '',
+      '>  [LitElement website](https://lit-element.polymer-project.org/)',
+      '>  For more information about [web components and browser support](https://github.com/WebComponents/webcomponentsjs#browser-support)'
+    ];
   }
 }

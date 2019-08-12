@@ -1,32 +1,30 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "skipLibCheck": true,
     "baseUrl": "./",
-    "outDir": "./dist/out-tsc",
+    "outDir": "./dist/out-tsc/src",
     "sourceMap": true,
     "declaration": false,
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "target": "es5",
-    "typeRoots": [
-      "node_modules/@types"
-    ],
-    "lib": [
-      "es2017",
-      "dom"
-    ],
+    "esModuleInterop": true,
+    "lib": ["esnext", "es2017", "dom"],
     "paths": {
-      "@env/*": [
-        "src/environments/*"
-      ],
-      "@app/*": [
-        "src/app/*"
-      ],
-      "@xlayers/*": [
-        "projects/*/src/lib",
-        "projects/*/src/public_api.ts"
-      ]
+      "@env/*": ["src/environments/*"],
+      "@app/*": ["src/app/*"],
+      "@xlayers/sketch-ingestor": ["projects/sketch-ingestor/src/public_api"],
+      "@xlayers/sketch-ingestor/*": ["projects/sketch-ingestor/src/lib/*"],
+      "@xlayers/sketch-lib": ["projects/sketch-lib/src/public_api"],
+      "@xlayers/sketch-lib/*": ["projects/sketch-lib/src/lib/*"],
+      "@xlayers/css-blocgen": ["projects/css-blocgen/src/public_api"],
+      "@xlayers/css-blocgen/*": ["projects/css-blocgen/src/lib/*"],
+      "@xlayers/svg-blocgen": ["projects/svg-blocgen/src/public_api"],
+      "@xlayers/svg-blocgen/*": ["projects/svg-blocgen/src/lib/*"],
+      "@xlayers/web-blocgen": ["projects/web-blocgen/src/public_api"],
+      "@xlayers/web-blocgen/*": ["projects/web-blocgen/src/lib/*"]
     }
   }
 }

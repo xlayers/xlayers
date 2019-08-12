@@ -1,28 +1,18 @@
-import {
-  AfterContentInit,
-  Component,
-  ElementRef,
-  Input,
-  OnInit,
-  Renderer2
-} from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Store } from '@ngxs/store';
-import { ViewerLayerComponent } from '../layer/layer.component';
-import { DomSanitizer } from '@angular/platform-browser';
-import { SketchService } from '@app/core/sketch.service';
+import { UiState } from '@app/core/state';
 
 @Component({
   selector: 'xly-viewer-page',
   template: `
     <xly-viewer-layer
-      xlySelectedLayer
-      (selectedLayer)="selectLayer($event)"
-      *ngFor="let layer of page?.layers"
+      *ngFor="let layer of page.layers"
       class="layer"
+      [ngClass]="{ wireframe: wireframe }"
+      [data]="data"
       [layer]="layer"
       [level]="1"
       [wireframe]="wireframe"
-      [ngClass]="{ wireframe: wireframe }"
       [attr.data-id]="layer?.do_objectID"
       [attr.data-name]="layer?.name"
       [attr.data-class]="layer?._class"
@@ -39,38 +29,23 @@ import { SketchService } from '@app/core/sketch.service';
         overflow: visible;
         transition: transform 1s;
       }
+      :host(.wireframe) {
+        box-shadow: 0 0 0 1px black;
+      }
     `
   ]
 })
-export class ViewerPageComponent extends ViewerLayerComponent
-  implements OnInit, AfterContentInit {
+export class ViewerPageComponent implements OnInit {
+  @Input() data: SketchMSData;
   @Input() page: SketchMSPage;
 
-  constructor(
-    public store: Store,
-    public renderer: Renderer2,
-    public element: ElementRef<HTMLElement>,
-    public sketchService: SketchService,
-    public sanitizer: DomSanitizer
-  ) {
-    super(store, renderer, element, sketchService, sanitizer);
-  }
+  @Input() wireframe = false;
+  @Input() level = 0;
 
-  ngAfterContentInit() {
-    super.ngAfterContentInit();
-
-    const elementPosition = this.nativeElement.getBoundingClientRect();
-    const ne = this.element.nativeElement;
-    this.renderer.setStyle(ne, 'border-width', `${this.borderWidth}px`);
-    this.renderer.setStyle(
-      ne,
-      'left',
-      `${elementPosition.left - this.borderWidth}px`
-    );
-    this.renderer.setStyle(
-      ne,
-      'top',
-      `${elementPosition.top - this.borderWidth}px`
-    );
+  constructor(private store: Store) {}
+  ngOnInit() {
+    this.store.select(UiState.isWireframe).subscribe(isWireframe => {
+      this.wireframe = isWireframe;
+    });
   }
 }

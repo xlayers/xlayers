@@ -10,7 +10,7 @@ import { map } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class EditorGuardService implements CanActivateChild, CanActivate {
-  constructor(private readonly store: Store) { }
+  constructor(private store: Store) { }
 
   isValidSession() {
     return this.store.selectOnce(UiState.currentPage).pipe(map(page => {

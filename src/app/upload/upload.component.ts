@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { SketchService } from '@app/core/sketch.service';
-import { CurrentFile, ErrorType, InformUser, ResetUiSettings } from '@app/core/state';
+import {
+  CurrentFile,
+  ErrorType,
+  InformUser,
+  ResetUiSettings
+} from '@app/core/state';
 import { Navigate } from '@ngxs/router-plugin';
 import { Store } from '@ngxs/store';
 import { BehaviorSubject } from 'rxjs';
@@ -15,12 +19,9 @@ export class UploadComponent implements OnInit {
   public selectedDemoFileError = false;
   isDragging$ = new BehaviorSubject<boolean>(false);
 
-  constructor(
-    private service: SketchService,
-    private store: Store
-  ) { }
+  constructor(private sketchService: SketchService, private store: Store) {}
 
-  ngOnInit() { }
+  ngOnInit() {}
 
   async onFileSelected(file: File) {
     try {
@@ -32,15 +33,15 @@ export class UploadComponent implements OnInit {
         new CurrentFile(data),
         new Navigate(['/editor/preview'])
       ]);
-
     } catch (error) {
       this.store.dispatch(new InformUser(error, ErrorType.Runtime));
+      throw error;
     }
   }
 
   openSelectedDemoFile(fileName: string) {
     this.selectedDemoFileError = false;
-    this.service.getSketchDemoFile(fileName).subscribe(
+    this.sketchService.getSketchDemoFile(fileName).subscribe(
       async (file: Blob) => {
         await this.onFileSelected(new File([file], `${fileName}.sketch`));
       },
