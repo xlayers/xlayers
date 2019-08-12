@@ -8,6 +8,7 @@ import { UploadComponent } from './upload.component';
 import { getFileMock } from './upload.component.mock';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
+import { TranslateModule } from '@ngx-translate/core';
 
 describe('UploadComponent', () => {
   let component: UploadComponent;
@@ -21,11 +22,7 @@ describe('UploadComponent', () => {
     TestBed.configureTestingModule({
       declarations: [UploadComponent],
       providers: [SketchService],
-      imports: [
-        NgxsModule.forRoot([]),
-        HttpClientTestingModule,
-        RouterTestingModule.withRoutes([])
-      ],
+      imports: [NgxsModule.forRoot([]), HttpClientTestingModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot()],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
     sketchService = TestBed.get(SketchService);

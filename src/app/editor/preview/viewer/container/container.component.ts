@@ -55,7 +55,7 @@ export class ViewerContainerComponent implements OnInit {
   data: SketchMSData;
   currentPage: SketchMSPage;
 
-  is3dView: boolean;
+  @ViewChild(ViewerSelectedLayerDirective, {static: true}) ref: ViewerSelectedLayerDirective;
 
   constructor(private store: Store) {}
 

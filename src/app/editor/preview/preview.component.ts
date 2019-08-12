@@ -23,12 +23,12 @@ export class PreviewComponent implements OnInit {
   settingMenuWidth: number;
   isCodeEditor: boolean;
 
-  @ViewChild('xlyViewerContainerRef')
+  @ViewChild('xlyViewerContainerRef', {static: true})
   xlyViewerContainerRef: ViewerContainerComponent;
-  @ViewChild('pagesPanelRef') pagesPanelRef: MatExpansionPanel;
-  @ViewChild('layersPanelRef') layersPanelRef: MatExpansionPanel;
-  @ViewChild('settingNavRef') settingNavRef: MatDrawerContainer;
-  @ViewChild('currentLayerNavRef') currentLayerNavRef: MatDrawerContainer;
+  @ViewChild('pagesPanelRef', {static: true}) pagesPanelRef: MatExpansionPanel;
+  @ViewChild('layersPanelRef', {static: true}) layersPanelRef: MatExpansionPanel;
+  @ViewChild('settingNavRef', {static: true}) settingNavRef: MatDrawerContainer;
+  @ViewChild('currentLayerNavRef', {static: true}) currentLayerNavRef: MatDrawerContainer;
 
   constructor(private store: Store) { }
 

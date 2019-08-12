@@ -25,8 +25,7 @@ export class UploadComponent implements OnInit {
 
   async onFileSelected(file: File) {
     try {
-      const data = await this.sketchService.loadSketchFile(file);
-
+      const data = await this.service.process(file);
       this.isDragging$.next(false);
       // Note: these actions need to be run in sequence!
       this.store.dispatch([

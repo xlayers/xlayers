@@ -7,7 +7,7 @@ import { Store } from '@ngxs/store';
   template: `
     <mat-expansion-panel expanded="true">
       <mat-expansion-panel-header>
-        <mat-panel-title> Preview </mat-panel-title>
+        <mat-panel-title> {{'SETTINGS_PREVIEW.preview' | translate }} </mat-panel-title>
       </mat-expansion-panel-header>
 
       <ng-container *ngFor="let image of previews">

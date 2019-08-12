@@ -7,6 +7,7 @@ import { UiState } from '@app/core/state';
 import { CodeGenState } from '@app/core/state/page.state';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { SketchService } from '@app/core/sketch.service';
+import { TranslateModule } from '@ngx-translate/core';
 
 describe('SelectDemoFilesComponent', () => {
   let component: SelectDemoFilesComponent;
@@ -18,7 +19,8 @@ describe('SelectDemoFilesComponent', () => {
       imports: [
         NgxsModule.forRoot([UiState, CodeGenState]),
         MatSnackBarModule,
-        HttpClientModule
+        HttpClientModule,
+        TranslateModule.forRoot()
       ],
       providers: [SketchService],
       declarations: [SelectDemoFilesComponent]

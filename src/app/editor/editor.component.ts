@@ -7,6 +7,8 @@ import * as FileSaver from 'file-saver';
 import { PreviewBadgeService } from '../core/preview-badge.service';
 import { ExportStackblitzService } from './code/exports/stackblitz/stackblitz.service';
 import { Navigate } from '@ngxs/router-plugin';
+import { TranslateService } from '@ngx-translate/core';
+import { Observable } from 'rxjs';
 
 
 @Component({
@@ -27,15 +29,20 @@ export class EditorComponent implements OnInit {
   wireframe = false;
   isCodeEditor = false;
   enabled = false;
+  editorTranslations: Observable<any>;
 
 
   version = environment.version;
   badge = '';
   constructor(
-    private store: Store,
-    private badgeService: PreviewBadgeService,
-    private exporter: ExportStackblitzService
-  ) { }
+    private readonly store: Store,
+    private readonly badgeService: PreviewBadgeService,
+    private readonly exporter: ExportStackblitzService,
+    private readonly translateService: TranslateService
+  ) {
+    this.editorTranslations = this.translateService.get('EDITOR');
+
+  }
 
   ngOnInit() {
     this.badge = this.badgeService.computeBadge();

@@ -37,7 +37,7 @@ export class Xly3dRotationDirective implements AfterContentInit, OnChanges {
     y: 0
   };
 
-  @ContentChild(ViewerCanvasComponent, { read: ElementRef }) canvas: ElementRef;
+  @ContentChild(ViewerCanvasComponent, {static: true, read: ElementRef }) canvas: ElementRef;
 
   constructor() {}
 

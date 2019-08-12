@@ -10,7 +10,7 @@ import { NgxsModule, Store } from '@ngxs/store';
 import { ViewerContainerComponent } from './container.component';
 
 
-fdescribe('ViewerContainerComponent', () => {
+describe('ViewerContainerComponent', () => {
   let component: ViewerContainerComponent;
   let fixture: ComponentFixture<ViewerContainerComponent>;
   let store: Store;

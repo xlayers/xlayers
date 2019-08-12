@@ -3,6 +3,7 @@ import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Router, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
+import { TranslateService } from '@ngx-translate/core';
 
 declare var gtag;
 
@@ -23,7 +24,8 @@ export class AppComponent {
   constructor(
     readonly iconRegistry: MatIconRegistry,
     readonly sanitizer: DomSanitizer,
-    readonly router: Router) {
+    readonly router: Router,
+    readonly translate: TranslateService) {
 
       iconRegistry.addSvgIcon('angular', sanitizer.bypassSecurityTrustResourceUrl('assets/codegen/angular.svg'));
       iconRegistry.addSvgIcon('react', sanitizer.bypassSecurityTrustResourceUrl('assets/codegen/react.svg'));
@@ -33,6 +35,7 @@ export class AppComponent {
       iconRegistry.addSvgIcon('litElement', sanitizer.bypassSecurityTrustResourceUrl('assets/codegen/litElement.svg'));
       iconRegistry.addSvgIcon('html', sanitizer.bypassSecurityTrustResourceUrl('assets/codegen/html.svg'));
       iconRegistry.addSvgIcon('text', sanitizer.bypassSecurityTrustResourceUrl('assets/codegen/text.svg'));
+      iconRegistry.addSvgIcon('xamarinForms', sanitizer.bypassSecurityTrustResourceUrl('assets/codegen/xamarinForms.svg'));
 
       router.events.pipe(
         filter(event => event instanceof NavigationEnd)
@@ -43,5 +46,11 @@ export class AppComponent {
         });
 
       });
+
+      translate.addLangs(['en', 'nl']);
+      translate.setDefaultLang('en');
+
+      const browserLang = translate.getBrowserLang();
+      translate.use(browserLang.match(/en|nl/) ? browserLang : 'en');
   }
 }

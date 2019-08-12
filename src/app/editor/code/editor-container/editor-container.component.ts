@@ -15,7 +15,7 @@ const githubIssueLink =
 })
 export class EditorContainerComponent implements OnInit, AfterContentInit {
   codeSetting: CodeGenSettings;
-  @ViewChild('codeContentEditor') codeEditor: ElementRef;
+  @ViewChild('codeContentEditor', {static: false}) codeEditor: ElementRef;
 
   frameworks: Array<{
     title: string;
@@ -61,6 +61,11 @@ export class EditorContainerComponent implements OnInit, AfterContentInit {
 
   generateLitElement() {
     this.codeSetting = this.codegen.generate(CodeGenKind.LitElement);
+    this.updateState();
+  }
+
+  generateXamarinForms() {
+    this.codeSetting = this.codegen.generate(CodeGenKind.XamarinForms);
     this.updateState();
   }
 

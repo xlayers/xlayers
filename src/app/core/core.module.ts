@@ -3,6 +3,7 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatCardModule } from '@angular/material/card';
@@ -52,7 +53,7 @@ const ExtraModules = [FormsModule, ColorSketchModule];
 
 @NgModule({
   imports: [...MATERIAL, ...ExtraModules],
-  exports: [CommonModule, ...MATERIAL, ...ExtraModules],
+  exports: [CommonModule, ...MATERIAL, ...ExtraModules, TranslateModule],
   providers: [...PROVIDERS]
 })
-export class CoreModule {}
+export class CoreModule { }

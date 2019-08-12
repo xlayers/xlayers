@@ -7,6 +7,7 @@ import { CodeGenState } from '@app/core/state/page.state';
 import { NgxsModule } from '@ngxs/store';
 import { DropzoneComponent } from './dropzone.component';
 import { SketchService } from '@app/core/sketch.service';
+import { TranslateModule } from '@ngx-translate/core';
 
 describe('SketchDropZone', () => {
   let component: DropzoneComponent;
@@ -18,7 +19,8 @@ describe('SketchDropZone', () => {
       imports: [
         NgxsModule.forRoot([UiState, CodeGenState]),
         MatSnackBarModule,
-        HttpClientModule
+        HttpClientModule,
+        TranslateModule.forRoot()
       ],
       providers: [
         SketchService
