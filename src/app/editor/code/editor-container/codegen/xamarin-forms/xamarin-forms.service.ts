@@ -10,7 +10,6 @@ import { readmeTemplate, mainPageTemplate } from './xamarin-forms.template';
   providedIn: 'root'
 })
 export class XamarinFormsCodeGenService implements CodeGenFacade {
-
   constructor(private readonly codegen: XamarinFormsCodeGenVisitor) {}
 
   buttons() {
@@ -20,7 +19,8 @@ export class XamarinFormsCodeGenService implements CodeGenFacade {
   }
 
   generate(ast: SketchMSLayer): Array<XlayersNgxEditorModel> {
-    return [{
+    return [
+      {
         uri: 'README.md',
         value: this.generateReadme(),
         language: 'markdown',
@@ -30,7 +30,7 @@ export class XamarinFormsCodeGenService implements CodeGenFacade {
         uri: 'MainPage.xaml',
         value: this.generateComponent(ast),
         language: 'xaml',
-          kind: 'xamarinForms'
+        kind: 'xamarinForms'
       },
       ...this.codegen.consumeFileList()
     ];

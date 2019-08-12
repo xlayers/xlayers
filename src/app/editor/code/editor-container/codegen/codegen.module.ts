@@ -8,20 +8,18 @@ import { AngularCodeGenService } from './angular/angular.service';
 import { LitElementCodeGenService } from './lit-element/lit-element.service';
 import { XamarinFormsCodeGenService } from './xamarin-forms/xamarin-forms.service';
 import { XamarinFormsCodeGenVisitor } from './xamarin-forms/codegen/xamarin-forms-codegenvisitor.service';
-import { SharedCodegen } from './shared-codegen.service';
 
 @NgModule({
   providers: [
-      CodeGenService,
-      SharedCodegen,
-      AngularCodeGenService,
-      ReactCodeGenService,
-      VueCodeGenService,
-      WCCodeGenService,
-      StencilCodeGenService,
-      LitElementCodeGenService,
-      XamarinFormsCodeGenService,
-      XamarinFormsCodeGenVisitor
+    CodeGenService,
+    AngularCodeGenService,
+    ReactCodeGenService,
+    VueCodeGenService,
+    WCCodeGenService,
+    StencilCodeGenService,
+    LitElementCodeGenService,
+    XamarinFormsCodeGenService,
+    XamarinFormsCodeGenVisitor
   ]
 })
 export class CodeGenModule {}

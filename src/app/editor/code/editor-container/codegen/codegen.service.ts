@@ -14,7 +14,16 @@ import { CodeGenSettings } from '@app/core/state/page.state';
 declare var gtag;
 
 export interface XlayersNgxEditorModel {
-  kind: 'angular' | 'react' | 'vue' | 'wc' | 'stencil' | 'litElement' |'html' | 'text' | 'xamarinForms';
+  kind:
+    | 'angular'
+    | 'react'
+    | 'vue'
+    | 'wc'
+    | 'stencil'
+    | 'litElement'
+    | 'html'
+    | 'text'
+    | 'xamarinForms';
   uri: string;
   value: any;
   language: string;
@@ -45,6 +54,7 @@ export enum CodeGenKind {
 })
 export class CodeGenService {
   private data: SketchMSData;
+  private ast: SketchMSLayer;
 
   constructor(
     private readonly angular: AngularCodeGenService,
@@ -56,6 +66,12 @@ export class CodeGenService {
     private readonly xamarinForms: XamarinFormsCodeGenService,
     private readonly store: Store
   ) {
+    this.store
+      .select(UiState.currentPage)
+      .subscribe((currentData: SketchMSLayer) => {
+        this.ast = currentData;
+      });
+
     this.store
       .select(UiState.currentData)
       .subscribe((currentData: SketchMSData) => {
@@ -74,9 +90,11 @@ export class CodeGenService {
         start: '//',
         end: ''
       };
-      if (file.language.includes('html')
-       || file.language.includes('xaml')
-       || file.language.includes('xml')) {
+      if (
+        file.language.includes('html') ||
+        file.language.includes('xaml') ||
+        file.language.includes('xml')
+      ) {
         comment.start = '<!--';
         comment.end = '-->';
       } else if (file.language.includes('css')) {
@@ -156,18 +174,18 @@ export class CodeGenService {
         };
 
       case CodeGenKind.LitElement:
-      return {
-        kind,
-        content: this.addHeaderInfo(this.litElement.generate(this.ast)),
-        buttons: this.litElement.buttons()
-      };
+        return {
+          kind,
+          content: this.addHeaderInfo(this.litElement.generate(this.data)),
+          buttons: this.litElement.buttons()
+        };
 
       case CodeGenKind.XamarinForms:
-      return {
-        kind,
-        content: this.addHeaderInfo(this.xamarinForms.generate(this.ast)),
-        buttons: this.xamarinForms.buttons()
-      };
+        return {
+          kind,
+          content: this.addHeaderInfo(this.xamarinForms.generate(this.ast)),
+          buttons: this.xamarinForms.buttons()
+        };
     }
   }
 }
