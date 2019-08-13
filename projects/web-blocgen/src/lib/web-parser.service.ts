@@ -146,8 +146,8 @@ export class WebParserService {
   private extractShape(current: SketchMSLayer, depth: number) {
     return this.svgBlocGen
       .render(current, { xmlNamespace: false })
-      .flatMap(file =>
-        file.value.split('\n').map(line => this.format.indent(depth, line))
+      .map(file =>
+        file.value.split('\n').map(line => this.format.indent(depth, line)).join("\n")
       );
   }
 
