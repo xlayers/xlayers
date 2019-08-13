@@ -1,8 +1,8 @@
-import { Injectable } from '@angular/core';
-import { WebBlocGenService } from '@xlayers/web-blocgen';
+import { Injectable } from "@angular/core";
+import { WebBlocGenService } from "@xlayers/web-blocgen";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class WCCodeGenService {
   constructor(private webBlocGen: WebBlocGenService) {}
@@ -16,49 +16,48 @@ export class WCCodeGenService {
   generate(data: SketchMSData) {
     return [
       {
-        uri: 'README.md',
-        value: this.renderReadme().join('\n'),
-        language: 'markdown',
-        kind: 'text'
+        uri: "README.md",
+        value: this.renderReadme(data.meta.app),
+        language: "markdown",
+        kind: "text"
       },
       ...(data.pages as any).flatMap(page =>
-        this.webBlocGen.render(page, data, { mode: 'webComponent' })
+        this.webBlocGen.render(page, data, { mode: "webComponent" })
       )
     ];
   }
 
-  private renderReadme() {
-    return [
-      '## How to use the Xlayers Web Components',
-      '',
-      'This implementation export the assets as single file web component that can be consumed in the following ways:',
-      '',
-      '```html',
-      '  // index.html',
-      '  <script src="./my-component.js"></script>',
-      '  <my-component></my-component>',
-      '```',
-      '',
-      '> Needed polyfills are imported inside the my-component, in most cases you can import it globally or use different strategy. For example:',
-      '',
-      '```html',
-      '  //index.html',
-      '  <!-- Load polyfills; note that "loader" will load these async -->',
-      '  <script src="node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js" defer></script>',
-      '',
-      '  <!-- Load a custom element definitions in \'waitFor\' and return a promise -->',
-      '  <script type="module">',
-      '    WebComponents.waitFor(() => {',
-      '    // You should remove redundant polyfills import from my-component',
-      '    return import(\'./my-component.js\');',
-      '    });',
-      '  </script>',
-      '',
-      '  <!-- Use the custom element -->',
-      '  <my-component></my-component>',
-      '```',
-      '',
-      '>  For more information about [web components and browser support](https://github.com/WebComponents/webcomponentsjs#browser-support)'
-    ];
+  private renderReadme(name: string) {
+    return `\
+## How to use the ${name} Web Components
+
+This implementation export the assets as single file web component that can be consumed in the following ways:
+
+\`\`\`html
+  // index.html
+  <script src="./my-component.js"></script>
+  <my-component></my-component>
+\`\`\`
+
+> Needed polyfills are imported inside the my-component, in most cases you can import it globally or use different strategy. For example:
+
+\`\`\`html
+  //index.html
+  <!-- Load polyfills; note that "loader" will load these async -->
+  <script src="node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js" defer></script>
+
+  <!-- Load a custom element definitions in \'waitFor\' and return a promise -->
+  <script type="module">
+    WebComponents.waitFor(() => {
+    // You should remove redundant polyfills import from my-component
+    return import(\'./my-component.js\');
+    });
+  </script>
+
+  <!-- Use the custom element -->
+  <my-component></my-component>
+\`\`\`
+
+>  For more information about [web components and browser support](https://github.com/WebComponents/webcomponentsjs#browser-support)'`;
   }
 }
