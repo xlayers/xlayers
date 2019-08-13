@@ -1,10 +1,10 @@
-import { Injectable } from "@angular/core";
-import { FormatService } from "@xlayers/sketch-lib";
-import { WebRenderService } from "./web-render.service";
-import { WebBlocGenOptions } from "./web-blocgen";
+import { Injectable } from '@angular/core';
+import { FormatService } from '@xlayers/sketch-lib';
+import { WebRenderService } from './web-render.service';
+import { WebBlocGenOptions } from './web-blocgen';
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root'
 })
 export class LitElementRenderService {
   constructor(
@@ -15,14 +15,14 @@ export class LitElementRenderService {
   render(current: SketchMSLayer, options: WebBlocGenOptions) {
     const fileName = this.format.normalizeName(current.name);
     const files = this.webRender.render(current, options);
-    const html = files.find(file => file.language === "html");
-    const css = files.find(file => file.language === "css");
+    const html = files.find(file => file.language === 'html');
+    const css = files.find(file => file.language === 'css');
 
     return [
       {
-        kind: "litElement",
+        kind: 'litElement',
         value: this.renderComponent(current.name, html.value, css.value),
-        language: "javascript",
+        language: 'javascript',
         uri: `${options.componentDir}/${fileName}.js`
       }
     ];
@@ -38,13 +38,13 @@ import { LitElement, html, css } from 'lit-element';
 class ${componentName} extends LitElement {
   static get styles() {
     return css\`
-      ${this.format.indentFile(3, css).join("\n")}
+      ${this.format.indentFile(3, css).join('\n')}
     \`
   }
 
   render() {
     return html\`
-      ${this.format.indentFile(3, html).join("\n")}
+      ${this.format.indentFile(3, html).join('\n')}
     \`
   }
 }

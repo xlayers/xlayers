@@ -1,9 +1,9 @@
-import { Injectable } from "@angular/core";
-import { CodeGenFacade, XlayersNgxEditorModel } from "../codegen.service";
-import { WebBlocGenService } from "@xlayers/web-blocgen";
+import { Injectable } from '@angular/core';
+import { CodeGenFacade, XlayersNgxEditorModel } from '../codegen.service';
+import { WebBlocGenService } from '@xlayers/web-blocgen';
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root'
 })
 export class ReactCodeGenService {
   constructor(private webBlocGen: WebBlocGenService) {}
@@ -17,13 +17,13 @@ export class ReactCodeGenService {
   generate(data: SketchMSData): Array<XlayersNgxEditorModel> {
     return [
       {
-        uri: "README.md",
+        uri: 'README.md',
         value: this.renderReadme(data.meta.app),
-        language: "text/plain",
-        kind: "text"
+        language: 'text/plain',
+        kind: 'text'
       },
       ...(data.pages as any).flatMap(page =>
-        this.webBlocGen.render(page, data, { mode: "react" })
+        this.webBlocGen.render(page, data, { mode: 'react' })
       )
     ];
   }

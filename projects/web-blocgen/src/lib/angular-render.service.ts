@@ -1,10 +1,10 @@
-import { Injectable } from "@angular/core";
-import { WebBlocGenOptions } from "./web-blocgen";
-import { WebRenderService } from "./web-render.service";
-import { FormatService } from "@xlayers/sketch-lib";
+import { Injectable } from '@angular/core';
+import { WebBlocGenOptions } from './web-blocgen';
+import { WebRenderService } from './web-render.service';
+import { FormatService } from '@xlayers/sketch-lib';
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root'
 })
 export class AngularRenderService {
   constructor(
@@ -18,37 +18,37 @@ export class AngularRenderService {
     return [
       ...this.webRender.render(current, options).map(file => {
         switch (file.language) {
-          case "html":
+          case 'html':
             return {
               ...file,
-              kind: "angular",
+              kind: 'angular',
               uri: `${options.componentDir}/${fileName}.component.html`
             };
 
-          case "css":
+          case 'css':
             return {
               ...file,
-              kind: "angular",
+              kind: 'angular',
               uri: `${options.componentDir}/${fileName}.component.css`
             };
 
           default:
             return {
               ...file,
-              kind: "angular"
+              kind: 'angular'
             };
         }
       }),
       {
-        kind: "angular",
+        kind: 'angular',
         value: this.renderComponent(current.name, options),
-        language: "typescript",
+        language: 'typescript',
         uri: `${options.componentDir}/${fileName}.component.ts`
       },
       {
-        kind: "angular",
+        kind: 'angular',
         value: this.renderSpec(current.name, options),
-        language: "typescript",
+        language: 'typescript',
         uri: `${options.componentDir}/${fileName}.spec.ts`
       }
     ];

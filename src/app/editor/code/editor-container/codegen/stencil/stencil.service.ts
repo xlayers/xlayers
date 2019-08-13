@@ -1,9 +1,9 @@
-import { Injectable } from "@angular/core";
-import { XlayersNgxEditorModel } from "../codegen.service";
-import { WebBlocGenService } from "@xlayers/web-blocgen";
+import { Injectable } from '@angular/core';
+import { XlayersNgxEditorModel } from '../codegen.service';
+import { WebBlocGenService } from '@xlayers/web-blocgen';
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root'
 })
 export class StencilCodeGenService {
   constructor(private webBlocGen: WebBlocGenService) {}
@@ -17,13 +17,13 @@ export class StencilCodeGenService {
   generate(data: SketchMSData): Array<XlayersNgxEditorModel> {
     return [
       {
-        uri: "README.md",
+        uri: 'README.md',
         value: this.renderReadme(),
-        language: "markdown",
-        kind: "text"
+        language: 'markdown',
+        kind: 'text'
       },
       ...(data.pages as any).flatMap(page =>
-        this.webBlocGen.render(page, data, { mode: "stencil" })
+        this.webBlocGen.render(page, data, { mode: 'stencil' })
       )
     ];
   }
