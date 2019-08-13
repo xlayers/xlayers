@@ -4,7 +4,7 @@ import { readdirSync, readFile } from "fs";
 import * as jszip from "jszip";
 import { WebBlocGenService } from "@xlayers/web-blocgen";
 
-const VERSION_LIST = [50, 51, 52, 53];
+const VERSION_LIST = [52, 53];
 const SKETCH_PATH = "./src/assets/demos/sketchapp";
 
 async function loadSketch(version, fileName) {
