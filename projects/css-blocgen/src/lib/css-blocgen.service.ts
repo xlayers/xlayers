@@ -3,7 +3,6 @@ import { CssContextService } from './css-context.service';
 import { CssParserService } from './css-parser.service';
 import { CssRenderService } from './css-render.service';
 import { CssBlocGenOptions } from './css-blocgen';
-import { SketchMSData } from '../../../../src/app/core/sketch.service';
 
 @Injectable({
   providedIn: 'root'
