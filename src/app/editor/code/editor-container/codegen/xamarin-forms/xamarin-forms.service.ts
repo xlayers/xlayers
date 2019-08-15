@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { CodeGenFacade, XlayersNgxEditorModel } from '../codegen.service';
 import { XamarinFormsCodeGenVisitor } from './codegen/xamarin-forms-codegenvisitor.service';
 import { readmeTemplate, mainPageTemplate } from './xamarin-forms.template';
 
@@ -9,7 +8,7 @@ import { readmeTemplate, mainPageTemplate } from './xamarin-forms.template';
 @Injectable({
   providedIn: 'root'
 })
-export class XamarinFormsCodeGenService implements CodeGenFacade {
+export class XamarinFormsCodeGenService {
   constructor(private readonly codegen: XamarinFormsCodeGenVisitor) {}
 
   buttons() {
@@ -18,7 +17,7 @@ export class XamarinFormsCodeGenService implements CodeGenFacade {
     };
   }
 
-  generate(ast: SketchMSLayer): Array<XlayersNgxEditorModel> {
+  generate(ast: SketchMSLayer) {
     return [
       {
         uri: 'README.md',

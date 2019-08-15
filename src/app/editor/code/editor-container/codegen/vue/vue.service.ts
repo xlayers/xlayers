@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { XlayersNgxEditorModel } from '../codegen.service';
 import { WebBlocGenService } from '@xlayers/web-blocgen';
 
 @Injectable({
@@ -23,7 +22,7 @@ export class VueCodeGenService {
       ...(data.pages as any).flatMap(page =>
         this.webBlocGen.render(page, data, { mode: 'vue' })
       )
-    ] as XlayersNgxEditorModel[];
+    ]
   }
 
   private renderReadme(name: string) {

@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { CodeGenFacade, XlayersNgxEditorModel } from '../codegen.service';
 import { WebBlocGenService } from '@xlayers/web-blocgen';
 
 @Injectable({
@@ -14,7 +13,7 @@ export class ReactCodeGenService {
     };
   }
 
-  generate(data: SketchMSData): Array<XlayersNgxEditorModel> {
+  generate(data: SketchMSData) {
     return [
       {
         uri: 'README.md',

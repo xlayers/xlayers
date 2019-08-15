@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { XlayersNgxEditorModel } from '../codegen.service';
 import { WebBlocGenService } from '@xlayers/web-blocgen';
 
 @Injectable({
@@ -14,7 +13,7 @@ export class StencilCodeGenService {
     };
   }
 
-  generate(data: SketchMSData): Array<XlayersNgxEditorModel> {
+  generate(data: SketchMSData) {
     return [
       {
         uri: 'README.md',
