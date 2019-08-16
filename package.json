@@ -4,8 +4,10 @@
   "scripts": {
     "ng": "ng",
     "--dev--": "",
+    "prestart": "npm run build.all.lib",
     "start": "ng serve --configuration hmr",
     "--build--": "",
+    "build.all.lib": "npm run sketchingestor.build.prod && npm run sketchutil.build.prod && npm run cssblocgen.build.prod && npm run svgblocgen.build.prod && npm run vueblocgen.build.prod",
     "app.build.dev": "ng build",
     "app.build.prod": "ng build --prod",
     "app.build.stamp": "bash scripts/stamp-build.bash",

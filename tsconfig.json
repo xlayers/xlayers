@@ -2,7 +2,8 @@
   "compileOnSave": false,
   "compilerOptions": {
     "skipLibCheck": true,
-    "baseUrl": "./",
+    "baseUrl": "",
+    "rootDir": "./",
     "outDir": "./dist/out-tsc/src",
     "sourceMap": true,
     "declaration": false,
@@ -15,16 +16,16 @@
     "paths": {
       "@env/*": ["src/environments/*"],
       "@app/*": ["src/app/*"],
-      "@xlayers/sketch-ingestor": ["projects/sketch-ingestor/src/public_api"],
-      "@xlayers/sketch-ingestor/*": ["projects/sketch-ingestor/src/lib/*"],
-      "@xlayers/sketch-lib": ["projects/sketch-lib/src/public_api"],
-      "@xlayers/sketch-lib/*": ["projects/sketch-lib/src/lib/*"],
-      "@xlayers/css-blocgen": ["projects/css-blocgen/src/public_api"],
-      "@xlayers/css-blocgen/*": ["projects/css-blocgen/src/lib/*"],
-      "@xlayers/svg-blocgen": ["projects/svg-blocgen/src/public_api"],
-      "@xlayers/svg-blocgen/*": ["projects/svg-blocgen/src/lib/*"],
-      "@xlayers/web-blocgen": ["projects/web-blocgen/src/public_api"],
-      "@xlayers/web-blocgen/*": ["projects/web-blocgen/src/lib/*"]
+      "@xlayers/sketch-ingestor": ["dist/sketch-ingestor"],
+      "@xlayers/sketch-ingestor/*": ["dist/sketch-ingestor/*"],
+      "@xlayers/sketch-lib": ["dist/sketch-lib"],
+      "@xlayers/sketch-lib/*": ["dist/sketch-lib/*"],
+      "@xlayers/css-blocgen": ["dist/css-blocgen"],
+      "@xlayers/css-blocgen/*": ["dist/css-blocgen/*"],
+      "@xlayers/svg-blocgen": ["dist/svg-blocgen"],
+      "@xlayers/svg-blocgen/*": ["dist/svg-blocgen/*"],
+      "@xlayers/web-blocgen": ["dist/web-blocgen"],
+      "@xlayers/web-blocgen/*": ["dist/web-blocgen/*"]
     }
   }
 }
