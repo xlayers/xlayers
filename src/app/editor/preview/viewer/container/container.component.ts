@@ -1,10 +1,10 @@
-import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
-import { CurrentLayer, UiState, ZoomIn, ZoomOut } from '@app/core/state';
-import { Store } from '@ngxs/store';
-import { ViewerSelectedLayerDirective } from '../layer/selected-layer.directive';
+import { Component, HostListener, OnInit, ViewChild } from "@angular/core";
+import { CurrentLayer, UiState, ZoomIn, ZoomOut } from "@app/core/state";
+import { Store } from "@ngxs/store";
+import { ViewerSelectedLayerDirective } from "../layer/selected-layer.directive";
 
 @Component({
-  selector: 'xly-viewer-container',
+  selector: "xly-viewer-container",
   template: `
     <div
       *ngIf="data"
@@ -50,7 +50,7 @@ import { ViewerSelectedLayerDirective } from '../layer/selected-layer.directive'
   ]
 })
 export class ViewerContainerComponent implements OnInit {
-  @ViewChild(ViewerSelectedLayerDirective, { static: true })
+  @ViewChild(ViewerSelectedLayerDirective, { static: false })
   ref: ViewerSelectedLayerDirective;
   is3dView: boolean;
 
@@ -83,7 +83,7 @@ export class ViewerContainerComponent implements OnInit {
     this.store.dispatch(new CurrentLayer(null));
   }
 
-  @HostListener('mousewheel', ['$event'])
+  @HostListener("mousewheel", ["$event"])
   onMouseWheel(event: MouseEvent) {
     /**
      * Emit Zoom events only when any sketch file is selected
