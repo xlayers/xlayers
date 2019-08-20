@@ -22,7 +22,7 @@ export class VueCodeGenService {
       ...(data.pages as any).flatMap(page =>
         this.webBlocGen.render(page, data, { mode: 'vue' })
       )
-    ]
+    ];
   }
 
   private renderReadme(name: string) {

@@ -38,13 +38,13 @@ import { LitElement, html, css } from 'lit-element';
 class ${componentName} extends LitElement {
   static get styles() {
     return css\`
-      ${this.format.indentFile(3, css).join('\n')}
+${this.format.indentFile(3, css).join('\n')}
     \`
   }
 
   render() {
     return html\`
-      ${this.format.indentFile(3, html).join('\n')}
+${this.format.indentFile(3, html).join('\n')}
     \`
   }
 }
