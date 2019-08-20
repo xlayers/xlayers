@@ -21,7 +21,7 @@ export class WebRenderService {
     return [
       {
         kind: 'web',
-        value: context.html.join('\n'),
+        value: context.html,
         language: 'html',
         uri: `${options.componentDir}/${fileName}.html`
       },
