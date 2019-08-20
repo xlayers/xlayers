@@ -24,7 +24,6 @@ export class StencilRenderService {
           ...file,
           kind: 'stencil'
         })),
-      ,
       {
         kind: 'stencil',
         value: this.renderE2e(current.name),
