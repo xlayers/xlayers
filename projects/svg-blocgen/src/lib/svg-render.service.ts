@@ -32,11 +32,10 @@ export class SvgRenderService {
     options: SvgBlocGenOptions
   ) {
     const attributes = this.xmlHearderAttribute(current, offset, options);
-    return [
-      ['<svg', ...attributes].join(' ') + '>',
-      ...paths.map(path => `  <${path.type} ${path.attributes.join(' ')}/>`),
-      `</svg>`
-    ].join('\n');
+    return `\
+${['<svg', ...attributes].join(' ')}>
+${paths.map(path => `  <${path.type} ${path.attributes.join(' ')}/>`)}
+</svg>`;
   }
 
   private xmlHearderAttribute(
