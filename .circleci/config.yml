@@ -24,8 +24,7 @@ jobs:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
 
-      - run:
-          command: npm run app.build.prod
+      - run: make
 
   "ci/build-sketch-ingestor":
     docker:
@@ -79,7 +78,7 @@ jobs:
           key: v1-dependencies-{{ checksum "package.json" }}
 
       - run:
-          command: npm run css-blocgen.build.prod
+          command: npm run cssblocgen.build.prod
 
   "ci/build-sketch-lib":
     docker:
@@ -133,7 +132,7 @@ jobs:
           key: v1-dependencies-{{ checksum "package.json" }}
 
       - run:
-          command: npm run svg-blocgen.build.prod
+          command: npm run svgblocgen.build.prod
 
   "ci/build-web-blocgen":
     docker:
@@ -160,7 +159,7 @@ jobs:
           key: v1-dependencies-{{ checksum "package.json" }}
 
       - run:
-          command: npm run web-blocgen.build.prod
+          command: npm run webblocgen.build.prod
 
   "ci/test":
     docker:
