@@ -3,6 +3,7 @@ describe('Editor page', () => {
     cy.visit('/');
     cy.contains(/^get started$/i).click();
     cy.contains('Select A Demo File').click();
+    cy.wait(500);
     cy.contains('md-components-cards-welcome-back').click();
     cy.wait(500);
   });
@@ -72,42 +73,42 @@ describe('Editor page', () => {
 
   context('using toolbar zoom', () => {
     it('when using the toolbar buttons + zoom the design canvas should react accordingly', () => {
-      cy.get('[mattooltip=\'Zoom In\']').click();
-      cy.get('[mattooltip=\'Zoom In\']').then(button => {
+      cy.get('[data-cy=zoomIn]').click();
+      cy.get('[data-cy=zoomIn]').then(button => {
         expect(button).to.have.attr('ng-reflect-color', 'warn');
       });
       cy.get('xly-viewer-canvas > div').then(canvas => {
         expect(canvas).to.have.css('transform', 'matrix(1.1, 0, 0, 1.1, 0, 0)');
       });
-      cy.get('[mattooltip=\'Zoom In\']').click();
+      cy.get('[data-cy="zoomIn"]').click();
       cy.get('xly-viewer-canvas > div').then(canvas => {
         expect(canvas).to.have.css('transform', 'matrix(1.2, 0, 0, 1.2, 0, 0)');
       });
     });
 
     it('when using the toolbar buttons - zoom the design canvas should react accordingly', () => {
-      cy.get('[mattooltip=\'Zoom Out\']').click();
-      cy.get('[mattooltip=\'Zoom Out\']').then(button => {
+      cy.get('[data-cy=zoomOut]').click();
+      cy.get('[data-cy=zoomOut]').then(button => {
         expect(button).to.have.attr('ng-reflect-color', 'warn');
       });
       cy.get('xly-viewer-canvas > div').then(canvas => {
         expect(canvas).to.have.css('transform', 'matrix(0.9, 0, 0, 0.9, 0, 0)');
       });
-      cy.get('[mattooltip=\'Zoom Out\']').click();
+      cy.get('[data-cy="zoomOut"]').click();
       cy.get('xly-viewer-canvas > div').then(canvas => {
         expect(canvas).to.have.css('transform', 'matrix(0.8, 0, 0, 0.8, 0, 0)');
       });
     });
 
     it('when using the toolbar buttons reset zoom the design canvas should react accordingly', () => {
-      cy.get('[mattooltip=\'Zoom Out\']').click();
-      cy.get('[mattooltip=\'Zoom Out\']').then(button => {
+      cy.get('[data-cy=zoomOut]').click();
+      cy.get('[data-cy=zoomOut]').then(button => {
         expect(button).to.have.attr('ng-reflect-color', 'warn');
       });
       cy.get('xly-viewer-canvas > div').then(canvas => {
         expect(canvas).to.have.css('transform', 'matrix(0.9, 0, 0, 0.9, 0, 0)');
       });
-      cy.get('[mattooltip=\'Zoom Reset\']').click();
+      cy.get('[data-cy="zoomReset"]').click();
       cy.get('xly-viewer-canvas > div').then(canvas => {
         expect(canvas).to.have.css('transform', 'matrix(1, 0, 0, 1, 0, 0)');
       });
@@ -115,8 +116,8 @@ describe('Editor page', () => {
   });
 
   it('when using the toolbar buttons show layer the design canvas should react accordingly', () => {
-    cy.get('[mattooltip=\'Toggle Preview Mode\']').click();
-    cy.get('[mattooltip=\'Toggle Preview Mode\']').then(button => {
+    cy.get('[data-cy=togglePreviewMode]').click();
+    cy.get('[data-cy=togglePreviewMode]').then(button => {
       expect(button).to.have.attr('ng-reflect-color', 'warn');
     });
     cy.get('xly-viewer-layer')
@@ -124,18 +125,19 @@ describe('Editor page', () => {
       .then(canvas => {
         expect(canvas).to.have.class('wireframe');
       });
-    cy.get('[mattooltip=\'Zoom Reset\']').click();
+    cy.get('[data-cy=zoomReset]').click();
   });
 
   it('when using the toolbar buttons 3d the design canvas should react accordingly', () => {
-    cy.get('[mattooltip=\'Toggle 3D – Hold SHIFT to rotate\']').click();
-    cy.get('[mattooltip=\'Toggle 3D – Hold SHIFT to rotate\']').then(button => {
+    cy.get('[data-cy=toggle3D]').click();
+    cy.get('[data-cy=toggle3D]').then(button => {
       expect(button).to.have.attr('ng-reflect-color', 'warn');
     });
     cy.wait(1000);
     cy.get('[data-id=\'6D287BF2-0FE7-43CC-AA85-84EB6F8B4ED2\']').then(layer => {
       expect(layer).to.have.css(
-        'transform', 'matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 60, 1)'
+        'transform',
+        'matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 60, 1)'
       );
     });
   });
