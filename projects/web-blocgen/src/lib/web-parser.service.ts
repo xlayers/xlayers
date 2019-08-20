@@ -114,7 +114,7 @@ export class WebParserService {
     if (this.svgBlocGen.identify(current)) {
       return this.extractShape(current, depth);
     }
-    return [];
+    return '';
   }
 
   private extractBitmap(
@@ -133,22 +133,23 @@ export class WebParserService {
     ];
     const tag = ['<img', ...attributes].join(' ') + '>';
 
-    return [this.format.indent(depth, tag)];
+    return this.format.indent(depth, tag);
   }
 
   private extractText(current: SketchMSLayer, depth: number) {
     const content = this.text.lookup(current);
     const tag = `<span>${content}</span>`;
 
-    return [this.format.indent(depth, tag)];
+    return this.format.indent(depth, tag);
   }
 
   private extractShape(current: SketchMSLayer, depth: number) {
-    return this.svgBlocGen
-      .render(current, { xmlNamespace: false })
-      .map(file =>
-        file.value.split('\n').map(line => this.format.indent(depth, line)).join("\n")
-      );
+    return this.svgBlocGen.render(current, { xmlNamespace: false }).map(file =>
+      file.value
+        .split('\n')
+        .map(line => this.format.indent(depth, line))
+        .join('\n')
+    );
   }
 
   private putOpenTag(
@@ -161,10 +162,9 @@ export class WebParserService {
     const tag = ['<div', ...attributes].join(' ') + '>';
 
     this.webContext.putContext(root, {
-      html: [
-        ...this.webContext.contextOf(root).html,
-        this.format.indent(depth, tag)
-      ]
+      html: `\
+${this.webContext.contextOf(root).html}
+${this.format.indent(depth, tag)}`
     });
   }
 
@@ -176,18 +176,24 @@ export class WebParserService {
     options: WebBlocGenOptions
   ) {
     const content = this.traverseLayer(current, root, data, depth + 1, options);
-    if (content) {
+    if (content === '') {
       this.webContext.putContext(root, {
-        html: [...this.webContext.contextOf(root).html, ...content]
+        html: `${this.webContext.contextOf(root).html}</div>`
+      });
+    } else if (content) {
+      this.webContext.putContext(root, {
+        html: `\
+${this.webContext.contextOf(root).html}
+${content}
+${this.format.indent(depth, '</div>')}`
+      });
+    } else {
+      this.webContext.putContext(root, {
+        html: `\
+${this.webContext.contextOf(root).html}
+${this.format.indent(depth, '</div>')}`
       });
     }
-
-    this.webContext.putContext(root, {
-      html: [
-        ...this.webContext.contextOf(root).html,
-        this.format.indent(depth, '</div>')
-      ]
-    });
   }
 
   private extractTagAttributes(

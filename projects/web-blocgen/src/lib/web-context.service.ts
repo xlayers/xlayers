@@ -16,12 +16,12 @@ export class WebContextService {
   }
 
   contextOf(current: SketchMSLayer) {
-    return (current as any).web || { html: [], css: [], components: [] };
+    return (current as any).web || { html: '', components: [] };
   }
 
   putContext(
     current: SketchMSLayer,
-    nextContext: WebBlocGenContext = { html: [], css: [], components: [] }
+    nextContext: WebBlocGenContext = { html: '', components: [] }
   ) {
     (current as any).web = {
       ...this.contextOf(current),
