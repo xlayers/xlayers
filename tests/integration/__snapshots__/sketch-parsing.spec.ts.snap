@@ -963,25 +963,22 @@ Object {
       },
       "web": Object {
         "components": Array [],
-        "css": Array [],
-        "html": Array [
-          "<div role=\\"group\\" aria-label=\\"fab\\">",
-          "  <div role=\\"oval\\" aria-label=\\"button bg\\">",
-          "  </div>",
-          "  <div role=\\"group\\" aria-label=\\"add\\">",
-          "    <div role=\\"shapePath\\" aria-label=\\"bounds\\">",
-          "      <svg width=\\"24.00\\" height=\\"24.00\\">",
-          "        <path fill=\\"none\\" d=\\"M24 0,L 0 0,L 0 24,L 24 24,z\\"/>",
-          "      </svg>",
-          "    </div>",
-          "    <div role=\\"shapePath\\" aria-label=\\"Shape\\">",
-          "      <svg width=\\"14.00\\" height=\\"14.00\\">",
-          "        <path fill=\\"rgba(255,255,255,1)\\" d=\\"M14 6,L 8 6,L 8 0,L 6 0,L 6 6,L 0 6,L 0 8,L 6 8,L 6 14,L 8 14,L 8 8,L 14 8,L 14 6,z\\"/>",
-          "      </svg>",
-          "    </div>",
-          "  </div>",
-          "</div>",
-        ],
+        "html": "
+<div role=\\"group\\" aria-label=\\"fab\\">
+  <div role=\\"oval\\" aria-label=\\"button bg\\"></div>
+  <div role=\\"group\\" aria-label=\\"add\\">
+    <div role=\\"shapePath\\" aria-label=\\"bounds\\">
+      <svg width=\\"24.00\\" height=\\"24.00\\">
+        <path fill=\\"none\\" d=\\"M24 0,L 0 0,L 0 24,L 24 24,z\\"/>
+      </svg>
+    </div>
+    <div role=\\"shapePath\\" aria-label=\\"Shape\\">
+      <svg width=\\"14.00\\" height=\\"14.00\\">
+        <path fill=\\"rgba(255,255,255,1)\\" d=\\"M14 6,L 8 6,L 8 0,L 6 0,L 6 6,L 0 6,L 0 8,L 6 8,L 6 14,L 8 14,L 8 8,L 14 8,L 14 6,z\\"/>
+      </svg>
+    </div>
+  </div>
+</div>",
       },
     },
   ],
@@ -1972,25 +1969,22 @@ Object {
       },
       "web": Object {
         "components": Array [],
-        "css": Array [],
-        "html": Array [
-          "<div role=\\"group\\" aria-label=\\"fab\\">",
-          "  <div role=\\"oval\\" aria-label=\\"button bg\\">",
-          "  </div>",
-          "  <div role=\\"group\\" aria-label=\\"add\\">",
-          "    <div role=\\"shapePath\\" aria-label=\\"bounds\\">",
-          "      <svg width=\\"24.00\\" height=\\"24.00\\">",
-          "        <path fill=\\"none\\" d=\\"M24 0,L 0 0,L 0 24,L 24 24,z\\"/>",
-          "      </svg>",
-          "    </div>",
-          "    <div role=\\"shapePath\\" aria-label=\\"Shape\\">",
-          "      <svg width=\\"14.00\\" height=\\"14.00\\">",
-          "        <path fill=\\"rgba(255,255,255,1)\\" d=\\"M14 6,L 8 6,L 8 0,L 6 0,L 6 6,L 0 6,L 0 8,L 6 8,L 6 14,L 8 14,L 8 8,L 14 8,L 14 6,z\\"/>",
-          "      </svg>",
-          "    </div>",
-          "  </div>",
-          "</div>",
-        ],
+        "html": "
+<div role=\\"group\\" aria-label=\\"fab\\">
+  <div role=\\"oval\\" aria-label=\\"button bg\\"></div>
+  <div role=\\"group\\" aria-label=\\"add\\">
+    <div role=\\"shapePath\\" aria-label=\\"bounds\\">
+      <svg width=\\"24.00\\" height=\\"24.00\\">
+        <path fill=\\"none\\" d=\\"M24 0,L 0 0,L 0 24,L 24 24,z\\"/>
+      </svg>
+    </div>
+    <div role=\\"shapePath\\" aria-label=\\"Shape\\">
+      <svg width=\\"14.00\\" height=\\"14.00\\">
+        <path fill=\\"rgba(255,255,255,1)\\" d=\\"M14 6,L 8 6,L 8 0,L 6 0,L 6 6,L 0 6,L 0 8,L 6 8,L 6 14,L 8 14,L 8 8,L 14 8,L 14 6,z\\"/>
+      </svg>
+    </div>
+  </div>
+</div>",
       },
     },
   ],
@@ -2703,16 +2697,13 @@ Object {
       },
       "web": Object {
         "components": Array [],
-        "css": Array [],
-        "html": Array [
-          "<div role=\\"group\\" aria-label=\\"button\\">",
-          "  <div role=\\"rectangle\\" aria-label=\\"button bg\\">",
-          "  </div>",
-          "  <div role=\\"text\\" aria-label=\\"NORMAL\\">",
-          "    <span>NORMAL</span>",
-          "  </div>",
-          "</div>",
-        ],
+        "html": "
+<div role=\\"group\\" aria-label=\\"button\\">
+  <div role=\\"rectangle\\" aria-label=\\"button bg\\"></div>
+  <div role=\\"text\\" aria-label=\\"NORMAL\\">
+    <span>NORMAL</span>
+  </div>
+</div>",
       },
     },
   ],
@@ -3429,16 +3420,13 @@ Object {
       },
       "web": Object {
         "components": Array [],
-        "css": Array [],
-        "html": Array [
-          "<div role=\\"group\\" aria-label=\\"button\\">",
-          "  <div role=\\"rectangle\\" aria-label=\\"button bg\\">",
-          "  </div>",
-          "  <div role=\\"text\\" aria-label=\\"NORMAL\\">",
-          "    <span>NORMAL</span>",
-          "  </div>",
-          "</div>",
-        ],
+        "html": "
+<div role=\\"group\\" aria-label=\\"button\\">
+  <div role=\\"rectangle\\" aria-label=\\"button bg\\"></div>
+  <div role=\\"text\\" aria-label=\\"NORMAL\\">
+    <span>NORMAL</span>
+  </div>
+</div>",
       },
     },
   ],
@@ -5697,56 +5685,52 @@ Object {
       },
       "web": Object {
         "components": Array [],
-        "css": Array [],
-        "html": Array [
-          "<div role=\\"group\\" aria-label=\\"homes\\">",
-          "  <div role=\\"rectangle\\" aria-label=\\"card\\">",
-          "  </div>",
-          "  <div role=\\"rectangle\\" aria-label=\\"image placeholder\\">",
-          "  </div>",
-          "  <div role=\\"text\\" aria-label=\\"Pre-fab Homes 2\\">",
-          "    <span>Pre-fab Homes</span>",
-          "  </div>",
-          "  <div role=\\"group\\" aria-label=\\"Buttons\\">",
-          "    <div role=\\"group\\" aria-label=\\"share\\">",
-          "      <div role=\\"shapePath\\" aria-label=\\"bounds\\">",
-          "        <svg width=\\"24.00\\" height=\\"24.00\\">",
-          "          <path fill=\\"none\\" d=\\"M0 0,L 24 0,L 24 24,L 0 24,z\\"/>",
-          "        </svg>",
-          "      </div>",
-          "      <div role=\\"shapePath\\" aria-label=\\"Shape\\">",
-          "        <svg width=\\"18.00\\" height=\\"20.00\\">",
-          "          <path fill=\\"rgba(0,0,0,1)\\" d=\\"M15 14.137,S 13.56 14.438, 13.04 14.91,S 5.91 10.743, 5.91 10.743,S 6 10.281, 6 10.04,S 5.96 9.568, 5.91 9.337,S 12.96 5.211, 12.96 5.211,S 14.21 6.024, 15 6.024,S 18 4.679, 18 3.012,S 16.66 0, 15 0,S 12 1.345, 12 3.012,S 12.04 3.484, 12.09 3.715,S 5.04 7.841, 5.04 7.841,S 3.79 7.028, 3 7.028,S 0 8.373, 0 10.04,S 1.34 13.052, 3 13.052,S 4.5 12.741, 5.04 12.239,S 12.16 16.416, 12.16 16.416,S 12.08 16.847, 12.08 17.068,S 13.39 20, 15 20,S 17.92 18.685, 17.92 17.068,S 16.61 14.137, 15 14.137,z\\"/>",
-          "        </svg>",
-          "      </div>",
-          "    </div>",
-          "    <div role=\\"group\\" aria-label=\\"bookmark\\">",
-          "      <div role=\\"shapePath\\" aria-label=\\"Shape\\">",
-          "        <svg width=\\"14.00\\" height=\\"18.00\\">",
-          "          <path fill=\\"rgba(0,0,0,1)\\" d=\\"M12 18,S 2 18, 2 18,S 0 17.1, 0 16,L 0 0,L 7 3,L 14 0,S 14 16, 14 16,S 13.1 18, 12 18,z\\"/>",
-          "        </svg>",
-          "      </div>",
-          "      <div role=\\"shapePath\\" aria-label=\\"bounds\\">",
-          "        <svg width=\\"24.00\\" height=\\"24.00\\">",
-          "          <path fill=\\"none\\" d=\\"M24 0,L 0 0,L 0 24,L 24 24,z\\"/>",
-          "        </svg>",
-          "      </div>",
-          "    </div>",
-          "    <div role=\\"group\\" aria-label=\\"favorite\\">",
-          "      <div role=\\"shapePath\\" aria-label=\\"Shape\\">",
-          "        <svg width=\\"18.75\\" height=\\"16.00\\">",
-          "          <path fill=\\"rgba(0,0,0,1)\\" d=\\"M14.063 16,S 10.104 14.7, 9.375 13,S 6.771 16, 4.688 16,S 0 14.1, 0 11.5,S 3.646 5, 9.375 0,S 18.75 8, 18.75 11.5,S 16.667 16, 14.063 16,z\\"/>",
-          "        </svg>",
-          "      </div>",
-          "      <div role=\\"shapePath\\" aria-label=\\"bounds\\">",
-          "        <svg width=\\"25.00\\" height=\\"24.00\\">",
-          "          <path fill=\\"none\\" d=\\"M25 0,L 0 0,L 0 24,L 25 24,z\\"/>",
-          "        </svg>",
-          "      </div>",
-          "    </div>",
-          "  </div>",
-          "</div>",
-        ],
+        "html": "
+<div role=\\"group\\" aria-label=\\"homes\\">
+  <div role=\\"rectangle\\" aria-label=\\"card\\"></div>
+  <div role=\\"rectangle\\" aria-label=\\"image placeholder\\"></div>
+  <div role=\\"text\\" aria-label=\\"Pre-fab Homes 2\\">
+    <span>Pre-fab Homes</span>
+  </div>
+  <div role=\\"group\\" aria-label=\\"Buttons\\">
+    <div role=\\"group\\" aria-label=\\"share\\">
+      <div role=\\"shapePath\\" aria-label=\\"bounds\\">
+        <svg width=\\"24.00\\" height=\\"24.00\\">
+          <path fill=\\"none\\" d=\\"M0 0,L 24 0,L 24 24,L 0 24,z\\"/>
+        </svg>
+      </div>
+      <div role=\\"shapePath\\" aria-label=\\"Shape\\">
+        <svg width=\\"18.00\\" height=\\"20.00\\">
+          <path fill=\\"rgba(0,0,0,1)\\" d=\\"M15 14.137,S 13.56 14.438, 13.04 14.91,S 5.91 10.743, 5.91 10.743,S 6 10.281, 6 10.04,S 5.96 9.568, 5.91 9.337,S 12.96 5.211, 12.96 5.211,S 14.21 6.024, 15 6.024,S 18 4.679, 18 3.012,S 16.66 0, 15 0,S 12 1.345, 12 3.012,S 12.04 3.484, 12.09 3.715,S 5.04 7.841, 5.04 7.841,S 3.79 7.028, 3 7.028,S 0 8.373, 0 10.04,S 1.34 13.052, 3 13.052,S 4.5 12.741, 5.04 12.239,S 12.16 16.416, 12.16 16.416,S 12.08 16.847, 12.08 17.068,S 13.39 20, 15 20,S 17.92 18.685, 17.92 17.068,S 16.61 14.137, 15 14.137,z\\"/>
+        </svg>
+      </div>
+    </div>
+    <div role=\\"group\\" aria-label=\\"bookmark\\">
+      <div role=\\"shapePath\\" aria-label=\\"Shape\\">
+        <svg width=\\"14.00\\" height=\\"18.00\\">
+          <path fill=\\"rgba(0,0,0,1)\\" d=\\"M12 18,S 2 18, 2 18,S 0 17.1, 0 16,L 0 0,L 7 3,L 14 0,S 14 16, 14 16,S 13.1 18, 12 18,z\\"/>
+        </svg>
+      </div>
+      <div role=\\"shapePath\\" aria-label=\\"bounds\\">
+        <svg width=\\"24.00\\" height=\\"24.00\\">
+          <path fill=\\"none\\" d=\\"M24 0,L 0 0,L 0 24,L 24 24,z\\"/>
+        </svg>
+      </div>
+    </div>
+    <div role=\\"group\\" aria-label=\\"favorite\\">
+      <div role=\\"shapePath\\" aria-label=\\"Shape\\">
+        <svg width=\\"18.75\\" height=\\"16.00\\">
+          <path fill=\\"rgba(0,0,0,1)\\" d=\\"M14.063 16,S 10.104 14.7, 9.375 13,S 6.771 16, 4.688 16,S 0 14.1, 0 11.5,S 3.646 5, 9.375 0,S 18.75 8, 18.75 11.5,S 16.667 16, 14.063 16,z\\"/>
+        </svg>
+      </div>
+      <div role=\\"shapePath\\" aria-label=\\"bounds\\">
+        <svg width=\\"25.00\\" height=\\"24.00\\">
+          <path fill=\\"none\\" d=\\"M25 0,L 0 0,L 0 24,L 25 24,z\\"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+</div>",
       },
     },
   ],
@@ -8021,56 +8005,52 @@ Object {
       },
       "web": Object {
         "components": Array [],
-        "css": Array [],
-        "html": Array [
-          "<div role=\\"group\\" aria-label=\\"homes\\">",
-          "  <div role=\\"rectangle\\" aria-label=\\"card\\">",
-          "  </div>",
-          "  <div role=\\"rectangle\\" aria-label=\\"image placeholder\\">",
-          "  </div>",
-          "  <div role=\\"text\\" aria-label=\\"Pre-fab Homes 2\\">",
-          "    <span>Pre-fab Homes</span>",
-          "  </div>",
-          "  <div role=\\"group\\" aria-label=\\"Buttons\\">",
-          "    <div role=\\"group\\" aria-label=\\"share\\">",
-          "      <div role=\\"shapePath\\" aria-label=\\"bounds\\">",
-          "        <svg width=\\"24.00\\" height=\\"24.00\\">",
-          "          <path fill=\\"none\\" d=\\"M0 0,L 24 0,L 24 24,L 0 24,z\\"/>",
-          "        </svg>",
-          "      </div>",
-          "      <div role=\\"shapePath\\" aria-label=\\"Shape\\">",
-          "        <svg width=\\"18.00\\" height=\\"20.00\\">",
-          "          <path fill=\\"rgba(0,0,0,1)\\" d=\\"M15 14.137,S 13.56 14.438, 13.04 14.91,S 5.91 10.743, 5.91 10.743,S 6 10.281, 6 10.04,S 5.96 9.568, 5.91 9.337,S 12.96 5.211, 12.96 5.211,S 14.21 6.024, 15 6.024,S 18 4.679, 18 3.012,S 16.66 0, 15 0,S 12 1.345, 12 3.012,S 12.04 3.484, 12.09 3.715,S 5.04 7.841, 5.04 7.841,S 3.79 7.028, 3 7.028,S 0 8.373, 0 10.04,S 1.34 13.052, 3 13.052,S 4.5 12.741, 5.04 12.239,S 12.16 16.416, 12.16 16.416,S 12.08 16.847, 12.08 17.068,S 13.39 20, 15 20,S 17.92 18.685, 17.92 17.068,S 16.61 14.137, 15 14.137,z\\"/>",
-          "        </svg>",
-          "      </div>",
-          "    </div>",
-          "    <div role=\\"group\\" aria-label=\\"bookmark\\">",
-          "      <div role=\\"shapePath\\" aria-label=\\"Shape\\">",
-          "        <svg width=\\"14.00\\" height=\\"18.00\\">",
-          "          <path fill=\\"rgba(0,0,0,1)\\" d=\\"M12 18,S 2 18, 2 18,S 0 17.1, 0 16,L 0 0,L 7 3,L 14 0,S 14 16, 14 16,S 13.1 18, 12 18,z\\"/>",
-          "        </svg>",
-          "      </div>",
-          "      <div role=\\"shapePath\\" aria-label=\\"bounds\\">",
-          "        <svg width=\\"24.00\\" height=\\"24.00\\">",
-          "          <path fill=\\"none\\" d=\\"M24 0,L 0 0,L 0 24,L 24 24,z\\"/>",
-          "        </svg>",
-          "      </div>",
-          "    </div>",
-          "    <div role=\\"group\\" aria-label=\\"favorite\\">",
-          "      <div role=\\"shapePath\\" aria-label=\\"Shape\\">",
-          "        <svg width=\\"18.75\\" height=\\"16.00\\">",
-          "          <path fill=\\"rgba(0,0,0,1)\\" d=\\"M14.063 16,S 10.104 14.7, 9.375 13,S 6.771 16, 4.688 16,S 0 14.1, 0 11.5,S 3.646 5, 9.375 0,S 18.75 8, 18.75 11.5,S 16.667 16, 14.063 16,z\\"/>",
-          "        </svg>",
-          "      </div>",
-          "      <div role=\\"shapePath\\" aria-label=\\"bounds\\">",
-          "        <svg width=\\"25.00\\" height=\\"24.00\\">",
-          "          <path fill=\\"none\\" d=\\"M25 0,L 0 0,L 0 24,L 25 24,z\\"/>",
-          "        </svg>",
-          "      </div>",
-          "    </div>",
-          "  </div>",
-          "</div>",
-        ],
+        "html": "
+<div role=\\"group\\" aria-label=\\"homes\\">
+  <div role=\\"rectangle\\" aria-label=\\"card\\"></div>
+  <div role=\\"rectangle\\" aria-label=\\"image placeholder\\"></div>
+  <div role=\\"text\\" aria-label=\\"Pre-fab Homes 2\\">
+    <span>Pre-fab Homes</span>
+  </div>
+  <div role=\\"group\\" aria-label=\\"Buttons\\">
+    <div role=\\"group\\" aria-label=\\"share\\">
+      <div role=\\"shapePath\\" aria-label=\\"bounds\\">
+        <svg width=\\"24.00\\" height=\\"24.00\\">
+          <path fill=\\"none\\" d=\\"M0 0,L 24 0,L 24 24,L 0 24,z\\"/>
+        </svg>
+      </div>
+      <div role=\\"shapePath\\" aria-label=\\"Shape\\">
+        <svg width=\\"18.00\\" height=\\"20.00\\">
+          <path fill=\\"rgba(0,0,0,1)\\" d=\\"M15 14.137,S 13.56 14.438, 13.04 14.91,S 5.91 10.743, 5.91 10.743,S 6 10.281, 6 10.04,S 5.96 9.568, 5.91 9.337,S 12.96 5.211, 12.96 5.211,S 14.21 6.024, 15 6.024,S 18 4.679, 18 3.012,S 16.66 0, 15 0,S 12 1.345, 12 3.012,S 12.04 3.484, 12.09 3.715,S 5.04 7.841, 5.04 7.841,S 3.79 7.028, 3 7.028,S 0 8.373, 0 10.04,S 1.34 13.052, 3 13.052,S 4.5 12.741, 5.04 12.239,S 12.16 16.416, 12.16 16.416,S 12.08 16.847, 12.08 17.068,S 13.39 20, 15 20,S 17.92 18.685, 17.92 17.068,S 16.61 14.137, 15 14.137,z\\"/>
+        </svg>
+      </div>
+    </div>
+    <div role=\\"group\\" aria-label=\\"bookmark\\">
+      <div role=\\"shapePath\\" aria-label=\\"Shape\\">
+        <svg width=\\"14.00\\" height=\\"18.00\\">
+          <path fill=\\"rgba(0,0,0,1)\\" d=\\"M12 18,S 2 18, 2 18,S 0 17.1, 0 16,L 0 0,L 7 3,L 14 0,S 14 16, 14 16,S 13.1 18, 12 18,z\\"/>
+        </svg>
+      </div>
+      <div role=\\"shapePath\\" aria-label=\\"bounds\\">
+        <svg width=\\"24.00\\" height=\\"24.00\\">
+          <path fill=\\"none\\" d=\\"M24 0,L 0 0,L 0 24,L 24 24,z\\"/>
+        </svg>
+      </div>
+    </div>
+    <div role=\\"group\\" aria-label=\\"favorite\\">
+      <div role=\\"shapePath\\" aria-label=\\"Shape\\">
+        <svg width=\\"18.75\\" height=\\"16.00\\">
+          <path fill=\\"rgba(0,0,0,1)\\" d=\\"M14.063 16,S 10.104 14.7, 9.375 13,S 6.771 16, 4.688 16,S 0 14.1, 0 11.5,S 3.646 5, 9.375 0,S 18.75 8, 18.75 11.5,S 16.667 16, 14.063 16,z\\"/>
+        </svg>
+      </div>
+      <div role=\\"shapePath\\" aria-label=\\"bounds\\">
+        <svg width=\\"25.00\\" height=\\"24.00\\">
+          <path fill=\\"none\\" d=\\"M25 0,L 0 0,L 0 24,L 25 24,z\\"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+</div>",
       },
     },
   ],
@@ -9673,32 +9653,28 @@ Object {
       },
       "web": Object {
         "components": Array [],
-        "css": Array [],
-        "html": Array [
-          "<div role=\\"group\\" aria-label=\\"pooch\\">",
-          "  <div role=\\"rectangle\\" aria-label=\\"card 2\\">",
-          "  </div>",
-          "  <div role=\\"rectangle\\" aria-label=\\"image placeholder\\">",
-          "  </div>",
-          "  <div role=\\"shapePath\\" aria-label=\\"divider\\">",
-          "    <svg width=\\"258.00\\" height=\\"5.00\\">",
-          "      <path stroke-width=\\"1\\" stroke=\\"#0000001f\\" fill=\\"none\\" d=\\"M1 2.5,L 257 2.5\\"/>",
-          "    </svg>",
-          "  </div>",
-          "  <div role=\\"text\\" aria-label=\\"REVIEW\\">",
-          "    <span>REVIEW</span>",
-          "  </div>",
-          "  <div role=\\"text\\" aria-label=\\"FREE SAMPLE\\">",
-          "    <span>FREE SAMPLE</span>",
-          "  </div>",
-          "  <div role=\\"text\\" aria-label=\\"By Alex Nelson 2\\">",
-          "    <span>By Alex Nelson</span>",
-          "  </div>",
-          "  <div role=\\"text\\" aria-label=\\"El Pooch 2\\">",
-          "    <span>El Pooch</span>",
-          "  </div>",
-          "</div>",
-        ],
+        "html": "
+<div role=\\"group\\" aria-label=\\"pooch\\">
+  <div role=\\"rectangle\\" aria-label=\\"card 2\\"></div>
+  <div role=\\"rectangle\\" aria-label=\\"image placeholder\\"></div>
+  <div role=\\"shapePath\\" aria-label=\\"divider\\">
+    <svg width=\\"258.00\\" height=\\"5.00\\">
+      <path stroke-width=\\"1\\" stroke=\\"#0000001f\\" fill=\\"none\\" d=\\"M1 2.5,L 257 2.5\\"/>
+    </svg>
+  </div>
+  <div role=\\"text\\" aria-label=\\"REVIEW\\">
+    <span>REVIEW</span>
+  </div>
+  <div role=\\"text\\" aria-label=\\"FREE SAMPLE\\">
+    <span>FREE SAMPLE</span>
+  </div>
+  <div role=\\"text\\" aria-label=\\"By Alex Nelson 2\\">
+    <span>By Alex Nelson</span>
+  </div>
+  <div role=\\"text\\" aria-label=\\"El Pooch 2\\">
+    <span>El Pooch</span>
+  </div>
+</div>",
       },
     },
   ],
@@ -11305,32 +11281,28 @@ Object {
       },
       "web": Object {
         "components": Array [],
-        "css": Array [],
-        "html": Array [
-          "<div role=\\"group\\" aria-label=\\"pooch\\">",
-          "  <div role=\\"rectangle\\" aria-label=\\"card 2\\">",
-          "  </div>",
-          "  <div role=\\"rectangle\\" aria-label=\\"image placeholder\\">",
-          "  </div>",
-          "  <div role=\\"shapePath\\" aria-label=\\"divider\\">",
-          "    <svg width=\\"258.00\\" height=\\"5.00\\">",
-          "      <path stroke-width=\\"1\\" stroke=\\"#0000001f\\" fill=\\"none\\" d=\\"M1 2.5,L 257 2.5\\"/>",
-          "    </svg>",
-          "  </div>",
-          "  <div role=\\"text\\" aria-label=\\"REVIEW\\">",
-          "    <span>REVIEW</span>",
-          "  </div>",
-          "  <div role=\\"text\\" aria-label=\\"FREE SAMPLE\\">",
-          "    <span>FREE SAMPLE</span>",
-          "  </div>",
-          "  <div role=\\"text\\" aria-label=\\"By Alex Nelson 2\\">",
-          "    <span>By Alex Nelson</span>",
-          "  </div>",
-          "  <div role=\\"text\\" aria-label=\\"El Pooch 2\\">",
-          "    <span>El Pooch</span>",
-          "  </div>",
-          "</div>",
-        ],
+        "html": "
+<div role=\\"group\\" aria-label=\\"pooch\\">
+  <div role=\\"rectangle\\" aria-label=\\"card 2\\"></div>
+  <div role=\\"rectangle\\" aria-label=\\"image placeholder\\"></div>
+  <div role=\\"shapePath\\" aria-label=\\"divider\\">
+    <svg width=\\"258.00\\" height=\\"5.00\\">
+      <path stroke-width=\\"1\\" stroke=\\"#0000001f\\" fill=\\"none\\" d=\\"M1 2.5,L 257 2.5\\"/>
+    </svg>
+  </div>
+  <div role=\\"text\\" aria-label=\\"REVIEW\\">
+    <span>REVIEW</span>
+  </div>
+  <div role=\\"text\\" aria-label=\\"FREE SAMPLE\\">
+    <span>FREE SAMPLE</span>
+  </div>
+  <div role=\\"text\\" aria-label=\\"By Alex Nelson 2\\">
+    <span>By Alex Nelson</span>
+  </div>
+  <div role=\\"text\\" aria-label=\\"El Pooch 2\\">
+    <span>El Pooch</span>
+  </div>
+</div>",
       },
     },
   ],
@@ -13286,46 +13258,42 @@ Object {
       },
       "web": Object {
         "components": Array [],
-        "css": Array [],
-        "html": Array [
-          "<div role=\\"group\\" aria-label=\\"safari\\">",
-          "  <div role=\\"rectangle\\" aria-label=\\"card\\">",
-          "  </div>",
-          "  <div role=\\"rectangle\\" aria-label=\\"image placeholder\\">",
-          "  </div>",
-          "  <div role=\\"text\\" aria-label=\\"Kangaroo Valley Safari\\">",
-          "    <span>Kangaroo Valley Safari</span>",
-          "  </div>",
-          "  <div role=\\"text\\" aria-label=\\"Located two hours so 2\\">",
-          "    <span>Located two hours south of Sydney in the Southern Highlands of New South Wales, ...</span>",
-          "  </div>",
-          "  <div role=\\"group\\" aria-label=\\"Button\\">",
-          "    <div role=\\"shapePath\\" aria-label=\\"button bounds\\">",
-          "      <svg width=\\"112.00\\" height=\\"36.00\\">",
-          "        <path fill=\\"none\\" d=\\"M110 36,S 2 36, 2 36,S 0 35.1, 0 34,S 0 2, 0 2,S 0.9 0, 2 0,S 110 0, 110 0,S 112 0.9, 112 2,S 112 34, 112 34,z\\"/>",
-          "      </svg>",
-          "    </div>",
-          "    <div role=\\"text\\" aria-label=\\"LEARN MORE\\">",
-          "      <span>LEARN MORE</span>",
-          "    </div>",
-          "  </div>",
-          "  <div role=\\"group\\" aria-label=\\"Button\\">",
-          "    <div role=\\"shapePath\\" aria-label=\\"button bounds\\">",
-          "      <svg width=\\"68.00\\" height=\\"36.00\\">",
-          "        <path fill=\\"none\\" d=\\"M68 34,S 67.1 36, 66 36,S 2 36, 2 36,S 0 35.1, 0 34,S 0 2, 0 2,S 0.9 0, 2 0,S 66 0, 66 0,S 68 0.9, 68 2,L 68 34,z\\"/>",
-          "      </svg>",
-          "    </div>",
-          "    <div role=\\"text\\" aria-label=\\"SHARE\\">",
-          "      <span>SHARE</span>",
-          "    </div>",
-          "  </div>",
-          "  <div role=\\"shapePath\\" aria-label=\\"divider\\">",
-          "    <svg width=\\"346.00\\" height=\\"5.00\\">",
-          "      <path stroke-width=\\"1\\" stroke=\\"#0000001f\\" fill=\\"none\\" d=\\"M1 2.5,L 345 2.5\\"/>",
-          "    </svg>",
-          "  </div>",
-          "</div>",
-        ],
+        "html": "
+<div role=\\"group\\" aria-label=\\"safari\\">
+  <div role=\\"rectangle\\" aria-label=\\"card\\"></div>
+  <div role=\\"rectangle\\" aria-label=\\"image placeholder\\"></div>
+  <div role=\\"text\\" aria-label=\\"Kangaroo Valley Safari\\">
+    <span>Kangaroo Valley Safari</span>
+  </div>
+  <div role=\\"text\\" aria-label=\\"Located two hours so 2\\">
+    <span>Located two hours south of Sydney in the Southern Highlands of New South Wales, ...</span>
+  </div>
+  <div role=\\"group\\" aria-label=\\"Button\\">
+    <div role=\\"shapePath\\" aria-label=\\"button bounds\\">
+      <svg width=\\"112.00\\" height=\\"36.00\\">
+        <path fill=\\"none\\" d=\\"M110 36,S 2 36, 2 36,S 0 35.1, 0 34,S 0 2, 0 2,S 0.9 0, 2 0,S 110 0, 110 0,S 112 0.9, 112 2,S 112 34, 112 34,z\\"/>
+      </svg>
+    </div>
+    <div role=\\"text\\" aria-label=\\"LEARN MORE\\">
+      <span>LEARN MORE</span>
+    </div>
+  </div>
+  <div role=\\"group\\" aria-label=\\"Button\\">
+    <div role=\\"shapePath\\" aria-label=\\"button bounds\\">
+      <svg width=\\"68.00\\" height=\\"36.00\\">
+        <path fill=\\"none\\" d=\\"M68 34,S 67.1 36, 66 36,S 2 36, 2 36,S 0 35.1, 0 34,S 0 2, 0 2,S 0.9 0, 2 0,S 66 0, 66 0,S 68 0.9, 68 2,L 68 34,z\\"/>
+      </svg>
+    </div>
+    <div role=\\"text\\" aria-label=\\"SHARE\\">
+      <span>SHARE</span>
+    </div>
+  </div>
+  <div role=\\"shapePath\\" aria-label=\\"divider\\">
+    <svg width=\\"346.00\\" height=\\"5.00\\">
+      <path stroke-width=\\"1\\" stroke=\\"#0000001f\\" fill=\\"none\\" d=\\"M1 2.5,L 345 2.5\\"/>
+    </svg>
+  </div>
+</div>",
       },
     },
   ],
@@ -15292,46 +15260,42 @@ Object {
       },
       "web": Object {
         "components": Array [],
-        "css": Array [],
-        "html": Array [
-          "<div role=\\"group\\" aria-label=\\"safari\\">",
-          "  <div role=\\"rectangle\\" aria-label=\\"card\\">",
-          "  </div>",
-          "  <div role=\\"rectangle\\" aria-label=\\"image placeholder\\">",
-          "  </div>",
-          "  <div role=\\"text\\" aria-label=\\"Kangaroo Valley Safari\\">",
-          "    <span>Kangaroo Valley Safari</span>",
-          "  </div>",
-          "  <div role=\\"text\\" aria-label=\\"Located two hours so 2\\">",
-          "    <span>Located two hours south of Sydney in the Southern Highlands of New South Wales, ...</span>",
-          "  </div>",
-          "  <div role=\\"group\\" aria-label=\\"Button\\">",
-          "    <div role=\\"shapePath\\" aria-label=\\"button bounds\\">",
-          "      <svg width=\\"112.00\\" height=\\"36.00\\">",
-          "        <path fill=\\"none\\" d=\\"M110 36,S 2 36, 2 36,S 0 35.1, 0 34,S 0 2, 0 2,S 0.9 0, 2 0,S 110 0, 110 0,S 112 0.9, 112 2,S 112 34, 112 34,z\\"/>",
-          "      </svg>",
-          "    </div>",
-          "    <div role=\\"text\\" aria-label=\\"LEARN MORE\\">",
-          "      <span>LEARN MORE</span>",
-          "    </div>",
-          "  </div>",
-          "  <div role=\\"group\\" aria-label=\\"Button\\">",
-          "    <div role=\\"shapePath\\" aria-label=\\"button bounds\\">",
-          "      <svg width=\\"68.00\\" height=\\"36.00\\">",
-          "        <path fill=\\"none\\" d=\\"M68 34,S 67.1 36, 66 36,S 2 36, 2 36,S 0 35.1, 0 34,S 0 2, 0 2,S 0.9 0, 2 0,S 66 0, 66 0,S 68 0.9, 68 2,L 68 34,z\\"/>",
-          "      </svg>",
-          "    </div>",
-          "    <div role=\\"text\\" aria-label=\\"SHARE\\">",
-          "      <span>SHARE</span>",
-          "    </div>",
-          "  </div>",
-          "  <div role=\\"shapePath\\" aria-label=\\"divider\\">",
-          "    <svg width=\\"346.00\\" height=\\"5.00\\">",
-          "      <path stroke-width=\\"1\\" stroke=\\"#0000001f\\" fill=\\"none\\" d=\\"M1 2.5,L 345 2.5\\"/>",
-          "    </svg>",
-          "  </div>",
-          "</div>",
-        ],
+        "html": "
+<div role=\\"group\\" aria-label=\\"safari\\">
+  <div role=\\"rectangle\\" aria-label=\\"card\\"></div>
+  <div role=\\"rectangle\\" aria-label=\\"image placeholder\\"></div>
+  <div role=\\"text\\" aria-label=\\"Kangaroo Valley Safari\\">
+    <span>Kangaroo Valley Safari</span>
+  </div>
+  <div role=\\"text\\" aria-label=\\"Located two hours so 2\\">
+    <span>Located two hours south of Sydney in the Southern Highlands of New South Wales, ...</span>
+  </div>
+  <div role=\\"group\\" aria-label=\\"Button\\">
+    <div role=\\"shapePath\\" aria-label=\\"button bounds\\">
+      <svg width=\\"112.00\\" height=\\"36.00\\">
+        <path fill=\\"none\\" d=\\"M110 36,S 2 36, 2 36,S 0 35.1, 0 34,S 0 2, 0 2,S 0.9 0, 2 0,S 110 0, 110 0,S 112 0.9, 112 2,S 112 34, 112 34,z\\"/>
+      </svg>
+    </div>
+    <div role=\\"text\\" aria-label=\\"LEARN MORE\\">
+      <span>LEARN MORE</span>
+    </div>
+  </div>
+  <div role=\\"group\\" aria-label=\\"Button\\">
+    <div role=\\"shapePath\\" aria-label=\\"button bounds\\">
+      <svg width=\\"68.00\\" height=\\"36.00\\">
+        <path fill=\\"none\\" d=\\"M68 34,S 67.1 36, 66 36,S 2 36, 2 36,S 0 35.1, 0 34,S 0 2, 0 2,S 0.9 0, 2 0,S 66 0, 66 0,S 68 0.9, 68 2,L 68 34,z\\"/>
+      </svg>
+    </div>
+    <div role=\\"text\\" aria-label=\\"SHARE\\">
+      <span>SHARE</span>
+    </div>
+  </div>
+  <div role=\\"shapePath\\" aria-label=\\"divider\\">
+    <svg width=\\"346.00\\" height=\\"5.00\\">
+      <path stroke-width=\\"1\\" stroke=\\"#0000001f\\" fill=\\"none\\" d=\\"M1 2.5,L 345 2.5\\"/>
+    </svg>
+  </div>
+</div>",
       },
     },
   ],
@@ -17198,44 +17162,41 @@ Object {
       },
       "web": Object {
         "components": Array [],
-        "css": Array [],
-        "html": Array [
-          "<div role=\\"group\\" aria-label=\\"Welcome back\\">",
-          "  <div role=\\"rectangle\\" aria-label=\\"card\\">",
-          "  </div>",
-          "  <div role=\\"text\\" aria-label=\\"Welcome Back!\\">",
-          "    <span>Welcome Back!</span>",
-          "  </div>",
-          "  <div role=\\"text\\" aria-label=\\"It’s been a while, h\\">",
-          "    <span>It’s been a while, have you read any new books lately?</span>",
-          "  </div>",
-          "  <div role=\\"group\\" aria-label=\\"Button\\">",
-          "    <div role=\\"shapePath\\" aria-label=\\"Shape\\">",
-          "      <svg width=\\"54.00\\" height=\\"36.00\\">",
-          "        <path fill=\\"none\\" d=\\"M54 34,S 53.566 36, 53.036 36,S 0.964 36, 0.964 36,S 0 35.1, 0 34,S 0 2, 0 2,S 0.434 0, 0.964 0,S 53.036 0, 53.036 0,S 54 0.9, 54 2,L 54 34,z\\"/>",
-          "      </svg>",
-          "    </div>",
-          "    <div role=\\"text\\" aria-label=\\"YES\\">",
-          "      <span>YES</span>",
-          "    </div>",
-          "  </div>",
-          "  <div role=\\"group\\" aria-label=\\"Button\\">",
-          "    <div role=\\"shapePath\\" aria-label=\\"Shape\\">",
-          "      <svg width=\\"68.00\\" height=\\"36.00\\">",
-          "        <path fill=\\"none\\" d=\\"M68 34,S 67.1 36, 66 36,S 2 36, 2 36,S 0 35.1, 0 34,S 0 2, 0 2,S 0.9 0, 2 0,S 66 0, 66 0,S 68 0.9, 68 2,L 68 34,z\\"/>",
-          "      </svg>",
-          "    </div>",
-          "    <div role=\\"text\\" aria-label=\\"NO\\">",
-          "      <span>NO</span>",
-          "    </div>",
-          "  </div>",
-          "  <div role=\\"shapePath\\" aria-label=\\"Line\\">",
-          "    <svg width=\\"346.00\\" height=\\"5.00\\">",
-          "      <path stroke-width=\\"1\\" stroke=\\"#0000001f\\" fill=\\"none\\" d=\\"M1 2.5,L 345 2.5\\"/>",
-          "    </svg>",
-          "  </div>",
-          "</div>",
-        ],
+        "html": "
+<div role=\\"group\\" aria-label=\\"Welcome back\\">
+  <div role=\\"rectangle\\" aria-label=\\"card\\"></div>
+  <div role=\\"text\\" aria-label=\\"Welcome Back!\\">
+    <span>Welcome Back!</span>
+  </div>
+  <div role=\\"text\\" aria-label=\\"It’s been a while, h\\">
+    <span>It’s been a while, have you read any new books lately?</span>
+  </div>
+  <div role=\\"group\\" aria-label=\\"Button\\">
+    <div role=\\"shapePath\\" aria-label=\\"Shape\\">
+      <svg width=\\"54.00\\" height=\\"36.00\\">
+        <path fill=\\"none\\" d=\\"M54 34,S 53.566 36, 53.036 36,S 0.964 36, 0.964 36,S 0 35.1, 0 34,S 0 2, 0 2,S 0.434 0, 0.964 0,S 53.036 0, 53.036 0,S 54 0.9, 54 2,L 54 34,z\\"/>
+      </svg>
+    </div>
+    <div role=\\"text\\" aria-label=\\"YES\\">
+      <span>YES</span>
+    </div>
+  </div>
+  <div role=\\"group\\" aria-label=\\"Button\\">
+    <div role=\\"shapePath\\" aria-label=\\"Shape\\">
+      <svg width=\\"68.00\\" height=\\"36.00\\">
+        <path fill=\\"none\\" d=\\"M68 34,S 67.1 36, 66 36,S 2 36, 2 36,S 0 35.1, 0 34,S 0 2, 0 2,S 0.9 0, 2 0,S 66 0, 66 0,S 68 0.9, 68 2,L 68 34,z\\"/>
+      </svg>
+    </div>
+    <div role=\\"text\\" aria-label=\\"NO\\">
+      <span>NO</span>
+    </div>
+  </div>
+  <div role=\\"shapePath\\" aria-label=\\"Line\\">
+    <svg width=\\"346.00\\" height=\\"5.00\\">
+      <path stroke-width=\\"1\\" stroke=\\"#0000001f\\" fill=\\"none\\" d=\\"M1 2.5,L 345 2.5\\"/>
+    </svg>
+  </div>
+</div>",
       },
     },
   ],
@@ -19112,44 +19073,41 @@ Object {
       },
       "web": Object {
         "components": Array [],
-        "css": Array [],
-        "html": Array [
-          "<div role=\\"group\\" aria-label=\\"Welcome back\\">",
-          "  <div role=\\"rectangle\\" aria-label=\\"card\\">",
-          "  </div>",
-          "  <div role=\\"text\\" aria-label=\\"Welcome Back!\\">",
-          "    <span>Welcome Back!</span>",
-          "  </div>",
-          "  <div role=\\"text\\" aria-label=\\"It’s been a while, h\\">",
-          "    <span>It’s been a while, have you read any new books lately?</span>",
-          "  </div>",
-          "  <div role=\\"group\\" aria-label=\\"Button\\">",
-          "    <div role=\\"shapePath\\" aria-label=\\"Shape\\">",
-          "      <svg width=\\"54.00\\" height=\\"36.00\\">",
-          "        <path fill=\\"none\\" d=\\"M54 34,S 53.566 36, 53.036 36,S 0.964 36, 0.964 36,S 0 35.1, 0 34,S 0 2, 0 2,S 0.434 0, 0.964 0,S 53.036 0, 53.036 0,S 54 0.9, 54 2,L 54 34,z\\"/>",
-          "      </svg>",
-          "    </div>",
-          "    <div role=\\"text\\" aria-label=\\"YES\\">",
-          "      <span>YES</span>",
-          "    </div>",
-          "  </div>",
-          "  <div role=\\"group\\" aria-label=\\"Button\\">",
-          "    <div role=\\"shapePath\\" aria-label=\\"Shape\\">",
-          "      <svg width=\\"68.00\\" height=\\"36.00\\">",
-          "        <path fill=\\"none\\" d=\\"M68 34,S 67.1 36, 66 36,S 2 36, 2 36,S 0 35.1, 0 34,S 0 2, 0 2,S 0.9 0, 2 0,S 66 0, 66 0,S 68 0.9, 68 2,L 68 34,z\\"/>",
-          "      </svg>",
-          "    </div>",
-          "    <div role=\\"text\\" aria-label=\\"NO\\">",
-          "      <span>NO</span>",
-          "    </div>",
-          "  </div>",
-          "  <div role=\\"shapePath\\" aria-label=\\"Line\\">",
-          "    <svg width=\\"346.00\\" height=\\"5.00\\">",
-          "      <path stroke-width=\\"1\\" stroke=\\"#0000001f\\" fill=\\"none\\" d=\\"M1 2.5,L 345 2.5\\"/>",
-          "    </svg>",
-          "  </div>",
-          "</div>",
-        ],
+        "html": "
+<div role=\\"group\\" aria-label=\\"Welcome back\\">
+  <div role=\\"rectangle\\" aria-label=\\"card\\"></div>
+  <div role=\\"text\\" aria-label=\\"Welcome Back!\\">
+    <span>Welcome Back!</span>
+  </div>
+  <div role=\\"text\\" aria-label=\\"It’s been a while, h\\">
+    <span>It’s been a while, have you read any new books lately?</span>
+  </div>
+  <div role=\\"group\\" aria-label=\\"Button\\">
+    <div role=\\"shapePath\\" aria-label=\\"Shape\\">
+      <svg width=\\"54.00\\" height=\\"36.00\\">
+        <path fill=\\"none\\" d=\\"M54 34,S 53.566 36, 53.036 36,S 0.964 36, 0.964 36,S 0 35.1, 0 34,S 0 2, 0 2,S 0.434 0, 0.964 0,S 53.036 0, 53.036 0,S 54 0.9, 54 2,L 54 34,z\\"/>
+      </svg>
+    </div>
+    <div role=\\"text\\" aria-label=\\"YES\\">
+      <span>YES</span>
+    </div>
+  </div>
+  <div role=\\"group\\" aria-label=\\"Button\\">
+    <div role=\\"shapePath\\" aria-label=\\"Shape\\">
+      <svg width=\\"68.00\\" height=\\"36.00\\">
+        <path fill=\\"none\\" d=\\"M68 34,S 67.1 36, 66 36,S 2 36, 2 36,S 0 35.1, 0 34,S 0 2, 0 2,S 0.9 0, 2 0,S 66 0, 66 0,S 68 0.9, 68 2,L 68 34,z\\"/>
+      </svg>
+    </div>
+    <div role=\\"text\\" aria-label=\\"NO\\">
+      <span>NO</span>
+    </div>
+  </div>
+  <div role=\\"shapePath\\" aria-label=\\"Line\\">
+    <svg width=\\"346.00\\" height=\\"5.00\\">
+      <path stroke-width=\\"1\\" stroke=\\"#0000001f\\" fill=\\"none\\" d=\\"M1 2.5,L 345 2.5\\"/>
+    </svg>
+  </div>
+</div>",
       },
     },
   ],
@@ -22143,55 +22101,47 @@ Object {
       },
       "web": Object {
         "components": Array [],
-        "css": Array [],
-        "html": Array [
-          "<div role=\\"group\\" aria-label=\\"open chip\\">",
-          "  <div role=\\"rectangle\\" aria-label=\\"chip bg\\">",
-          "  </div>",
-          "  <div role=\\"group\\" aria-label=\\"email 3\\">",
-          "    <div role=\\"rectangle\\" aria-label=\\"bounds\\">",
-          "    </div>",
-          "    <div role=\\"text\\" aria-label=\\"email3@email.com\\">",
-          "      <span>email3@email.com</span>",
-          "    </div>",
-          "    <div role=\\"oval\\" aria-label=\\"mask\\">",
-          "    </div>",
-          "  </div>",
-          "  <div role=\\"group\\" aria-label=\\"email 2\\">",
-          "    <div role=\\"rectangle\\" aria-label=\\"bounds\\">",
-          "    </div>",
-          "    <div role=\\"text\\" aria-label=\\"email2@email.com\\">",
-          "      <span>email2@email.com</span>",
-          "    </div>",
-          "    <div role=\\"oval\\" aria-label=\\"mask\\">",
-          "    </div>",
-          "  </div>",
-          "  <div role=\\"group\\" aria-label=\\"header\\">",
-          "    <div role=\\"shapePath\\" aria-label=\\"header bg\\">",
-          "      <svg width=\\"296.00\\" height=\\"72.00\\">",
-          "        <path fill=\\"rgba(0,150,136,1)\\" d=\\"M294 0,S 2 0, 2 0,S 0 0.9, 0 2,L 0 72,L 296 72,S 296 2, 296 2,S 295.1 0, 294 0,z\\"/>",
-          "      </svg>",
-          "    </div>",
-          "    <div role=\\"group\\" aria-label=\\"cancel\\">",
-          "      <div role=\\"shapePath\\" aria-label=\\"bounds\\">",
-          "        <svg width=\\"24.00\\" height=\\"24.00\\">",
-          "          <path fill=\\"none\\" d=\\"M24 0,L 0 0,L 0 24,L 24 24,z\\"/>",
-          "        </svg>",
-          "      </div>",
-          "      <div role=\\"shapeGroup\\" aria-label=\\"Shape\\">",
-          "      </div>",
-          "    </div>",
-          "    <div role=\\"text\\" aria-label=\\"primaryemail@email.com\\">",
-          "      <span>primaryemail@email.com</span>",
-          "    </div>",
-          "    <div role=\\"text\\" aria-label=\\"Contact Name\\">",
-          "      <span>Contact Name</span>",
-          "    </div>",
-          "    <div role=\\"oval\\" aria-label=\\"mask\\">",
-          "    </div>",
-          "  </div>",
-          "</div>",
-        ],
+        "html": "
+<div role=\\"group\\" aria-label=\\"open chip\\">
+  <div role=\\"rectangle\\" aria-label=\\"chip bg\\"></div>
+  <div role=\\"group\\" aria-label=\\"email 3\\">
+    <div role=\\"rectangle\\" aria-label=\\"bounds\\"></div>
+    <div role=\\"text\\" aria-label=\\"email3@email.com\\">
+      <span>email3@email.com</span>
+    </div>
+    <div role=\\"oval\\" aria-label=\\"mask\\"></div>
+  </div>
+  <div role=\\"group\\" aria-label=\\"email 2\\">
+    <div role=\\"rectangle\\" aria-label=\\"bounds\\"></div>
+    <div role=\\"text\\" aria-label=\\"email2@email.com\\">
+      <span>email2@email.com</span>
+    </div>
+    <div role=\\"oval\\" aria-label=\\"mask\\"></div>
+  </div>
+  <div role=\\"group\\" aria-label=\\"header\\">
+    <div role=\\"shapePath\\" aria-label=\\"header bg\\">
+      <svg width=\\"296.00\\" height=\\"72.00\\">
+        <path fill=\\"rgba(0,150,136,1)\\" d=\\"M294 0,S 2 0, 2 0,S 0 0.9, 0 2,L 0 72,L 296 72,S 296 2, 296 2,S 295.1 0, 294 0,z\\"/>
+      </svg>
+    </div>
+    <div role=\\"group\\" aria-label=\\"cancel\\">
+      <div role=\\"shapePath\\" aria-label=\\"bounds\\">
+        <svg width=\\"24.00\\" height=\\"24.00\\">
+          <path fill=\\"none\\" d=\\"M24 0,L 0 0,L 0 24,L 24 24,z\\"/>
+        </svg>
+      </div>
+      <div role=\\"shapeGroup\\" aria-label=\\"Shape\\">
+      </div>
+    </div>
+    <div role=\\"text\\" aria-label=\\"primaryemail@email.com\\">
+      <span>primaryemail@email.com</span>
+    </div>
+    <div role=\\"text\\" aria-label=\\"Contact Name\\">
+      <span>Contact Name</span>
+    </div>
+    <div role=\\"oval\\" aria-label=\\"mask\\"></div>
+  </div>
+</div>",
       },
     },
   ],
@@ -25204,55 +25154,47 @@ Object {
       },
       "web": Object {
         "components": Array [],
-        "css": Array [],
-        "html": Array [
-          "<div role=\\"group\\" aria-label=\\"open chip\\">",
-          "  <div role=\\"rectangle\\" aria-label=\\"chip bg\\">",
-          "  </div>",
-          "  <div role=\\"group\\" aria-label=\\"email 3\\">",
-          "    <div role=\\"rectangle\\" aria-label=\\"bounds\\">",
-          "    </div>",
-          "    <div role=\\"text\\" aria-label=\\"email3@email.com\\">",
-          "      <span>email3@email.com</span>",
-          "    </div>",
-          "    <div role=\\"oval\\" aria-label=\\"mask\\">",
-          "    </div>",
-          "  </div>",
-          "  <div role=\\"group\\" aria-label=\\"email 2\\">",
-          "    <div role=\\"rectangle\\" aria-label=\\"bounds\\">",
-          "    </div>",
-          "    <div role=\\"text\\" aria-label=\\"email2@email.com\\">",
-          "      <span>email2@email.com</span>",
-          "    </div>",
-          "    <div role=\\"oval\\" aria-label=\\"mask\\">",
-          "    </div>",
-          "  </div>",
-          "  <div role=\\"group\\" aria-label=\\"header\\">",
-          "    <div role=\\"shapePath\\" aria-label=\\"header bg\\">",
-          "      <svg width=\\"296.00\\" height=\\"72.00\\">",
-          "        <path fill=\\"rgba(0,150,136,1)\\" d=\\"M294 0,S 2 0, 2 0,S 0 0.9, 0 2,L 0 72,L 296 72,S 296 2, 296 2,S 295.1 0, 294 0,z\\"/>",
-          "      </svg>",
-          "    </div>",
-          "    <div role=\\"group\\" aria-label=\\"cancel\\">",
-          "      <div role=\\"shapePath\\" aria-label=\\"bounds\\">",
-          "        <svg width=\\"24.00\\" height=\\"24.00\\">",
-          "          <path fill=\\"none\\" d=\\"M24 0,L 0 0,L 0 24,L 24 24,z\\"/>",
-          "        </svg>",
-          "      </div>",
-          "      <div role=\\"shapeGroup\\" aria-label=\\"Shape\\">",
-          "      </div>",
-          "    </div>",
-          "    <div role=\\"text\\" aria-label=\\"primaryemail@email.com\\">",
-          "      <span>primaryemail@email.com</span>",
-          "    </div>",
-          "    <div role=\\"text\\" aria-label=\\"Contact Name\\">",
-          "      <span>Contact Name</span>",
-          "    </div>",
-          "    <div role=\\"oval\\" aria-label=\\"mask\\">",
-          "    </div>",
-          "  </div>",
-          "</div>",
-        ],
+        "html": "
+<div role=\\"group\\" aria-label=\\"open chip\\">
+  <div role=\\"rectangle\\" aria-label=\\"chip bg\\"></div>
+  <div role=\\"group\\" aria-label=\\"email 3\\">
+    <div role=\\"rectangle\\" aria-label=\\"bounds\\"></div>
+    <div role=\\"text\\" aria-label=\\"email3@email.com\\">
+      <span>email3@email.com</span>
+    </div>
+    <div role=\\"oval\\" aria-label=\\"mask\\"></div>
+  </div>
+  <div role=\\"group\\" aria-label=\\"email 2\\">
+    <div role=\\"rectangle\\" aria-label=\\"bounds\\"></div>
+    <div role=\\"text\\" aria-label=\\"email2@email.com\\">
+      <span>email2@email.com</span>
+    </div>
+    <div role=\\"oval\\" aria-label=\\"mask\\"></div>
+  </div>
+  <div role=\\"group\\" aria-label=\\"header\\">
+    <div role=\\"shapePath\\" aria-label=\\"header bg\\">
+      <svg width=\\"296.00\\" height=\\"72.00\\">
+        <path fill=\\"rgba(0,150,136,1)\\" d=\\"M294 0,S 2 0, 2 0,S 0 0.9, 0 2,L 0 72,L 296 72,S 296 2, 296 2,S 295.1 0, 294 0,z\\"/>
+      </svg>
+    </div>
+    <div role=\\"group\\" aria-label=\\"cancel\\">
+      <div role=\\"shapePath\\" aria-label=\\"bounds\\">
+        <svg width=\\"24.00\\" height=\\"24.00\\">
+          <path fill=\\"none\\" d=\\"M24 0,L 0 0,L 0 24,L 24 24,z\\"/>
+        </svg>
+      </div>
+      <div role=\\"shapeGroup\\" aria-label=\\"Shape\\">
+      </div>
+    </div>
+    <div role=\\"text\\" aria-label=\\"primaryemail@email.com\\">
+      <span>primaryemail@email.com</span>
+    </div>
+    <div role=\\"text\\" aria-label=\\"Contact Name\\">
+      <span>Contact Name</span>
+    </div>
+    <div role=\\"oval\\" aria-label=\\"mask\\"></div>
+  </div>
+</div>",
       },
     },
   ],
@@ -32341,173 +32283,170 @@ Object {
       },
       "web": Object {
         "components": Array [],
-        "css": Array [],
-        "html": Array [
-          "<div role=\\"group\\" aria-label=\\"dialog\\">",
-          "  <div role=\\"shapePath\\" aria-label=\\"dialog bg\\">",
-          "    <svg width=\\"321.00\\" height=\\"557.00\\">",
-          "      <path stroke-width=\\"0.5\\" stroke=\\"#979797ff\\" fill=\\"rgba(250,250,250,1)\\" d=\\"M320.5 556.5,S 80.356 695.249, 0.5 556.5,S -79.789 139.5, 0.5 0.5,S 240.642 -138.623, 320.5 0.5,z\\"/>",
-          "    </svg>",
-          "  </div>",
-          "  <div role=\\"group\\" aria-label=\\"ok + cancel\\">",
-          "    <div role=\\"text\\" aria-label=\\"OK\\">",
-          "      <span>OK</span>",
-          "    </div>",
-          "    <div role=\\"text\\" aria-label=\\"CANCEL\\">",
-          "      <span>CANCEL</span>",
-          "    </div>",
-          "  </div>",
-          "  <div role=\\"group\\" aria-label=\\"header\\">",
-          "    <div role=\\"shapePath\\" aria-label=\\"header bg\\">",
-          "      <svg width=\\"320.00\\" height=\\"199.00\\">",
-          "        <path fill=\\"rgba(0,150,136,1)\\" d=\\"M0 199,S -79.19 49.556, 0 0,S 318.117 -0.012, 320 0,L 320 199,z\\"/>",
-          "      </svg>",
-          "    </div>",
-          "    <div role=\\"shapePath\\" aria-label=\\"bar\\">",
-          "      <svg width=\\"320.00\\" height=\\"32.00\\">",
-          "        <path fill=\\"rgba(0,137,123,1)\\" d=\\"M0 32,S -78.999 7.95, 0 0,S 239.748 -8.025, 320 0,S 402.581 24.258, 320 32,z\\"/>",
-          "      </svg>",
-          "    </div>",
-          "    <div role=\\"text\\" aria-label=\\"13\\">",
-          "      <span>13</span>",
-          "    </div>",
-          "    <div role=\\"text\\" aria-label=\\"Friday\\">",
-          "      <span>Friday</span>",
-          "    </div>",
-          "    <div role=\\"text\\" aria-label=\\"MAR\\">",
-          "      <span>MAR</span>",
-          "    </div>",
-          "    <div role=\\"text\\" aria-label=\\"2014\\">",
-          "      <span>2014</span>",
-          "    </div>",
-          "  </div>",
-          "  <div role=\\"group\\" aria-label=\\"calendar\\">",
-          "    <div role=\\"group\\" aria-label=\\"weekdays\\">",
-          "      <div role=\\"text\\" aria-label=\\"M\\">",
-          "        <span>M</span>",
-          "      </div>",
-          "      <div role=\\"text\\" aria-label=\\"S\\">",
-          "        <span>S</span>",
-          "      </div>",
-          "      <div role=\\"text\\" aria-label=\\"W\\">",
-          "        <span>W</span>",
-          "      </div>",
-          "      <div role=\\"text\\" aria-label=\\"T\\">",
-          "        <span>T</span>",
-          "      </div>",
-          "      <div role=\\"text\\" aria-label=\\"F\\">",
-          "        <span>F</span>",
-          "      </div>",
-          "      <div role=\\"text\\" aria-label=\\"S\\">",
-          "        <span>S</span>",
-          "      </div>",
-          "      <div role=\\"text\\" aria-label=\\"T\\">",
-          "        <span>T</span>",
-          "      </div>",
-          "    </div>",
-          "    <div role=\\"oval\\" aria-label=\\"selection\\">",
-          "    </div>",
-          "    <div role=\\"group\\" aria-label=\\"dates\\">",
-          "      <div role=\\"text\\" aria-label=\\"30\\">",
-          "        <span>30</span>",
-          "      </div>",
-          "      <div role=\\"text\\" aria-label=\\"31\\">",
-          "        <span>31</span>",
-          "      </div>",
-          "      <div role=\\"text\\" aria-label=\\"1\\">",
-          "        <span>1</span>",
-          "      </div>",
-          "      <div role=\\"text\\" aria-label=\\"16\\">",
-          "        <span>16</span>",
-          "      </div>",
-          "      <div role=\\"text\\" aria-label=\\"17\\">",
-          "        <span>17</span>",
-          "      </div>",
-          "      <div role=\\"text\\" aria-label=\\"19\\">",
-          "        <span>19</span>",
-          "      </div>",
-          "      <div role=\\"text\\" aria-label=\\"20\\">",
-          "        <span>20</span>",
-          "      </div>",
-          "      <div role=\\"text\\" aria-label=\\"21\\">",
-          "        <span>21</span>",
-          "      </div>",
-          "      <div role=\\"text\\" aria-label=\\"22\\">",
-          "        <span>22</span>",
-          "      </div>",
-          "      <div role=\\"text\\" aria-label=\\"18\\">",
-          "        <span>18</span>",
-          "      </div>",
-          "      <div role=\\"text\\" aria-label=\\"23\\">",
-          "        <span>23</span>",
-          "      </div>",
-          "      <div role=\\"text\\" aria-label=\\"24\\">",
-          "        <span>24</span>",
-          "      </div>",
-          "      <div role=\\"text\\" aria-label=\\"26\\">",
-          "        <span>26</span>",
-          "      </div>",
-          "      <div role=\\"text\\" aria-label=\\"27\\">",
-          "        <span>27</span>",
-          "      </div>",
-          "      <div role=\\"text\\" aria-label=\\"28\\">",
-          "        <span>28</span>",
-          "      </div>",
-          "      <div role=\\"text\\" aria-label=\\"29\\">",
-          "        <span>29</span>",
-          "      </div>",
-          "      <div role=\\"text\\" aria-label=\\"25\\">",
-          "        <span>25</span>",
-          "      </div>",
-          "      <div role=\\"text\\" aria-label=\\"13\\">",
-          "        <span>13</span>",
-          "      </div>",
-          "      <div role=\\"text\\" aria-label=\\"9\\">",
-          "        <span>9</span>",
-          "      </div>",
-          "      <div role=\\"text\\" aria-label=\\"10\\">",
-          "        <span>10</span>",
-          "      </div>",
-          "      <div role=\\"text\\" aria-label=\\"12\\">",
-          "        <span>12</span>",
-          "      </div>",
-          "      <div role=\\"text\\" aria-label=\\"14\\">",
-          "        <span>14</span>",
-          "      </div>",
-          "      <div role=\\"text\\" aria-label=\\"15\\">",
-          "        <span>15</span>",
-          "      </div>",
-          "      <div role=\\"text\\" aria-label=\\"11\\">",
-          "        <span>11</span>",
-          "      </div>",
-          "      <div role=\\"text\\" aria-label=\\"7\\">",
-          "        <span>7</span>",
-          "      </div>",
-          "      <div role=\\"text\\" aria-label=\\"2\\">",
-          "        <span>2</span>",
-          "      </div>",
-          "      <div role=\\"text\\" aria-label=\\"3\\">",
-          "        <span>3</span>",
-          "      </div>",
-          "      <div role=\\"text\\" aria-label=\\"5\\">",
-          "        <span>5</span>",
-          "      </div>",
-          "      <div role=\\"text\\" aria-label=\\"6\\">",
-          "        <span>6</span>",
-          "      </div>",
-          "      <div role=\\"text\\" aria-label=\\"8\\">",
-          "        <span>8</span>",
-          "      </div>",
-          "      <div role=\\"text\\" aria-label=\\"4\\">",
-          "        <span>4</span>",
-          "      </div>",
-          "    </div>",
-          "    <div role=\\"text\\" aria-label=\\"March 2014\\">",
-          "      <span>March 2014</span>",
-          "    </div>",
-          "  </div>",
-          "</div>",
-        ],
+        "html": "
+<div role=\\"group\\" aria-label=\\"dialog\\">
+  <div role=\\"shapePath\\" aria-label=\\"dialog bg\\">
+    <svg width=\\"321.00\\" height=\\"557.00\\">
+      <path stroke-width=\\"0.5\\" stroke=\\"#979797ff\\" fill=\\"rgba(250,250,250,1)\\" d=\\"M320.5 556.5,S 80.356 695.249, 0.5 556.5,S -79.789 139.5, 0.5 0.5,S 240.642 -138.623, 320.5 0.5,z\\"/>
+    </svg>
+  </div>
+  <div role=\\"group\\" aria-label=\\"ok + cancel\\">
+    <div role=\\"text\\" aria-label=\\"OK\\">
+      <span>OK</span>
+    </div>
+    <div role=\\"text\\" aria-label=\\"CANCEL\\">
+      <span>CANCEL</span>
+    </div>
+  </div>
+  <div role=\\"group\\" aria-label=\\"header\\">
+    <div role=\\"shapePath\\" aria-label=\\"header bg\\">
+      <svg width=\\"320.00\\" height=\\"199.00\\">
+        <path fill=\\"rgba(0,150,136,1)\\" d=\\"M0 199,S -79.19 49.556, 0 0,S 318.117 -0.012, 320 0,L 320 199,z\\"/>
+      </svg>
+    </div>
+    <div role=\\"shapePath\\" aria-label=\\"bar\\">
+      <svg width=\\"320.00\\" height=\\"32.00\\">
+        <path fill=\\"rgba(0,137,123,1)\\" d=\\"M0 32,S -78.999 7.95, 0 0,S 239.748 -8.025, 320 0,S 402.581 24.258, 320 32,z\\"/>
+      </svg>
+    </div>
+    <div role=\\"text\\" aria-label=\\"13\\">
+      <span>13</span>
+    </div>
+    <div role=\\"text\\" aria-label=\\"Friday\\">
+      <span>Friday</span>
+    </div>
+    <div role=\\"text\\" aria-label=\\"MAR\\">
+      <span>MAR</span>
+    </div>
+    <div role=\\"text\\" aria-label=\\"2014\\">
+      <span>2014</span>
+    </div>
+  </div>
+  <div role=\\"group\\" aria-label=\\"calendar\\">
+    <div role=\\"group\\" aria-label=\\"weekdays\\">
+      <div role=\\"text\\" aria-label=\\"M\\">
+        <span>M</span>
+      </div>
+      <div role=\\"text\\" aria-label=\\"S\\">
+        <span>S</span>
+      </div>
+      <div role=\\"text\\" aria-label=\\"W\\">
+        <span>W</span>
+      </div>
+      <div role=\\"text\\" aria-label=\\"T\\">
+        <span>T</span>
+      </div>
+      <div role=\\"text\\" aria-label=\\"F\\">
+        <span>F</span>
+      </div>
+      <div role=\\"text\\" aria-label=\\"S\\">
+        <span>S</span>
+      </div>
+      <div role=\\"text\\" aria-label=\\"T\\">
+        <span>T</span>
+      </div>
+    </div>
+    <div role=\\"oval\\" aria-label=\\"selection\\"></div>
+    <div role=\\"group\\" aria-label=\\"dates\\">
+      <div role=\\"text\\" aria-label=\\"30\\">
+        <span>30</span>
+      </div>
+      <div role=\\"text\\" aria-label=\\"31\\">
+        <span>31</span>
+      </div>
+      <div role=\\"text\\" aria-label=\\"1\\">
+        <span>1</span>
+      </div>
+      <div role=\\"text\\" aria-label=\\"16\\">
+        <span>16</span>
+      </div>
+      <div role=\\"text\\" aria-label=\\"17\\">
+        <span>17</span>
+      </div>
+      <div role=\\"text\\" aria-label=\\"19\\">
+        <span>19</span>
+      </div>
+      <div role=\\"text\\" aria-label=\\"20\\">
+        <span>20</span>
+      </div>
+      <div role=\\"text\\" aria-label=\\"21\\">
+        <span>21</span>
+      </div>
+      <div role=\\"text\\" aria-label=\\"22\\">
+        <span>22</span>
+      </div>
+      <div role=\\"text\\" aria-label=\\"18\\">
+        <span>18</span>
+      </div>
+      <div role=\\"text\\" aria-label=\\"23\\">
+        <span>23</span>
+      </div>
+      <div role=\\"text\\" aria-label=\\"24\\">
+        <span>24</span>
+      </div>
+      <div role=\\"text\\" aria-label=\\"26\\">
+        <span>26</span>
+      </div>
+      <div role=\\"text\\" aria-label=\\"27\\">
+        <span>27</span>
+      </div>
+      <div role=\\"text\\" aria-label=\\"28\\">
+        <span>28</span>
+      </div>
+      <div role=\\"text\\" aria-label=\\"29\\">
+        <span>29</span>
+      </div>
+      <div role=\\"text\\" aria-label=\\"25\\">
+        <span>25</span>
+      </div>
+      <div role=\\"text\\" aria-label=\\"13\\">
+        <span>13</span>
+      </div>
+      <div role=\\"text\\" aria-label=\\"9\\">
+        <span>9</span>
+      </div>
+      <div role=\\"text\\" aria-label=\\"10\\">
+        <span>10</span>
+      </div>
+      <div role=\\"text\\" aria-label=\\"12\\">
+        <span>12</span>
+      </div>
+      <div role=\\"text\\" aria-label=\\"14\\">
+        <span>14</span>
+      </div>
+      <div role=\\"text\\" aria-label=\\"15\\">
+        <span>15</span>
+      </div>
+      <div role=\\"text\\" aria-label=\\"11\\">
+        <span>11</span>
+      </div>
+      <div role=\\"text\\" aria-label=\\"7\\">
+        <span>7</span>
+      </div>
+      <div role=\\"text\\" aria-label=\\"2\\">
+        <span>2</span>
+      </div>
+      <div role=\\"text\\" aria-label=\\"3\\">
+        <span>3</span>
+      </div>
+      <div role=\\"text\\" aria-label=\\"5\\">
+        <span>5</span>
+      </div>
+      <div role=\\"text\\" aria-label=\\"6\\">
+        <span>6</span>
+      </div>
+      <div role=\\"text\\" aria-label=\\"8\\">
+        <span>8</span>
+      </div>
+      <div role=\\"text\\" aria-label=\\"4\\">
+        <span>4</span>
+      </div>
+    </div>
+    <div role=\\"text\\" aria-label=\\"March 2014\\">
+      <span>March 2014</span>
+    </div>
+  </div>
+</div>",
       },
     },
   ],
@@ -39615,173 +39554,170 @@ Object {
       },
       "web": Object {
         "components": Array [],
-        "css": Array [],
-        "html": Array [
-          "<div role=\\"group\\" aria-label=\\"dialog\\">",
-          "  <div role=\\"shapePath\\" aria-label=\\"dialog bg\\">",
-          "    <svg width=\\"321.00\\" height=\\"557.00\\">",
-          "      <path stroke-width=\\"0.5\\" stroke=\\"#979797ff\\" fill=\\"rgba(250,250,250,1)\\" d=\\"M320.5 556.5,S 80.356 695.249, 0.5 556.5,S -79.789 139.5, 0.5 0.5,S 240.642 -138.623, 320.5 0.5,z\\"/>",
-          "    </svg>",
-          "  </div>",
-          "  <div role=\\"group\\" aria-label=\\"ok + cancel\\">",
-          "    <div role=\\"text\\" aria-label=\\"OK\\">",
-          "      <span>OK</span>",
-          "    </div>",
-          "    <div role=\\"text\\" aria-label=\\"CANCEL\\">",
-          "      <span>CANCEL</span>",
-          "    </div>",
-          "  </div>",
-          "  <div role=\\"group\\" aria-label=\\"header\\">",
-          "    <div role=\\"shapePath\\" aria-label=\\"header bg\\">",
-          "      <svg width=\\"320.00\\" height=\\"199.00\\">",
-          "        <path fill=\\"rgba(0,150,136,1)\\" d=\\"M0 199,S -79.19 49.556, 0 0,S 318.117 -0.012, 320 0,L 320 199,z\\"/>",
-          "      </svg>",
-          "    </div>",
-          "    <div role=\\"shapePath\\" aria-label=\\"bar\\">",
-          "      <svg width=\\"320.00\\" height=\\"32.00\\">",
-          "        <path fill=\\"rgba(0,137,123,1)\\" d=\\"M0 32,S -78.999 7.95, 0 0,S 239.748 -8.025, 320 0,S 402.581 24.258, 320 32,z\\"/>",
-          "      </svg>",
-          "    </div>",
-          "    <div role=\\"text\\" aria-label=\\"13\\">",
-          "      <span>13</span>",
-          "    </div>",
-          "    <div role=\\"text\\" aria-label=\\"Friday\\">",
-          "      <span>Friday</span>",
-          "    </div>",
-          "    <div role=\\"text\\" aria-label=\\"MAR\\">",
-          "      <span>MAR</span>",
-          "    </div>",
-          "    <div role=\\"text\\" aria-label=\\"2014\\">",
-          "      <span>2014</span>",
-          "    </div>",
-          "  </div>",
-          "  <div role=\\"group\\" aria-label=\\"calendar\\">",
-          "    <div role=\\"group\\" aria-label=\\"weekdays\\">",
-          "      <div role=\\"text\\" aria-label=\\"M\\">",
-          "        <span>M</span>",
-          "      </div>",
-          "      <div role=\\"text\\" aria-label=\\"S\\">",
-          "        <span>S</span>",
-          "      </div>",
-          "      <div role=\\"text\\" aria-label=\\"W\\">",
-          "        <span>W</span>",
-          "      </div>",
-          "      <div role=\\"text\\" aria-label=\\"T\\">",
-          "        <span>T</span>",
-          "      </div>",
-          "      <div role=\\"text\\" aria-label=\\"F\\">",
-          "        <span>F</span>",
-          "      </div>",
-          "      <div role=\\"text\\" aria-label=\\"S\\">",
-          "        <span>S</span>",
-          "      </div>",
-          "      <div role=\\"text\\" aria-label=\\"T\\">",
-          "        <span>T</span>",
-          "      </div>",
-          "    </div>",
-          "    <div role=\\"oval\\" aria-label=\\"selection\\">",
-          "    </div>",
-          "    <div role=\\"group\\" aria-label=\\"dates\\">",
-          "      <div role=\\"text\\" aria-label=\\"30\\">",
-          "        <span>30</span>",
-          "      </div>",
-          "      <div role=\\"text\\" aria-label=\\"31\\">",
-          "        <span>31</span>",
-          "      </div>",
-          "      <div role=\\"text\\" aria-label=\\"1\\">",
-          "        <span>1</span>",
-          "      </div>",
-          "      <div role=\\"text\\" aria-label=\\"16\\">",
-          "        <span>16</span>",
-          "      </div>",
-          "      <div role=\\"text\\" aria-label=\\"17\\">",
-          "        <span>17</span>",
-          "      </div>",
-          "      <div role=\\"text\\" aria-label=\\"19\\">",
-          "        <span>19</span>",
-          "      </div>",
-          "      <div role=\\"text\\" aria-label=\\"20\\">",
-          "        <span>20</span>",
-          "      </div>",
-          "      <div role=\\"text\\" aria-label=\\"21\\">",
-          "        <span>21</span>",
-          "      </div>",
-          "      <div role=\\"text\\" aria-label=\\"22\\">",
-          "        <span>22</span>",
-          "      </div>",
-          "      <div role=\\"text\\" aria-label=\\"18\\">",
-          "        <span>18</span>",
-          "      </div>",
-          "      <div role=\\"text\\" aria-label=\\"23\\">",
-          "        <span>23</span>",
-          "      </div>",
-          "      <div role=\\"text\\" aria-label=\\"24\\">",
-          "        <span>24</span>",
-          "      </div>",
-          "      <div role=\\"text\\" aria-label=\\"26\\">",
-          "        <span>26</span>",
-          "      </div>",
-          "      <div role=\\"text\\" aria-label=\\"27\\">",
-          "        <span>27</span>",
-          "      </div>",
-          "      <div role=\\"text\\" aria-label=\\"28\\">",
-          "        <span>28</span>",
-          "      </div>",
-          "      <div role=\\"text\\" aria-label=\\"29\\">",
-          "        <span>29</span>",
-          "      </div>",
-          "      <div role=\\"text\\" aria-label=\\"25\\">",
-          "        <span>25</span>",
-          "      </div>",
-          "      <div role=\\"text\\" aria-label=\\"13\\">",
-          "        <span>13</span>",
-          "      </div>",
-          "      <div role=\\"text\\" aria-label=\\"9\\">",
-          "        <span>9</span>",
-          "      </div>",
-          "      <div role=\\"text\\" aria-label=\\"10\\">",
-          "        <span>10</span>",
-          "      </div>",
-          "      <div role=\\"text\\" aria-label=\\"12\\">",
-          "        <span>12</span>",
-          "      </div>",
-          "      <div role=\\"text\\" aria-label=\\"14\\">",
-          "        <span>14</span>",
-          "      </div>",
-          "      <div role=\\"text\\" aria-label=\\"15\\">",
-          "        <span>15</span>",
-          "      </div>",
-          "      <div role=\\"text\\" aria-label=\\"11\\">",
-          "        <span>11</span>",
-          "      </div>",
-          "      <div role=\\"text\\" aria-label=\\"7\\">",
-          "        <span>7</span>",
-          "      </div>",
-          "      <div role=\\"text\\" aria-label=\\"2\\">",
-          "        <span>2</span>",
-          "      </div>",
-          "      <div role=\\"text\\" aria-label=\\"3\\">",
-          "        <span>3</span>",
-          "      </div>",
-          "      <div role=\\"text\\" aria-label=\\"5\\">",
-          "        <span>5</span>",
-          "      </div>",
-          "      <div role=\\"text\\" aria-label=\\"6\\">",
-          "        <span>6</span>",
-          "      </div>",
-          "      <div role=\\"text\\" aria-label=\\"8\\">",
-          "        <span>8</span>",
-          "      </div>",
-          "      <div role=\\"text\\" aria-label=\\"4\\">",
-          "        <span>4</span>",
-          "      </div>",
-          "    </div>",
-          "    <div role=\\"text\\" aria-label=\\"March 2014\\">",
-          "      <span>March 2014</span>",
-          "    </div>",
-          "  </div>",
-          "</div>",
-        ],
+        "html": "
+<div role=\\"group\\" aria-label=\\"dialog\\">
+  <div role=\\"shapePath\\" aria-label=\\"dialog bg\\">
+    <svg width=\\"321.00\\" height=\\"557.00\\">
+      <path stroke-width=\\"0.5\\" stroke=\\"#979797ff\\" fill=\\"rgba(250,250,250,1)\\" d=\\"M320.5 556.5,S 80.356 695.249, 0.5 556.5,S -79.789 139.5, 0.5 0.5,S 240.642 -138.623, 320.5 0.5,z\\"/>
+    </svg>
+  </div>
+  <div role=\\"group\\" aria-label=\\"ok + cancel\\">
+    <div role=\\"text\\" aria-label=\\"OK\\">
+      <span>OK</span>
+    </div>
+    <div role=\\"text\\" aria-label=\\"CANCEL\\">
+      <span>CANCEL</span>
+    </div>
+  </div>
+  <div role=\\"group\\" aria-label=\\"header\\">
+    <div role=\\"shapePath\\" aria-label=\\"header bg\\">
+      <svg width=\\"320.00\\" height=\\"199.00\\">
+        <path fill=\\"rgba(0,150,136,1)\\" d=\\"M0 199,S -79.19 49.556, 0 0,S 318.117 -0.012, 320 0,L 320 199,z\\"/>
+      </svg>
+    </div>
+    <div role=\\"shapePath\\" aria-label=\\"bar\\">
+      <svg width=\\"320.00\\" height=\\"32.00\\">
+        <path fill=\\"rgba(0,137,123,1)\\" d=\\"M0 32,S -78.999 7.95, 0 0,S 239.748 -8.025, 320 0,S 402.581 24.258, 320 32,z\\"/>
+      </svg>
+    </div>
+    <div role=\\"text\\" aria-label=\\"13\\">
+      <span>13</span>
+    </div>
+    <div role=\\"text\\" aria-label=\\"Friday\\">
+      <span>Friday</span>
+    </div>
+    <div role=\\"text\\" aria-label=\\"MAR\\">
+      <span>MAR</span>
+    </div>
+    <div role=\\"text\\" aria-label=\\"2014\\">
+      <span>2014</span>
+    </div>
+  </div>
+  <div role=\\"group\\" aria-label=\\"calendar\\">
+    <div role=\\"group\\" aria-label=\\"weekdays\\">
+      <div role=\\"text\\" aria-label=\\"M\\">
+        <span>M</span>
+      </div>
+      <div role=\\"text\\" aria-label=\\"S\\">
+        <span>S</span>
+      </div>
+      <div role=\\"text\\" aria-label=\\"W\\">
+        <span>W</span>
+      </div>
+      <div role=\\"text\\" aria-label=\\"T\\">
+        <span>T</span>
+      </div>
+      <div role=\\"text\\" aria-label=\\"F\\">
+        <span>F</span>
+      </div>
+      <div role=\\"text\\" aria-label=\\"S\\">
+        <span>S</span>
+      </div>
+      <div role=\\"text\\" aria-label=\\"T\\">
+        <span>T</span>
+      </div>
+    </div>
+    <div role=\\"oval\\" aria-label=\\"selection\\"></div>
+    <div role=\\"group\\" aria-label=\\"dates\\">
+      <div role=\\"text\\" aria-label=\\"30\\">
+        <span>30</span>
+      </div>
+      <div role=\\"text\\" aria-label=\\"31\\">
+        <span>31</span>
+      </div>
+      <div role=\\"text\\" aria-label=\\"1\\">
+        <span>1</span>
+      </div>
+      <div role=\\"text\\" aria-label=\\"16\\">
+        <span>16</span>
+      </div>
+      <div role=\\"text\\" aria-label=\\"17\\">
+        <span>17</span>
+      </div>
+      <div role=\\"text\\" aria-label=\\"19\\">
+        <span>19</span>
+      </div>
+      <div role=\\"text\\" aria-label=\\"20\\">
+        <span>20</span>
+      </div>
+      <div role=\\"text\\" aria-label=\\"21\\">
+        <span>21</span>
+      </div>
+      <div role=\\"text\\" aria-label=\\"22\\">
+        <span>22</span>
+      </div>
+      <div role=\\"text\\" aria-label=\\"18\\">
+        <span>18</span>
+      </div>
+      <div role=\\"text\\" aria-label=\\"23\\">
+        <span>23</span>
+      </div>
+      <div role=\\"text\\" aria-label=\\"24\\">
+        <span>24</span>
+      </div>
+      <div role=\\"text\\" aria-label=\\"26\\">
+        <span>26</span>
+      </div>
+      <div role=\\"text\\" aria-label=\\"27\\">
+        <span>27</span>
+      </div>
+      <div role=\\"text\\" aria-label=\\"28\\">
+        <span>28</span>
+      </div>
+      <div role=\\"text\\" aria-label=\\"29\\">
+        <span>29</span>
+      </div>
+      <div role=\\"text\\" aria-label=\\"25\\">
+        <span>25</span>
+      </div>
+      <div role=\\"text\\" aria-label=\\"13\\">
+        <span>13</span>
+      </div>
+      <div role=\\"text\\" aria-label=\\"9\\">
+        <span>9</span>
+      </div>
+      <div role=\\"text\\" aria-label=\\"10\\">
+        <span>10</span>
+      </div>
+      <div role=\\"text\\" aria-label=\\"12\\">
+        <span>12</span>
+      </div>
+      <div role=\\"text\\" aria-label=\\"14\\">
+        <span>14</span>
+      </div>
+      <div role=\\"text\\" aria-label=\\"15\\">
+        <span>15</span>
+      </div>
+      <div role=\\"text\\" aria-label=\\"11\\">
+        <span>11</span>
+      </div>
+      <div role=\\"text\\" aria-label=\\"7\\">
+        <span>7</span>
+      </div>
+      <div role=\\"text\\" aria-label=\\"2\\">
+        <span>2</span>
+      </div>
+      <div role=\\"text\\" aria-label=\\"3\\">
+        <span>3</span>
+      </div>
+      <div role=\\"text\\" aria-label=\\"5\\">
+        <span>5</span>
+      </div>
+      <div role=\\"text\\" aria-label=\\"6\\">
+        <span>6</span>
+      </div>
+      <div role=\\"text\\" aria-label=\\"8\\">
+        <span>8</span>
+      </div>
+      <div role=\\"text\\" aria-label=\\"4\\">
+        <span>4</span>
+      </div>
+    </div>
+    <div role=\\"text\\" aria-label=\\"March 2014\\">
+      <span>March 2014</span>
+    </div>
+  </div>
+</div>",
       },
     },
   ],
@@ -42296,57 +42232,52 @@ Object {
       },
       "web": Object {
         "components": Array [],
-        "css": Array [],
-        "html": Array [
-          "<div role=\\"group\\" aria-label=\\"heads-up notification\\">",
-          "  <div role=\\"shapePath\\" aria-label=\\"card\\">",
-          "    <svg width=\\"346.00\\" height=\\"162.00\\">",
-          "      <path stroke-width=\\"1\\" stroke=\\"#979797ff\\" fill=\\"rgba(250,250,250,1)\\" d=\\"M343 161,S 3 161, 3 161,S 1 160.1, 1 159,S 1 3.1, 1 3,S 1.9 1, 3 1,S 342.9 1, 343 1,S 344.9 1.9, 345 3,S 344.9 158.9, 345 159,z\\"/>",
-          "    </svg>",
-          "  </div>",
-          "  <div role=\\"shapePath\\" aria-label=\\"divider\\">",
-          "    <svg width=\\"258.00\\" height=\\"5.00\\">",
-          "      <path stroke-width=\\"1\\" stroke=\\"#0000001f\\" fill=\\"none\\" d=\\"M1 2.5,L 257 2.5\\"/>",
-          "    </svg>",
-          "  </div>",
-          "  <div role=\\"text\\" aria-label=\\"Incoming call\\">",
-          "    <span>Incoming call</span>",
-          "  </div>",
-          "  <div role=\\"text\\" aria-label=\\"Scott Masterson\\">",
-          "    <span>Scott Masterson</span>",
-          "  </div>",
-          "  <div role=\\"group\\" aria-label=\\"ignore\\">",
-          "    <div role=\\"text\\" aria-label=\\"Ignore\\">",
-          "      <span>IGNORE</span>",
-          "    </div>",
-          "    <div role=\\"group\\" aria-label=\\"ignore icon\\">",
-          "      <div role=\\"rectangle\\" aria-label=\\"bounds\\">",
-          "      </div>",
-          "      <div role=\\"shapePath\\" aria-label=\\"shape\\">",
-          "        <svg width=\\"14.00\\" height=\\"14.00\\">",
-          "          <path fill=\\"rgba(0,0,0,1)\\" d=\\"M7 5.586,L 1.414 0,L 0 1.414,L 5.585 7,L 0 12.586,L 1.414 14,L 7 8.414,L 12.586 14,L 13.999 12.586,L 8.414 7,L 13.999 1.414,L 12.586 0,z\\"/>",
-          "        </svg>",
-          "      </div>",
-          "    </div>",
-          "  </div>",
-          "  <div role=\\"group\\" aria-label=\\"answer\\">",
-          "    <div role=\\"text\\" aria-label=\\"ANSWER\\">",
-          "      <span>ANSWER</span>",
-          "    </div>",
-          "    <div role=\\"group\\" aria-label=\\"call icon\\">",
-          "      <div role=\\"rectangle\\" aria-label=\\"bounds\\">",
-          "      </div>",
-          "      <div role=\\"shapePath\\" aria-label=\\"Imported Layers\\">",
-          "        <svg width=\\"18.00\\" height=\\"18.00\\">",
-          "          <path fill=\\"rgba(0,0,0,1)\\" d=\\"M1 0,S 0 0.447, 0 1,S 7.612 18, 17 18,S 18 17.553, 18 17,S 18 13.5, 18 13.5,S 17.553 12.501, 17 12.501,S 14.552 12.3, 13.428 11.932,S 13.223 11.884, 13.119 11.884,S 12.608 11.982, 12.413 12.177,S 10.212 14.38, 10.212 14.38,S 5.065 10.625, 3.623 7.794,S 5.823 5.587, 5.823 5.587,S 6.179 4.918, 6.068 4.572,S 5.499 2.247, 5.499 1,S 5.052 0, 4.5 0,z\\"/>",
-          "        </svg>",
-          "      </div>",
-          "    </div>",
-          "  </div>",
-          "  <div role=\\"oval\\" aria-label=\\"mask\\">",
-          "  </div>",
-          "</div>",
-        ],
+        "html": "
+<div role=\\"group\\" aria-label=\\"heads-up notification\\">
+  <div role=\\"shapePath\\" aria-label=\\"card\\">
+    <svg width=\\"346.00\\" height=\\"162.00\\">
+      <path stroke-width=\\"1\\" stroke=\\"#979797ff\\" fill=\\"rgba(250,250,250,1)\\" d=\\"M343 161,S 3 161, 3 161,S 1 160.1, 1 159,S 1 3.1, 1 3,S 1.9 1, 3 1,S 342.9 1, 343 1,S 344.9 1.9, 345 3,S 344.9 158.9, 345 159,z\\"/>
+    </svg>
+  </div>
+  <div role=\\"shapePath\\" aria-label=\\"divider\\">
+    <svg width=\\"258.00\\" height=\\"5.00\\">
+      <path stroke-width=\\"1\\" stroke=\\"#0000001f\\" fill=\\"none\\" d=\\"M1 2.5,L 257 2.5\\"/>
+    </svg>
+  </div>
+  <div role=\\"text\\" aria-label=\\"Incoming call\\">
+    <span>Incoming call</span>
+  </div>
+  <div role=\\"text\\" aria-label=\\"Scott Masterson\\">
+    <span>Scott Masterson</span>
+  </div>
+  <div role=\\"group\\" aria-label=\\"ignore\\">
+    <div role=\\"text\\" aria-label=\\"Ignore\\">
+      <span>IGNORE</span>
+    </div>
+    <div role=\\"group\\" aria-label=\\"ignore icon\\">
+      <div role=\\"rectangle\\" aria-label=\\"bounds\\"></div>
+      <div role=\\"shapePath\\" aria-label=\\"shape\\">
+        <svg width=\\"14.00\\" height=\\"14.00\\">
+          <path fill=\\"rgba(0,0,0,1)\\" d=\\"M7 5.586,L 1.414 0,L 0 1.414,L 5.585 7,L 0 12.586,L 1.414 14,L 7 8.414,L 12.586 14,L 13.999 12.586,L 8.414 7,L 13.999 1.414,L 12.586 0,z\\"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+  <div role=\\"group\\" aria-label=\\"answer\\">
+    <div role=\\"text\\" aria-label=\\"ANSWER\\">
+      <span>ANSWER</span>
+    </div>
+    <div role=\\"group\\" aria-label=\\"call icon\\">
+      <div role=\\"rectangle\\" aria-label=\\"bounds\\"></div>
+      <div role=\\"shapePath\\" aria-label=\\"Imported Layers\\">
+        <svg width=\\"18.00\\" height=\\"18.00\\">
+          <path fill=\\"rgba(0,0,0,1)\\" d=\\"M1 0,S 0 0.447, 0 1,S 7.612 18, 17 18,S 18 17.553, 18 17,S 18 13.5, 18 13.5,S 17.553 12.501, 17 12.501,S 14.552 12.3, 13.428 11.932,S 13.223 11.884, 13.119 11.884,S 12.608 11.982, 12.413 12.177,S 10.212 14.38, 10.212 14.38,S 5.065 10.625, 3.623 7.794,S 5.823 5.587, 5.823 5.587,S 6.179 4.918, 6.068 4.572,S 5.499 2.247, 5.499 1,S 5.052 0, 4.5 0,z\\"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+  <div role=\\"oval\\" aria-label=\\"mask\\"></div>
+</div>",
       },
     },
   ],
@@ -44877,57 +44808,52 @@ Object {
       },
       "web": Object {
         "components": Array [],
-        "css": Array [],
-        "html": Array [
-          "<div role=\\"group\\" aria-label=\\"heads-up notification\\">",
-          "  <div role=\\"shapePath\\" aria-label=\\"card\\">",
-          "    <svg width=\\"346.00\\" height=\\"162.00\\">",
-          "      <path stroke-width=\\"1\\" stroke=\\"#979797ff\\" fill=\\"rgba(250,250,250,1)\\" d=\\"M343 161,S 3 161, 3 161,S 1 160.1, 1 159,S 1 3.1, 1 3,S 1.9 1, 3 1,S 342.9 1, 343 1,S 344.9 1.9, 345 3,S 344.9 158.9, 345 159,z\\"/>",
-          "    </svg>",
-          "  </div>",
-          "  <div role=\\"shapePath\\" aria-label=\\"divider\\">",
-          "    <svg width=\\"258.00\\" height=\\"5.00\\">",
-          "      <path stroke-width=\\"1\\" stroke=\\"#0000001f\\" fill=\\"none\\" d=\\"M1 2.5,L 257 2.5\\"/>",
-          "    </svg>",
-          "  </div>",
-          "  <div role=\\"text\\" aria-label=\\"Incoming call\\">",
-          "    <span>Incoming call</span>",
-          "  </div>",
-          "  <div role=\\"text\\" aria-label=\\"Scott Masterson\\">",
-          "    <span>Scott Masterson</span>",
-          "  </div>",
-          "  <div role=\\"group\\" aria-label=\\"ignore\\">",
-          "    <div role=\\"text\\" aria-label=\\"Ignore\\">",
-          "      <span>IGNORE</span>",
-          "    </div>",
-          "    <div role=\\"group\\" aria-label=\\"ignore icon\\">",
-          "      <div role=\\"rectangle\\" aria-label=\\"bounds\\">",
-          "      </div>",
-          "      <div role=\\"shapePath\\" aria-label=\\"shape\\">",
-          "        <svg width=\\"14.00\\" height=\\"14.00\\">",
-          "          <path fill=\\"rgba(0,0,0,1)\\" d=\\"M7 5.586,L 1.414 0,L 0 1.414,L 5.585 7,L 0 12.586,L 1.414 14,L 7 8.414,L 12.586 14,L 13.999 12.586,L 8.414 7,L 13.999 1.414,L 12.586 0,z\\"/>",
-          "        </svg>",
-          "      </div>",
-          "    </div>",
-          "  </div>",
-          "  <div role=\\"group\\" aria-label=\\"answer\\">",
-          "    <div role=\\"text\\" aria-label=\\"ANSWER\\">",
-          "      <span>ANSWER</span>",
-          "    </div>",
-          "    <div role=\\"group\\" aria-label=\\"call icon\\">",
-          "      <div role=\\"rectangle\\" aria-label=\\"bounds\\">",
-          "      </div>",
-          "      <div role=\\"shapePath\\" aria-label=\\"Imported Layers\\">",
-          "        <svg width=\\"18.00\\" height=\\"18.00\\">",
-          "          <path fill=\\"rgba(0,0,0,1)\\" d=\\"M1 0,S 0 0.447, 0 1,S 7.612 18, 17 18,S 18 17.553, 18 17,S 18 13.5, 18 13.5,S 17.553 12.501, 17 12.501,S 14.552 12.3, 13.428 11.932,S 13.223 11.884, 13.119 11.884,S 12.608 11.982, 12.413 12.177,S 10.212 14.38, 10.212 14.38,S 5.065 10.625, 3.623 7.794,S 5.823 5.587, 5.823 5.587,S 6.179 4.918, 6.068 4.572,S 5.499 2.247, 5.499 1,S 5.052 0, 4.5 0,z\\"/>",
-          "        </svg>",
-          "      </div>",
-          "    </div>",
-          "  </div>",
-          "  <div role=\\"oval\\" aria-label=\\"mask\\">",
-          "  </div>",
-          "</div>",
-        ],
+        "html": "
+<div role=\\"group\\" aria-label=\\"heads-up notification\\">
+  <div role=\\"shapePath\\" aria-label=\\"card\\">
+    <svg width=\\"346.00\\" height=\\"162.00\\">
+      <path stroke-width=\\"1\\" stroke=\\"#979797ff\\" fill=\\"rgba(250,250,250,1)\\" d=\\"M343 161,S 3 161, 3 161,S 1 160.1, 1 159,S 1 3.1, 1 3,S 1.9 1, 3 1,S 342.9 1, 343 1,S 344.9 1.9, 345 3,S 344.9 158.9, 345 159,z\\"/>
+    </svg>
+  </div>
+  <div role=\\"shapePath\\" aria-label=\\"divider\\">
+    <svg width=\\"258.00\\" height=\\"5.00\\">
+      <path stroke-width=\\"1\\" stroke=\\"#0000001f\\" fill=\\"none\\" d=\\"M1 2.5,L 257 2.5\\"/>
+    </svg>
+  </div>
+  <div role=\\"text\\" aria-label=\\"Incoming call\\">
+    <span>Incoming call</span>
+  </div>
+  <div role=\\"text\\" aria-label=\\"Scott Masterson\\">
+    <span>Scott Masterson</span>
+  </div>
+  <div role=\\"group\\" aria-label=\\"ignore\\">
+    <div role=\\"text\\" aria-label=\\"Ignore\\">
+      <span>IGNORE</span>
+    </div>
+    <div role=\\"group\\" aria-label=\\"ignore icon\\">
+      <div role=\\"rectangle\\" aria-label=\\"bounds\\"></div>
+      <div role=\\"shapePath\\" aria-label=\\"shape\\">
+        <svg width=\\"14.00\\" height=\\"14.00\\">
+          <path fill=\\"rgba(0,0,0,1)\\" d=\\"M7 5.586,L 1.414 0,L 0 1.414,L 5.585 7,L 0 12.586,L 1.414 14,L 7 8.414,L 12.586 14,L 13.999 12.586,L 8.414 7,L 13.999 1.414,L 12.586 0,z\\"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+  <div role=\\"group\\" aria-label=\\"answer\\">
+    <div role=\\"text\\" aria-label=\\"ANSWER\\">
+      <span>ANSWER</span>
+    </div>
+    <div role=\\"group\\" aria-label=\\"call icon\\">
+      <div role=\\"rectangle\\" aria-label=\\"bounds\\"></div>
+      <div role=\\"shapePath\\" aria-label=\\"Imported Layers\\">
+        <svg width=\\"18.00\\" height=\\"18.00\\">
+          <path fill=\\"rgba(0,0,0,1)\\" d=\\"M1 0,S 0 0.447, 0 1,S 7.612 18, 17 18,S 18 17.553, 18 17,S 18 13.5, 18 13.5,S 17.553 12.501, 17 12.501,S 14.552 12.3, 13.428 11.932,S 13.223 11.884, 13.119 11.884,S 12.608 11.982, 12.413 12.177,S 10.212 14.38, 10.212 14.38,S 5.065 10.625, 3.623 7.794,S 5.823 5.587, 5.823 5.587,S 6.179 4.918, 6.068 4.572,S 5.499 2.247, 5.499 1,S 5.052 0, 4.5 0,z\\"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+  <div role=\\"oval\\" aria-label=\\"mask\\"></div>
+</div>",
       },
     },
   ],
@@ -48001,59 +47927,54 @@ Object {
       },
       "web": Object {
         "components": Array [],
-        "css": Array [],
-        "html": Array [
-          "<div role=\\"group\\" aria-label=\\"app bar + status bar\\">",
-          "  <div role=\\"group\\" aria-label=\\"app bar\\">",
-          "    <div role=\\"shapePath\\" aria-label=\\"app bar bg\\">",
-          "      <svg width=\\"360.00\\" height=\\"128.00\\">",
-          "        <path fill=\\"rgba(0,187,211,1)\\" d=\\"M360 0,L 0 0,L 0 128,L 360 128,z\\"/>",
-          "      </svg>",
-          "    </div>",
-          "    <div role=\\"group\\" aria-label=\\"tabs\\">",
-          "      <div role=\\"rectangle\\" aria-label=\\"bounds\\">",
-          "      </div>",
-          "      <div role=\\"text\\" aria-label=\\"THE THIRD\\">",
-          "        <span>THE THIRD</span>",
-          "      </div>",
-          "      <div role=\\"text\\" aria-label=\\"ITEM TWO\\">",
-          "        <span>ITEM TWO</span>",
-          "      </div>",
-          "      <div role=\\"text\\" aria-label=\\"NO. ONE\\">",
-          "        <span>NO. ONE</span>",
-          "      </div>",
-          "      <div role=\\"rectangle\\" aria-label=\\"indicator\\">",
-          "      </div>",
-          "    </div>",
-          "    <div role=\\"group\\" aria-label=\\"app bar contents\\">",
-          "      <div role=\\"group\\" aria-label=\\"more\\">",
-          "        <div role=\\"shapeGroup\\" aria-label=\\"Shape\\">",
-          "        </div>",
-          "        <div role=\\"shapePath\\" aria-label=\\"Shape\\">",
-          "          <svg width=\\"12.00\\" height=\\"24.00\\">",
-          "            <path fill=\\"none\\" d=\\"M12 0,L 0 0,L 0 24,L 12 24,z\\"/>",
-          "          </svg>",
-          "        </div>",
-          "      </div>",
-          "      <div role=\\"text\\" aria-label=\\"Page Title\\">",
-          "        <span>Page Title</span>",
-          "      </div>",
-          "      <div role=\\"group\\" aria-label=\\"menu\\">",
-          "        <div role=\\"rectangle\\" aria-label=\\"bounds\\">",
-          "        </div>",
-          "        <div role=\\"shapeGroup\\" aria-label=\\"Shape\\">",
-          "        </div>",
-          "      </div>",
-          "    </div>",
-          "  </div>",
-          "  <div role=\\"group\\" aria-label=\\"status bar\\">",
-          "    <div role=\\"rectangle\\" aria-label=\\"status bar bg\\">",
-          "    </div>",
-          "    <div role=\\"symbolInstance\\" aria-label=\\"status bar contents\\">",
-          "    </div>",
-          "  </div>",
-          "</div>",
-        ],
+        "html": "
+<div role=\\"group\\" aria-label=\\"app bar + status bar\\">
+  <div role=\\"group\\" aria-label=\\"app bar\\">
+    <div role=\\"shapePath\\" aria-label=\\"app bar bg\\">
+      <svg width=\\"360.00\\" height=\\"128.00\\">
+        <path fill=\\"rgba(0,187,211,1)\\" d=\\"M360 0,L 0 0,L 0 128,L 360 128,z\\"/>
+      </svg>
+    </div>
+    <div role=\\"group\\" aria-label=\\"tabs\\">
+      <div role=\\"rectangle\\" aria-label=\\"bounds\\"></div>
+      <div role=\\"text\\" aria-label=\\"THE THIRD\\">
+        <span>THE THIRD</span>
+      </div>
+      <div role=\\"text\\" aria-label=\\"ITEM TWO\\">
+        <span>ITEM TWO</span>
+      </div>
+      <div role=\\"text\\" aria-label=\\"NO. ONE\\">
+        <span>NO. ONE</span>
+      </div>
+      <div role=\\"rectangle\\" aria-label=\\"indicator\\"></div>
+    </div>
+    <div role=\\"group\\" aria-label=\\"app bar contents\\">
+      <div role=\\"group\\" aria-label=\\"more\\">
+        <div role=\\"shapeGroup\\" aria-label=\\"Shape\\">
+        </div>
+        <div role=\\"shapePath\\" aria-label=\\"Shape\\">
+          <svg width=\\"12.00\\" height=\\"24.00\\">
+            <path fill=\\"none\\" d=\\"M12 0,L 0 0,L 0 24,L 12 24,z\\"/>
+          </svg>
+        </div>
+      </div>
+      <div role=\\"text\\" aria-label=\\"Page Title\\">
+        <span>Page Title</span>
+      </div>
+      <div role=\\"group\\" aria-label=\\"menu\\">
+        <div role=\\"rectangle\\" aria-label=\\"bounds\\"></div>
+        <div role=\\"shapeGroup\\" aria-label=\\"Shape\\">
+        </div>
+      </div>
+    </div>
+  </div>
+  <div role=\\"group\\" aria-label=\\"status bar\\">
+    <div role=\\"rectangle\\" aria-label=\\"status bar bg\\"></div>
+    <div role=\\"symbolInstance\\" aria-label=\\"status bar contents\\">
+
+    </div>
+  </div>
+</div>",
       },
     },
     Object {
@@ -51359,65 +51280,52 @@ Object {
       },
       "web": Object {
         "components": Array [],
-        "css": Array [],
-        "html": Array [
-          "<div role=\\"symbolMaster\\" aria-label=\\"Material/Android/Status bar content\\">",
-          "  <div role=\\"rectangle\\" aria-label=\\"bounds\\">",
-          "  </div>",
-          "  <div role=\\"group\\" aria-label=\\"wifi\\">",
-          "    <div role=\\"shapePath\\" aria-label=\\"wifi mask\\">",
-          "      <svg width=\\"16.00\\" height=\\"12.00\\">",
-          "        <path fill=\\"none\\" d=\\"M0 0,L 8 12,L 16 0,z\\"/>",
-          "      </svg>",
-          "    </div>",
-          "    <div role=\\"shapeGroup\\" aria-label=\\"Shape\\">",
-          "    </div>",
-          "    <div role=\\"shapeGroup\\" aria-label=\\"Shape\\">",
-          "    </div>",
-          "    <div role=\\"shapeGroup\\" aria-label=\\"Shape\\">",
-          "    </div>",
-          "    <div role=\\"oval\\" aria-label=\\"Oval\\">",
-          "    </div>",
-          "  </div>",
-          "  <div role=\\"group\\" aria-label=\\"reception\\">",
-          "    <div role=\\"shapePath\\" aria-label=\\"reception mask\\">",
-          "      <svg width=\\"12.00\\" height=\\"12.00\\">",
-          "        <path fill=\\"none\\" d=\\"M12 12,L 12 0,L 0 12,z\\"/>",
-          "      </svg>",
-          "    </div>",
-          "    <div role=\\"rectangle\\" aria-label=\\"Rectangle-path\\">",
-          "    </div>",
-          "    <div role=\\"rectangle\\" aria-label=\\"Rectangle-path\\">",
-          "    </div>",
-          "    <div role=\\"rectangle\\" aria-label=\\"Rectangle-path\\">",
-          "    </div>",
-          "    <div role=\\"rectangle\\" aria-label=\\"Rectangle-path\\">",
-          "    </div>",
-          "  </div>",
-          "  <div role=\\"group\\" aria-label=\\"battery\\">",
-          "    <div role=\\"shapePath\\" aria-label=\\"battery mask\\">",
-          "      <svg width=\\"8.00\\" height=\\"13.00\\">",
-          "        <path fill=\\"none\\" d=\\"M7 1,L 6 1,L 6 0,L 2 0,L 2 1,S 1 1, 1 1,S 0 1.4, 0 2,S 0 12, 0 12,S 0.4 13, 1 13,S 7 13, 7 13,S 8 12.6, 8 12,S 8 2, 8 2,S 7.6 1, 7 1,z\\"/>",
-          "      </svg>",
-          "    </div>",
-          "    <div role=\\"rectangle\\" aria-label=\\"Rectangle-path\\">",
-          "    </div>",
-          "    <div role=\\"rectangle\\" aria-label=\\"Rectangle-path\\">",
-          "    </div>",
-          "    <div role=\\"rectangle\\" aria-label=\\"Rectangle-path\\">",
-          "    </div>",
-          "    <div role=\\"rectangle\\" aria-label=\\"Rectangle-path\\">",
-          "    </div>",
-          "    <div role=\\"rectangle\\" aria-label=\\"Rectangle-path\\">",
-          "    </div>",
-          "  </div>",
-          "  <div role=\\"group\\" aria-label=\\"time\\">",
-          "    <div role=\\"text\\" aria-label=\\"12:30\\">",
-          "      <span>12:30</span>",
-          "    </div>",
-          "  </div>",
-          "</div>",
-        ],
+        "html": "
+<div role=\\"symbolMaster\\" aria-label=\\"Material/Android/Status bar content\\">
+  <div role=\\"rectangle\\" aria-label=\\"bounds\\"></div>
+  <div role=\\"group\\" aria-label=\\"wifi\\">
+    <div role=\\"shapePath\\" aria-label=\\"wifi mask\\">
+      <svg width=\\"16.00\\" height=\\"12.00\\">
+        <path fill=\\"none\\" d=\\"M0 0,L 8 12,L 16 0,z\\"/>
+      </svg>
+    </div>
+    <div role=\\"shapeGroup\\" aria-label=\\"Shape\\">
+    </div>
+    <div role=\\"shapeGroup\\" aria-label=\\"Shape\\">
+    </div>
+    <div role=\\"shapeGroup\\" aria-label=\\"Shape\\">
+    </div>
+    <div role=\\"oval\\" aria-label=\\"Oval\\"></div>
+  </div>
+  <div role=\\"group\\" aria-label=\\"reception\\">
+    <div role=\\"shapePath\\" aria-label=\\"reception mask\\">
+      <svg width=\\"12.00\\" height=\\"12.00\\">
+        <path fill=\\"none\\" d=\\"M12 12,L 12 0,L 0 12,z\\"/>
+      </svg>
+    </div>
+    <div role=\\"rectangle\\" aria-label=\\"Rectangle-path\\"></div>
+    <div role=\\"rectangle\\" aria-label=\\"Rectangle-path\\"></div>
+    <div role=\\"rectangle\\" aria-label=\\"Rectangle-path\\"></div>
+    <div role=\\"rectangle\\" aria-label=\\"Rectangle-path\\"></div>
+  </div>
+  <div role=\\"group\\" aria-label=\\"battery\\">
+    <div role=\\"shapePath\\" aria-label=\\"battery mask\\">
+      <svg width=\\"8.00\\" height=\\"13.00\\">
+        <path fill=\\"none\\" d=\\"M7 1,L 6 1,L 6 0,L 2 0,L 2 1,S 1 1, 1 1,S 0 1.4, 0 2,S 0 12, 0 12,S 0.4 13, 1 13,S 7 13, 7 13,S 8 12.6, 8 12,S 8 2, 8 2,S 7.6 1, 7 1,z\\"/>
+      </svg>
+    </div>
+    <div role=\\"rectangle\\" aria-label=\\"Rectangle-path\\"></div>
+    <div role=\\"rectangle\\" aria-label=\\"Rectangle-path\\"></div>
+    <div role=\\"rectangle\\" aria-label=\\"Rectangle-path\\"></div>
+    <div role=\\"rectangle\\" aria-label=\\"Rectangle-path\\"></div>
+    <div role=\\"rectangle\\" aria-label=\\"Rectangle-path\\"></div>
+  </div>
+  <div role=\\"group\\" aria-label=\\"time\\">
+    <div role=\\"text\\" aria-label=\\"12:30\\">
+      <span>12:30</span>
+    </div>
+  </div>
+</div>",
       },
     },
   ],
@@ -54523,59 +54431,54 @@ Object {
       },
       "web": Object {
         "components": Array [],
-        "css": Array [],
-        "html": Array [
-          "<div role=\\"group\\" aria-label=\\"app bar + status bar\\">",
-          "  <div role=\\"group\\" aria-label=\\"app bar\\">",
-          "    <div role=\\"shapePath\\" aria-label=\\"app bar bg\\">",
-          "      <svg width=\\"360.00\\" height=\\"128.00\\">",
-          "        <path fill=\\"rgba(0,187,211,1)\\" d=\\"M360 0,L 0 0,L 0 128,L 360 128,z\\"/>",
-          "      </svg>",
-          "    </div>",
-          "    <div role=\\"group\\" aria-label=\\"tabs\\">",
-          "      <div role=\\"rectangle\\" aria-label=\\"bounds\\">",
-          "      </div>",
-          "      <div role=\\"text\\" aria-label=\\"THE THIRD\\">",
-          "        <span>THE THIRD</span>",
-          "      </div>",
-          "      <div role=\\"text\\" aria-label=\\"ITEM TWO\\">",
-          "        <span>ITEM TWO</span>",
-          "      </div>",
-          "      <div role=\\"text\\" aria-label=\\"NO. ONE\\">",
-          "        <span>NO. ONE</span>",
-          "      </div>",
-          "      <div role=\\"rectangle\\" aria-label=\\"indicator\\">",
-          "      </div>",
-          "    </div>",
-          "    <div role=\\"group\\" aria-label=\\"app bar contents\\">",
-          "      <div role=\\"group\\" aria-label=\\"more\\">",
-          "        <div role=\\"shapeGroup\\" aria-label=\\"Shape\\">",
-          "        </div>",
-          "        <div role=\\"shapePath\\" aria-label=\\"Shape\\">",
-          "          <svg width=\\"12.00\\" height=\\"24.00\\">",
-          "            <path fill=\\"none\\" d=\\"M12 0,L 0 0,L 0 24,L 12 24,z\\"/>",
-          "          </svg>",
-          "        </div>",
-          "      </div>",
-          "      <div role=\\"text\\" aria-label=\\"Page Title\\">",
-          "        <span>Page Title</span>",
-          "      </div>",
-          "      <div role=\\"group\\" aria-label=\\"menu\\">",
-          "        <div role=\\"rectangle\\" aria-label=\\"bounds\\">",
-          "        </div>",
-          "        <div role=\\"shapeGroup\\" aria-label=\\"Shape\\">",
-          "        </div>",
-          "      </div>",
-          "    </div>",
-          "  </div>",
-          "  <div role=\\"group\\" aria-label=\\"status bar\\">",
-          "    <div role=\\"rectangle\\" aria-label=\\"status bar bg\\">",
-          "    </div>",
-          "    <div role=\\"symbolInstance\\" aria-label=\\"status bar contents\\">",
-          "    </div>",
-          "  </div>",
-          "</div>",
-        ],
+        "html": "
+<div role=\\"group\\" aria-label=\\"app bar + status bar\\">
+  <div role=\\"group\\" aria-label=\\"app bar\\">
+    <div role=\\"shapePath\\" aria-label=\\"app bar bg\\">
+      <svg width=\\"360.00\\" height=\\"128.00\\">
+        <path fill=\\"rgba(0,187,211,1)\\" d=\\"M360 0,L 0 0,L 0 128,L 360 128,z\\"/>
+      </svg>
+    </div>
+    <div role=\\"group\\" aria-label=\\"tabs\\">
+      <div role=\\"rectangle\\" aria-label=\\"bounds\\"></div>
+      <div role=\\"text\\" aria-label=\\"THE THIRD\\">
+        <span>THE THIRD</span>
+      </div>
+      <div role=\\"text\\" aria-label=\\"ITEM TWO\\">
+        <span>ITEM TWO</span>
+      </div>
+      <div role=\\"text\\" aria-label=\\"NO. ONE\\">
+        <span>NO. ONE</span>
+      </div>
+      <div role=\\"rectangle\\" aria-label=\\"indicator\\"></div>
+    </div>
+    <div role=\\"group\\" aria-label=\\"app bar contents\\">
+      <div role=\\"group\\" aria-label=\\"more\\">
+        <div role=\\"shapeGroup\\" aria-label=\\"Shape\\">
+        </div>
+        <div role=\\"shapePath\\" aria-label=\\"Shape\\">
+          <svg width=\\"12.00\\" height=\\"24.00\\">
+            <path fill=\\"none\\" d=\\"M12 0,L 0 0,L 0 24,L 12 24,z\\"/>
+          </svg>
+        </div>
+      </div>
+      <div role=\\"text\\" aria-label=\\"Page Title\\">
+        <span>Page Title</span>
+      </div>
+      <div role=\\"group\\" aria-label=\\"menu\\">
+        <div role=\\"rectangle\\" aria-label=\\"bounds\\"></div>
+        <div role=\\"shapeGroup\\" aria-label=\\"Shape\\">
+        </div>
+      </div>
+    </div>
+  </div>
+  <div role=\\"group\\" aria-label=\\"status bar\\">
+    <div role=\\"rectangle\\" aria-label=\\"status bar bg\\"></div>
+    <div role=\\"symbolInstance\\" aria-label=\\"status bar contents\\">
+
+    </div>
+  </div>
+</div>",
       },
     },
     Object {
@@ -57915,65 +57818,52 @@ Object {
       },
       "web": Object {
         "components": Array [],
-        "css": Array [],
-        "html": Array [
-          "<div role=\\"symbolMaster\\" aria-label=\\"Material/Android/Status bar content\\">",
-          "  <div role=\\"rectangle\\" aria-label=\\"bounds\\">",
-          "  </div>",
-          "  <div role=\\"group\\" aria-label=\\"wifi\\">",
-          "    <div role=\\"shapePath\\" aria-label=\\"wifi mask\\">",
-          "      <svg width=\\"16.00\\" height=\\"12.00\\">",
-          "        <path fill=\\"none\\" d=\\"M0 0,L 8 12,L 16 0,z\\"/>",
-          "      </svg>",
-          "    </div>",
-          "    <div role=\\"shapeGroup\\" aria-label=\\"Shape\\">",
-          "    </div>",
-          "    <div role=\\"shapeGroup\\" aria-label=\\"Shape\\">",
-          "    </div>",
-          "    <div role=\\"shapeGroup\\" aria-label=\\"Shape\\">",
-          "    </div>",
-          "    <div role=\\"oval\\" aria-label=\\"Oval\\">",
-          "    </div>",
-          "  </div>",
-          "  <div role=\\"group\\" aria-label=\\"reception\\">",
-          "    <div role=\\"shapePath\\" aria-label=\\"reception mask\\">",
-          "      <svg width=\\"12.00\\" height=\\"12.00\\">",
-          "        <path fill=\\"none\\" d=\\"M12 12,L 12 0,L 0 12,z\\"/>",
-          "      </svg>",
-          "    </div>",
-          "    <div role=\\"rectangle\\" aria-label=\\"Rectangle-path\\">",
-          "    </div>",
-          "    <div role=\\"rectangle\\" aria-label=\\"Rectangle-path\\">",
-          "    </div>",
-          "    <div role=\\"rectangle\\" aria-label=\\"Rectangle-path\\">",
-          "    </div>",
-          "    <div role=\\"rectangle\\" aria-label=\\"Rectangle-path\\">",
-          "    </div>",
-          "  </div>",
-          "  <div role=\\"group\\" aria-label=\\"battery\\">",
-          "    <div role=\\"shapePath\\" aria-label=\\"battery mask\\">",
-          "      <svg width=\\"8.00\\" height=\\"13.00\\">",
-          "        <path fill=\\"none\\" d=\\"M7 1,L 6 1,L 6 0,L 2 0,L 2 1,S 1 1, 1 1,S 0 1.4, 0 2,S 0 12, 0 12,S 0.4 13, 1 13,S 7 13, 7 13,S 8 12.6, 8 12,S 8 2, 8 2,S 7.6 1, 7 1,z\\"/>",
-          "      </svg>",
-          "    </div>",
-          "    <div role=\\"rectangle\\" aria-label=\\"Rectangle-path\\">",
-          "    </div>",
-          "    <div role=\\"rectangle\\" aria-label=\\"Rectangle-path\\">",
-          "    </div>",
-          "    <div role=\\"rectangle\\" aria-label=\\"Rectangle-path\\">",
-          "    </div>",
-          "    <div role=\\"rectangle\\" aria-label=\\"Rectangle-path\\">",
-          "    </div>",
-          "    <div role=\\"rectangle\\" aria-label=\\"Rectangle-path\\">",
-          "    </div>",
-          "  </div>",
-          "  <div role=\\"group\\" aria-label=\\"time\\">",
-          "    <div role=\\"text\\" aria-label=\\"12:30\\">",
-          "      <span>12:30</span>",
-          "    </div>",
-          "  </div>",
-          "</div>",
-        ],
+        "html": "
+<div role=\\"symbolMaster\\" aria-label=\\"Material/Android/Status bar content\\">
+  <div role=\\"rectangle\\" aria-label=\\"bounds\\"></div>
+  <div role=\\"group\\" aria-label=\\"wifi\\">
+    <div role=\\"shapePath\\" aria-label=\\"wifi mask\\">
+      <svg width=\\"16.00\\" height=\\"12.00\\">
+        <path fill=\\"none\\" d=\\"M0 0,L 8 12,L 16 0,z\\"/>
+      </svg>
+    </div>
+    <div role=\\"shapeGroup\\" aria-label=\\"Shape\\">
+    </div>
+    <div role=\\"shapeGroup\\" aria-label=\\"Shape\\">
+    </div>
+    <div role=\\"shapeGroup\\" aria-label=\\"Shape\\">
+    </div>
+    <div role=\\"oval\\" aria-label=\\"Oval\\"></div>
+  </div>
+  <div role=\\"group\\" aria-label=\\"reception\\">
+    <div role=\\"shapePath\\" aria-label=\\"reception mask\\">
+      <svg width=\\"12.00\\" height=\\"12.00\\">
+        <path fill=\\"none\\" d=\\"M12 12,L 12 0,L 0 12,z\\"/>
+      </svg>
+    </div>
+    <div role=\\"rectangle\\" aria-label=\\"Rectangle-path\\"></div>
+    <div role=\\"rectangle\\" aria-label=\\"Rectangle-path\\"></div>
+    <div role=\\"rectangle\\" aria-label=\\"Rectangle-path\\"></div>
+    <div role=\\"rectangle\\" aria-label=\\"Rectangle-path\\"></div>
+  </div>
+  <div role=\\"group\\" aria-label=\\"battery\\">
+    <div role=\\"shapePath\\" aria-label=\\"battery mask\\">
+      <svg width=\\"8.00\\" height=\\"13.00\\">
+        <path fill=\\"none\\" d=\\"M7 1,L 6 1,L 6 0,L 2 0,L 2 1,S 1 1, 1 1,S 0 1.4, 0 2,S 0 12, 0 12,S 0.4 13, 1 13,S 7 13, 7 13,S 8 12.6, 8 12,S 8 2, 8 2,S 7.6 1, 7 1,z\\"/>
+      </svg>
+    </div>
+    <div role=\\"rectangle\\" aria-label=\\"Rectangle-path\\"></div>
+    <div role=\\"rectangle\\" aria-label=\\"Rectangle-path\\"></div>
+    <div role=\\"rectangle\\" aria-label=\\"Rectangle-path\\"></div>
+    <div role=\\"rectangle\\" aria-label=\\"Rectangle-path\\"></div>
+    <div role=\\"rectangle\\" aria-label=\\"Rectangle-path\\"></div>
+  </div>
+  <div role=\\"group\\" aria-label=\\"time\\">
+    <div role=\\"text\\" aria-label=\\"12:30\\">
+      <span>12:30</span>
+    </div>
+  </div>
+</div>",
       },
     },
   ],
