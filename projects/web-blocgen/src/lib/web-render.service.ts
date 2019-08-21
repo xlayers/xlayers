@@ -1,18 +1,18 @@
-import { Injectable } from "@angular/core";
+import { Injectable } from '@angular/core';
 import {
   FormatService,
   SymbolService,
   LayerService,
   ImageService,
   TextService
-} from "@xlayers/sketch-lib";
-import { WebContextService } from "./web-context.service";
-import { WebBlocGenOptions } from "./web-blocgen";
-import { CssBlocGenService } from "@xlayers/css-blocgen";
-import { SvgBlocGenService } from "@xlayers/svg-blocgen";
+} from '@xlayers/sketch-lib';
+import { WebContextService } from './web-context.service';
+import { WebBlocGenOptions } from './web-blocgen';
+import { CssBlocGenService } from '@xlayers/css-blocgen';
+import { SvgBlocGenService } from '@xlayers/svg-blocgen';
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root'
 })
 export class WebRenderService {
   constructor(
@@ -30,14 +30,14 @@ export class WebRenderService {
     const fileName = this.format.normalizeName(current.name);
     return [
       {
-        kind: "web",
+        kind: 'web',
         value: this.renderComponent(current, options),
-        language: "html",
+        language: 'html',
         uri: `${options.componentDir}/${fileName}.html`
       },
       ...this.cssBlocGen.render(current, options).map(file => ({
         ...file,
-        kind: "web"
+        kind: 'web'
       }))
     ];
   }
@@ -45,13 +45,13 @@ export class WebRenderService {
   private renderComponent(current: SketchMSLayer, options: WebBlocGenOptions) {
     const template = [];
 
-    if (current._class === "page") {
+    if (current._class === 'page') {
       this.walk(current, template, 0, options);
     } else {
       this.visit(current, template, 0, options);
     }
 
-    return template.join("\n");
+    return template.join('\n');
   }
 
   private walk(
@@ -126,7 +126,7 @@ export class WebRenderService {
     template.push(
       this.format.indent(
         indent,
-        [`<${options.bitmapTagName}`, ...attributes].join(" ") + " />"
+        [`<${options.bitmapTagName}`, ...attributes].join(' ') + ' />'
       )
     );
   }
@@ -140,20 +140,13 @@ export class WebRenderService {
     template.push(
       this.format.indent(
         indent,
-        this.renderAttributeTag(current, options.blockTagName, options)
-      )
-    );
-    template.push(
-      this.format.indent(
-        indent + 1,
         [
-          `<${options.textTagName}>`,
+          this.renderAttributeTag(current, options.textTagName, options),
           this.text.lookup(current),
           `</${options.textTagName}>`
-        ].join("")
+        ].join('')
       )
     );
-    template.push(this.format.indent(indent, `</${options.blockTagName}>`));
   }
 
   private visitShape(
@@ -173,11 +166,11 @@ export class WebRenderService {
         .render(current, { xmlNamespace: false })
         .map(file =>
           file.value
-            .split("\n")
+            .split('\n')
             .map(line => this.format.indent(indent + 1, line))
-            .join("\n")
+            .join('\n')
         )
-        .join("\n")
+        .join('\n')
     );
     template.push(this.format.indent(indent, `</${options.blockTagName}>`));
   }
@@ -190,13 +183,13 @@ export class WebRenderService {
     const attributes = this.webContext.of(current).attributes;
     if (options.jsx) {
       const attributIndex = attributes.findIndex(attribute =>
-        attribute.startsWith("class=")
+        attribute.startsWith('class=')
       );
       attributes[attributIndex] = attributes[attributIndex].replace(
-        "class=",
-        "className="
+        'class=',
+        'className='
       );
     }
-    return [`<${tagName}`, ...attributes].join(" ") + ">";
+    return [`<${tagName}`, ...attributes].join(' ') + '>';
   }
 }
