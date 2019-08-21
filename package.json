@@ -5,6 +5,7 @@
     "ng": "ng",
     "--dev--": "",
     "start": "ng serve --configuration hmr",
+    "prestart": "make lib",
     "--build--": "",
     "app.build.dev": "ng build",
     "app.build.prod": "ng build --prod",
