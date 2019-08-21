@@ -80,7 +80,7 @@ it('renders without crashing', () => {
         const importFileName = this.format.normalizeName(component);
         return `import { ${importclassName} } from "./${importFileName}";`;
       }),
-      'import \'./${fileName}.css\';'
+      `import \'./${fileName}.css\';`
     ].join('\n');
   }
 }
