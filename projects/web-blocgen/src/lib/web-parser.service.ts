@@ -1,18 +1,18 @@
-import { Injectable } from '@angular/core';
+import { Injectable } from "@angular/core";
 import {
   ImageService,
   FormatService,
   SymbolService,
   LayerService
-} from '@xlayers/sketch-lib';
-import { CssBlocGenService } from '@xlayers/css-blocgen';
-import { SvgBlocGenService } from '@xlayers/svg-blocgen';
-import { TextService } from '@xlayers/sketch-lib';
-import { WebBlocGenOptions } from './web-blocgen.d';
-import { WebContextService } from './web-context.service';
+} from "@xlayers/sketch-lib";
+import { CssBlocGenService } from "@xlayers/css-blocgen";
+import { SvgBlocGenService } from "@xlayers/svg-blocgen";
+import { TextService } from "@xlayers/sketch-lib";
+import { WebBlocGenOptions } from "./web-blocgen.d";
+import { WebContextService } from "./web-context.service";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class WebParserService {
   constructor(
@@ -34,7 +34,7 @@ export class WebParserService {
     this.svgBlocGen.compute(current, data, options);
     this.cssBlocGen.compute(current, data, options);
 
-    if (current._class === 'page') {
+    if (current._class === "page") {
       current.layers.forEach(layer => {
         this.visit(data, layer, current, 0, options);
       });
@@ -92,7 +92,8 @@ export class WebParserService {
         components: [...this.webContext.contextOf(root).components, tagName]
       });
 
-      const tag = `<${tagName}/>`;
+      const tag = `\
+<${options.xmlPrefix}${tagName}></${options.xmlPrefix}${tagName}>`;
 
       return [this.format.indent(depth, tag)];
     }
@@ -114,7 +115,7 @@ export class WebParserService {
     if (this.svgBlocGen.identify(current)) {
       return this.extractShape(current, depth);
     }
-    return '';
+    return "";
   }
 
   private extractBitmap(
@@ -125,13 +126,13 @@ export class WebParserService {
     const className = this.cssBlocGen.context(current).className;
     const attributes = [
       ...(className
-        ? [`${options.jsx ? 'className' : 'class'}="${className}"`]
+        ? [`${options.jsx ? "className" : "class"}="${className}"`]
         : []),
       `role="${current._class}"`,
       `aria-label="${current.name}"`,
       `src="${options.assetDir}/${this.format.normalizeName(current.name)}.jpg"`
     ];
-    const tag = ['<img', ...attributes].join(' ') + '>';
+    const tag = ["<img", ...attributes].join(" ") + ">";
 
     return this.format.indent(depth, tag);
   }
@@ -146,9 +147,9 @@ export class WebParserService {
   private extractShape(current: SketchMSLayer, depth: number) {
     return this.svgBlocGen.render(current, { xmlNamespace: false }).map(file =>
       file.value
-        .split('\n')
+        .split("\n")
         .map(line => this.format.indent(depth, line))
-        .join('\n')
+        .join("\n")
     );
   }
 
@@ -159,7 +160,7 @@ export class WebParserService {
     options: WebBlocGenOptions
   ) {
     const attributes = this.extractTagAttributes(current, options);
-    const tag = ['<div', ...attributes].join(' ') + '>';
+    const tag = ["<div", ...attributes].join(" ") + ">";
 
     this.webContext.putContext(root, {
       html: `\
@@ -176,7 +177,7 @@ ${this.format.indent(depth, tag)}`
     options: WebBlocGenOptions
   ) {
     const content = this.traverseLayer(current, root, data, depth + 1, options);
-    if (content === '') {
+    if (content === "") {
       this.webContext.putContext(root, {
         html: `${this.webContext.contextOf(root).html}</div>`
       });
@@ -185,13 +186,13 @@ ${this.format.indent(depth, tag)}`
         html: `\
 ${this.webContext.contextOf(root).html}
 ${content}
-${this.format.indent(depth, '</div>')}`
+${this.format.indent(depth, "</div>")}`
       });
     } else {
       this.webContext.putContext(root, {
         html: `\
 ${this.webContext.contextOf(root).html}
-${this.format.indent(depth, '</div>')}`
+${this.format.indent(depth, "</div>")}`
       });
     }
   }
@@ -203,7 +204,7 @@ ${this.format.indent(depth, '</div>')}`
     const className = this.cssBlocGen.context(current).className;
     return [
       ...(className
-        ? [`${options.jsx ? 'className' : 'class'}="${className}"`]
+        ? [`${options.jsx ? "className" : "class"}="${className}"`]
         : []),
       `role="${current._class}"`,
       `aria-label="${current.name}"`
