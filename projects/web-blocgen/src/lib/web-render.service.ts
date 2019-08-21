@@ -140,7 +140,7 @@ export class WebRenderService {
     template.push(
       this.format.indent(
         indent,
-        this.renderAttributeTag(current, options.textTagName, options)
+        this.renderAttributeTag(current, options.blockTagName, options)
       )
     );
     template.push(
