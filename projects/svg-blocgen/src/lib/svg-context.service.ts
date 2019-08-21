@@ -14,13 +14,10 @@ export class SvgContextService {
   }
 
   of(current: SketchMSLayer) {
-    return (current as any).svg || { paths: [], offset: 0, attributes: [] };
+    return (current as any).svg;
   }
 
-  put(
-    current: SketchMSLayer,
-    newContext: SvgBlocGenContext = { paths: [], offset: 0, attributes: [] }
-  ) {
+  put(current: SketchMSLayer, newContext: SvgBlocGenContext) {
     (current as any).svg = {
       ...this.of(current),
       ...newContext

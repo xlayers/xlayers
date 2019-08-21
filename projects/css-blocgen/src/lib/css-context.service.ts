@@ -26,21 +26,10 @@ export class CssContextService {
   }
 
   of(current: SketchMSLayer) {
-    return ((current as any).css || {
-      rules: {},
-      className: '',
-      pseudoElements: {}
-    }) as CssBlocGenContext;
+    return (current as any).css;
   }
 
-  put(
-    current: SketchMSLayer,
-    nextContext: CssBlocGenContext = {
-      rules: {},
-      className: '',
-      pseudoElements: {}
-    }
-  ) {
+  put(current: SketchMSLayer, nextContext: CssBlocGenContext) {
     (current as any).css = {
       ...this.of(current),
       ...nextContext

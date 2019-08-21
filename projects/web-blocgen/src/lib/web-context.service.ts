@@ -36,13 +36,10 @@ export class WebContextService {
   }
 
   of(current: SketchMSLayer) {
-    return (current as any).web || { html: '', components: [] };
+    return (current as any).web;
   }
 
-  put(
-    current: SketchMSLayer,
-    nextContext: WebBlocGenContext = { html: '', components: [] }
-  ) {
+  put(current: SketchMSLayer, nextContext: WebBlocGenContext) {
     (current as any).web = {
       ...this.of(current),
       ...nextContext
