@@ -1,4 +1,7 @@
 {
+  "workbench.colorCustomizations": {
+    "titleBar.activeBackground": "#ff2c70"
+  },
   "files.watcherExclude": {
     "**/.git/objects/**": true,
     "**/.git/subtree-cache/**": true,
