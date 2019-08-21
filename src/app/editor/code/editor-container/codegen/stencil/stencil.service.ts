@@ -1,8 +1,8 @@
-import { Injectable } from '@angular/core';
-import { WebBlocGenService } from '@xlayers/web-blocgen';
+import { Injectable } from "@angular/core";
+import { WebBlocGenService } from "@xlayers/web-blocgen";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class StencilCodeGenService {
   constructor(private webBlocGen: WebBlocGenService) {}
@@ -16,13 +16,13 @@ export class StencilCodeGenService {
   generate(data: SketchMSData) {
     return [
       {
-        uri: 'README.md',
+        uri: "README.md",
         value: this.renderReadme(),
-        language: 'markdown',
-        kind: 'text'
+        language: "markdown",
+        kind: "text"
       },
       ...(data.pages as any).flatMap(page =>
-        this.webBlocGen.render(page, data, { mode: 'stencil' })
+        this.webBlocGen.render(page, data, { mode: "stencil" })
       )
     ];
   }
@@ -42,6 +42,6 @@ Simple use :
 
 For more examples how to integrate into your application, view [Framework Integrations](https://stenciljs.com/docs/overview)
 
->  For more information about [Stenciljs](https://stenciljs.com/)'`;
+>  For more information about [Stenciljs](https://stenciljs.com/)`;
   }
 }

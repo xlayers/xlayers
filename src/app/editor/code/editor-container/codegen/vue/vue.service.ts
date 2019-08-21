@@ -1,8 +1,8 @@
-import { Injectable } from '@angular/core';
-import { WebBlocGenService } from '@xlayers/web-blocgen';
+import { Injectable } from "@angular/core";
+import { WebBlocGenService } from "@xlayers/web-blocgen";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class VueCodeGenService {
   constructor(private webBlocGen: WebBlocGenService) {}
@@ -14,13 +14,13 @@ export class VueCodeGenService {
   generate(data: SketchMSData) {
     return [
       {
-        kind: 'vue',
+        kind: "vue",
         value: this.renderReadme(data.meta.app),
-        language: 'markdown',
+        language: "markdown",
         uri: `README.md`
       },
       ...(data.pages as any).flatMap(page =>
-        this.webBlocGen.render(page, data, { mode: 'vue' })
+        this.webBlocGen.render(page, data, { mode: "vue" })
       )
     ];
   }
@@ -51,6 +51,6 @@ export default {
 </script>
 \`\`\`
 
-3. Enjoy.'`;
+3. Enjoy.`;
   }
 }

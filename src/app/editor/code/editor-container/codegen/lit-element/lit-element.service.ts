@@ -1,8 +1,8 @@
-import { Injectable } from '@angular/core';
-import { WebBlocGenService } from '@xlayers/web-blocgen';
+import { Injectable } from "@angular/core";
+import { WebBlocGenService } from "@xlayers/web-blocgen";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class LitElementCodeGenService {
   constructor(private webBlocGen: WebBlocGenService) {}
@@ -16,13 +16,13 @@ export class LitElementCodeGenService {
   generate(data: SketchMSData) {
     return [
       {
-        uri: 'README.md',
+        uri: "README.md",
         value: this.renderReadme(data.meta.app),
-        language: 'markdown',
-        kind: 'text'
+        language: "markdown",
+        kind: "text"
       },
       ...(data.pages as any).flatMap(page =>
-        this.webBlocGen.render(page, data, { mode: 'litElement' })
+        this.webBlocGen.render(page, data, { mode: "litElement" })
       )
     ];
   }
@@ -58,6 +58,6 @@ This implementation export the assets as single file web component that can be c
 \`\`\`
 
 >  [LitElement website](https://lit-element.polymer-project.org/)
->  For more information about [web components and browser support](https://github.com/WebComponents/webcomponentsjs#browser-support)'`;
+>  For more information about [web components and browser support](https://github.com/WebComponents/webcomponentsjs#browser-support)`;
   }
 }

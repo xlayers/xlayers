@@ -1,8 +1,8 @@
-import { Injectable } from '@angular/core';
-import { WebBlocGenService } from '@xlayers/web-blocgen';
+import { Injectable } from "@angular/core";
+import { WebBlocGenService } from "@xlayers/web-blocgen";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class AngularCodeGenService {
   constructor(private webBlocGen: WebBlocGenService) {}
@@ -16,25 +16,25 @@ export class AngularCodeGenService {
   generate(data: SketchMSData) {
     return [
       {
-        uri: 'README.md',
+        uri: "README.md",
         value: this.renderReadme(data.meta.app),
-        language: 'markdown',
-        kind: 'text'
+        language: "markdown",
+        kind: "text"
       },
       {
-        uri: 'xlayers.module.ts',
+        uri: "xlayers.module.ts",
         value: this.renderModule(),
-        language: 'typescript',
-        kind: 'angular'
+        language: "typescript",
+        kind: "angular"
       },
       {
-        uri: 'xlayers-routing.module.ts',
+        uri: "xlayers-routing.module.ts",
         value: this.renderRoutingModule(),
-        language: 'typescript',
-        kind: 'angular'
+        language: "typescript",
+        kind: "angular"
       },
       ...(data.pages as any).flatMap(page =>
-        this.webBlocGen.render(page, data, { mode: 'angular' })
+        this.webBlocGen.render(page, data, { mode: "angular" })
       )
     ];
   }
@@ -72,7 +72,7 @@ import { XlayersRoutingModule } from './xlayers/xlayers-routing.module';
 export class AppModule {}
 \`\`\`
 
-3. Enjoy.'`;
+3. Enjoy.`;
   }
 
   private renderRoutingModule() {
@@ -89,7 +89,7 @@ const xlayersRoutes: Routes = [{
   imports: [ RouterModule.forChild(xlayersRoutes) ],
   exports: [ RouterModule ]
 })
-export class XlayersRoutingModule {}'`;
+export class XlayersRoutingModule {}`;
   }
 
   private renderModule() {
@@ -109,6 +109,6 @@ import { MyComponent } from './components/my-component.component';
     CommonModule
   ]
 })
-export class XlayersModule {}'`;
+export class XlayersModule {}`;
   }
 }
