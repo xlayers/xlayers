@@ -174,7 +174,7 @@ export class WebRenderService {
         .map(file =>
           file.value
             .split('\n')
-            .map(line => this.format.indent(indent, line))
+            .map(line => this.format.indent(indent + 1, line))
             .join('\n')
         )
         .join('\n')
