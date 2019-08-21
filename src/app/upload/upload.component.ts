@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SketchService } from '@app/core/sketch.service';
 import {
-  CurrentFile,
+  CurrentData,
   ErrorType,
   InformUser,
   ResetUiSettings
@@ -30,7 +30,7 @@ export class UploadComponent implements OnInit {
       // Note: these actions need to be run in sequence!
       this.store.dispatch([
         new ResetUiSettings(),
-        new CurrentFile(data),
+        new CurrentData(data),
         new Navigate(['/editor/preview'])
       ]);
     } catch (error) {

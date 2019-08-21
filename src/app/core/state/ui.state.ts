@@ -31,7 +31,7 @@ export enum ErrorType {
   None = ''
 }
 
-export class CurrentFile {
+export class CurrentData {
   static readonly type = '[UiSettings] Current File';
   constructor(public data: SketchMSData) {}
 }
@@ -175,10 +175,10 @@ export class UiState {
 
   // Actions
 
-  @Action(CurrentFile)
+  @Action(CurrentData)
   currentData(
     { patchState, dispatch }: StateContext<UiSettings>,
-    action: CurrentFile
+    action: CurrentData
   ) {
     dispatch([
       new AvailablePages(action.data.pages),
