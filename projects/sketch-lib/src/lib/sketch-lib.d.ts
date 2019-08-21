@@ -19,12 +19,12 @@ export interface ParserFacade {
 }
 
 export interface WithLocalContext<T> {
-  contextOf(current: SketchMSLayer): T;
-  hasContext(current: SketchMSLayer): boolean;
+  of(current: SketchMSLayer): T;
+  has(current: SketchMSLayer): boolean;
 }
 
 export interface WithGlobalContext<T> {
-  globalContextOf(current: SketchMSData): T;
+  globalof(current: SketchMSData): T;
   hasGlobalContext(current: SketchMSData): boolean;
 }
 

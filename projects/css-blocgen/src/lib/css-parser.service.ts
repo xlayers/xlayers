@@ -19,6 +19,9 @@ export class CssParserService {
     data: SketchMSData,
     options: CssBlocGenOptions
   ) {
+    if (options.force) {
+      this.cssContext.clear(current);
+    }
     if (current._class === 'page') {
       current.layers.forEach(layer => {
         this.flattenLayer(layer);
@@ -35,7 +38,7 @@ export class CssParserService {
     options: CssBlocGenOptions
   ) {
     if (this.cssContext.identify(current)) {
-      if (!this.cssContext.hasContext(current)) {
+      if (!this.cssContext.has(current)) {
         this.extractLayerContent(current, options);
       }
     }
@@ -77,21 +80,72 @@ export class CssParserService {
     current: SketchMSLayer,
     options: CssBlocGenOptions
   ) {
-    this.cssContext.putContext(current, {
-      rules: {
-        ...this.extractObjectStyles(current),
-        ...this.extractFrameStyles(current)
-      }
-    });
+    this.cssContext.put(current, this.extractObjectStyles(current));
 
     if (options.generateClassName) {
-      this.cssContext.putContext(current, {
+      this.cssContext.put(current, {
         className: this.generateCssClassName(options)
       });
     }
   }
 
-  private extractFrameStyles(current: SketchMSLayer) {
+  private extractObjectStyles(current: SketchMSLayer) {
+    switch (current._class as string) {
+      case 'rectangle':
+        return this.extractLayerStyle(current);
+      case 'text':
+        return this.extractTextStyle(current);
+      case 'oval':
+        const base = this.extractLayerStyle(current);
+        return {
+          ...base,
+          rules: {
+            ...this.addOvalShape(),
+            ...base.rules
+          }
+        };
+      default:
+        return this.extractContainerStyle(current);
+    }
+  }
+
+  private extractContainerStyle(current: SketchMSLayer) {
+    return {
+      rules: {
+        ...this.extractFrame(current),
+        ...this.extractRotation(current),
+        ...this.extractBorderRadius(current),
+        ...this.extractOpacity(current)
+      }
+    };
+  }
+
+  private extractLayerStyle(current: SketchMSLayer) {
+    return {
+      rules: {
+        ...this.extractFrame(current),
+        ...this.extractBorders(current),
+        ...this.extractFills(current),
+        ...this.extractShadows(current)
+      },
+      pseudoElements: {
+        before: this.extractBlurPseudoElement(current)
+      }
+    };
+  }
+
+  private extractTextStyle(current: SketchMSLayer) {
+    return {
+      rules: {
+        ...this.extractFrame(current),
+        ...this.extractTextFont(current),
+        ...this.extractTextColor(current),
+        ...this.extractParagraphStyle(current)
+      }
+    };
+  }
+
+  private extractFrame(current: SketchMSLayer) {
     if (current.frame) {
       return {
         display: 'block',
@@ -104,47 +158,6 @@ export class CssParserService {
       };
     }
     return {};
-  }
-
-  private extractObjectStyles(current: SketchMSLayer) {
-    switch (current._class as string) {
-      case 'rectangle':
-        return this.extractLayerStyle(current);
-      case 'text':
-        return this.extractTextStyle(current);
-      case 'oval':
-        return {
-          ...this.addOvalShape(),
-          ...this.extractLayerStyle(current)
-        };
-      default:
-        return this.extractContainerStyle(current);
-    }
-  }
-
-  private extractContainerStyle(current: SketchMSLayer) {
-    return {
-      ...this.extractRotation(current),
-      ...this.extractBorderRadius(current),
-      ...this.extractOpacity(current)
-    };
-  }
-
-  private extractLayerStyle(current: SketchMSLayer) {
-    return {
-      ...this.extractBlur(current),
-      ...this.extractBorders(current),
-      ...this.extractFills(current),
-      ...this.extractShadows(current)
-    };
-  }
-
-  private extractTextStyle(current: SketchMSLayer) {
-    return {
-      ...this.extractTextFont(current),
-      ...this.extractTextColor(current),
-      ...this.extractParagraphStyle(current)
-    };
   }
 
   private extractTextColor(current: SketchMSLayer) {
@@ -232,13 +245,40 @@ export class CssParserService {
       : {};
   }
 
-  private extractBlur(current: SketchMSLayer) {
+  private extractBlurPseudoElement(current: SketchMSLayer) {
     const obj = (current as any).style.blur;
-    return obj && obj.hasOwnProperty('radius') && obj.radius > 0
-      ? {
-          filter: `blur(${obj.radius}px);`
+    if (obj && obj.hasOwnProperty('radius') && obj.radius > 0) {
+      const objFill = (current as any).style.fills;
+
+      if (objFill && objFill.length > 0) {
+        // we only support one fill: take the first one!
+        // ignore the other fills
+        const firstFill = objFill[0];
+
+        if (firstFill.isEnabled) {
+          const fillColor = this.styleHelperService.parseColorAsRgba(
+            firstFill.color
+          );
+
+          return {
+            height: `${current.frame.height + 50}px`,
+            width: `${current.frame.width + 50}px`,
+            content: '""',
+            position: 'absolute',
+            top: '-25px',
+            left: '-25px',
+            bottom: '0',
+            right: '0',
+            background: 'inherit',
+            'box-shadow': `inset 0 0 0 ${current.frame.width /
+              2}px ${fillColor}`,
+            filter: `blur(${obj.radius.toFixed(2)}px)`
+          };
         }
-      : {};
+      }
+    }
+
+    return {};
   }
 
   private extractBorders(current: SketchMSLayer) {
@@ -291,10 +331,20 @@ export class CssParserService {
           firstFill.color
         );
 
-        return {
-          ...this.extractFillGradient(firstFill),
-          'background-color': fillColor
-        };
+        const blurObj = (current as any).style.blur;
+        if (blurObj && blurObj.hasOwnProperty('radius') && blurObj.radius > 0) {
+          return {
+            ...this.extractFillGradient(firstFill),
+            background: 'inherit',
+            overflow: 'hidden',
+            'background-color': fillColor
+          };
+        } else {
+          return {
+            ...this.extractFillGradient(firstFill),
+            'background-color': fillColor
+          };
+        }
       }
     }
 

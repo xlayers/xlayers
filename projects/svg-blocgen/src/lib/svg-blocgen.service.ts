@@ -31,7 +31,7 @@ export class SvgBlocGenService {
   }
 
   context(current: SketchMSLayer) {
-    return this.svgContext.contextOf(current);
+    return this.svgContext.of(current);
   }
 
   private compileOptions(options: SvgBlocGenOptions) {

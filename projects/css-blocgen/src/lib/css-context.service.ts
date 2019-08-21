@@ -21,21 +21,33 @@ export class CssContextService {
     ].includes(current._class as string);
   }
 
-  hasContext(current: SketchMSLayer) {
+  has(current: SketchMSLayer) {
     return !!(current as any).css;
   }
 
-  contextOf(current: SketchMSLayer) {
-    return (current as any).css || { rules: {}, className: '' };
+  of(current: SketchMSLayer) {
+    return ((current as any).css || {
+      rules: {},
+      className: '',
+      pseudoElements: {}
+    }) as CssBlocGenContext;
   }
 
-  putContext(
+  put(
     current: SketchMSLayer,
-    nextContext: CssBlocGenContext = { rules: {}, className: '' }
+    nextContext: CssBlocGenContext = {
+      rules: {},
+      className: '',
+      pseudoElements: {}
+    }
   ) {
     (current as any).css = {
-      ...this.contextOf(current),
+      ...this.of(current),
       ...nextContext
     };
+  }
+
+  clear(current: SketchMSLayer) {
+    (current as any).web = null;
   }
 }

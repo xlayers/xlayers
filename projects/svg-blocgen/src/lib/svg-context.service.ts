@@ -6,27 +6,28 @@ import { SvgBlocGenContext } from './svg-blocgen';
 })
 export class SvgContextService {
   identify(current: SketchMSLayer) {
-    // TODO: Fix double rendered ShapePath and ShapeGroup
-    return ['triangle', 'shapePath' /*"shapeGroup"*/].includes(
-      current._class as string
-    );
+    return ['triangle', 'shapePath'].includes(current._class as string);
   }
 
-  hasContext(current: SketchMSLayer) {
+  has(current: SketchMSLayer) {
     return !!(current as any).svg;
   }
 
-  contextOf(current: SketchMSLayer) {
+  of(current: SketchMSLayer) {
     return (current as any).svg || { paths: [], offset: 0, attributes: [] };
   }
 
-  putContext(
+  put(
     current: SketchMSLayer,
     newContext: SvgBlocGenContext = { paths: [], offset: 0, attributes: [] }
   ) {
     (current as any).svg = {
-      ...this.contextOf(current),
+      ...this.of(current),
       ...newContext
     };
+  }
+
+  clear(current: SketchMSLayer) {
+    (current as any).svg = null;
   }
 }

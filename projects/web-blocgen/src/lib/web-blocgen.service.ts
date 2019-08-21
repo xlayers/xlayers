@@ -51,7 +51,7 @@ export class WebBlocGenService {
   }
 
   context(current: SketchMSLayer) {
-    return this.webContext.contextOf(current);
+    return this.webContext.of(current);
   }
 
   private traverseAndRender(
@@ -92,8 +92,11 @@ export class WebBlocGenService {
 
       case 'stencil':
         return [
-          ...this.traverse(current, data, options),
-          ...this.stencilRender.render(current, options)
+          ...this.traverse(current, data, { ...options, jsx: true }),
+          ...this.stencilRender.render(current, {
+            ...options,
+            jsx: true
+          })
         ];
 
       default:

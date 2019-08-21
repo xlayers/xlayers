@@ -15,7 +15,7 @@ export class StyleService {
 
   parseColorAsRgba(color: SketchMSColor) {
     const c = this.parseColor(color);
-    const colorString = [c.red, c.green, c.blue, c.alpha].join(',');
+    const colorString = [c.red, c.green, c.blue, c.alpha.toFixed(2)].join(',');
     return `rgba(${colorString})`;
   }
 

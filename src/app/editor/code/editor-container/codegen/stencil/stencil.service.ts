@@ -1,8 +1,8 @@
-import { Injectable } from "@angular/core";
-import { WebBlocGenService } from "@xlayers/web-blocgen";
+import { Injectable } from '@angular/core';
+import { WebBlocGenService } from '@xlayers/web-blocgen';
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root'
 })
 export class StencilCodeGenService {
   constructor(private webBlocGen: WebBlocGenService) {}
@@ -16,14 +16,18 @@ export class StencilCodeGenService {
   generate(data: SketchMSData) {
     return [
       {
-        uri: "README.md",
+        uri: 'README.md',
         value: this.renderReadme(),
-        language: "markdown",
-        kind: "text"
+        language: 'markdown',
+        kind: 'text'
       },
-      ...(data.pages as any).flatMap(page =>
-        this.webBlocGen.render(page, data, { mode: "stencil" })
-      )
+      ...(data.pages as any).flatMap(page => {
+        this.webBlocGen.compute(page, data, {
+          jsx: true,
+          force: true
+        });
+        return this.webBlocGen.render(page, data, { mode: 'stencil' });
+      })
     ];
   }
 

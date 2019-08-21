@@ -16,7 +16,7 @@ export class ReactRenderService {
 
   render(current: SketchMSLayer, options: WebBlocGenOptions) {
     const fileName = this.format.normalizeName(current.name);
-    const context = this.webContext.contextOf(current);
+    const context = this.webContext.of(current);
     const files = this.webRender.render(current, options);
     const html = files.find(file => file.language === 'html');
 
@@ -26,8 +26,7 @@ export class ReactRenderService {
         value: this.renderComponent(
           current.name,
           html.value,
-          context.components,
-          options
+          context.components
         ),
         language: 'javascript',
         uri: `${options.componentDir}/${fileName}.jsx`
@@ -47,23 +46,21 @@ export class ReactRenderService {
     ];
   }
 
-  private renderComponent(
-    name: string,
-    html: string,
-    components: string[],
-    options: WebBlocGenOptions
-  ) {
+  private renderComponent(name: string, html: string, components: string[]) {
     const componentName = this.format.componentName(name);
     const fileName = this.format.normalizeName(name);
-    const dynamicImports = components.map(
-      component =>
-        `import ${component} from "${options.componentDir}/${component}";`
-    );
+    const importStatements = [
+      'import React from \'react\';',
+      ...components.map(component => {
+        const importComponentName = this.format.componentName(component);
+        const importFileName = this.format.normalizeName(component);
+        return `import { ${importComponentName} } from "./${importFileName}";`;
+      }),
+      `import './${fileName}.css';`
+    ];
 
     return `\
-import React from 'react';
-${dynamicImports.join('\n')},
-import './${fileName}.css';
+${importStatements.join('\n')}
 
 export const ${componentName} = () => (
 ${this.format.indentFile(1, html).join('\n')}

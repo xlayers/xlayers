@@ -1,8 +1,8 @@
-import { Injectable } from "@angular/core";
-import { WebBlocGenService } from "@xlayers/web-blocgen";
+import { Injectable } from '@angular/core';
+import { WebBlocGenService } from '@xlayers/web-blocgen';
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root'
 })
 export class WCCodeGenService {
   constructor(private webBlocGen: WebBlocGenService) {}
@@ -16,14 +16,17 @@ export class WCCodeGenService {
   generate(data: SketchMSData) {
     return [
       {
-        uri: "README.md",
+        uri: 'README.md',
         value: this.renderReadme(data.meta.app),
-        language: "markdown",
-        kind: "text"
+        language: 'markdown',
+        kind: 'text'
       },
-      ...(data.pages as any).flatMap(page =>
-        this.webBlocGen.render(page, data, { mode: "webComponent" })
-      )
+      ...(data.pages as any).flatMap(page => {
+        this.webBlocGen.compute(page, data, {
+          force: true
+        });
+        return this.webBlocGen.render(page, data, { mode: 'webComponent' });
+      })
     ];
   }
 

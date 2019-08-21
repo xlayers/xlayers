@@ -7,6 +7,7 @@ export interface WebBlocGenOptions {
   cssPrefix?: string;
   componentDir?: string;
   assetDir?: string;
+  force?: boolean;
 }
 
 export interface WebBlocGenContext {

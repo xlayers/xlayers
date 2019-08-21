@@ -6,26 +6,34 @@ import { WebBlocGenContext } from './web-blocgen.d';
 })
 export class WebContextService {
   identify(current: SketchMSLayer) {
-    return ['rect', 'rectangle', 'group', 'symbolMaster'].includes(
-      current._class as string
-    );
+    return [
+      'rect',
+      'rectangle',
+      'group',
+      'symbolMaster',
+      'shapeGroup'
+    ].includes(current._class as string);
   }
 
-  hasContext(current: SketchMSLayer) {
+  has(current: SketchMSLayer) {
     return !!(current as any).web;
   }
 
-  contextOf(current: SketchMSLayer) {
+  of(current: SketchMSLayer) {
     return (current as any).web || { html: '', components: [] };
   }
 
-  putContext(
+  put(
     current: SketchMSLayer,
     nextContext: WebBlocGenContext = { html: '', components: [] }
   ) {
     (current as any).web = {
-      ...this.contextOf(current),
+      ...this.of(current),
       ...nextContext
     };
+  }
+
+  clear(current: SketchMSLayer) {
+    (current as any).web = null;
   }
 }

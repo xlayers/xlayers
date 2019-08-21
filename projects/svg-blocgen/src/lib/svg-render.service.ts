@@ -13,7 +13,7 @@ export class SvgRenderService {
   ) {}
 
   render(current: SketchMSLayer, options: SvgBlocGenOptions) {
-    const context = this.svgContext.contextOf(current);
+    const context = this.svgContext.of(current);
 
     return [
       {

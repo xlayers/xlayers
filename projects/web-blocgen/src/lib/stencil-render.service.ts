@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { FormatService } from '@xlayers/sketch-lib';
 import { WebRenderService } from './web-render.service';
 import { WebBlocGenOptions } from './web-blocgen';
+import { WebContextService } from './web-context.service';
 
 @Injectable({
   providedIn: 'root'
@@ -9,47 +10,63 @@ import { WebBlocGenOptions } from './web-blocgen';
 export class StencilRenderService {
   constructor(
     private format: FormatService,
+    private webContext: WebContextService,
     private webRender: WebRenderService
   ) {}
 
   render(current: SketchMSLayer, options: WebBlocGenOptions) {
     const fileName = this.format.normalizeName(current.name);
     const files = this.webRender.render(current, options);
+    const context = this.webContext.of(current);
     const html = files.find(file => file.language === 'html');
 
     return [
-      ...files
-        .filter(file => file.language !== 'html')
-        .map(file => ({
-          ...file,
-          kind: 'stencil'
-        })),
+      {
+        kind: 'stencil',
+        value: this.renderComponent(
+          current.name,
+          html.value,
+          context.components,
+          options
+        ),
+        language: 'typescript',
+        uri: `${options.componentDir}/${fileName}.tsx`
+      },
       {
         kind: 'stencil',
         value: this.renderE2e(current.name),
         language: 'typescript',
         uri: `${options.componentDir}/${fileName}.e2e.ts`
       },
-      {
-        kind: 'stencil',
-        value: this.renderComponent(current.name, html.value, options),
-        language: 'typescript',
-        uri: `${options.componentDir}/${fileName}.tsx`
-      }
+      ...files
+        .filter(file => file.language !== 'html')
+        .map(file => ({
+          ...file,
+          kind: 'stencil'
+        }))
     ];
   }
 
   private renderComponent(
     name: string,
     html: string,
+    components: string[],
     options: WebBlocGenOptions
   ) {
     const fileName = this.format.normalizeName(name);
     const componentName = this.format.componentName(name);
     const tagName = this.format.normalizeName(name);
+    const importStatements = [
+      'import { Component } from \'@stencil/core\';',
+      ...components.map(component => {
+        const className = this.format.componentName(component);
+        const importFileName = this.format.normalizeName(component);
+        return `import { ${className} } from "./${importFileName}";`;
+      })
+    ];
 
     return `\
-import { Component } from '@stencil/core';
+${importStatements}
 
 @Component({
   selector: '${options.xmlPrefix}${tagName}',

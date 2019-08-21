@@ -21,9 +21,7 @@ export class WebComponentRenderService {
     return [
       {
         kind: 'wc',
-        value: this.renderComponent(current.name, html.value, css.value).join(
-          '\n'
-        ),
+        value: this.renderComponent(current.name, html.value, css.value),
         language: 'javascript',
         uri: `${options.componentDir}/${fileName}.js`
       }
@@ -34,20 +32,19 @@ export class WebComponentRenderService {
     const componentName = this.format.componentName(name);
     const tagName = this.format.normalizeName(name);
 
-    return [
-      `class ${componentName} extends HTMLElement {`,
-      `  static is = '${tagName}';`,
-      '',
-      '  render() {',
-      '    <style>',
-      ...this.format.indentFile(2, css),
-      '    </style>',
-      '',
-      ...this.format.indentFile(2, html),
-      '  }',
-      '}',
-      '',
-      `customElements.define(${componentName}.is , ${componentName});`
-    ];
+    return `\
+class ${componentName} extends HTMLElement {
+  connectedCallback() {
+    this.innerHTML = \`
+      <style>
+${this.format.indentFile(3, css).join('\n')}
+      </style>
+
+${this.format.indentFile(3, html).join('\n')}
+    \`
+  }
+}
+
+customElements.define('${tagName}', ${componentName});`;
   }
 }

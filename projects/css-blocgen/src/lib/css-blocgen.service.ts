@@ -31,7 +31,7 @@ export class CssBlocGenService {
   }
 
   context(current: SketchMSLayer) {
-    return this.cssContext.contextOf(current);
+    return this.cssContext.of(current);
   }
 
   private compileOptions(options: CssBlocGenOptions) {

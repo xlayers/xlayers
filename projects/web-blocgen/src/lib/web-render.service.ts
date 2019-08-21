@@ -16,7 +16,7 @@ export class WebRenderService {
 
   render(current: SketchMSLayer, options: WebBlocGenOptions) {
     const fileName = this.format.normalizeName(current.name);
-    const context = this.webContext.contextOf(current);
+    const context = this.webContext.of(current);
 
     return [
       {

@@ -35,6 +35,7 @@ export class CssRenderService {
     const styles: Array<StyleList> = [];
     this.buildAstStyleSheet(styles, current);
     this.postProcessCss(styles);
+    this.buildPseudoElementStyle(styles, current);
     const reGenerateStyleSheet = this.reGenerateStyleSheet(styles);
 
     const fileName = this.format.normalizeName(current.name);
@@ -81,6 +82,44 @@ export class CssRenderService {
   }
 
   /**
+   * Parse style pseudo element without any pre processing
+   * @param styles curent created list
+   * @param current  sketch ast
+   */
+  private buildPseudoElementStyle(styles: StyleList[], current: SketchMSLayer) {
+    const computeStyle = (_current: SketchMSLayer) => {
+      const content = (name: string, data: string[]) => {
+        if (data) {
+          styles.push({ className: name, declarations: data });
+        }
+      };
+      if (_current.layers && Array.isArray(_current.layers)) {
+        _current.layers.forEach(layer => {
+          if (this.cssContext.identify(layer)) {
+            const name = `${(layer as any).css.className}`;
+            if ((layer.css as any).pseudoElements) {
+              Object.entries((layer.css as any).pseudoElements).forEach(
+                ([prop, value]) => {
+                  content(
+                    `${name}:${prop}`,
+                    Object.entries(value).map(
+                      ([ruleKey, ruleValue]) => `${ruleKey}: ${ruleValue};`
+                    )
+                  );
+                }
+              );
+
+              computeStyle(layer);
+            }
+          }
+        });
+      }
+    };
+
+    computeStyle(current);
+  }
+
+  /**
    * This is the main ast parser to go from sketch to css
    * @param styles newly created list
    * @param current  sketch ast
@@ -98,11 +137,15 @@ export class CssRenderService {
       if (_current.layers && Array.isArray(_current.layers)) {
         _current.layers.forEach(layer => {
           if (this.cssContext.identify(layer)) {
+            const name = `${(layer as any).css.className}`;
             const rules: string[] = [];
-            Object.entries(layer.css.rules).forEach(([prop, value]) => {
-              rules.push(`${prop}: ${value};`);
-            });
-            content(`${(layer as any).css.className}`, rules);
+            Object.entries((layer.css as any).rules).forEach(
+              ([prop, value]) => {
+                rules.push(`${prop}: ${value};`);
+              }
+            );
+            content(name, rules);
+
             computeStyle(layer, [
               {
                 className: `${(layer as any).css.className}`,

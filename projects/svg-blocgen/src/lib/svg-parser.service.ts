@@ -30,8 +30,11 @@ export class SvgParserService {
     options: SvgBlocGenOptions
   ) {
     if (this.svgContext.identify(current)) {
-      if (!this.svgContext.hasContext(current)) {
-        this.svgContext.putContext(current, this.extractLayerContent(current));
+      if (options.force) {
+        this.svgContext.clear(current);
+      }
+      if (!this.svgContext.has(current)) {
+        this.svgContext.put(current, this.extractLayerContent(current));
       }
     }
     this.traverseLayer(current, data, options);
