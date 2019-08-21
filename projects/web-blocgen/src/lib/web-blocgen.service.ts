@@ -1,9 +1,5 @@
 import { Injectable } from '@angular/core';
-import {
-  ImageService,
-  SymbolService,
-  LayerService
-} from '@xlayers/sketch-lib';
+import { ImageService, SymbolService, LayerService } from '@xlayers/sketch-lib';
 import { WebContextService } from './web-context.service';
 import { WebParserService } from './web-parser.service';
 import { WebRenderService } from './web-render.service';
@@ -39,7 +35,7 @@ export class WebBlocGenService {
     data: SketchMSData,
     options?: WebBlocGenOptions
   ) {
-    return this.webParser.compute(current, data, this.compileOptions(options));
+    this.webParser.compute(current, data, this.compileOptions(options));
   }
 
   render(
@@ -84,8 +80,8 @@ export class WebBlocGenService {
 
       case 'react':
         return [
-          ...this.traverse(current, data, {...options, jsx: true}),
-          ...this.reactRender.render(current, {...options, jsx: true})
+          ...this.traverse(current, data, { ...options, jsx: true }),
+          ...this.reactRender.render(current, { ...options, jsx: true })
         ];
 
       case 'webComponent':
