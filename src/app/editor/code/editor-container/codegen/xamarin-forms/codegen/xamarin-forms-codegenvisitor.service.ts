@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { XlayersNgxEditorModel } from '../../codegen.service';
 import { XmlCodeGenVisitor } from './xmlcodegenvisitor.service';
 import { Shape } from './shape.service';
+import { SvgBlocGenService } from '@xlayers/svg-blocgen';
 
 /**
  * @see XmlCodeGenVisitor implementation that can be used to generate Xamarin.Forms code.
@@ -10,6 +11,10 @@ import { Shape } from './shape.service';
   providedIn: 'root'
 })
 export class XamarinFormsCodeGenVisitor extends XmlCodeGenVisitor {
+  constructor(private svgBlocGen: SvgBlocGenService) {
+    super();
+  }
+
   fileList: Array<XlayersNgxEditorModel> = [];
 
   protected visitLayer(
@@ -181,9 +186,8 @@ export class XamarinFormsCodeGenVisitor extends XmlCodeGenVisitor {
   protected visitSvg(ast: SketchMSLayer): string {
     const svgFileName = this.sanitizeSvgFileName(ast.do_objectID);
     this.fileList.push({
+      ...this.svgBlocGen.render(ast)[0],
       uri: svgFileName,
-      value: (ast as any).shape,
-      language: 'xml',
       kind: 'xamarinForms'
     });
 
