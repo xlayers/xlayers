@@ -1,4 +1,7 @@
 export interface WebBlocGenOptions {
+  textTagName?: string;
+  bitmapTagName?: string;
+  blockTagName?: string;
   generateClassName?: boolean;
   xmlNamespace?: boolean;
   mode?: string;
@@ -11,7 +14,8 @@ export interface WebBlocGenOptions {
 }
 
 export interface WebBlocGenContext {
-  className?: string;
   html?: string;
   components?: string[];
+  attributes?: string[];
+  type?: string;
 }
