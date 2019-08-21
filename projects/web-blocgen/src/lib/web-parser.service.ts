@@ -49,6 +49,8 @@ export class WebParserService {
       current.layers.forEach(layer => {
         this.visit(layer, data, options);
       });
+    } else if (this.symbol.identify(current)) {
+      this.visitSymbol(current, data, options);
     }
   }
 
@@ -60,28 +62,22 @@ export class WebParserService {
     if (options.force) {
       this.webContext.clear(current);
     }
-    if (!this.webContext.has(current)) {
-      this.visitContent(current, data, options);
-    }
     if (this.webContext.identify(current)) {
-      this.walk(current, data, options);
+      if (!this.webContext.has(current)) {
+        this.visitContent(current, options);
+      }
     }
+    this.walk(current, data, options);
   }
 
-  private visitContent(
-    current: SketchMSLayer,
-    data: SketchMSData,
-    options: WebBlocGenOptions
-  ) {
-    if (this.symbol.identify(current)) {
-      this.visitSymbol(current, data, options);
-    } else if (this.image.identify(current)) {
+  private visitContent(current: SketchMSLayer, options: WebBlocGenOptions) {
+    if (this.image.identify(current)) {
       this.visitBitmap(current, options);
     } else if (this.text.identify(current)) {
       this.visitText(current, options);
     } else if (this.svgBlocGen.identify(current)) {
       this.visitShape(current, options);
-    } else if (this.webContext.identify(current)) {
+    } else {
       this.visitLayer(current, options);
     }
   }

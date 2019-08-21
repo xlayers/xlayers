@@ -1,21 +1,29 @@
 import { Injectable } from '@angular/core';
 import { WebBlocGenContext } from './web-blocgen.d';
-import { LayerService } from '@xlayers/sketch-lib';
+import { LayerService, TextService, ImageService } from '@xlayers/sketch-lib';
+import { SvgBlocGenService } from '@xlayers/svg-blocgen';
 
 @Injectable({
   providedIn: 'root'
 })
 export class WebContextService {
-  constructor(private layer: LayerService) {}
+  constructor(
+    private layer: LayerService,
+    private text: TextService,
+    private image: ImageService,
+    private svgBlocGen: SvgBlocGenService
+  ) {}
 
   identify(current: SketchMSLayer) {
-    return [
-      'rect',
-      'rectangle',
-      'group',
-      'symbolMaster',
-      'shapeGroup'
-    ].includes(current._class as string);
+    return (
+      this.image.identify(current) ||
+      this.text.identify(current) ||
+      this.layer.identify(current) ||
+      this.svgBlocGen.identify(current) ||
+      ['rect', 'rectangle', 'group', 'symbolMaster', 'shapeGroup'].includes(
+        current._class as string
+      )
+    );
   }
 
   has(current: SketchMSLayer) {
