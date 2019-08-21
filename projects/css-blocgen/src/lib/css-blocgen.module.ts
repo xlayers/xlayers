@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CssBlocGenService } from './css-blocgen.service';
-import { SketchUtilModule } from '@xlayers/sketch-lib';
+import { SketchLibModule } from '@xlayers/sketch-lib';
 
 @NgModule({
-  imports: [SketchUtilModule],
+  imports: [SketchLibModule],
   providers: [CssBlocGenService]
 })
 export class CssBlocDenModule {}

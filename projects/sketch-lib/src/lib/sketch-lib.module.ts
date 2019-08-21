@@ -7,4 +7,4 @@ import { StyleService } from './style.service';
 @NgModule({
   providers: [BplistService, FormatService, ShapeService, StyleService]
 })
-export class SketchUtilModule {}
+export class SketchLibModule {}
