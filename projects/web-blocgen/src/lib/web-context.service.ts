@@ -20,9 +20,14 @@ export class WebContextService {
       this.text.identify(current) ||
       this.layer.identify(current) ||
       this.svgBlocGen.identify(current) ||
-      ['rect', 'rectangle', 'group', 'symbolMaster', 'shapeGroup'].includes(
-        current._class as string
-      )
+      [
+        'oval',
+        'rect',
+        'rectangle',
+        'group',
+        'symbolMaster',
+        'shapeGroup'
+      ].includes(current._class as string)
     );
   }
 
