@@ -102,14 +102,6 @@
             "project": "projects/web-blocgen/ng-package.json"
           }
         },
-        "test": {
-          "builder": "@angular-devkit/build-angular:karma",
-          "options": {
-            "main": "projects/web-blocgen/src/test.ts",
-            "tsConfig": "projects/web-blocgen/tsconfig.spec.json",
-            "karmaConfig": "projects/web-blocgen/karma.conf.js"
-          }
-        },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
@@ -133,14 +125,6 @@
           "options": {
             "tsConfig": "projects/sketch-lib/tsconfig.lib.json",
             "project": "projects/sketch-lib/ng-package.json"
-          }
-        },
-        "test": {
-          "builder": "@angular-devkit/build-angular:karma",
-          "options": {
-            "main": "projects/sketch-lib/src/test.ts",
-            "tsConfig": "projects/sketch-lib/tsconfig.spec.json",
-            "karmaConfig": "projects/sketch-lib/karma.conf.js"
           }
         },
         "lint": {
@@ -168,14 +152,6 @@
             "project": "projects/svg-blocgen/ng-package.json"
           }
         },
-        "test": {
-          "builder": "@angular-devkit/build-angular:karma",
-          "options": {
-            "main": "projects/svg-blocgen/src/test.ts",
-            "tsConfig": "projects/svg-blocgen/tsconfig.spec.json",
-            "karmaConfig": "projects/svg-blocgen/karma.conf.js"
-          }
-        },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
@@ -201,14 +177,6 @@
             "project": "projects/css-blocgen/ng-package.json"
           }
         },
-        "test": {
-          "builder": "@angular-devkit/build-angular:karma",
-          "options": {
-            "main": "projects/css-blocgen/src/test.ts",
-            "tsConfig": "projects/css-blocgen/tsconfig.spec.json",
-            "karmaConfig": "projects/css-blocgen/karma.conf.js"
-          }
-        },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
@@ -232,14 +200,6 @@
           "options": {
             "tsConfig": "projects/sketch-ingestor/tsconfig.lib.json",
             "project": "projects/sketch-ingestor/ng-package.json"
-          }
-        },
-        "test": {
-          "builder": "@angular-devkit/build-angular:karma",
-          "options": {
-            "main": "projects/sketch-ingestor/src/test.ts",
-            "tsConfig": "projects/sketch-ingestor/tsconfig.spec.json",
-            "karmaConfig": "projects/sketch-ingestor/karma.conf.js"
           }
         },
         "lint": {
