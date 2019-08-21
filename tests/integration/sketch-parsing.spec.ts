@@ -1,11 +1,11 @@
-import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { async, TestBed } from '@angular/core/testing';
-import { readdirSync, readFile } from 'fs';
-import * as jszip from 'jszip';
-import { WebBlocGenService } from '@xlayers/web-blocgen';
+import { NO_ERRORS_SCHEMA } from "@angular/core";
+import { async, TestBed } from "@angular/core/testing";
+import { readdirSync, readFile } from "fs";
+import * as jszip from "jszip";
+import { WebBlocGenService } from "@xlayers/web-blocgen";
 
 const VERSION_LIST = [52, 53];
-const SKETCH_PATH = './src/assets/demos/sketchapp';
+const SKETCH_PATH = "./src/assets/demos/sketchapp";
 
 async function loadSketch(version, fileName) {
   const _data = {
@@ -36,16 +36,16 @@ async function loadSketch(version, fileName) {
   await Promise.all(
     zips.map(({ relativePath, zipEntry }) => {
       return new Promise(resolve => {
-        if (relativePath.startsWith('pages/')) {
-          zipEntry.async('string').then(content => {
+        if (relativePath.startsWith("pages/")) {
+          zipEntry.async("string").then(content => {
             _data.pages.push(JSON.parse(content));
             resolve();
           });
         } else if (
-          ['meta.json', 'document.json', 'user.json'].includes(relativePath)
+          ["meta.json", "document.json", "user.json"].includes(relativePath)
         ) {
-          zipEntry.async('string').then(content => {
-            _data[relativePath.replace('.json', '')] = JSON.parse(content);
+          zipEntry.async("string").then(content => {
+            _data[relativePath.replace(".json", "")] = JSON.parse(content);
             resolve();
           });
         } else {
@@ -58,7 +58,7 @@ async function loadSketch(version, fileName) {
   return _data;
 }
 
-describe('sketch parser', () => {
+describe("sketch parser", () => {
   let webBlocGen: WebBlocGenService;
 
   beforeEach(async(() => {

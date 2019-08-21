@@ -21,12 +21,9 @@ export class WCCodeGenService {
         language: 'markdown',
         kind: 'text'
       },
-      ...(data.pages as any).flatMap(page => {
-        this.webBlocGen.compute(page, data, {
-          force: true
-        });
-        return this.webBlocGen.render(page, data, { mode: 'webComponent' });
-      })
+      ...data.pages.flatMap(page =>
+        this.webBlocGen.render(page, data, { mode: 'webComponent' })
+      )
     ];
   }
 

@@ -24,23 +24,7 @@ export class SvgParserService {
     this.visit(current, data, options);
   }
 
-  private visit(
-    current: SketchMSLayer,
-    data: SketchMSData,
-    options: SvgBlocGenOptions
-  ) {
-    if (this.svgContext.identify(current)) {
-      if (options.force) {
-        this.svgContext.clear(current);
-      }
-      if (!this.svgContext.has(current)) {
-        this.svgContext.put(current, this.extractLayerContent(current));
-      }
-    }
-    this.traverseLayer(current, data, options);
-  }
-
-  private traverseLayer(
+  private walk(
     current: SketchMSLayer,
     data: SketchMSData,
     options: SvgBlocGenOptions
@@ -50,36 +34,57 @@ export class SvgParserService {
         this.visit(layer, data, options);
       });
     } else if (this.symbol.identify(current)) {
-      return this.traverseSymbol(current, data, options);
+      this.visitSymbol(current, data, options);
     }
   }
 
-  private traverseSymbol(
+  private visit(
+    current: SketchMSLayer,
+    data: SketchMSData,
+    options: SvgBlocGenOptions
+  ) {
+    if (options.force) {
+      this.svgContext.clear(current);
+    }
+    if (this.svgContext.identify(current)) {
+      if (!this.svgContext.has(current)) {
+        this.visitContent(current);
+      }
+    }
+    this.walk(current, data, options);
+  }
+
+  private visitSymbol(
     current: SketchMSLayer,
     data: SketchMSData,
     options: SvgBlocGenOptions
   ) {
     const symbolMaster = this.symbol.lookup(current, data);
-
     if (symbolMaster) {
       this.compute(symbolMaster, data, options);
     }
   }
 
-  private extractLayerContent(current: SketchMSLayer) {
+  private visitContent(current: SketchMSLayer) {
     switch (current._class as string) {
       case 'shapePath':
-        return this.extractShapePath(current);
+        this.visitShapePath(current);
+        break;
+
       case 'shapeGroup':
-        return this.extractShapeGroup(current);
+        this.visitShapeGroup(current);
+        break;
+
       case 'triangle':
-        return this.extractTriangleShape(current);
+        this.visitTriangleShape(current);
+        break;
+
       default:
-        return {};
+        break;
     }
   }
 
-  private extractShapePath(current: SketchMSLayer) {
+  private visitShapePath(current: SketchMSLayer) {
     const config = [];
     let offset = 0;
 
@@ -131,7 +136,7 @@ export class SvgParserService {
     }
     const fillStyle = this.extractFillStyle(current);
 
-    return {
+    this.svgContext.put(current, {
       offset,
       paths: [
         {
@@ -139,10 +144,10 @@ export class SvgParserService {
           attributes: [...config, fillStyle, `d="${segments}"`]
         }
       ]
-    };
+    });
   }
 
-  private extractTriangleShape(current: SketchMSLayer) {
+  private visitTriangleShape(current: SketchMSLayer) {
     const config = [];
     let offset = 0;
 
@@ -171,7 +176,7 @@ export class SvgParserService {
 
     const fillStyle = this.extractFillStyle(current);
 
-    return {
+    this.svgContext.put(current, {
       offset,
       paths: [
         {
@@ -179,10 +184,11 @@ export class SvgParserService {
           attributes: [...config, fillStyle, `points="${segments}"`]
         }
       ]
-    };
+    });
   }
 
-  private extractShapeGroup(current: SketchMSLayer) {
+  private visitShapeGroup(current: SketchMSLayer) {
+    console.log(current);
     const offset = 0;
     const paths = current.layers.map(layer => {
       // TODO: move to @types/sketchapp
@@ -230,7 +236,7 @@ export class SvgParserService {
 
     const fillStyle = this.extractFillStyle(current);
 
-    return {
+    this.svgContext.put(current, {
       offset,
       paths: [
         {
@@ -238,7 +244,7 @@ export class SvgParserService {
           attributes: [fillStyle, `d="${paths.join(' ')}"`]
         }
       ]
-    };
+    });
   }
 
   private extractFillStyle(current: SketchMSLayer) {

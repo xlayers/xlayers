@@ -47,39 +47,40 @@ export class ReactRenderService {
   }
 
   private renderComponent(name: string, html: string, components: string[]) {
-    const componentName = this.format.componentName(name);
-    const fileName = this.format.normalizeName(name);
-    const importStatements = [
-      'import React from \'react\';',
-      ...components.map(component => {
-        const importComponentName = this.format.componentName(component);
-        const importFileName = this.format.normalizeName(component);
-        return `import { ${importComponentName} } from "./${importFileName}";`;
-      }),
-      `import './${fileName}.css';`
-    ];
-
+    const className = this.format.className(name);
+    const importStatements = this.renderImportStatements(name, components);
     return `\
-${importStatements.join('\n')}
+${importStatements}
 
-export const ${componentName} = () => (
+export const ${className} = () => (
 ${this.format.indentFile(1, html).join('\n')}
 );`;
   }
 
   private renderSpec(name: string) {
-    const componentName = this.format.componentName(name);
+    const className = this.format.className(name);
     const fileName = this.format.normalizeName(name);
-
     return `\
 import React from 'react';
 import ReactDOM from 'react-dom';
-import ${componentName} from './${fileName}';
-
+import ${className} from './${fileName}';
 it('renders without crashing', () => {
   const div = document.createElement('div');
-  ReactDOM.render(<${componentName} />, div);
+  ReactDOM.render(<${className} />, div);
   ReactDOM.unmountComponentAtNode(div);
 })`;
+  }
+
+  private renderImportStatements(name: string, components: string[]) {
+    const fileName = this.format.normalizeName(name);
+    return [
+      'import React from \'react\';',
+      ...components.map(component => {
+        const importclassName = this.format.className(component);
+        const importFileName = this.format.normalizeName(component);
+        return `import { ${importclassName} } from "./${importFileName}";`;
+      }),
+      'import \'./${fileName}.css\';'
+    ].join('\n');
   }
 }

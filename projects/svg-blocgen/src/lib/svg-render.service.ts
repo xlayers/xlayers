@@ -14,7 +14,6 @@ export class SvgRenderService {
 
   render(current: SketchMSLayer, options: SvgBlocGenOptions) {
     const context = this.svgContext.of(current);
-
     return [
       {
         kind: 'svg',
@@ -31,28 +30,37 @@ export class SvgRenderService {
     offset: number,
     options: SvgBlocGenOptions
   ) {
-    const attributes = this.xmlHearderAttribute(current, offset, options);
+    const attributes = this.generateXmlAttribute(current, offset, options);
+    const openTag = ['<svg', ...attributes].join(' ');
     return `\
-${['<svg', ...attributes].join(' ')}>
-${paths.map(path => `  <${path.type} ${path.attributes.join(' ')}/>`)}
+${openTag}>
+${paths
+  .map(path =>
+    this.format.indent(1, `<${path.type} ${path.attributes.join(' ')}/>`)
+  )
+  .join('\n')}
 </svg>`;
   }
 
-  private xmlHearderAttribute(
+  private generateXmlAttribute(
     current: SketchMSLayer,
     offset: number,
     options: SvgBlocGenOptions
   ) {
     return [
-      ...(options.xmlNamespace
-        ? [
-            'version="1.1"',
-            `xmlns="http://www.w3.org/2000/svg"`,
-            `xmlns:xlink="http://www.w3.org/1999/xlink"`
-          ]
-        : []),
+      ...this.generateXmlHeaderAttribute(options),
       `width="${(current.frame.width + offset * 2).toFixed(2)}"`,
       `height="${(current.frame.height + offset * 2).toFixed(2)}"`
     ];
+  }
+
+  private generateXmlHeaderAttribute(options: SvgBlocGenOptions) {
+    return options.xmlNamespace
+      ? [
+          'version="1.1"',
+          `xmlns="http://www.w3.org/2000/svg"`,
+          `xmlns:xlink="http://www.w3.org/1999/xlink"`
+        ]
+      : [];
   }
 }

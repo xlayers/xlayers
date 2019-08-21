@@ -28,6 +28,6 @@ export class SvgContextService {
   }
 
   clear(current: SketchMSLayer) {
-    (current as any).svg = null;
+    delete (current as any).svg;
   }
 }

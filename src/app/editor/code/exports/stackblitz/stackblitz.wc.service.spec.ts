@@ -22,8 +22,8 @@ describe('StackBlitz WC', () => {
     expect(service).toBeTruthy();
   });
 
-  it('should contain 2 files', () => {
-    expect(Object.keys(files).length).toBe(2);
+  it('should contain 3 files', () => {
+    expect(Object.keys(files).length).toBe(3);
   });
 
   it('should contain uri files', () => {
@@ -36,6 +36,10 @@ describe('StackBlitz WC', () => {
 
   it('should have web component tag', () => {
     expect(tags).toEqual(['web component']);
+  });
+
+  it('should have default index.js', () => {
+    expect(files['index.js']).toBe(`import './components/my-element.js';`);
   });
 
   it('should have javascript template', () => {

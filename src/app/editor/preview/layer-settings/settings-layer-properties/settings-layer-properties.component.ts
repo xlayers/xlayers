@@ -35,7 +35,7 @@ export class SettingsLayerPropertiesComponent implements OnInit {
 
   currentLayer: SketchMSLayer;
 
-  constructor(private store: Store) { }
+  constructor(private readonly store: Store) { }
 
   ngOnInit() {
     this.store.select(UiState.currentLayer).subscribe(currentLayer => {

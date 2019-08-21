@@ -59,17 +59,17 @@ ${this.renderScript(components, options)}
 
 <style>
 ${css}
-</style>"`;
+</style>`;
   }
 
   private renderScript(components: string[], options: WebBlocGenOptions) {
     const importStatements = components.map(component => {
-      const className = this.format.componentName(component);
+      const className = this.format.className(component);
       const importFileName = this.format.normalizeName(component);
       return `import { ${className} } from "./${importFileName}";`;
     });
-    const moduleNames = components.map(componentName =>
-      this.format.componentName(componentName)
+    const moduleNames = components.map(className =>
+      this.format.className(className)
     );
 
     if (components.length > 0) {
@@ -87,16 +87,16 @@ ${this.format.indentFile(2, moduleNames.join('\n')).join('\n')}
   }
 
   private renderSpec(name: string, options: WebBlocGenOptions) {
-    const componentName = this.format.componentName(name);
-    const fileName = this.format.componentName(name);
+    const className = this.format.className(name);
+    const fileName = this.format.className(name);
 
     return `\
 import { shallowMount } from "@vue/test-utils";
-import ${componentName} from "./${options.componentDir}/${fileName}";
+import ${className} from "./${options.componentDir}/${fileName}";
 
-describe("${componentName}", () => {
+describe("${className}", () => {
   it("render", () => {
-    const wrapper = shallowMount(${componentName}, {});
+    const wrapper = shallowMount(${className}, {});
     expect(wrapper.isVueInstance()).toBeTruthy();
   });
 });

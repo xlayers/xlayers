@@ -72,7 +72,7 @@ import { UiState } from '@app/core/state';
 export class SettingsLayerPositionComponent implements OnInit {
   currentLayer: SketchMSLayer;
 
-  constructor(private store: Store) { }
+  constructor(private readonly store: Store) { }
 
   ngOnInit() {
     this.store.select(UiState.currentLayer).subscribe(currentLayer => {

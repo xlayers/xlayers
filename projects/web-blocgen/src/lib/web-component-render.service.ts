@@ -17,7 +17,6 @@ export class WebComponentRenderService {
     const files = this.webRender.render(current, options);
     const html = files.find(file => file.language === 'html');
     const css = files.find(file => file.language === 'css');
-
     return [
       {
         kind: 'wc',
@@ -29,11 +28,10 @@ export class WebComponentRenderService {
   }
 
   private renderComponent(name: string, html: string, css: string) {
-    const componentName = this.format.componentName(name);
+    const className = this.format.className(name);
     const tagName = this.format.normalizeName(name);
-
     return `\
-class ${componentName} extends HTMLElement {
+class ${className} extends HTMLElement {
   connectedCallback() {
     this.innerHTML = \`
       <style>
@@ -45,6 +43,6 @@ ${this.format.indentFile(3, html).join('\n')}
   }
 }
 
-customElements.define('${tagName}', ${componentName});`;
+customElements.define('${tagName}', ${className});`;
   }
 }

@@ -15,7 +15,7 @@ export class FormatService {
     return contents.split('\n').map(line => this.indent(n, line));
   }
 
-  componentName(name: string) {
+  className(name: string) {
     return pascalCase(name);
   }
 

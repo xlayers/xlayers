@@ -57,7 +57,7 @@ export class ViewerContainerComponent implements OnInit {
   data: SketchMSData;
   currentPage: SketchMSPage;
 
-  constructor(private store: Store) {}
+  constructor(private readonly store: Store) {}
 
   ngOnInit() {
     this.store.select(UiState.currentPage).subscribe(currentPage => {

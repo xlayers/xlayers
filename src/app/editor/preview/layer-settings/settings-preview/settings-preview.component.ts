@@ -65,7 +65,7 @@ import { Store } from '@ngxs/store';
 export class SettingsPreviewComponent implements OnInit {
   previews: string[];
 
-  constructor(private store: Store) {}
+  constructor(private readonly store: Store) {}
 
   ngOnInit() {
     this.store.select(UiState.currentData).subscribe(currentData => {

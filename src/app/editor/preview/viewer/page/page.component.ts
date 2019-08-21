@@ -42,7 +42,7 @@ export class ViewerPageComponent implements OnInit {
   @Input() wireframe = false;
   @Input() level = 0;
 
-  constructor(private store: Store) {}
+  constructor(private readonly store: Store) {}
   ngOnInit() {
     this.store.select(UiState.isWireframe).subscribe(isWireframe => {
       this.wireframe = isWireframe;

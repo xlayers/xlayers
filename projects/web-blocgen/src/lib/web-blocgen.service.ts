@@ -1,18 +1,18 @@
-import { Injectable } from "@angular/core";
-import { ImageService, SymbolService, LayerService } from "@xlayers/sketch-lib";
-import { WebContextService } from "./web-context.service";
-import { WebParserService } from "./web-parser.service";
-import { WebRenderService } from "./web-render.service";
-import { VueRenderService } from "./vue-render.service";
-import { AngularRenderService } from "./angular-render.service";
-import { ReactRenderService } from "./react-render.service";
-import { LitElementRenderService } from "./lit-element-render.service";
-import { WebBlocGenOptions } from "./web-blocgen.d";
-import { StencilRenderService } from "./stencil-render.service";
-import { WebComponentRenderService } from "./web-component-render.service";
+import { Injectable } from '@angular/core';
+import { ImageService, SymbolService, LayerService } from '@xlayers/sketch-lib';
+import { WebContextService } from './web-context.service';
+import { WebParserService } from './web-parser.service';
+import { WebRenderService } from './web-render.service';
+import { VueRenderService } from './vue-render.service';
+import { AngularRenderService } from './angular-render.service';
+import { ReactRenderService } from './react-render.service';
+import { LitElementRenderService } from './lit-element-render.service';
+import { WebBlocGenOptions } from './web-blocgen.d';
+import { StencilRenderService } from './stencil-render.service';
+import { WebComponentRenderService } from './web-component-render.service';
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root'
 })
 export class WebBlocGenService {
   constructor(
@@ -60,37 +60,37 @@ export class WebBlocGenService {
     options?: WebBlocGenOptions
   ) {
     switch (options.mode) {
-      case "vue":
+      case 'vue':
         return [
           ...this.traverse(current, data, options),
           ...this.vueRender.render(current, options)
         ];
 
-      case "angular":
+      case 'angular':
         return [
           ...this.traverse(current, data, options),
           ...this.angularRender.render(current, options)
         ];
 
-      case "litElement":
+      case 'litElement':
         return [
           ...this.traverse(current, data, options),
           ...this.litElementRender.render(current, options)
         ];
 
-      case "react":
+      case 'react':
         return [
           ...this.traverse(current, data, { ...options, jsx: true }),
           ...this.reactRender.render(current, { ...options, jsx: true })
         ];
 
-      case "webComponent":
+      case 'webComponent':
         return [
           ...this.traverse(current, data, options),
           ...this.webComponentRender.render(current, options)
         ];
 
-      case "stencil":
+      case 'stencil':
         return [
           ...this.traverse(current, data, { ...options, jsx: true }),
           ...this.stencilRender.render(current, {
@@ -140,25 +140,23 @@ export class WebBlocGenService {
     options: WebBlocGenOptions
   ) {
     const symbolMaster = this.symbol.lookup(current, data);
-
     if (symbolMaster) {
       return this.traverseAndRender(symbolMaster, data, options);
     }
-
     return [];
   }
 
   private compileOptions(options: WebBlocGenOptions) {
     return {
-      textTagName: "span",
-      bitmapTagName: "img",
-      blockTagName: "div",
-      mode: "web",
+      textTagName: 'span',
+      bitmapTagName: 'img',
+      blockTagName: 'div',
+      mode: 'web',
       jsx: false,
-      xmlPrefix: "xly-",
-      cssPrefix: "xly_",
-      componentDir: "components",
-      assetDir: "assets",
+      xmlPrefix: 'xly-',
+      cssPrefix: 'xly_',
+      componentDir: 'components',
+      assetDir: 'assets',
       ...options
     };
   }

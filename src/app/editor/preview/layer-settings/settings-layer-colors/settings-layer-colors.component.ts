@@ -60,7 +60,7 @@ export class SettingsLayerColorsComponent implements OnInit {
     stop: string;
   }>;
   bgColor: string;
-  constructor(private store: Store) { }
+  constructor(private readonly store: Store) { }
 
   ngOnInit() {
     this.store.select(UiState.currentLayer).subscribe(currentLayer => {

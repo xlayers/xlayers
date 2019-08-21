@@ -16,7 +16,7 @@ export class ExportStackblitzLitElementService {
         }
       }
     }
-    files['index.js'] = `import './my-element.js';`;
+    files['index.js'] = `import './components/my-element.js';`;
     // add extra files
     files['index.html'] = `\
 <!DOCTYPE html>

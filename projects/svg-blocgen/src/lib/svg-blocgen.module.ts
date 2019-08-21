@@ -6,4 +6,4 @@ import { SketchLibModule } from '@xlayers/sketch-lib';
   imports: [SketchLibModule],
   providers: [SvgBlocGenService]
 })
-export class SvgBlocDenModule {}
+export class SvgBlocGenModule {}

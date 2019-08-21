@@ -21,13 +21,9 @@ export class ReactCodeGenService {
         language: 'text/plain',
         kind: 'text'
       },
-      ...(data.pages as any).flatMap(page => {
-        this.webBlocGen.compute(page, data, {
-          jsx: true,
-          force: true
-        });
-        return this.webBlocGen.render(page, data, { mode: 'react' });
-      })
+      ...data.pages.flatMap(page =>
+        this.webBlocGen.render(page, data, { mode: 'react' })
+      )
     ];
   }
 

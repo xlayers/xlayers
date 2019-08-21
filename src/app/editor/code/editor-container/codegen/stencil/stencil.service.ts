@@ -21,13 +21,9 @@ export class StencilCodeGenService {
         language: 'markdown',
         kind: 'text'
       },
-      ...(data.pages as any).flatMap(page => {
-        this.webBlocGen.compute(page, data, {
-          jsx: true,
-          force: true
-        });
-        return this.webBlocGen.render(page, data, { mode: 'stencil' });
-      })
+      ...data.pages.flatMap(page =>
+        this.webBlocGen.render(page, data, { mode: 'stencil' })
+      )
     ];
   }
 

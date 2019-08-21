@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { WebBlocGenService } from './web-blocgen.service';
-import { CssBlocDenModule } from '@xlayers/css-blocgen';
+import { CssBlocGenModule } from '@xlayers/css-blocgen';
 import { SketchLibModule } from '@xlayers/sketch-lib';
-import { SvgBlocDenModule } from '@xlayers/svg-blocgen';
+import { SvgBlocGenModule } from '@xlayers/svg-blocgen';
 
 @NgModule({
-  imports: [CssBlocDenModule, SvgBlocDenModule, SketchLibModule],
+  imports: [CssBlocGenModule, SvgBlocGenModule, SketchLibModule],
   providers: [WebBlocGenService]
 })
 export class WebBlocGenModule {}

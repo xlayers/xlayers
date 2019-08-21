@@ -19,7 +19,6 @@ export class StencilRenderService {
     const files = this.webRender.render(current, options);
     const context = this.webContext.of(current);
     const html = files.find(file => file.language === 'html');
-
     return [
       {
         kind: 'stencil',
@@ -53,41 +52,32 @@ export class StencilRenderService {
     components: string[],
     options: WebBlocGenOptions
   ) {
-    const fileName = this.format.normalizeName(name);
-    const componentName = this.format.componentName(name);
-    const tagName = this.format.normalizeName(name);
-    const importStatements = [
-      'import { Component } from \'@stencil/core\';',
-      ...components.map(component => {
-        const className = this.format.componentName(component);
-        const importFileName = this.format.normalizeName(component);
-        return `import { ${className} } from "./${importFileName}";`;
-      })
-    ];
-
+    const normalizedName = this.format.normalizeName(name);
+    const className = this.format.className(name);
+    const tagName = `${options.xmlPrefix}${normalizedName}`;
+    const importStatements = this.renderImportStatements(components);
     return `\
 ${importStatements}
 
 @Component({
-  selector: '${options.xmlPrefix}${tagName}',
-  styleUrl: './${fileName}.css'
+  selector: '${tagName}',
+  styleUrl: './${normalizedName}.css'
   shadow: true
-})',
-export class ${componentName}Component {
+})
+export class ${className}Component {
   render() {
     return (
 ${this.format.indentFile(3, html).join('\n')}
     );
   }
-}`;
+};`;
   }
 
   private renderE2e(name: string) {
-    const componentName = this.format.componentName(name);
+    const className = this.format.className(name);
     const tagName = this.format.normalizeName(name);
-
     return `\
-describe('${componentName}', () => {
+describe('${className}', () => {
   it('renders', async () => {
     const page = await newE2EPage();
 
@@ -96,5 +86,17 @@ describe('${componentName}', () => {
     expect(element).toHaveClass('hydrated');
   });
 });`;
+  }
+
+  private renderImportStatements(components: string[]) {
+    return `\
+import { Component } from '@stencil/core';
+${components
+  .map(component => {
+    const className = this.format.className(component);
+    const importFileName = this.format.normalizeName(component);
+    return `import { ${className} } from "./${importFileName}";`;
+  })
+  .join('\n')}`;
   }
 }

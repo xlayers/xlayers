@@ -83,7 +83,7 @@ export class ViewerCanvasComponent implements OnInit {
   currentZoomLevel = 1;
 
   constructor(
-    private store: Store,
+    private readonly store: Store,
     private renderer: Renderer2,
     private element: ElementRef<HTMLElement>
   ) {}

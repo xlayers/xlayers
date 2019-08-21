@@ -1,4 +1,10 @@
-import { AfterContentInit, Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import {
+  AfterContentInit,
+  Component,
+  OnInit,
+  ViewChild,
+  ElementRef
+} from '@angular/core';
 import { CodeGen, CodeGenSettings } from '@app/core/state/page.state';
 import { Store } from '@ngxs/store';
 import { CodeGenKind, CodeGenService } from './codegen/codegen.service';
@@ -15,14 +21,14 @@ const githubIssueLink =
 })
 export class EditorContainerComponent implements OnInit, AfterContentInit {
   codeSetting: CodeGenSettings;
-  @ViewChild('codeContentEditor', {static: false}) codeEditor: ElementRef;
+  @ViewChild('codeContentEditor', { static: false }) codeEditor: ElementRef;
 
   frameworks: Array<{
     title: string;
     logo: FunctionStringCallback;
   }>;
 
-  constructor(private codegen: CodeGenService, private store: Store) {}
+  constructor(private codegen: CodeGenService, private readonly store: Store) {}
 
   ngOnInit() {}
 
@@ -84,17 +90,24 @@ export class EditorContainerComponent implements OnInit, AfterContentInit {
     const scroll = Math.round(0.9 * this.codeEditor.nativeElement.clientHeight);
 
     // Page Down
-    if (keyCode === PAGE_DOWN || $event.key === 'PageDown' || $event.code === 'PageDown') {
+    if (
+      keyCode === PAGE_DOWN ||
+      $event.key === 'PageDown' ||
+      $event.code === 'PageDown'
+    ) {
       this.codeEditor.nativeElement.scrollTop += scroll;
       return false;
     }
     // Page Up
-    if (keyCode === PAGE_UP || $event.key === 'PageUp' || $event.code === 'PageUp') {
+    if (
+      keyCode === PAGE_UP ||
+      $event.key === 'PageUp' ||
+      $event.code === 'PageUp'
+    ) {
       this.codeEditor.nativeElement.scrollTop -= scroll;
       return false;
     }
 
     return true;
   }
-
 }

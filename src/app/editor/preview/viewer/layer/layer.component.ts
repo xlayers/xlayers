@@ -92,7 +92,7 @@ export class ViewerLayerComponent implements OnInit, AfterContentInit {
   layers: SketchMSLayer[] = [];
 
   constructor(
-    private store: Store,
+    private readonly store: Store,
     private renderer: Renderer2,
     private element: ElementRef<HTMLElement>,
     private sanitizer: DomSanitizer,

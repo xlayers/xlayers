@@ -27,7 +27,7 @@ export class TreeViewComponent implements OnInit {
   treeFlattener: MatTreeFlattener<SketchMSLayer, FileFlatNode>;
   treeControl: FlatTreeControl<FileFlatNode>;
   dataSource: MatTreeFlatDataSource<SketchMSLayer, FileFlatNode>;
-  constructor(private store: Store) {
+  constructor(private readonly store: Store) {
     this.treeFlattener = new MatTreeFlattener(
       this.transformer,
       this.getLevel,

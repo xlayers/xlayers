@@ -19,12 +19,9 @@ export class VueCodeGenService {
         language: 'markdown',
         uri: `README.md`
       },
-      ...(data.pages as any).flatMap(page => {
-        this.webBlocGen.compute(page, data, {
-          force: true
-        });
-        return this.webBlocGen.render(page, data, { mode: 'vue' });
-      })
+      ...data.pages.flatMap(page =>
+        this.webBlocGen.render(page, data, { mode: 'vue' })
+      )
     ];
   }
 

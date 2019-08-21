@@ -31,11 +31,11 @@ export class ExportStackblitzWCService {
   </body>
   <script src="./index.js"></script>
 </html>`;
-
+    files['index.js'] = `import './components/my-element.js';`;
 
     return {
       files,
-      dependencies: {['@webcomponents/webcomponentsjs']: '2.0.2'},
+      dependencies: { ['@webcomponents/webcomponentsjs']: '2.0.2' },
       template: 'javascript',
       tags: ['web component']
     };

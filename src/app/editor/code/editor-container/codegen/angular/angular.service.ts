@@ -33,12 +33,9 @@ export class AngularCodeGenService {
         language: 'typescript',
         kind: 'angular'
       },
-      ...(data.pages as any).flatMap(page => {
-        this.webBlocGen.compute(page, data, {
-          force: true
-        });
-        return this.webBlocGen.render(page, data, { mode: 'angular' });
-      })
+      ...data.pages.flatMap(page =>
+        this.webBlocGen.render(page, data, { mode: 'angular' })
+      )
     ];
   }
 

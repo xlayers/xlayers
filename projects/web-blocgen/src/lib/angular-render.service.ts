@@ -14,7 +14,6 @@ export class AngularRenderService {
 
   render(current: SketchMSLayer, options: WebBlocGenOptions) {
     const fileName = this.format.normalizeName(current.name);
-
     return [
       ...this.webRender.render(current, options).map(file => {
         switch (file.language) {
@@ -55,46 +54,45 @@ export class AngularRenderService {
   }
 
   private renderComponent(name: string, options: WebBlocGenOptions) {
-    const componentName = this.format.componentName(name);
-    const fileName = this.format.normalizeName(name);
-    const tagName = this.format.normalizeName(name);
-
+    const className = this.format.className(name);
+    const normalizedName = this.format.normalizeName(name);
+    const tagName = `${options.xmlPrefix}${normalizedName}`;
     return `\
 import { Component } from '@angular/core';
 
 @Component({
-  selector: '${options.xmlPrefix}${tagName}',
-  templateUrl: './${fileName}.component.html',
-  styleUrls: ['./${fileName}.component.css']
+  selector: '${tagName}',
+  templateUrl: './${normalizedName}.component.html',
+  styleUrls: ['./${normalizedName}.component.css']
 })
-export class ${componentName}Component {}`;
+export class ${className}Component {}`;
   }
 
   private renderSpec(name: string, options: WebBlocGenOptions) {
-    const componentName = this.format.componentName(name);
+    const className = this.format.className(name);
     const fileName = this.format.normalizeName(name);
-
     return `\
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { ${componentName} } from "./${options.componentDir}/${fileName}";
+import { ${className} } from "./${fileName}";
 
-describe('${componentName}Component', () => {
-  let component: ${componentName}Component;
-  let fixture: ComponentFixture<${componentName}Component>;
+describe('${className}Component', () => {
+  let component: ${className}Component;
+  let fixture: ComponentFixture<${className}Component>;
+
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [${componentName}Component]
+      declarations: [${className}Component]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(${componentName}Component);
+    fixture = TestBed.createComponent(${className}Component);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
 
-it('should create', () => {
+  it('should create', () => {
     expect(component).toBeTruthy();
   });
 });`;

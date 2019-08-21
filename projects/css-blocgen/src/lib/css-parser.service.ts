@@ -19,9 +19,6 @@ export class CssParserService {
     data: SketchMSData,
     options: CssBlocGenOptions
   ) {
-    if (options.force) {
-      this.cssContext.clear(current);
-    }
     if (current._class === 'page') {
       current.layers.forEach(layer => {
         this.flattenLayer(layer);
@@ -32,25 +29,12 @@ export class CssParserService {
     }
   }
 
-  private visit(
-    current: SketchMSLayer,
-    data: SketchMSData,
-    options: CssBlocGenOptions
-  ) {
-    if (this.cssContext.identify(current)) {
-      if (!this.cssContext.has(current)) {
-        this.extractLayerContent(current, options);
-      }
-    }
-    this.traverseLayer(current, data, options);
-  }
-
   private flattenLayer(current: SketchMSLayer) {
     current.frame.x = 0;
     current.frame.y = 0;
   }
 
-  private traverseLayer(
+  private walk(
     current: SketchMSLayer,
     data: SketchMSData,
     options: CssBlocGenOptions
@@ -60,68 +44,76 @@ export class CssParserService {
         this.visit(layer, data, options);
       });
     } else if (this.symbol.identify(current)) {
-      return this.traverseSymbol(current, data, options);
+      return this.visitSymbol(current, data, options);
     }
   }
 
-  private traverseSymbol(
+  private visit(
+    current: SketchMSLayer,
+    data: SketchMSData,
+    options: CssBlocGenOptions
+  ) {
+    if (options.force) {
+      this.cssContext.clear(current);
+    }
+    if (this.cssContext.identify(current)) {
+      if (!this.cssContext.has(current)) {
+        this.visitContent(current, options);
+      }
+    }
+    this.walk(current, data, options);
+  }
+
+  private visitSymbol(
     current: SketchMSLayer,
     data: SketchMSData,
     options: CssBlocGenOptions
   ) {
     const symbolMaster = this.symbol.lookup(current, data);
-
     if (symbolMaster) {
       this.compute(symbolMaster, data, options);
     }
   }
 
-  private extractLayerContent(
-    current: SketchMSLayer,
-    options: CssBlocGenOptions
-  ) {
-    this.cssContext.put(current, this.extractObjectStyles(current));
-
+  private visitContent(current: SketchMSLayer, options: CssBlocGenOptions) {
     if (options.generateClassName) {
       this.cssContext.put(current, {
         className: this.generateCssClassName(options)
       });
     }
-  }
 
-  private extractObjectStyles(current: SketchMSLayer) {
     switch (current._class as string) {
       case 'rectangle':
-        return this.extractLayerStyle(current);
+        this.visitRectangleStyle(current);
+        break;
+
       case 'text':
-        return this.extractTextStyle(current);
+        this.visitTextStyle(current);
+        break;
+
       case 'oval':
-        const base = this.extractLayerStyle(current);
-        return {
-          ...base,
-          rules: {
-            ...this.addOvalShape(),
-            ...base.rules
-          }
-        };
+        this.visitOvalStyle(current);
+        break;
+
       default:
-        return this.extractContainerStyle(current);
+        this.visitLayerStyle(current);
+        break;
     }
   }
 
-  private extractContainerStyle(current: SketchMSLayer) {
-    return {
+  private visitLayerStyle(current: SketchMSLayer) {
+    this.cssContext.put(current, {
       rules: {
         ...this.extractFrame(current),
         ...this.extractRotation(current),
         ...this.extractBorderRadius(current),
         ...this.extractOpacity(current)
       }
-    };
+    });
   }
 
-  private extractLayerStyle(current: SketchMSLayer) {
-    return {
+  private visitRectangleStyle(current: SketchMSLayer) {
+    this.cssContext.put(current, {
       rules: {
         ...this.extractFrame(current),
         ...this.extractBorders(current),
@@ -131,18 +123,33 @@ export class CssParserService {
       pseudoElements: {
         before: this.extractBlurPseudoElement(current)
       }
-    };
+    });
   }
 
-  private extractTextStyle(current: SketchMSLayer) {
-    return {
+  private visitOvalStyle(current: SketchMSLayer) {
+    this.cssContext.put(current, {
+      rules: {
+        ...this.addOvalShape(),
+        ...this.extractFrame(current),
+        ...this.extractBorders(current),
+        ...this.extractFills(current),
+        ...this.extractShadows(current)
+      },
+      pseudoElements: {
+        before: this.extractBlurPseudoElement(current)
+      }
+    });
+  }
+
+  private visitTextStyle(current: SketchMSLayer) {
+    this.cssContext.put(current, {
       rules: {
         ...this.extractFrame(current),
         ...this.extractTextFont(current),
         ...this.extractTextColor(current),
         ...this.extractParagraphStyle(current)
       }
-    };
+    });
   }
 
   private extractFrame(current: SketchMSLayer) {

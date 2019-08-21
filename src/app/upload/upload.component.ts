@@ -19,7 +19,7 @@ export class UploadComponent implements OnInit {
   public selectedDemoFileError = false;
   isDragging$ = new BehaviorSubject<boolean>(false);
 
-  constructor(private sketchService: SketchService, private store: Store) {}
+  constructor(private sketchService: SketchService, private readonly store: Store) {}
 
   ngOnInit() {}
 

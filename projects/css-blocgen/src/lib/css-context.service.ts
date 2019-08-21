@@ -48,6 +48,6 @@ export class CssContextService {
   }
 
   clear(current: SketchMSLayer) {
-    (current as any).web = null;
+    delete (current as any).web;
   }
 }
