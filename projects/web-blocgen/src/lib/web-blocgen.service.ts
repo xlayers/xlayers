@@ -101,7 +101,10 @@ export class WebBlocGenService {
         ];
 
       default:
-        return this.webRender.render(current, options);
+        return [
+          ...this.traverse(current, data, options),
+          ...this.webRender.render(current, options)
+        ];
     }
   }
 
