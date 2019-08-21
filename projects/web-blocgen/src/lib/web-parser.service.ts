@@ -50,8 +50,8 @@ export class WebParserService {
     depth: number,
     options: WebBlocGenOptions
   ) {
-    this.putOpenTag(current, root, depth, options);
-    this.putClosingTag(current, root, data, depth, options);
+    this.putOpenGroup(current, root, depth, options);
+    this.putCloseGroup(current, root, data, depth, options);
   }
 
   private traverseLayer(
@@ -152,7 +152,7 @@ export class WebParserService {
     );
   }
 
-  private putOpenTag(
+  private putOpenGroup(
     current: SketchMSLayer,
     root: SketchMSLayer,
     depth: number,
@@ -168,7 +168,7 @@ ${this.format.indent(depth, tag)}`
     });
   }
 
-  private putClosingTag(
+  private putCloseGroup(
     current: SketchMSLayer,
     root: SketchMSLayer,
     data: SketchMSData,
