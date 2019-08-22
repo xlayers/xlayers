@@ -75,9 +75,9 @@ export class WebParserService {
     if (this.image.identify(current)) {
       this.visitBitmap(current, options);
     } else if (this.text.identify(current)) {
-      this.visitText(current, options);
+      this.visitText(current);
     } else if (this.svgBlocGen.identify(current)) {
-      this.visitShape(current, options);
+      this.visitShape(current);
     } else {
       this.visitLayer(current, options);
     }
@@ -89,8 +89,7 @@ export class WebParserService {
         ...this.generateClassAttribute(current),
         `role="${current._class}"`,
         `aria-label="${current.name}"`
-      ],
-      type: 'block'
+      ]
     });
   }
 
@@ -120,22 +119,19 @@ export class WebParserService {
         `role="${current._class}"`,
         `aria-label="${current.name}"`,
         `src="/${options.assetDir}/${fileName}.png"`
-      ],
-      type: 'image'
+      ]
     });
   }
 
-  private visitText(current: SketchMSLayer, options: WebBlocGenOptions) {
+  private visitText(current: SketchMSLayer) {
     this.webContext.put(current, {
-      attributes: this.generateClassAttribute(current),
-      type: 'text'
+      attributes: this.generateClassAttribute(current)
     });
   }
 
-  private visitShape(current: SketchMSLayer, options: WebBlocGenOptions) {
+  private visitShape(current: SketchMSLayer) {
     this.webContext.put(current, {
-      attributes: this.generateClassAttribute(current),
-      type: 'shape'
+      attributes: this.generateClassAttribute(current)
     });
   }
 

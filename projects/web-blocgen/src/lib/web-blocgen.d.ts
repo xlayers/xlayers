@@ -16,5 +16,4 @@ export interface WebBlocGenOptions {
 export interface WebBlocGenContext {
   components?: string[];
   attributes?: string[];
-  type?: string;
 }
