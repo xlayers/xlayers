@@ -185,10 +185,12 @@ export class WebRenderService {
       const attributIndex = attributes.findIndex(attribute =>
         attribute.startsWith('class=')
       );
+      if (attributIndex > 0) {
       attributes[attributIndex] = attributes[attributIndex].replace(
         'class=',
         'className='
       );
+    }
     }
     return [`<${tagName}`, ...attributes].join(' ') + '>';
   }
