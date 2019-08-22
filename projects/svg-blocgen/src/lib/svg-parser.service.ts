@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import { ShapeService, SymbolService, LayerService } from '@xlayers/sketch-lib';
+import { LayerService, ShapeService, SymbolService } from '@xlayers/sketch-lib';
 import { StyleService } from '@xlayers/sketch-lib';
-import { SvgContextService } from './svg-context.service';
+
 import { SvgBlocGenOptions } from './svg-blocgen';
+import { SvgContextService } from './svg-context.service';
 
 @Injectable({
   providedIn: 'root'
@@ -47,7 +48,7 @@ export class SvgParserService {
       this.svgContext.clear(current);
     }
     if (this.svgContext.identify(current)) {
-      if (!this.svgContext.has(current)) {
+      if (!this.svgContext.of(current)) {
         this.visitContent(current);
       }
     }
@@ -139,10 +140,7 @@ export class SvgParserService {
     this.svgContext.put(current, {
       offset,
       paths: [
-        {
-          type: 'path',
-          attributes: [...config, fillStyle, `d="${segments}"`]
-        }
+        { type: 'path', attributes: [...config, fillStyle, `d="${segments}"`] }
       ]
     });
   }
@@ -239,10 +237,7 @@ export class SvgParserService {
     this.svgContext.put(current, {
       offset,
       paths: [
-        {
-          type: 'path',
-          attributes: [fillStyle, `d="${paths.join(' ')}"`]
-        }
+        { type: 'path', attributes: [fillStyle, `d="${paths.join(' ')}"`] }
       ]
     });
   }

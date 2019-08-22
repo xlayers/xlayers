@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
-import {
-  ImageService,
-  FormatService,
-  SymbolService,
-  LayerService
-} from '@xlayers/sketch-lib';
 import { CssBlocGenService } from '@xlayers/css-blocgen';
-import { SvgBlocGenService } from '@xlayers/svg-blocgen';
+import {
+  FormatService,
+  ImageService,
+  LayerService,
+  SymbolService
+} from '@xlayers/sketch-lib';
 import { TextService } from '@xlayers/sketch-lib';
+import { SvgBlocGenService } from '@xlayers/svg-blocgen';
+
 import { WebBlocGenOptions } from './web-blocgen.d';
 import { WebContextService } from './web-context.service';
 
@@ -24,7 +25,7 @@ export class WebParserService {
     private cssBlocGen: CssBlocGenService,
     private svgBlocGen: SvgBlocGenService,
     private webContext: WebContextService
-  ) { }
+  ) {}
 
   compute(
     current: SketchMSLayer,
@@ -63,7 +64,7 @@ export class WebParserService {
       this.webContext.clear(current);
     }
     if (this.webContext.identify(current)) {
-      if (!this.webContext.has(current)) {
+      if (!this.webContext.of(current)) {
         this.visitContent(current, options);
       }
     }

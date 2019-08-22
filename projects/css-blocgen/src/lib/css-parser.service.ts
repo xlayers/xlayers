@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { StyleService, SymbolService, LayerService } from '@xlayers/sketch-lib';
-import { CssContextService } from './css-context.service';
+import { LayerService, StyleService, SymbolService } from '@xlayers/sketch-lib';
+
 import { CssBlocGenOptions } from './css-blocgen';
+import { CssContextService } from './css-context.service';
 
 @Injectable({
   providedIn: 'root'
@@ -57,7 +58,7 @@ export class CssParserService {
       this.cssContext.clear(current);
     }
     if (this.cssContext.identify(current)) {
-      if (!this.cssContext.has(current)) {
+      if (!this.cssContext.of(current)) {
         this.visitContent(current, options);
       }
     }
@@ -120,9 +121,7 @@ export class CssParserService {
         ...this.extractFills(current),
         ...this.extractShadows(current)
       },
-      pseudoElements: {
-        before: this.extractBlurPseudoElement(current)
-      }
+      pseudoElements: { before: this.extractBlurPseudoElement(current) }
     });
   }
 
@@ -135,9 +134,7 @@ export class CssParserService {
         ...this.extractFills(current),
         ...this.extractShadows(current)
       },
-      pseudoElements: {
-        before: this.extractBlurPseudoElement(current)
-      }
+      pseudoElements: { before: this.extractBlurPseudoElement(current) }
     });
   }
 
@@ -178,14 +175,14 @@ export class CssParserService {
       };
     } else if (obj.hasOwnProperty('NSColor')) {
       // TODO: Handle legacy
-      // const archive = this.binaryPlistParser.parse64Content(obj.NSColor._archive);
-      // (scope.style.textStyle.encodedAttributes.NSColor as any)._transformed = archive;
+      // const archive =
+      // this.binaryPlistParser.parse64Content(obj.NSColor._archive);
+      // (scope.style.textStyle.encodedAttributes.NSColor as any)._transformed =
+      // archive;
       return {};
     }
 
-    return {
-      color: 'black'
-    };
+    return { color: 'black' };
   }
 
   private extractParagraphStyle(current: SketchMSLayer) {
@@ -193,8 +190,10 @@ export class CssParserService {
 
     if (obj.hasOwnProperty('NSParagraphStyle')) {
       // TODO: Handle legacy
-      // const archive = this.binaryPlistParser.parse64Content(scope.style.textStyle.encodedAttributes.NSParagraphStyle._archive);
-      // (scope.style.textStyle.encodedAttributes.NSParagraphStyle as any)._transformed = archive;
+      // const archive =
+      // this.binaryPlistParser.parse64Content(scope.style.textStyle.encodedAttributes.NSParagraphStyle._archive);
+      // (scope.style.textStyle.encodedAttributes.NSParagraphStyle as
+      // any)._transformed = archive;
       return {};
     }
 
@@ -213,7 +212,8 @@ export class CssParserService {
     } else if (obj.hasOwnProperty('_archive')) {
       // TODO: Handle legacy
       // const archive = this.binaryPlistParser.parse64Content(obj._archive);
-      // (scope.style.textStyle.encodedAttributes.MSAttributedStringFontAttribute as any)._transformed = archive;
+      // (scope.style.textStyle.encodedAttributes.MSAttributedStringFontAttribute
+      // as any)._transformed = archive;
       return {};
     }
 
@@ -221,35 +221,23 @@ export class CssParserService {
   }
 
   private addOvalShape() {
-    return {
-      'border-radius': '50%'
-    };
+    return { 'border-radius': '50%' };
   }
 
   private extractOpacity(current: SketchMSLayer) {
     return (current as any).opacity
-      ? {
-          opacity: `${(current as any).opacity}`
-        }
+      ? { opacity: `${(current as any).opacity}` }
       : {};
   }
 
   private extractBorderRadius(current: SketchMSLayer) {
     const obj = (current as any).fixedRadius;
-    return obj
-      ? {
-          'border-radius': `${obj.fixedRadius}px`
-        }
-      : {};
+    return obj ? { 'border-radius': `${obj.fixedRadius}px` } : {};
   }
 
   private extractRotation(current: SketchMSLayer) {
     const obj = (current as any).rotation;
-    return obj
-      ? {
-          transform: `rotate(${current.rotation}deg)`
-        }
-      : {};
+    return obj ? { transform: `rotate(${current.rotation}deg)` } : {};
   }
 
   private extractBlurPseudoElement(current: SketchMSLayer) {
@@ -316,9 +304,7 @@ export class CssParserService {
       }, []);
 
       if (bordersStyles.length > 0) {
-        return {
-          'box-shadow': bordersStyles.join(',')
-        };
+        return { 'box-shadow': bordersStyles.join(',') };
       }
     }
 
@@ -387,9 +373,7 @@ export class CssParserService {
     const outterShadow = this.extractOuterShadow(current);
 
     return innerShadow + outterShadow !== ''
-      ? {
-          'box-shadow': innerShadow + outterShadow
-        }
+      ? { 'box-shadow': innerShadow + outterShadow }
       : {};
   }
 

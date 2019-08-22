@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { FormatService } from '@xlayers/sketch-lib';
-import { WebContextService } from './web-context.service';
+
 import { WebBlocGenOptions } from './web-blocgen';
+import { WebContextService } from './web-context.service';
 import { WebRenderService } from './web-render.service';
 
 @Injectable({
@@ -16,7 +17,6 @@ export class VueRenderService {
 
   render(current: SketchMSLayer, options: WebBlocGenOptions) {
     const fileName = this.format.normalizeName(current.name);
-    const context = this.webContext.of(current);
     const files = this.webRender.render(current, options);
     const html = files.find(file => file.language === 'html');
     const css = files.find(file => file.language === 'css');
@@ -24,37 +24,27 @@ export class VueRenderService {
     return [
       {
         kind: 'vue',
-        value: this.renderSpec(name, options),
+        value: this.renderSpec(current, options),
         language: 'javascript',
         uri: `${options.componentDir}/${fileName}.spec.js`
       },
       {
         kind: 'vue',
-        value: this.renderComponent(
-          html.value,
-          css.value,
-          context.components || [],
-          options
-        ),
+        value: this.renderComponent(current, html.value, css.value),
         language: 'html',
         uri: `${options.componentDir}/${fileName}.vue`
       }
     ];
   }
 
-  private renderComponent(
-    html: string,
-    css: string,
-    components: string[],
-    options: WebBlocGenOptions
-  ) {
+  private renderComponent(current: SketchMSLayer, html: string, css: string) {
     return `\
 <template>
 ${html}
 </template>
 
 <script>
-${this.renderScript(components, options)}
+${this.renderScript(current)}
 </script>
 
 <style>
@@ -62,23 +52,18 @@ ${css}
 </style>`;
   }
 
-  private renderScript(components: string[], options: WebBlocGenOptions) {
-    const importStatements = components.map(component => {
-      const className = this.format.className(component);
-      const importFileName = this.format.normalizeName(component);
-      return `import { ${className} } from "./${importFileName}";`;
-    });
-    const moduleNames = components.map(className =>
-      this.format.className(className)
-    );
-
-    if (components.length > 0) {
+  private renderScript(current: SketchMSLayer) {
+    const importStatements = this.renderImportStatements(current);
+    if (importStatements.length > 0) {
+      const importDeclarations = this.generateVueImportDeclaration(current)
+        .map(declaration => this.format.indent(2, declaration))
+        .join('\n');
       return `\
-${importStatements.join('\n')}
+${importStatements}
 
 export default {
   components: {
-${this.format.indentFile(2, moduleNames.join('\n')).join('\n')}
+${importDeclarations}
   }
 }`;
     }
@@ -86,9 +71,9 @@ ${this.format.indentFile(2, moduleNames.join('\n')).join('\n')}
     return 'export default {}';
   }
 
-  private renderSpec(name: string, options: WebBlocGenOptions) {
-    const className = this.format.className(name);
-    const fileName = this.format.className(name);
+  private renderSpec(current: SketchMSLayer, options: WebBlocGenOptions) {
+    const className = this.format.className(current.name);
+    const fileName = this.format.className(current.name);
 
     return `\
 import { shallowMount } from "@vue/test-utils";
@@ -101,5 +86,30 @@ describe("${className}", () => {
   });
 });
 ];`;
+  }
+
+  private renderImportStatements(current: SketchMSLayer) {
+    return [
+      'import { Component } from \'@stencil/core\';',
+      ...this.generateDynamicImport(current)
+    ].join('\n');
+  }
+
+  private generateDynamicImport(current: SketchMSLayer) {
+    const context = this.webContext.of(current);
+    return context && context.components
+      ? context.components.map(component => {
+          const importclassName = this.format.className(component);
+          const importFileName = this.format.normalizeName(component);
+          return `import { ${importclassName} } from "./${importFileName}"; `;
+        })
+      : [];
+  }
+
+  private generateVueImportDeclaration(current: SketchMSLayer) {
+    const context = this.webContext.of(current);
+    return context && context.components
+      ? context.components.map(component => this.format.className(component))
+      : [];
   }
 }

@@ -21,19 +21,12 @@ export class CssContextService {
     ].includes(current._class as string);
   }
 
-  has(current: SketchMSLayer) {
-    return !!(current as any).css;
-  }
-
   of(current: SketchMSLayer) {
     return (current as any).css;
   }
 
   put(current: SketchMSLayer, nextContext: CssBlocGenContext) {
-    (current as any).css = {
-      ...this.of(current),
-      ...nextContext
-    };
+    (current as any).css = { ...this.of(current), ...nextContext };
   }
 
   clear(current: SketchMSLayer) {

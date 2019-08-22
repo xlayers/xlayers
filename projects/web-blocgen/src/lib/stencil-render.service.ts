@@ -22,18 +22,13 @@ export class StencilRenderService {
     return [
       {
         kind: 'stencil',
-        value: this.renderComponent(
-          current.name,
-          html.value,
-          context.components || [],
-          options
-        ),
+        value: this.renderComponent(current, html.value, options),
         language: 'typescript',
         uri: `${options.componentDir}/${fileName}.tsx`
       },
       {
         kind: 'stencil',
-        value: this.renderE2e(current.name),
+        value: this.renderE2e(current),
         language: 'typescript',
         uri: `${options.componentDir}/${fileName}.e2e.ts`
       },
@@ -47,15 +42,14 @@ export class StencilRenderService {
   }
 
   private renderComponent(
-    name: string,
+    current: SketchMSLayer,
     html: string,
-    components: string[],
     options: WebBlocGenOptions
   ) {
-    const normalizedName = this.format.normalizeName(name);
-    const className = this.format.className(name);
+    const normalizedName = this.format.normalizeName(current.name);
+    const className = this.format.className(current.name);
     const tagName = `${options.xmlPrefix}${normalizedName}`;
-    const importStatements = this.renderImportStatements(components);
+    const importStatements = this.renderImportStatements(current);
     return `\
 ${importStatements}
 
@@ -73,9 +67,9 @@ ${this.format.indentFile(3, html).join('\n')}
 };`;
   }
 
-  private renderE2e(name: string) {
-    const className = this.format.className(name);
-    const tagName = this.format.normalizeName(name);
+  private renderE2e(current: SketchMSLayer) {
+    const className = this.format.className(current.name);
+    const tagName = this.format.normalizeName(current.name);
     return `\
 describe('${className}', () => {
   it('renders', async () => {
@@ -88,15 +82,21 @@ describe('${className}', () => {
 });`;
   }
 
-  private renderImportStatements(components: string[]) {
-    return `\
-import { Component } from '@stencil/core';
-${components
-  .map(component => {
-    const className = this.format.className(component);
-    const importFileName = this.format.normalizeName(component);
-    return `import { ${className} } from "./${importFileName}";`;
-  })
-  .join('\n')}`;
+  private renderImportStatements(current: SketchMSLayer) {
+    return [
+      'import { Component } from \'@stencil/core\';',
+      ...this.generateDynamicImport(current)
+    ].join('\n');
+  }
+
+  private generateDynamicImport(current: SketchMSLayer) {
+    const context = this.webContext.of(current);
+    return context && context.components
+      ? context.components.map(component => {
+          const importclassName = this.format.className(component);
+          const importFileName = this.format.normalizeName(component);
+          return `import { ${importclassName} } from "./${importFileName}"; `;
+        })
+      : [];
   }
 }

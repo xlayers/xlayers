@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { WebBlocGenContext } from './web-blocgen.d';
-import { LayerService, TextService, ImageService } from '@xlayers/sketch-lib';
+import { ImageService, LayerService, TextService } from '@xlayers/sketch-lib';
 import { SvgBlocGenService } from '@xlayers/svg-blocgen';
+
+import { WebBlocGenContext } from './web-blocgen.d';
 
 @Injectable({
   providedIn: 'root'
@@ -31,19 +32,12 @@ export class WebContextService {
     );
   }
 
-  has(current: SketchMSLayer) {
-    return !!(current as any).web;
-  }
-
   of(current: SketchMSLayer) {
     return (current as any).web;
   }
 
   put(current: SketchMSLayer, nextContext: WebBlocGenContext) {
-    (current as any).web = {
-      ...this.of(current),
-      ...nextContext
-    };
+    (current as any).web = { ...this.of(current), ...nextContext };
   }
 
   clear(current: SketchMSLayer) {

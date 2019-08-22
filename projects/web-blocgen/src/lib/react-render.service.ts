@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { FormatService } from '@xlayers/sketch-lib';
 import { WebRenderService } from './web-render.service';
-import { WebBlocGenOptions } from './web-blocgen';
+import { WebBlocGenOptions, WebBlocGenContext } from './web-blocgen';
 import { WebContextService } from './web-context.service';
 
 @Injectable({
@@ -16,24 +16,19 @@ export class ReactRenderService {
 
   render(current: SketchMSLayer, options: WebBlocGenOptions) {
     const fileName = this.format.normalizeName(current.name);
-    const context = this.webContext.of(current);
     const files = this.webRender.render(current, options);
     const html = files.find(file => file.language === 'html');
 
     return [
       {
         kind: 'react',
-        value: this.renderComponent(
-          current.name,
-          html.value,
-          context.components || []
-        ),
+        value: this.renderComponent(current, html.value),
         language: 'javascript',
         uri: `${options.componentDir}/${fileName}.jsx`
       },
       {
         kind: 'react',
-        value: this.renderSpec(current.name),
+        value: this.renderSpec(current),
         language: 'javascript',
         uri: `${options.componentDir}/${fileName}.spec.js`
       },
@@ -46,9 +41,9 @@ export class ReactRenderService {
     ];
   }
 
-  private renderComponent(name: string, html: string, components: string[]) {
-    const className = this.format.className(name);
-    const importStatements = this.renderImportStatements(name, components);
+  private renderComponent(current: SketchMSLayer, html: string) {
+    const className = this.format.className(current.name);
+    const importStatements = this.renderImportStatements(current);
     return `\
 ${importStatements}
 
@@ -57,9 +52,9 @@ ${this.format.indentFile(1, html).join('\n')}
 );`;
   }
 
-  private renderSpec(name: string) {
-    const className = this.format.className(name);
-    const fileName = this.format.normalizeName(name);
+  private renderSpec(current: SketchMSLayer) {
+    const className = this.format.className(current.name);
+    const fileName = this.format.normalizeName(current.name);
     return `\
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -71,16 +66,23 @@ it('renders without crashing', () => {
 })`;
   }
 
-  private renderImportStatements(name: string, components: string[]) {
-    const fileName = this.format.normalizeName(name);
+  private renderImportStatements(current: SketchMSLayer) {
+    const fileName = this.format.normalizeName(current.name);
     return [
       'import React from \'react\';',
-      ...components.map(component => {
-        const importclassName = this.format.className(component);
-        const importFileName = this.format.normalizeName(component);
-        return `import { ${importclassName} } from "./${importFileName}";`;
-      }),
+      ...this.generateDynamicImport(current),
       `import \'./${fileName}.css\';`
     ].join('\n');
+  }
+
+  private generateDynamicImport(current: SketchMSLayer) {
+    const context = this.webContext.of(current);
+    return context && context.components
+      ? context.components.map(component => {
+          const importclassName = this.format.className(component);
+          const importFileName = this.format.normalizeName(component);
+          return `import { ${importclassName} } from "./${importFileName}";`;
+        })
+      : [];
   }
 }

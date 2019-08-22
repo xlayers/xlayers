@@ -9,19 +9,12 @@ export class SvgContextService {
     return ['triangle', 'shapePath'].includes(current._class as string);
   }
 
-  has(current: SketchMSLayer) {
-    return !!(current as any).svg;
-  }
-
   of(current: SketchMSLayer) {
     return (current as any).svg;
   }
 
   put(current: SketchMSLayer, newContext: SvgBlocGenContext) {
-    (current as any).svg = {
-      ...this.of(current),
-      ...newContext
-    };
+    (current as any).svg = { ...this.of(current), ...newContext };
   }
 
   clear(current: SketchMSLayer) {
