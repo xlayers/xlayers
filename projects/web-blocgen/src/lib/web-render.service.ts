@@ -24,7 +24,7 @@ export class WebRenderService {
     private webContext: WebContextService,
     private cssBlocGen: CssBlocGenService,
     private svgBlocGen: SvgBlocGenService
-  ) {}
+  ) { }
 
   render(current: SketchMSLayer, options: WebBlocGenOptions) {
     const fileName = this.format.normalizeName(current.name);
@@ -186,11 +186,11 @@ export class WebRenderService {
         attribute.startsWith('class=')
       );
       if (attributIndex > 0) {
-      attributes[attributIndex] = attributes[attributIndex].replace(
-        'class=',
-        'className='
-      );
-    }
+        attributes[attributIndex] = attributes[attributIndex].replace(
+          'class=',
+          'className='
+        );
+      }
     }
     return [`<${tagName}`, ...attributes].join(' ') + '>';
   }

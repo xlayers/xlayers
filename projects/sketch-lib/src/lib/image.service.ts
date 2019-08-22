@@ -5,7 +5,7 @@ import { FormatService } from './format.service';
   providedIn: 'root'
 })
 export class ImageService {
-  constructor(private format: FormatService) {}
+  constructor(private format: FormatService) { }
 
   identify(current: SketchMSLayer) {
     return (current._class as string) === 'bitmap';
@@ -16,18 +16,11 @@ export class ImageService {
   }
 
   render(current: SketchMSLayer, data: SketchMSData, options: any) {
-    const content = this.getImageDataFromRef(data, (current as any).image._ref);
-    const bin = atob(content);
-    const buf = new Uint8Array(bin.length);
-    Array.prototype.forEach.call(bin, (ch, i) => {
-      buf[i] = ch.charCodeAt(0);
-    });
-
     return [
       {
-        kind: 'file',
-        value: buf,
-        language: 'binary',
+        kind: 'png',
+        value: this.getImageDataFromRef(data, (current as any).image._ref),
+        language: 'base64',
         uri: `${options.assetDir}/${this.format.normalizeName(
           current.name
         )}.png`
@@ -36,22 +29,6 @@ export class ImageService {
   }
 
   private getImageDataFromRef(data: SketchMSData, reference: string) {
-    const bitmaps = this.bitmapRegistryOf(data);
-    return bitmaps[reference];
-  }
-
-  private bitmapRegistryOf(data: SketchMSData) {
-    const legacyResourceRegistry =
-      (data as any).resources &&
-      (data as any).resources.images &&
-      Object.entries((data as any).resources.images).reduce(
-        (acc, [relativePath, image]) => ({
-          ...acc,
-          [relativePath]: (image as any).source
-        }),
-        {}
-      );
-
-    return legacyResourceRegistry || (data as any).images;
+    return (data as any).images[reference];
   }
 }

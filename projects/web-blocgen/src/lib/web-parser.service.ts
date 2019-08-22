@@ -24,7 +24,7 @@ export class WebParserService {
     private cssBlocGen: CssBlocGenService,
     private svgBlocGen: SvgBlocGenService,
     private webContext: WebContextService
-  ) {}
+  ) { }
 
   compute(
     current: SketchMSLayer,
@@ -118,7 +118,7 @@ export class WebParserService {
         ...this.generateClassAttribute(current),
         `role="${current._class}"`,
         `aria-label="${current.name}"`,
-        `src="${options.assetDir}/${fileName}.jpg"`
+        `src="/${options.assetDir}/${fileName}.png"`
       ],
       type: 'image'
     });

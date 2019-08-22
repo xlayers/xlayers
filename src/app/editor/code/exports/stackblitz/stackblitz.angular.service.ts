@@ -11,7 +11,11 @@ export class ExportStackblitzAngularService {
     for (let i = 0; i < content.length; i++) {
       for (const prop in content[i]) {
         if (prop === 'uri') {
-          files[`src/app/xlayers/` + content[i].uri] = content[i].value;
+          if (content[i].language === 'base64') {
+            files[`src/app/` + content[i].uri] = content[i].value;
+          } else {
+            files[`src/app/xlayers/` + content[i].uri] = content[i].value;
+          }
         }
       }
     }

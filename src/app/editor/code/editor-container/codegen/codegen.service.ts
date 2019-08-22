@@ -15,15 +15,16 @@ declare var gtag;
 
 export interface XlayersNgxEditorModel {
   kind:
-    | 'angular'
-    | 'react'
-    | 'vue'
-    | 'wc'
-    | 'stencil'
-    | 'litElement'
-    | 'html'
-    | 'text'
-    | 'xamarinForms';
+  | 'png'
+  | 'angular'
+  | 'react'
+  | 'vue'
+  | 'wc'
+  | 'stencil'
+  | 'litElement'
+  | 'html'
+  | 'text'
+  | 'xamarinForms';
   uri: string;
   value: any;
   language: string;
@@ -112,7 +113,7 @@ export class CodeGenService {
           '',
           ...temp
         ].join('\n');
-      } else {
+      } else if (file.language !== 'base64') {
         file.value = [
           `${comment.start} ${message} ${comment.end}`,
           `${comment.start} ${version} ${comment.end}`,
