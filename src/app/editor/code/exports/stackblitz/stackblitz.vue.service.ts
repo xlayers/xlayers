@@ -6,7 +6,6 @@ import { StackBlitzProjectPayload } from './stackblitz.service';
   providedIn: 'root'
 })
 export class ExportStackblitzVueService {
-  constructor() {}
   prepare(content: XlayersNgxEditorModel[]): StackBlitzProjectPayload {
     const files = {};
     for (let i = 0; i < content.length; i++) {
@@ -38,12 +37,12 @@ new Vue({
 </template>
 
 <script>
-import MyComponent from './xlayers/my-component.vue'
+// import MyComponent from './xlayers/my-component.vue'
 
 export default {
   name: 'app',
   components: {
-    MyComponent
+    // MyComponent
   }
 }
 </script>`;

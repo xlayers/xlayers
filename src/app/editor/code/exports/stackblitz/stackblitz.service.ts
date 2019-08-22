@@ -39,39 +39,54 @@ export class ExportStackblitzService {
     private stencilExport: ExportStackblitzStencilService,
     private litElementExport: ExportStackblitzLitElementService
 
-  ) {}
+  ) { }
 
   async export(codegen: CodeGenSettings) {
     let project: StackBlitzProjectPayload = null;
+    const content = this.normalizeBase64Image(codegen);
     switch (codegen.kind) {
       case CodeGenKind.React:
-        project = this.reactExport.prepare(codegen.content);
+        project = this.reactExport.prepare(content);
         break;
       case CodeGenKind.Vue:
-        project = this.vueExport.prepare(codegen.content);
+        project = this.vueExport.prepare(content);
         break;
       case CodeGenKind.WC:
-        project = this.wcExport.prepare(codegen.content);
+        project = this.wcExport.prepare(content);
         break;
       case CodeGenKind.Stencil:
-        project = this.stencilExport.prepare(codegen.content);
+        project = this.stencilExport.prepare(content);
         break;
       case CodeGenKind.LitElement:
-        project = this.litElementExport.prepare(codegen.content);
+        project = this.litElementExport.prepare(content);
         break;
       case CodeGenKind.Angular:
       default:
-        project = this.angularExport.prepare(codegen.content);
+        project = this.angularExport.prepare(content);
         break;
     }
 
     sdk.openProject({
       files: project.files,
-      title: project.description || 'xlayers' ,
+      title: project.description || 'xlayers',
       description: project.description || 'xLayers generated project',
       template: project.template,
       // tags: ['xlayers', ...project.tags],
       dependencies: project.dependencies || {}
+    });
+  }
+
+  private normalizeBase64Image(codegen: CodeGenSettings) {
+    return codegen.content.map((file) => {
+      if (file.language === 'base64') {
+        if (file.kind === 'png') {
+          return {
+            ...file,
+            value: `data:image/png;base64,${file.value}`
+          };
+        }
+      }
+      return file;
     });
   }
 }

@@ -39,7 +39,7 @@ describe('StackBlitz WC', () => {
   });
 
   it('should have default index.js', () => {
-    expect(files['index.js']).toBe(`import './components/my-element.js';`);
+    expect(files['index.js']).toBe(`// import './components/my-element.js';`);
   });
 
   it('should have javascript template', () => {

@@ -6,7 +6,6 @@ import { StackBlitzProjectPayload } from './stackblitz.service';
   providedIn: 'root'
 })
 export class ExportStackblitzAngularService {
-  constructor() {}
   prepare(content: XlayersNgxEditorModel[]): StackBlitzProjectPayload {
     const files = {};
     for (let i = 0; i < content.length; i++) {
@@ -21,7 +20,7 @@ export class ExportStackblitzAngularService {
 import { Component } from '@angular/core';
 @Component({
   selector: 'my-app',
-  template: '<app-xlayers></app-xlayers>',
+  template: \`<!–– my-component ––>\`,
 })
 export class AppComponent  {}`;
     files['src/app/app.module.ts'] = `\

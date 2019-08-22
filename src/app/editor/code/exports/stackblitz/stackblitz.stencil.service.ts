@@ -6,7 +6,6 @@ import { StackBlitzProjectPayload } from './stackblitz.service';
   providedIn: 'root'
 })
 export class ExportStackblitzStencilService {
-  constructor() {}
   prepare(content: XlayersNgxEditorModel[]): StackBlitzProjectPayload {
     const files = {};
     for (let i = 0; i < content.length; i++) {
@@ -72,7 +71,6 @@ export class ExportStackblitzStencilService {
     files['stencil.config.ts'] = `\
 import { Config } from '@stencil/core';
 export const config: Config = {
-  namespace: 'my-component',
   outputTargets:[
     { type: 'dist' },
     { type: 'docs' },
@@ -90,10 +88,10 @@ export const config: Config = {
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0">
   <title>Stencil Component Starter</title>
-  <script src="/build/my-component.js"></script>
+  // <script src="/build/my-component.js"></script>
 </head>
 <body>
-  <my-component></my-component>
+  // <my-component></my-component>
 </body>
 </html>`;
 

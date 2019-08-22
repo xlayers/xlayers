@@ -6,7 +6,6 @@ import { StackBlitzProjectPayload } from './stackblitz.service';
   providedIn: 'root'
 })
 export class ExportStackblitzLitElementService {
-  constructor() {}
   prepare(content: XlayersNgxEditorModel[]): StackBlitzProjectPayload {
     const files = {};
     for (let i = 0; i < content.length; i++) {
@@ -16,7 +15,7 @@ export class ExportStackblitzLitElementService {
         }
       }
     }
-    files['index.js'] = `import './components/my-element.js';`;
+    files['index.js'] = `// import './components/my-element.js';`;
     // add extra files
     files['index.html'] = `\
 <!DOCTYPE html>
@@ -29,7 +28,7 @@ export class ExportStackblitzLitElementService {
     <title>xLayers Custom Element using : LitElement</title>
   </head>
   <body>
-    <my-element></my-element>
+    // <my-element></my-element>
   </body>
   <script src="./index.js"></script>
 </html>`;

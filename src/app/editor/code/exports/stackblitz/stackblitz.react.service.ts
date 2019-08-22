@@ -6,7 +6,6 @@ import { StackBlitzProjectPayload } from './stackblitz.service';
   providedIn: 'root'
 })
 export class ExportStackblitzReactService {
-  constructor() {}
   prepare(content: XlayersNgxEditorModel[]): StackBlitzProjectPayload {
     const files = {};
     for (let i = 0; i < content.length; i++) {
@@ -37,10 +36,10 @@ export class ExportStackblitzReactService {
     files['src/index.js'] = `\
 import React from 'react';
 import ReactDOM from 'react-dom';
+// import MyComponent from './components/my-component';
 import './index.css';
-import MyComponent from './components/my-component';
 
-ReactDOM.render(<MyComponent />, document.getElementById('root'));`;
+// ReactDOM.render(<MyComponent />, document.getElementById('root'));`;
     files['src/index.css'] = `\
 body {
   margin: 0;
