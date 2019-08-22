@@ -26,7 +26,7 @@ export class ReactRenderService {
         value: this.renderComponent(
           current.name,
           html.value,
-          context.components
+          context.components || []
         ),
         language: 'javascript',
         uri: `${options.componentDir}/${fileName}.jsx`

@@ -83,12 +83,9 @@ export class WebParserService {
   }
 
   private visitLayer(current: SketchMSLayer, options: WebBlocGenOptions) {
-    const className = this.cssBlocGen.context(current).className;
     this.webContext.put(current, {
       attributes: [
-        ...(className
-          ? [`${options.jsx ? 'className' : 'class'}="${className}"`]
-          : []),
+        ...this.generateClassAttribute(current),
         `role="${current._class}"`,
         `aria-label="${current.name}"`
       ],
@@ -104,8 +101,12 @@ export class WebParserService {
     const symbolMaster = this.symbol.lookup(current, data);
     if (symbolMaster) {
       this.compute(symbolMaster, data, options);
+      const context = this.webContext.of(current);
       this.webContext.put(current, {
-        components: [...this.webContext.of(current).components, current.name]
+        components:
+          context && context.components
+            ? [...context.components, current.name]
+            : [current.name]
       });
     }
   }
@@ -117,7 +118,7 @@ export class WebParserService {
         ...this.generateClassAttribute(current),
         `role="${current._class}"`,
         `aria-label="${current.name}"`,
-        `src="${options.assetDir}/${fileName}.jpg`
+        `src="${options.assetDir}/${fileName}.jpg"`
       ],
       type: 'image'
     });
@@ -138,9 +139,12 @@ export class WebParserService {
   }
 
   private generateClassAttribute(current: SketchMSLayer) {
-    const className = this.cssBlocGen.context(current).className;
-    return className
-      ? [`class="${this.cssBlocGen.context(current).className}"`]
-      : [];
+    if (this.cssBlocGen.identify(current)) {
+      const className = this.cssBlocGen.context(current).className;
+      if (className) {
+        return [`class="${className}"`];
+      }
+    }
+    return [];
   }
 }

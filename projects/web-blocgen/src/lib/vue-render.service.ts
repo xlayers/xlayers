@@ -33,7 +33,7 @@ export class VueRenderService {
         value: this.renderComponent(
           html.value,
           css.value,
-          context.components,
+          context.components || [],
           options
         ),
         language: 'html',

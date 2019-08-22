@@ -43,7 +43,7 @@ export class WebBlocGenService {
     data: SketchMSData,
     options?: WebBlocGenOptions
   ) {
-    return this.traverseAndRender(current, data, this.compileOptions(options));
+    return this.visit(current, data, this.compileOptions(options));
   }
 
   identify(current: SketchMSLayer) {
@@ -54,94 +54,85 @@ export class WebBlocGenService {
     return this.webContext.of(current);
   }
 
-  private traverseAndRender(
+  private visit(
     current: SketchMSLayer,
     data: SketchMSData,
     options?: WebBlocGenOptions
   ) {
     switch (options.mode) {
       case 'vue':
-        return [
-          ...this.traverse(current, data, options),
-          ...this.vueRender.render(current, options)
-        ];
+        return this.visitContent(current, data, options).concat(
+          this.vueRender.render(current, options)
+        );
 
       case 'angular':
-        return [
-          ...this.traverse(current, data, options),
-          ...this.angularRender.render(current, options)
-        ];
+        return this.visitContent(current, data, options).concat(
+          this.angularRender.render(current, options)
+        );
 
       case 'litElement':
-        return [
-          ...this.traverse(current, data, options),
-          ...this.litElementRender.render(current, options)
-        ];
+        return this.visitContent(current, data, options).concat(
+          this.litElementRender.render(current, options)
+        );
 
       case 'react':
-        return [
-          ...this.traverse(current, data, { ...options, jsx: true }),
-          ...this.reactRender.render(current, { ...options, jsx: true })
-        ];
+        return this.visitContent(current, data, options).concat(
+          this.reactRender.render(current, { ...options, jsx: true })
+        );
 
       case 'webComponent':
-        return [
-          ...this.traverse(current, data, options),
-          ...this.webComponentRender.render(current, options)
-        ];
+        return this.visitContent(current, data, options).concat(
+          this.webComponentRender.render(current, options)
+        );
 
       case 'stencil':
-        return [
-          ...this.traverse(current, data, { ...options, jsx: true }),
-          ...this.stencilRender.render(current, {
+        return this.visitContent(current, data, options).concat(
+          this.stencilRender.render(current, {
             ...options,
             jsx: true
           })
-        ];
+        );
 
       default:
-        return [
-          ...this.traverse(current, data, options),
-          ...this.webRender.render(current, options)
-        ];
+        return this.visitContent(current, data, options).concat(
+          this.webRender.render(current, options)
+        );
     }
   }
 
-  private traverse(
+  private visitContent(
     current: SketchMSLayer,
     data: SketchMSData,
     options: WebBlocGenOptions
   ) {
     if (this.layer.identify(current)) {
-      return this.layer
-        .lookup(current, data)
-        .flatMap(layer => this.traverse(layer, data, options));
-    }
-    return this.retrieveFiles(data, current, options);
-  }
-
-  private retrieveFiles(
-    data: SketchMSData,
-    current: SketchMSLayer,
-    options: WebBlocGenOptions
-  ) {
-    if (this.symbol.identify(current)) {
-      return this.retrieveSymbolMaster(current, data, options);
-    }
-    if (this.image.identify(current)) {
+      return this.visitLayer(current, data, options);
+    } else if (this.symbol.identify(current)) {
+      return this.visitSymbolMaster(current, data, options);
+    } else if (this.image.identify(current)) {
       return this.image.render(current, data, options);
     }
     return [];
   }
 
-  private retrieveSymbolMaster(
+  private visitLayer(
+    current: SketchMSLayer,
+    data: SketchMSData,
+    options: WebBlocGenOptions
+  ) {
+    return this.layer
+      .lookup(current, data)
+      .flatMap(layer => this.visitContent(layer, data, options));
+  }
+
+  private visitSymbolMaster(
     current: SketchMSLayer,
     data: SketchMSData,
     options: WebBlocGenOptions
   ) {
     const symbolMaster = this.symbol.lookup(current, data);
     if (symbolMaster) {
-      return this.traverseAndRender(symbolMaster, data, options);
+      return this.visit(symbolMaster, data, options);
     }
     return [];
   }

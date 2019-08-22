@@ -1,11 +1,15 @@
 import { Injectable } from '@angular/core';
 import { WebBlocGenService } from '@xlayers/web-blocgen';
+import { FormatService } from '@xlayers/sketch-lib';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AngularCodeGenService {
-  constructor(private webBlocGen: WebBlocGenService) {}
+  constructor(
+    private format: FormatService,
+    private webBlocGen: WebBlocGenService
+  ) {}
 
   buttons() {
     return {
@@ -14,6 +18,9 @@ export class AngularCodeGenService {
   }
 
   generate(data: SketchMSData) {
+    const generatedFiles = data.pages.flatMap(page =>
+      this.webBlocGen.render(page, data, { mode: 'angular' })
+    );
     return [
       {
         uri: 'README.md',
@@ -22,20 +29,18 @@ export class AngularCodeGenService {
         kind: 'text'
       },
       {
-        uri: 'xlayers.module.ts',
-        value: this.renderModule(),
-        language: 'typescript',
-        kind: 'angular'
-      },
-      {
         uri: 'xlayers-routing.module.ts',
         value: this.renderRoutingModule(),
         language: 'typescript',
         kind: 'angular'
       },
-      ...data.pages.flatMap(page =>
-        this.webBlocGen.render(page, data, { mode: 'angular' })
-      )
+      {
+        uri: 'xlayers.module.ts',
+        value: this.renderModule(generatedFiles),
+        language: 'typescript',
+        kind: 'angular'
+      },
+      ...generatedFiles
     ];
   }
 
@@ -92,23 +97,52 @@ const xlayersRoutes: Routes = [{
 export class XlayersRoutingModule {}`;
   }
 
-  private renderModule() {
+  private renderModule(generatedFiles) {
+    const importStatements = this.renderImports(generatedFiles);
+    const ngStatements = this.renderNgClasses(generatedFiles);
     return `\
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { MyComponent } from './components/my-component.component';
+${importStatements}
 
 @NgModule({
   declarations: [
-    MyComponent
+${ngStatements}
   ],
   exports: [
-    MyComponent
+${ngStatements}
   ],
   imports: [
     CommonModule
   ]
 })
 export class XlayersModule {}`;
+  }
+
+  private renderImports(generatedFiles) {
+    return [
+      'import { NgModule } from \'@angular/core\';',
+      'import { CommonModule } from \'@angular/common\';'
+    ]
+      .concat(
+        generatedFiles
+          .filter(file => file.uri.endsWith('.component.ts'))
+          .map(
+            file =>
+              `import { ${this.extractClassName(file)} } from './${file.uri}';`
+          )
+      )
+      .join('\n');
+  }
+
+  private renderNgClasses(generatedFiles) {
+    return generatedFiles
+      .filter(file => file.uri.endsWith('.component.ts'))
+      .map(file => this.format.indent(2, this.extractClassName(file)))
+      .join(',\n');
+  }
+
+  private extractClassName(file) {
+    const uri = file.uri.split('/');
+    const fileName = uri[uri.length - 1].replace('.component.ts', '');
+    return this.format.className(`${fileName}Component`);
   }
 }

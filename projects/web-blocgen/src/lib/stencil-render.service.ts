@@ -25,7 +25,7 @@ export class StencilRenderService {
         value: this.renderComponent(
           current.name,
           html.value,
-          context.components,
+          context.components || [],
           options
         ),
         language: 'typescript',
