@@ -9,17 +9,17 @@ import { WebBlocGenContext } from './web-blocgen.d';
 })
 export class WebContextService {
   constructor(
-    private layer: LayerService,
-    private text: TextService,
-    private image: ImageService,
+    private readonly layerService: LayerService,
+    private textService: TextService,
+    private readonly imageService: ImageService,
     private svgBlocGen: SvgBlocGenService
   ) {}
 
   identify(current: SketchMSLayer) {
     return (
-      this.image.identify(current) ||
-      this.text.identify(current) ||
-      this.layer.identify(current) ||
+      this.imageService.identify(current) ||
+      this.textService.identify(current) ||
+      this.layerService.identify(current) ||
       this.svgBlocGen.identify(current) ||
       [
         'oval',

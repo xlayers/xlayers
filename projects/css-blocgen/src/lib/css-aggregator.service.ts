@@ -11,9 +11,9 @@ interface StyleList {
 @Injectable({
   providedIn: 'root'
 })
-export class CssRenderService {
+export class CssAggregatorService {
   constructor(
-    private format: FormatService,
+    private formatService: FormatService,
     private cssContext: CssContextService
   ) {}
 
@@ -31,14 +31,14 @@ export class CssRenderService {
    * This will parse the ast to return a optimized css stylesheet
    * @param current SketchMSLayer the ast based on sketch json
    */
-  render(current: SketchMSLayer, options?: CssBlocGenOptions) {
+  aggreate(current: SketchMSLayer, options?: CssBlocGenOptions) {
     const styles: Array<StyleList> = [];
     this.buildAstStyleSheet(styles, current);
     this.postProcessCss(styles);
     this.buildPseudoElementStyle(styles, current);
     const reGenerateStyleSheet = this.reGenerateStyleSheet(styles);
 
-    const fileName = this.format.normalizeName(current.name);
+    const fileName = this.formatService.normalizeName(current.name);
     return [
       {
         kind: 'css',
@@ -190,9 +190,7 @@ export class CssRenderService {
         for (const key of Array.from(currentDeclarationSet.values())) {
           if (checkDeclarationPropertySet.has(key)) {
             duplicates.push({
-              className: `${currentDeclaration.className}, .${
-                nextDeclaration.className
-              }`,
+              className: `${currentDeclaration.className}, .${nextDeclaration.className}`,
               key
             });
             checkDeclarationPropertySet.delete(key);

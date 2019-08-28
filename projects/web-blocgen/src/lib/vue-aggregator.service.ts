@@ -3,21 +3,21 @@ import { FormatService } from '@xlayers/sketch-lib';
 
 import { WebBlocGenOptions } from './web-blocgen';
 import { WebContextService } from './web-context.service';
-import { WebRenderService } from './web-render.service';
+import { WebAggregatorService } from './web-aggregator.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class VueRenderService {
+export class VueAggregatorService {
   constructor(
-    private format: FormatService,
-    private webContext: WebContextService,
-    private webRender: WebRenderService
+    private formatService: FormatService,
+    private readonly webContext: WebContextService,
+    private readonly webAggretatorService: WebAggregatorService
   ) {}
 
-  render(current: SketchMSLayer, options: WebBlocGenOptions) {
-    const fileName = this.format.normalizeName(current.name);
-    const files = this.webRender.render(current, options);
+  aggreate(current: SketchMSLayer, options: WebBlocGenOptions) {
+    const fileName = this.formatService.normalizeName(current.name);
+    const files = this.webAggretatorService.aggreate(current, options);
     const html = files.find(file => file.language === 'html');
     const css = files.find(file => file.language === 'css');
 
@@ -56,7 +56,7 @@ ${css}
     const importStatements = this.renderImportStatements(current);
     if (importStatements.length > 0) {
       const importDeclarations = this.generateVueImportDeclaration(current)
-        .map(declaration => this.format.indent(2, declaration))
+        .map(declaration => this.formatService.indent(2, declaration))
         .join('\n');
       return `\
 ${importStatements}
@@ -72,8 +72,8 @@ ${importDeclarations}
   }
 
   private renderSpec(current: SketchMSLayer, options: WebBlocGenOptions) {
-    const className = this.format.className(current.name);
-    const fileName = this.format.className(current.name);
+    const className = this.formatService.className(current.name);
+    const fileName = this.formatService.className(current.name);
 
     return `\
 import { shallowMount } from "@vue/test-utils";
@@ -99,8 +99,8 @@ describe("${className}", () => {
     const context = this.webContext.of(current);
     return context && context.components
       ? context.components.map(component => {
-          const importclassName = this.format.className(component);
-          const importFileName = this.format.normalizeName(component);
+          const importclassName = this.formatService.className(component);
+          const importFileName = this.formatService.normalizeName(component);
           return `import { ${importclassName} } from "./${importFileName}"; `;
         })
       : [];
@@ -109,7 +109,9 @@ describe("${className}", () => {
   private generateVueImportDeclaration(current: SketchMSLayer) {
     const context = this.webContext.of(current);
     return context && context.components
-      ? context.components.map(component => this.format.className(component))
+      ? context.components.map(component =>
+          this.formatService.className(component)
+        )
       : [];
   }
 }

@@ -1,20 +1,20 @@
 import { Injectable } from '@angular/core';
 import { FormatService } from '@xlayers/sketch-lib';
 import { WebBlocGenOptions } from './web-blocgen';
-import { WebRenderService } from './web-render.service';
+import { WebAggregatorService } from './web-aggregator.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class WebComponentRenderService {
+export class WebComponentAggregatorService {
   constructor(
-    private format: FormatService,
-    private webRender: WebRenderService
+    private formatService: FormatService,
+    private readonly webAggretatorService: WebAggregatorService
   ) {}
 
-  render(current: SketchMSLayer, options: WebBlocGenOptions) {
-    const fileName = this.format.normalizeName(current.name);
-    const files = this.webRender.render(current, options);
+  aggreate(current: SketchMSLayer, options: WebBlocGenOptions) {
+    const fileName = this.formatService.normalizeName(current.name);
+    const files = this.webAggretatorService.aggreate(current, options);
     const html = files.find(file => file.language === 'html');
     const css = files.find(file => file.language === 'css');
     return [
@@ -28,17 +28,17 @@ export class WebComponentRenderService {
   }
 
   private renderComponent(name: string, html: string, css: string) {
-    const className = this.format.className(name);
-    const tagName = this.format.normalizeName(name);
+    const className = this.formatService.className(name);
+    const tagName = this.formatService.normalizeName(name);
     return `\
 class ${className} extends HTMLElement {
   connectedCallback() {
     this.innerHTML = \`
       <style>
-${this.format.indentFile(3, css).join('\n')}
+${this.formatService.indentFile(3, css).join('\n')}
       </style>
 
-${this.format.indentFile(3, html).join('\n')}
+${this.formatService.indentFile(3, html).join('\n')}
     \`
   }
 }

@@ -5,7 +5,7 @@ import { FormatService } from './format.service';
   providedIn: 'root'
 })
 export class ImageService {
-  constructor(private format: FormatService) { }
+  constructor(private formatService: FormatService) {}
 
   identify(current: SketchMSLayer) {
     return (current._class as string) === 'bitmap';
@@ -15,13 +15,13 @@ export class ImageService {
     return this.getImageDataFromRef(data, (current as any).image._ref);
   }
 
-  render(current: SketchMSLayer, data: SketchMSData, options: any) {
+  aggreate(current: SketchMSLayer, data: SketchMSData, options: any) {
     return [
       {
         kind: 'png',
         value: this.getImageDataFromRef(data, (current as any).image._ref),
         language: 'base64',
-        uri: `${options.assetDir}/${this.format.normalizeName(
+        uri: `${options.assetDir}/${this.formatService.normalizeName(
           current.name
         )}.png`
       }

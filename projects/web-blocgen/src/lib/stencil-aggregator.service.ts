@@ -1,22 +1,22 @@
 import { Injectable } from '@angular/core';
 import { FormatService } from '@xlayers/sketch-lib';
-import { WebRenderService } from './web-render.service';
+import { WebAggregatorService } from './web-aggregator.service';
 import { WebBlocGenOptions } from './web-blocgen';
 import { WebContextService } from './web-context.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class StencilRenderService {
+export class StencilAggregatorService {
   constructor(
-    private format: FormatService,
-    private webContext: WebContextService,
-    private webRender: WebRenderService
+    private formatService: FormatService,
+    private readonly webContext: WebContextService,
+    private readonly webAggretatorService: WebAggregatorService
   ) {}
 
-  render(current: SketchMSLayer, options: WebBlocGenOptions) {
-    const fileName = this.format.normalizeName(current.name);
-    const files = this.webRender.render(current, options);
+  aggreate(current: SketchMSLayer, options: WebBlocGenOptions) {
+    const fileName = this.formatService.normalizeName(current.name);
+    const files = this.webAggretatorService.aggreate(current, options);
     const context = this.webContext.of(current);
     const html = files.find(file => file.language === 'html');
     return [
@@ -46,8 +46,8 @@ export class StencilRenderService {
     html: string,
     options: WebBlocGenOptions
   ) {
-    const normalizedName = this.format.normalizeName(current.name);
-    const className = this.format.className(current.name);
+    const normalizedName = this.formatService.normalizeName(current.name);
+    const className = this.formatService.className(current.name);
     const tagName = `${options.xmlPrefix}${normalizedName}`;
     const importStatements = this.renderImportStatements(current);
     return `\
@@ -59,17 +59,17 @@ ${importStatements}
   shadow: true
 })
 export class ${className}Component {
-  render() {
+  aggreate() {
     return (
-${this.format.indentFile(3, html).join('\n')}
+${this.formatService.indentFile(3, html).join('\n')}
     );
   }
 };`;
   }
 
   private renderE2e(current: SketchMSLayer) {
-    const className = this.format.className(current.name);
-    const tagName = this.format.normalizeName(current.name);
+    const className = this.formatService.className(current.name);
+    const tagName = this.formatService.normalizeName(current.name);
     return `\
 describe('${className}', () => {
   it('renders', async () => {
@@ -93,8 +93,8 @@ describe('${className}', () => {
     const context = this.webContext.of(current);
     return context && context.components
       ? context.components.map(component => {
-          const importclassName = this.format.className(component);
-          const importFileName = this.format.normalizeName(component);
+          const importclassName = this.formatService.className(component);
+          const importFileName = this.formatService.normalizeName(component);
           return `import { ${importclassName} } from "./${importFileName}"; `;
         })
       : [];

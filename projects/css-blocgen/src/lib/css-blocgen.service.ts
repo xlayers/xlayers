@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { CssContextService } from './css-context.service';
 import { CssParserService } from './css-parser.service';
-import { CssRenderService } from './css-render.service';
+import { CssAggregatorService } from './css-aggregator.service';
 import { CssBlocGenOptions } from './css-blocgen';
 
 @Injectable({
@@ -11,7 +11,7 @@ export class CssBlocGenService {
   constructor(
     private cssContext: CssContextService,
     private cssParser: CssParserService,
-    private cssRender: CssRenderService
+    private cssAggretatorService: CssAggregatorService
   ) {}
 
   compute(
@@ -22,8 +22,11 @@ export class CssBlocGenService {
     this.cssParser.compute(current, data, this.compileOptions(options));
   }
 
-  render(current: SketchMSLayer, options?: CssBlocGenOptions) {
-    return this.cssRender.render(current, this.compileOptions(options));
+  aggreate(current: SketchMSLayer, options?: CssBlocGenOptions) {
+    return this.cssAggretatorService.aggreate(
+      current,
+      this.compileOptions(options)
+    );
   }
 
   identify(current: SketchMSLayer) {

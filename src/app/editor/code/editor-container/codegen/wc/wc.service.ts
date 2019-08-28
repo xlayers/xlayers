@@ -22,7 +22,7 @@ export class WCCodeGenService {
         kind: 'text'
       },
       ...data.pages.flatMap(page =>
-        this.webBlocGen.render(page, data, { mode: 'webComponent' })
+        this.webBlocGen.aggreate(page, data, { mode: 'webComponent' })
       )
     ];
   }

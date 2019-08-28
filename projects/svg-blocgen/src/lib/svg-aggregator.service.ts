@@ -6,20 +6,20 @@ import { SvgBlocGenOptions, SvgBlocGenContextPath } from './svg-blocgen';
 @Injectable({
   providedIn: 'root'
 })
-export class SvgRenderService {
+export class SvgAggregatorService {
   constructor(
-    private format: FormatService,
+    private formatService: FormatService,
     private svgContext: SvgContextService
   ) {}
 
-  render(current: SketchMSLayer, options: SvgBlocGenOptions) {
+  aggreate(current: SketchMSLayer, options: SvgBlocGenOptions) {
     const context = this.svgContext.of(current);
     return [
       {
         kind: 'svg',
         language: 'svg',
         value: this.renderFile(current, context.paths, context.offset, options),
-        uri: `${this.format.normalizeName(current.name)}.svg`
+        uri: `${this.formatService.normalizeName(current.name)}.svg`
       }
     ];
   }
@@ -36,7 +36,7 @@ export class SvgRenderService {
 ${openTag}>
 ${paths
   .map(path =>
-    this.format.indent(1, `<${path.type} ${path.attributes.join(' ')}/>`)
+    this.formatService.indent(1, `<${path.type} ${path.attributes.join(' ')}/>`)
   )
   .join('\n')}
 </svg>`;

@@ -22,7 +22,7 @@ export class ReactCodeGenService {
         kind: 'text'
       },
       ...data.pages.flatMap(page =>
-        this.webBlocGen.render(page, data, { mode: 'react' })
+        this.webBlocGen.aggreate(page, data, { mode: 'react' })
       )
     ];
   }
@@ -37,7 +37,7 @@ Import and use it with ReactDOM :
 import ReactDOM from "react-dom";
 import { MyComponent } from "./my-component";
 
-ReactDOM.render(
+ReactDOM.aggreate(
   MyComponent,
   document.getElementById(\'root\')
 );

@@ -1,20 +1,20 @@
 import { Injectable } from '@angular/core';
 import { FormatService } from '@xlayers/sketch-lib';
-import { WebRenderService } from './web-render.service';
+import { WebAggregatorService } from './web-aggregator.service';
 import { WebBlocGenOptions } from './web-blocgen';
 
 @Injectable({
   providedIn: 'root'
 })
-export class LitElementRenderService {
+export class LitElementAggregatorService {
   constructor(
-    private format: FormatService,
-    private webRender: WebRenderService
+    private formatService: FormatService,
+    private readonly webAggretatorService: WebAggregatorService
   ) {}
 
-  render(current: SketchMSLayer, options: WebBlocGenOptions) {
-    const fileName = this.format.normalizeName(current.name);
-    const files = this.webRender.render(current, options);
+  aggreate(current: SketchMSLayer, options: WebBlocGenOptions) {
+    const fileName = this.formatService.normalizeName(current.name);
+    const files = this.webAggretatorService.aggreate(current, options);
     const html = files.find(file => file.language === 'html');
     const css = files.find(file => file.language === 'css');
     return [
@@ -38,8 +38,8 @@ export class LitElementRenderService {
     css: string,
     options: WebBlocGenOptions
   ) {
-    const className = this.format.className(name);
-    const normalizedName = this.format.normalizeName(name);
+    const className = this.formatService.className(name);
+    const normalizedName = this.formatService.normalizeName(name);
     const tagName = `${options.xmlPrefix}${normalizedName}`;
     return `\
 import { LitElement, html, css } from 'lit-element';
@@ -47,13 +47,13 @@ import { LitElement, html, css } from 'lit-element';
 class ${className} extends LitElement {
   static get styles() {
     return css\`
-${this.format.indentFile(3, css).join('\n')}
+${this.formatService.indentFile(3, css).join('\n')}
     \`
   }
 
-  render() {
+  aggreate() {
     return html\`
-${this.format.indentFile(3, html).join('\n')}
+${this.formatService.indentFile(3, html).join('\n')}
     \`
   }
 }

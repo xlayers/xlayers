@@ -14,20 +14,20 @@ import { SvgBlocGenService } from '@xlayers/svg-blocgen';
 @Injectable({
   providedIn: 'root'
 })
-export class WebRenderService {
+export class WebAggregatorService {
   constructor(
-    private text: TextService,
-    private symbol: SymbolService,
-    private image: ImageService,
-    private format: FormatService,
-    private layer: LayerService,
-    private webContext: WebContextService,
+    private textService: TextService,
+    private readonly symbolService: SymbolService,
+    private readonly imageService: ImageService,
+    private formatService: FormatService,
+    private readonly layerService: LayerService,
+    private readonly webContext: WebContextService,
     private cssBlocGen: CssBlocGenService,
     private svgBlocGen: SvgBlocGenService
-  ) { }
+  ) {}
 
-  render(current: SketchMSLayer, options: WebBlocGenOptions) {
-    const fileName = this.format.normalizeName(current.name);
+  aggreate(current: SketchMSLayer, options: WebBlocGenOptions) {
+    const fileName = this.formatService.normalizeName(current.name);
     return [
       {
         kind: 'web',
@@ -35,7 +35,7 @@ export class WebRenderService {
         language: 'html',
         uri: `${options.componentDir}/${fileName}.html`
       },
-      ...this.cssBlocGen.render(current, options).map(file => ({
+      ...this.cssBlocGen.aggreate(current, options).map(file => ({
         ...file,
         kind: 'web'
       }))
@@ -60,7 +60,7 @@ export class WebRenderService {
     indent: number,
     options: WebBlocGenOptions
   ) {
-    if (this.layer.identify(current)) {
+    if (this.layerService.identify(current)) {
       current.layers.forEach(layer => {
         this.visit(layer, template, indent, options);
       });
@@ -73,11 +73,11 @@ export class WebRenderService {
     indent: number,
     options: WebBlocGenOptions
   ) {
-    if (this.symbol.identify(current)) {
+    if (this.symbolService.identify(current)) {
       this.visitSymbol(current, template, indent, options);
-    } else if (this.image.identify(current)) {
+    } else if (this.imageService.identify(current)) {
       this.visitBitmap(current, template, indent, options);
-    } else if (this.text.identify(current)) {
+    } else if (this.textService.identify(current)) {
       this.visitText(current, template, indent, options);
     } else if (this.svgBlocGen.identify(current)) {
       this.visitShape(current, template, indent, options);
@@ -99,9 +99,9 @@ export class WebRenderService {
     );
     const closeTag = `</${options.blockTagName}>`;
 
-    template.push(this.format.indent(indent, openTag));
+    template.push(this.formatService.indent(indent, openTag));
     this.walk(current, template, indent + 1, options);
-    template.push(this.format.indent(indent, closeTag));
+    template.push(this.formatService.indent(indent, closeTag));
   }
 
   private visitSymbol(
@@ -111,9 +111,11 @@ export class WebRenderService {
     options: WebBlocGenOptions
   ) {
     const tagName = options.jsx
-      ? this.format.className(current.name)
-      : `${options.xmlPrefix}${this.format.normalizeName(current.name)}`;
-    template.push(this.format.indent(indent, `<${tagName}></${tagName}>`));
+      ? this.formatService.className(current.name)
+      : `${options.xmlPrefix}${this.formatService.normalizeName(current.name)}`;
+    template.push(
+      this.formatService.indent(indent, `<${tagName}></${tagName}>`)
+    );
   }
 
   private visitBitmap(
@@ -124,7 +126,7 @@ export class WebRenderService {
   ) {
     const attributes = this.webContext.of(current).attributes;
     template.push(
-      this.format.indent(
+      this.formatService.indent(
         indent,
         [`<${options.bitmapTagName}`, ...attributes].join(' ') + ' />'
       )
@@ -138,11 +140,11 @@ export class WebRenderService {
     options: WebBlocGenOptions
   ) {
     template.push(
-      this.format.indent(
+      this.formatService.indent(
         indent,
         [
           this.renderAttributeTag(current, options.textTagName, options),
-          this.text.lookup(current),
+          this.textService.lookup(current),
           `</${options.textTagName}>`
         ].join('')
       )
@@ -156,23 +158,25 @@ export class WebRenderService {
     options: WebBlocGenOptions
   ) {
     template.push(
-      this.format.indent(
+      this.formatService.indent(
         indent,
         this.renderAttributeTag(current, options.blockTagName, options)
       )
     );
     template.push(
       this.svgBlocGen
-        .render(current, { xmlNamespace: false })
+        .aggreate(current, { xmlNamespace: false })
         .map(file =>
           file.value
             .split('\n')
-            .map(line => this.format.indent(indent + 1, line))
+            .map(line => this.formatService.indent(indent + 1, line))
             .join('\n')
         )
         .join('\n')
     );
-    template.push(this.format.indent(indent, `</${options.blockTagName}>`));
+    template.push(
+      this.formatService.indent(indent, `</${options.blockTagName}>`)
+    );
   }
 
   private renderAttributeTag(

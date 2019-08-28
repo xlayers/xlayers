@@ -2,32 +2,32 @@ import { Injectable } from '@angular/core';
 import { ImageService, SymbolService, LayerService } from '@xlayers/sketch-lib';
 import { WebContextService } from './web-context.service';
 import { WebParserService } from './web-parser.service';
-import { WebRenderService } from './web-render.service';
-import { VueRenderService } from './vue-render.service';
-import { AngularRenderService } from './angular-render.service';
-import { ReactRenderService } from './react-render.service';
-import { LitElementRenderService } from './lit-element-render.service';
+import { WebAggregatorService } from './web-aggregator.service';
+import { VueAggregatorService } from './vue-aggregator.service';
+import { AngularAggregatorService } from './angular-aggregator.service';
+import { ReactAggregatorService } from './react-aggregator.service';
+import { LitElementAggregatorService } from './lit-element-aggregator.service';
 import { WebBlocGenOptions } from './web-blocgen.d';
-import { StencilRenderService } from './stencil-render.service';
-import { WebComponentRenderService } from './web-component-render.service';
+import { StencilAggregatorService } from './stencil-aggregator.service';
+import { WebComponentAggregatorService } from './web-component-render.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class WebBlocGenService {
   constructor(
-    private symbol: SymbolService,
-    private image: ImageService,
-    private webContext: WebContextService,
-    private webParser: WebParserService,
-    private webComponentRender: WebComponentRenderService,
-    private vueRender: VueRenderService,
-    private angularRender: AngularRenderService,
-    private litElementRender: LitElementRenderService,
-    private reactRender: ReactRenderService,
-    private stencilRender: StencilRenderService,
-    private webRender: WebRenderService,
-    private layer: LayerService
+    private readonly symbolService: SymbolService,
+    private readonly imageService: ImageService,
+    private readonly webContext: WebContextService,
+    private readonly webParser: WebParserService,
+    private readonly webComponentAggretatorService: WebComponentAggregatorService,
+    private readonly vueAggretatorService: VueAggregatorService,
+    private readonly angularAggretatorService: AngularAggregatorService,
+    private readonly litElementAggretatorService: LitElementAggregatorService,
+    private readonly reactAggretatorService: ReactAggregatorService,
+    private readonly stencilAggretatorService: StencilAggregatorService,
+    private readonly webAggretatorService: WebAggregatorService,
+    private readonly layerService: LayerService
   ) {}
 
   compute(
@@ -38,7 +38,7 @@ export class WebBlocGenService {
     this.webParser.compute(current, data, this.compileOptions(options));
   }
 
-  render(
+  aggreate(
     current: SketchMSLayer,
     data: SketchMSData,
     options?: WebBlocGenOptions
@@ -62,32 +62,35 @@ export class WebBlocGenService {
     switch (options.mode) {
       case 'vue':
         return this.visitContent(current, data, options).concat(
-          this.vueRender.render(current, options)
+          this.vueAggretatorService.aggreate(current, options)
         );
 
       case 'angular':
         return this.visitContent(current, data, options).concat(
-          this.angularRender.render(current, options)
+          this.angularAggretatorService.aggreate(current, options)
         );
 
       case 'litElement':
         return this.visitContent(current, data, options).concat(
-          this.litElementRender.render(current, options)
+          this.litElementAggretatorService.aggreate(current, options)
         );
 
       case 'react':
         return this.visitContent(current, data, options).concat(
-          this.reactRender.render(current, { ...options, jsx: true })
+          this.reactAggretatorService.aggreate(current, {
+            ...options,
+            jsx: true
+          })
         );
 
       case 'webComponent':
         return this.visitContent(current, data, options).concat(
-          this.webComponentRender.render(current, options)
+          this.webComponentAggretatorService.aggreate(current, options)
         );
 
       case 'stencil':
         return this.visitContent(current, data, options).concat(
-          this.stencilRender.render(current, {
+          this.stencilAggretatorService.aggreate(current, {
             ...options,
             jsx: true
           })
@@ -95,7 +98,7 @@ export class WebBlocGenService {
 
       default:
         return this.visitContent(current, data, options).concat(
-          this.webRender.render(current, options)
+          this.webAggretatorService.aggreate(current, options)
         );
     }
   }
@@ -105,12 +108,12 @@ export class WebBlocGenService {
     data: SketchMSData,
     options: WebBlocGenOptions
   ) {
-    if (this.layer.identify(current)) {
+    if (this.layerService.identify(current)) {
       return this.visitLayer(current, data, options);
-    } else if (this.symbol.identify(current)) {
+    } else if (this.symbolService.identify(current)) {
       return this.visitSymbolMaster(current, data, options);
-    } else if (this.image.identify(current)) {
-      return this.image.render(current, data, options);
+    } else if (this.imageService.identify(current)) {
+      return this.imageService.aggreate(current, data, options);
     }
     return [];
   }
@@ -120,7 +123,7 @@ export class WebBlocGenService {
     data: SketchMSData,
     options: WebBlocGenOptions
   ) {
-    return this.layer
+    return this.layerService
       .lookup(current, data)
       .flatMap(layer => this.visitContent(layer, data, options));
   }
@@ -130,7 +133,7 @@ export class WebBlocGenService {
     data: SketchMSData,
     options: WebBlocGenOptions
   ) {
-    const symbolMaster = this.symbol.lookup(current, data);
+    const symbolMaster = this.symbolService.lookup(current, data);
     if (symbolMaster) {
       return this.visit(symbolMaster, data, options);
     }

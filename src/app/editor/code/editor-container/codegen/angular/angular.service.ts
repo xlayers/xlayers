@@ -7,7 +7,7 @@ import { FormatService } from '@xlayers/sketch-lib';
 })
 export class AngularCodeGenService {
   constructor(
-    private format: FormatService,
+    private formatService: FormatService,
     private webBlocGen: WebBlocGenService
   ) {}
 
@@ -19,7 +19,7 @@ export class AngularCodeGenService {
 
   generate(data: SketchMSData) {
     const generatedFiles = data.pages.flatMap(page =>
-      this.webBlocGen.render(page, data, { mode: 'angular' })
+      this.webBlocGen.aggreate(page, data, { mode: 'angular' })
     );
     return [
       {
@@ -136,13 +136,13 @@ export class XlayersModule {}`;
   private renderNgClasses(generatedFiles) {
     return generatedFiles
       .filter(file => file.uri.endsWith('.component.ts'))
-      .map(file => this.format.indent(2, this.extractClassName(file)))
+      .map(file => this.formatService.indent(2, this.extractClassName(file)))
       .join(',\n');
   }
 
   private extractClassName(file) {
     const uri = file.uri.split('/');
     const fileName = uri[uri.length - 1].replace('.component.ts', '');
-    return this.format.className(`${fileName}Component`);
+    return this.formatService.className(`${fileName}Component`);
   }
 }

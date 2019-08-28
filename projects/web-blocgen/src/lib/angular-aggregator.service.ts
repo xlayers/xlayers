@@ -1,21 +1,21 @@
 import { Injectable } from '@angular/core';
 import { WebBlocGenOptions } from './web-blocgen';
-import { WebRenderService } from './web-render.service';
+import { WebAggregatorService } from './web-aggregator.service';
 import { FormatService } from '@xlayers/sketch-lib';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AngularRenderService {
+export class AngularAggregatorService {
   constructor(
-    private format: FormatService,
-    private webRender: WebRenderService
+    private formatService: FormatService,
+    private readonly webAggretatorService: WebAggregatorService
   ) {}
 
-  render(current: SketchMSLayer, options: WebBlocGenOptions) {
-    const fileName = this.format.normalizeName(current.name);
+  aggreate(current: SketchMSLayer, options: WebBlocGenOptions) {
+    const fileName = this.formatService.normalizeName(current.name);
     return [
-      ...this.webRender.render(current, options).map(file => {
+      ...this.webAggretatorService.aggreate(current, options).map(file => {
         switch (file.language) {
           case 'html':
             return {
@@ -54,8 +54,8 @@ export class AngularRenderService {
   }
 
   private renderComponent(name: string, options: WebBlocGenOptions) {
-    const className = this.format.className(name);
-    const normalizedName = this.format.normalizeName(name);
+    const className = this.formatService.className(name);
+    const normalizedName = this.formatService.normalizeName(name);
     const tagName = `${options.xmlPrefix}${normalizedName}`;
     return `\
 import { Component } from '@angular/core';
@@ -69,8 +69,8 @@ export class ${className}Component {}`;
   }
 
   private renderSpec(name: string, options: WebBlocGenOptions) {
-    const className = this.format.className(name);
-    const fileName = this.format.normalizeName(name);
+    const className = this.formatService.className(name);
+    const fileName = this.formatService.normalizeName(name);
     return `\
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ${className} } from "./${fileName}";

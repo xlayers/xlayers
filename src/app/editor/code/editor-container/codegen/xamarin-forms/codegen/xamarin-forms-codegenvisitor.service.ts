@@ -186,7 +186,7 @@ export class XamarinFormsCodeGenVisitor extends XmlCodeGenVisitor {
   protected visitSvg(ast: SketchMSLayer): string {
     const svgFileName = this.sanitizeSvgFileName(ast.do_objectID);
     this.fileList.push({
-      ...this.svgBlocGen.render(ast)[0],
+      ...this.svgBlocGen.aggreate(ast)[0],
       uri: svgFileName,
       kind: 'xamarinForms'
     });

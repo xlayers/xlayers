@@ -12,8 +12,8 @@ export class SvgParserService {
   constructor(
     private shape: ShapeService,
     private style: StyleService,
-    private layer: LayerService,
-    private symbol: SymbolService,
+    private readonly layerService: LayerService,
+    private readonly symbolService: SymbolService,
     private svgContext: SvgContextService
   ) {}
 
@@ -30,11 +30,11 @@ export class SvgParserService {
     data: SketchMSData,
     options: SvgBlocGenOptions
   ) {
-    if (this.layer.identify(current)) {
+    if (this.layerService.identify(current)) {
       current.layers.forEach(layer => {
         this.visit(layer, data, options);
       });
-    } else if (this.symbol.identify(current)) {
+    } else if (this.symbolService.identify(current)) {
       this.visitSymbol(current, data, options);
     }
   }
@@ -60,7 +60,7 @@ export class SvgParserService {
     data: SketchMSData,
     options: SvgBlocGenOptions
   ) {
-    const symbolMaster = this.symbol.lookup(current, data);
+    const symbolMaster = this.symbolService.lookup(current, data);
     if (symbolMaster) {
       this.compute(symbolMaster, data, options);
     }

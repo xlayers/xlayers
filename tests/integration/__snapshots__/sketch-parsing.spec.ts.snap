@@ -519,7 +519,6 @@ Object {
                   "role=\\"oval\\"",
                   "aria-label=\\"button bg\\"",
                 ],
-                "type": "block",
               },
             },
             Object {
@@ -676,7 +675,6 @@ Object {
                   },
                   "web": Object {
                     "attributes": Array [],
-                    "type": "shape",
                   },
                 },
                 Object {
@@ -900,7 +898,6 @@ Object {
                   },
                   "web": Object {
                     "attributes": Array [],
-                    "type": "shape",
                   },
                 },
               ],
@@ -941,7 +938,6 @@ Object {
                   "role=\\"group\\"",
                   "aria-label=\\"add\\"",
                 ],
-                "type": "block",
               },
             },
           ],
@@ -964,7 +960,6 @@ Object {
               "role=\\"group\\"",
               "aria-label=\\"fab\\"",
             ],
-            "type": "block",
           },
         },
       ],
@@ -1528,7 +1523,6 @@ Object {
                   "role=\\"oval\\"",
                   "aria-label=\\"button bg\\"",
                 ],
-                "type": "block",
               },
             },
             Object {
@@ -1688,7 +1682,6 @@ Object {
                   },
                   "web": Object {
                     "attributes": Array [],
-                    "type": "shape",
                   },
                 },
                 Object {
@@ -1912,7 +1905,6 @@ Object {
                   },
                   "web": Object {
                     "attributes": Array [],
-                    "type": "shape",
                   },
                 },
               ],
@@ -1953,7 +1945,6 @@ Object {
                   "role=\\"group\\"",
                   "aria-label=\\"add\\"",
                 ],
-                "type": "block",
               },
             },
           ],
@@ -1976,7 +1967,6 @@ Object {
               "role=\\"group\\"",
               "aria-label=\\"fab\\"",
             ],
-            "type": "block",
           },
         },
       ],
@@ -2523,7 +2513,6 @@ Object {
                   "role=\\"rectangle\\"",
                   "aria-label=\\"button bg\\"",
                 ],
-                "type": "block",
               },
             },
             Object {
@@ -2680,7 +2669,6 @@ Object {
               "textBehaviour": 0,
               "web": Object {
                 "attributes": Array [],
-                "type": "text",
               },
             },
           ],
@@ -2703,7 +2691,6 @@ Object {
               "role=\\"group\\"",
               "aria-label=\\"button\\"",
             ],
-            "type": "block",
           },
         },
       ],
@@ -3254,7 +3241,6 @@ Object {
                   "role=\\"rectangle\\"",
                   "aria-label=\\"button bg\\"",
                 ],
-                "type": "block",
               },
             },
             Object {
@@ -3411,7 +3397,6 @@ Object {
               "textBehaviour": 0,
               "web": Object {
                 "attributes": Array [],
-                "type": "text",
               },
             },
           ],
@@ -3434,7 +3419,6 @@ Object {
               "role=\\"group\\"",
               "aria-label=\\"button\\"",
             ],
-            "type": "block",
           },
         },
       ],
@@ -4183,7 +4167,6 @@ Object {
                   "role=\\"rectangle\\"",
                   "aria-label=\\"card\\"",
                 ],
-                "type": "block",
               },
             },
             Object {
@@ -4314,7 +4297,6 @@ Object {
                   "role=\\"rectangle\\"",
                   "aria-label=\\"image placeholder\\"",
                 ],
-                "type": "block",
               },
             },
             Object {
@@ -4445,7 +4427,6 @@ Object {
               "textBehaviour": 0,
               "web": Object {
                 "attributes": Array [],
-                "type": "text",
               },
             },
             Object {
@@ -4644,7 +4625,6 @@ Object {
                       },
                       "web": Object {
                         "attributes": Array [],
-                        "type": "shape",
                       },
                     },
                     Object {
@@ -4955,7 +4935,6 @@ Object {
                       },
                       "web": Object {
                         "attributes": Array [],
-                        "type": "shape",
                       },
                     },
                   ],
@@ -4996,7 +4975,6 @@ Object {
                       "role=\\"group\\"",
                       "aria-label=\\"share\\"",
                     ],
-                    "type": "block",
                   },
                 },
                 Object {
@@ -5218,7 +5196,6 @@ Object {
                       },
                       "web": Object {
                         "attributes": Array [],
-                        "type": "shape",
                       },
                     },
                     Object {
@@ -5333,7 +5310,6 @@ Object {
                       },
                       "web": Object {
                         "attributes": Array [],
-                        "type": "shape",
                       },
                     },
                   ],
@@ -5356,7 +5332,6 @@ Object {
                       "role=\\"group\\"",
                       "aria-label=\\"bookmark\\"",
                     ],
-                    "type": "block",
                   },
                 },
                 Object {
@@ -5568,7 +5543,6 @@ Object {
                       },
                       "web": Object {
                         "attributes": Array [],
-                        "type": "shape",
                       },
                     },
                     Object {
@@ -5683,7 +5657,6 @@ Object {
                       },
                       "web": Object {
                         "attributes": Array [],
-                        "type": "shape",
                       },
                     },
                   ],
@@ -5706,7 +5679,6 @@ Object {
                       "role=\\"group\\"",
                       "aria-label=\\"favorite\\"",
                     ],
-                    "type": "block",
                   },
                 },
               ],
@@ -5729,7 +5701,6 @@ Object {
                   "role=\\"group\\"",
                   "aria-label=\\"Buttons\\"",
                 ],
-                "type": "block",
               },
             },
           ],
@@ -5752,7 +5723,6 @@ Object {
               "role=\\"group\\"",
               "aria-label=\\"homes\\"",
             ],
-            "type": "block",
           },
         },
       ],
@@ -6505,7 +6475,6 @@ Object {
                   "role=\\"rectangle\\"",
                   "aria-label=\\"card\\"",
                 ],
-                "type": "block",
               },
             },
             Object {
@@ -6636,7 +6605,6 @@ Object {
                   "role=\\"rectangle\\"",
                   "aria-label=\\"image placeholder\\"",
                 ],
-                "type": "block",
               },
             },
             Object {
@@ -6767,7 +6735,6 @@ Object {
               "textBehaviour": 0,
               "web": Object {
                 "attributes": Array [],
-                "type": "text",
               },
             },
             Object {
@@ -6972,7 +6939,6 @@ Object {
                       },
                       "web": Object {
                         "attributes": Array [],
-                        "type": "shape",
                       },
                     },
                     Object {
@@ -7283,7 +7249,6 @@ Object {
                       },
                       "web": Object {
                         "attributes": Array [],
-                        "type": "shape",
                       },
                     },
                   ],
@@ -7324,7 +7289,6 @@ Object {
                       "role=\\"group\\"",
                       "aria-label=\\"share\\"",
                     ],
-                    "type": "block",
                   },
                 },
                 Object {
@@ -7549,7 +7513,6 @@ Object {
                       },
                       "web": Object {
                         "attributes": Array [],
-                        "type": "shape",
                       },
                     },
                     Object {
@@ -7664,7 +7627,6 @@ Object {
                       },
                       "web": Object {
                         "attributes": Array [],
-                        "type": "shape",
                       },
                     },
                   ],
@@ -7687,7 +7649,6 @@ Object {
                       "role=\\"group\\"",
                       "aria-label=\\"bookmark\\"",
                     ],
-                    "type": "block",
                   },
                 },
                 Object {
@@ -7902,7 +7863,6 @@ Object {
                       },
                       "web": Object {
                         "attributes": Array [],
-                        "type": "shape",
                       },
                     },
                     Object {
@@ -8017,7 +7977,6 @@ Object {
                       },
                       "web": Object {
                         "attributes": Array [],
-                        "type": "shape",
                       },
                     },
                   ],
@@ -8040,7 +7999,6 @@ Object {
                       "role=\\"group\\"",
                       "aria-label=\\"favorite\\"",
                     ],
-                    "type": "block",
                   },
                 },
               ],
@@ -8063,7 +8021,6 @@ Object {
                   "role=\\"group\\"",
                   "aria-label=\\"Buttons\\"",
                 ],
-                "type": "block",
               },
             },
           ],
@@ -8086,7 +8043,6 @@ Object {
               "role=\\"group\\"",
               "aria-label=\\"homes\\"",
             ],
-            "type": "block",
           },
         },
       ],
@@ -8914,7 +8870,6 @@ Object {
                   "role=\\"rectangle\\"",
                   "aria-label=\\"card 2\\"",
                 ],
-                "type": "block",
               },
             },
             Object {
@@ -9073,7 +9028,6 @@ Object {
                   "role=\\"rectangle\\"",
                   "aria-label=\\"image placeholder\\"",
                 ],
-                "type": "block",
               },
             },
             Object {
@@ -9190,7 +9144,6 @@ Object {
               },
               "web": Object {
                 "attributes": Array [],
-                "type": "shape",
               },
             },
             Object {
@@ -9316,7 +9269,6 @@ Object {
               "textBehaviour": 0,
               "web": Object {
                 "attributes": Array [],
-                "type": "text",
               },
             },
             Object {
@@ -9442,7 +9394,6 @@ Object {
               "textBehaviour": 0,
               "web": Object {
                 "attributes": Array [],
-                "type": "text",
               },
             },
             Object {
@@ -9571,7 +9522,6 @@ Object {
               "textBehaviour": 0,
               "web": Object {
                 "attributes": Array [],
-                "type": "text",
               },
             },
             Object {
@@ -9700,7 +9650,6 @@ Object {
               "textBehaviour": 0,
               "web": Object {
                 "attributes": Array [],
-                "type": "text",
               },
             },
           ],
@@ -9723,7 +9672,6 @@ Object {
               "role=\\"group\\"",
               "aria-label=\\"pooch\\"",
             ],
-            "type": "block",
           },
         },
       ],
@@ -10555,7 +10503,6 @@ Object {
                   "role=\\"rectangle\\"",
                   "aria-label=\\"card 2\\"",
                 ],
-                "type": "block",
               },
             },
             Object {
@@ -10714,7 +10661,6 @@ Object {
                   "role=\\"rectangle\\"",
                   "aria-label=\\"image placeholder\\"",
                 ],
-                "type": "block",
               },
             },
             Object {
@@ -10831,7 +10777,6 @@ Object {
               },
               "web": Object {
                 "attributes": Array [],
-                "type": "shape",
               },
             },
             Object {
@@ -10957,7 +10902,6 @@ Object {
               "textBehaviour": 0,
               "web": Object {
                 "attributes": Array [],
-                "type": "text",
               },
             },
             Object {
@@ -11083,7 +11027,6 @@ Object {
               "textBehaviour": 0,
               "web": Object {
                 "attributes": Array [],
-                "type": "text",
               },
             },
             Object {
@@ -11212,7 +11155,6 @@ Object {
               "textBehaviour": 0,
               "web": Object {
                 "attributes": Array [],
-                "type": "text",
               },
             },
             Object {
@@ -11341,7 +11283,6 @@ Object {
               "textBehaviour": 0,
               "web": Object {
                 "attributes": Array [],
-                "type": "text",
               },
             },
           ],
@@ -11364,7 +11305,6 @@ Object {
               "role=\\"group\\"",
               "aria-label=\\"pooch\\"",
             ],
-            "type": "block",
           },
         },
       ],
@@ -12128,7 +12068,6 @@ Object {
                   "role=\\"rectangle\\"",
                   "aria-label=\\"card\\"",
                 ],
-                "type": "block",
               },
             },
             Object {
@@ -12258,7 +12197,6 @@ Object {
                   "role=\\"rectangle\\"",
                   "aria-label=\\"image placeholder\\"",
                 ],
-                "type": "block",
               },
             },
             Object {
@@ -12386,7 +12324,6 @@ Object {
               "textBehaviour": 0,
               "web": Object {
                 "attributes": Array [],
-                "type": "text",
               },
             },
             Object {
@@ -12515,7 +12452,6 @@ Object {
               "textBehaviour": 1,
               "web": Object {
                 "attributes": Array [],
-                "type": "text",
               },
             },
             Object {
@@ -12719,7 +12655,6 @@ Object {
                   },
                   "web": Object {
                     "attributes": Array [],
-                    "type": "shape",
                   },
                 },
                 Object {
@@ -12845,7 +12780,6 @@ Object {
                   "textBehaviour": 0,
                   "web": Object {
                     "attributes": Array [],
-                    "type": "text",
                   },
                 },
               ],
@@ -12868,7 +12802,6 @@ Object {
                   "role=\\"group\\"",
                   "aria-label=\\"Button\\"",
                 ],
-                "type": "block",
               },
             },
             Object {
@@ -13081,7 +13014,6 @@ Object {
                   },
                   "web": Object {
                     "attributes": Array [],
-                    "type": "shape",
                   },
                 },
                 Object {
@@ -13207,7 +13139,6 @@ Object {
                   "textBehaviour": 0,
                   "web": Object {
                     "attributes": Array [],
-                    "type": "text",
                   },
                 },
               ],
@@ -13230,7 +13161,6 @@ Object {
                   "role=\\"group\\"",
                   "aria-label=\\"Button\\"",
                 ],
-                "type": "block",
               },
             },
             Object {
@@ -13347,7 +13277,6 @@ Object {
               },
               "web": Object {
                 "attributes": Array [],
-                "type": "shape",
               },
             },
           ],
@@ -13370,7 +13299,6 @@ Object {
               "role=\\"group\\"",
               "aria-label=\\"safari\\"",
             ],
-            "type": "block",
           },
         },
       ],
@@ -14139,7 +14067,6 @@ Object {
                   "role=\\"rectangle\\"",
                   "aria-label=\\"card\\"",
                 ],
-                "type": "block",
               },
             },
             Object {
@@ -14269,7 +14196,6 @@ Object {
                   "role=\\"rectangle\\"",
                   "aria-label=\\"image placeholder\\"",
                 ],
-                "type": "block",
               },
             },
             Object {
@@ -14397,7 +14323,6 @@ Object {
               "textBehaviour": 0,
               "web": Object {
                 "attributes": Array [],
-                "type": "text",
               },
             },
             Object {
@@ -14526,7 +14451,6 @@ Object {
               "textBehaviour": 1,
               "web": Object {
                 "attributes": Array [],
-                "type": "text",
               },
             },
             Object {
@@ -14733,7 +14657,6 @@ Object {
                   },
                   "web": Object {
                     "attributes": Array [],
-                    "type": "shape",
                   },
                 },
                 Object {
@@ -14859,7 +14782,6 @@ Object {
                   "textBehaviour": 0,
                   "web": Object {
                     "attributes": Array [],
-                    "type": "text",
                   },
                 },
               ],
@@ -14882,7 +14804,6 @@ Object {
                   "role=\\"group\\"",
                   "aria-label=\\"Button\\"",
                 ],
-                "type": "block",
               },
             },
             Object {
@@ -15098,7 +15019,6 @@ Object {
                   },
                   "web": Object {
                     "attributes": Array [],
-                    "type": "shape",
                   },
                 },
                 Object {
@@ -15224,7 +15144,6 @@ Object {
                   "textBehaviour": 0,
                   "web": Object {
                     "attributes": Array [],
-                    "type": "text",
                   },
                 },
               ],
@@ -15247,7 +15166,6 @@ Object {
                   "role=\\"group\\"",
                   "aria-label=\\"Button\\"",
                 ],
-                "type": "block",
               },
             },
             Object {
@@ -15364,7 +15282,6 @@ Object {
               },
               "web": Object {
                 "attributes": Array [],
-                "type": "shape",
               },
             },
           ],
@@ -15387,7 +15304,6 @@ Object {
               "role=\\"group\\"",
               "aria-label=\\"safari\\"",
             ],
-            "type": "block",
           },
         },
       ],
@@ -16176,7 +16092,6 @@ Object {
                   "role=\\"rectangle\\"",
                   "aria-label=\\"card\\"",
                 ],
-                "type": "block",
               },
             },
             Object {
@@ -16300,7 +16215,6 @@ Object {
               "textBehaviour": 0,
               "web": Object {
                 "attributes": Array [],
-                "type": "text",
               },
             },
             Object {
@@ -16430,7 +16344,6 @@ Object {
               "textBehaviour": 1,
               "web": Object {
                 "attributes": Array [],
-                "type": "text",
               },
             },
             Object {
@@ -16643,7 +16556,6 @@ Object {
                   },
                   "web": Object {
                     "attributes": Array [],
-                    "type": "shape",
                   },
                 },
                 Object {
@@ -16769,7 +16681,6 @@ Object {
                   "textBehaviour": 0,
                   "web": Object {
                     "attributes": Array [],
-                    "type": "text",
                   },
                 },
               ],
@@ -16792,7 +16703,6 @@ Object {
                   "role=\\"group\\"",
                   "aria-label=\\"Button\\"",
                 ],
-                "type": "block",
               },
             },
             Object {
@@ -17005,7 +16915,6 @@ Object {
                   },
                   "web": Object {
                     "attributes": Array [],
-                    "type": "shape",
                   },
                 },
                 Object {
@@ -17132,7 +17041,6 @@ Object {
                   "textBehaviour": 0,
                   "web": Object {
                     "attributes": Array [],
-                    "type": "text",
                   },
                 },
               ],
@@ -17155,7 +17063,6 @@ Object {
                   "role=\\"group\\"",
                   "aria-label=\\"Button\\"",
                 ],
-                "type": "block",
               },
             },
             Object {
@@ -17272,7 +17179,6 @@ Object {
               },
               "web": Object {
                 "attributes": Array [],
-                "type": "shape",
               },
             },
           ],
@@ -17295,7 +17201,6 @@ Object {
               "role=\\"group\\"",
               "aria-label=\\"Welcome back\\"",
             ],
-            "type": "block",
           },
         },
       ],
@@ -18088,7 +17993,6 @@ Object {
                   "role=\\"rectangle\\"",
                   "aria-label=\\"card\\"",
                 ],
-                "type": "block",
               },
             },
             Object {
@@ -18212,7 +18116,6 @@ Object {
               "textBehaviour": 0,
               "web": Object {
                 "attributes": Array [],
-                "type": "text",
               },
             },
             Object {
@@ -18342,7 +18245,6 @@ Object {
               "textBehaviour": 1,
               "web": Object {
                 "attributes": Array [],
-                "type": "text",
               },
             },
             Object {
@@ -18558,7 +18460,6 @@ Object {
                   },
                   "web": Object {
                     "attributes": Array [],
-                    "type": "shape",
                   },
                 },
                 Object {
@@ -18684,7 +18585,6 @@ Object {
                   "textBehaviour": 0,
                   "web": Object {
                     "attributes": Array [],
-                    "type": "text",
                   },
                 },
               ],
@@ -18707,7 +18607,6 @@ Object {
                   "role=\\"group\\"",
                   "aria-label=\\"Button\\"",
                 ],
-                "type": "block",
               },
             },
             Object {
@@ -18923,7 +18822,6 @@ Object {
                   },
                   "web": Object {
                     "attributes": Array [],
-                    "type": "shape",
                   },
                 },
                 Object {
@@ -19050,7 +18948,6 @@ Object {
                   "textBehaviour": 0,
                   "web": Object {
                     "attributes": Array [],
-                    "type": "text",
                   },
                 },
               ],
@@ -19073,7 +18970,6 @@ Object {
                   "role=\\"group\\"",
                   "aria-label=\\"Button\\"",
                 ],
-                "type": "block",
               },
             },
             Object {
@@ -19190,7 +19086,6 @@ Object {
               },
               "web": Object {
                 "attributes": Array [],
-                "type": "shape",
               },
             },
           ],
@@ -19213,7 +19108,6 @@ Object {
               "role=\\"group\\"",
               "aria-label=\\"Welcome back\\"",
             ],
-            "type": "block",
           },
         },
       ],
@@ -20071,7 +19965,6 @@ Object {
                   "role=\\"rectangle\\"",
                   "aria-label=\\"chip bg\\"",
                 ],
-                "type": "block",
               },
             },
             Object {
@@ -20224,7 +20117,6 @@ Object {
                       "role=\\"rectangle\\"",
                       "aria-label=\\"bounds\\"",
                     ],
-                    "type": "block",
                   },
                 },
                 Object {
@@ -20353,7 +20245,6 @@ Object {
                   "textBehaviour": 0,
                   "web": Object {
                     "attributes": Array [],
-                    "type": "text",
                   },
                 },
                 Object {
@@ -20510,7 +20401,6 @@ Object {
                       "role=\\"oval\\"",
                       "aria-label=\\"mask\\"",
                     ],
-                    "type": "block",
                   },
                 },
               ],
@@ -20533,7 +20423,6 @@ Object {
                   "role=\\"group\\"",
                   "aria-label=\\"email 3\\"",
                 ],
-                "type": "block",
               },
             },
             Object {
@@ -20686,7 +20575,6 @@ Object {
                       "role=\\"rectangle\\"",
                       "aria-label=\\"bounds\\"",
                     ],
-                    "type": "block",
                   },
                 },
                 Object {
@@ -20815,7 +20703,6 @@ Object {
                   "textBehaviour": 0,
                   "web": Object {
                     "attributes": Array [],
-                    "type": "text",
                   },
                 },
                 Object {
@@ -20972,7 +20859,6 @@ Object {
                       "role=\\"oval\\"",
                       "aria-label=\\"mask\\"",
                     ],
-                    "type": "block",
                   },
                 },
               ],
@@ -20995,7 +20881,6 @@ Object {
                   "role=\\"group\\"",
                   "aria-label=\\"email 2\\"",
                 ],
-                "type": "block",
               },
             },
             Object {
@@ -21201,7 +21086,6 @@ Object {
                   },
                   "web": Object {
                     "attributes": Array [],
-                    "type": "shape",
                   },
                 },
                 Object {
@@ -21358,7 +21242,6 @@ Object {
                       },
                       "web": Object {
                         "attributes": Array [],
-                        "type": "shape",
                       },
                     },
                     Object {
@@ -21544,7 +21427,6 @@ Object {
                           },
                           "web": Object {
                             "attributes": Array [],
-                            "type": "shape",
                           },
                         },
                         Object {
@@ -21768,7 +21650,6 @@ Object {
                           },
                           "web": Object {
                             "attributes": Array [],
-                            "type": "shape",
                           },
                         },
                       ],
@@ -21810,7 +21691,6 @@ Object {
                           "role=\\"shapeGroup\\"",
                           "aria-label=\\"Shape\\"",
                         ],
-                        "type": "block",
                       },
                       "windingRule": 1,
                     },
@@ -21852,7 +21732,6 @@ Object {
                       "role=\\"group\\"",
                       "aria-label=\\"cancel\\"",
                     ],
-                    "type": "block",
                   },
                 },
                 Object {
@@ -21981,7 +21860,6 @@ Object {
                   "textBehaviour": 0,
                   "web": Object {
                     "attributes": Array [],
-                    "type": "text",
                   },
                 },
                 Object {
@@ -22110,7 +21988,6 @@ Object {
                   "textBehaviour": 0,
                   "web": Object {
                     "attributes": Array [],
-                    "type": "text",
                   },
                 },
                 Object {
@@ -22267,7 +22144,6 @@ Object {
                       "role=\\"oval\\"",
                       "aria-label=\\"mask\\"",
                     ],
-                    "type": "block",
                   },
                 },
               ],
@@ -22290,7 +22166,6 @@ Object {
                   "role=\\"group\\"",
                   "aria-label=\\"header\\"",
                 ],
-                "type": "block",
               },
             },
           ],
@@ -22313,7 +22188,6 @@ Object {
               "role=\\"group\\"",
               "aria-label=\\"open chip\\"",
             ],
-            "type": "block",
           },
         },
       ],
@@ -23175,7 +23049,6 @@ Object {
                   "role=\\"rectangle\\"",
                   "aria-label=\\"chip bg\\"",
                 ],
-                "type": "block",
               },
             },
             Object {
@@ -23331,7 +23204,6 @@ Object {
                       "role=\\"rectangle\\"",
                       "aria-label=\\"bounds\\"",
                     ],
-                    "type": "block",
                   },
                 },
                 Object {
@@ -23460,7 +23332,6 @@ Object {
                   "textBehaviour": 0,
                   "web": Object {
                     "attributes": Array [],
-                    "type": "text",
                   },
                 },
                 Object {
@@ -23617,7 +23488,6 @@ Object {
                       "role=\\"oval\\"",
                       "aria-label=\\"mask\\"",
                     ],
-                    "type": "block",
                   },
                 },
               ],
@@ -23640,7 +23510,6 @@ Object {
                   "role=\\"group\\"",
                   "aria-label=\\"email 3\\"",
                 ],
-                "type": "block",
               },
             },
             Object {
@@ -23796,7 +23665,6 @@ Object {
                       "role=\\"rectangle\\"",
                       "aria-label=\\"bounds\\"",
                     ],
-                    "type": "block",
                   },
                 },
                 Object {
@@ -23925,7 +23793,6 @@ Object {
                   "textBehaviour": 0,
                   "web": Object {
                     "attributes": Array [],
-                    "type": "text",
                   },
                 },
                 Object {
@@ -24082,7 +23949,6 @@ Object {
                       "role=\\"oval\\"",
                       "aria-label=\\"mask\\"",
                     ],
-                    "type": "block",
                   },
                 },
               ],
@@ -24105,7 +23971,6 @@ Object {
                   "role=\\"group\\"",
                   "aria-label=\\"email 2\\"",
                 ],
-                "type": "block",
               },
             },
             Object {
@@ -24314,7 +24179,6 @@ Object {
                   },
                   "web": Object {
                     "attributes": Array [],
-                    "type": "shape",
                   },
                 },
                 Object {
@@ -24474,7 +24338,6 @@ Object {
                       },
                       "web": Object {
                         "attributes": Array [],
-                        "type": "shape",
                       },
                     },
                     Object {
@@ -24663,7 +24526,6 @@ Object {
                           },
                           "web": Object {
                             "attributes": Array [],
-                            "type": "shape",
                           },
                         },
                         Object {
@@ -24887,7 +24749,6 @@ Object {
                           },
                           "web": Object {
                             "attributes": Array [],
-                            "type": "shape",
                           },
                         },
                       ],
@@ -24929,7 +24790,6 @@ Object {
                           "role=\\"shapeGroup\\"",
                           "aria-label=\\"Shape\\"",
                         ],
-                        "type": "block",
                       },
                       "windingRule": 1,
                     },
@@ -24971,7 +24831,6 @@ Object {
                       "role=\\"group\\"",
                       "aria-label=\\"cancel\\"",
                     ],
-                    "type": "block",
                   },
                 },
                 Object {
@@ -25100,7 +24959,6 @@ Object {
                   "textBehaviour": 0,
                   "web": Object {
                     "attributes": Array [],
-                    "type": "text",
                   },
                 },
                 Object {
@@ -25229,7 +25087,6 @@ Object {
                   "textBehaviour": 0,
                   "web": Object {
                     "attributes": Array [],
-                    "type": "text",
                   },
                 },
                 Object {
@@ -25386,7 +25243,6 @@ Object {
                       "role=\\"oval\\"",
                       "aria-label=\\"mask\\"",
                     ],
-                    "type": "block",
                   },
                 },
               ],
@@ -25409,7 +25265,6 @@ Object {
                   "role=\\"group\\"",
                   "aria-label=\\"header\\"",
                 ],
-                "type": "block",
               },
             },
           ],
@@ -25432,7 +25287,6 @@ Object {
               "role=\\"group\\"",
               "aria-label=\\"open chip\\"",
             ],
-            "type": "block",
           },
         },
       ],
@@ -26140,7 +25994,6 @@ Object {
               },
               "web": Object {
                 "attributes": Array [],
-                "type": "shape",
               },
             },
             Object {
@@ -26345,7 +26198,6 @@ Object {
                   "textBehaviour": 0,
                   "web": Object {
                     "attributes": Array [],
-                    "type": "text",
                   },
                 },
                 Object {
@@ -26509,7 +26361,6 @@ Object {
                   "textBehaviour": 0,
                   "web": Object {
                     "attributes": Array [],
-                    "type": "text",
                   },
                 },
               ],
@@ -26532,7 +26383,6 @@ Object {
                   "role=\\"group\\"",
                   "aria-label=\\"ok + cancel\\"",
                 ],
-                "type": "block",
               },
             },
             Object {
@@ -26712,7 +26562,6 @@ Object {
                   },
                   "web": Object {
                     "attributes": Array [],
-                    "type": "shape",
                   },
                 },
                 Object {
@@ -26851,7 +26700,6 @@ Object {
                   },
                   "web": Object {
                     "attributes": Array [],
-                    "type": "shape",
                   },
                 },
                 Object {
@@ -26977,7 +26825,6 @@ Object {
                   "textBehaviour": 0,
                   "web": Object {
                     "attributes": Array [],
-                    "type": "text",
                   },
                 },
                 Object {
@@ -27103,7 +26950,6 @@ Object {
                   "textBehaviour": 0,
                   "web": Object {
                     "attributes": Array [],
-                    "type": "text",
                   },
                 },
                 Object {
@@ -27229,7 +27075,6 @@ Object {
                   "textBehaviour": 0,
                   "web": Object {
                     "attributes": Array [],
-                    "type": "text",
                   },
                 },
                 Object {
@@ -27361,7 +27206,6 @@ Object {
                   "textBehaviour": 0,
                   "web": Object {
                     "attributes": Array [],
-                    "type": "text",
                   },
                 },
               ],
@@ -27384,7 +27228,6 @@ Object {
                   "role=\\"group\\"",
                   "aria-label=\\"header\\"",
                 ],
-                "type": "block",
               },
             },
             Object {
@@ -27595,7 +27438,6 @@ Object {
                       "textBehaviour": 1,
                       "web": Object {
                         "attributes": Array [],
-                        "type": "text",
                       },
                     },
                     Object {
@@ -27722,7 +27564,6 @@ Object {
                       "textBehaviour": 1,
                       "web": Object {
                         "attributes": Array [],
-                        "type": "text",
                       },
                     },
                     Object {
@@ -27849,7 +27690,6 @@ Object {
                       "textBehaviour": 1,
                       "web": Object {
                         "attributes": Array [],
-                        "type": "text",
                       },
                     },
                     Object {
@@ -27976,7 +27816,6 @@ Object {
                       "textBehaviour": 1,
                       "web": Object {
                         "attributes": Array [],
-                        "type": "text",
                       },
                     },
                     Object {
@@ -28103,7 +27942,6 @@ Object {
                       "textBehaviour": 1,
                       "web": Object {
                         "attributes": Array [],
-                        "type": "text",
                       },
                     },
                     Object {
@@ -28230,7 +28068,6 @@ Object {
                       "textBehaviour": 1,
                       "web": Object {
                         "attributes": Array [],
-                        "type": "text",
                       },
                     },
                     Object {
@@ -28357,7 +28194,6 @@ Object {
                       "textBehaviour": 1,
                       "web": Object {
                         "attributes": Array [],
-                        "type": "text",
                       },
                     },
                   ],
@@ -28398,7 +28234,6 @@ Object {
                       "role=\\"group\\"",
                       "aria-label=\\"weekdays\\"",
                     ],
-                    "type": "block",
                   },
                 },
                 Object {
@@ -28528,7 +28363,6 @@ Object {
                       "role=\\"oval\\"",
                       "aria-label=\\"selection\\"",
                     ],
-                    "type": "block",
                   },
                 },
                 Object {
@@ -28697,7 +28531,6 @@ Object {
                       "textBehaviour": 1,
                       "web": Object {
                         "attributes": Array [],
-                        "type": "text",
                       },
                     },
                     Object {
@@ -28824,7 +28657,6 @@ Object {
                       "textBehaviour": 1,
                       "web": Object {
                         "attributes": Array [],
-                        "type": "text",
                       },
                     },
                     Object {
@@ -28951,7 +28783,6 @@ Object {
                       "textBehaviour": 1,
                       "web": Object {
                         "attributes": Array [],
-                        "type": "text",
                       },
                     },
                     Object {
@@ -29078,7 +28909,6 @@ Object {
                       "textBehaviour": 1,
                       "web": Object {
                         "attributes": Array [],
-                        "type": "text",
                       },
                     },
                     Object {
@@ -29205,7 +29035,6 @@ Object {
                       "textBehaviour": 1,
                       "web": Object {
                         "attributes": Array [],
-                        "type": "text",
                       },
                     },
                     Object {
@@ -29332,7 +29161,6 @@ Object {
                       "textBehaviour": 1,
                       "web": Object {
                         "attributes": Array [],
-                        "type": "text",
                       },
                     },
                     Object {
@@ -29459,7 +29287,6 @@ Object {
                       "textBehaviour": 1,
                       "web": Object {
                         "attributes": Array [],
-                        "type": "text",
                       },
                     },
                     Object {
@@ -29586,7 +29413,6 @@ Object {
                       "textBehaviour": 1,
                       "web": Object {
                         "attributes": Array [],
-                        "type": "text",
                       },
                     },
                     Object {
@@ -29713,7 +29539,6 @@ Object {
                       "textBehaviour": 1,
                       "web": Object {
                         "attributes": Array [],
-                        "type": "text",
                       },
                     },
                     Object {
@@ -29840,7 +29665,6 @@ Object {
                       "textBehaviour": 1,
                       "web": Object {
                         "attributes": Array [],
-                        "type": "text",
                       },
                     },
                     Object {
@@ -29967,7 +29791,6 @@ Object {
                       "textBehaviour": 1,
                       "web": Object {
                         "attributes": Array [],
-                        "type": "text",
                       },
                     },
                     Object {
@@ -30094,7 +29917,6 @@ Object {
                       "textBehaviour": 1,
                       "web": Object {
                         "attributes": Array [],
-                        "type": "text",
                       },
                     },
                     Object {
@@ -30221,7 +30043,6 @@ Object {
                       "textBehaviour": 1,
                       "web": Object {
                         "attributes": Array [],
-                        "type": "text",
                       },
                     },
                     Object {
@@ -30348,7 +30169,6 @@ Object {
                       "textBehaviour": 1,
                       "web": Object {
                         "attributes": Array [],
-                        "type": "text",
                       },
                     },
                     Object {
@@ -30475,7 +30295,6 @@ Object {
                       "textBehaviour": 1,
                       "web": Object {
                         "attributes": Array [],
-                        "type": "text",
                       },
                     },
                     Object {
@@ -30602,7 +30421,6 @@ Object {
                       "textBehaviour": 1,
                       "web": Object {
                         "attributes": Array [],
-                        "type": "text",
                       },
                     },
                     Object {
@@ -30729,7 +30547,6 @@ Object {
                       "textBehaviour": 1,
                       "web": Object {
                         "attributes": Array [],
-                        "type": "text",
                       },
                     },
                     Object {
@@ -30856,7 +30673,6 @@ Object {
                       "textBehaviour": 1,
                       "web": Object {
                         "attributes": Array [],
-                        "type": "text",
                       },
                     },
                     Object {
@@ -30983,7 +30799,6 @@ Object {
                       "textBehaviour": 1,
                       "web": Object {
                         "attributes": Array [],
-                        "type": "text",
                       },
                     },
                     Object {
@@ -31110,7 +30925,6 @@ Object {
                       "textBehaviour": 1,
                       "web": Object {
                         "attributes": Array [],
-                        "type": "text",
                       },
                     },
                     Object {
@@ -31237,7 +31051,6 @@ Object {
                       "textBehaviour": 1,
                       "web": Object {
                         "attributes": Array [],
-                        "type": "text",
                       },
                     },
                     Object {
@@ -31364,7 +31177,6 @@ Object {
                       "textBehaviour": 1,
                       "web": Object {
                         "attributes": Array [],
-                        "type": "text",
                       },
                     },
                     Object {
@@ -31491,7 +31303,6 @@ Object {
                       "textBehaviour": 1,
                       "web": Object {
                         "attributes": Array [],
-                        "type": "text",
                       },
                     },
                     Object {
@@ -31618,7 +31429,6 @@ Object {
                       "textBehaviour": 1,
                       "web": Object {
                         "attributes": Array [],
-                        "type": "text",
                       },
                     },
                     Object {
@@ -31745,7 +31555,6 @@ Object {
                       "textBehaviour": 1,
                       "web": Object {
                         "attributes": Array [],
-                        "type": "text",
                       },
                     },
                     Object {
@@ -31872,7 +31681,6 @@ Object {
                       "textBehaviour": 1,
                       "web": Object {
                         "attributes": Array [],
-                        "type": "text",
                       },
                     },
                     Object {
@@ -31999,7 +31807,6 @@ Object {
                       "textBehaviour": 1,
                       "web": Object {
                         "attributes": Array [],
-                        "type": "text",
                       },
                     },
                     Object {
@@ -32126,7 +31933,6 @@ Object {
                       "textBehaviour": 1,
                       "web": Object {
                         "attributes": Array [],
-                        "type": "text",
                       },
                     },
                     Object {
@@ -32253,7 +32059,6 @@ Object {
                       "textBehaviour": 1,
                       "web": Object {
                         "attributes": Array [],
-                        "type": "text",
                       },
                     },
                     Object {
@@ -32380,7 +32185,6 @@ Object {
                       "textBehaviour": 1,
                       "web": Object {
                         "attributes": Array [],
-                        "type": "text",
                       },
                     },
                     Object {
@@ -32507,7 +32311,6 @@ Object {
                       "textBehaviour": 1,
                       "web": Object {
                         "attributes": Array [],
-                        "type": "text",
                       },
                     },
                   ],
@@ -32530,7 +32333,6 @@ Object {
                       "role=\\"group\\"",
                       "aria-label=\\"dates\\"",
                     ],
-                    "type": "block",
                   },
                 },
                 Object {
@@ -32657,7 +32459,6 @@ Object {
                   "textBehaviour": 0,
                   "web": Object {
                     "attributes": Array [],
-                    "type": "text",
                   },
                 },
               ],
@@ -32680,7 +32481,6 @@ Object {
                   "role=\\"group\\"",
                   "aria-label=\\"calendar\\"",
                 ],
-                "type": "block",
               },
             },
           ],
@@ -32703,7 +32503,6 @@ Object {
               "role=\\"group\\"",
               "aria-label=\\"dialog\\"",
             ],
-            "type": "block",
           },
         },
       ],
@@ -33415,7 +33214,6 @@ Object {
               },
               "web": Object {
                 "attributes": Array [],
-                "type": "shape",
               },
             },
             Object {
@@ -33623,7 +33421,6 @@ Object {
                   "textBehaviour": 0,
                   "web": Object {
                     "attributes": Array [],
-                    "type": "text",
                   },
                 },
                 Object {
@@ -33787,7 +33584,6 @@ Object {
                   "textBehaviour": 0,
                   "web": Object {
                     "attributes": Array [],
-                    "type": "text",
                   },
                 },
               ],
@@ -33810,7 +33606,6 @@ Object {
                   "role=\\"group\\"",
                   "aria-label=\\"ok + cancel\\"",
                 ],
-                "type": "block",
               },
             },
             Object {
@@ -33993,7 +33788,6 @@ Object {
                   },
                   "web": Object {
                     "attributes": Array [],
-                    "type": "shape",
                   },
                 },
                 Object {
@@ -34132,7 +33926,6 @@ Object {
                   },
                   "web": Object {
                     "attributes": Array [],
-                    "type": "shape",
                   },
                 },
                 Object {
@@ -34258,7 +34051,6 @@ Object {
                   "textBehaviour": 0,
                   "web": Object {
                     "attributes": Array [],
-                    "type": "text",
                   },
                 },
                 Object {
@@ -34384,7 +34176,6 @@ Object {
                   "textBehaviour": 0,
                   "web": Object {
                     "attributes": Array [],
-                    "type": "text",
                   },
                 },
                 Object {
@@ -34510,7 +34301,6 @@ Object {
                   "textBehaviour": 0,
                   "web": Object {
                     "attributes": Array [],
-                    "type": "text",
                   },
                 },
                 Object {
@@ -34642,7 +34432,6 @@ Object {
                   "textBehaviour": 0,
                   "web": Object {
                     "attributes": Array [],
-                    "type": "text",
                   },
                 },
               ],
@@ -34665,7 +34454,6 @@ Object {
                   "role=\\"group\\"",
                   "aria-label=\\"header\\"",
                 ],
-                "type": "block",
               },
             },
             Object {
@@ -34882,7 +34670,6 @@ Object {
                       "textBehaviour": 1,
                       "web": Object {
                         "attributes": Array [],
-                        "type": "text",
                       },
                     },
                     Object {
@@ -35009,7 +34796,6 @@ Object {
                       "textBehaviour": 1,
                       "web": Object {
                         "attributes": Array [],
-                        "type": "text",
                       },
                     },
                     Object {
@@ -35136,7 +34922,6 @@ Object {
                       "textBehaviour": 1,
                       "web": Object {
                         "attributes": Array [],
-                        "type": "text",
                       },
                     },
                     Object {
@@ -35263,7 +35048,6 @@ Object {
                       "textBehaviour": 1,
                       "web": Object {
                         "attributes": Array [],
-                        "type": "text",
                       },
                     },
                     Object {
@@ -35390,7 +35174,6 @@ Object {
                       "textBehaviour": 1,
                       "web": Object {
                         "attributes": Array [],
-                        "type": "text",
                       },
                     },
                     Object {
@@ -35517,7 +35300,6 @@ Object {
                       "textBehaviour": 1,
                       "web": Object {
                         "attributes": Array [],
-                        "type": "text",
                       },
                     },
                     Object {
@@ -35644,7 +35426,6 @@ Object {
                       "textBehaviour": 1,
                       "web": Object {
                         "attributes": Array [],
-                        "type": "text",
                       },
                     },
                   ],
@@ -35685,7 +35466,6 @@ Object {
                       "role=\\"group\\"",
                       "aria-label=\\"weekdays\\"",
                     ],
-                    "type": "block",
                   },
                 },
                 Object {
@@ -35815,7 +35595,6 @@ Object {
                       "role=\\"oval\\"",
                       "aria-label=\\"selection\\"",
                     ],
-                    "type": "block",
                   },
                 },
                 Object {
@@ -35987,7 +35766,6 @@ Object {
                       "textBehaviour": 1,
                       "web": Object {
                         "attributes": Array [],
-                        "type": "text",
                       },
                     },
                     Object {
@@ -36114,7 +35892,6 @@ Object {
                       "textBehaviour": 1,
                       "web": Object {
                         "attributes": Array [],
-                        "type": "text",
                       },
                     },
                     Object {
@@ -36241,7 +36018,6 @@ Object {
                       "textBehaviour": 1,
                       "web": Object {
                         "attributes": Array [],
-                        "type": "text",
                       },
                     },
                     Object {
@@ -36368,7 +36144,6 @@ Object {
                       "textBehaviour": 1,
                       "web": Object {
                         "attributes": Array [],
-                        "type": "text",
                       },
                     },
                     Object {
@@ -36495,7 +36270,6 @@ Object {
                       "textBehaviour": 1,
                       "web": Object {
                         "attributes": Array [],
-                        "type": "text",
                       },
                     },
                     Object {
@@ -36622,7 +36396,6 @@ Object {
                       "textBehaviour": 1,
                       "web": Object {
                         "attributes": Array [],
-                        "type": "text",
                       },
                     },
                     Object {
@@ -36749,7 +36522,6 @@ Object {
                       "textBehaviour": 1,
                       "web": Object {
                         "attributes": Array [],
-                        "type": "text",
                       },
                     },
                     Object {
@@ -36876,7 +36648,6 @@ Object {
                       "textBehaviour": 1,
                       "web": Object {
                         "attributes": Array [],
-                        "type": "text",
                       },
                     },
                     Object {
@@ -37003,7 +36774,6 @@ Object {
                       "textBehaviour": 1,
                       "web": Object {
                         "attributes": Array [],
-                        "type": "text",
                       },
                     },
                     Object {
@@ -37130,7 +36900,6 @@ Object {
                       "textBehaviour": 1,
                       "web": Object {
                         "attributes": Array [],
-                        "type": "text",
                       },
                     },
                     Object {
@@ -37257,7 +37026,6 @@ Object {
                       "textBehaviour": 1,
                       "web": Object {
                         "attributes": Array [],
-                        "type": "text",
                       },
                     },
                     Object {
@@ -37384,7 +37152,6 @@ Object {
                       "textBehaviour": 1,
                       "web": Object {
                         "attributes": Array [],
-                        "type": "text",
                       },
                     },
                     Object {
@@ -37511,7 +37278,6 @@ Object {
                       "textBehaviour": 1,
                       "web": Object {
                         "attributes": Array [],
-                        "type": "text",
                       },
                     },
                     Object {
@@ -37638,7 +37404,6 @@ Object {
                       "textBehaviour": 1,
                       "web": Object {
                         "attributes": Array [],
-                        "type": "text",
                       },
                     },
                     Object {
@@ -37765,7 +37530,6 @@ Object {
                       "textBehaviour": 1,
                       "web": Object {
                         "attributes": Array [],
-                        "type": "text",
                       },
                     },
                     Object {
@@ -37892,7 +37656,6 @@ Object {
                       "textBehaviour": 1,
                       "web": Object {
                         "attributes": Array [],
-                        "type": "text",
                       },
                     },
                     Object {
@@ -38019,7 +37782,6 @@ Object {
                       "textBehaviour": 1,
                       "web": Object {
                         "attributes": Array [],
-                        "type": "text",
                       },
                     },
                     Object {
@@ -38146,7 +37908,6 @@ Object {
                       "textBehaviour": 1,
                       "web": Object {
                         "attributes": Array [],
-                        "type": "text",
                       },
                     },
                     Object {
@@ -38273,7 +38034,6 @@ Object {
                       "textBehaviour": 1,
                       "web": Object {
                         "attributes": Array [],
-                        "type": "text",
                       },
                     },
                     Object {
@@ -38400,7 +38160,6 @@ Object {
                       "textBehaviour": 1,
                       "web": Object {
                         "attributes": Array [],
-                        "type": "text",
                       },
                     },
                     Object {
@@ -38527,7 +38286,6 @@ Object {
                       "textBehaviour": 1,
                       "web": Object {
                         "attributes": Array [],
-                        "type": "text",
                       },
                     },
                     Object {
@@ -38654,7 +38412,6 @@ Object {
                       "textBehaviour": 1,
                       "web": Object {
                         "attributes": Array [],
-                        "type": "text",
                       },
                     },
                     Object {
@@ -38781,7 +38538,6 @@ Object {
                       "textBehaviour": 1,
                       "web": Object {
                         "attributes": Array [],
-                        "type": "text",
                       },
                     },
                     Object {
@@ -38908,7 +38664,6 @@ Object {
                       "textBehaviour": 1,
                       "web": Object {
                         "attributes": Array [],
-                        "type": "text",
                       },
                     },
                     Object {
@@ -39035,7 +38790,6 @@ Object {
                       "textBehaviour": 1,
                       "web": Object {
                         "attributes": Array [],
-                        "type": "text",
                       },
                     },
                     Object {
@@ -39162,7 +38916,6 @@ Object {
                       "textBehaviour": 1,
                       "web": Object {
                         "attributes": Array [],
-                        "type": "text",
                       },
                     },
                     Object {
@@ -39289,7 +39042,6 @@ Object {
                       "textBehaviour": 1,
                       "web": Object {
                         "attributes": Array [],
-                        "type": "text",
                       },
                     },
                     Object {
@@ -39416,7 +39168,6 @@ Object {
                       "textBehaviour": 1,
                       "web": Object {
                         "attributes": Array [],
-                        "type": "text",
                       },
                     },
                     Object {
@@ -39543,7 +39294,6 @@ Object {
                       "textBehaviour": 1,
                       "web": Object {
                         "attributes": Array [],
-                        "type": "text",
                       },
                     },
                     Object {
@@ -39670,7 +39420,6 @@ Object {
                       "textBehaviour": 1,
                       "web": Object {
                         "attributes": Array [],
-                        "type": "text",
                       },
                     },
                     Object {
@@ -39797,7 +39546,6 @@ Object {
                       "textBehaviour": 1,
                       "web": Object {
                         "attributes": Array [],
-                        "type": "text",
                       },
                     },
                   ],
@@ -39820,7 +39568,6 @@ Object {
                       "role=\\"group\\"",
                       "aria-label=\\"dates\\"",
                     ],
-                    "type": "block",
                   },
                 },
                 Object {
@@ -39947,7 +39694,6 @@ Object {
                   "textBehaviour": 0,
                   "web": Object {
                     "attributes": Array [],
-                    "type": "text",
                   },
                 },
               ],
@@ -39970,7 +39716,6 @@ Object {
                   "role=\\"group\\"",
                   "aria-label=\\"calendar\\"",
                 ],
-                "type": "block",
               },
             },
           ],
@@ -39993,7 +39738,6 @@ Object {
               "role=\\"group\\"",
               "aria-label=\\"dialog\\"",
             ],
-            "type": "block",
           },
         },
       ],
@@ -40737,7 +40481,6 @@ Object {
               },
               "web": Object {
                 "attributes": Array [],
-                "type": "shape",
               },
             },
             Object {
@@ -40854,7 +40597,6 @@ Object {
               },
               "web": Object {
                 "attributes": Array [],
-                "type": "shape",
               },
             },
             Object {
@@ -40983,7 +40725,6 @@ Object {
               "textBehaviour": 0,
               "web": Object {
                 "attributes": Array [],
-                "type": "text",
               },
             },
             Object {
@@ -41112,7 +40853,6 @@ Object {
               "textBehaviour": 0,
               "web": Object {
                 "attributes": Array [],
-                "type": "text",
               },
             },
             Object {
@@ -41313,7 +41053,6 @@ Object {
                   "textBehaviour": 0,
                   "web": Object {
                     "attributes": Array [],
-                    "type": "text",
                   },
                 },
                 Object {
@@ -41466,7 +41205,6 @@ Object {
                           "role=\\"rectangle\\"",
                           "aria-label=\\"bounds\\"",
                         ],
-                        "type": "block",
                       },
                     },
                     Object {
@@ -41686,7 +41424,6 @@ Object {
                       },
                       "web": Object {
                         "attributes": Array [],
-                        "type": "shape",
                       },
                     },
                   ],
@@ -41709,7 +41446,6 @@ Object {
                       "role=\\"group\\"",
                       "aria-label=\\"ignore icon\\"",
                     ],
-                    "type": "block",
                   },
                 },
               ],
@@ -41732,7 +41468,6 @@ Object {
                   "role=\\"group\\"",
                   "aria-label=\\"ignore\\"",
                 ],
-                "type": "block",
               },
             },
             Object {
@@ -41934,7 +41669,6 @@ Object {
                   "textBehaviour": 0,
                   "web": Object {
                     "attributes": Array [],
-                    "type": "text",
                   },
                 },
                 Object {
@@ -42087,7 +41821,6 @@ Object {
                           "role=\\"rectangle\\"",
                           "aria-label=\\"bounds\\"",
                         ],
-                        "type": "block",
                       },
                     },
                     Object {
@@ -42337,7 +42070,6 @@ Object {
                       },
                       "web": Object {
                         "attributes": Array [],
-                        "type": "shape",
                       },
                     },
                   ],
@@ -42360,7 +42092,6 @@ Object {
                       "role=\\"group\\"",
                       "aria-label=\\"call icon\\"",
                     ],
-                    "type": "block",
                   },
                 },
               ],
@@ -42383,7 +42114,6 @@ Object {
                   "role=\\"group\\"",
                   "aria-label=\\"answer\\"",
                 ],
-                "type": "block",
               },
             },
             Object {
@@ -42540,7 +42270,6 @@ Object {
                   "role=\\"oval\\"",
                   "aria-label=\\"mask\\"",
                 ],
-                "type": "block",
               },
             },
           ],
@@ -42581,7 +42310,6 @@ Object {
               "role=\\"group\\"",
               "aria-label=\\"heads-up notification\\"",
             ],
-            "type": "block",
           },
         },
       ],
@@ -43329,7 +43057,6 @@ Object {
               },
               "web": Object {
                 "attributes": Array [],
-                "type": "shape",
               },
             },
             Object {
@@ -43446,7 +43173,6 @@ Object {
               },
               "web": Object {
                 "attributes": Array [],
-                "type": "shape",
               },
             },
             Object {
@@ -43575,7 +43301,6 @@ Object {
               "textBehaviour": 0,
               "web": Object {
                 "attributes": Array [],
-                "type": "text",
               },
             },
             Object {
@@ -43704,7 +43429,6 @@ Object {
               "textBehaviour": 0,
               "web": Object {
                 "attributes": Array [],
-                "type": "text",
               },
             },
             Object {
@@ -43908,7 +43632,6 @@ Object {
                   "textBehaviour": 0,
                   "web": Object {
                     "attributes": Array [],
-                    "type": "text",
                   },
                 },
                 Object {
@@ -44064,7 +43787,6 @@ Object {
                           "role=\\"rectangle\\"",
                           "aria-label=\\"bounds\\"",
                         ],
-                        "type": "block",
                       },
                     },
                     Object {
@@ -44284,7 +44006,6 @@ Object {
                       },
                       "web": Object {
                         "attributes": Array [],
-                        "type": "shape",
                       },
                     },
                   ],
@@ -44307,7 +44028,6 @@ Object {
                       "role=\\"group\\"",
                       "aria-label=\\"ignore icon\\"",
                     ],
-                    "type": "block",
                   },
                 },
               ],
@@ -44330,7 +44050,6 @@ Object {
                   "role=\\"group\\"",
                   "aria-label=\\"ignore\\"",
                 ],
-                "type": "block",
               },
             },
             Object {
@@ -44535,7 +44254,6 @@ Object {
                   "textBehaviour": 0,
                   "web": Object {
                     "attributes": Array [],
-                    "type": "text",
                   },
                 },
                 Object {
@@ -44691,7 +44409,6 @@ Object {
                           "role=\\"rectangle\\"",
                           "aria-label=\\"bounds\\"",
                         ],
-                        "type": "block",
                       },
                     },
                     Object {
@@ -44941,7 +44658,6 @@ Object {
                       },
                       "web": Object {
                         "attributes": Array [],
-                        "type": "shape",
                       },
                     },
                   ],
@@ -44964,7 +44680,6 @@ Object {
                       "role=\\"group\\"",
                       "aria-label=\\"call icon\\"",
                     ],
-                    "type": "block",
                   },
                 },
               ],
@@ -44987,7 +44702,6 @@ Object {
                   "role=\\"group\\"",
                   "aria-label=\\"answer\\"",
                 ],
-                "type": "block",
               },
             },
             Object {
@@ -45144,7 +44858,6 @@ Object {
                   "role=\\"oval\\"",
                   "aria-label=\\"mask\\"",
                 ],
-                "type": "block",
               },
             },
           ],
@@ -45185,7 +44898,6 @@ Object {
               "role=\\"group\\"",
               "aria-label=\\"heads-up notification\\"",
             ],
-            "type": "block",
           },
         },
       ],
@@ -45678,7 +45390,6 @@ Object {
                   },
                   "web": Object {
                     "attributes": Array [],
-                    "type": "shape",
                   },
                 },
                 Object {
@@ -45867,7 +45578,6 @@ Object {
                           "role=\\"rectangle\\"",
                           "aria-label=\\"bounds\\"",
                         ],
-                        "type": "block",
                       },
                     },
                     Object {
@@ -45996,7 +45706,6 @@ Object {
                       "textBehaviour": 1,
                       "web": Object {
                         "attributes": Array [],
-                        "type": "text",
                       },
                     },
                     Object {
@@ -46125,7 +45834,6 @@ Object {
                       "textBehaviour": 1,
                       "web": Object {
                         "attributes": Array [],
-                        "type": "text",
                       },
                     },
                     Object {
@@ -46254,7 +45962,6 @@ Object {
                       "textBehaviour": 1,
                       "web": Object {
                         "attributes": Array [],
-                        "type": "text",
                       },
                     },
                     Object {
@@ -46444,7 +46151,6 @@ Object {
                           "role=\\"rectangle\\"",
                           "aria-label=\\"indicator\\"",
                         ],
-                        "type": "block",
                       },
                     },
                   ],
@@ -46467,7 +46173,6 @@ Object {
                       "role=\\"group\\"",
                       "aria-label=\\"tabs\\"",
                     ],
-                    "type": "block",
                   },
                 },
                 Object {
@@ -46737,7 +46442,6 @@ Object {
                               },
                               "web": Object {
                                 "attributes": Array [],
-                                "type": "shape",
                               },
                             },
                             Object {
@@ -46881,7 +46585,6 @@ Object {
                               },
                               "web": Object {
                                 "attributes": Array [],
-                                "type": "shape",
                               },
                             },
                             Object {
@@ -47025,7 +46728,6 @@ Object {
                               },
                               "web": Object {
                                 "attributes": Array [],
-                                "type": "shape",
                               },
                             },
                           ],
@@ -47067,7 +46769,6 @@ Object {
                               "role=\\"shapeGroup\\"",
                               "aria-label=\\"Shape\\"",
                             ],
-                            "type": "block",
                           },
                           "windingRule": 1,
                         },
@@ -47183,7 +46884,6 @@ Object {
                           },
                           "web": Object {
                             "attributes": Array [],
-                            "type": "shape",
                           },
                         },
                       ],
@@ -47224,7 +46924,6 @@ Object {
                           "role=\\"group\\"",
                           "aria-label=\\"more\\"",
                         ],
-                        "type": "block",
                       },
                     },
                     Object {
@@ -47349,7 +47048,6 @@ Object {
                       "textBehaviour": 0,
                       "web": Object {
                         "attributes": Array [],
-                        "type": "text",
                       },
                     },
                     Object {
@@ -47502,7 +47200,6 @@ Object {
                               "role=\\"rectangle\\"",
                               "aria-label=\\"bounds\\"",
                             ],
-                            "type": "block",
                           },
                         },
                         Object {
@@ -47688,7 +47385,6 @@ Object {
                               },
                               "web": Object {
                                 "attributes": Array [],
-                                "type": "shape",
                               },
                             },
                             Object {
@@ -47832,7 +47528,6 @@ Object {
                               },
                               "web": Object {
                                 "attributes": Array [],
-                                "type": "shape",
                               },
                             },
                             Object {
@@ -47976,7 +47671,6 @@ Object {
                               },
                               "web": Object {
                                 "attributes": Array [],
-                                "type": "shape",
                               },
                             },
                           ],
@@ -48018,7 +47712,6 @@ Object {
                               "role=\\"shapeGroup\\"",
                               "aria-label=\\"Shape\\"",
                             ],
-                            "type": "block",
                           },
                           "windingRule": 1,
                         },
@@ -48060,7 +47753,6 @@ Object {
                           "role=\\"group\\"",
                           "aria-label=\\"menu\\"",
                         ],
-                        "type": "block",
                       },
                     },
                   ],
@@ -48083,7 +47775,6 @@ Object {
                       "role=\\"group\\"",
                       "aria-label=\\"app bar contents\\"",
                     ],
-                    "type": "block",
                   },
                 },
               ],
@@ -48106,7 +47797,6 @@ Object {
                   "role=\\"group\\"",
                   "aria-label=\\"app bar\\"",
                 ],
-                "type": "block",
               },
             },
             Object {
@@ -48278,7 +47968,6 @@ Object {
                       "role=\\"rectangle\\"",
                       "aria-label=\\"status bar bg\\"",
                     ],
-                    "type": "block",
                   },
                 },
                 Object {
@@ -48350,7 +48039,6 @@ Object {
                   "role=\\"group\\"",
                   "aria-label=\\"status bar\\"",
                 ],
-                "type": "block",
               },
             },
           ],
@@ -48373,7 +48061,6 @@ Object {
               "role=\\"group\\"",
               "aria-label=\\"app bar + status bar\\"",
             ],
-            "type": "block",
           },
         },
       ],
@@ -48584,7 +48271,6 @@ Object {
                   "role=\\"rectangle\\"",
                   "aria-label=\\"bounds\\"",
                 ],
-                "type": "block",
               },
             },
             Object {
@@ -48727,7 +48413,6 @@ Object {
                   },
                   "web": Object {
                     "attributes": Array [],
-                    "type": "shape",
                   },
                 },
                 Object {
@@ -48908,7 +48593,6 @@ Object {
                       },
                       "web": Object {
                         "attributes": Array [],
-                        "type": "shape",
                       },
                     },
                     Object {
@@ -49049,7 +48733,6 @@ Object {
                       },
                       "web": Object {
                         "attributes": Array [],
-                        "type": "shape",
                       },
                     },
                   ],
@@ -49089,7 +48772,6 @@ Object {
                       "role=\\"shapeGroup\\"",
                       "aria-label=\\"Shape\\"",
                     ],
-                    "type": "block",
                   },
                   "windingRule": 1,
                 },
@@ -49271,7 +48953,6 @@ Object {
                       },
                       "web": Object {
                         "attributes": Array [],
-                        "type": "shape",
                       },
                     },
                     Object {
@@ -49412,7 +49093,6 @@ Object {
                       },
                       "web": Object {
                         "attributes": Array [],
-                        "type": "shape",
                       },
                     },
                   ],
@@ -49452,7 +49132,6 @@ Object {
                       "role=\\"shapeGroup\\"",
                       "aria-label=\\"Shape\\"",
                     ],
-                    "type": "block",
                   },
                   "windingRule": 1,
                 },
@@ -49634,7 +49313,6 @@ Object {
                       },
                       "web": Object {
                         "attributes": Array [],
-                        "type": "shape",
                       },
                     },
                     Object {
@@ -49775,7 +49453,6 @@ Object {
                       },
                       "web": Object {
                         "attributes": Array [],
-                        "type": "shape",
                       },
                     },
                   ],
@@ -49815,7 +49492,6 @@ Object {
                       "role=\\"shapeGroup\\"",
                       "aria-label=\\"Shape\\"",
                     ],
-                    "type": "block",
                   },
                   "windingRule": 1,
                 },
@@ -49943,7 +49619,6 @@ Object {
                       "role=\\"oval\\"",
                       "aria-label=\\"Oval\\"",
                     ],
-                    "type": "block",
                   },
                 },
               ],
@@ -49984,7 +49659,6 @@ Object {
                   "role=\\"group\\"",
                   "aria-label=\\"wifi\\"",
                 ],
-                "type": "block",
               },
             },
             Object {
@@ -50127,7 +49801,6 @@ Object {
                   },
                   "web": Object {
                     "attributes": Array [],
-                    "type": "shape",
                   },
                 },
                 Object {
@@ -50255,7 +49928,6 @@ Object {
                       "role=\\"rectangle\\"",
                       "aria-label=\\"Rectangle-path\\"",
                     ],
-                    "type": "block",
                   },
                 },
                 Object {
@@ -50383,7 +50055,6 @@ Object {
                       "role=\\"rectangle\\"",
                       "aria-label=\\"Rectangle-path\\"",
                     ],
-                    "type": "block",
                   },
                 },
                 Object {
@@ -50511,7 +50182,6 @@ Object {
                       "role=\\"rectangle\\"",
                       "aria-label=\\"Rectangle-path\\"",
                     ],
-                    "type": "block",
                   },
                 },
                 Object {
@@ -50639,7 +50309,6 @@ Object {
                       "role=\\"rectangle\\"",
                       "aria-label=\\"Rectangle-path\\"",
                     ],
-                    "type": "block",
                   },
                 },
               ],
@@ -50680,7 +50349,6 @@ Object {
                   "role=\\"group\\"",
                   "aria-label=\\"reception\\"",
                 ],
-                "type": "block",
               },
             },
             Object {
@@ -50923,7 +50591,6 @@ Object {
                   },
                   "web": Object {
                     "attributes": Array [],
-                    "type": "shape",
                   },
                 },
                 Object {
@@ -51051,7 +50718,6 @@ Object {
                       "role=\\"rectangle\\"",
                       "aria-label=\\"Rectangle-path\\"",
                     ],
-                    "type": "block",
                   },
                 },
                 Object {
@@ -51179,7 +50845,6 @@ Object {
                       "role=\\"rectangle\\"",
                       "aria-label=\\"Rectangle-path\\"",
                     ],
-                    "type": "block",
                   },
                 },
                 Object {
@@ -51307,7 +50972,6 @@ Object {
                       "role=\\"rectangle\\"",
                       "aria-label=\\"Rectangle-path\\"",
                     ],
-                    "type": "block",
                   },
                 },
                 Object {
@@ -51435,7 +51099,6 @@ Object {
                       "role=\\"rectangle\\"",
                       "aria-label=\\"Rectangle-path\\"",
                     ],
-                    "type": "block",
                   },
                 },
                 Object {
@@ -51563,7 +51226,6 @@ Object {
                       "role=\\"rectangle\\"",
                       "aria-label=\\"Rectangle-path\\"",
                     ],
-                    "type": "block",
                   },
                 },
               ],
@@ -51604,7 +51266,6 @@ Object {
                   "role=\\"group\\"",
                   "aria-label=\\"battery\\"",
                 ],
-                "type": "block",
               },
             },
             Object {
@@ -51769,7 +51430,6 @@ Object {
                   "textBehaviour": 1,
                   "web": Object {
                     "attributes": Array [],
-                    "type": "text",
                   },
                 },
               ],
@@ -51815,7 +51475,6 @@ Object {
                   "role=\\"group\\"",
                   "aria-label=\\"time\\"",
                 ],
-                "type": "block",
               },
             },
           ],
@@ -51844,7 +51503,6 @@ Object {
               "role=\\"symbolMaster\\"",
               "aria-label=\\"Material/Android/Status bar content\\"",
             ],
-            "type": "block",
           },
         },
       ],
@@ -52348,7 +52006,6 @@ Object {
                   },
                   "web": Object {
                     "attributes": Array [],
-                    "type": "shape",
                   },
                 },
                 Object {
@@ -52540,7 +52197,6 @@ Object {
                           "role=\\"rectangle\\"",
                           "aria-label=\\"bounds\\"",
                         ],
-                        "type": "block",
                       },
                     },
                     Object {
@@ -52669,7 +52325,6 @@ Object {
                       "textBehaviour": 1,
                       "web": Object {
                         "attributes": Array [],
-                        "type": "text",
                       },
                     },
                     Object {
@@ -52798,7 +52453,6 @@ Object {
                       "textBehaviour": 1,
                       "web": Object {
                         "attributes": Array [],
-                        "type": "text",
                       },
                     },
                     Object {
@@ -52927,7 +52581,6 @@ Object {
                       "textBehaviour": 1,
                       "web": Object {
                         "attributes": Array [],
-                        "type": "text",
                       },
                     },
                     Object {
@@ -53117,7 +52770,6 @@ Object {
                           "role=\\"rectangle\\"",
                           "aria-label=\\"indicator\\"",
                         ],
-                        "type": "block",
                       },
                     },
                   ],
@@ -53140,7 +52792,6 @@ Object {
                       "role=\\"group\\"",
                       "aria-label=\\"tabs\\"",
                     ],
-                    "type": "block",
                   },
                 },
                 Object {
@@ -53419,7 +53070,6 @@ Object {
                               },
                               "web": Object {
                                 "attributes": Array [],
-                                "type": "shape",
                               },
                             },
                             Object {
@@ -53563,7 +53213,6 @@ Object {
                               },
                               "web": Object {
                                 "attributes": Array [],
-                                "type": "shape",
                               },
                             },
                             Object {
@@ -53707,7 +53356,6 @@ Object {
                               },
                               "web": Object {
                                 "attributes": Array [],
-                                "type": "shape",
                               },
                             },
                           ],
@@ -53749,7 +53397,6 @@ Object {
                               "role=\\"shapeGroup\\"",
                               "aria-label=\\"Shape\\"",
                             ],
-                            "type": "block",
                           },
                           "windingRule": 1,
                         },
@@ -53865,7 +53512,6 @@ Object {
                           },
                           "web": Object {
                             "attributes": Array [],
-                            "type": "shape",
                           },
                         },
                       ],
@@ -53906,7 +53552,6 @@ Object {
                           "role=\\"group\\"",
                           "aria-label=\\"more\\"",
                         ],
-                        "type": "block",
                       },
                     },
                     Object {
@@ -54031,7 +53676,6 @@ Object {
                       "textBehaviour": 0,
                       "web": Object {
                         "attributes": Array [],
-                        "type": "text",
                       },
                     },
                     Object {
@@ -54187,7 +53831,6 @@ Object {
                               "role=\\"rectangle\\"",
                               "aria-label=\\"bounds\\"",
                             ],
-                            "type": "block",
                           },
                         },
                         Object {
@@ -54376,7 +54019,6 @@ Object {
                               },
                               "web": Object {
                                 "attributes": Array [],
-                                "type": "shape",
                               },
                             },
                             Object {
@@ -54520,7 +54162,6 @@ Object {
                               },
                               "web": Object {
                                 "attributes": Array [],
-                                "type": "shape",
                               },
                             },
                             Object {
@@ -54664,7 +54305,6 @@ Object {
                               },
                               "web": Object {
                                 "attributes": Array [],
-                                "type": "shape",
                               },
                             },
                           ],
@@ -54706,7 +54346,6 @@ Object {
                               "role=\\"shapeGroup\\"",
                               "aria-label=\\"Shape\\"",
                             ],
-                            "type": "block",
                           },
                           "windingRule": 1,
                         },
@@ -54748,7 +54387,6 @@ Object {
                           "role=\\"group\\"",
                           "aria-label=\\"menu\\"",
                         ],
-                        "type": "block",
                       },
                     },
                   ],
@@ -54771,7 +54409,6 @@ Object {
                       "role=\\"group\\"",
                       "aria-label=\\"app bar contents\\"",
                     ],
-                    "type": "block",
                   },
                 },
               ],
@@ -54794,7 +54431,6 @@ Object {
                   "role=\\"group\\"",
                   "aria-label=\\"app bar\\"",
                 ],
-                "type": "block",
               },
             },
             Object {
@@ -54969,7 +54605,6 @@ Object {
                       "role=\\"rectangle\\"",
                       "aria-label=\\"status bar bg\\"",
                     ],
-                    "type": "block",
                   },
                 },
                 Object {
@@ -55041,7 +54676,6 @@ Object {
                   "role=\\"group\\"",
                   "aria-label=\\"status bar\\"",
                 ],
-                "type": "block",
               },
             },
           ],
@@ -55064,7 +54698,6 @@ Object {
               "role=\\"group\\"",
               "aria-label=\\"app bar + status bar\\"",
             ],
-            "type": "block",
           },
         },
       ],
@@ -55281,7 +54914,6 @@ Object {
                   "role=\\"rectangle\\"",
                   "aria-label=\\"bounds\\"",
                 ],
-                "type": "block",
               },
             },
             Object {
@@ -55427,7 +55059,6 @@ Object {
                   },
                   "web": Object {
                     "attributes": Array [],
-                    "type": "shape",
                   },
                 },
                 Object {
@@ -55611,7 +55242,6 @@ Object {
                       },
                       "web": Object {
                         "attributes": Array [],
-                        "type": "shape",
                       },
                     },
                     Object {
@@ -55752,7 +55382,6 @@ Object {
                       },
                       "web": Object {
                         "attributes": Array [],
-                        "type": "shape",
                       },
                     },
                   ],
@@ -55792,7 +55421,6 @@ Object {
                       "role=\\"shapeGroup\\"",
                       "aria-label=\\"Shape\\"",
                     ],
-                    "type": "block",
                   },
                   "windingRule": 1,
                 },
@@ -55977,7 +55605,6 @@ Object {
                       },
                       "web": Object {
                         "attributes": Array [],
-                        "type": "shape",
                       },
                     },
                     Object {
@@ -56118,7 +55745,6 @@ Object {
                       },
                       "web": Object {
                         "attributes": Array [],
-                        "type": "shape",
                       },
                     },
                   ],
@@ -56158,7 +55784,6 @@ Object {
                       "role=\\"shapeGroup\\"",
                       "aria-label=\\"Shape\\"",
                     ],
-                    "type": "block",
                   },
                   "windingRule": 1,
                 },
@@ -56343,7 +55968,6 @@ Object {
                       },
                       "web": Object {
                         "attributes": Array [],
-                        "type": "shape",
                       },
                     },
                     Object {
@@ -56484,7 +56108,6 @@ Object {
                       },
                       "web": Object {
                         "attributes": Array [],
-                        "type": "shape",
                       },
                     },
                   ],
@@ -56524,7 +56147,6 @@ Object {
                       "role=\\"shapeGroup\\"",
                       "aria-label=\\"Shape\\"",
                     ],
-                    "type": "block",
                   },
                   "windingRule": 1,
                 },
@@ -56652,7 +56274,6 @@ Object {
                       "role=\\"oval\\"",
                       "aria-label=\\"Oval\\"",
                     ],
-                    "type": "block",
                   },
                 },
               ],
@@ -56693,7 +56314,6 @@ Object {
                   "role=\\"group\\"",
                   "aria-label=\\"wifi\\"",
                 ],
-                "type": "block",
               },
             },
             Object {
@@ -56839,7 +56459,6 @@ Object {
                   },
                   "web": Object {
                     "attributes": Array [],
-                    "type": "shape",
                   },
                 },
                 Object {
@@ -56967,7 +56586,6 @@ Object {
                       "role=\\"rectangle\\"",
                       "aria-label=\\"Rectangle-path\\"",
                     ],
-                    "type": "block",
                   },
                 },
                 Object {
@@ -57095,7 +56713,6 @@ Object {
                       "role=\\"rectangle\\"",
                       "aria-label=\\"Rectangle-path\\"",
                     ],
-                    "type": "block",
                   },
                 },
                 Object {
@@ -57223,7 +56840,6 @@ Object {
                       "role=\\"rectangle\\"",
                       "aria-label=\\"Rectangle-path\\"",
                     ],
-                    "type": "block",
                   },
                 },
                 Object {
@@ -57351,7 +56967,6 @@ Object {
                       "role=\\"rectangle\\"",
                       "aria-label=\\"Rectangle-path\\"",
                     ],
-                    "type": "block",
                   },
                 },
               ],
@@ -57392,7 +57007,6 @@ Object {
                   "role=\\"group\\"",
                   "aria-label=\\"reception\\"",
                 ],
-                "type": "block",
               },
             },
             Object {
@@ -57638,7 +57252,6 @@ Object {
                   },
                   "web": Object {
                     "attributes": Array [],
-                    "type": "shape",
                   },
                 },
                 Object {
@@ -57766,7 +57379,6 @@ Object {
                       "role=\\"rectangle\\"",
                       "aria-label=\\"Rectangle-path\\"",
                     ],
-                    "type": "block",
                   },
                 },
                 Object {
@@ -57894,7 +57506,6 @@ Object {
                       "role=\\"rectangle\\"",
                       "aria-label=\\"Rectangle-path\\"",
                     ],
-                    "type": "block",
                   },
                 },
                 Object {
@@ -58022,7 +57633,6 @@ Object {
                       "role=\\"rectangle\\"",
                       "aria-label=\\"Rectangle-path\\"",
                     ],
-                    "type": "block",
                   },
                 },
                 Object {
@@ -58150,7 +57760,6 @@ Object {
                       "role=\\"rectangle\\"",
                       "aria-label=\\"Rectangle-path\\"",
                     ],
-                    "type": "block",
                   },
                 },
                 Object {
@@ -58278,7 +57887,6 @@ Object {
                       "role=\\"rectangle\\"",
                       "aria-label=\\"Rectangle-path\\"",
                     ],
-                    "type": "block",
                   },
                 },
               ],
@@ -58319,7 +57927,6 @@ Object {
                   "role=\\"group\\"",
                   "aria-label=\\"battery\\"",
                 ],
-                "type": "block",
               },
             },
             Object {
@@ -58487,7 +58094,6 @@ Object {
                   "textBehaviour": 1,
                   "web": Object {
                     "attributes": Array [],
-                    "type": "text",
                   },
                 },
               ],
@@ -58533,7 +58139,6 @@ Object {
                   "role=\\"group\\"",
                   "aria-label=\\"time\\"",
                 ],
-                "type": "block",
               },
             },
           ],
@@ -58569,7 +58174,6 @@ Object {
               "role=\\"symbolMaster\\"",
               "aria-label=\\"Material/Android/Status bar content\\"",
             ],
-            "type": "block",
           },
         },
       ],

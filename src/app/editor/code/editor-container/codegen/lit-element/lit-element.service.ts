@@ -22,7 +22,7 @@ export class LitElementCodeGenService {
         kind: 'text'
       },
       ...data.pages.flatMap(page =>
-        this.webBlocGen.render(page, data, { mode: 'litElement' })
+        this.webBlocGen.aggreate(page, data, { mode: 'litElement' })
       )
     ];
   }

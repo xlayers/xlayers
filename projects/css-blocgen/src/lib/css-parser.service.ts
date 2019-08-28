@@ -11,8 +11,8 @@ export class CssParserService {
   constructor(
     private styleHelperService: StyleService,
     private cssContext: CssContextService,
-    private symbol: SymbolService,
-    private layer: LayerService
+    private readonly symbolService: SymbolService,
+    private readonly layerService: LayerService
   ) {}
 
   compute(
@@ -40,11 +40,11 @@ export class CssParserService {
     data: SketchMSData,
     options: CssBlocGenOptions
   ) {
-    if (this.layer.identify(current)) {
+    if (this.layerService.identify(current)) {
       current.layers.forEach(layer => {
         this.visit(layer, data, options);
       });
-    } else if (this.symbol.identify(current)) {
+    } else if (this.symbolService.identify(current)) {
       return this.visitSymbol(current, data, options);
     }
   }
@@ -70,7 +70,7 @@ export class CssParserService {
     data: SketchMSData,
     options: CssBlocGenOptions
   ) {
-    const symbolMaster = this.symbol.lookup(current, data);
+    const symbolMaster = this.symbolService.lookup(current, data);
     if (symbolMaster) {
       this.compute(symbolMaster, data, options);
     }

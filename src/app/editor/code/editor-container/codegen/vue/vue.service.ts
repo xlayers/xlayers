@@ -20,7 +20,7 @@ export class VueCodeGenService {
         uri: `README.md`
       },
       ...data.pages.flatMap(page =>
-        this.webBlocGen.render(page, data, { mode: 'vue' })
+        this.webBlocGen.aggreate(page, data, { mode: 'vue' })
       )
     ];
   }

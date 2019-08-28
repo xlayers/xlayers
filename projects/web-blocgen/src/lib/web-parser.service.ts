@@ -17,14 +17,14 @@ import { WebContextService } from './web-context.service';
 })
 export class WebParserService {
   constructor(
-    private text: TextService,
-    private format: FormatService,
-    private symbol: SymbolService,
-    private image: ImageService,
-    private layer: LayerService,
+    private textService: TextService,
+    private formatService: FormatService,
+    private readonly symbolService: SymbolService,
+    private readonly imageService: ImageService,
+    private readonly layerService: LayerService,
     private cssBlocGen: CssBlocGenService,
     private svgBlocGen: SvgBlocGenService,
-    private webContext: WebContextService
+    private readonly webContext: WebContextService
   ) {}
 
   compute(
@@ -46,11 +46,11 @@ export class WebParserService {
     data: SketchMSData,
     options: WebBlocGenOptions
   ) {
-    if (this.layer.identify(current)) {
+    if (this.layerService.identify(current)) {
       current.layers.forEach(layer => {
         this.visit(layer, data, options);
       });
-    } else if (this.symbol.identify(current)) {
+    } else if (this.symbolService.identify(current)) {
       this.visitSymbol(current, data, options);
     }
   }
@@ -72,9 +72,9 @@ export class WebParserService {
   }
 
   private visitContent(current: SketchMSLayer, options: WebBlocGenOptions) {
-    if (this.image.identify(current)) {
+    if (this.imageService.identify(current)) {
       this.visitBitmap(current, options);
-    } else if (this.text.identify(current)) {
+    } else if (this.textService.identify(current)) {
       this.visitText(current);
     } else if (this.svgBlocGen.identify(current)) {
       this.visitShape(current);
@@ -98,7 +98,7 @@ export class WebParserService {
     data: SketchMSData,
     options: WebBlocGenOptions
   ) {
-    const symbolMaster = this.symbol.lookup(current, data);
+    const symbolMaster = this.symbolService.lookup(current, data);
     if (symbolMaster) {
       this.compute(symbolMaster, data, options);
       const context = this.webContext.of(current);
@@ -112,7 +112,7 @@ export class WebParserService {
   }
 
   private visitBitmap(current: SketchMSLayer, options: WebBlocGenOptions) {
-    const fileName = this.format.normalizeName(current.name);
+    const fileName = this.formatService.normalizeName(current.name);
     this.webContext.put(current, {
       attributes: [
         ...this.generateClassAttribute(current),
