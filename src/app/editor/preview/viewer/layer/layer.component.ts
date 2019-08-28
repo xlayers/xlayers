@@ -5,16 +5,16 @@ import {
   Input,
   OnInit,
   Renderer2
-} from "@angular/core";
-import { Store } from "@ngxs/store";
-import { CurrentLayer, UiState } from "@app/core/state/ui.state";
-import { DomSanitizer, SafeUrl } from "@angular/platform-browser";
-import { SvgBlocGenService } from "@xlayers/svg-blocgen";
-import { TextService, SymbolService, ImageService } from "@xlayers/sketch-lib";
-import { CssBlocGenService } from "@xlayers/css-blocgen";
+} from '@angular/core';
+import { Store } from '@ngxs/store';
+import { CurrentLayer, UiState } from '@app/core/state/ui.state';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+import { SvgCodeGenService } from '@xlayers/svg-codegen';
+import { TextService, SymbolService, ImageService } from '@xlayers/sketch-lib';
+import { CssCodeGenService } from '@xlayers/css-codegen';
 
 @Component({
-  selector: "xly-viewer-layer",
+  selector: 'xly-viewer-layer',
   template: `
     <div
       [style.width.px]="layer?.frame?.width"
@@ -97,8 +97,8 @@ export class ViewerLayerComponent implements OnInit, AfterContentInit {
     private element: ElementRef<HTMLElement>,
     private sanitizer: DomSanitizer,
     private text: TextService,
-    private cssBlocGen: CssBlocGenService,
-    private svgBlocGen: SvgBlocGenService,
+    private cssCodeGen: CssCodeGenService,
+    private svgCodeGen: SvgCodeGenService,
     private resource: SymbolService,
     private image: ImageService
   ) {}
@@ -149,8 +149,8 @@ export class ViewerLayerComponent implements OnInit, AfterContentInit {
   }
 
   loadShapes() {
-    if (this.svgBlocGen.identify(this.layer)) {
-      this.svgBlocGen
+    if (this.svgCodeGen.identify(this.layer)) {
+      this.svgCodeGen
         .aggreate(this.layer)
         .forEach(file =>
           this.images.push(
@@ -181,8 +181,8 @@ export class ViewerLayerComponent implements OnInit, AfterContentInit {
   }
 
   applyLayerStyles() {
-    if (this.cssBlocGen.identify(this.layer)) {
-      const cssContext = this.cssBlocGen.context(this.layer);
+    if (this.cssCodeGen.identify(this.layer)) {
+      const cssContext = this.cssCodeGen.context(this.layer);
       if (cssContext && cssContext.rules) {
         Object.entries(cssContext.rules).forEach(([property, value]) => {
           this.renderer.setStyle(this.element.nativeElement, property, value);
@@ -195,17 +195,17 @@ export class ViewerLayerComponent implements OnInit, AfterContentInit {
     const elementPosition = this.element.nativeElement.getBoundingClientRect();
     this.renderer.setStyle(
       this.element.nativeElement,
-      "border-width",
+      'border-width',
       `${this.borderWidth}px`
     );
     this.renderer.setStyle(
       this.element.nativeElement,
-      "left",
+      'left',
       `${elementPosition.left - this.borderWidth}px`
     );
     this.renderer.setStyle(
       this.element.nativeElement,
-      "top",
+      'top',
       `${elementPosition.top - this.borderWidth}px`
     );
   }
@@ -213,13 +213,13 @@ export class ViewerLayerComponent implements OnInit, AfterContentInit {
   enable3dStyle() {
     this.renderer.setStyle(
       this.element.nativeElement,
-      "transform",
+      'transform',
       `translateZ(${(this.level * this.offset3d).toFixed(3)}px)`
     );
   }
 
   disable3dStyle() {
-    this.renderer.setStyle(this.element.nativeElement, "transform", `none`);
+    this.renderer.setStyle(this.element.nativeElement, 'transform', `none`);
   }
 
   selectLayer(layer: SketchMSLayer) {

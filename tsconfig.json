@@ -20,12 +20,12 @@
       "@xlayers/sketch-ingestor/*": ["dist/sketch-ingestor/*"],
       "@xlayers/sketch-lib": ["dist/sketch-lib"],
       "@xlayers/sketch-lib/*": ["dist/sketch-lib/*"],
-      "@xlayers/css-blocgen": ["dist/css-blocgen"],
-      "@xlayers/css-blocgen/*": ["dist/css-blocgen/*"],
-      "@xlayers/svg-blocgen": ["dist/svg-blocgen"],
-      "@xlayers/svg-blocgen/*": ["dist/svg-blocgen/*"],
-      "@xlayers/web-blocgen": ["dist/web-blocgen"],
-      "@xlayers/web-blocgen/*": ["dist/web-blocgen/*"]
+      "@xlayers/css-codegen": ["dist/css-codegen"],
+      "@xlayers/css-codegen/*": ["dist/css-codegen/*"],
+      "@xlayers/svg-codegen": ["dist/svg-codegen"],
+      "@xlayers/svg-codegen/*": ["dist/svg-codegen/*"],
+      "@xlayers/web-codegen": ["dist/web-codegen"],
+      "@xlayers/web-codegen/*": ["dist/web-codegen/*"]
     }
   }
 }

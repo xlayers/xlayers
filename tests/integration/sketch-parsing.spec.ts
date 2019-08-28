@@ -2,7 +2,7 @@ import { NO_ERRORS_SCHEMA } from "@angular/core";
 import { async, TestBed } from "@angular/core/testing";
 import { readdirSync, readFile } from "fs";
 import * as jszip from "jszip";
-import { WebBlocGenService } from "@xlayers/web-blocgen";
+import { WebCodeGenService } from "@xlayers/web-codegen";
 
 const VERSION_LIST = [52, 53];
 const SKETCH_PATH = "./src/assets/demos/sketchapp";
@@ -59,15 +59,15 @@ async function loadSketch(version, fileName) {
 }
 
 describe("sketch parser", () => {
-  let webBlocGen: WebBlocGenService;
+  let webCodeGen: WebCodeGenService;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       schemas: [NO_ERRORS_SCHEMA],
-      providers: [WebBlocGenService],
+      providers: [WebCodeGenService],
       declarations: []
     }).compileComponents();
-    webBlocGen = TestBed.get(WebBlocGenService);
+    webCodeGen = TestBed.get(WebCodeGenService);
   }));
 
   VERSION_LIST.forEach(version => {
@@ -78,7 +78,7 @@ describe("sketch parser", () => {
         loadSketch(version, fileName)
           .then(data => {
             data.pages.forEach(page => {
-              webBlocGen.compute(page, data, {
+              webCodeGen.compute(page, data, {
                 generateClassName: false
               });
             });

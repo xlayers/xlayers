@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { WebBlocGenService } from '@xlayers/web-blocgen';
+import { WebCodeGenService } from '@xlayers/web-codegen';
 import { FormatService } from '@xlayers/sketch-lib';
 
 @Injectable({
@@ -8,7 +8,7 @@ import { FormatService } from '@xlayers/sketch-lib';
 export class AngularCodeGenService {
   constructor(
     private formatService: FormatService,
-    private webBlocGen: WebBlocGenService
+    private webCodeGen: WebCodeGenService
   ) {}
 
   buttons() {
@@ -19,7 +19,7 @@ export class AngularCodeGenService {
 
   generate(data: SketchMSData) {
     const generatedFiles = data.pages.flatMap(page =>
-      this.webBlocGen.aggreate(page, data, { mode: 'angular' })
+      this.webCodeGen.aggreate(page, data, { mode: 'angular' })
     );
     return [
       {

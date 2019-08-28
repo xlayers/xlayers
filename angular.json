@@ -89,25 +89,25 @@
         }
       }
     },
-    "web-blocgen": {
-      "root": "projects/web-blocgen",
-      "sourceRoot": "projects/web-blocgen/src",
+    "web-codegen": {
+      "root": "projects/web-codegen",
+      "sourceRoot": "projects/web-codegen/src",
       "projectType": "library",
       "prefix": "lib",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {
-            "tsConfig": "projects/web-blocgen/tsconfig.lib.json",
-            "project": "projects/web-blocgen/ng-package.json"
+            "tsConfig": "projects/web-codegen/tsconfig.lib.json",
+            "project": "projects/web-codegen/ng-package.json"
           }
         },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "projects/web-blocgen/tsconfig.lib.json",
-              "projects/web-blocgen/tsconfig.spec.json"
+              "projects/web-codegen/tsconfig.lib.json",
+              "projects/web-codegen/tsconfig.spec.json"
             ],
             "exclude": ["**/node_modules/**"]
           }
@@ -139,50 +139,50 @@
         }
       }
     },
-    "svg-blocgen": {
-      "root": "projects/svg-blocgen",
-      "sourceRoot": "projects/svg-blocgen/src",
+    "svg-codegen": {
+      "root": "projects/svg-codegen",
+      "sourceRoot": "projects/svg-codegen/src",
       "projectType": "library",
       "prefix": "lib",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {
-            "tsConfig": "projects/svg-blocgen/tsconfig.lib.json",
-            "project": "projects/svg-blocgen/ng-package.json"
+            "tsConfig": "projects/svg-codegen/tsconfig.lib.json",
+            "project": "projects/svg-codegen/ng-package.json"
           }
         },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "projects/svg-blocgen/tsconfig.lib.json",
-              "projects/svg-blocgen/tsconfig.spec.json"
+              "projects/svg-codegen/tsconfig.lib.json",
+              "projects/svg-codegen/tsconfig.spec.json"
             ],
             "exclude": ["**/node_modules/**"]
           }
         }
       }
     },
-    "css-blocgen": {
-      "root": "projects/css-blocgen",
-      "sourceRoot": "projects/css-blocgen/src",
+    "css-codegen": {
+      "root": "projects/css-codegen",
+      "sourceRoot": "projects/css-codegen/src",
       "projectType": "library",
       "prefix": "lib",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {
-            "tsConfig": "projects/css-blocgen/tsconfig.lib.json",
-            "project": "projects/css-blocgen/ng-package.json"
+            "tsConfig": "projects/css-codegen/tsconfig.lib.json",
+            "project": "projects/css-codegen/ng-package.json"
           }
         },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "projects/css-blocgen/tsconfig.lib.json",
-              "projects/css-blocgen/tsconfig.spec.json"
+              "projects/css-codegen/tsconfig.lib.json",
+              "projects/css-codegen/tsconfig.spec.json"
             ],
             "exclude": ["**/node_modules/**"]
           }

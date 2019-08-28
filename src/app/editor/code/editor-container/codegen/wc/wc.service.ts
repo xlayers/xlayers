@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-import { WebBlocGenService } from '@xlayers/web-blocgen';
+import { WebCodeGenService } from '@xlayers/web-codegen';
 
 @Injectable({
   providedIn: 'root'
 })
 export class WCCodeGenService {
-  constructor(private webBlocGen: WebBlocGenService) {}
+  constructor(private webCodeGen: WebCodeGenService) {}
 
   buttons() {
     return {
@@ -22,7 +22,7 @@ export class WCCodeGenService {
         kind: 'text'
       },
       ...data.pages.flatMap(page =>
-        this.webBlocGen.aggreate(page, data, { mode: 'webComponent' })
+        this.webCodeGen.aggreate(page, data, { mode: 'webComponent' })
       )
     ];
   }

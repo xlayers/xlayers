@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-import { WebBlocGenService } from '@xlayers/web-blocgen';
+import { WebCodeGenService } from '@xlayers/web-codegen';
 
 @Injectable({
   providedIn: 'root'
 })
 export class VueCodeGenService {
-  constructor(private webBlocGen: WebBlocGenService) {}
+  constructor(private webCodeGen: WebCodeGenService) {}
 
   buttons() {
     return {};
@@ -20,7 +20,7 @@ export class VueCodeGenService {
         uri: `README.md`
       },
       ...data.pages.flatMap(page =>
-        this.webBlocGen.aggreate(page, data, { mode: 'vue' })
+        this.webCodeGen.aggreate(page, data, { mode: 'vue' })
       )
     ];
   }
