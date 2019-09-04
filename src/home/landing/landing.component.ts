@@ -12,48 +12,48 @@ export class LandingComponent implements OnInit {
   viewerSections = [
     {
       frame: {
-        width: '240px',
-        left: '447px',
-        top: '50px',
+        width: '340px',
+        left: '400px',
+        top: '54px',
         height: '50px'
       },
       tooltip: {
         direction: 'right',
-        left: '140px',
-        top: '12px'
+        left: '90px',
+        top: '20px'
       },
       button: {
-        top: '66px',
-        left: '414px'
+        top: '70px',
+        left: '375px'
       },
       description:
       'LANDING.quick_access_toolbar'
     },
     {
       frame: {
-        width: '166px',
-        left: '45px',
+        width: '200px',
+        left: '0px',
         top: '120px',
-        height: '560px'
+        height: '640px'
       },
       tooltip: {
         direction: 'left',
-        left: '230px',
+        left: '155px',
         top: '338px'
       },
       button: {
         top: '370px',
-        left: '100px'
+        left: '80px'
       },
       description:
         'LANDING.sketch_layer_list'
     },
     {
       frame: {
-        width: '686px',
-        left: '226px',
-        top: '103px',
-        height: '629px'
+        width: '730px',
+        left: '203px',
+        top: '110px',
+        height: '650px'
       },
       tooltip: {
         direction: 'right',
@@ -69,38 +69,38 @@ export class LandingComponent implements OnInit {
     },
     {
       frame: {
-        width: '176px',
-        left: '916px',
-        top: '103px',
-        height: '325px'
+        width: '180px',
+        left: '950px',
+        top: '179px',
+        height: '290px'
       },
       tooltip: {
         direction: 'right',
-        left: '610px',
+        left: '710px',
         top: '215px'
       },
       button: {
-        top: '270px',
-        left: '995px'
+        top: '285px',
+        left: '1050px'
       },
       description:
         'LANDING.quick_access_preview_download'
     },
     {
       frame: {
-        width: '176px',
-        left: '916px',
-        top: '440px',
-        height: '291px'
+        width: '195px',
+        left: '940px',
+        top: '480px',
+        height: '180px'
       },
       tooltip: {
         direction: 'right',
-        left: '610px',
-        top: '535px'
+        left: '650px',
+        top: '520px'
       },
       button: {
-        top: '584px',
-        left: '1000px'
+        top: '550px',
+        left: '1020px'
       },
       description:
         'LANDING.property_panel'
@@ -111,26 +111,26 @@ export class LandingComponent implements OnInit {
     frame: {
       width: '175px',
       left: '485px',
-      top: '50px',
-      height: '50px'
+      top: '119px',
+      height: '35px'
     },
     tooltip: {
       direction: 'right',
       left: '180px',
-      top: '24px'
+      top: '85px'
     },
     button: {
-      top: '67px',
+      top: '130px',
       left: '472px'
     },
     description:
       'LANDING.code_editor_options'
   }, {
     frame: {
-      width: '1046px',
-      left: '46px',
-      top: '99px',
-      height: '632px'
+      width: '1136px',
+      left: '0px',
+      top: '195px',
+      height: '496px'
     },
     tooltip: {
       direction: 'right',
@@ -145,19 +145,19 @@ export class LandingComponent implements OnInit {
       'LANDING.code_editor_content'
   }, {
     frame: {
-      width: '140px',
-      left: '940px',
-      top: '135px',
-      height: '150px'
+      width: '840px',
+      left: '120px',
+      top: '150px',
+      height: '50px'
     },
     tooltip: {
-      direction: 'right',
-      left: '634px',
-      top: '136px'
+      direction: 'left',
+      left: '750px',
+      top: '130px'
     },
     button: {
-      top: '152px',
-      left: '1042px'
+      top: '162px',
+      left: '700px'
     },
     description:
       'LANDING.code_editor_tech_list'

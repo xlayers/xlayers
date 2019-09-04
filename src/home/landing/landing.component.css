@@ -51,7 +51,7 @@ nav a {
   text-decoration: none;
 }
 header img {
-  max-width: 844px;
+  max-width: 750px;
   display: block;
   margin: auto;
   width: 100%;
@@ -158,7 +158,7 @@ footer i {
   width: 150px;
   height: 150px;
   position: absolute;
-  background: url(/assets/xlayers-bg-3-ng.png) -1200px -171px/1480px no-repeat;
+  background: url(/assets/xlayers-bg-3-ng.png) -150px -17px/1480px no-repeat;
   border-radius: 50%;
   border: 1px solid #fff;
 }
@@ -184,8 +184,8 @@ footer i {
   .bg-3:before {
     width: 200px;
     height: 200px;
-    margin-top: -76px;
-    margin-left: 281px;
+    margin-top: -165px;
+    margin-left: -103px;
   }
 }
 
