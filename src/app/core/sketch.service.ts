@@ -124,7 +124,10 @@ export class SketchService {
 
     await Promise.all(
       zips.map(async ({ relativePath, zipEntry }) => {
-        if (
+        if (relativePath.endsWith('.pdf')) {
+          // text-previews/text-previews.pdf
+          // removed because of: https://github.com/xlayers/xlayers/issues/200
+        } else if (
           relativePath === 'previews/preview.png' ||
           relativePath.startsWith('images/')
         ) {
@@ -151,9 +154,6 @@ export class SketchService {
           } catch (e) {
             throw new Error(`Could not load page "${relativePath}"`);
           }
-        } else if (relativePath.endsWith('.pdf')) {
-          // text-previews/text-previews.pdf
-          // removed because of: https://github.com/xlayers/xlayers/issues/200
         } else {
           // document.json
           // user.json
