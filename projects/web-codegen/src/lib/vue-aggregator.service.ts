@@ -10,7 +10,7 @@ import { WebAggregatorService } from './web-aggregator.service';
 })
 export class VueAggregatorService {
   constructor(
-    private formatService: FormatService,
+    private readonly formatService: FormatService,
     private readonly webContext: WebContextService,
     private readonly webAggretatorService: WebAggregatorService
   ) {}

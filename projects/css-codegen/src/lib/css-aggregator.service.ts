@@ -13,7 +13,7 @@ interface StyleList {
 })
 export class CssAggregatorService {
   constructor(
-    private formatService: FormatService,
+    private readonly formatService: FormatService,
     private cssContext: CssContextService
   ) {}
 

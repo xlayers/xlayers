@@ -4,8 +4,8 @@ import { WebCodeGenService } from '@xlayers/web-codegen';
 @Injectable({
   providedIn: 'root'
 })
-export class WCCodeGenService {
-  constructor(private webCodeGen: WebCodeGenService) {}
+export class WebComponentCodeGenService {
+  constructor(private readonly webCodeGen: WebCodeGenService) {}
 
   buttons() {
     return {

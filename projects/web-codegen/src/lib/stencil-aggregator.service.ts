@@ -9,7 +9,7 @@ import { WebContextService } from './web-context.service';
 })
 export class StencilAggregatorService {
   constructor(
-    private formatService: FormatService,
+    private readonly formatService: FormatService,
     private readonly webContext: WebContextService,
     private readonly webAggretatorService: WebAggregatorService
   ) {}

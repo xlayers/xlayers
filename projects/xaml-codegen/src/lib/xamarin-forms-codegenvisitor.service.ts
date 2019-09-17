@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { XlayersNgxEditorModel } from '../../codegen.service';
 import { XmlCodeGenVisitor } from './xmlcodegenvisitor.service';
 import { Shape } from './shape.service';
 import { SvgCodeGenService } from '@xlayers/svg-codegen';
@@ -11,11 +10,11 @@ import { SvgCodeGenService } from '@xlayers/svg-codegen';
   providedIn: 'root'
 })
 export class XamarinFormsCodeGenVisitor extends XmlCodeGenVisitor {
-  constructor(private svgCodeGen: SvgCodeGenService) {
+  constructor(private readonly svgCodeGen: SvgCodeGenService) {
     super();
   }
 
-  fileList: Array<XlayersNgxEditorModel> = [];
+  fileList = [];
 
   protected visitLayer(
     layer: SketchMSLayer,
@@ -230,7 +229,7 @@ export class XamarinFormsCodeGenVisitor extends XmlCodeGenVisitor {
   }
 
   consumeFileList(): any {
-    const tempFileList: Array<XlayersNgxEditorModel> = this.fileList;
+    const tempFileList = this.fileList;
     this.fileList = [];
     return tempFileList;
   }

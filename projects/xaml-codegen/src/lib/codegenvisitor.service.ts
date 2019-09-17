@@ -7,13 +7,10 @@ export abstract class CodeGenVisitor {
    * Generates a string template by visiting the tree
    * @param ast The Sketch AST
    */
-  generateTemplate(
-    ast: SketchMSLayer,
-    mainPageTemplate: (string) => string
-  ): string {
+  generateTemplate(ast: SketchMSLayer): string {
     const template: Array<string> = [];
     this.visit(ast, template, 2);
-    return mainPageTemplate(template.join('\n'));
+    return template.join('\n');
   }
 
   protected visit(

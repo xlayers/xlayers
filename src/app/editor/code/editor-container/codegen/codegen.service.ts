@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-import { AngularCodeGenService } from './angular/angular.service';
-import { ReactCodeGenService } from './react/react.service';
-import { VueCodeGenService } from './vue/vue.service';
-import { WCCodeGenService } from './wc/wc.service';
-import { StencilCodeGenService } from './stencil/stencil.service';
-import { LitElementCodeGenService } from './lit-element/lit-element.service';
-import { XamarinFormsCodeGenService } from './xamarin-forms/xamarin-forms.service';
+import { AngularCodeGenService } from './angular-codegen.service';
+import { ReactCodeGenService } from './react-codegen.service';
+import { VueCodeGenService } from './vue-codegen.service';
+import { WebComponentCodeGenService } from './web-component-codegen.service';
+import { StencilCodeGenService } from './stencil-codegen.service';
+import { LitElementCodeGenService } from './lit-element-codegen.service';
+import { XamarinCodeGenService } from './xamarin-codegen.service';
 import { Store } from '@ngxs/store';
 import { UiState } from '@app/core/state';
 import { environment } from '@env/environment.hmr';
@@ -15,16 +15,16 @@ declare var gtag;
 
 export interface XlayersNgxEditorModel {
   kind:
-  | 'png'
-  | 'angular'
-  | 'react'
-  | 'vue'
-  | 'wc'
-  | 'stencil'
-  | 'litElement'
-  | 'html'
-  | 'text'
-  | 'xamarinForms';
+    | 'png'
+    | 'angular'
+    | 'react'
+    | 'vue'
+    | 'wc'
+    | 'stencil'
+    | 'litElement'
+    | 'html'
+    | 'text'
+    | 'xamarinForms';
   uri: string;
   value: any;
   language: string;
@@ -61,10 +61,10 @@ export class CodeGenService {
     private readonly angular: AngularCodeGenService,
     private readonly react: ReactCodeGenService,
     private readonly vue: VueCodeGenService,
-    private readonly wc: WCCodeGenService,
+    private readonly wc: WebComponentCodeGenService,
     private readonly stencil: StencilCodeGenService,
     private readonly litElement: LitElementCodeGenService,
-    private readonly xamarinForms: XamarinFormsCodeGenService,
+    private readonly xamarinForms: XamarinCodeGenService,
     private readonly store: Store
   ) {
     this.store

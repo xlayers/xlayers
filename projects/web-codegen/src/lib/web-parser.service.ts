@@ -17,13 +17,13 @@ import { WebContextService } from './web-context.service';
 })
 export class WebParserService {
   constructor(
-    private textService: TextService,
-    private formatService: FormatService,
+    private readonly textService: TextService,
+    private readonly formatService: FormatService,
     private readonly symbolService: SymbolService,
     private readonly imageService: ImageService,
     private readonly layerService: LayerService,
-    private cssCodeGen: CssCodeGenService,
-    private svgCodeGen: SvgCodeGenService,
+    private readonly cssCodeGen: CssCodeGenService,
+    private readonly svgCodeGen: SvgCodeGenService,
     private readonly webContext: WebContextService
   ) {}
 

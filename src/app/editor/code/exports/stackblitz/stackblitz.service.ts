@@ -9,8 +9,6 @@ import { ExportStackblitzWCService } from './stackblitz.wc.service';
 import { ExportStackblitzStencilService } from './stackblitz.stencil.service';
 import { ExportStackblitzLitElementService } from './stackblitz.lit-element.service';
 
-
-
 export interface StackBlitzProjectPayload {
   files: { [path: string]: string };
   title?: string;
@@ -38,8 +36,7 @@ export class ExportStackblitzService {
     private wcExport: ExportStackblitzWCService,
     private stencilExport: ExportStackblitzStencilService,
     private litElementExport: ExportStackblitzLitElementService
-
-  ) { }
+  ) {}
 
   async export(codegen: CodeGenSettings) {
     let project: StackBlitzProjectPayload = null;
@@ -77,7 +74,7 @@ export class ExportStackblitzService {
   }
 
   private normalizeBase64Image(codegen: CodeGenSettings) {
-    return codegen.content.map((file) => {
+    return codegen.content.map(file => {
       if (file.language === 'base64') {
         if (file.kind === 'png') {
           return {

@@ -9,7 +9,7 @@ import { WebContextService } from './web-context.service';
 })
 export class ReactAggregatorService {
   constructor(
-    private formatService: FormatService,
+    private readonly formatService: FormatService,
     private readonly webContext: WebContextService,
     private readonly webAggretatorService: WebAggregatorService
   ) {}

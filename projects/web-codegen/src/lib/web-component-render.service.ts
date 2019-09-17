@@ -8,7 +8,7 @@ import { WebAggregatorService } from './web-aggregator.service';
 })
 export class WebComponentAggregatorService {
   constructor(
-    private formatService: FormatService,
+    private readonly formatService: FormatService,
     private readonly webAggretatorService: WebAggregatorService
   ) {}
 

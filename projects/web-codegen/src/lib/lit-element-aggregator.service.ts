@@ -8,7 +8,7 @@ import { WebCodeGenOptions } from './web-codegen';
 })
 export class LitElementAggregatorService {
   constructor(
-    private formatService: FormatService,
+    private readonly formatService: FormatService,
     private readonly webAggretatorService: WebAggregatorService
   ) {}
 

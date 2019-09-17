@@ -5,7 +5,7 @@ import { WebCodeGenService } from '@xlayers/web-codegen';
   providedIn: 'root'
 })
 export class ReactCodeGenService {
-  constructor(private webCodeGen: WebCodeGenService) {}
+  constructor(private readonly webCodeGen: WebCodeGenService) {}
 
   buttons() {
     return {

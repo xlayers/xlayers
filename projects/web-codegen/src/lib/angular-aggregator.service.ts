@@ -8,7 +8,7 @@ import { FormatService } from '@xlayers/sketch-lib';
 })
 export class AngularAggregatorService {
   constructor(
-    private formatService: FormatService,
+    private readonly formatService: FormatService,
     private readonly webAggretatorService: WebAggregatorService
   ) {}
 

@@ -8,7 +8,7 @@ import { SvgCodeGenOptions, SvgCodeGenContextPath } from './svg-codegen';
 })
 export class SvgAggregatorService {
   constructor(
-    private formatService: FormatService,
+    private readonly formatService: FormatService,
     private svgContext: SvgContextService
   ) {}
 

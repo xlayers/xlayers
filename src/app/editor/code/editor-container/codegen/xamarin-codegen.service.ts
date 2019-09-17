@@ -1,9 +1,44 @@
-export const readmeTemplate = () => {
-    const codeBlock = '```';
+import { Injectable } from '@angular/core';
+import { XamarinFormsCodeGenVisitor } from '@xlayers/xaml-codegen';
+
+/**
+ * @see CodeGenFacade implementation able to generate Xamarin.Forms code
+ */
+@Injectable({
+  providedIn: 'root'
+})
+export class XamarinCodeGenService {
+  constructor(private readonly codegen: XamarinFormsCodeGenVisitor) {}
+
+  buttons() {
+    return {
+      stackblitz: false
+    };
+  }
+
+  generate(ast: SketchMSLayer) {
+    return [
+      {
+        uri: 'README.md',
+        value: this.renderReadme(),
+        language: 'markdown',
+        kind: 'text'
+      },
+      {
+        uri: 'MainPage.xaml',
+        value: this.renderComponent(ast),
+        language: 'xaml',
+        kind: 'xamarinForms'
+      },
+      ...this.codegen.consumeFileList()
+    ];
+  }
+
+  private renderReadme() {
     return `
 ## How to use the Xlayers Web Components built with Xamarin.forms
 
-${codeBlock}
+\`\`\`
   Xlayers for Xamarin.forms use the FFImageLoading library
   to load images and svg content quickly and easily
 
@@ -38,11 +73,11 @@ ${codeBlock}
           Call  FFImageLoading.Forms.Platform.CachedImageRenderer.Init(true)
           after global::Xamarin.Forms.Forms.Init()
           in    MainActivity.OnCreate()
-${codeBlock}
-  `;
-};
+\`\`\``;
+  }
 
-export const mainPageTemplate = (xamlContent: string) => `
+  private renderComponent(ast: SketchMSLayer) {
+    return `
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
@@ -51,6 +86,8 @@ export const mainPageTemplate = (xamlContent: string) => `
              xmlns:ffSvg="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
              x:Class="xLayers.MainPage">
   <AbsoluteLayout>
-${xamlContent}
+${this.codegen.generateTemplate(ast)}
   </AbsoluteLayout>
 </ContentPage>`;
+  }
+}

@@ -10,9 +10,9 @@ import { WebCodeGenContext } from './web-codegen.d';
 export class WebContextService {
   constructor(
     private readonly layerService: LayerService,
-    private textService: TextService,
+    private readonly textService: TextService,
     private readonly imageService: ImageService,
-    private svgCodeGen: SvgCodeGenService
+    private readonly svgCodeGen: SvgCodeGenService
   ) {}
 
   identify(current: SketchMSLayer) {

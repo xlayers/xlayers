@@ -5,7 +5,7 @@ import { FormatService } from './format.service';
   providedIn: 'root'
 })
 export class ImageService {
-  constructor(private formatService: FormatService) {}
+  constructor(private readonly formatService: FormatService) {}
 
   identify(current: SketchMSLayer) {
     return (current._class as string) === 'bitmap';

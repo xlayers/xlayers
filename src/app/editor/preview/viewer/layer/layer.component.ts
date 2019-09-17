@@ -97,8 +97,8 @@ export class ViewerLayerComponent implements OnInit, AfterContentInit {
     private element: ElementRef<HTMLElement>,
     private sanitizer: DomSanitizer,
     private text: TextService,
-    private cssCodeGen: CssCodeGenService,
-    private svgCodeGen: SvgCodeGenService,
+    private readonly cssCodeGen: CssCodeGenService,
+    private readonly svgCodeGen: SvgCodeGenService,
     private resource: SymbolService,
     private image: ImageService
   ) {}

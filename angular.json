@@ -213,6 +213,41 @@
           }
         }
       }
+    },
+    "xaml-codegen": {
+      "projectType": "library",
+      "root": "projects/xaml-codegen",
+      "sourceRoot": "projects/xaml-codegen/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/xaml-codegen/tsconfig.lib.json",
+            "project": "projects/xaml-codegen/ng-package.json"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/xaml-codegen/src/test.ts",
+            "tsConfig": "projects/xaml-codegen/tsconfig.spec.json",
+            "karmaConfig": "projects/xaml-codegen/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/xaml-codegen/tsconfig.lib.json",
+              "projects/xaml-codegen/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
     }
   },
   "defaultProject": "xlayers"

@@ -16,14 +16,14 @@ import { SvgCodeGenService } from '@xlayers/svg-codegen';
 })
 export class WebAggregatorService {
   constructor(
-    private textService: TextService,
+    private readonly textService: TextService,
     private readonly symbolService: SymbolService,
     private readonly imageService: ImageService,
-    private formatService: FormatService,
+    private readonly formatService: FormatService,
     private readonly layerService: LayerService,
     private readonly webContext: WebContextService,
-    private cssCodeGen: CssCodeGenService,
-    private svgCodeGen: SvgCodeGenService
+    private readonly cssCodeGen: CssCodeGenService,
+    private readonly svgCodeGen: SvgCodeGenService
   ) {}
 
   aggreate(current: SketchMSLayer, options: WebCodeGenOptions) {

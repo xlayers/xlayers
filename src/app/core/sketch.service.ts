@@ -19,7 +19,7 @@ export class SketchService {
   constructor(
     private sketchIngestor: SketchIngestorService,
     private http: HttpClient,
-    private webCodeGen: WebCodeGenService
+    private readonly webCodeGen: WebCodeGenService
   ) {}
 
   async loadSketchFile(file: File) {

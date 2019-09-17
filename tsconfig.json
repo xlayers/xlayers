@@ -25,7 +25,9 @@
       "@xlayers/svg-codegen": ["dist/svg-codegen"],
       "@xlayers/svg-codegen/*": ["dist/svg-codegen/*"],
       "@xlayers/web-codegen": ["dist/web-codegen"],
-      "@xlayers/web-codegen/*": ["dist/web-codegen/*"]
+      "@xlayers/web-codegen/*": ["dist/web-codegen/*"],
+      "@xlayers/xaml-codegen": ["dist/xaml-codegen"],
+      "@xlayers/xaml-codegen/*": ["dist/xaml-codegen/*"]
     }
   }
 }

@@ -7,8 +7,8 @@ import { FormatService } from '@xlayers/sketch-lib';
 })
 export class AngularCodeGenService {
   constructor(
-    private formatService: FormatService,
-    private webCodeGen: WebCodeGenService
+    private readonly formatService: FormatService,
+    private readonly webCodeGen: WebCodeGenService
   ) {}
 
   buttons() {
