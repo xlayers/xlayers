@@ -196,6 +196,12 @@ footer i {
   }
 }
 
+@media (min-width: 2560px) {
+  .bg img {
+    width: 1392px;
+  }
+}
+
 @keyframes rotate {
   from {
     transform: rotate(0deg);
