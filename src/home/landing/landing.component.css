@@ -78,7 +78,7 @@ header img {
   cursor: pointer;
 }
 .button:hover {
-  border-color:#b84592;
+  border-color: #b84592;
 }
 
 .button-alt {
@@ -96,7 +96,6 @@ header img {
   color: white;
   background-color: #cf3c66;
 }
-
 
 footer {
   padding: 30px;
@@ -140,7 +139,7 @@ footer i {
 }
 
 .bg-2:before {
-  content: '';
+  content: "";
   display: block;
   width: 150px;
   height: 150px;
@@ -153,7 +152,7 @@ footer i {
 }
 
 .bg-3:before {
-  content: '';
+  content: "";
   display: block;
   width: 150px;
   height: 150px;
@@ -189,7 +188,6 @@ footer i {
   }
 }
 
-
 @media (max-width: 1000px) {
   .bg.interactive {
     display: none;
@@ -199,6 +197,10 @@ footer i {
 @media (min-width: 2560px) {
   .bg img {
     width: 1392px;
+  }
+
+  header img {
+    max-width: 1392px;
   }
 }
 
