@@ -5,6 +5,7 @@ import { WebParserService } from './web-parser.service';
 import { WebAggregatorService } from './web-aggregator.service';
 import { VueAggregatorService } from './vue-aggregator.service';
 import { AngularAggregatorService } from './angular-aggregator.service';
+import { AngularElementAggregatorService } from './angular-element-aggregator.service';
 import { ReactAggregatorService } from './react-aggregator.service';
 import { LitElementAggregatorService } from './lit-element-aggregator.service';
 import { WebCodeGenOptions } from './web-codegen.d';
@@ -23,6 +24,7 @@ export class WebCodeGenService {
     private readonly webComponentAggretatorService: WebComponentAggregatorService,
     private readonly vueAggretatorService: VueAggregatorService,
     private readonly angularAggretatorService: AngularAggregatorService,
+    private readonly angularElementAggretatorService: AngularElementAggregatorService,
     private readonly litElementAggretatorService: LitElementAggregatorService,
     private readonly reactAggretatorService: ReactAggregatorService,
     private readonly stencilAggretatorService: StencilAggregatorService,
@@ -68,6 +70,11 @@ export class WebCodeGenService {
       case 'angular':
         return this.visitContent(current, data, options).concat(
           this.angularAggretatorService.aggreate(current, options)
+        );
+
+      case 'angularElement':
+        return this.visitContent(current, data, options).concat(
+          this.angularElementAggretatorService.aggreate(current, options)
         );
 
       case 'litElement':

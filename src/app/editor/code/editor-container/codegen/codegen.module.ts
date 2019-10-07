@@ -5,6 +5,7 @@ import { VueCodeGenService } from './vue-codegen.service';
 import { WebComponentCodeGenService } from './web-component-codegen.service';
 import { StencilCodeGenService } from './stencil-codegen.service';
 import { AngularCodeGenService } from './angular-codegen.service';
+import { AngularElementCodeGenService } from './angular-element-codegen.service';
 import { LitElementCodeGenService } from './lit-element-codegen.service';
 import { XamarinCodeGenService } from './xamarin-codegen.service';
 
@@ -12,6 +13,7 @@ import { XamarinCodeGenService } from './xamarin-codegen.service';
   providers: [
     CodeGenService,
     AngularCodeGenService,
+    AngularElementCodeGenService,
     ReactCodeGenService,
     VueCodeGenService,
     WebComponentCodeGenService,

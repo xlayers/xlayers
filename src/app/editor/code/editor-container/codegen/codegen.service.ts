@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularCodeGenService } from './angular-codegen.service';
+import { AngularElementCodeGenService } from './angular-element-codegen.service';
 import { ReactCodeGenService } from './react-codegen.service';
 import { VueCodeGenService } from './vue-codegen.service';
 import { WebComponentCodeGenService } from './web-component-codegen.service';
@@ -17,6 +18,7 @@ export interface XlayersNgxEditorModel {
   kind:
     | 'png'
     | 'angular'
+    | 'angularElement'
     | 'react'
     | 'vue'
     | 'wc'
@@ -42,6 +44,7 @@ export interface CodeGenFacade {
 export enum CodeGenKind {
   Unknown,
   Angular,
+  AngularElement,
   React,
   Vue,
   WC,
@@ -59,6 +62,7 @@ export class CodeGenService {
 
   constructor(
     private readonly angular: AngularCodeGenService,
+    private readonly angularElement: AngularElementCodeGenService,
     private readonly react: ReactCodeGenService,
     private readonly vue: VueCodeGenService,
     private readonly wc: WebComponentCodeGenService,
@@ -143,6 +147,15 @@ export class CodeGenService {
           content: this.addHeaderInfo(this.angular.generate(this.data)),
           buttons: this.angular.buttons()
         };
+
+      case CodeGenKind.AngularElement:
+        this.trackFrameworkKind(CodeGenKind.AngularElement);
+        return {
+          kind,
+          content: this.addHeaderInfo(this.angularElement.generate(this.data)),
+          buttons: this.angularElement.buttons()
+        };
+
       case CodeGenKind.React:
         this.trackFrameworkKind(CodeGenKind.React);
         return {
@@ -150,6 +163,7 @@ export class CodeGenService {
           content: this.addHeaderInfo(this.react.generate(this.data)),
           buttons: this.react.buttons()
         };
+
       case CodeGenKind.Vue:
         this.trackFrameworkKind(CodeGenKind.Vue);
         return {
