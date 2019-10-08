@@ -139,7 +139,7 @@ footer i {
 }
 
 .bg-2:before {
-  content: "";
+  content: '';
   display: block;
   width: 150px;
   height: 150px;
@@ -152,7 +152,7 @@ footer i {
 }
 
 .bg-3:before {
-  content: "";
+  content: '';
   display: block;
   width: 150px;
   height: 150px;
