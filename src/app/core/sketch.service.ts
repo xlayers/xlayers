@@ -1,8 +1,8 @@
-import { HttpClient } from "@angular/common/http";
-import { Injectable } from "@angular/core";
-import { environment } from "@env/environment";
-import { WebCodeGenService } from "@xlayers/web-codegen";
-import { SketchIngestorService } from "@xlayers/sketch-ingestor";
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { environment } from '@env/environment';
+import { WebCodeGenService } from '@xlayers/web-codegen';
+import { SketchIngestorService } from '@xlayers/sketch-ingestor';
 
 export interface SketchMSData {
   pages: SketchMSPage[];
@@ -13,7 +13,7 @@ export interface SketchMSData {
 }
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root'
 })
 export class SketchService {
   constructor(
@@ -40,7 +40,7 @@ export class SketchService {
     const repoUrl = `${window.location.origin ||
       environment.baseUrl}/assets/demos/sketchapp/`;
     return this.http.get(`${repoUrl}${filename}.sketch`, {
-      responseType: "blob"
+      responseType: 'blob'
     });
   }
 }
