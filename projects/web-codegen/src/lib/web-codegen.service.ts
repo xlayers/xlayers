@@ -3,13 +3,7 @@ import { ImageService, SymbolService, LayerService } from '@xlayers/sketch-lib';
 import { WebContextService } from './web-context.service';
 import { WebParserService } from './web-parser.service';
 import { WebAggregatorService } from './web-aggregator.service';
-import { VueAggregatorService } from './vue-aggregator.service';
-import { AngularAggregatorService } from './angular-aggregator.service';
-import { ReactAggregatorService } from './react-aggregator.service';
-import { LitElementAggregatorService } from './lit-element-aggregator.service';
 import { WebCodeGenOptions } from './web-codegen.d';
-import { StencilAggregatorService } from './stencil-aggregator.service';
-import { WebComponentAggregatorService } from './web-component-render.service';
 
 @Injectable({
   providedIn: 'root'
@@ -20,12 +14,6 @@ export class WebCodeGenService {
     private readonly imageService: ImageService,
     private readonly webContext: WebContextService,
     private readonly webParser: WebParserService,
-    private readonly webComponentAggretatorService: WebComponentAggregatorService,
-    private readonly vueAggretatorService: VueAggregatorService,
-    private readonly angularAggretatorService: AngularAggregatorService,
-    private readonly litElementAggretatorService: LitElementAggregatorService,
-    private readonly reactAggretatorService: ReactAggregatorService,
-    private readonly stencilAggretatorService: StencilAggregatorService,
     private readonly webAggretatorService: WebAggregatorService,
     private readonly layerService: LayerService
   ) {}
@@ -59,48 +47,9 @@ export class WebCodeGenService {
     data: SketchMSData,
     options?: WebCodeGenOptions
   ) {
-    switch (options.mode) {
-      case 'vue':
-        return this.visitContent(current, data, options).concat(
-          this.vueAggretatorService.aggreate(current, options)
-        );
-
-      case 'angular':
-        return this.visitContent(current, data, options).concat(
-          this.angularAggretatorService.aggreate(current, options)
-        );
-
-      case 'litElement':
-        return this.visitContent(current, data, options).concat(
-          this.litElementAggretatorService.aggreate(current, options)
-        );
-
-      case 'react':
-        return this.visitContent(current, data, options).concat(
-          this.reactAggretatorService.aggreate(current, {
-            ...options,
-            jsx: true
-          })
-        );
-
-      case 'webComponent':
-        return this.visitContent(current, data, options).concat(
-          this.webComponentAggretatorService.aggreate(current, options)
-        );
-
-      case 'stencil':
-        return this.visitContent(current, data, options).concat(
-          this.stencilAggretatorService.aggreate(current, {
-            ...options,
-            jsx: true
-          })
-        );
-
-      default:
-        return this.visitContent(current, data, options).concat(
-          this.webAggretatorService.aggreate(current, options)
-        );
-    }
+    return this.visitContent(current, data, options).concat(
+      this.webAggretatorService.aggreate(current, options)
+    );
   }
 
   private visitContent(

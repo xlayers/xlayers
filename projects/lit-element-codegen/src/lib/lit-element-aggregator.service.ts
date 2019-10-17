@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { FormatService } from '@xlayers/sketch-lib';
-import { WebAggregatorService } from './web-aggregator.service';
-import { WebCodeGenOptions } from './web-codegen';
+import { WebCodeGenService } from '@xlayers/web-codegen';
+
+type WebCodeGenOptions = any;
 
 @Injectable({
   providedIn: 'root'
@@ -9,12 +10,12 @@ import { WebCodeGenOptions } from './web-codegen';
 export class LitElementAggregatorService {
   constructor(
     private readonly formatService: FormatService,
-    private readonly webAggretatorService: WebAggregatorService
+    private readonly webCodeGenService: WebCodeGenService
   ) {}
 
   aggreate(current: SketchMSLayer, options: WebCodeGenOptions) {
     const fileName = this.formatService.normalizeName(current.name);
-    const files = this.webAggretatorService.aggreate(current, options);
+    const files = this.webCodeGenService.aggreate(current, options);
     const html = files.find(file => file.language === 'html');
     const css = files.find(file => file.language === 'css');
     return [

@@ -248,6 +248,216 @@
           }
         }
       }
+    },
+    "angular-codegen": {
+      "projectType": "library",
+      "root": "projects/angular-codegen",
+      "sourceRoot": "projects/angular-codegen/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/angular-codegen/tsconfig.lib.json",
+            "project": "projects/angular-codegen/ng-package.json"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/angular-codegen/src/test.ts",
+            "tsConfig": "projects/angular-codegen/tsconfig.spec.json",
+            "karmaConfig": "projects/angular-codegen/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/angular-codegen/tsconfig.lib.json",
+              "projects/angular-codegen/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "vue-codegen": {
+      "projectType": "library",
+      "root": "projects/vue-codegen",
+      "sourceRoot": "projects/vue-codegen/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/vue-codegen/tsconfig.lib.json",
+            "project": "projects/vue-codegen/ng-package.json"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/vue-codegen/src/test.ts",
+            "tsConfig": "projects/vue-codegen/tsconfig.spec.json",
+            "karmaConfig": "projects/vue-codegen/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/vue-codegen/tsconfig.lib.json",
+              "projects/vue-codegen/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "react-codegen": {
+      "projectType": "library",
+      "root": "projects/react-codegen",
+      "sourceRoot": "projects/react-codegen/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/react-codegen/tsconfig.lib.json",
+            "project": "projects/react-codegen/ng-package.json"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/react-codegen/src/test.ts",
+            "tsConfig": "projects/react-codegen/tsconfig.spec.json",
+            "karmaConfig": "projects/react-codegen/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/react-codegen/tsconfig.lib.json",
+              "projects/react-codegen/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "stencil-codegen": {
+      "projectType": "library",
+      "root": "projects/stencil-codegen",
+      "sourceRoot": "projects/stencil-codegen/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/stencil-codegen/tsconfig.lib.json",
+            "project": "projects/stencil-codegen/ng-package.json"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/stencil-codegen/src/test.ts",
+            "tsConfig": "projects/stencil-codegen/tsconfig.spec.json",
+            "karmaConfig": "projects/stencil-codegen/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/stencil-codegen/tsconfig.lib.json",
+              "projects/stencil-codegen/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "lit-element-codegen": {
+      "projectType": "library",
+      "root": "projects/lit-element-codegen",
+      "sourceRoot": "projects/lit-element-codegen/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/lit-element-codegen/tsconfig.lib.json",
+            "project": "projects/lit-element-codegen/ng-package.json"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/lit-element-codegen/src/test.ts",
+            "tsConfig": "projects/lit-element-codegen/tsconfig.spec.json",
+            "karmaConfig": "projects/lit-element-codegen/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/lit-element-codegen/tsconfig.lib.json",
+              "projects/lit-element-codegen/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "web-component-codegen": {
+      "projectType": "library",
+      "root": "projects/web-component-codegen",
+      "sourceRoot": "projects/web-component-codegen/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/web-component-codegen/tsconfig.lib.json",
+            "project": "projects/web-component-codegen/ng-package.json"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/web-component-codegen/src/test.ts",
+            "tsConfig": "projects/web-component-codegen/tsconfig.spec.json",
+            "karmaConfig": "projects/web-component-codegen/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/web-component-codegen/tsconfig.lib.json",
+              "projects/web-component-codegen/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
     }
   },
   "defaultProject": "xlayers"

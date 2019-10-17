@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import { FormatService } from '@xlayers/sketch-lib';
+import { WebCodeGenService } from '@xlayers/web-codegen';
 
-import { WebCodeGenOptions } from './web-codegen';
-import { WebContextService } from './web-context.service';
-import { WebAggregatorService } from './web-aggregator.service';
+type WebCodeGenOptions = any;
 
 @Injectable({
   providedIn: 'root'
@@ -11,13 +10,12 @@ import { WebAggregatorService } from './web-aggregator.service';
 export class VueAggregatorService {
   constructor(
     private readonly formatService: FormatService,
-    private readonly webContext: WebContextService,
-    private readonly webAggretatorService: WebAggregatorService
+    private readonly webCodeGenService: WebCodeGenService
   ) {}
 
   aggreate(current: SketchMSLayer, options: WebCodeGenOptions) {
     const fileName = this.formatService.normalizeName(current.name);
-    const files = this.webAggretatorService.aggreate(current, options);
+    const files = this.webCodeGenService.aggreate(current, options);
     const html = files.find(file => file.language === 'html');
     const css = files.find(file => file.language === 'css');
 
@@ -96,7 +94,7 @@ describe("${className}", () => {
   }
 
   private generateDynamicImport(current: SketchMSLayer) {
-    const context = this.webContext.of(current);
+    const context = this.webCodeGenService.context(current);
     return context && context.components
       ? context.components.map(component => {
           const importclassName = this.formatService.className(component);
@@ -107,7 +105,7 @@ describe("${className}", () => {
   }
 
   private generateVueImportDeclaration(current: SketchMSLayer) {
-    const context = this.webContext.of(current);
+    const context = this.webCodeGenService.context(current);
     return context && context.components
       ? context.components.map(component =>
           this.formatService.className(component)

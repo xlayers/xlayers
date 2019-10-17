@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { FormatService } from '@xlayers/sketch-lib';
-import { WebAggregatorService } from './web-aggregator.service';
-import { WebCodeGenOptions, WebCodeGenContext } from './web-codegen';
-import { WebContextService } from './web-context.service';
+import { WebCodeGenService } from '@xlayers/web-codegen';
+
+type WebCodeGenOptions = any;
 
 @Injectable({
   providedIn: 'root'
@@ -10,13 +10,12 @@ import { WebContextService } from './web-context.service';
 export class ReactAggregatorService {
   constructor(
     private readonly formatService: FormatService,
-    private readonly webContext: WebContextService,
-    private readonly webAggretatorService: WebAggregatorService
+    private readonly webCodeGenService: WebCodeGenService
   ) {}
 
   aggreate(current: SketchMSLayer, options: WebCodeGenOptions) {
     const fileName = this.formatService.normalizeName(current.name);
-    const files = this.webAggretatorService.aggreate(current, options);
+    const files = this.webCodeGenService.aggreate(current, options);
     const html = files.find(file => file.language === 'html');
 
     return [
@@ -76,7 +75,7 @@ it('renders without crashing', () => {
   }
 
   private generateDynamicImport(current: SketchMSLayer) {
-    const context = this.webContext.of(current);
+    const context = this.webCodeGenService.context(current);
     return context && context.components
       ? context.components.map(component => {
           const importclassName = this.formatService.className(component);

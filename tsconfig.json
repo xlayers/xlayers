@@ -27,7 +27,19 @@
       "@xlayers/web-codegen": ["dist/web-codegen"],
       "@xlayers/web-codegen/*": ["dist/web-codegen/*"],
       "@xlayers/xaml-codegen": ["dist/xaml-codegen"],
-      "@xlayers/xaml-codegen/*": ["dist/xaml-codegen/*"]
+      "@xlayers/xaml-codegen/*": ["dist/xaml-codegen/*"],
+      "@xlayers/angular-codegen": ["dist/angular-codegen"],
+      "@xlayers/angular-codegen/*": ["dist/angular-codegen/*"],
+      "@xlayers/vue-codegen": ["dist/vue-codegen"],
+      "@xlayers/vue-codegen/*": ["dist/vue-codegen/*"],
+      "@xlayers/react-codegen": ["dist/react-codegen"],
+      "@xlayers/react-codegen/*": ["dist/react-codegen/*"],
+      "@xlayers/stencil-codegen": ["dist/stencil-codegen"],
+      "@xlayers/stencil-codegen/*": ["dist/stencil-codegen/*"],
+      "@xlayers/lit-element-codegen": ["dist/lit-element-codegen"],
+      "@xlayers/lit-element-codegen/*": ["dist/lit-element-codegen/*"],
+      "@xlayers/web-component-codegen": ["dist/web-component-codegen"],
+      "@xlayers/web-component-codegen/*": ["dist/web-component-codegen/*"]
     }
   }
 }

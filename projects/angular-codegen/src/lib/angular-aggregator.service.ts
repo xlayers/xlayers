@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { WebCodeGenOptions } from './web-codegen';
-import { WebAggregatorService } from './web-aggregator.service';
+import { WebCodeGenService } from '@xlayers/web-codegen';
 import { FormatService } from '@xlayers/sketch-lib';
+
+type WebCodeGenOptions = any;
 
 @Injectable({
   providedIn: 'root'
@@ -9,13 +10,13 @@ import { FormatService } from '@xlayers/sketch-lib';
 export class AngularAggregatorService {
   constructor(
     private readonly formatService: FormatService,
-    private readonly webAggretatorService: WebAggregatorService
+    private readonly webCodeGenService: WebCodeGenService
   ) {}
 
   aggreate(current: SketchMSLayer, options: WebCodeGenOptions) {
     const fileName = this.formatService.normalizeName(current.name);
     return [
-      ...this.webAggretatorService.aggreate(current, options).map(file => {
+      ...this.webCodeGenService.aggreate(current, options).map(file => {
         switch (file.language) {
           case 'html':
             return {
