@@ -6,12 +6,17 @@ import { ViewerSelectedLayerDirective } from '../layer/selected-layer.directive'
 @Component({
   selector: 'xly-viewer-container',
   template: `
-    <div class="layers-container" xly3dRotation [enabled]="is3dView">
+    <div
+      *ngIf="data"
+      class="layers-container"
+      xly3dRotation
+      [enabled]="is3dView"
+    >
       <xly-viewer-canvas
         #ref
         xlySelectedLayer
+        [data]="data"
         (click)="clearSelection()"
-        [currentPage]="currentPage"
       ></xly-viewer-canvas>
     </div>
   `,
@@ -45,16 +50,22 @@ import { ViewerSelectedLayerDirective } from '../layer/selected-layer.directive'
   ]
 })
 export class ViewerContainerComponent implements OnInit {
-  constructor(private store: Store) {}
+  @ViewChild(ViewerSelectedLayerDirective, { static: false })
+  ref: ViewerSelectedLayerDirective;
+  is3dView: boolean;
 
-  public currentPage: SketchMSLayer;
-  public is3dView: boolean;
+  data: SketchMSData;
+  currentPage: SketchMSPage;
 
-  @ViewChild(ViewerSelectedLayerDirective, {static: true}) ref: ViewerSelectedLayerDirective;
+  constructor(private readonly store: Store) {}
 
   ngOnInit() {
     this.store.select(UiState.currentPage).subscribe(currentPage => {
       this.currentPage = currentPage;
+    });
+
+    this.store.select(UiState.currentData).subscribe(currentData => {
+      this.data = currentData;
     });
 
     this.store.select(UiState.is3dView).subscribe(is3dView => {
@@ -73,15 +84,15 @@ export class ViewerContainerComponent implements OnInit {
   }
 
   @HostListener('mousewheel', ['$event'])
-  OnMouseWheel(event: MouseEvent) {
+  onMouseWheel(event: MouseEvent) {
     /**
      * Emit Zoom events only when any sketch file is selected
      * deltaY < 0 means wheel/scroll up, otherwise wheel down
      */
-    if (!!this.currentPage) {
-      return (event as any).deltaY < 0
-        ? this.store.dispatch(new ZoomIn())
-        : this.store.dispatch(new ZoomOut());
+    if ((event as any).deltaY < 0) {
+      this.store.dispatch(new ZoomIn());
+    } else {
+      this.store.dispatch(new ZoomOut());
     }
   }
 }

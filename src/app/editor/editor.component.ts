@@ -88,7 +88,7 @@ export class EditorComponent implements OnInit {
   async download() {
     const zip = new window['JSZip']();
     this.codegen.content.forEach(file => {
-      zip.file(file.uri, file.value);
+      zip.file(file.uri, file.value, { base64: file.language === 'base64' });
     });
     const content = await zip.generateAsync({ type: 'blob' });
     FileSaver.saveAs(content, 'xLayers.zip');

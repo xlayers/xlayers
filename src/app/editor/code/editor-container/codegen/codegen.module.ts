@@ -1,27 +1,23 @@
 import { NgModule } from '@angular/core';
 import { CodeGenService } from './codegen.service';
-import { ReactCodeGenService } from './react/react.service';
-import { VueCodeGenService } from './vue/vue.service';
-import { WCCodeGenService } from './wc/wc.service';
-import { StencilCodeGenService } from './stencil/stencil.service';
-import { AngularCodeGenService } from './angular/angular.service';
-import { LitElementCodeGenService } from './lit-element/lit-element.service';
-import { XamarinFormsCodeGenService } from './xamarin-forms/xamarin-forms.service';
-import { XamarinFormsCodeGenVisitor } from './xamarin-forms/codegen/xamarin-forms-codegenvisitor.service';
-import { SharedCodegen } from './shared-codegen.service';
+import { ReactCodeGenService } from './react-codegen.service';
+import { VueCodeGenService } from './vue-codegen.service';
+import { WebComponentCodeGenService } from './web-component-codegen.service';
+import { StencilCodeGenService } from './stencil-codegen.service';
+import { AngularCodeGenService } from './angular-codegen.service';
+import { LitElementCodeGenService } from './lit-element-codegen.service';
+import { XamarinCodeGenService } from './xamarin-codegen.service';
 
 @NgModule({
   providers: [
-      CodeGenService,
-      SharedCodegen,
-      AngularCodeGenService,
-      ReactCodeGenService,
-      VueCodeGenService,
-      WCCodeGenService,
-      StencilCodeGenService,
-      LitElementCodeGenService,
-      XamarinFormsCodeGenService,
-      XamarinFormsCodeGenVisitor
+    CodeGenService,
+    AngularCodeGenService,
+    ReactCodeGenService,
+    VueCodeGenService,
+    WebComponentCodeGenService,
+    StencilCodeGenService,
+    LitElementCodeGenService,
+    XamarinCodeGenService
   ]
 })
 export class CodeGenModule {}

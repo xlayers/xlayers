@@ -1,4 +1,3 @@
-
 import { Injectable } from '@angular/core';
 import { XlayersNgxEditorModel } from '@app/editor/code/editor-container/codegen/codegen.service';
 import { StackBlitzProjectPayload } from './stackblitz.service';
@@ -7,7 +6,6 @@ import { StackBlitzProjectPayload } from './stackblitz.service';
   providedIn: 'root'
 })
 export class ExportStackblitzLitElementService {
-  constructor() {}
   prepare(content: XlayersNgxEditorModel[]): StackBlitzProjectPayload {
     const files = {};
     for (let i = 0; i < content.length; i++) {
@@ -17,9 +15,9 @@ export class ExportStackblitzLitElementService {
         }
       }
     }
-    files['index.js'] = `import './x-layers-element.js';`;
+    files['index.js'] = `// import './components/my-element.js';`;
     // add extra files
-    files['index.html'] = `
+    files['index.html'] = `\
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -30,11 +28,10 @@ export class ExportStackblitzLitElementService {
     <title>xLayers Custom Element using : LitElement</title>
   </head>
   <body>
-    <x-layers-element></x-layers-element>
+    // <my-element></my-element>
   </body>
   <script src="./index.js"></script>
 </html>`;
-
 
     return {
       files,
@@ -43,7 +40,7 @@ export class ExportStackblitzLitElementService {
         ['lit-element']: '2.0.1'
       },
       template: 'javascript',
-      tags: ['web component' , 'lit-element']
+      tags: ['web component', 'lit-element']
     };
   }
 }

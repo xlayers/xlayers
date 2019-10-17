@@ -18,17 +18,9 @@
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "src/tsconfig.app.json",
-            "assets": [
-              "src/favicon.ico",
-              "src/assets",
-              "src/manifest.json"
-            ],
-            "styles": [
-              "src/styles.css"
-            ],
-            "scripts": [
-              "node_modules/jszip/dist/jszip.min.js"
-            ]
+            "assets": ["src/favicon.ico", "src/assets", "src/manifest.json"],
+            "styles": ["src/styles.css"],
+            "scripts": ["node_modules/jszip/dist/jszip.min.js"]
           },
           "configurations": {
             "production": {
@@ -91,44 +83,164 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "src/tsconfig.app.json",
-              "src/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "tsConfig": ["src/tsconfig.app.json", "src/tsconfig.spec.json"],
+            "exclude": ["**/node_modules/**"]
           }
         }
       }
     },
-    "sketchapp-parser": {
-      "root": "projects/sketchapp-parser",
-      "sourceRoot": "projects/sketchapp-parser/src",
+    "web-codegen": {
+      "root": "projects/web-codegen",
+      "sourceRoot": "projects/web-codegen/src",
       "projectType": "library",
-      "prefix": "xly",
+      "prefix": "lib",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {
-            "tsConfig": "projects/sketchapp-parser/tsconfig.lib.json",
-            "project": "projects/sketchapp-parser/ng-package.json"
-          }
-        },
-        "test": {
-          "builder": "@angular-devkit/build-angular:karma",
-          "options": {
-            "main": "projects/sketchapp-parser/src/test.ts",
-            "tsConfig": "projects/sketchapp-parser/tsconfig.spec.json",
-            "karmaConfig": "projects/sketchapp-parser/karma.conf.js"
+            "tsConfig": "projects/web-codegen/tsconfig.lib.json",
+            "project": "projects/web-codegen/ng-package.json"
           }
         },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "projects/sketchapp-parser/tsconfig.lib.json",
-              "projects/sketchapp-parser/tsconfig.spec.json"
+              "projects/web-codegen/tsconfig.lib.json",
+              "projects/web-codegen/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**"]
+          }
+        }
+      }
+    },
+    "sketch-lib": {
+      "root": "projects/sketch-lib",
+      "sourceRoot": "projects/sketch-lib/src",
+      "projectType": "library",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/sketch-lib/tsconfig.lib.json",
+            "project": "projects/sketch-lib/ng-package.json"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/sketch-lib/tsconfig.lib.json",
+              "projects/sketch-lib/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**"]
+          }
+        }
+      }
+    },
+    "svg-codegen": {
+      "root": "projects/svg-codegen",
+      "sourceRoot": "projects/svg-codegen/src",
+      "projectType": "library",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/svg-codegen/tsconfig.lib.json",
+            "project": "projects/svg-codegen/ng-package.json"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/svg-codegen/tsconfig.lib.json",
+              "projects/svg-codegen/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**"]
+          }
+        }
+      }
+    },
+    "css-codegen": {
+      "root": "projects/css-codegen",
+      "sourceRoot": "projects/css-codegen/src",
+      "projectType": "library",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/css-codegen/tsconfig.lib.json",
+            "project": "projects/css-codegen/ng-package.json"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/css-codegen/tsconfig.lib.json",
+              "projects/css-codegen/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**"]
+          }
+        }
+      }
+    },
+    "sketch-ingestor": {
+      "root": "projects/sketch-ingestor",
+      "sourceRoot": "projects/sketch-ingestor/src",
+      "projectType": "library",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/sketch-ingestor/tsconfig.lib.json",
+            "project": "projects/sketch-ingestor/ng-package.json"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/sketch-ingestor/tsconfig.lib.json",
+              "projects/sketch-ingestor/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**"]
+          }
+        }
+      }
+    },
+    "xaml-codegen": {
+      "projectType": "library",
+      "root": "projects/xaml-codegen",
+      "sourceRoot": "projects/xaml-codegen/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/xaml-codegen/tsconfig.lib.json",
+            "project": "projects/xaml-codegen/ng-package.json"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/xaml-codegen/src/test.ts",
+            "tsConfig": "projects/xaml-codegen/tsconfig.spec.json",
+            "karmaConfig": "projects/xaml-codegen/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/xaml-codegen/tsconfig.lib.json",
+              "projects/xaml-codegen/tsconfig.spec.json"
             ],
             "exclude": [
               "**/node_modules/**"

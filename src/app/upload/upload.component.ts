@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { SketchService } from '@app/core/sketch.service';
-import { CurrentFile, ErrorType, InformUser, ResetUiSettings } from '@app/core/state';
+import {
+  CurrentData,
+  ErrorType,
+  InformUser,
+  ResetUiSettings
+} from '@app/core/state';
 import { Navigate } from '@ngxs/router-plugin';
 import { Store } from '@ngxs/store';
 import { BehaviorSubject } from 'rxjs';
@@ -15,32 +19,29 @@ export class UploadComponent implements OnInit {
   public selectedDemoFileError = false;
   isDragging$ = new BehaviorSubject<boolean>(false);
 
-  constructor(
-    private service: SketchService,
-    private store: Store
-  ) { }
+  constructor(private sketchService: SketchService, private readonly store: Store) {}
 
-  ngOnInit() { }
+  ngOnInit() {}
 
   async onFileSelected(file: File) {
     try {
-      const data = await this.service.process(file);
+      const data = await this.sketchService.loadSketchFile(file);
       this.isDragging$.next(false);
       // Note: these actions need to be run in sequence!
       this.store.dispatch([
         new ResetUiSettings(),
-        new CurrentFile(data),
+        new CurrentData(data),
         new Navigate(['/editor/preview'])
       ]);
-
     } catch (error) {
       this.store.dispatch(new InformUser(error, ErrorType.Runtime));
+      throw error;
     }
   }
 
   openSelectedDemoFile(fileName: string) {
     this.selectedDemoFileError = false;
-    this.service.getSketchDemoFile(fileName).subscribe(
+    this.sketchService.getSketchDemoFile(fileName).subscribe(
       async (file: Blob) => {
         await this.onFileSelected(new File([file], `${fileName}.sketch`));
       },

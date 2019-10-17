@@ -7,7 +7,7 @@
 
   <mat-nav-list>
     <ng-container
-      *ngFor="let group of sketchService.getDemoFiles(); let i = index"
+      *ngFor="let group of sketchService.listDemoFiles(); let i = index"
     >
       <h3 mat-subheader>
         {{ 'SELECTDEMO.version' | translate}}{{ group.value }}

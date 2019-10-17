@@ -1,32 +1,33 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "baseUrl": "./",
-    "outDir": "./dist/out-tsc",
+    "skipLibCheck": true,
+    "baseUrl": "",
+    "rootDir": "./",
+    "outDir": "./dist/out-tsc/src",
     "sourceMap": true,
     "declaration": false,
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "target": "es5",
-    "typeRoots": [
-      "node_modules/@types"
-    ],
-    "lib": [
-      "es2017",
-      "dom"
-    ],
+    "esModuleInterop": true,
+    "lib": ["esnext", "es2017", "dom"],
     "paths": {
-      "@env/*": [
-        "src/environments/*"
-      ],
-      "@app/*": [
-        "src/app/*"
-      ],
-      "@xlayers/*": [
-        "projects/*/src/lib",
-        "projects/*/src/public_api.ts"
-      ]
+      "@env/*": ["src/environments/*"],
+      "@app/*": ["src/app/*"],
+      "@xlayers/sketch-ingestor": ["dist/sketch-ingestor"],
+      "@xlayers/sketch-ingestor/*": ["dist/sketch-ingestor/*"],
+      "@xlayers/sketch-lib": ["dist/sketch-lib"],
+      "@xlayers/sketch-lib/*": ["dist/sketch-lib/*"],
+      "@xlayers/css-codegen": ["dist/css-codegen"],
+      "@xlayers/css-codegen/*": ["dist/css-codegen/*"],
+      "@xlayers/svg-codegen": ["dist/svg-codegen"],
+      "@xlayers/svg-codegen/*": ["dist/svg-codegen/*"],
+      "@xlayers/web-codegen": ["dist/web-codegen"],
+      "@xlayers/web-codegen/*": ["dist/web-codegen/*"],
+      "@xlayers/xaml-codegen": ["dist/xaml-codegen"],
+      "@xlayers/xaml-codegen/*": ["dist/xaml-codegen/*"]
     }
   }
 }

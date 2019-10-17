@@ -1,5 +1,13 @@
 import { CdkDragEnd, CdkDragMove, CdkDragStart } from '@angular/cdk/drag-drop';
-import { AfterViewInit, Component, ElementRef, Input, OnInit, Renderer2, ViewChildren, QueryList } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  Input,
+  OnInit,
+  Renderer2,
+  ViewChildren,
+  QueryList
+} from '@angular/core';
 import { UiState } from '@app/core/state';
 import { Store } from '@ngxs/store';
 
@@ -7,20 +15,21 @@ import { Store } from '@ngxs/store';
   selector: 'xly-viewer-canvas',
   template: `
     <div
-      class="canvas"
       cdkDrag
       *ngFor="let page of data.pages"
+      class="canvas"
       [class.selected]="page.do_objectID == currentPage.do_objectID"
-      (cdkDragMoved)="OnCdkDragMoved($event)"
-      (cdkDragStarted)="OnCdkDragStarted($event)"
-      (cdkDragEnded)="OnCdkDragEnded($event)"
+      (cdkDragMoved)="onDragStarted($event)"
+      (cdkDragStarted)="onDragStarted($event)"
+      (cdkDragEnded)="onDragEnded($event)"
       #canvas
     >
       <xly-viewer-page
-        [attr.data-id]="currentPage?.do_objectID"
-        [attr.data-name]="currentPage?.name"
-        [attr.data-class]="currentPage?._class"
-        [page]="currentPage"
+        [data]="data"
+        [page]="page"
+        [attr.data-id]="page?.do_objectID"
+        [attr.data-name]="page?.name"
+        [attr.data-class]="page?._class"
       ></xly-viewer-page>
     </div>
   `,
@@ -43,7 +52,7 @@ import { Store } from '@ngxs/store';
         top: 2px;
       }
       .canvas {
-        display:block;
+        display: none;
         cursor: move;
         left: 50%;
         position: absolute;
@@ -64,37 +73,37 @@ import { Store } from '@ngxs/store';
     `
   ]
 })
-export class ViewerCanvasComponent implements OnInit, AfterViewInit {
-  @Input() currentPage: SketchMSPage = null;
+export class ViewerCanvasComponent implements OnInit {
+  @Input() data: SketchMSData;
 
   @ViewChildren('canvas') canvasRef: QueryList<ElementRef<HTMLElement>>;
 
+  currentPage: SketchMSPage;
+
   currentZoomLevel = 1;
-  data: SketchMSData = {} as SketchMSData;
 
   constructor(
-    private store: Store,
+    private readonly store: Store,
     private renderer: Renderer2,
     private element: ElementRef<HTMLElement>
   ) {}
 
   ngOnInit() {
-    this.store.select(UiState.currentFile).subscribe(currentFile => {
-      this.data = currentFile;
+    this.store.select(UiState.currentPage).subscribe(currentPage => {
+      this.currentPage = currentPage as SketchMSPage;
     });
+
     this.store.select(UiState.is3dView).subscribe(is3dView => {
-      const ne = this.element.nativeElement;
-      if (ne) {
-        if (is3dView === true) {
-          this.renderer.addClass(ne, 'is-3d-view');
-        } else {
-          this.renderer.removeClass(ne, 'is-3d-view');
-        }
+      if (is3dView === true) {
+        this.renderer.addClass(this.element.nativeElement, 'is-3d-view');
+      } else {
+        this.renderer.removeClass(this.element.nativeElement, 'is-3d-view');
       }
     });
+
     this.store.select(UiState.zoomLevel).subscribe(zoomLevel => {
       if (this.canvasRef) {
-        this.canvasRef.map((element) => {
+        this.canvasRef.map(element => {
           element.nativeElement.style.transform = this.formatTransformStyle(
             element.nativeElement.style.transform,
             zoomLevel
@@ -115,25 +124,19 @@ export class ViewerCanvasComponent implements OnInit, AfterViewInit {
       : existingTransformStyle + ` scale(${zoomLevel},${zoomLevel})`;
   }
 
-  ngAfterViewInit() {
-    if (!this.currentPage) {
-      this.currentPage = this.data.pages[0];
-    }
-  }
-
   /**
    * cdk overrides existing transform style and replace it by its own. We detect
    * if there is any existing scale propery in transform, then replace its value by current zoom level in both
    * drag started & ended event
    */
-  OnCdkDragStarted(event: CdkDragStart) {
+  onDragStarted(event: CdkDragStart) {
     event.source.element.nativeElement.style.transform = this.formatTransformStyle(
       event.source.element.nativeElement.style.transform,
       this.currentZoomLevel
     );
   }
 
-  OnCdkDragEnded(event: CdkDragEnd) {
+  onDragEnded(event: CdkDragEnd) {
     event.source.element.nativeElement.style.transform = this.formatTransformStyle(
       event.source.element.nativeElement.style.transform,
       this.currentZoomLevel
@@ -144,7 +147,7 @@ export class ViewerCanvasComponent implements OnInit, AfterViewInit {
    * Keep dragging element's transform style updated with currentZoomLeve, while it is moved.
    * @param event Observable<CdkDragMove<CdkDrag>>
    */
-  OnCdkDragMoved(event: CdkDragMove<any>) {
+  onDragMoved(event: CdkDragMove<any>) {
     const sourceElement: any = event.source;
     sourceElement.element.nativeElement.style.transform = this.formatTransformStyle(
       sourceElement.element.nativeElement.style.transform,

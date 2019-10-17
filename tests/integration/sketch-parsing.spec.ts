@@ -1,12 +1,11 @@
-import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { async, TestBed } from '@angular/core/testing';
-import { SketchStyleParserService, SketchData } from '@xlayers/sketchapp-parser';
-import { readdirSync, readFile } from 'fs';
-import * as jszip from 'jszip';
-import { ViewerContainerComponent } from '@app/editor/preview/viewer/container/container.component';
+import { NO_ERRORS_SCHEMA } from "@angular/core";
+import { async, TestBed } from "@angular/core/testing";
+import { readdirSync, readFile } from "fs";
+import * as jszip from "jszip";
+import { WebCodeGenService } from "@xlayers/web-codegen";
 
-const VERSION_LIST = [50, 51, 52, 53];
-const SKETCH_PATH = './src/assets/demos/sketchapp';
+const VERSION_LIST = [52, 53];
+const SKETCH_PATH = "./src/assets/demos/sketchapp";
 
 async function loadSketch(version, fileName) {
   const _data = {
@@ -15,7 +14,7 @@ async function loadSketch(version, fileName) {
     document: {},
     user: {},
     meta: {}
-  } as SketchData;
+  } as SketchMSData;
 
   const sketch = await new Promise((resolve, reject) => {
     readFile(`${SKETCH_PATH}/${version}/${fileName}`, (err, file) => {
@@ -37,16 +36,16 @@ async function loadSketch(version, fileName) {
   await Promise.all(
     zips.map(({ relativePath, zipEntry }) => {
       return new Promise(resolve => {
-        if (relativePath.startsWith('pages/')) {
-          zipEntry.async('string').then(content => {
+        if (relativePath.startsWith("pages/")) {
+          zipEntry.async("string").then(content => {
             _data.pages.push(JSON.parse(content));
             resolve();
           });
         } else if (
-          ['meta.json', 'document.json', 'user.json'].includes(relativePath)
+          ["meta.json", "document.json", "user.json"].includes(relativePath)
         ) {
-          zipEntry.async('string').then(content => {
-            _data[relativePath.replace('.json', '')] = JSON.parse(content);
+          zipEntry.async("string").then(content => {
+            _data[relativePath.replace(".json", "")] = JSON.parse(content);
             resolve();
           });
         } else {
@@ -59,26 +58,31 @@ async function loadSketch(version, fileName) {
   return _data;
 }
 
-describe('sketch parser', () => {
-  let sketchStyleParserService: SketchStyleParserService;
+describe("sketch parser", () => {
+  let webCodeGen: WebCodeGenService;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       schemas: [NO_ERRORS_SCHEMA],
-      providers: [SketchStyleParserService],
-      declarations: [ViewerContainerComponent]
+      providers: [WebCodeGenService],
+      declarations: []
     }).compileComponents();
-    sketchStyleParserService = TestBed.get(SketchStyleParserService);
+    webCodeGen = TestBed.get(WebCodeGenService);
   }));
 
   VERSION_LIST.forEach(version => {
     const fileNames = readdirSync(`${SKETCH_PATH}/${version}`);
 
     fileNames.forEach(fileName => {
-      it(`should match ${fileName} snapshot for ${version}`, (done: DoneFn) => {
+      it(`should match ${fileName} snapshot for ${version}`, done => {
         loadSketch(version, fileName)
           .then(data => {
-            sketchStyleParserService.visit(data);
+            data.pages.forEach(page => {
+              webCodeGen.compute(page, data, {
+                generateClassName: false
+              });
+            });
+
             return data;
           })
           .then(sketch => {

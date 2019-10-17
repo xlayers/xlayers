@@ -1,5 +1,10 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivate, CanActivateChild, RouterStateSnapshot } from '@angular/router';
+import {
+  ActivatedRouteSnapshot,
+  CanActivate,
+  CanActivateChild,
+  RouterStateSnapshot
+} from '@angular/router';
 import { UiState } from '@app/core/state';
 import { Navigate } from '@ngxs/router-plugin';
 import { Store } from '@ngxs/store';
@@ -10,17 +15,19 @@ import { map } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class EditorGuardService implements CanActivateChild, CanActivate {
-  constructor(private readonly store: Store) { }
+  constructor(private readonly store: Store) {}
 
   isValidSession() {
-    return this.store.selectOnce(UiState.currentPage).pipe(map(page => {
-      if (page) {
-        return true;
-      } else {
-        this.store.dispatch(new Navigate(['/upload']));
-        return false;
-      }
-    }));
+    return this.store.selectOnce(UiState.currentPage).pipe(
+      map(page => {
+        if (page) {
+          return true;
+        } else {
+          this.store.dispatch(new Navigate(['/upload']));
+          return false;
+        }
+      })
+    );
   }
 
   canActivate(

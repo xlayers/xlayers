@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CoreModule } from '@app/core/core.module';
-import { SketchParserModule } from '@xlayers/sketchapp-parser';
 import { ViewerCanvasComponent } from './canvas/canvas.component';
 import { ViewerContainerComponent } from './container/container.component';
 import { ViewerSelectedLayerDirective } from './layer/selected-layer.directive';
@@ -11,12 +10,12 @@ import { TooltilDirective } from './tooltip.directive';
 import { Xly3dRotationDirective } from './3d-rotation.directive';
 
 @NgModule({
-  imports: [CoreModule, SketchParserModule],
+  imports: [CoreModule],
   declarations: [
     ViewerCanvasComponent,
     ViewerContainerComponent,
-    ViewerPageComponent,
     ViewerLayerComponent,
+    ViewerPageComponent,
     StopEventPropagationDirective,
     ViewerSelectedLayerDirective,
     TooltilDirective,

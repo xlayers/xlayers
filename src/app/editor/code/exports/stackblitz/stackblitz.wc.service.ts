@@ -6,7 +6,6 @@ import { StackBlitzProjectPayload } from './stackblitz.service';
   providedIn: 'root'
 })
 export class ExportStackblitzWCService {
-  constructor() {}
   prepare(content: XlayersNgxEditorModel[]): StackBlitzProjectPayload {
     const files = {};
     for (let i = 0; i < content.length; i++) {
@@ -18,7 +17,7 @@ export class ExportStackblitzWCService {
     }
 
     // add extra files
-    files['index.html'] = `
+    files['index.html'] = `\
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -31,11 +30,11 @@ export class ExportStackblitzWCService {
   </body>
   <script src="./index.js"></script>
 </html>`;
-
+    files['index.js'] = `// import './components/my-element.js';`;
 
     return {
       files,
-      dependencies: {['@webcomponents/webcomponentsjs']: '2.0.2'},
+      dependencies: { ['@webcomponents/webcomponentsjs']: '2.0.2' },
       template: 'javascript',
       tags: ['web component']
     };

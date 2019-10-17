@@ -4,14 +4,14 @@ import { ViewerCanvasComponent } from './canvas.component';
 import { NO_ERRORS_SCHEMA, Renderer2 } from '@angular/core';
 import { NgxsModule, Store } from '@ngxs/store';
 import { getSketchDataMock } from '../../../../core/sketch.service.mock';
-import { UiState, CurrentFile } from '@app/core/state';
+import { UiState, CurrentData } from '@app/core/state';
 import { CodeGenState } from '@app/core/state/page.state';
 import { getFlatLayerMock } from '../layer/layer.component.mock';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 const renderer2Value = {
   addClass(k, v) {},
-  removeClass(k, v) {},
+  removeClass(k, v) {}
 };
 
 describe('ViewerCanvasComponent', () => {
@@ -28,16 +28,17 @@ describe('ViewerCanvasComponent', () => {
         NoopAnimationsModule
       ],
       declarations: [ViewerCanvasComponent],
-      providers: [{
-        provide: Renderer2,
-        useValue: renderer2Value
-      }]
-    })
-      .compileComponents();
-      store = TestBed.get(Store);
+      providers: [
+        {
+          provide: Renderer2,
+          useValue: renderer2Value
+        }
+      ]
+    }).compileComponents();
+    store = TestBed.get(Store);
   }));
 
-  beforeEach(async() => {
+  beforeEach(async () => {
     fixture = TestBed.createComponent(ViewerCanvasComponent);
     component = fixture.componentInstance;
     component.data = getSketchDataMock();
@@ -50,10 +51,10 @@ describe('ViewerCanvasComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('it toggles currentFile', () => {
-    store.dispatch(new CurrentFile(getSketchDataMock()));
-    store.selectOnce(UiState.currentFile).subscribe(currentFile => {
-      expect(currentFile).toBeTruthy();
+  it('it toggles currentData', () => {
+    store.dispatch(new CurrentData(getSketchDataMock()));
+    store.selectOnce(UiState.currentData).subscribe(currentData => {
+      expect(currentData).toBeTruthy();
     });
   });
 
