@@ -35,12 +35,16 @@ export function exec(
     base: BaseFn = fromNpm
 ): Promise<string> {
     return new Promise((resolve, reject) => {
-        cp.exec(base(command) + ' ' + args.join(' '), (err, stdout) => {
+
+        const child = cp.exec(base(command) + ' ' + args.join(' '), (err, stdout) => {
             if (err) {
                 return reject(err);
             }
 
             resolve(stdout.toString());
+        });
+        child.stdout.on('data', function (data) {
+            console.log(data.toString());
         });
     });
 }
