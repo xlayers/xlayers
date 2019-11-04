@@ -58,7 +58,7 @@ ${importStatements}
   shadow: true
 })
 export class ${className}Component {
-  aggregate() {
+  render() {
     return (
 ${this.formatService.indentFile(3, html).join('\n')}
     );

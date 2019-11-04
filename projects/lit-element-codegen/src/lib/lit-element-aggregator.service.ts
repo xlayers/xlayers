@@ -51,8 +51,11 @@ class ${className} extends LitElement {
 ${this.formatService.indentFile(3, css).join('\n')}
     \`
   }
+  constructor(){
+    super();
+  }
 
-  aggregate() {
+  render() {
     return html\`
 ${this.formatService.indentFile(3, html).join('\n')}
     \`
