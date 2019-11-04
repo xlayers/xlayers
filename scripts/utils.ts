@@ -3,18 +3,18 @@ import * as path from 'path';
 
 // script ideas from NGRX repo
 
-// const ora = require('ora');
+const ora = require('ora');
 export async function runTask(name: string, taskFn: () => Promise<any>) {
     const spinner = ora(name);
 
     try {
-        // spinner.start();
+        spinner.start();
 
         await taskFn();
 
-        // spinner.succeed();
+        spinner.succeed();
     } catch (e) {
-        // spinner.fail();
+        spinner.fail();
 
         throw e;
     }
