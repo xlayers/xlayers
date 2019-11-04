@@ -40,7 +40,6 @@ import Page_1 from './components/page-1';
 import './index.css';
 
 ReactDOM.render(<Page_1 />, document.getElementById('root'));`;
-
     files['src/index.css'] = `\
 body {
   margin: 0;
