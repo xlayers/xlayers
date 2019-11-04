@@ -5,7 +5,7 @@
     "ng": "ng",
     "--dev--": "",
     "start": "ng serve --configuration hmr",
-    "prestart": "npm run build:library:all",
+    "prestart": "npm run build.library.all",
     "--build--": "",
     "app.build.dev": "ng build",
     "app.build.prod": "ng build --prod",
