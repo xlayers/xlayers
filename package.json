@@ -23,7 +23,7 @@
     "vuecodegen.build.prod": "ng build vue-codegen",
     "webcomponentcodegen.build.prod": "ng build web-component-codegen",
     "build.library.all": "ts-node ./scripts/build-all-librarys.ts",
-    "build.prod": "run-s -l build app.build.stamp",
+    "build": "run-s -l build app.build.stamp",
     "--test--": "",
     "test": "jest",
     "test.update": "jest --updateSnapshot tests/integration",
