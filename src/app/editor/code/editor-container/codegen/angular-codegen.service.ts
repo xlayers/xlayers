@@ -9,7 +9,7 @@ export class AngularCodeGenService {
   constructor(
     private readonly formatService: FormatService,
     private readonly webCodeGen: WebCodeGenService
-  ) {}
+  ) { }
 
   buttons() {
     return {
@@ -127,7 +127,7 @@ export class XlayersModule {}`;
           .filter(file => file.uri.endsWith('.component.ts'))
           .map(
             file =>
-              `import { ${this.extractClassName(file)} } from './${file.uri}';`
+              `import { ${this.extractClassName(file)} } from './${file.uri.substring(0, file.uri.indexOf('.ts'))}';`
           )
       )
       .join('\n');
