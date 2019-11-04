@@ -24,7 +24,7 @@ jobs:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
 
-      - run: npm run build.library.all && npm run app.vuild.prod
+      - run: npm run build.library.all && npm run app.build.prod
 
   "ci/build-all librarys":
     docker:
