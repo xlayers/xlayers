@@ -45,6 +45,11 @@ export class EditorContainerComponent implements OnInit, AfterContentInit {
     this.updateState();
   }
 
+  generateAngularElement() {
+    this.codeSetting = this.codegen.generate(CodeGenKind.AngularElement);
+    this.updateState();
+  }
+
   generateReact() {
     this.codeSetting = this.codegen.generate(CodeGenKind.React);
     this.updateState();

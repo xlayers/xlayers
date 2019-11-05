@@ -20,10 +20,23 @@ section {
   justify-content: center;
   flex-direction: column;
   margin: 20px auto;
-  padding: 5px;
-
 }
 .dragging {
   border: 1px dashed #c2185c;
   transition: all 1s ease-in-out;
 }
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (max-width:600px) {
+  .section {
+    padding: 0px;
+  }
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+  .section {
+    padding: 5px;
+  }
+}
+

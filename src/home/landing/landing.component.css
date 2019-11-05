@@ -171,26 +171,24 @@ footer i {
     font-size: 24px;
   }
 
-  .bg-2:before,
-  .bg-3:before {
-    width: 200px;
-    height: 200px;
-    margin-top: -106px;
-  }
   .bg-2:before {
-    margin-top: -106px;
+    width: 200px;
+    height: 200px;
+    margin-top: -60px;
   }
   .bg-3:before {
     width: 200px;
     height: 200px;
-    margin-top: -165px;
-    margin-left: -103px;
+    margin-top: -166px;
+    margin-left: -146px;
   }
 }
-
-@media (max-width: 1000px) {
-  .bg.interactive {
-    display: none;
+@media(min-width: 300px) {
+  .bg-3:before {
+    width: 200px;
+    height: 200px;
+    margin-top: -166px;
+    margin-left: -146px;
   }
 }
 
@@ -210,5 +208,11 @@ footer i {
   }
   to {
     transform: rotate(360deg);
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .bg-2:before, .bg-3:before {
+    display: none;
   }
 }
