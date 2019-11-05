@@ -1,12 +1,12 @@
-import { Injectable } from "@angular/core";
-import { ImageService, SymbolService, LayerService } from "@xlayers/sketch-lib";
-import { WebContextService } from "./web-context.service";
-import { WebParserService } from "./web-parser.service";
-import { WebAggregatorService } from "./web-aggregator.service";
-import { WebCodeGenOptions } from "./web-codegen.d";
+import { Injectable } from '@angular/core';
+import { ImageService, SymbolService, LayerService } from '@xlayers/sketch-lib';
+import { WebContextService } from './web-context.service';
+import { WebParserService } from './web-parser.service';
+import { WebAggregatorService } from './web-aggregator.service';
+import { WebCodeGenOptions } from './web-codegen.d';
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root'
 })
 export class WebCodeGenService {
   constructor(
@@ -91,15 +91,15 @@ export class WebCodeGenService {
 
   private compileOptions(options: WebCodeGenOptions) {
     return {
-      textTagName: "span",
-      bitmapTagName: "img",
-      blockTagName: "div",
-      mode: "web",
+      textTagName: 'span',
+      bitmapTagName: 'img',
+      blockTagName: 'div',
+      mode: 'web',
       jsx: false,
-      xmlPrefix: "xly-",
-      cssPrefix: "xly_",
-      componentDir: "components",
-      assetDir: "assets",
+      xmlPrefix: 'xly-',
+      cssPrefix: 'xly_',
+      componentDir: 'components',
+      assetDir: 'assets',
       ...options
     };
   }
