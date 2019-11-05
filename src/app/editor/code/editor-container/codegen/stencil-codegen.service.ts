@@ -1,12 +1,18 @@
 import { Injectable } from '@angular/core';
-import { StencilCodeGenService } from '@xlayers/stencil-codegen';
+import {
+  StencilCodeGenService,
+  StencilDocGenService
+} from '@xlayers/stencil-codegen';
 import { XlayersNgxEditorModel } from './codegen.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class StencilCodeGenFacadeService {
-  constructor(private readonly stencilCodeGen: StencilCodeGenService) {}
+  constructor(
+    private readonly stencilCodeGen: StencilCodeGenService,
+    private readonly stencilDocGen: StencilDocGenService
+  ) {}
 
   buttons() {
     return {
@@ -15,8 +21,10 @@ export class StencilCodeGenFacadeService {
   }
 
   generate(data: SketchMSData) {
-    return data.pages.flatMap(page =>
-      this.stencilCodeGen.aggreate(page, data)
-    ) as XlayersNgxEditorModel[];
+    return this.stencilDocGen
+      .aggreate(data)
+      .concat(
+        data.pages.flatMap(page => this.stencilCodeGen.aggreate(page, data))
+      ) as XlayersNgxEditorModel[];
   }
 }

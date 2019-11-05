@@ -1,12 +1,18 @@
 import { Injectable } from '@angular/core';
-import { ReactCodeGenService } from '@xlayers/react-codegen';
+import {
+  ReactCodeGenService,
+  ReactDocGenService
+} from '@xlayers/react-codegen';
 import { XlayersNgxEditorModel } from './codegen.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ReactCodeGenFacadeService {
-  constructor(private readonly reactCodeGen: ReactCodeGenService) {}
+  constructor(
+    private readonly reactCodeGen: ReactCodeGenService,
+    private readonly reactDocGen: ReactDocGenService
+  ) {}
 
   buttons() {
     return {
@@ -15,8 +21,10 @@ export class ReactCodeGenFacadeService {
   }
 
   generate(data: SketchMSData) {
-    return data.pages.flatMap(page =>
-      this.reactCodeGen.aggreate(page, data)
-    ) as XlayersNgxEditorModel[];
+    return this.reactDocGen
+      .aggreate(data)
+      .concat(
+        data.pages.flatMap(page => this.reactCodeGen.aggreate(page, data))
+      ) as XlayersNgxEditorModel[];
   }
 }

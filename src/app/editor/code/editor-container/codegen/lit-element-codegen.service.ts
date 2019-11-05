@@ -1,12 +1,18 @@
 import { Injectable } from '@angular/core';
-import { LitElementCodeGenService } from '@xlayers/lit-element-codegen';
+import {
+  LitElementCodeGenService,
+  LitElementDocGenService
+} from '@xlayers/lit-element-codegen';
 import { XlayersNgxEditorModel } from './codegen.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LitElementCodeGenFacadeService {
-  constructor(private readonly litElementCodeGen: LitElementCodeGenService) {}
+  constructor(
+    private readonly litElementCodeGen: LitElementCodeGenService,
+    private readonly litElementDocGen: LitElementDocGenService
+  ) {}
 
   buttons() {
     return {
@@ -15,8 +21,10 @@ export class LitElementCodeGenFacadeService {
   }
 
   generate(data: SketchMSData) {
-    return data.pages.flatMap(page =>
-      this.litElementCodeGen.aggreate(page, data)
-    ) as XlayersNgxEditorModel[];
+    return this.litElementDocGen
+      .aggreate(data)
+      .concat(
+        data.pages.flatMap(page => this.litElementCodeGen.aggreate(page, data))
+      ) as XlayersNgxEditorModel[];
   }
 }
