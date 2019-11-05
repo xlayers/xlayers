@@ -25,7 +25,7 @@ export class VueCodeGenService {
     this.webCodeGen.compute(current, data, this.compileOptions(options));
   }
 
-  aggreate(
+  aggregate(
     current: SketchMSLayer,
     data: SketchMSData,
     options?: WebCodeGenOptions
@@ -47,7 +47,7 @@ export class VueCodeGenService {
     options?: WebCodeGenOptions
   ) {
     return this.visitContent(current, data, options).concat(
-      this.angularAggretatorService.aggreate(current, options)
+      this.angularAggretatorService.aggregate(current, options)
     );
   }
 
@@ -61,7 +61,7 @@ export class VueCodeGenService {
     } else if (this.symbolService.identify(current)) {
       return this.visitSymbolMaster(current, data, options);
     } else if (this.imageService.identify(current)) {
-      return this.imageService.aggreate(current, data, options);
+      return this.imageService.aggregate(current, data, options);
     }
     return [];
   }

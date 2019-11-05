@@ -22,9 +22,9 @@ export class LitElementCodeGenFacadeService {
 
   generate(data: SketchMSData) {
     return this.litElementDocGen
-      .aggreate(data)
+      .aggregate(data)
       .concat(
-        data.pages.flatMap(page => this.litElementCodeGen.aggreate(page, data))
+        data.pages.flatMap(page => this.litElementCodeGen.aggregate(page, data))
       ) as XlayersNgxEditorModel[];
   }
 }

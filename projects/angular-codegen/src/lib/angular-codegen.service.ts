@@ -31,7 +31,7 @@ export class AngularCodeGenService {
     this.webCodeGen.compute(current, data, this.compileOptions(options));
   }
 
-  aggreate(
+  aggregate(
     current: SketchMSLayer,
     data: SketchMSData,
     options?: WebCodeGenOptions
@@ -72,7 +72,7 @@ export class AngularCodeGenService {
     options?: WebCodeGenOptions
   ) {
     return this.visitContent(current, data, options).concat(
-      this.angularAggretatorService.aggreate(current, options)
+      this.angularAggretatorService.aggregate(current, options)
     );
   }
 
@@ -86,7 +86,7 @@ export class AngularCodeGenService {
     } else if (this.symbolService.identify(current)) {
       return this.visitSymbolMaster(current, data, options);
     } else if (this.imageService.identify(current)) {
-      return this.imageService.aggreate(current, data, options);
+      return this.imageService.aggregate(current, data, options);
     }
     return [];
   }
@@ -170,7 +170,7 @@ export class XlayersModule {}`;
     ]
       .concat(
         generatedFiles
-          .filter(file => file.uri.endsWith('.component'))
+          .filter(file => file.uri.endsWith('.component.ts'))
           .map(
             file =>
               `import { ${this.extractClassName(file)} } from './${file.uri}';`

@@ -22,8 +22,8 @@ export class CssCodeGenService {
     this.cssParser.compute(current, data, this.compileOptions(options));
   }
 
-  aggreate(current: SketchMSLayer, options?: CssCodeGenOptions) {
-    return this.cssAggretatorService.aggreate(
+  aggregate(current: SketchMSLayer, options?: CssCodeGenOptions) {
+    return this.cssAggretatorService.aggregate(
       current,
       this.compileOptions(options)
     );

@@ -31,7 +31,7 @@ export class CssAggregatorService {
    * This will parse the ast to return a optimized css stylesheet
    * @param current SketchMSLayer the ast based on sketch json
    */
-  aggreate(current: SketchMSLayer, options?: CssCodeGenOptions) {
+  aggregate(current: SketchMSLayer, options?: CssCodeGenOptions) {
     const styles: Array<StyleList> = [];
     this.buildAstStyleSheet(styles, current);
     this.postProcessCss(styles);

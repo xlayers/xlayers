@@ -26,7 +26,7 @@ export class WebCodeGenService {
     this.webParser.compute(current, data, this.compileOptions(options));
   }
 
-  aggreate(
+  aggregate(
     current: SketchMSLayer,
     data: SketchMSData,
     options?: WebCodeGenOptions
@@ -48,7 +48,7 @@ export class WebCodeGenService {
     options?: WebCodeGenOptions
   ) {
     return this.visitContent(current, data, options).concat(
-      this.webAggretatorService.aggreate(current, options)
+      this.webAggretatorService.aggregate(current, options)
     );
   }
 
@@ -62,7 +62,7 @@ export class WebCodeGenService {
     } else if (this.symbolService.identify(current)) {
       return this.visitSymbolMaster(current, data, options);
     } else if (this.imageService.identify(current)) {
-      return this.imageService.aggreate(current, data, options);
+      return this.imageService.aggregate(current, data, options);
     }
     return [];
   }

@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class WebComponentDocGenService {
-  aggreate(data: SketchMSData) {
+  aggregate(data: SketchMSData) {
     return [
       {
         uri: 'README.md',

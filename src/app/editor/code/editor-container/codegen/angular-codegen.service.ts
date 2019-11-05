@@ -22,9 +22,9 @@ export class AngularCodeGenFacadeService {
 
   generate(data: SketchMSData) {
     return this.angularDocGen
-      .aggreate(data)
+      .aggregate(data)
       .concat(
-        data.pages.flatMap(page => this.angularCodeGen.aggreate(page, data))
+        data.pages.flatMap(page => this.angularCodeGen.aggregate(page, data))
       ) as XlayersNgxEditorModel[];
   }
 }

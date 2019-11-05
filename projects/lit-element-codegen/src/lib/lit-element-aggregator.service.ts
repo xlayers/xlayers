@@ -13,9 +13,9 @@ export class LitElementAggregatorService {
     private readonly webCodeGenService: WebCodeGenService
   ) {}
 
-  aggreate(current: SketchMSLayer, options: WebCodeGenOptions) {
+  aggregate(current: SketchMSLayer, options: WebCodeGenOptions) {
     const fileName = this.formatService.normalizeName(current.name);
-    const files = this.webCodeGenService.aggreate(current, options);
+    const files = this.webCodeGenService.aggregate(current, options);
     const html = files.find(file => file.language === 'html');
     const css = files.find(file => file.language === 'css');
     return [
@@ -52,7 +52,7 @@ ${this.formatService.indentFile(3, css).join('\n')}
     \`
   }
 
-  aggreate() {
+  aggregate() {
     return html\`
 ${this.formatService.indentFile(3, html).join('\n')}
     \`

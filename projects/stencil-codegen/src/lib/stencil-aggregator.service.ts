@@ -13,9 +13,9 @@ export class StencilAggregatorService {
     private readonly webCodeGenService: WebCodeGenService
   ) {}
 
-  aggreate(current: SketchMSLayer, options: WebCodeGenOptions) {
+  aggregate(current: SketchMSLayer, options: WebCodeGenOptions) {
     const fileName = this.formatService.normalizeName(current.name);
-    const files = this.webCodeGenService.aggreate(current, options);
+    const files = this.webCodeGenService.aggregate(current, options);
     const context = this.webCodeGenService.context(current);
     const html = files.find(file => file.language === 'html');
     return [
@@ -58,7 +58,7 @@ ${importStatements}
   shadow: true
 })
 export class ${className}Component {
-  aggreate() {
+  aggregate() {
     return (
 ${this.formatService.indentFile(3, html).join('\n')}
     );

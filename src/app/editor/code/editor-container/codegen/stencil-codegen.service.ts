@@ -22,9 +22,9 @@ export class StencilCodeGenFacadeService {
 
   generate(data: SketchMSData) {
     return this.stencilDocGen
-      .aggreate(data)
+      .aggregate(data)
       .concat(
-        data.pages.flatMap(page => this.stencilCodeGen.aggreate(page, data))
+        data.pages.flatMap(page => this.stencilCodeGen.aggregate(page, data))
       ) as XlayersNgxEditorModel[];
   }
 }

@@ -13,10 +13,10 @@ export class AngularAggregatorService {
     private readonly webCodeGenService: WebCodeGenService
   ) {}
 
-  aggreate(current: SketchMSLayer, options: WebCodeGenOptions) {
+  aggregate(current: SketchMSLayer, options: WebCodeGenOptions) {
     const fileName = this.formatService.normalizeName(current.name);
     return [
-      ...this.webCodeGenService.aggreate(current, options).map(file => {
+      ...this.webCodeGenService.aggregate(current, options).map(file => {
         switch (file.language) {
           case 'html':
             return {

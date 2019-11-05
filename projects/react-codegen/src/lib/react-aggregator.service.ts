@@ -13,9 +13,9 @@ export class ReactAggregatorService {
     private readonly webCodeGenService: WebCodeGenService
   ) {}
 
-  aggreate(current: SketchMSLayer, options: WebCodeGenOptions) {
+  aggregate(current: SketchMSLayer, options: WebCodeGenOptions) {
     const fileName = this.formatService.normalizeName(current.name);
-    const files = this.webCodeGenService.aggreate(current, options);
+    const files = this.webCodeGenService.aggregate(current, options);
     const html = files.find(file => file.language === 'html');
 
     return [
@@ -60,7 +60,7 @@ import ReactDOM from 'react-dom';
 import ${className} from './${fileName}';
 it('renders without crashing', () => {
   const div = document.createElement('div');
-  ReactDOM.aggreate(<${className} />, div);
+  ReactDOM.aggregate(<${className} />, div);
   ReactDOM.unmountComponentAtNode(div);
 })`;
   }

@@ -151,7 +151,7 @@ export class ViewerLayerComponent implements OnInit, AfterContentInit {
   loadShapes() {
     if (this.svgCodeGen.identify(this.layer)) {
       this.svgCodeGen
-        .aggreate(this.layer)
+        .aggregate(this.layer)
         .forEach(file =>
           this.images.push(
             this.sanitizer.bypassSecurityTrustResourceUrl(

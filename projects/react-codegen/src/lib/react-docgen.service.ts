@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class ReactDocGenService {
-  aggreate(data: SketchMSData) {
+  aggregate(data: SketchMSData) {
     return [
       {
         uri: 'README.md',
@@ -25,7 +25,7 @@ Import and use it with ReactDOM :
 import ReactDOM from "react-dom";
 import { MyComponent } from "./my-component";
 
-ReactDOM.aggreate(
+ReactDOM.aggregate(
   MyComponent,
   document.getElementById(\'root\')
 );

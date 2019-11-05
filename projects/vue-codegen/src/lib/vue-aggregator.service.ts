@@ -13,9 +13,9 @@ export class VueAggregatorService {
     private readonly webCodeGenService: WebCodeGenService
   ) {}
 
-  aggreate(current: SketchMSLayer, options: WebCodeGenOptions) {
+  aggregate(current: SketchMSLayer, options: WebCodeGenOptions) {
     const fileName = this.formatService.normalizeName(current.name);
-    const files = this.webCodeGenService.aggreate(current, options);
+    const files = this.webCodeGenService.aggregate(current, options);
     const html = files.find(file => file.language === 'html');
     const css = files.find(file => file.language === 'css');
 
