@@ -212,7 +212,7 @@ export class XlayersModule {}`;
     ]
       .concat(
         generatedFiles
-          .filter(file => file.uri.endsWith('.component.ts'))
+          .filter(file => file.uri.endsWith('.component'))
           .map(
             file =>
               `import { ${this.extractClassName(file)} } from './${file.uri}';`
