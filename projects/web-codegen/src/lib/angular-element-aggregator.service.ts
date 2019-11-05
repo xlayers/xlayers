@@ -1,20 +1,20 @@
-import { Injectable } from '@angular/core';
-import { WebCodeGenOptions } from './web-codegen';
-import { WebAggregatorService } from './web-aggregator.service';
-import { FormatService } from '@xlayers/sketch-lib';
-import { AngularAggregatorService } from './angular-aggregator.service';
+import { Injectable } from "@angular/core";
+import { WebCodeGenOptions } from "./web-codegen";
+import { WebAggregatorService } from "./web-aggregator.service";
+import { FormatService } from "@xlayers/sketch-lib";
+import { AngularAggregatorService } from "./angular-aggregator.service";
 
-const ELEMENT_MODULE_FILENAME = 'app.module.ts';
-const EXTRA_WEBPACK_CONFIG_FILENAME = 'webpack.extra.js';
-const COPY_BUNDLES_SCRIPT_FILENAME = 'copy.bundles.js';
-const DIST_FOLDER_NAME = 'dist';
+const ELEMENT_MODULE_FILENAME = "app.module.ts";
+const EXTRA_WEBPACK_CONFIG_FILENAME = "webpack.extra.js";
+const COPY_BUNDLES_SCRIPT_FILENAME = "copy.bundles.js";
+const DIST_FOLDER_NAME = "dist";
 const BUNDLES_TARGET_PATH = `${DIST_FOLDER_NAME}/bundles`;
-const SAMPLE_INDEX_FILENAME = 'index.html';
-const ELEMENT_BUNDLE_FILENAME = 'main.js';
-const ELEMENT_CREATOR_APPNAME = 'element-creator';
+const SAMPLE_INDEX_FILENAME = "index.html";
+const ELEMENT_BUNDLE_FILENAME = "main.js";
+const ELEMENT_CREATOR_APPNAME = "element-creator";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class AngularElementAggregatorService {
   constructor(
@@ -23,86 +23,94 @@ export class AngularElementAggregatorService {
     private readonly angularAggregatorService: AngularAggregatorService
   ) {}
 
-  aggreate(current: SketchMSLayer, options: WebCodeGenOptions) {
+  aggregate(current: SketchMSLayer, options: WebCodeGenOptions) {
     const fileName = this.formatService.normalizeName(current.name);
     const componentPathName = `${options.componentDir}/${fileName}.component`;
     return [
       {
-        uri: 'README.md',
+        uri: "README.md",
         value: this.renderReadme(current.name, options),
-        language: 'markdown',
-        kind: 'text'
+        language: "markdown",
+        kind: "text"
       },
-      ...this.webAggretatorService.aggreate(current, options).map(file => {
+      ...this.webAggretatorService.aggregate(current, options).map(file => {
         switch (file.language) {
-          case 'html':
+          case "html":
             return {
               ...file,
-              kind: 'angular',
+              kind: "angular",
               uri: `${options.componentDir}/${fileName}.component.html`
             };
 
-          case 'css':
+          case "css":
             return {
               ...file,
-              kind: 'angular',
+              kind: "angular",
               uri: `${options.componentDir}/${fileName}.component.css`
             };
 
           default:
             return {
               ...file,
-              kind: 'angularElement'
+              kind: "angularElement"
             };
         }
       }),
       {
         uri: `${componentPathName}.ts`,
-        value: this.angularAggregatorService.renderComponent(current.name, options),
-        language: 'typescript',
-        kind: 'angular',
+        value: this.angularAggregatorService.renderComponent(
+          current.name,
+          options
+        ),
+        language: "typescript",
+        kind: "angular"
       },
       {
         uri: ELEMENT_MODULE_FILENAME,
-        value: this.renderElementModule(current.name, options, componentPathName),
-        language: 'typescript',
-        kind: 'angularElement'
+        value: this.renderElementModule(
+          current.name,
+          options,
+          componentPathName
+        ),
+        language: "typescript",
+        kind: "angularElement"
       },
       {
         uri: EXTRA_WEBPACK_CONFIG_FILENAME,
         value: this.renderWebpackExtra(),
-        language: 'javascript',
-        kind: 'angularElement'
+        language: "javascript",
+        kind: "angularElement"
       },
       {
         uri: COPY_BUNDLES_SCRIPT_FILENAME,
         value: this.renderCopyUmdBundlesScript(),
-        language: 'javascript',
-        kind: 'angularElement'
+        language: "javascript",
+        kind: "angularElement"
       },
       {
         uri: SAMPLE_INDEX_FILENAME,
         value: this.renderSampleIndexHtml(current.name, options),
-        language: 'html',
-        kind: 'angularElement'
+        language: "html",
+        kind: "angularElement"
       }
     ];
   }
-
 
   private renderReadme(name: string, options: WebCodeGenOptions) {
     const className = this.formatService.className(name);
     const normalizedName = this.formatService.normalizeName(name);
     const tagName = `${options.xmlPrefix}${normalizedName}`;
-    const codeSpan = text => '`' + text + '`';
-    const codeBlock = '```';
+    const codeSpan = text => "`" + text + "`";
+    const codeBlock = "```";
     return `
 **Notice:**
 The current implement of [Angular Elements](https://angular.io/guide/elements) is in MVP (minimum viable product) state.
 Some features like content projection are not supported yet.
 Keep in mind that the following build process and feature support will be improved in the future.
 The creation of the bundled Angular Element is based on the process defined by [Manfred Steyer](https://twitter.com/manfredsteyer)'s example from
-[${codeSpan('ngx-build-plus')}](https://github.com/manfredsteyer/ngx-build-plus).
+[${codeSpan(
+      "ngx-build-plus"
+    )}](https://github.com/manfredsteyer/ngx-build-plus).
 
 ## How to use the ${codeSpan(name)} Angular Element
 
@@ -122,9 +130,15 @@ The creation of the bundled Angular Element is based on the process defined by [
     npm install --save-dev copy
     ${codeBlock}
 
-    c) Download and extract the files of this generation. Place the files of the ${codeSpan(className)}
-    into your standard ${codeSpan('src/app')} folder. Replace the ${codeSpan(ELEMENT_MODULE_FILENAME)} and remove the sample ${codeSpan('app.component.ts')}.
-    Extract the files ${codeSpan(EXTRA_WEBPACK_CONFIG_FILENAME)} and ${codeSpan(COPY_BUNDLES_SCRIPT_FILENAME)} into the project root.
+    c) Download and extract the files of this generation. Place the files of the ${codeSpan(
+      className
+    )}
+    into your standard ${codeSpan("src/app")} folder. Replace the ${codeSpan(
+      ELEMENT_MODULE_FILENAME
+    )} and remove the sample ${codeSpan("app.component.ts")}.
+    Extract the files ${codeSpan(EXTRA_WEBPACK_CONFIG_FILENAME)} and ${codeSpan(
+      COPY_BUNDLES_SCRIPT_FILENAME
+    )} into the project root.
 
     e) Build the Angular Element:
     ${codeBlock}
@@ -132,7 +146,13 @@ The creation of the bundled Angular Element is based on the process defined by [
     ${codeBlock}
 
 2. After the creation of the Angular Element, it can be found as single file
-web component ${codeSpan(DIST_FOLDER_NAME + '/' + ELEMENT_CREATOR_APPNAME + '/' + ELEMENT_BUNDLE_FILENAME)} and can be consumed in the following way:
+web component ${codeSpan(
+      DIST_FOLDER_NAME +
+        "/" +
+        ELEMENT_CREATOR_APPNAME +
+        "/" +
+        ELEMENT_BUNDLE_FILENAME
+    )} and can be consumed in the following way:
 ${codeBlock}
   // index.html
   <script src="./${DIST_FOLDER_NAME}/${ELEMENT_CREATOR_APPNAME}/${ELEMENT_BUNDLE_FILENAME}"></script>
@@ -140,8 +160,12 @@ ${codeBlock}
 ${codeBlock}
 
 However due to the bundle splitting approach, the different dependent bundles must be added manually,
-e.g. like described in the exported sample file ${codeSpan(SAMPLE_INDEX_FILENAME)}.
-In order to get those script you can run the script ${codeSpan(COPY_BUNDLES_SCRIPT_FILENAME)} file.
+e.g. like described in the exported sample file ${codeSpan(
+      SAMPLE_INDEX_FILENAME
+    )}.
+In order to get those script you can run the script ${codeSpan(
+      COPY_BUNDLES_SCRIPT_FILENAME
+    )} file.
 ${codeBlock}
   node ./${COPY_BUNDLES_SCRIPT_FILENAME}
 ${codeBlock}
@@ -150,13 +174,17 @@ ${codeBlock}
 `;
   }
 
-  private renderElementModule(name: string, options: WebCodeGenOptions, componentPathName: string) {
+  private renderElementModule(
+    name: string,
+    options: WebCodeGenOptions,
+    componentPathName: string
+  ) {
     const className = this.formatService.className(name);
     const componentName = `${className}Component`;
     const normalizedName = this.formatService.normalizeName(name);
     const tagName = `${options.xmlPrefix}${normalizedName}`;
     return (
-      '' +
+      "" +
       `
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, Injector } from '@angular/core';
