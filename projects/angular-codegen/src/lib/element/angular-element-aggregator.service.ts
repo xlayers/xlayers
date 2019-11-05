@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
-import { WebCodeGenOptions } from './web-codegen';
-import { WebAggregatorService } from './web-aggregator.service';
 import { FormatService } from '@xlayers/sketch-lib';
-import { AngularAggregatorService } from './angular-aggregator.service';
+import { WebCodeGenService } from '@xlayers/web-codegen';
+import { AngularAggregatorService } from '../angular-aggregator.service';
 
 const ELEMENT_MODULE_FILENAME = 'app.module.ts';
 const EXTRA_WEBPACK_CONFIG_FILENAME = 'webpack.extra.js';
@@ -13,27 +12,34 @@ const SAMPLE_INDEX_FILENAME = 'index.html';
 const ELEMENT_BUNDLE_FILENAME = 'main.js';
 const ELEMENT_CREATOR_APPNAME = 'element-creator';
 
+type WebCodeGenOptions = any;
+
 @Injectable({
   providedIn: 'root'
 })
 export class AngularElementAggregatorService {
   constructor(
     private readonly formatService: FormatService,
-    private readonly webAggretatorService: WebAggregatorService,
+    private readonly webCodeGenService: WebCodeGenService,
     private readonly angularAggregatorService: AngularAggregatorService
   ) {}
 
-  aggregate(current: SketchMSLayer, options: WebCodeGenOptions) {
+  aggregate(
+    current: SketchMSLayer,
+    data: SketchMSData,
+    options: WebCodeGenOptions
+  ) {
     const fileName = this.formatService.normalizeName(current.name);
     const componentPathName = `${options.componentDir}/${fileName}.component`;
+
     return [
       {
         uri: 'README.md',
-        value: this.renderReadme(current.name, options),
+        value: this.renderReadme(data.meta.app, options),
         language: 'markdown',
         kind: 'text'
       },
-      ...this.webAggretatorService.aggregate(current, options).map(file => {
+      ...this.webCodeGenService.aggregate(current, options).map(file => {
         switch (file.language) {
           case 'html':
             return {
@@ -111,17 +117,13 @@ The creation of the bundled Angular Element is based on the process defined by [
 [${codeSpan(
       'ngx-build-plus'
     )}](https://github.com/manfredsteyer/ngx-build-plus).
-
 ## How to use the ${codeSpan(name)} Angular Element
-
 1. In order to use an Angular Element as a web component, it first needs to be created, e.g. in the following way:
-
     a) Use the Angular CLI to create a minimal app which will be used to create the Angular Element:
     ${codeBlock}
     ng new ${ELEMENT_CREATOR_APPNAME} --minimal --style css --routing false
     cd ${ELEMENT_CREATOR_APPNAME}
     ${codeBlock}
-
     b) Add necessary dependencies for the following steps:
     ${codeBlock}
     ng add @angular/elements
@@ -129,7 +131,6 @@ The creation of the bundled Angular Element is based on the process defined by [
     npm install @webcomponents/custom-elements --save
     npm install --save-dev copy
     ${codeBlock}
-
     c) Download and extract the files of this generation. Place the files of the ${codeSpan(
       className
     )}
@@ -139,12 +140,10 @@ The creation of the bundled Angular Element is based on the process defined by [
     Extract the files ${codeSpan(EXTRA_WEBPACK_CONFIG_FILENAME)} and ${codeSpan(
       COPY_BUNDLES_SCRIPT_FILENAME
     )} into the project root.
-
     e) Build the Angular Element:
     ${codeBlock}
     ng build --prod --extraWebpackConfig ${EXTRA_WEBPACK_CONFIG_FILENAME} --output-hashing none --single-bundle true
     ${codeBlock}
-
 2. After the creation of the Angular Element, it can be found as single file
 web component ${codeSpan(
       DIST_FOLDER_NAME +
@@ -158,7 +157,6 @@ ${codeBlock}
   <script src="./${DIST_FOLDER_NAME}/${ELEMENT_CREATOR_APPNAME}/${ELEMENT_BUNDLE_FILENAME}"></script>
   <${tagName}></${tagName}>
 ${codeBlock}
-
 However due to the bundle splitting approach, the different dependent bundles must be added manually,
 e.g. like described in the exported sample file ${codeSpan(
       SAMPLE_INDEX_FILENAME
@@ -169,7 +167,6 @@ In order to get those script you can run the script ${codeSpan(
 ${codeBlock}
   node ./${COPY_BUNDLES_SCRIPT_FILENAME}
 ${codeBlock}
-
 >  For more information about [web components and browser support](https://github.com/WebComponents/webcomponentsjs#browser-support)
 `;
   }
@@ -189,9 +186,7 @@ ${codeBlock}
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, Injector } from '@angular/core';
 import { createCustomElement } from '@angular/elements';
-
 import { ${componentName} } from './${componentPathName}';
-
 @NgModule({
   imports: [
     BrowserModule
@@ -208,7 +203,6 @@ export class AppModule {
     const element = createCustomElement(${componentName} , { injector });
     customElements.define('${tagName}', element);
   }
-
   ngDoBootstrap() { }
 }
     `
@@ -236,11 +230,8 @@ module.exports = {
 // If you call it manually, call it from your projects root
 // > node /${COPY_BUNDLES_SCRIPT_FILENAME}
 //
-
 const copy = require('copy');
-
 console.log('Copy UMD bundles ...');
-
 copy('node_modules/@angular/*/bundles/*.umd.js', '${BUNDLES_TARGET_PATH}', {}, _ => {});
 copy('node_modules/rxjs/bundles/*.js', '${BUNDLES_TARGET_PATH}/rxjs', {}, _ => {});
 copy('node_modules/zone.js/dist/*.js', '${BUNDLES_TARGET_PATH}/zone.js', {}, _ => {});
@@ -261,52 +252,41 @@ copy('node_modules/@webcomponents/custom-elements/src/native-shim*.js', '${BUNDL
 <meta charset="utf-8">
 <title>ElementsLoading</title>
 <base href=".">
-
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="icon" type="image/x-icon" href="favicon.ico">
 </head>
 <body>
-
 <!-- Consider putting the following UMD (!) bundles -->
 <!-- into a big one -->
-
 <!-- core-js for legacy browsers -->
 <script src="./${BUNDLES_TARGET_PATH}/core-js/core.js"></script>
-
 <!-- Zone.js -->
 <!--
     Consider excluding zone.js when creating
     custom Elements by using the noop zone.
 -->
 <script src="./${BUNDLES_TARGET_PATH}/zone.js/zone.js"></script>
-
 <!--
     Polyfills for Browsers supporting
     Custom Elements. Needed b/c we downlevel
     to ES5. See: @webcomponents/custom-elements
 -->
 <script src="./${BUNDLES_TARGET_PATH}/custom-elements/src/native-shim.js"></script>
-
 <!-- Polyfills for Browsers not supporting
         Custom Elements. See: @webcomponents/custom-elements
 -->
 <script src="./${BUNDLES_TARGET_PATH}/custom-elements/custom-elements.min.js"></script>
-
 <!-- Rx -->
 <script src="./${BUNDLES_TARGET_PATH}/rxjs/rxjs.umd.js"></script>
-
 <!-- Angular Packages -->
 <script src="./${BUNDLES_TARGET_PATH}/core/bundles/core.umd.js"></script>
 <script src="./${BUNDLES_TARGET_PATH}/common/bundles/common.umd.js"></script>
 <script src="./${BUNDLES_TARGET_PATH}/platform-browser/bundles/platform-browser.umd.js"></script>
 <script src="./${BUNDLES_TARGET_PATH}/elements/bundles/elements.umd.js"></script>
-
 <!-- Angular Element -->
 <script src="./${DIST_FOLDER_NAME}/${ELEMENT_CREATOR_APPNAME}/${ELEMENT_BUNDLE_FILENAME}"></script>
-
 <!-- Calling Custom Element -->
 <${tagName}></${tagName}>
-
 </body>
 </html>
     `;

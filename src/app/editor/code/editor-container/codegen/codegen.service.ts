@@ -10,6 +10,7 @@ import { Store } from '@ngxs/store';
 import { UiState } from '@app/core/state';
 import { environment } from '@env/environment.hmr';
 import { CodeGenSettings } from '@app/core/state/page.state';
+import { AngularElementCodeGenFacadeService } from './angular-element-codegen.service';
 
 declare var gtag;
 
@@ -61,6 +62,7 @@ export class CodeGenService {
 
   constructor(
     private readonly angular: AngularCodeGenFacadeService,
+    private readonly angularElement: AngularElementCodeGenFacadeService,
     private readonly react: ReactCodeGenFacadeService,
     private readonly vue: VueCodeGenFacadeService,
     private readonly wc: WebComponentCodeGenFacadeService,

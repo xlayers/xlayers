@@ -7,11 +7,13 @@ import { StencilCodeGenFacadeService } from './stencil-codegen.service';
 import { AngularCodeGenFacadeService } from './angular-codegen.service';
 import { LitElementCodeGenFacadeService } from './lit-element-codegen.service';
 import { XamarinCodeGenService } from './xamarin-codegen.service';
+import { AngularElementCodeGenFacadeService } from './angular-element-codegen.service';
 
 @NgModule({
   providers: [
     CodeGenService,
     AngularCodeGenFacadeService,
+    AngularElementCodeGenFacadeService,
     ReactCodeGenFacadeService,
     VueCodeGenFacadeService,
     WebComponentCodeGenFacadeService,
