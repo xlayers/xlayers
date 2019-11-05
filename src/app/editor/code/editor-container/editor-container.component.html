@@ -10,6 +10,14 @@
     </mat-tab>
     <mat-tab>
       <ng-template mat-tab-label>
+        <div class="flex-container" (click)="generateAngularElement()">
+          <mat-icon svgIcon="angularElement"></mat-icon>
+          Angular Element
+        </div>
+      </ng-template>
+    </mat-tab>
+    <mat-tab>
+      <ng-template mat-tab-label>
         <div class="flex-container" (click)="generateVue()">
           <mat-icon svgIcon="vue"></mat-icon>
           Vue

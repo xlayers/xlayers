@@ -28,6 +28,7 @@ export class AppComponent {
     readonly translate: TranslateService) {
 
       iconRegistry.addSvgIcon('angular', sanitizer.bypassSecurityTrustResourceUrl('assets/codegen/angular.svg'));
+      iconRegistry.addSvgIcon('angularElement', sanitizer.bypassSecurityTrustResourceUrl('assets/codegen/angularElement.svg'));
       iconRegistry.addSvgIcon('react', sanitizer.bypassSecurityTrustResourceUrl('assets/codegen/react.svg'));
       iconRegistry.addSvgIcon('vue', sanitizer.bypassSecurityTrustResourceUrl('assets/codegen/vue.svg'));
       iconRegistry.addSvgIcon('wc', sanitizer.bypassSecurityTrustResourceUrl('assets/codegen/wc.svg'));

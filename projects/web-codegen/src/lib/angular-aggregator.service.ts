@@ -46,14 +46,14 @@ export class AngularAggregatorService {
       },
       {
         kind: 'angular',
-        value: this.renderSpec(current.name, options),
+        value: this.renderSpec(current.name),
         language: 'typescript',
         uri: `${options.componentDir}/${fileName}.spec.ts`
       }
     ];
   }
 
-  private renderComponent(name: string, options: WebCodeGenOptions) {
+  renderComponent(name: string, options: WebCodeGenOptions) {
     const className = this.formatService.className(name);
     const normalizedName = this.formatService.normalizeName(name);
     const tagName = `${options.xmlPrefix}${normalizedName}`;
@@ -68,7 +68,7 @@ import { Component } from '@angular/core';
 export class ${className}Component {}`;
   }
 
-  private renderSpec(name: string, options: WebCodeGenOptions) {
+  private renderSpec(name: string) {
     const className = this.formatService.className(name);
     const fileName = this.formatService.normalizeName(name);
     return `\
