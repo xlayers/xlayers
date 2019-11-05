@@ -30,14 +30,7 @@ export class StencilCodeGenService {
     data: SketchMSData,
     options?: WebCodeGenOptions
   ) {
-    return [
-      {
-        uri: 'README.md',
-        value: this.renderReadme(),
-        language: 'markdown',
-        kind: 'text'
-      }
-    ].concat(this.visit(current, data, this.compileOptions(options)));
+    return this.visit(current, data, this.compileOptions(options));
   }
 
   identify(current: SketchMSLayer) {
@@ -106,23 +99,5 @@ export class StencilCodeGenService {
       assetDir: 'assets',
       ...options
     };
-  }
-
-  private renderReadme() {
-    return `\
-## How to use the Xlayers StencilJS Web Components
-
-This implementation export all assets needed to build stenciljs component
-
-Simple use :
-\`\`\`html
-  // index.html
-  <script src="./my-component.js"></script>
-  <my-component></my-component>
-\`\`\`
-
-For more examples how to integrate into your application, view [Framework Integrations](https://stenciljs.com/docs/overview)
-
->  For more information about [Stenciljs](https://stenciljs.com/)`;
   }
 }
