@@ -173,7 +173,9 @@ export class XlayersModule {}`;
           .filter(file => file.uri.endsWith('.component.ts'))
           .map(
             file =>
-              `import { ${this.extractClassName(file)} } from './${file.uri}';`
+              `import { ${this.extractClassName(
+                file
+              )} } from './${this.extractCompenentFileName(file)}';`
           )
       )
       .join('\n');
@@ -190,5 +192,9 @@ export class XlayersModule {}`;
     const uri = file.uri.split('/');
     const fileName = uri[uri.length - 1].replace('.component.ts', '');
     return this.formatService.className(`${fileName}Component`);
+  }
+
+  private extractCompenentFileName(file) {
+    return file.uri.split('.ts')[0];
   }
 }
