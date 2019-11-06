@@ -35,11 +35,11 @@ export class AngularElementAggregatorService {
     return [
       {
         uri: 'README.md',
-        value: this.renderReadme(data.meta.app, options),
+        value: this.renderReadme(current.name, options),
         language: 'markdown',
         kind: 'text'
       },
-      ...this.webCodeGenService.aggregate(current, options).map(file => {
+      ...this.webCodeGenService.aggregate(current, data, options).map(file => {
         switch (file.language) {
           case 'html':
             return {

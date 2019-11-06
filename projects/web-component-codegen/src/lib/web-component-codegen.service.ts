@@ -47,7 +47,7 @@ export class WebComponentCodeGenService {
     options?: WebCodeGenOptions
   ) {
     return this.visitContent(current, data, options).concat(
-      this.webComponentAggretatorService.aggregate(current, options)
+      this.webComponentAggretatorService.aggregate(current, data, options)
     );
   }
 

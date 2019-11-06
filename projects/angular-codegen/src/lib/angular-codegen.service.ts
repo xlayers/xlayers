@@ -72,7 +72,7 @@ export class AngularCodeGenService {
     options?: WebCodeGenOptions
   ) {
     return this.visitContent(current, data, options).concat(
-      this.angularAggretatorService.aggregate(current, options)
+      this.angularAggretatorService.aggregate(current, data, options)
     );
   }
 

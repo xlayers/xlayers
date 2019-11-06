@@ -33,29 +33,31 @@ export class AngularElementAggregatorService {
         language: 'markdown',
         kind: 'text'
       },
-      ...this.webAggretatorService.aggregate(current, options).map(file => {
-        switch (file.language) {
-          case 'html':
-            return {
-              ...file,
-              kind: 'angular',
-              uri: `${options.componentDir}/${fileName}.component.html`
-            };
+      ...this.webAggretatorService
+        .aggregate(current, data, options)
+        .map(file => {
+          switch (file.language) {
+            case 'html':
+              return {
+                ...file,
+                kind: 'angular',
+                uri: `${options.componentDir}/${fileName}.component.html`
+              };
 
-          case 'css':
-            return {
-              ...file,
-              kind: 'angular',
-              uri: `${options.componentDir}/${fileName}.component.css`
-            };
+            case 'css':
+              return {
+                ...file,
+                kind: 'angular',
+                uri: `${options.componentDir}/${fileName}.component.css`
+              };
 
-          default:
-            return {
-              ...file,
-              kind: 'angularElement'
-            };
-        }
-      }),
+            default:
+              return {
+                ...file,
+                kind: 'angularElement'
+              };
+          }
+        }),
       {
         uri: `${componentPathName}.ts`,
         value: this.angularAggregatorService.renderComponent(
