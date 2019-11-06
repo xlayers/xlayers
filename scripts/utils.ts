@@ -14,7 +14,7 @@ export async function runTask(name: string, taskFn: () => Promise<any>) {
 
         spinner.succeed();
     } catch (e) {
-        spinner.fail();
+        spinner.stop();
 
         throw e;
     }
