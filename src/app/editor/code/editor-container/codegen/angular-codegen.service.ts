@@ -23,13 +23,14 @@ export class AngularCodeGenFacadeService {
   }
 
   generate(data: SketchMSData) {
-    const files = this.angularDocGen
-      .aggregate(data)
-      .concat(
-        data.pages.flatMap(page => this.angularCodeGen.aggregate(page, data))
-      );
-    return this.angularBootstrapService
-      .generate(files)
-      .concat(files) as XlayersNgxEditorModel[];
+    const files = data.pages.flatMap(page =>
+      this.angularCodeGen.aggregate(page, data)
+    );
+
+    return [
+      ...this.angularDocGen.aggregate(data),
+      ...this.angularBootstrapService.generate(files),
+      ...files
+    ] as XlayersNgxEditorModel[];
   }
 }
