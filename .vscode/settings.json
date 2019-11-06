@@ -1,6 +1,17 @@
 {
   "workbench.colorCustomizations": {
-    "titleBar.activeBackground": "#ff2c70"
+    "activityBar.background": "#ff5f93",
+    "activityBar.foreground": "#15202b",
+    "activityBar.inactiveForeground": "#15202b99",
+    "activityBarBadge.background": "#53ff00",
+    "activityBarBadge.foreground": "#15202b",
+    "titleBar.activeBackground": "#ff2c70",
+    "titleBar.inactiveBackground": "#ff2c7099",
+    "titleBar.activeForeground": "#e7e7e7",
+    "titleBar.inactiveForeground": "#e7e7e799",
+    "statusBar.background": "#ff2c70",
+    "statusBarItem.hoverBackground": "#ff5f93",
+    "statusBar.foreground": "#e7e7e7"
   },
   "files.watcherExclude": {
     "**/.git/objects/**": true,
@@ -14,5 +25,6 @@
     "**/bower_components": true,
     "**/bazel-out": true,
     "**/dist": true
-  }
+  },
+  "peacock.color": "#ff2c70"
 }
