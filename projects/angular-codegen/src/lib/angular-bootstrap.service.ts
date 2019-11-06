@@ -1,10 +1,10 @@
-import { Injectable } from "@angular/core";
-import { FormatService } from "@xlayers/sketch-lib";
+import { Injectable } from '@angular/core';
+import { FormatService } from '@xlayers/sketch-lib';
 
 type WebCodeGenOptions = any;
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root'
 })
 export class AngularBootstrapService {
   constructor(private readonly formatService: FormatService) {}
@@ -12,16 +12,16 @@ export class AngularBootstrapService {
   generate(files) {
     return [
       {
-        uri: "xlayers-routing.module.ts",
+        uri: 'xlayers-routing.module.ts',
         value: this.renderRoutingModule(),
-        language: "typescript",
-        kind: "angular"
+        language: 'typescript',
+        kind: 'angular'
       },
       {
-        uri: "xlayers.module.ts",
+        uri: 'xlayers.module.ts',
         value: this.renderModule(files),
-        language: "typescript",
-        kind: "angular"
+        language: 'typescript',
+        kind: 'angular'
       }
     ];
   }
@@ -65,12 +65,12 @@ export class XlayersModule {}`;
 
   private renderImports(files) {
     return [
-      "import { NgModule } from '@angular/core';",
-      "import { CommonModule } from '@angular/common';"
+      'import { NgModule } from \'@angular/core\';',
+      'import { CommonModule } from \'@angular/common\';'
     ]
       .concat(
         files
-          .filter(file => file.uri.endsWith(".component.ts"))
+          .filter(file => file.uri.endsWith('.component.ts'))
           .map(
             file =>
               `import { ${this.extractClassName(
@@ -78,23 +78,23 @@ export class XlayersModule {}`;
               )} } from './${this.extractCompenentFileName(file)}';`
           )
       )
-      .join("\n");
+      .join('\n');
   }
 
   private renderNgClasses(files) {
     return files
-      .filter(file => file.uri.endsWith(".component.ts"))
+      .filter(file => file.uri.endsWith('.component.ts'))
       .map(file => this.formatService.indent(2, this.extractClassName(file)))
-      .join(",\n");
+      .join(',\n');
   }
 
   private extractClassName(file) {
-    const uri = file.uri.split("/");
-    const fileName = uri[uri.length - 1].replace(".component.ts", "");
+    const uri = file.uri.split('/');
+    const fileName = uri[uri.length - 1].replace('.component.ts', '');
     return this.formatService.className(`${fileName}Component`);
   }
 
   private extractCompenentFileName(file) {
-    return file.uri.split(".ts")[0];
+    return file.uri.split('.ts')[0];
   }
 }

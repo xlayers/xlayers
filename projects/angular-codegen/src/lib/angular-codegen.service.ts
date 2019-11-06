@@ -1,17 +1,17 @@
-import { Injectable } from "@angular/core";
+import { Injectable } from '@angular/core';
 import {
   ImageService,
   SymbolService,
   LayerService,
   FormatService
-} from "@xlayers/sketch-lib";
-import { WebCodeGenService } from "@xlayers/web-codegen";
-import { AngularAggregatorService } from "./angular-aggregator.service";
+} from '@xlayers/sketch-lib';
+import { WebCodeGenService } from '@xlayers/web-codegen';
+import { AngularAggregatorService } from './angular-aggregator.service';
 
 type WebCodeGenOptions = any;
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root'
 })
 export class AngularCodeGenService {
   constructor(
@@ -53,7 +53,7 @@ export class AngularCodeGenService {
     options?: WebCodeGenOptions
   ) {
     return this.visitContent(current, data, options).concat(
-      this.angularAggretatorService.aggregate(current, options)
+      this.angularAggretatorService.aggregate(current, data, options)
     );
   }
 
@@ -96,13 +96,13 @@ export class AngularCodeGenService {
 
   private compileOptions(options: WebCodeGenOptions) {
     return {
-      textTagName: "span",
-      bitmapTagName: "img",
-      blockTagName: "div",
-      xmlPrefix: "xly-",
-      cssPrefix: "xly_",
-      componentDir: "components",
-      assetDir: "assets",
+      textTagName: 'span',
+      bitmapTagName: 'img',
+      blockTagName: 'div',
+      xmlPrefix: 'xly-',
+      cssPrefix: 'xly_',
+      componentDir: 'components',
+      assetDir: 'assets',
       ...options
     };
   }

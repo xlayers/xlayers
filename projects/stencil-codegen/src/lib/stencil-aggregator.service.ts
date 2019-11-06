@@ -13,9 +13,13 @@ export class StencilAggregatorService {
     private readonly webCodeGenService: WebCodeGenService
   ) {}
 
-  aggregate(current: SketchMSLayer, options: WebCodeGenOptions) {
+  aggregate(
+    current: SketchMSLayer,
+    data: SketchMSData,
+    options: WebCodeGenOptions
+  ) {
     const fileName = this.formatService.normalizeName(current.name);
-    const files = this.webCodeGenService.aggregate(current, options);
+    const files = this.webCodeGenService.aggregate(current, data, options);
     const context = this.webCodeGenService.context(current);
     const html = files.find(file => file.language === 'html');
     return [

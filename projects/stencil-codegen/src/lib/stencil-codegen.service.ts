@@ -47,7 +47,7 @@ export class StencilCodeGenService {
     options?: WebCodeGenOptions
   ) {
     return this.visitContent(current, data, options).concat(
-      this.stencilAggretatorService.aggregate(current, options)
+      this.stencilAggretatorService.aggregate(current, data, options)
     );
   }
 

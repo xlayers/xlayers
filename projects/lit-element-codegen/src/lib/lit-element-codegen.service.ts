@@ -47,7 +47,7 @@ export class LitElementCodeGenService {
     options?: WebCodeGenOptions
   ) {
     return this.visitContent(current, data, options).concat(
-      this.litElementAggretatorService.aggregate(current, options)
+      this.litElementAggretatorService.aggregate(current, data, options)
     );
   }
 
