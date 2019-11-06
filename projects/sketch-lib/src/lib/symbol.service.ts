@@ -9,7 +9,7 @@ export class SymbolService {
   }
 
   lookup(current: SketchMSLayer, data: SketchMSData) {
-    const foreignSymbol = data.document.foreignSymbols.find(
+    const foreignSymbol = data.document && data.document.foreignSymbols.find(
       x => x.symbolMaster.symbolID === (current as any).symbolID
     );
 
