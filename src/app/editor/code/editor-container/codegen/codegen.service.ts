@@ -1,16 +1,16 @@
 import { Injectable } from '@angular/core';
-import { AngularCodeGenService } from './angular-codegen.service';
-import { AngularElementCodeGenService } from './angular-element-codegen.service';
-import { ReactCodeGenService } from './react-codegen.service';
-import { VueCodeGenService } from './vue-codegen.service';
-import { WebComponentCodeGenService } from './web-component-codegen.service';
-import { StencilCodeGenService } from './stencil-codegen.service';
-import { LitElementCodeGenService } from './lit-element-codegen.service';
+import { AngularCodeGenFacadeService } from './angular-codegen.service';
+import { ReactCodeGenFacadeService } from './react-codegen.service';
+import { VueCodeGenFacadeService } from './vue-codegen.service';
+import { WebComponentCodeGenFacadeService } from './web-component-codegen.service';
+import { StencilCodeGenFacadeService } from './stencil-codegen.service';
+import { LitElementCodeGenFacadeService } from './lit-element-codegen.service';
 import { XamarinCodeGenService } from './xamarin-codegen.service';
 import { Store } from '@ngxs/store';
 import { UiState } from '@app/core/state';
 import { environment } from '@env/environment.hmr';
 import { CodeGenSettings } from '@app/core/state/page.state';
+import { AngularElementCodeGenFacadeService } from './angular-element-codegen.service';
 
 declare var gtag;
 
@@ -61,13 +61,13 @@ export class CodeGenService {
   private ast: SketchMSLayer;
 
   constructor(
-    private readonly angular: AngularCodeGenService,
-    private readonly angularElement: AngularElementCodeGenService,
-    private readonly react: ReactCodeGenService,
-    private readonly vue: VueCodeGenService,
-    private readonly wc: WebComponentCodeGenService,
-    private readonly stencil: StencilCodeGenService,
-    private readonly litElement: LitElementCodeGenService,
+    private readonly angular: AngularCodeGenFacadeService,
+    private readonly angularElement: AngularElementCodeGenFacadeService,
+    private readonly react: ReactCodeGenFacadeService,
+    private readonly vue: VueCodeGenFacadeService,
+    private readonly wc: WebComponentCodeGenFacadeService,
+    private readonly stencil: StencilCodeGenFacadeService,
+    private readonly litElement: LitElementCodeGenFacadeService,
     private readonly xamarinForms: XamarinCodeGenService,
     private readonly store: Store
   ) {

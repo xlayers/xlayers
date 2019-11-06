@@ -15,7 +15,7 @@ export class ImageService {
     return this.getImageDataFromRef(data, (current as any).image._ref);
   }
 
-  aggreate(current: SketchMSLayer, data: SketchMSData, options: any) {
+  aggregate(current: SketchMSLayer, data: SketchMSData, options: any) {
     return [
       {
         kind: 'png',

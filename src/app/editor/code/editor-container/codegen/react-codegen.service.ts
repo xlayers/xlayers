@@ -1,11 +1,18 @@
 import { Injectable } from '@angular/core';
-import { WebCodeGenService } from '@xlayers/web-codegen';
+import {
+  ReactCodeGenService,
+  ReactDocGenService
+} from '@xlayers/react-codegen';
+import { XlayersNgxEditorModel } from './codegen.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ReactCodeGenService {
-  constructor(private readonly webCodeGen: WebCodeGenService) {}
+export class ReactCodeGenFacadeService {
+  constructor(
+    private readonly reactCodeGen: ReactCodeGenService,
+    private readonly reactDocGen: ReactDocGenService
+  ) {}
 
   buttons() {
     return {
@@ -14,35 +21,10 @@ export class ReactCodeGenService {
   }
 
   generate(data: SketchMSData) {
-    return [
-      {
-        uri: 'README.md',
-        value: this.renderReadme(data.meta.app),
-        language: 'text/plain',
-        kind: 'text'
-      },
-      ...data.pages.flatMap(page =>
-        this.webCodeGen.aggreate(page, data, { mode: 'react' })
-      )
-    ];
-  }
-
-  private renderReadme(name: string) {
-    return `\
-## How to use the ${name} Vue module
-
-Import and use it with ReactDOM :
-
-\`\`\`javascript
-import ReactDOM from "react-dom";
-import { MyComponent } from "./my-component";
-
-ReactDOM.aggreate(
-  MyComponent,
-  document.getElementById(\'root\')
-);
-\`\`\`
-
->  For more information about [Reactjs](https://reactjs.org/)`;
+    return this.reactDocGen
+      .aggregate(data)
+      .concat(
+        data.pages.flatMap(page => this.reactCodeGen.aggregate(page, data))
+      ) as XlayersNgxEditorModel[];
   }
 }

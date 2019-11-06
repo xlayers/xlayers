@@ -12,7 +12,7 @@ export class SvgAggregatorService {
     private svgContext: SvgContextService
   ) {}
 
-  aggreate(current: SketchMSLayer, options: SvgCodeGenOptions) {
+  aggregate(current: SketchMSLayer, options: SvgCodeGenOptions) {
     const context = this.svgContext.of(current);
     return [
       {

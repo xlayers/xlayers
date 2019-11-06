@@ -26,7 +26,7 @@ export class WebAggregatorService {
     private readonly svgCodeGen: SvgCodeGenService
   ) {}
 
-  aggreate(current: SketchMSLayer, options: WebCodeGenOptions) {
+  aggregate(current: SketchMSLayer, options: WebCodeGenOptions) {
     const fileName = this.formatService.normalizeName(current.name);
     return [
       {
@@ -35,7 +35,7 @@ export class WebAggregatorService {
         language: 'html',
         uri: `${options.componentDir}/${fileName}.html`
       },
-      ...this.cssCodeGen.aggreate(current, options).map(file => ({
+      ...this.cssCodeGen.aggregate(current, options).map(file => ({
         ...file,
         kind: 'web'
       }))
@@ -165,7 +165,7 @@ export class WebAggregatorService {
     );
     template.push(
       this.svgCodeGen
-        .aggreate(current, { xmlNamespace: false })
+        .aggregate(current, { xmlNamespace: false })
         .map(file =>
           file.value
             .split('\n')

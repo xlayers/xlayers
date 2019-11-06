@@ -1,24 +1,24 @@
 import { NgModule } from '@angular/core';
 import { CodeGenService } from './codegen.service';
-import { ReactCodeGenService } from './react-codegen.service';
-import { VueCodeGenService } from './vue-codegen.service';
-import { WebComponentCodeGenService } from './web-component-codegen.service';
-import { StencilCodeGenService } from './stencil-codegen.service';
-import { AngularCodeGenService } from './angular-codegen.service';
-import { AngularElementCodeGenService } from './angular-element-codegen.service';
-import { LitElementCodeGenService } from './lit-element-codegen.service';
+import { ReactCodeGenFacadeService } from './react-codegen.service';
+import { VueCodeGenFacadeService } from './vue-codegen.service';
+import { WebComponentCodeGenFacadeService } from './web-component-codegen.service';
+import { StencilCodeGenFacadeService } from './stencil-codegen.service';
+import { AngularCodeGenFacadeService } from './angular-codegen.service';
+import { LitElementCodeGenFacadeService } from './lit-element-codegen.service';
 import { XamarinCodeGenService } from './xamarin-codegen.service';
+import { AngularElementCodeGenFacadeService } from './angular-element-codegen.service';
 
 @NgModule({
   providers: [
     CodeGenService,
-    AngularCodeGenService,
-    AngularElementCodeGenService,
-    ReactCodeGenService,
-    VueCodeGenService,
-    WebComponentCodeGenService,
-    StencilCodeGenService,
-    LitElementCodeGenService,
+    AngularCodeGenFacadeService,
+    AngularElementCodeGenFacadeService,
+    ReactCodeGenFacadeService,
+    VueCodeGenFacadeService,
+    WebComponentCodeGenFacadeService,
+    StencilCodeGenFacadeService,
+    LitElementCodeGenFacadeService,
     XamarinCodeGenService
   ]
 })

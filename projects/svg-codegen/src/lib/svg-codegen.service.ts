@@ -22,8 +22,8 @@ export class SvgCodeGenService {
     this.svgParser.compute(current, data, this.compileOptions(options));
   }
 
-  aggreate(current: SketchMSLayer, options?: SvgCodeGenOptions) {
-    return this.svgAggretatorService.aggreate(
+  aggregate(current: SketchMSLayer, options?: SvgCodeGenOptions) {
+    return this.svgAggretatorService.aggregate(
       current,
       this.compileOptions(options)
     );

@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
-import { WebCodeGenService } from '@xlayers/web-codegen';
+import { AngularElementCodeGenService } from '@xlayers/angular-codegen';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AngularElementCodeGenService {
+export class AngularElementCodeGenFacadeService {
   constructor(
-    private readonly webCodeGen: WebCodeGenService,
+    private readonly angularElementCodeGenService: AngularElementCodeGenService
   ) {}
 
   buttons() {
@@ -17,11 +17,9 @@ export class AngularElementCodeGenService {
 
   generate(data: SketchMSData) {
     const generatedFiles = data.pages.flatMap(page =>
-      this.webCodeGen.aggreate(page, data, { mode: 'angularElement' })
+      this.angularElementCodeGenService.aggregate(page, data)
     );
 
-    return [
-      ...generatedFiles
-    ];
+    return [...generatedFiles];
   }
 }
