@@ -39,7 +39,7 @@ import ReactDOM from 'react-dom';
 // import MyComponent from './components/my-component';
 import './index.css';
 
-// ReactDOM.aggregate(<MyComponent />, document.getElementById('root'));`;
+// ReactDOM.render(<MyComponent />, document.getElementById('root'));`;
     files['src/index.css'] = `\
 body {
   margin: 0;

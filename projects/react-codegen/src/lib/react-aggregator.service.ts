@@ -64,7 +64,7 @@ import ReactDOM from 'react-dom';
 import ${className} from './${fileName}';
 it('renders without crashing', () => {
   const div = document.createElement('div');
-  ReactDOM.aggregate(<${className} />, div);
+  ReactDOM.render(<${className} />, div);
   ReactDOM.unmountComponentAtNode(div);
 })`;
   }
