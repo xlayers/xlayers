@@ -13,9 +13,13 @@ export class WebComponentAggregatorService {
     private readonly webCodeGenService: WebCodeGenService
   ) {}
 
-  aggregate(current: SketchMSLayer, options: WebCodeGenOptions) {
+  aggregate(
+    current: SketchMSLayer,
+    data: SketchMSData,
+    options: WebCodeGenOptions
+  ) {
     const fileName = this.formatService.normalizeName(current.name);
-    const files = this.webCodeGenService.aggregate(current, options);
+    const files = this.webCodeGenService.aggregate(current, data, options);
     const html = files.find(file => file.language === 'html');
     const css = files.find(file => file.language === 'css');
     return [

@@ -39,7 +39,7 @@ export class AngularElementAggregatorService {
         language: 'markdown',
         kind: 'text'
       },
-      ...this.webCodeGenService.aggregate(current, options).map(file => {
+      ...this.webCodeGenService.aggregate(current, data, options).map(file => {
         switch (file.language) {
           case 'html':
             return {
