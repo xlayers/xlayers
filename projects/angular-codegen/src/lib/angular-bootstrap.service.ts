@@ -32,7 +32,7 @@ import { NgModule } from '@angular/core'
 import { RouterModule, Routes } from '@angular/router';
 
 const xlayersRoutes: Routes = [{
-  path: 'xlayers\
+  path: 'xlayers',\
   loadChildren: 'app/xlayers/xlayers.module#XlayersModule'
 }];
 
