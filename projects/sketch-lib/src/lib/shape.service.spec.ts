@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { ShapeService } from './shape.service';
 
-describe.only('ShapeService', () => {
+describe('ShapeService', () => {
     let service: ShapeService;
 
     beforeEach(() => {

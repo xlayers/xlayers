@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { SymbolService } from './symbol.service';
 
-describe.only('SymbolService', () => {
+describe('SymbolService', () => {
     let service: SymbolService;
 
     beforeEach(() => {

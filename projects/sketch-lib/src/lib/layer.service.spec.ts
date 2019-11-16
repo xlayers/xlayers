@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { LayerService } from './layer.service';
 
-describe.only('LayerService', () => {
+describe('LayerService', () => {
     let service: LayerService;
 
     beforeEach(() => {
