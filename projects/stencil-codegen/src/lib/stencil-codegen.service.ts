@@ -72,7 +72,7 @@ export class StencilCodeGenService {
     options: WebCodeGenOptions
   ) {
     return this.layerService
-      .lookup(current, data)
+      .lookup(current)
       .flatMap(layer => this.visitContent(layer, data, options));
   }
 
