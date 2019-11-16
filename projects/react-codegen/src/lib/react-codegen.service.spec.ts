@@ -46,7 +46,7 @@ describe('ReactCodeGenService', () => {
             'web': 'a_context',
             '_class': 'random'
         } as any;
-        const actual = service.compute(data,data);
+        const actual = service.compute(data, data);
         expect(actual).toBe('a_context');
     });
 
