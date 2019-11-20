@@ -24,7 +24,7 @@ export class LitElementCodeGenFacadeService {
     return this.litElementDocGen
       .aggregate(data)
       .concat(
-        data.pages.flatMap(page => this.litElementCodeGen.aggregate(page, data))
+        this.litElementCodeGen.aggregate(data)
       ) as XlayersNgxEditorModel[];
   }
 }

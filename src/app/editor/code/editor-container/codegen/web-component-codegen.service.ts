@@ -23,8 +23,6 @@ export class WebComponentCodeGenFacadeService {
   generate(data: SketchMSData) {
     return this.webDocGen
       .aggregate(data)
-      .concat(
-        data.pages.flatMap(page => this.webCodeGen.aggregate(page, data))
-      ) as XlayersNgxEditorModel[];
+      .concat(this.webCodeGen.aggregate(data)) as XlayersNgxEditorModel[];
   }
 }

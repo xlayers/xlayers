@@ -16,10 +16,6 @@ export class AngularElementCodeGenFacadeService {
   }
 
   generate(data: SketchMSData) {
-    const generatedFiles = data.pages.flatMap(page =>
-      this.angularElementCodeGenService.aggregate(page, data)
-    );
-
-    return [...generatedFiles];
+    return this.angularElementCodeGenService.aggregate(data);
   }
 }
