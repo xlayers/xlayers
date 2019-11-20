@@ -1,15 +1,15 @@
 import { TestBed } from '@angular/core/testing';
-import { ReactDocGenService } from './react-docgen.service';
+import { LitElementDocGenService } from './lit-element-docgen.service';
 
 describe('ReactDocGenService', () => {
-    let service: ReactDocGenService;
+    let service: LitElementDocGenService;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            providers: [ReactDocGenService]
+            providers: [LitElementDocGenService]
         });
 
-        service = TestBed.get(ReactDocGenService);
+        service = TestBed.get(LitElementDocGenService);
     });
 
     it('should create', () => {
@@ -26,6 +26,6 @@ describe('ReactDocGenService', () => {
         expect(actual[0].language).toEqual('markdown');
         expect(actual[0].uri).toEqual('README.md');
         // WE GET THE FIRST LINE OF THE README
-        expect(actual[0].value.split('\n')[0]).toEqual('## How to use the THE_APP react module');
+        expect(actual[0].value.split('\n')[0]).toEqual('## How to use the THE_APP Web Components built with LitElement');
     });
 });

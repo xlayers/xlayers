@@ -1,22 +1,22 @@
 import { TestBed } from '@angular/core/testing';
-import { ReactAggregatorService } from './react-aggregator.service';
+import { LitElementAggregatorService } from './lit-element-aggregator.service';
 
 describe('ReactCodeGenService', () => {
-    let service: ReactAggregatorService;
+    let service: LitElementAggregatorService;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            providers: [ReactAggregatorService]
+            providers: [LitElementAggregatorService]
         });
 
-        service = TestBed.get(ReactAggregatorService);
+        service = TestBed.get(LitElementAggregatorService);
     });
 
     it('should create', () => {
         expect(service).toBeTruthy();
     });
 
-    it('should have three files for a basic react component', () => {
+    it('should have one file for a basic lit element component', () => {
         const data = {
             '_class': 'rectangle',
             'name': 'abc',
@@ -49,20 +49,12 @@ describe('ReactCodeGenService', () => {
             assetDir: 'assets',
         });
 
-        expect(aggregated.length).toEqual(3);
+        expect(aggregated.length).toEqual(1);
 
-        const [component, test, css] = aggregated;
-        expect(component.kind).toEqual('react');
+        const [component] = aggregated;
+        expect(component.kind).toEqual('litElement');
         expect(component.language).toEqual('javascript');
         expect(component.value.indexOf('<span >attr</span>') >= 0).toBeTruthy();
-        expect(component.uri).toEqual('components/abc.jsx');
-        expect(component.value.indexOf('span >attr</span>') >= 0).toEqual(true);
-        expect(test.kind).toEqual('react');
-        expect(test.uri).toEqual('components/abc.spec.js');
-        expect(test.language).toEqual('javascript');
-        expect(css.kind).toEqual('react');
-        expect(css.language).toEqual('css');
-        expect(css.uri).toEqual('components/abc.css');
-        expect(css.value.indexOf('.aclass') >= 0).toEqual(true);
+        expect(component.uri).toBe('components/abc.js');
     });
 });
