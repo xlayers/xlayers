@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CssCodeGenService should provide the context 1`] = `
+Array [
+  Object {
+    "kind": "css",
+    "language": "css",
+    "uri": "components/button.css",
+    "value": ":host {
+  display: block;
+  position: relative;
+}
+ 
+.undefined {
+  background-color: rgba(0,150,136,1.00);
+  box-shadow: 0px 8px 8px 0px rgba(0,0,0,0.24),0px 0px 8px 0px rgba(0,0,0,0.12),0px 2px 2px 0px rgba(0,0,0,0.24),0px 0px 2px 0px rgba(0,0,0,0.12);
+  height: 36px;
+  left: 0px;
+  top: 0px;
+  width: 94px;
+}
+
+.undefined {
+  color: rgba(255,255,255,1.00);
+  font-family: 'Roboto-Medium', 'Roboto', 'sans-serif';
+  font-size: 14px;
+  height: 16px;
+  left: 16.5px;
+  top: 10px;
+  width: 61px;
+}
+
+.undefined, .undefined {
+  display: block;
+  position: absolute;
+  visibility: visible;
+}
+",
+  },
+]
+`;
