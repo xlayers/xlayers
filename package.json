@@ -72,7 +72,6 @@
     "jszip": "^3.1.5",
     "ngx-color": "^2.0.5",
     "ngx-highlightjs": "^3.0.1",
-    "ora": "^4.0.2",
     "param-case": "^2.1.1",
     "pascal-case": "^2.0.1",
     "rxjs": "^6.4.0",
@@ -81,6 +80,7 @@
     "zone.js": "^0.9.1"
   },
   "devDependencies": {
+    "ora": "^4.0.2",
     "@angular-devkit/build-angular": "~0.803.12",
     "@angular-devkit/build-ng-packagr": "^0.803.12",
     "@angular/cli": "~8.3.12",

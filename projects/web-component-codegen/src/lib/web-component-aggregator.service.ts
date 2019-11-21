@@ -36,18 +36,46 @@ export class WebComponentAggregatorService {
     const className = this.formatService.className(name);
     const tagName = this.formatService.normalizeName(name);
     return `\
-class ${className} extends HTMLElement {
-  connectedCallback() {
-    this.innerHTML = \`
-      <style>
-${this.formatService.indentFile(3, css).join('\n')}
-      </style>
+    const template = document.createElement('template');
+    template.innerHTML = \`
+    <style>
+    ${this.formatService.indentFile(3, css).join('\n')}
+    </style>
 
-${this.formatService.indentFile(3, html).join('\n')}
-    \`
-  }
-}
+    ${this.formatService.indentFile(3, html).join('\n')}
+    \`;
 
-customElements.define('${tagName}', ${className});`;
+    class ${className} extends HTMLElement {
+      static is = 'xly-page1';
+
+      static get observedAttributes() {
+        return [];
+      }
+
+      constructor() {
+        super();
+        const shadowDOM = this.attachShadow({ mode: 'open' });
+        shadowDOM.appendChild(template.content.cloneNode(true));
+      }
+
+      connectedCallback(){
+        console.log("${className} custom element is first connected to the document's DOM.");
+      }
+
+      disconnectedCallback() {
+        console.log("${className} custom element is disconnected from the document's DOM.");
+      }
+
+      adoptedCallback() {
+        console.log("${className} custom element is moved to a new document.");
+      }
+
+      attributeChangedCallback(name, oldValue, newValue) {
+        console.log("${className} custom element attributes changed.");
+      }
+
+    }
+
+    customElements.define(${className}.is , ${className});`;
   }
 }
