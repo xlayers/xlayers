@@ -24,7 +24,7 @@ export class ExportStackblitzAngularService {
 import { Component } from '@angular/core';
 @Component({
   selector: 'my-app',
-  template: \`<!–– my-component ––>\`,
+  template: \`<xly-page-1></xly-page-1>\`,
 })
 export class AppComponent  {}`;
     files['src/app/app.module.ts'] = `\
