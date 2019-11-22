@@ -17,7 +17,7 @@ export class AngularDocGenService {
 
   private renderReadme(name: string) {
     return `\
-## How to use the ${name} Vue module
+## How to use the ${name} Angular module
 
 1. Download and extract the exported module into your workspace,
 
