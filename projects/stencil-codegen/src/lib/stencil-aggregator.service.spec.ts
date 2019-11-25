@@ -16,7 +16,7 @@ describe('StencilAggregatorService', () => {
         expect(service).toBeTruthy();
     });
 
-    it('should have three files for a basic react component', () => {
+    it('should have three files for a basic stencil component', () => {
         const data = {
             '_class': 'rectangle',
             'name': 'abc',

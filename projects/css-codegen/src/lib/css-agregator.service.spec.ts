@@ -16,7 +16,7 @@ describe('ReactCodeGenService', () => {
         expect(service).toBeTruthy();
     });
 
-    it('should have three files for a basic react component', () => {
+    it('should have three files for a basic css component', () => {
         const data = {
             '_class': 'rectangle',
             'name': 'abc',

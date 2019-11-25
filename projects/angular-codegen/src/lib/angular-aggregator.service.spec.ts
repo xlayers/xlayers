@@ -16,7 +16,7 @@ describe('AngularAggregatorService', () => {
         expect(service).toBeTruthy();
     });
 
-    it('should have three files for a basic react component', () => {
+    it('should have three files for a basic angular component', () => {
         const data = {
             '_class': 'rectangle',
             'name': 'abc',
