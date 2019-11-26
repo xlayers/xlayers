@@ -1,17 +1,17 @@
 import { TestBed } from '@angular/core/testing';
 import { VERSION_LIST, SKETCH_PATH, loadSketch } from '../../../../tests/test-utils';
 import { readdirSync } from 'fs';
-import {VueCodeGenService} from './vue-codegen.service';
+import { WebComponentCodeGenService } from './web-component-codegen.service';
 
-describe('VueCodeGenService', () => {
-    let service: VueCodeGenService;
+describe('WebComponentCodeGenService', () => {
+    let service: WebComponentCodeGenService;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            providers: [VueCodeGenService]
+            providers: [WebComponentCodeGenService]
         });
 
-        service = TestBed.get(VueCodeGenService);
+        service = TestBed.get(WebComponentCodeGenService);
     });
 
     it('should create', () => {
@@ -47,7 +47,7 @@ describe('VueCodeGenService', () => {
         const fileNames = readdirSync(`${SKETCH_PATH}/${version}`);
 
         fileNames.forEach(fileName => {
-            it(`should match ${fileName} snapshot for ${version} on vue`, done => {
+            it(`should match ${fileName} snapshot for ${version} on wc`, done => {
                 loadSketch(version, fileName)
                     .then(data => {
                         data.pages.forEach(page => {
