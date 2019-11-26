@@ -16,7 +16,7 @@ describe('VueDocGenService', () => {
         expect(service).toBeTruthy();
     });
 
-    it('should have all the correct propertys', () => {
+    it('should have all the correct properties', () => {
         const data = {
             meta: { app: 'THE_APP' }
         } as any;
