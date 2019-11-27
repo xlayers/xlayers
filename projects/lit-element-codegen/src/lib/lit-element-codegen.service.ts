@@ -25,12 +25,10 @@ export class LitElementCodeGenService {
     this.webCodeGen.compute(current, data, this.compileOptions(options));
   }
 
-  aggregate(
-    current: SketchMSLayer,
-    data: SketchMSData,
-    options?: WebCodeGenOptions
-  ) {
-    return this.visit(current, data, this.compileOptions(options));
+  aggregate(data: SketchMSData, options?: WebCodeGenOptions) {
+    return data.pages.flatMap(page =>
+      this.visit(page, data, this.compileOptions(options))
+    );
   }
 
   identify(current: SketchMSLayer) {
@@ -47,7 +45,7 @@ export class LitElementCodeGenService {
     options?: WebCodeGenOptions
   ) {
     return this.visitContent(current, data, options).concat(
-      this.litElementAggretatorService.aggregate(current, options)
+      this.litElementAggretatorService.aggregate(current, data, options)
     );
   }
 

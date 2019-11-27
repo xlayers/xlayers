@@ -25,7 +25,7 @@ Import and use it with ReactDOM :
 import ReactDOM from "react-dom";
 import { MyComponent } from "./my-component";
 
-ReactDOM.aggregate(
+ReactDOM.render(
   MyComponent,
   document.getElementById(\'root\')
 );

@@ -18,8 +18,6 @@ export class VueCodeGenFacadeService {
   generate(data: SketchMSData) {
     return this.vueDocGen
       .aggregate(data)
-      .concat(
-        data.pages.flatMap(page => this.vueCodeGen.aggregate(page, data))
-      ) as XlayersNgxEditorModel[];
+      .concat(this.vueCodeGen.aggregate(data)) as XlayersNgxEditorModel[];
   }
 }

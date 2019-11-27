@@ -13,9 +13,13 @@ export class ReactAggregatorService {
     private readonly webCodeGenService: WebCodeGenService
   ) {}
 
-  aggregate(current: SketchMSLayer, options: WebCodeGenOptions) {
+  aggregate(
+    current: SketchMSLayer,
+    data: SketchMSData,
+    options: WebCodeGenOptions
+  ) {
     const fileName = this.formatService.normalizeName(current.name);
-    const files = this.webCodeGenService.aggregate(current, options);
+    const files = this.webCodeGenService.aggregate(current, data, options);
     const html = files.find(file => file.language === 'html');
 
     return [
@@ -46,9 +50,15 @@ export class ReactAggregatorService {
     return `\
 ${importStatements}
 
-export const ${className} = () => (
-${this.formatService.indentFile(1, html).join('\n')}
-);`;
+class ${className} extends Component {
+  render() {
+    return (
+      ${this.formatService.indentFile(1, html).join('\n')}
+    );
+  }
+}
+
+export default ${className};`;
   }
 
   private renderSpec(current: SketchMSLayer) {
@@ -60,7 +70,7 @@ import ReactDOM from 'react-dom';
 import ${className} from './${fileName}';
 it('renders without crashing', () => {
   const div = document.createElement('div');
-  ReactDOM.aggregate(<${className} />, div);
+  ReactDOM.render(<${className} />, div);
   ReactDOM.unmountComponentAtNode(div);
 })`;
   }
@@ -68,7 +78,7 @@ it('renders without crashing', () => {
   private renderImportStatements(current: SketchMSLayer) {
     const fileName = this.formatService.normalizeName(current.name);
     return [
-      'import React from \'react\';',
+      'import React, { Component } from \'react\';',
       ...this.generateDynamicImport(current),
       `import \'./${fileName}.css\';`
     ].join('\n');
@@ -78,10 +88,10 @@ it('renders without crashing', () => {
     const context = this.webCodeGenService.context(current);
     return context && context.components
       ? context.components.map(component => {
-          const importclassName = this.formatService.className(component);
-          const importFileName = this.formatService.normalizeName(component);
-          return `import { ${importclassName} } from "./${importFileName}";`;
-        })
+        const importclassName = this.formatService.className(component);
+        const importFileName = this.formatService.normalizeName(component);
+        return `import { ${importclassName} } from "./${importFileName}";`;
+      })
       : [];
   }
 }

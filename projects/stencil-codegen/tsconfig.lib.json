@@ -12,7 +12,7 @@
     "experimentalDecorators": true,
     "importHelpers": true,
     "types": ["node", "sketchapp"],
-    "lib": ["dom", "es2018"]
+    "lib": ["dom", "es2019"]
   },
   "angularCompilerOptions": {
     "annotateForClosureCompiler": true,

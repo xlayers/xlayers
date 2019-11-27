@@ -26,11 +26,15 @@ export class ExportStackblitzWCService {
     <title>xLayers Custom Element</title>
   </head>
   <body>
-  <x-layers-element></x-layers-element>
+  <xly-page1></xly-page1>
   </body>
   <script src="./index.js"></script>
 </html>`;
-    files['index.js'] = `// import './components/my-element.js';`;
+    files['index.js'] = `
+    import '@webcomponents/webcomponentsjs/webcomponents-loader.js';
+    import '@webcomponents/webcomponentsjs/custom-elements-es5-adapter.js';
+
+    import './components/page-1.js';`;
 
     return {
       files,

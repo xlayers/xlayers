@@ -31,15 +31,9 @@ export class AngularCodeGenService {
     this.webCodeGen.compute(current, data, this.compileOptions(options));
   }
 
-  aggregate(
-    current: SketchMSLayer,
-    data: SketchMSData,
-    options?: WebCodeGenOptions
-  ) {
-    const generatedFiles = this.visit(
-      current,
-      data,
-      this.compileOptions(options)
+  aggregate(data: SketchMSData, options?: WebCodeGenOptions) {
+    const files = data.pages.flatMap(page =>
+      this.visit(page, data, this.compileOptions(options))
     );
 
     return [
@@ -51,11 +45,12 @@ export class AngularCodeGenService {
       },
       {
         uri: 'xlayers.module.ts',
-        value: this.renderModule(generatedFiles),
+        value: this.renderModule(files),
         language: 'typescript',
         kind: 'angular'
-      }
-    ].concat(generatedFiles);
+      },
+      ...files
+    ];
   }
 
   identify(current: SketchMSLayer) {
@@ -72,7 +67,7 @@ export class AngularCodeGenService {
     options?: WebCodeGenOptions
   ) {
     return this.visitContent(current, data, options).concat(
-      this.angularAggretatorService.aggregate(current, options)
+      this.angularAggretatorService.aggregate(current, data, options)
     );
   }
 
@@ -143,9 +138,9 @@ const xlayersRoutes: Routes = [{
 export class XlayersRoutingModule {}`;
   }
 
-  private renderModule(generatedFiles) {
-    const importStatements = this.renderImports(generatedFiles);
-    const ngStatements = this.renderNgClasses(generatedFiles);
+  private renderModule(files) {
+    const importStatements = this.renderImports(files);
+    const ngStatements = this.renderNgClasses(files);
     return `\
 ${importStatements}
 
@@ -163,13 +158,13 @@ ${ngStatements}
 export class XlayersModule {}`;
   }
 
-  private renderImports(generatedFiles) {
+  private renderImports(files) {
     return [
       'import { NgModule } from \'@angular/core\';',
       'import { CommonModule } from \'@angular/common\';'
     ]
       .concat(
-        generatedFiles
+        files
           .filter(file => file.uri.endsWith('.component.ts'))
           .map(
             file =>
@@ -181,8 +176,8 @@ export class XlayersModule {}`;
       .join('\n');
   }
 
-  private renderNgClasses(generatedFiles) {
-    return generatedFiles
+  private renderNgClasses(files) {
+    return files
       .filter(file => file.uri.endsWith('.component.ts'))
       .map(file => this.formatService.indent(2, this.extractClassName(file)))
       .join(',\n');

@@ -36,10 +36,10 @@ export class ExportStackblitzReactService {
     files['src/index.js'] = `\
 import React from 'react';
 import ReactDOM from 'react-dom';
-// import MyComponent from './components/my-component';
+import Page_1 from './components/page-1';
 import './index.css';
 
-// ReactDOM.aggregate(<MyComponent />, document.getElementById('root'));`;
+ReactDOM.render(<Page_1 />, document.getElementById('root'));`;
     files['src/index.css'] = `\
 body {
   margin: 0;
