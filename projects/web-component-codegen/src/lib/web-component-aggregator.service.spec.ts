@@ -39,7 +39,7 @@ describe('WebComponentAggregatorService', () => {
                 }
             ]
         } as any;
-        const aggregated = service.aggregate(data, {
+        const aggregated = service.aggregate(data, data, {
             textTagName: 'span',
             bitmapTagName: 'img',
             blockTagName: 'div',
