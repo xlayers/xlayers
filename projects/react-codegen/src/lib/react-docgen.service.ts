@@ -17,7 +17,7 @@ export class ReactDocGenService {
 
   private renderReadme(name: string) {
     return `\
-## How to use the ${name} Vue module
+## How to use the ${name} react module
 
 Import and use it with ReactDOM :
 
