@@ -24,7 +24,7 @@ export class WebAggregatorService {
     private readonly webContext: WebContextService,
     private readonly cssCodeGen: CssCodeGenService,
     private readonly svgCodeGen: SvgCodeGenService
-  ) {}
+  ) { }
 
   aggregate(current: SketchMSLayer, options: WebCodeGenOptions) {
     const fileName = this.formatService.normalizeName(current.name);
@@ -110,12 +110,17 @@ export class WebAggregatorService {
     indent: number,
     options: WebCodeGenOptions
   ) {
-    const tagName = options.jsx
-      ? this.formatService.className(current.name)
-      : `${options.xmlPrefix}${this.formatService.normalizeName(current.name)}`;
-    template.push(
-      this.formatService.indent(indent, `<${tagName}></${tagName}>`)
-    );
+    const context = this.webContext.of(current);
+    if (context && context.components && context.components.lenght > 1) {
+      const tagName = options.jsx
+        ? this.formatService.className(current.name)
+        : `${options.xmlPrefix}${this.formatService.normalizeName(
+          current.name
+        )}`;
+      template.push(
+        this.formatService.indent(indent, `<${tagName}></${tagName}>`)
+      );
+    }
   }
 
   private visitBitmap(

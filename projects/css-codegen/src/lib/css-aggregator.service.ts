@@ -183,17 +183,17 @@ export class CssAggregatorService {
       );
       while (++checkingDecIndex < stylesAst.length) {
         const nextDeclaration = stylesAst[checkingDecIndex];
-        const checkDeclarationPropertySet = new Set<string>(
+        const checkDeclarationpropertieset = new Set<string>(
           nextDeclaration.declarations.sort()
         );
 
         for (const key of Array.from(currentDeclarationSet.values())) {
-          if (checkDeclarationPropertySet.has(key)) {
+          if (checkDeclarationpropertieset.has(key)) {
             duplicates.push({
               className: `${currentDeclaration.className}, .${nextDeclaration.className}`,
               key
             });
-            checkDeclarationPropertySet.delete(key);
+            checkDeclarationpropertieset.delete(key);
             currentDeclarationSet.delete(key);
           }
         }
@@ -203,7 +203,7 @@ export class CssAggregatorService {
           currentIndex,
           currentDeclarationSet,
           checkingDecIndex,
-          checkDeclarationPropertySet
+          checkDeclarationpropertieset
         );
       }
     }
@@ -250,20 +250,20 @@ export class CssAggregatorService {
    * @param currentIndex
    * @param currentDeclarationSet
    * @param checkingDecIndex
-   * @param checkDeclarationPropertySet
+   * @param checkDeclarationpropertieset
    */
   private setValuesInAst(
     stylesAst: StyleList[],
     currentIndex: number,
     currentDeclarationSet: Set<string>,
     checkingDecIndex: number,
-    checkDeclarationPropertySet: Set<string>
+    checkDeclarationpropertieset: Set<string>
   ) {
     stylesAst[currentIndex].declarations = Object.assign(
       Array.from(currentDeclarationSet.values())
     );
     stylesAst[checkingDecIndex].declarations = Object.assign(
-      Array.from(checkDeclarationPropertySet.values())
+      Array.from(checkDeclarationpropertieset.values())
     );
   }
 }
