@@ -1,119 +1,109 @@
 version: 2
+var_1: &cache_key v1-dependencies-{{ checksum "package.json" }}
+var_2: &run_node
+    docker:
+      - image: circleci/node:11.13.0
+var_3: &run_cypress
+    docker:
+    - image: cypress/base:11.13.0
+
 jobs:
-  "ci/build-app":
-    docker:
-      - image: circleci/node:11.13.0
-
-    working_directory: ~/repo
-
+  install:
+    <<: *run_node
+    steps:
+    - checkout
+    - restore_cache:
+        key: *cache_key
+    - run: npm install
+    - save_cache:
+        key: *cache_key
+        paths:
+          - node_modules
+  lint:
+    <<: *run_node
     steps:
       - checkout
       - restore_cache:
-          keys:
-            - v1-dependencies-{{ checksum "package.json" }}
-            # fallback to using the latest cache if no exact match is found
-            - v1-dependencies-
-
-      - run: npm install
-      - run:
-          name: Install JUnit coverage reporter
-          command: npm i -D jest-junit
-
-      - save_cache:
-          paths:
-            - node_modules
-          key: v1-dependencies-{{ checksum "package.json" }}
-
-      - run: npm run build.library.all && npm run app.build.prod
-
-  "ci/build-all librarys":
-    docker:
-      - image: circleci/node:11.13.0
-
-    working_directory: ~/repo
-
-    steps:
-      - checkout
-      - restore_cache:
-          keys:
-            - v1-dependencies-{{ checksum "package.json" }}
-            # fallback to using the latest cache if no exact match is found
-            - v1-dependencies-
-
-      - run: npm install
-      - run:
-          name: Install JUnit coverage reporter
-          command: npm i -D jest-junit
-
-      - save_cache:
-          paths:
-            - node_modules
-          key: v1-dependencies-{{ checksum "package.json" }}
-
-      - run:
-          command: npm run build.library.all
-
-  "ci/test":
-    docker:
-      - image: cypress/base:11.13.0
-    steps:
-      - checkout
-      - restore_cache:
-          keys:
-            - v2-dependencies-{{ checksum "package.json" }}
-            # fallback to using the latest cache if no exact match is found
-            - v2-dependencies-
-
-      - run: npm install
-      - run:
-          name: Install JUnit coverage reporter
-          command: npm i -D jest-junit
-
-      - save_cache:
-          paths:
-            - ~/.cache
-          key: v2-dependencies-{{ checksum "package.json" }}
-
-      - run: npm run test.ci -- --reporters=default --reporters=jest-junit --maxWorkers=2
-      - run: npm run e2e
-
-  "ci/lint":
-    docker:
-      - image: circleci/node:11.13.0
-    steps:
-      - checkout
-      - restore_cache:
-          keys:
-            - v1-dependencies-{{ checksum "package.json" }}
-            # fallback to using the latest cache if no exact match is found
-            - v1-dependencies-
-
-      - run: npm install
-      - save_cache:
-          paths:
-            - node_modules
-          key: v1-dependencies-{{ checksum "package.json" }}
-
+          key: *cache_key  
       - run: npm run lint ||
           (echo "Lint errors detected. Please run ''npm lint --fix''" ; exit 1)
 
+  test:
+    <<: *run_node
+    steps:
+      - checkout
+      - restore_cache:
+          key: *cache_key
+      - run: npm run test.ci -- --reporters=default --reporters=jest-junit --maxWorkers=2
+  test-e2e:
+    <<: *run_cypress
+    steps:
+      - checkout
+      - run: npm install
+      - restore_cache:
+          key: *cache_key
+      - run: npm run e2e
+  
+  build-libs:
+    <<: *run_node
+    steps:
+      - checkout
+      - restore_cache:
+          key: *cache_key
+      - run:
+          command: npm run build.library.all
+      - persist_to_workspace:
+          root: dist
+          paths:
+            - ./*
+  build-app:
+    <<: *run_node
+    steps:
+      - checkout
+      - restore_cache:
+          key: *cache_key
+      - attach_workspace:
+          at: dist
+      - run:
+          command: npm run app.build.prod
+
 workflows:
   version: 2
-  # lint_test_build:
-  #   jobs:
-  #     - lint
-  #     - test:
-  #         requires:
-  #           - lint
-  #     - "build-app":
-  #         requires:
-  #           - test
-  "ci/lint":
+  build-test-deploy:
     jobs:
-      - "ci/lint"
-  "ci/test":
-    jobs:
-      - "ci/test"
-  "ci/build-app":
-    jobs:
-      - "ci/build-app"
+      - install:
+          filters:
+            tags:
+              only: /.*/
+      - lint:
+          requires:
+            - install
+      - test:
+          requires:
+            - install
+          filters:
+            tags:
+              only: /.*/
+      - test-e2e:
+          requires:
+            - test
+          filters:
+            tags:
+              only: /.*/
+      - build-libs:
+          requires:
+            - install
+            - test
+            - test-e2e
+          filters:
+            tags:
+              only: /.*/
+      - build-app:
+          requires:
+            - install
+            - test
+            - test-e2e
+            - build-libs
+          filters:
+            tags:
+              only: /.*/

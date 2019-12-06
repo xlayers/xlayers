@@ -1,4 +1,5 @@
 import * as cp from 'child_process';
+import * as fs from 'fs';
 import * as path from 'path';
 
 // script ideas from NGRX repo
@@ -52,3 +53,18 @@ export function exec(
 export function cmd(command: string, args: string[]): Promise<string> {
     return exec(command, args, (runCommand: string) => runCommand);
 }
+// ORDER IS NEEDED FOR DEPS
+export const packages = [
+    'sketch-ingestor',
+    'sketch-lib',
+    'css-codegen',
+    'svg-codegen',
+    'xaml-codegen',
+    'web-codegen',
+    'web-component-codegen',
+    'angular-codegen',
+    'vue-codegen',
+    'stencil-codegen',
+    'lit-element-codegen',
+    'react-codegen'
+]

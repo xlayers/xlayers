@@ -1,0 +1,919 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="jest tests" tests="392" failures="0" time="31.211">
+  <testsuite name="UploadComponent" errors="0" failures="0" skipped="0" timestamp="2019-12-06T13:06:42" time="5.522" tests="2">
+    <testcase classname="UploadComponent should create" name="UploadComponent should create" time="0.137">
+    </testcase>
+    <testcase classname="UploadComponent should process selected file" name="UploadComponent should process selected file" time="0.057">
+    </testcase>
+  </testsuite>
+  <testsuite name="SketchDropZone" errors="0" failures="0" skipped="0" timestamp="2019-12-06T13:06:48" time="0.587" tests="4">
+    <testcase classname="SketchDropZone should create" name="SketchDropZone should create" time="0.08">
+    </testcase>
+    <testcase classname="SketchDropZone when drop file should emit file change" name="SketchDropZone when drop file should emit file change" time="0.054">
+    </testcase>
+    <testcase classname="SketchDropZone when drop file should do nothing for no item" name="SketchDropZone when drop file should do nothing for no item" time="0.053">
+    </testcase>
+    <testcase classname="SketchDropZone when drop file should fallback to file when no items" name="SketchDropZone when drop file should fallback to file when no items" time="0.046">
+    </testcase>
+  </testsuite>
+  <testsuite name="SelectDemoFilesComponent" errors="0" failures="0" skipped="0" timestamp="2019-12-06T13:06:49" time="0.419" tests="2">
+    <testcase classname="SelectDemoFilesComponent should be created" name="SelectDemoFilesComponent should be created" time="0.078">
+    </testcase>
+    <testcase classname="SelectDemoFilesComponent should confirm select file" name="SelectDemoFilesComponent should confirm select file" time="0.086">
+    </testcase>
+  </testsuite>
+  <testsuite name="BrowseFilesComponent" errors="0" failures="0" skipped="0" timestamp="2019-12-06T13:06:49" time="0.268" tests="1">
+    <testcase classname="BrowseFilesComponent should create" name="BrowseFilesComponent should create" time="0.028">
+    </testcase>
+  </testsuite>
+  <testsuite name="PreviewComponent" errors="0" failures="0" skipped="0" timestamp="2019-12-06T13:06:49" time="0.665" tests="1">
+    <testcase classname="PreviewComponent should create" name="PreviewComponent should create" time="0.108">
+    </testcase>
+  </testsuite>
+  <testsuite name="ViewerLayerComponent" errors="0" failures="0" skipped="0" timestamp="2019-12-06T13:06:50" time="0.337" tests="2">
+    <testcase classname="ViewerLayerComponent should create" name="ViewerLayerComponent should create" time="0.089">
+    </testcase>
+    <testcase classname="ViewerLayerComponent should select layer" name="ViewerLayerComponent should select layer" time="0.061">
+    </testcase>
+  </testsuite>
+  <testsuite name="ViewerContainerComponent" errors="0" failures="0" skipped="0" timestamp="2019-12-06T13:06:50" time="0.492" tests="3">
+    <testcase classname="ViewerContainerComponent should create" name="ViewerContainerComponent should create" time="0.118">
+    </testcase>
+    <testcase classname="ViewerContainerComponent should clear current page currentPage is truthy" name="ViewerContainerComponent should clear current page currentPage is truthy" time="0.093">
+    </testcase>
+    <testcase classname="ViewerContainerComponent should clear current page currentPage is falsy" name="ViewerContainerComponent should clear current page currentPage is falsy" time="0.09">
+    </testcase>
+  </testsuite>
+  <testsuite name="ViewerCanvasComponent" errors="0" failures="0" skipped="0" timestamp="2019-12-06T13:06:51" time="0.53" tests="3">
+    <testcase classname="ViewerCanvasComponent should create" name="ViewerCanvasComponent should create" time="0.117">
+    </testcase>
+    <testcase classname="ViewerCanvasComponent it toggles currentData" name="ViewerCanvasComponent it toggles currentData" time="0.085">
+    </testcase>
+    <testcase classname="ViewerCanvasComponent should have current page" name="ViewerCanvasComponent should have current page" time="0.076">
+    </testcase>
+  </testsuite>
+  <testsuite name="ViewerPageComponent" errors="0" failures="0" skipped="0" timestamp="2019-12-06T13:06:51" time="0.346" tests="2">
+    <testcase classname="ViewerPageComponent should be created" name="ViewerPageComponent should be created" time="0.082">
+    </testcase>
+    <testcase classname="ViewerPageComponent should list layers" name="ViewerPageComponent should list layers" time="0.055">
+    </testcase>
+  </testsuite>
+  <testsuite name="SettingsLayerPositionComponent" errors="0" failures="0" skipped="0" timestamp="2019-12-06T13:06:52" time="0.246" tests="1">
+    <testcase classname="SettingsLayerPositionComponent should create" name="SettingsLayerPositionComponent should create" time="0.049">
+    </testcase>
+  </testsuite>
+  <testsuite name="TreeViewComponent" errors="0" failures="0" skipped="0" timestamp="2019-12-06T13:06:52" time="0.316" tests="1">
+    <testcase classname="TreeViewComponent should create" name="TreeViewComponent should create" time="0.063">
+    </testcase>
+  </testsuite>
+  <testsuite name="SettingsLayerColorsComponent" errors="0" failures="0" skipped="0" timestamp="2019-12-06T13:06:52" time="0.246" tests="1">
+    <testcase classname="SettingsLayerColorsComponent should create" name="SettingsLayerColorsComponent should create" time="0.059">
+    </testcase>
+  </testsuite>
+  <testsuite name="SettingsLayerPropertiesComponent" errors="0" failures="0" skipped="0" timestamp="2019-12-06T13:06:53" time="0.224" tests="1">
+    <testcase classname="SettingsLayerPropertiesComponent should create" name="SettingsLayerPropertiesComponent should create" time="0.033">
+    </testcase>
+  </testsuite>
+  <testsuite name="SettingsPreviewComponent" errors="0" failures="0" skipped="0" timestamp="2019-12-06T13:06:53" time="0.247" tests="1">
+    <testcase classname="SettingsPreviewComponent should create" name="SettingsPreviewComponent should create" time="0.054">
+    </testcase>
+  </testsuite>
+  <testsuite name="SettingsContainerComponent" errors="0" failures="0" skipped="0" timestamp="2019-12-06T13:06:53" time="0.21" tests="1">
+    <testcase classname="SettingsContainerComponent should create" name="SettingsContainerComponent should create" time="0.033">
+    </testcase>
+  </testsuite>
+  <testsuite name="CodeGenService" errors="0" failures="0" skipped="0" timestamp="2019-12-06T13:06:53" time="2.529" tests="1">
+    <testcase classname="CodeGenService should be created" name="CodeGenService should be created" time="0.051">
+    </testcase>
+  </testsuite>
+  <testsuite name="EditorContainerComponent" errors="0" failures="0" skipped="0" timestamp="2019-12-06T13:06:56" time="0.392" tests="1">
+    <testcase classname="EditorContainerComponent should create" name="EditorContainerComponent should create" time="0.149">
+    </testcase>
+  </testsuite>
+  <testsuite name="StackBlitz Stencil" errors="0" failures="0" skipped="0" timestamp="2019-12-06T13:06:56" time="0.185" tests="7">
+    <testcase classname="StackBlitz Stencil should be created" name="StackBlitz Stencil should be created" time="0.002">
+    </testcase>
+    <testcase classname="StackBlitz Stencil should contain 5 files" name="StackBlitz Stencil should contain 5 files" time="0.001">
+    </testcase>
+    <testcase classname="StackBlitz Stencil should have default config file" name="StackBlitz Stencil should have default config file" time="0.001">
+    </testcase>
+    <testcase classname="StackBlitz Stencil should contain uri files" name="StackBlitz Stencil should contain uri files" time="0">
+    </testcase>
+    <testcase classname="StackBlitz Stencil should have default index.html" name="StackBlitz Stencil should have default index.html" time="0.001">
+    </testcase>
+    <testcase classname="StackBlitz Stencil should have stencil tag" name="StackBlitz Stencil should have stencil tag" time="0.001">
+    </testcase>
+    <testcase classname="StackBlitz Stencil should have typescript template" name="StackBlitz Stencil should have typescript template" time="0.001">
+    </testcase>
+  </testsuite>
+  <testsuite name="StackBlitz WC" errors="0" failures="0" skipped="0" timestamp="2019-12-06T13:06:56" time="0.187" tests="7">
+    <testcase classname="StackBlitz WC should be created" name="StackBlitz WC should be created" time="0.001">
+    </testcase>
+    <testcase classname="StackBlitz WC should contain 3 files" name="StackBlitz WC should contain 3 files" time="0.001">
+    </testcase>
+    <testcase classname="StackBlitz WC should contain uri files" name="StackBlitz WC should contain uri files" time="0.001">
+    </testcase>
+    <testcase classname="StackBlitz WC should have default index.html" name="StackBlitz WC should have default index.html" time="0.005">
+    </testcase>
+    <testcase classname="StackBlitz WC should have web component tag" name="StackBlitz WC should have web component tag" time="0.001">
+    </testcase>
+    <testcase classname="StackBlitz WC should have default index.js" name="StackBlitz WC should have default index.js" time="0.001">
+    </testcase>
+    <testcase classname="StackBlitz WC should have javascript template" name="StackBlitz WC should have javascript template" time="0">
+    </testcase>
+  </testsuite>
+  <testsuite name="StackBlitz vue" errors="0" failures="0" skipped="0" timestamp="2019-12-06T13:06:57" time="0.184" tests="7">
+    <testcase classname="StackBlitz vue should be created" name="StackBlitz vue should be created" time="0.002">
+    </testcase>
+    <testcase classname="StackBlitz vue should contain 5 files" name="StackBlitz vue should contain 5 files" time="0.001">
+    </testcase>
+    <testcase classname="StackBlitz vue should have default file" name="StackBlitz vue should have default file" time="0">
+    </testcase>
+    <testcase classname="StackBlitz vue should contain uri files" name="StackBlitz vue should contain uri files" time="0.001">
+    </testcase>
+    <testcase classname="StackBlitz vue should have default index.html" name="StackBlitz vue should have default index.html" time="0.001">
+    </testcase>
+    <testcase classname="StackBlitz vue should have vue tag" name="StackBlitz vue should have vue tag" time="0">
+    </testcase>
+    <testcase classname="StackBlitz vue should have javascript template" name="StackBlitz vue should have javascript template" time="0.001">
+    </testcase>
+  </testsuite>
+  <testsuite name="StackBlitz React" errors="0" failures="0" skipped="0" timestamp="2019-12-06T13:06:57" time="0.177" tests="7">
+    <testcase classname="StackBlitz React should be created" name="StackBlitz React should be created" time="0.001">
+    </testcase>
+    <testcase classname="StackBlitz React should contain 4 files" name="StackBlitz React should contain 4 files" time="0.001">
+    </testcase>
+    <testcase classname="StackBlitz React should have default index file" name="StackBlitz React should have default index file" time="0.001">
+    </testcase>
+    <testcase classname="StackBlitz React should contain uri files" name="StackBlitz React should contain uri files" time="0.001">
+    </testcase>
+    <testcase classname="StackBlitz React should have default index.html" name="StackBlitz React should have default index.html" time="0.001">
+    </testcase>
+    <testcase classname="StackBlitz React should have react tag" name="StackBlitz React should have react tag" time="0.001">
+    </testcase>
+    <testcase classname="StackBlitz React should have create-react-app template" name="StackBlitz React should have create-react-app template" time="0">
+    </testcase>
+  </testsuite>
+  <testsuite name="StackBlitz Lit Element" errors="0" failures="0" skipped="0" timestamp="2019-12-06T13:06:57" time="0.177" tests="6">
+    <testcase classname="StackBlitz Lit Element should be created" name="StackBlitz Lit Element should be created" time="0.001">
+    </testcase>
+    <testcase classname="StackBlitz Lit Element should contain 3 files" name="StackBlitz Lit Element should contain 3 files" time="0.001">
+    </testcase>
+    <testcase classname="StackBlitz Lit Element should contain uri files" name="StackBlitz Lit Element should contain uri files" time="0.001">
+    </testcase>
+    <testcase classname="StackBlitz Lit Element should have default index.js" name="StackBlitz Lit Element should have default index.js" time="0.005">
+    </testcase>
+    <testcase classname="StackBlitz Lit Element should have web component and lit-element tag" name="StackBlitz Lit Element should have web component and lit-element tag" time="0.001">
+    </testcase>
+    <testcase classname="StackBlitz Lit Element should have javascript template" name="StackBlitz Lit Element should have javascript template" time="0.001">
+    </testcase>
+  </testsuite>
+  <testsuite name="StackBlitz Angular" errors="0" failures="0" skipped="0" timestamp="2019-12-06T13:06:57" time="0.172" tests="7">
+    <testcase classname="StackBlitz Angular should be created" name="StackBlitz Angular should be created" time="0.001">
+    </testcase>
+    <testcase classname="StackBlitz Angular should contain 5 files" name="StackBlitz Angular should contain 5 files" time="0.001">
+    </testcase>
+    <testcase classname="StackBlitz Angular should contain a app.component" name="StackBlitz Angular should contain a app.component" time="0.001">
+    </testcase>
+    <testcase classname="StackBlitz Angular should contain uri files" name="StackBlitz Angular should contain uri files" time="0">
+    </testcase>
+    <testcase classname="StackBlitz Angular should have default index.html" name="StackBlitz Angular should have default index.html" time="0.001">
+    </testcase>
+    <testcase classname="StackBlitz Angular should have angular tag" name="StackBlitz Angular should have angular tag" time="0.001">
+    </testcase>
+    <testcase classname="StackBlitz Angular should have angular-cli template" name="StackBlitz Angular should have angular-cli template" time="0">
+    </testcase>
+  </testsuite>
+  <testsuite name="CodeComponent" errors="0" failures="0" skipped="0" timestamp="2019-12-06T13:06:57" time="0.179" tests="1">
+    <testcase classname="CodeComponent should create" name="CodeComponent should create" time="0.017">
+    </testcase>
+  </testsuite>
+  <testsuite name="EditorComponent" errors="0" failures="0" skipped="0" timestamp="2019-12-06T13:06:58" time="1.14" tests="6">
+    <testcase classname="EditorComponent should create the component" name="EditorComponent should create the component" time="0.168">
+    </testcase>
+    <testcase classname="EditorComponent should set zoom in highlight option when zoomed in" name="EditorComponent should set zoom in highlight option when zoomed in" time="0.131">
+    </testcase>
+    <testcase classname="EditorComponent should unset zoom in highlight option when below our on reset level" name="EditorComponent should unset zoom in highlight option when below our on reset level" time="0.115">
+    </testcase>
+    <testcase classname="EditorComponent should set zoom out highlight option when zoomed out" name="EditorComponent should set zoom out highlight option when zoomed out" time="0.104">
+    </testcase>
+    <testcase classname="EditorComponent should unset zoom out highlighting option when above our on reset level" name="EditorComponent should unset zoom out highlighting option when above our on reset level" time="0.102">
+    </testcase>
+    <testcase classname="EditorComponent should unset highlighting options when we are on reset level" name="EditorComponent should unset highlighting options when we are on reset level" time="0.111">
+    </testcase>
+  </testsuite>
+  <testsuite name="PreviewBadgeService" errors="0" failures="0" skipped="0" timestamp="2019-12-06T13:06:59" time="0.171" tests="4">
+    <testcase classname="PreviewBadgeService should set badge to LOCAL PREVIEW when running on a local machine" name="PreviewBadgeService should set badge to LOCAL PREVIEW when running on a local machine" time="0.012">
+    </testcase>
+    <testcase classname="PreviewBadgeService should set badge to MASTER PREVIEW when running on next" name="PreviewBadgeService should set badge to MASTER PREVIEW when running on next" time="0.007">
+    </testcase>
+    <testcase classname="PreviewBadgeService should set badge to PR PREVIEW when running on netlify" name="PreviewBadgeService should set badge to PR PREVIEW when running on netlify" time="0.007">
+    </testcase>
+    <testcase classname="PreviewBadgeService should set badge to BETA when running on any other location" name="PreviewBadgeService should set badge to BETA when running on any other location" time="0.011">
+    </testcase>
+  </testsuite>
+  <testsuite name="InteractiveBgComponent" errors="0" failures="0" skipped="0" timestamp="2019-12-06T13:06:59" time="0.218" tests="1">
+    <testcase classname="InteractiveBgComponent should create" name="InteractiveBgComponent should create" time="0.033">
+    </testcase>
+  </testsuite>
+  <testsuite name="LandingComponent" errors="0" failures="0" skipped="0" timestamp="2019-12-06T13:06:59" time="0.261" tests="1">
+    <testcase classname="LandingComponent should create" name="LandingComponent should create" time="0.07">
+    </testcase>
+  </testsuite>
+  <testsuite name="ShapeService" errors="0" failures="0" skipped="0" timestamp="2019-12-06T13:06:59" time="0.145" tests="4">
+    <testcase classname="ShapeService should create" name="ShapeService should create" time="0.001">
+    </testcase>
+    <testcase classname="ShapeService should recognise rectangle" name="ShapeService should recognise rectangle" time="0.002">
+    </testcase>
+    <testcase classname="ShapeService should recognise line" name="ShapeService should recognise line" time="0.001">
+    </testcase>
+    <testcase classname="ShapeService should recognise circle" name="ShapeService should recognise circle" time="0.001">
+    </testcase>
+  </testsuite>
+  <testsuite name="XamarinFormsCodeGenVisitor" errors="0" failures="0" skipped="0" timestamp="2019-12-06T13:07:00" time="0.145" tests="1">
+    <testcase classname="XamarinFormsCodeGenVisitor should be created" name="XamarinFormsCodeGenVisitor should be created" time="0.012">
+    </testcase>
+  </testsuite>
+  <testsuite name="AngularCodeGenService" errors="0" failures="0" skipped="0" timestamp="2019-12-06T13:07:00" time="0.845" tests="24">
+    <testcase classname="AngularCodeGenService should create" name="AngularCodeGenService should create" time="0.01">
+    </testcase>
+    <testcase classname="AngularCodeGenService should identify a valid class" name="AngularCodeGenService should identify a valid class" time="0.008">
+    </testcase>
+    <testcase classname="AngularCodeGenService should not identify a invalid class" name="AngularCodeGenService should not identify a invalid class" time="0.006">
+    </testcase>
+    <testcase classname="AngularCodeGenService should provide a context" name="AngularCodeGenService should provide a context" time="0.013">
+    </testcase>
+    <testcase classname="AngularCodeGenService should match md-components-buttons-fabs-light.sketch snapshot for 52 on angular" name="AngularCodeGenService should match md-components-buttons-fabs-light.sketch snapshot for 52 on angular" time="0.034">
+    </testcase>
+    <testcase classname="AngularCodeGenService should match md-components-buttons-lights.sketch snapshot for 52 on angular" name="AngularCodeGenService should match md-components-buttons-lights.sketch snapshot for 52 on angular" time="0.017">
+    </testcase>
+    <testcase classname="AngularCodeGenService should match md-components-cards-homes.sketch snapshot for 52 on angular" name="AngularCodeGenService should match md-components-cards-homes.sketch snapshot for 52 on angular" time="0.034">
+    </testcase>
+    <testcase classname="AngularCodeGenService should match md-components-cards-pooch.sketch snapshot for 52 on angular" name="AngularCodeGenService should match md-components-cards-pooch.sketch snapshot for 52 on angular" time="0.017">
+    </testcase>
+    <testcase classname="AngularCodeGenService should match md-components-cards-safari.sketch snapshot for 52 on angular" name="AngularCodeGenService should match md-components-cards-safari.sketch snapshot for 52 on angular" time="0.016">
+    </testcase>
+    <testcase classname="AngularCodeGenService should match md-components-cards-welcome-back.sketch snapshot for 52 on angular" name="AngularCodeGenService should match md-components-cards-welcome-back.sketch snapshot for 52 on angular" time="0.022">
+    </testcase>
+    <testcase classname="AngularCodeGenService should match md-components-chips-open-chip.sketch snapshot for 52 on angular" name="AngularCodeGenService should match md-components-chips-open-chip.sketch snapshot for 52 on angular" time="0.024">
+    </testcase>
+    <testcase classname="AngularCodeGenService should match md-components-date-picker.sketch snapshot for 52 on angular" name="AngularCodeGenService should match md-components-date-picker.sketch snapshot for 52 on angular" time="0.042">
+    </testcase>
+    <testcase classname="AngularCodeGenService should match md-components-notifications-heads-up.sketch snapshot for 52 on angular" name="AngularCodeGenService should match md-components-notifications-heads-up.sketch snapshot for 52 on angular" time="0.028">
+    </testcase>
+    <testcase classname="AngularCodeGenService should match md-components-tabs-status-bar.sketch snapshot for 52 on angular" name="AngularCodeGenService should match md-components-tabs-status-bar.sketch snapshot for 52 on angular" time="0.036">
+    </testcase>
+    <testcase classname="AngularCodeGenService should match md-components-buttons-fabs-light.sketch snapshot for 53 on angular" name="AngularCodeGenService should match md-components-buttons-fabs-light.sketch snapshot for 53 on angular" time="0.017">
+    </testcase>
+    <testcase classname="AngularCodeGenService should match md-components-buttons-lights.sketch snapshot for 53 on angular" name="AngularCodeGenService should match md-components-buttons-lights.sketch snapshot for 53 on angular" time="0.016">
+    </testcase>
+    <testcase classname="AngularCodeGenService should match md-components-cards-homes.sketch snapshot for 53 on angular" name="AngularCodeGenService should match md-components-cards-homes.sketch snapshot for 53 on angular" time="0.016">
+    </testcase>
+    <testcase classname="AngularCodeGenService should match md-components-cards-pooch.sketch snapshot for 53 on angular" name="AngularCodeGenService should match md-components-cards-pooch.sketch snapshot for 53 on angular" time="0.014">
+    </testcase>
+    <testcase classname="AngularCodeGenService should match md-components-cards-safari.sketch snapshot for 53 on angular" name="AngularCodeGenService should match md-components-cards-safari.sketch snapshot for 53 on angular" time="0.019">
+    </testcase>
+    <testcase classname="AngularCodeGenService should match md-components-cards-welcome-back.sketch snapshot for 53 on angular" name="AngularCodeGenService should match md-components-cards-welcome-back.sketch snapshot for 53 on angular" time="0.015">
+    </testcase>
+    <testcase classname="AngularCodeGenService should match md-components-chips-open-chip.sketch snapshot for 53 on angular" name="AngularCodeGenService should match md-components-chips-open-chip.sketch snapshot for 53 on angular" time="0.017">
+    </testcase>
+    <testcase classname="AngularCodeGenService should match md-components-date-picker.sketch snapshot for 53 on angular" name="AngularCodeGenService should match md-components-date-picker.sketch snapshot for 53 on angular" time="0.031">
+    </testcase>
+    <testcase classname="AngularCodeGenService should match md-components-notifications-heads-up.sketch snapshot for 53 on angular" name="AngularCodeGenService should match md-components-notifications-heads-up.sketch snapshot for 53 on angular" time="0.017">
+    </testcase>
+    <testcase classname="AngularCodeGenService should match md-components-tabs-status-bar.sketch snapshot for 53 on angular" name="AngularCodeGenService should match md-components-tabs-status-bar.sketch snapshot for 53 on angular" time="0.033">
+    </testcase>
+  </testsuite>
+  <testsuite name="AngularAggregatorService" errors="0" failures="0" skipped="0" timestamp="2019-12-06T13:07:01" time="0.16" tests="2">
+    <testcase classname="AngularAggregatorService should create" name="AngularAggregatorService should create" time="0.013">
+    </testcase>
+    <testcase classname="AngularAggregatorService should have three files for a basic angular component" name="AngularAggregatorService should have three files for a basic angular component" time="0.011">
+    </testcase>
+  </testsuite>
+  <testsuite name="AngularDocGenService" errors="0" failures="0" skipped="0" timestamp="2019-12-06T13:07:01" time="0.144" tests="2">
+    <testcase classname="AngularDocGenService should create" name="AngularDocGenService should create" time="0.011">
+    </testcase>
+    <testcase classname="AngularDocGenService should have all the correct properties" name="AngularDocGenService should have all the correct properties" time="0.007">
+    </testcase>
+  </testsuite>
+  <testsuite name="WebComponentAggregatorService" errors="0" failures="0" skipped="0" timestamp="2019-12-06T13:07:01" time="0.155" tests="2">
+    <testcase classname="WebComponentAggregatorService should create" name="WebComponentAggregatorService should create" time="0.011">
+    </testcase>
+    <testcase classname="WebComponentAggregatorService should have three files for a basic web components component" name="WebComponentAggregatorService should have three files for a basic web components component" time="0.007">
+    </testcase>
+  </testsuite>
+  <testsuite name="WebComponentDocGenService" errors="0" failures="0" skipped="0" timestamp="2019-12-06T13:07:01" time="0.148" tests="2">
+    <testcase classname="WebComponentDocGenService should create" name="WebComponentDocGenService should create" time="0.01">
+    </testcase>
+    <testcase classname="WebComponentDocGenService should have all the correct properties" name="WebComponentDocGenService should have all the correct properties" time="0.007">
+    </testcase>
+  </testsuite>
+  <testsuite name="WebComponentCodeGenService" errors="0" failures="0" skipped="0" timestamp="2019-12-06T13:07:01" time="0.672" tests="24">
+    <testcase classname="WebComponentCodeGenService should create" name="WebComponentCodeGenService should create" time="0.011">
+    </testcase>
+    <testcase classname="WebComponentCodeGenService should identify a valid class" name="WebComponentCodeGenService should identify a valid class" time="0.008">
+    </testcase>
+    <testcase classname="WebComponentCodeGenService should not identify a invalid class" name="WebComponentCodeGenService should not identify a invalid class" time="0.006">
+    </testcase>
+    <testcase classname="WebComponentCodeGenService should provide a context" name="WebComponentCodeGenService should provide a context" time="0.017">
+    </testcase>
+    <testcase classname="WebComponentCodeGenService should match md-components-buttons-fabs-light.sketch snapshot for 52 on wc" name="WebComponentCodeGenService should match md-components-buttons-fabs-light.sketch snapshot for 52 on wc" time="0.024">
+    </testcase>
+    <testcase classname="WebComponentCodeGenService should match md-components-buttons-lights.sketch snapshot for 52 on wc" name="WebComponentCodeGenService should match md-components-buttons-lights.sketch snapshot for 52 on wc" time="0.017">
+    </testcase>
+    <testcase classname="WebComponentCodeGenService should match md-components-cards-homes.sketch snapshot for 52 on wc" name="WebComponentCodeGenService should match md-components-cards-homes.sketch snapshot for 52 on wc" time="0.034">
+    </testcase>
+    <testcase classname="WebComponentCodeGenService should match md-components-cards-pooch.sketch snapshot for 52 on wc" name="WebComponentCodeGenService should match md-components-cards-pooch.sketch snapshot for 52 on wc" time="0.016">
+    </testcase>
+    <testcase classname="WebComponentCodeGenService should match md-components-cards-safari.sketch snapshot for 52 on wc" name="WebComponentCodeGenService should match md-components-cards-safari.sketch snapshot for 52 on wc" time="0.016">
+    </testcase>
+    <testcase classname="WebComponentCodeGenService should match md-components-cards-welcome-back.sketch snapshot for 52 on wc" name="WebComponentCodeGenService should match md-components-cards-welcome-back.sketch snapshot for 52 on wc" time="0.022">
+    </testcase>
+    <testcase classname="WebComponentCodeGenService should match md-components-chips-open-chip.sketch snapshot for 52 on wc" name="WebComponentCodeGenService should match md-components-chips-open-chip.sketch snapshot for 52 on wc" time="0.023">
+    </testcase>
+    <testcase classname="WebComponentCodeGenService should match md-components-date-picker.sketch snapshot for 52 on wc" name="WebComponentCodeGenService should match md-components-date-picker.sketch snapshot for 52 on wc" time="0.037">
+    </testcase>
+    <testcase classname="WebComponentCodeGenService should match md-components-notifications-heads-up.sketch snapshot for 52 on wc" name="WebComponentCodeGenService should match md-components-notifications-heads-up.sketch snapshot for 52 on wc" time="0.024">
+    </testcase>
+    <testcase classname="WebComponentCodeGenService should match md-components-tabs-status-bar.sketch snapshot for 52 on wc" name="WebComponentCodeGenService should match md-components-tabs-status-bar.sketch snapshot for 52 on wc" time="0.031">
+    </testcase>
+    <testcase classname="WebComponentCodeGenService should match md-components-buttons-fabs-light.sketch snapshot for 53 on wc" name="WebComponentCodeGenService should match md-components-buttons-fabs-light.sketch snapshot for 53 on wc" time="0.018">
+    </testcase>
+    <testcase classname="WebComponentCodeGenService should match md-components-buttons-lights.sketch snapshot for 53 on wc" name="WebComponentCodeGenService should match md-components-buttons-lights.sketch snapshot for 53 on wc" time="0.013">
+    </testcase>
+    <testcase classname="WebComponentCodeGenService should match md-components-cards-homes.sketch snapshot for 53 on wc" name="WebComponentCodeGenService should match md-components-cards-homes.sketch snapshot for 53 on wc" time="0.021">
+    </testcase>
+    <testcase classname="WebComponentCodeGenService should match md-components-cards-pooch.sketch snapshot for 53 on wc" name="WebComponentCodeGenService should match md-components-cards-pooch.sketch snapshot for 53 on wc" time="0.014">
+    </testcase>
+    <testcase classname="WebComponentCodeGenService should match md-components-cards-safari.sketch snapshot for 53 on wc" name="WebComponentCodeGenService should match md-components-cards-safari.sketch snapshot for 53 on wc" time="0.022">
+    </testcase>
+    <testcase classname="WebComponentCodeGenService should match md-components-cards-welcome-back.sketch snapshot for 53 on wc" name="WebComponentCodeGenService should match md-components-cards-welcome-back.sketch snapshot for 53 on wc" time="0.016">
+    </testcase>
+    <testcase classname="WebComponentCodeGenService should match md-components-chips-open-chip.sketch snapshot for 53 on wc" name="WebComponentCodeGenService should match md-components-chips-open-chip.sketch snapshot for 53 on wc" time="0.02">
+    </testcase>
+    <testcase classname="WebComponentCodeGenService should match md-components-date-picker.sketch snapshot for 53 on wc" name="WebComponentCodeGenService should match md-components-date-picker.sketch snapshot for 53 on wc" time="0.034">
+    </testcase>
+    <testcase classname="WebComponentCodeGenService should match md-components-notifications-heads-up.sketch snapshot for 53 on wc" name="WebComponentCodeGenService should match md-components-notifications-heads-up.sketch snapshot for 53 on wc" time="0.017">
+    </testcase>
+    <testcase classname="WebComponentCodeGenService should match md-components-tabs-status-bar.sketch snapshot for 53 on wc" name="WebComponentCodeGenService should match md-components-tabs-status-bar.sketch snapshot for 53 on wc" time="0.034">
+    </testcase>
+  </testsuite>
+  <testsuite name="StencilCodeGenService" errors="0" failures="0" skipped="0" timestamp="2019-12-06T13:07:02" time="0.651" tests="24">
+    <testcase classname="StencilCodeGenService should create" name="StencilCodeGenService should create" time="0.012">
+    </testcase>
+    <testcase classname="StencilCodeGenService should identify a valid class" name="StencilCodeGenService should identify a valid class" time="0.007">
+    </testcase>
+    <testcase classname="StencilCodeGenService should not identify a invalid class" name="StencilCodeGenService should not identify a invalid class" time="0.007">
+    </testcase>
+    <testcase classname="StencilCodeGenService should provide a context" name="StencilCodeGenService should provide a context" time="0.005">
+    </testcase>
+    <testcase classname="StencilCodeGenService should match md-components-buttons-fabs-light.sketch snapshot for 52 on stencil" name="StencilCodeGenService should match md-components-buttons-fabs-light.sketch snapshot for 52 on stencil" time="0.03">
+    </testcase>
+    <testcase classname="StencilCodeGenService should match md-components-buttons-lights.sketch snapshot for 52 on stencil" name="StencilCodeGenService should match md-components-buttons-lights.sketch snapshot for 52 on stencil" time="0.015">
+    </testcase>
+    <testcase classname="StencilCodeGenService should match md-components-cards-homes.sketch snapshot for 52 on stencil" name="StencilCodeGenService should match md-components-cards-homes.sketch snapshot for 52 on stencil" time="0.034">
+    </testcase>
+    <testcase classname="StencilCodeGenService should match md-components-cards-pooch.sketch snapshot for 52 on stencil" name="StencilCodeGenService should match md-components-cards-pooch.sketch snapshot for 52 on stencil" time="0.018">
+    </testcase>
+    <testcase classname="StencilCodeGenService should match md-components-cards-safari.sketch snapshot for 52 on stencil" name="StencilCodeGenService should match md-components-cards-safari.sketch snapshot for 52 on stencil" time="0.017">
+    </testcase>
+    <testcase classname="StencilCodeGenService should match md-components-cards-welcome-back.sketch snapshot for 52 on stencil" name="StencilCodeGenService should match md-components-cards-welcome-back.sketch snapshot for 52 on stencil" time="0.019">
+    </testcase>
+    <testcase classname="StencilCodeGenService should match md-components-chips-open-chip.sketch snapshot for 52 on stencil" name="StencilCodeGenService should match md-components-chips-open-chip.sketch snapshot for 52 on stencil" time="0.024">
+    </testcase>
+    <testcase classname="StencilCodeGenService should match md-components-date-picker.sketch snapshot for 52 on stencil" name="StencilCodeGenService should match md-components-date-picker.sketch snapshot for 52 on stencil" time="0.038">
+    </testcase>
+    <testcase classname="StencilCodeGenService should match md-components-notifications-heads-up.sketch snapshot for 52 on stencil" name="StencilCodeGenService should match md-components-notifications-heads-up.sketch snapshot for 52 on stencil" time="0.025">
+    </testcase>
+    <testcase classname="StencilCodeGenService should match md-components-tabs-status-bar.sketch snapshot for 52 on stencil" name="StencilCodeGenService should match md-components-tabs-status-bar.sketch snapshot for 52 on stencil" time="0.032">
+    </testcase>
+    <testcase classname="StencilCodeGenService should match md-components-buttons-fabs-light.sketch snapshot for 53 on stencil" name="StencilCodeGenService should match md-components-buttons-fabs-light.sketch snapshot for 53 on stencil" time="0.011">
+    </testcase>
+    <testcase classname="StencilCodeGenService should match md-components-buttons-lights.sketch snapshot for 53 on stencil" name="StencilCodeGenService should match md-components-buttons-lights.sketch snapshot for 53 on stencil" time="0.021">
+    </testcase>
+    <testcase classname="StencilCodeGenService should match md-components-cards-homes.sketch snapshot for 53 on stencil" name="StencilCodeGenService should match md-components-cards-homes.sketch snapshot for 53 on stencil" time="0.015">
+    </testcase>
+    <testcase classname="StencilCodeGenService should match md-components-cards-pooch.sketch snapshot for 53 on stencil" name="StencilCodeGenService should match md-components-cards-pooch.sketch snapshot for 53 on stencil" time="0.014">
+    </testcase>
+    <testcase classname="StencilCodeGenService should match md-components-cards-safari.sketch snapshot for 53 on stencil" name="StencilCodeGenService should match md-components-cards-safari.sketch snapshot for 53 on stencil" time="0.02">
+    </testcase>
+    <testcase classname="StencilCodeGenService should match md-components-cards-welcome-back.sketch snapshot for 53 on stencil" name="StencilCodeGenService should match md-components-cards-welcome-back.sketch snapshot for 53 on stencil" time="0.015">
+    </testcase>
+    <testcase classname="StencilCodeGenService should match md-components-chips-open-chip.sketch snapshot for 53 on stencil" name="StencilCodeGenService should match md-components-chips-open-chip.sketch snapshot for 53 on stencil" time="0.017">
+    </testcase>
+    <testcase classname="StencilCodeGenService should match md-components-date-picker.sketch snapshot for 53 on stencil" name="StencilCodeGenService should match md-components-date-picker.sketch snapshot for 53 on stencil" time="0.033">
+    </testcase>
+    <testcase classname="StencilCodeGenService should match md-components-notifications-heads-up.sketch snapshot for 53 on stencil" name="StencilCodeGenService should match md-components-notifications-heads-up.sketch snapshot for 53 on stencil" time="0.015">
+    </testcase>
+    <testcase classname="StencilCodeGenService should match md-components-tabs-status-bar.sketch snapshot for 53 on stencil" name="StencilCodeGenService should match md-components-tabs-status-bar.sketch snapshot for 53 on stencil" time="0.033">
+    </testcase>
+  </testsuite>
+  <testsuite name="StencilDocGenService" errors="0" failures="0" skipped="0" timestamp="2019-12-06T13:07:02" time="0.14" tests="2">
+    <testcase classname="StencilDocGenService should create" name="StencilDocGenService should create" time="0.011">
+    </testcase>
+    <testcase classname="StencilDocGenService should have all the correct properties" name="StencilDocGenService should have all the correct properties" time="0.006">
+    </testcase>
+  </testsuite>
+  <testsuite name="StencilAggregatorService" errors="0" failures="0" skipped="0" timestamp="2019-12-06T13:07:03" time="0.16" tests="2">
+    <testcase classname="StencilAggregatorService should create" name="StencilAggregatorService should create" time="0.01">
+    </testcase>
+    <testcase classname="StencilAggregatorService should have three files for a basic stencil component" name="StencilAggregatorService should have three files for a basic stencil component" time="0.015">
+    </testcase>
+  </testsuite>
+  <testsuite name="ShapeService" errors="0" failures="0" skipped="0" timestamp="2019-12-06T13:07:03" time="0.145" tests="2">
+    <testcase classname="ShapeService should create" name="ShapeService should create" time="0.01">
+    </testcase>
+    <testcase classname="ShapeService should handle points to x y numbers" name="ShapeService should handle points to x y numbers" time="0.013">
+    </testcase>
+  </testsuite>
+  <testsuite name="LayerService" errors="0" failures="0" skipped="0" timestamp="2019-12-06T13:07:03" time="0.149" tests="3">
+    <testcase classname="LayerService should create" name="LayerService should create" time="0.01">
+    </testcase>
+    <testcase classname="LayerService should identify sketch layers" name="LayerService should identify sketch layers" time="0.006">
+    </testcase>
+    <testcase classname="LayerService should return the current layer" name="LayerService should return the current layer" time="0.013">
+    </testcase>
+  </testsuite>
+  <testsuite name="ImageService" errors="0" failures="0" skipped="0" timestamp="2019-12-06T13:07:03" time="0.182" tests="4">
+    <testcase classname="ImageService should create" name="ImageService should create" time="0.019">
+    </testcase>
+    <testcase classname="ImageService should identify a sketch class as bitmap" name="ImageService should identify a sketch class as bitmap" time="0.007">
+    </testcase>
+    <testcase classname="ImageService should look for the image ref" name="ImageService should look for the image ref" time="0.007">
+    </testcase>
+    <testcase classname="ImageService should aggragate the data based on the layer" name="ImageService should aggragate the data based on the layer" time="0.006">
+    </testcase>
+  </testsuite>
+  <testsuite name="SymbolService" errors="0" failures="0" skipped="0" timestamp="2019-12-06T13:07:03" time="0.165" tests="4">
+    <testcase classname="SymbolService should create" name="SymbolService should create" time="0.01">
+    </testcase>
+    <testcase classname="SymbolService should identify current layer as a symbol" name="SymbolService should identify current layer as a symbol" time="0.006">
+    </testcase>
+    <testcase classname="SymbolService should look for the symbol" name="SymbolService should look for the symbol" time="0.007">
+    </testcase>
+    <testcase classname="SymbolService should not find the symbol with incorrect ref" name="SymbolService should not find the symbol with incorrect ref" time="0.006">
+    </testcase>
+  </testsuite>
+  <testsuite name="StyleService" errors="0" failures="0" skipped="0" timestamp="2019-12-06T13:07:03" time="0.17" tests="4">
+    <testcase classname="StyleService should create" name="StyleService should create" time="0.01">
+    </testcase>
+    <testcase classname="StyleService should return parse colors" name="StyleService should return parse colors" time="0.007">
+    </testcase>
+    <testcase classname="StyleService should parse color as rgb" name="StyleService should parse color as rgb" time="0.007">
+    </testcase>
+    <testcase classname="StyleService should parse color as hex" name="StyleService should parse color as hex" time="0.013">
+    </testcase>
+  </testsuite>
+  <testsuite name="TextService" errors="0" failures="0" skipped="0" timestamp="2019-12-06T13:07:04" time="0.157" tests="3">
+    <testcase classname="TextService should create" name="TextService should create" time="0.01">
+    </testcase>
+    <testcase classname="TextService should identify current layer as text" name="TextService should identify current layer as text" time="0.007">
+    </testcase>
+    <testcase classname="TextService should provide the attribute string" name="TextService should provide the attribute string" time="0.013">
+    </testcase>
+  </testsuite>
+  <testsuite name="FormatService" errors="0" failures="0" skipped="0" timestamp="2019-12-06T13:07:04" time="0.198" tests="5">
+    <testcase classname="FormatService should create" name="FormatService should create" time="0.018">
+    </testcase>
+    <testcase classname="FormatService should intdent by double spaces" name="FormatService should intdent by double spaces" time="0.008">
+    </testcase>
+    <testcase classname="FormatService should intdent for a file" name="FormatService should intdent for a file" time="0.009">
+    </testcase>
+    <testcase classname="FormatService should normalize a class name" name="FormatService should normalize a class name" time="0.011">
+    </testcase>
+    <testcase classname="FormatService should convert to pascalCase for a class name" name="FormatService should convert to pascalCase for a class name" time="0.006">
+    </testcase>
+  </testsuite>
+  <testsuite name="ReactDocGenService" errors="0" failures="0" skipped="0" timestamp="2019-12-06T13:07:04" time="0.166" tests="2">
+    <testcase classname="ReactDocGenService should create" name="ReactDocGenService should create" time="0.01">
+    </testcase>
+    <testcase classname="ReactDocGenService should have all the correct properties" name="ReactDocGenService should have all the correct properties" time="0.007">
+    </testcase>
+  </testsuite>
+  <testsuite name="LitElementCodeGenService" errors="0" failures="0" skipped="0" timestamp="2019-12-06T13:07:04" time="0.75" tests="24">
+    <testcase classname="LitElementCodeGenService should create" name="LitElementCodeGenService should create" time="0.01">
+    </testcase>
+    <testcase classname="LitElementCodeGenService should identify a valid class" name="LitElementCodeGenService should identify a valid class" time="0.015">
+    </testcase>
+    <testcase classname="LitElementCodeGenService should not identify a invalid class" name="LitElementCodeGenService should not identify a invalid class" time="0.006">
+    </testcase>
+    <testcase classname="LitElementCodeGenService should provide a context" name="LitElementCodeGenService should provide a context" time="0.007">
+    </testcase>
+    <testcase classname="LitElementCodeGenService should match md-components-buttons-fabs-light.sketch snapshot for 52 on lit-element" name="LitElementCodeGenService should match md-components-buttons-fabs-light.sketch snapshot for 52 on lit-element" time="0.023">
+    </testcase>
+    <testcase classname="LitElementCodeGenService should match md-components-buttons-lights.sketch snapshot for 52 on lit-element" name="LitElementCodeGenService should match md-components-buttons-lights.sketch snapshot for 52 on lit-element" time="0.024">
+    </testcase>
+    <testcase classname="LitElementCodeGenService should match md-components-cards-homes.sketch snapshot for 52 on lit-element" name="LitElementCodeGenService should match md-components-cards-homes.sketch snapshot for 52 on lit-element" time="0.028">
+    </testcase>
+    <testcase classname="LitElementCodeGenService should match md-components-cards-pooch.sketch snapshot for 52 on lit-element" name="LitElementCodeGenService should match md-components-cards-pooch.sketch snapshot for 52 on lit-element" time="0.017">
+    </testcase>
+    <testcase classname="LitElementCodeGenService should match md-components-cards-safari.sketch snapshot for 52 on lit-element" name="LitElementCodeGenService should match md-components-cards-safari.sketch snapshot for 52 on lit-element" time="0.031">
+    </testcase>
+    <testcase classname="LitElementCodeGenService should match md-components-cards-welcome-back.sketch snapshot for 52 on lit-element" name="LitElementCodeGenService should match md-components-cards-welcome-back.sketch snapshot for 52 on lit-element" time="0.021">
+    </testcase>
+    <testcase classname="LitElementCodeGenService should match md-components-chips-open-chip.sketch snapshot for 52 on lit-element" name="LitElementCodeGenService should match md-components-chips-open-chip.sketch snapshot for 52 on lit-element" time="0.021">
+    </testcase>
+    <testcase classname="LitElementCodeGenService should match md-components-date-picker.sketch snapshot for 52 on lit-element" name="LitElementCodeGenService should match md-components-date-picker.sketch snapshot for 52 on lit-element" time="0.053">
+    </testcase>
+    <testcase classname="LitElementCodeGenService should match md-components-notifications-heads-up.sketch snapshot for 52 on lit-element" name="LitElementCodeGenService should match md-components-notifications-heads-up.sketch snapshot for 52 on lit-element" time="0.019">
+    </testcase>
+    <testcase classname="LitElementCodeGenService should match md-components-tabs-status-bar.sketch snapshot for 52 on lit-element" name="LitElementCodeGenService should match md-components-tabs-status-bar.sketch snapshot for 52 on lit-element" time="0.042">
+    </testcase>
+    <testcase classname="LitElementCodeGenService should match md-components-buttons-fabs-light.sketch snapshot for 53 on lit-element" name="LitElementCodeGenService should match md-components-buttons-fabs-light.sketch snapshot for 53 on lit-element" time="0.018">
+    </testcase>
+    <testcase classname="LitElementCodeGenService should match md-components-buttons-lights.sketch snapshot for 53 on lit-element" name="LitElementCodeGenService should match md-components-buttons-lights.sketch snapshot for 53 on lit-element" time="0.016">
+    </testcase>
+    <testcase classname="LitElementCodeGenService should match md-components-cards-homes.sketch snapshot for 53 on lit-element" name="LitElementCodeGenService should match md-components-cards-homes.sketch snapshot for 53 on lit-element" time="0.025">
+    </testcase>
+    <testcase classname="LitElementCodeGenService should match md-components-cards-pooch.sketch snapshot for 53 on lit-element" name="LitElementCodeGenService should match md-components-cards-pooch.sketch snapshot for 53 on lit-element" time="0.025">
+    </testcase>
+    <testcase classname="LitElementCodeGenService should match md-components-cards-safari.sketch snapshot for 53 on lit-element" name="LitElementCodeGenService should match md-components-cards-safari.sketch snapshot for 53 on lit-element" time="0.019">
+    </testcase>
+    <testcase classname="LitElementCodeGenService should match md-components-cards-welcome-back.sketch snapshot for 53 on lit-element" name="LitElementCodeGenService should match md-components-cards-welcome-back.sketch snapshot for 53 on lit-element" time="0.015">
+    </testcase>
+    <testcase classname="LitElementCodeGenService should match md-components-chips-open-chip.sketch snapshot for 53 on lit-element" name="LitElementCodeGenService should match md-components-chips-open-chip.sketch snapshot for 53 on lit-element" time="0.023">
+    </testcase>
+    <testcase classname="LitElementCodeGenService should match md-components-date-picker.sketch snapshot for 53 on lit-element" name="LitElementCodeGenService should match md-components-date-picker.sketch snapshot for 53 on lit-element" time="0.031">
+    </testcase>
+    <testcase classname="LitElementCodeGenService should match md-components-notifications-heads-up.sketch snapshot for 53 on lit-element" name="LitElementCodeGenService should match md-components-notifications-heads-up.sketch snapshot for 53 on lit-element" time="0.029">
+    </testcase>
+    <testcase classname="LitElementCodeGenService should match md-components-tabs-status-bar.sketch snapshot for 53 on lit-element" name="LitElementCodeGenService should match md-components-tabs-status-bar.sketch snapshot for 53 on lit-element" time="0.033">
+    </testcase>
+  </testsuite>
+  <testsuite name="ReactCodeGenService" errors="0" failures="0" skipped="0" timestamp="2019-12-06T13:07:05" time="0.197" tests="2">
+    <testcase classname="ReactCodeGenService should create" name="ReactCodeGenService should create" time="0.011">
+    </testcase>
+    <testcase classname="ReactCodeGenService should have one file for a basic lit element component" name="ReactCodeGenService should have one file for a basic lit element component" time="0.009">
+    </testcase>
+  </testsuite>
+  <testsuite name="ReactCodeGenService" errors="0" failures="0" skipped="0" timestamp="2019-12-06T13:07:05" time="0.17" tests="2">
+    <testcase classname="ReactCodeGenService should create" name="ReactCodeGenService should create" time="0.012">
+    </testcase>
+    <testcase classname="ReactCodeGenService should have three files for a basic react component" name="ReactCodeGenService should have three files for a basic react component" time="0.01">
+    </testcase>
+  </testsuite>
+  <testsuite name="ReactCodeGenService" errors="0" failures="0" skipped="0" timestamp="2019-12-06T13:07:05" time="0.681" tests="24">
+    <testcase classname="ReactCodeGenService should create" name="ReactCodeGenService should create" time="0.019">
+    </testcase>
+    <testcase classname="ReactCodeGenService should identify a valid class" name="ReactCodeGenService should identify a valid class" time="0.007">
+    </testcase>
+    <testcase classname="ReactCodeGenService should not identify a invalid class" name="ReactCodeGenService should not identify a invalid class" time="0.006">
+    </testcase>
+    <testcase classname="ReactCodeGenService should provide a context" name="ReactCodeGenService should provide a context" time="0.007">
+    </testcase>
+    <testcase classname="ReactCodeGenService should match md-components-buttons-fabs-light.sketch snapshot for 52 on react" name="ReactCodeGenService should match md-components-buttons-fabs-light.sketch snapshot for 52 on react" time="0.021">
+    </testcase>
+    <testcase classname="ReactCodeGenService should match md-components-buttons-lights.sketch snapshot for 52 on react" name="ReactCodeGenService should match md-components-buttons-lights.sketch snapshot for 52 on react" time="0.022">
+    </testcase>
+    <testcase classname="ReactCodeGenService should match md-components-cards-homes.sketch snapshot for 52 on react" name="ReactCodeGenService should match md-components-cards-homes.sketch snapshot for 52 on react" time="0.027">
+    </testcase>
+    <testcase classname="ReactCodeGenService should match md-components-cards-pooch.sketch snapshot for 52 on react" name="ReactCodeGenService should match md-components-cards-pooch.sketch snapshot for 52 on react" time="0.017">
+    </testcase>
+    <testcase classname="ReactCodeGenService should match md-components-cards-safari.sketch snapshot for 52 on react" name="ReactCodeGenService should match md-components-cards-safari.sketch snapshot for 52 on react" time="0.029">
+    </testcase>
+    <testcase classname="ReactCodeGenService should match md-components-cards-welcome-back.sketch snapshot for 52 on react" name="ReactCodeGenService should match md-components-cards-welcome-back.sketch snapshot for 52 on react" time="0.018">
+    </testcase>
+    <testcase classname="ReactCodeGenService should match md-components-chips-open-chip.sketch snapshot for 52 on react" name="ReactCodeGenService should match md-components-chips-open-chip.sketch snapshot for 52 on react" time="0.022">
+    </testcase>
+    <testcase classname="ReactCodeGenService should match md-components-date-picker.sketch snapshot for 52 on react" name="ReactCodeGenService should match md-components-date-picker.sketch snapshot for 52 on react" time="0.048">
+    </testcase>
+    <testcase classname="ReactCodeGenService should match md-components-notifications-heads-up.sketch snapshot for 52 on react" name="ReactCodeGenService should match md-components-notifications-heads-up.sketch snapshot for 52 on react" time="0.016">
+    </testcase>
+    <testcase classname="ReactCodeGenService should match md-components-tabs-status-bar.sketch snapshot for 52 on react" name="ReactCodeGenService should match md-components-tabs-status-bar.sketch snapshot for 52 on react" time="0.037">
+    </testcase>
+    <testcase classname="ReactCodeGenService should match md-components-buttons-fabs-light.sketch snapshot for 53 on react" name="ReactCodeGenService should match md-components-buttons-fabs-light.sketch snapshot for 53 on react" time="0.011">
+    </testcase>
+    <testcase classname="ReactCodeGenService should match md-components-buttons-lights.sketch snapshot for 53 on react" name="ReactCodeGenService should match md-components-buttons-lights.sketch snapshot for 53 on react" time="0.015">
+    </testcase>
+    <testcase classname="ReactCodeGenService should match md-components-cards-homes.sketch snapshot for 53 on react" name="ReactCodeGenService should match md-components-cards-homes.sketch snapshot for 53 on react" time="0.023">
+    </testcase>
+    <testcase classname="ReactCodeGenService should match md-components-cards-pooch.sketch snapshot for 53 on react" name="ReactCodeGenService should match md-components-cards-pooch.sketch snapshot for 53 on react" time="0.015">
+    </testcase>
+    <testcase classname="ReactCodeGenService should match md-components-cards-safari.sketch snapshot for 53 on react" name="ReactCodeGenService should match md-components-cards-safari.sketch snapshot for 53 on react" time="0.015">
+    </testcase>
+    <testcase classname="ReactCodeGenService should match md-components-cards-welcome-back.sketch snapshot for 53 on react" name="ReactCodeGenService should match md-components-cards-welcome-back.sketch snapshot for 53 on react" time="0.014">
+    </testcase>
+    <testcase classname="ReactCodeGenService should match md-components-chips-open-chip.sketch snapshot for 53 on react" name="ReactCodeGenService should match md-components-chips-open-chip.sketch snapshot for 53 on react" time="0.02">
+    </testcase>
+    <testcase classname="ReactCodeGenService should match md-components-date-picker.sketch snapshot for 53 on react" name="ReactCodeGenService should match md-components-date-picker.sketch snapshot for 53 on react" time="0.029">
+    </testcase>
+    <testcase classname="ReactCodeGenService should match md-components-notifications-heads-up.sketch snapshot for 53 on react" name="ReactCodeGenService should match md-components-notifications-heads-up.sketch snapshot for 53 on react" time="0.023">
+    </testcase>
+    <testcase classname="ReactCodeGenService should match md-components-tabs-status-bar.sketch snapshot for 53 on react" name="ReactCodeGenService should match md-components-tabs-status-bar.sketch snapshot for 53 on react" time="0.03">
+    </testcase>
+  </testsuite>
+  <testsuite name="ReactDocGenService" errors="0" failures="0" skipped="0" timestamp="2019-12-06T13:07:06" time="0.15" tests="2">
+    <testcase classname="ReactDocGenService should create" name="ReactDocGenService should create" time="0.011">
+    </testcase>
+    <testcase classname="ReactDocGenService should have all the correct properties" name="ReactDocGenService should have all the correct properties" time="0.007">
+    </testcase>
+  </testsuite>
+  <testsuite name="SvgAggregatorService" errors="0" failures="0" skipped="0" timestamp="2019-12-06T13:07:06" time="0.167" tests="2">
+    <testcase classname="SvgAggregatorService should create" name="SvgAggregatorService should create" time="0.01">
+    </testcase>
+    <testcase classname="SvgAggregatorService should have three files for a basic svg component" name="SvgAggregatorService should have three files for a basic svg component" time="0.009">
+    </testcase>
+  </testsuite>
+  <testsuite name="SvgCodeGenService" errors="0" failures="0" skipped="0" timestamp="2019-12-06T13:07:06" time="0.81" tests="24">
+    <testcase classname="SvgCodeGenService should create" name="SvgCodeGenService should create" time="0.014">
+    </testcase>
+    <testcase classname="SvgCodeGenService should identify a valid class" name="SvgCodeGenService should identify a valid class" time="0.016">
+    </testcase>
+    <testcase classname="SvgCodeGenService should not identify a invalid class" name="SvgCodeGenService should not identify a invalid class" time="0.008">
+    </testcase>
+    <testcase classname="SvgCodeGenService should provide a context" name="SvgCodeGenService should provide a context" time="0.006">
+    </testcase>
+    <testcase classname="SvgCodeGenService should match md-components-buttons-fabs-light.sketch snapshot for 52 on svg" name="SvgCodeGenService should match md-components-buttons-fabs-light.sketch snapshot for 52 on svg" time="0.029">
+    </testcase>
+    <testcase classname="SvgCodeGenService should match md-components-buttons-lights.sketch snapshot for 52 on svg" name="SvgCodeGenService should match md-components-buttons-lights.sketch snapshot for 52 on svg" time="0.025">
+    </testcase>
+    <testcase classname="SvgCodeGenService should match md-components-cards-homes.sketch snapshot for 52 on svg" name="SvgCodeGenService should match md-components-cards-homes.sketch snapshot for 52 on svg" time="0.035">
+    </testcase>
+    <testcase classname="SvgCodeGenService should match md-components-cards-pooch.sketch snapshot for 52 on svg" name="SvgCodeGenService should match md-components-cards-pooch.sketch snapshot for 52 on svg" time="0.02">
+    </testcase>
+    <testcase classname="SvgCodeGenService should match md-components-cards-safari.sketch snapshot for 52 on svg" name="SvgCodeGenService should match md-components-cards-safari.sketch snapshot for 52 on svg" time="0.025">
+    </testcase>
+    <testcase classname="SvgCodeGenService should match md-components-cards-welcome-back.sketch snapshot for 52 on svg" name="SvgCodeGenService should match md-components-cards-welcome-back.sketch snapshot for 52 on svg" time="0.027">
+    </testcase>
+    <testcase classname="SvgCodeGenService should match md-components-chips-open-chip.sketch snapshot for 52 on svg" name="SvgCodeGenService should match md-components-chips-open-chip.sketch snapshot for 52 on svg" time="0.023">
+    </testcase>
+    <testcase classname="SvgCodeGenService should match md-components-date-picker.sketch snapshot for 52 on svg" name="SvgCodeGenService should match md-components-date-picker.sketch snapshot for 52 on svg" time="0.054">
+    </testcase>
+    <testcase classname="SvgCodeGenService should match md-components-notifications-heads-up.sketch snapshot for 52 on svg" name="SvgCodeGenService should match md-components-notifications-heads-up.sketch snapshot for 52 on svg" time="0.029">
+    </testcase>
+    <testcase classname="SvgCodeGenService should match md-components-tabs-status-bar.sketch snapshot for 52 on svg" name="SvgCodeGenService should match md-components-tabs-status-bar.sketch snapshot for 52 on svg" time="0.052">
+    </testcase>
+    <testcase classname="SvgCodeGenService should match md-components-buttons-fabs-light.sketch snapshot for 53 on svg" name="SvgCodeGenService should match md-components-buttons-fabs-light.sketch snapshot for 53 on svg" time="0.031">
+    </testcase>
+    <testcase classname="SvgCodeGenService should match md-components-buttons-lights.sketch snapshot for 53 on svg" name="SvgCodeGenService should match md-components-buttons-lights.sketch snapshot for 53 on svg" time="0.02">
+    </testcase>
+    <testcase classname="SvgCodeGenService should match md-components-cards-homes.sketch snapshot for 53 on svg" name="SvgCodeGenService should match md-components-cards-homes.sketch snapshot for 53 on svg" time="0.026">
+    </testcase>
+    <testcase classname="SvgCodeGenService should match md-components-cards-pooch.sketch snapshot for 53 on svg" name="SvgCodeGenService should match md-components-cards-pooch.sketch snapshot for 53 on svg" time="0.031">
+    </testcase>
+    <testcase classname="SvgCodeGenService should match md-components-cards-safari.sketch snapshot for 53 on svg" name="SvgCodeGenService should match md-components-cards-safari.sketch snapshot for 53 on svg" time="0.017">
+    </testcase>
+    <testcase classname="SvgCodeGenService should match md-components-cards-welcome-back.sketch snapshot for 53 on svg" name="SvgCodeGenService should match md-components-cards-welcome-back.sketch snapshot for 53 on svg" time="0.019">
+    </testcase>
+    <testcase classname="SvgCodeGenService should match md-components-chips-open-chip.sketch snapshot for 53 on svg" name="SvgCodeGenService should match md-components-chips-open-chip.sketch snapshot for 53 on svg" time="0.02">
+    </testcase>
+    <testcase classname="SvgCodeGenService should match md-components-date-picker.sketch snapshot for 53 on svg" name="SvgCodeGenService should match md-components-date-picker.sketch snapshot for 53 on svg" time="0.03">
+    </testcase>
+    <testcase classname="SvgCodeGenService should match md-components-notifications-heads-up.sketch snapshot for 53 on svg" name="SvgCodeGenService should match md-components-notifications-heads-up.sketch snapshot for 53 on svg" time="0.023">
+    </testcase>
+    <testcase classname="SvgCodeGenService should match md-components-tabs-status-bar.sketch snapshot for 53 on svg" name="SvgCodeGenService should match md-components-tabs-status-bar.sketch snapshot for 53 on svg" time="0.041">
+    </testcase>
+  </testsuite>
+  <testsuite name="SvgContextService" errors="0" failures="0" skipped="0" timestamp="2019-12-06T13:07:07" time="0.197" tests="5">
+    <testcase classname="SvgContextService should create" name="SvgContextService should create" time="0.012">
+    </testcase>
+    <testcase classname="SvgContextService should idenitfy a variaty of classes" name="SvgContextService should idenitfy a variaty of classes" time="0.008">
+    </testcase>
+    <testcase classname="SvgContextService should provide context" name="SvgContextService should provide context" time="0.012">
+    </testcase>
+    <testcase classname="SvgContextService should add add new options" name="SvgContextService should add add new options" time="0.01">
+    </testcase>
+    <testcase classname="SvgContextService should clear the svg attributes" name="SvgContextService should clear the svg attributes" time="0.007">
+    </testcase>
+  </testsuite>
+  <testsuite name="CssCodeGenService" errors="0" failures="0" skipped="0" timestamp="2019-12-06T13:07:07" time="0.462" tests="3">
+    <testcase classname="CssCodeGenService should create" name="CssCodeGenService should create" time="0.051">
+    </testcase>
+    <testcase classname="CssCodeGenService should provide the context" name="CssCodeGenService should provide the context" time="0.065">
+    </testcase>
+    <testcase classname="CssCodeGenService should provide the context" name="CssCodeGenService should provide the context" time="0.152">
+    </testcase>
+  </testsuite>
+  <testsuite name="ReactCodeGenService" errors="0" failures="0" skipped="0" timestamp="2019-12-06T13:07:08" time="0.201" tests="2">
+    <testcase classname="ReactCodeGenService should create" name="ReactCodeGenService should create" time="0.021">
+    </testcase>
+    <testcase classname="ReactCodeGenService should have three files for a basic css component" name="ReactCodeGenService should have three files for a basic css component" time="0.013">
+    </testcase>
+  </testsuite>
+  <testsuite name="CssParserService" errors="0" failures="0" skipped="0" timestamp="2019-12-06T13:07:08" time="0.18" tests="1">
+    <testcase classname="CssParserService should create" name="CssParserService should create" time="0.026">
+    </testcase>
+  </testsuite>
+  <testsuite name="CssContextService" errors="0" failures="0" skipped="0" timestamp="2019-12-06T13:07:08" time="0.209" tests="5">
+    <testcase classname="CssContextService should create" name="CssContextService should create" time="0.01">
+    </testcase>
+    <testcase classname="CssContextService should idenitfy a variaty of classes" name="CssContextService should idenitfy a variaty of classes" time="0.016">
+    </testcase>
+    <testcase classname="CssContextService should provide css classes" name="CssContextService should provide css classes" time="0.007">
+    </testcase>
+    <testcase classname="CssContextService should add css classes" name="CssContextService should add css classes" time="0.007">
+    </testcase>
+    <testcase classname="CssContextService should clear css classes" name="CssContextService should clear css classes" time="0.008">
+    </testcase>
+  </testsuite>
+  <testsuite name="WebAggregatorService" errors="0" failures="0" skipped="0" timestamp="2019-12-06T13:07:08" time="0.164" tests="2">
+    <testcase classname="WebAggregatorService should create" name="WebAggregatorService should create" time="0.011">
+    </testcase>
+    <testcase classname="WebAggregatorService should have three files for a basic component" name="WebAggregatorService should have three files for a basic component" time="0.008">
+    </testcase>
+  </testsuite>
+  <testsuite name="WebParserService" errors="0" failures="0" skipped="0" timestamp="2019-12-06T13:07:09" time="0.815" tests="21">
+    <testcase classname="WebParserService should create" name="WebParserService should create" time="0.025">
+    </testcase>
+    <testcase classname="WebParserService should match md-components-buttons-fabs-light.sketch snapshot for 52 on web" name="WebParserService should match md-components-buttons-fabs-light.sketch snapshot for 52 on web" time="0.03">
+    </testcase>
+    <testcase classname="WebParserService should match md-components-buttons-lights.sketch snapshot for 52 on web" name="WebParserService should match md-components-buttons-lights.sketch snapshot for 52 on web" time="0.034">
+    </testcase>
+    <testcase classname="WebParserService should match md-components-cards-homes.sketch snapshot for 52 on web" name="WebParserService should match md-components-cards-homes.sketch snapshot for 52 on web" time="0.048">
+    </testcase>
+    <testcase classname="WebParserService should match md-components-cards-pooch.sketch snapshot for 52 on web" name="WebParserService should match md-components-cards-pooch.sketch snapshot for 52 on web" time="0.018">
+    </testcase>
+    <testcase classname="WebParserService should match md-components-cards-safari.sketch snapshot for 52 on web" name="WebParserService should match md-components-cards-safari.sketch snapshot for 52 on web" time="0.023">
+    </testcase>
+    <testcase classname="WebParserService should match md-components-cards-welcome-back.sketch snapshot for 52 on web" name="WebParserService should match md-components-cards-welcome-back.sketch snapshot for 52 on web" time="0.025">
+    </testcase>
+    <testcase classname="WebParserService should match md-components-chips-open-chip.sketch snapshot for 52 on web" name="WebParserService should match md-components-chips-open-chip.sketch snapshot for 52 on web" time="0.023">
+    </testcase>
+    <testcase classname="WebParserService should match md-components-date-picker.sketch snapshot for 52 on web" name="WebParserService should match md-components-date-picker.sketch snapshot for 52 on web" time="0.051">
+    </testcase>
+    <testcase classname="WebParserService should match md-components-notifications-heads-up.sketch snapshot for 52 on web" name="WebParserService should match md-components-notifications-heads-up.sketch snapshot for 52 on web" time="0.03">
+    </testcase>
+    <testcase classname="WebParserService should match md-components-tabs-status-bar.sketch snapshot for 52 on web" name="WebParserService should match md-components-tabs-status-bar.sketch snapshot for 52 on web" time="0.04">
+    </testcase>
+    <testcase classname="WebParserService should match md-components-buttons-fabs-light.sketch snapshot for 53 on web" name="WebParserService should match md-components-buttons-fabs-light.sketch snapshot for 53 on web" time="0.022">
+    </testcase>
+    <testcase classname="WebParserService should match md-components-buttons-lights.sketch snapshot for 53 on web" name="WebParserService should match md-components-buttons-lights.sketch snapshot for 53 on web" time="0.022">
+    </testcase>
+    <testcase classname="WebParserService should match md-components-cards-homes.sketch snapshot for 53 on web" name="WebParserService should match md-components-cards-homes.sketch snapshot for 53 on web" time="0.028">
+    </testcase>
+    <testcase classname="WebParserService should match md-components-cards-pooch.sketch snapshot for 53 on web" name="WebParserService should match md-components-cards-pooch.sketch snapshot for 53 on web" time="0.015">
+    </testcase>
+    <testcase classname="WebParserService should match md-components-cards-safari.sketch snapshot for 53 on web" name="WebParserService should match md-components-cards-safari.sketch snapshot for 53 on web" time="0.032">
+    </testcase>
+    <testcase classname="WebParserService should match md-components-cards-welcome-back.sketch snapshot for 53 on web" name="WebParserService should match md-components-cards-welcome-back.sketch snapshot for 53 on web" time="0.018">
+    </testcase>
+    <testcase classname="WebParserService should match md-components-chips-open-chip.sketch snapshot for 53 on web" name="WebParserService should match md-components-chips-open-chip.sketch snapshot for 53 on web" time="0.023">
+    </testcase>
+    <testcase classname="WebParserService should match md-components-date-picker.sketch snapshot for 53 on web" name="WebParserService should match md-components-date-picker.sketch snapshot for 53 on web" time="0.044">
+    </testcase>
+    <testcase classname="WebParserService should match md-components-notifications-heads-up.sketch snapshot for 53 on web" name="WebParserService should match md-components-notifications-heads-up.sketch snapshot for 53 on web" time="0.024">
+    </testcase>
+    <testcase classname="WebParserService should match md-components-tabs-status-bar.sketch snapshot for 53 on web" name="WebParserService should match md-components-tabs-status-bar.sketch snapshot for 53 on web" time="0.046">
+    </testcase>
+  </testsuite>
+  <testsuite name="WebContextService" errors="0" failures="0" skipped="0" timestamp="2019-12-06T13:07:09" time="0.225" tests="5">
+    <testcase classname="WebContextService should create" name="WebContextService should create" time="0.024">
+    </testcase>
+    <testcase classname="WebContextService should idenitfy a variaty of classes" name="WebContextService should idenitfy a variaty of classes" time="0.008">
+    </testcase>
+    <testcase classname="WebContextService should provide context" name="WebContextService should provide context" time="0.008">
+    </testcase>
+    <testcase classname="WebContextService should add add new options" name="WebContextService should add add new options" time="0.008">
+    </testcase>
+    <testcase classname="WebContextService should clear the web attributes" name="WebContextService should clear the web attributes" time="0.011">
+    </testcase>
+  </testsuite>
+  <testsuite name="WebCodeGenService" errors="0" failures="0" skipped="0" timestamp="2019-12-06T13:07:10" time="0.778" tests="24">
+    <testcase classname="WebCodeGenService should create" name="WebCodeGenService should create" time="0.023">
+    </testcase>
+    <testcase classname="WebCodeGenService should identify a valid class" name="WebCodeGenService should identify a valid class" time="0.009">
+    </testcase>
+    <testcase classname="WebCodeGenService should not identify a invalid class" name="WebCodeGenService should not identify a invalid class" time="0.008">
+    </testcase>
+    <testcase classname="WebCodeGenService should provide a context" name="WebCodeGenService should provide a context" time="0.01">
+    </testcase>
+    <testcase classname="WebCodeGenService should match md-components-buttons-fabs-light.sketch snapshot for 52 on web" name="WebCodeGenService should match md-components-buttons-fabs-light.sketch snapshot for 52 on web" time="0.022">
+    </testcase>
+    <testcase classname="WebCodeGenService should match md-components-buttons-lights.sketch snapshot for 52 on web" name="WebCodeGenService should match md-components-buttons-lights.sketch snapshot for 52 on web" time="0.024">
+    </testcase>
+    <testcase classname="WebCodeGenService should match md-components-cards-homes.sketch snapshot for 52 on web" name="WebCodeGenService should match md-components-cards-homes.sketch snapshot for 52 on web" time="0.025">
+    </testcase>
+    <testcase classname="WebCodeGenService should match md-components-cards-pooch.sketch snapshot for 52 on web" name="WebCodeGenService should match md-components-cards-pooch.sketch snapshot for 52 on web" time="0.017">
+    </testcase>
+    <testcase classname="WebCodeGenService should match md-components-cards-safari.sketch snapshot for 52 on web" name="WebCodeGenService should match md-components-cards-safari.sketch snapshot for 52 on web" time="0.025">
+    </testcase>
+    <testcase classname="WebCodeGenService should match md-components-cards-welcome-back.sketch snapshot for 52 on web" name="WebCodeGenService should match md-components-cards-welcome-back.sketch snapshot for 52 on web" time="0.017">
+    </testcase>
+    <testcase classname="WebCodeGenService should match md-components-chips-open-chip.sketch snapshot for 52 on web" name="WebCodeGenService should match md-components-chips-open-chip.sketch snapshot for 52 on web" time="0.022">
+    </testcase>
+    <testcase classname="WebCodeGenService should match md-components-date-picker.sketch snapshot for 52 on web" name="WebCodeGenService should match md-components-date-picker.sketch snapshot for 52 on web" time="0.08">
+    </testcase>
+    <testcase classname="WebCodeGenService should match md-components-notifications-heads-up.sketch snapshot for 52 on web" name="WebCodeGenService should match md-components-notifications-heads-up.sketch snapshot for 52 on web" time="0.027">
+    </testcase>
+    <testcase classname="WebCodeGenService should match md-components-tabs-status-bar.sketch snapshot for 52 on web" name="WebCodeGenService should match md-components-tabs-status-bar.sketch snapshot for 52 on web" time="0.045">
+    </testcase>
+    <testcase classname="WebCodeGenService should match md-components-buttons-fabs-light.sketch snapshot for 53 on web" name="WebCodeGenService should match md-components-buttons-fabs-light.sketch snapshot for 53 on web" time="0.014">
+    </testcase>
+    <testcase classname="WebCodeGenService should match md-components-buttons-lights.sketch snapshot for 53 on web" name="WebCodeGenService should match md-components-buttons-lights.sketch snapshot for 53 on web" time="0.016">
+    </testcase>
+    <testcase classname="WebCodeGenService should match md-components-cards-homes.sketch snapshot for 53 on web" name="WebCodeGenService should match md-components-cards-homes.sketch snapshot for 53 on web" time="0.029">
+    </testcase>
+    <testcase classname="WebCodeGenService should match md-components-cards-pooch.sketch snapshot for 53 on web" name="WebCodeGenService should match md-components-cards-pooch.sketch snapshot for 53 on web" time="0.022">
+    </testcase>
+    <testcase classname="WebCodeGenService should match md-components-cards-safari.sketch snapshot for 53 on web" name="WebCodeGenService should match md-components-cards-safari.sketch snapshot for 53 on web" time="0.018">
+    </testcase>
+    <testcase classname="WebCodeGenService should match md-components-cards-welcome-back.sketch snapshot for 53 on web" name="WebCodeGenService should match md-components-cards-welcome-back.sketch snapshot for 53 on web" time="0.016">
+    </testcase>
+    <testcase classname="WebCodeGenService should match md-components-chips-open-chip.sketch snapshot for 53 on web" name="WebCodeGenService should match md-components-chips-open-chip.sketch snapshot for 53 on web" time="0.026">
+    </testcase>
+    <testcase classname="WebCodeGenService should match md-components-date-picker.sketch snapshot for 53 on web" name="WebCodeGenService should match md-components-date-picker.sketch snapshot for 53 on web" time="0.035">
+    </testcase>
+    <testcase classname="WebCodeGenService should match md-components-notifications-heads-up.sketch snapshot for 53 on web" name="WebCodeGenService should match md-components-notifications-heads-up.sketch snapshot for 53 on web" time="0.025">
+    </testcase>
+    <testcase classname="WebCodeGenService should match md-components-tabs-status-bar.sketch snapshot for 53 on web" name="WebCodeGenService should match md-components-tabs-status-bar.sketch snapshot for 53 on web" time="0.028">
+    </testcase>
+  </testsuite>
+  <testsuite name="VueDocGenService" errors="0" failures="0" skipped="0" timestamp="2019-12-06T13:07:11" time="0.175" tests="2">
+    <testcase classname="VueDocGenService should create" name="VueDocGenService should create" time="0.011">
+    </testcase>
+    <testcase classname="VueDocGenService should have all the correct properties" name="VueDocGenService should have all the correct properties" time="0.007">
+    </testcase>
+  </testsuite>
+  <testsuite name="VueCodeGenService" errors="0" failures="0" skipped="0" timestamp="2019-12-06T13:07:11" time="0.718" tests="24">
+    <testcase classname="VueCodeGenService should create" name="VueCodeGenService should create" time="0.01">
+    </testcase>
+    <testcase classname="VueCodeGenService should identify a valid class" name="VueCodeGenService should identify a valid class" time="0.014">
+    </testcase>
+    <testcase classname="VueCodeGenService should not identify a invalid class" name="VueCodeGenService should not identify a invalid class" time="0.008">
+    </testcase>
+    <testcase classname="VueCodeGenService should provide a context" name="VueCodeGenService should provide a context" time="0.007">
+    </testcase>
+    <testcase classname="VueCodeGenService should match md-components-buttons-fabs-light.sketch snapshot for 52 on vue" name="VueCodeGenService should match md-components-buttons-fabs-light.sketch snapshot for 52 on vue" time="0.024">
+    </testcase>
+    <testcase classname="VueCodeGenService should match md-components-buttons-lights.sketch snapshot for 52 on vue" name="VueCodeGenService should match md-components-buttons-lights.sketch snapshot for 52 on vue" time="0.015">
+    </testcase>
+    <testcase classname="VueCodeGenService should match md-components-cards-homes.sketch snapshot for 52 on vue" name="VueCodeGenService should match md-components-cards-homes.sketch snapshot for 52 on vue" time="0.038">
+    </testcase>
+    <testcase classname="VueCodeGenService should match md-components-cards-pooch.sketch snapshot for 52 on vue" name="VueCodeGenService should match md-components-cards-pooch.sketch snapshot for 52 on vue" time="0.016">
+    </testcase>
+    <testcase classname="VueCodeGenService should match md-components-cards-safari.sketch snapshot for 52 on vue" name="VueCodeGenService should match md-components-cards-safari.sketch snapshot for 52 on vue" time="0.017">
+    </testcase>
+    <testcase classname="VueCodeGenService should match md-components-cards-welcome-back.sketch snapshot for 52 on vue" name="VueCodeGenService should match md-components-cards-welcome-back.sketch snapshot for 52 on vue" time="0.024">
+    </testcase>
+    <testcase classname="VueCodeGenService should match md-components-chips-open-chip.sketch snapshot for 52 on vue" name="VueCodeGenService should match md-components-chips-open-chip.sketch snapshot for 52 on vue" time="0.026">
+    </testcase>
+    <testcase classname="VueCodeGenService should match md-components-date-picker.sketch snapshot for 52 on vue" name="VueCodeGenService should match md-components-date-picker.sketch snapshot for 52 on vue" time="0.056">
+    </testcase>
+    <testcase classname="VueCodeGenService should match md-components-notifications-heads-up.sketch snapshot for 52 on vue" name="VueCodeGenService should match md-components-notifications-heads-up.sketch snapshot for 52 on vue" time="0.019">
+    </testcase>
+    <testcase classname="VueCodeGenService should match md-components-tabs-status-bar.sketch snapshot for 52 on vue" name="VueCodeGenService should match md-components-tabs-status-bar.sketch snapshot for 52 on vue" time="0.036">
+    </testcase>
+    <testcase classname="VueCodeGenService should match md-components-buttons-fabs-light.sketch snapshot for 53 on vue" name="VueCodeGenService should match md-components-buttons-fabs-light.sketch snapshot for 53 on vue" time="0.019">
+    </testcase>
+    <testcase classname="VueCodeGenService should match md-components-buttons-lights.sketch snapshot for 53 on vue" name="VueCodeGenService should match md-components-buttons-lights.sketch snapshot for 53 on vue" time="0.018">
+    </testcase>
+    <testcase classname="VueCodeGenService should match md-components-cards-homes.sketch snapshot for 53 on vue" name="VueCodeGenService should match md-components-cards-homes.sketch snapshot for 53 on vue" time="0.02">
+    </testcase>
+    <testcase classname="VueCodeGenService should match md-components-cards-pooch.sketch snapshot for 53 on vue" name="VueCodeGenService should match md-components-cards-pooch.sketch snapshot for 53 on vue" time="0.022">
+    </testcase>
+    <testcase classname="VueCodeGenService should match md-components-cards-safari.sketch snapshot for 53 on vue" name="VueCodeGenService should match md-components-cards-safari.sketch snapshot for 53 on vue" time="0.021">
+    </testcase>
+    <testcase classname="VueCodeGenService should match md-components-cards-welcome-back.sketch snapshot for 53 on vue" name="VueCodeGenService should match md-components-cards-welcome-back.sketch snapshot for 53 on vue" time="0.014">
+    </testcase>
+    <testcase classname="VueCodeGenService should match md-components-chips-open-chip.sketch snapshot for 53 on vue" name="VueCodeGenService should match md-components-chips-open-chip.sketch snapshot for 53 on vue" time="0.021">
+    </testcase>
+    <testcase classname="VueCodeGenService should match md-components-date-picker.sketch snapshot for 53 on vue" name="VueCodeGenService should match md-components-date-picker.sketch snapshot for 53 on vue" time="0.033">
+    </testcase>
+    <testcase classname="VueCodeGenService should match md-components-notifications-heads-up.sketch snapshot for 53 on vue" name="VueCodeGenService should match md-components-notifications-heads-up.sketch snapshot for 53 on vue" time="0.025">
+    </testcase>
+    <testcase classname="VueCodeGenService should match md-components-tabs-status-bar.sketch snapshot for 53 on vue" name="VueCodeGenService should match md-components-tabs-status-bar.sketch snapshot for 53 on vue" time="0.039">
+    </testcase>
+  </testsuite>
+  <testsuite name="sketch parser" errors="0" failures="0" skipped="0" timestamp="2019-12-06T13:07:11" time="0.842" tests="20">
+    <testcase classname="sketch parser should match md-components-buttons-fabs-light.sketch snapshot for 52" name="sketch parser should match md-components-buttons-fabs-light.sketch snapshot for 52" time="0.037">
+    </testcase>
+    <testcase classname="sketch parser should match md-components-buttons-lights.sketch snapshot for 52" name="sketch parser should match md-components-buttons-lights.sketch snapshot for 52" time="0.038">
+    </testcase>
+    <testcase classname="sketch parser should match md-components-cards-homes.sketch snapshot for 52" name="sketch parser should match md-components-cards-homes.sketch snapshot for 52" time="0.034">
+    </testcase>
+    <testcase classname="sketch parser should match md-components-cards-pooch.sketch snapshot for 52" name="sketch parser should match md-components-cards-pooch.sketch snapshot for 52" time="0.039">
+    </testcase>
+    <testcase classname="sketch parser should match md-components-cards-safari.sketch snapshot for 52" name="sketch parser should match md-components-cards-safari.sketch snapshot for 52" time="0.024">
+    </testcase>
+    <testcase classname="sketch parser should match md-components-cards-welcome-back.sketch snapshot for 52" name="sketch parser should match md-components-cards-welcome-back.sketch snapshot for 52" time="0.03">
+    </testcase>
+    <testcase classname="sketch parser should match md-components-chips-open-chip.sketch snapshot for 52" name="sketch parser should match md-components-chips-open-chip.sketch snapshot for 52" time="0.028">
+    </testcase>
+    <testcase classname="sketch parser should match md-components-date-picker.sketch snapshot for 52" name="sketch parser should match md-components-date-picker.sketch snapshot for 52" time="0.056">
+    </testcase>
+    <testcase classname="sketch parser should match md-components-notifications-heads-up.sketch snapshot for 52" name="sketch parser should match md-components-notifications-heads-up.sketch snapshot for 52" time="0.025">
+    </testcase>
+    <testcase classname="sketch parser should match md-components-tabs-status-bar.sketch snapshot for 52" name="sketch parser should match md-components-tabs-status-bar.sketch snapshot for 52" time="0.05">
+    </testcase>
+    <testcase classname="sketch parser should match md-components-buttons-fabs-light.sketch snapshot for 53" name="sketch parser should match md-components-buttons-fabs-light.sketch snapshot for 53" time="0.019">
+    </testcase>
+    <testcase classname="sketch parser should match md-components-buttons-lights.sketch snapshot for 53" name="sketch parser should match md-components-buttons-lights.sketch snapshot for 53" time="0.021">
+    </testcase>
+    <testcase classname="sketch parser should match md-components-cards-homes.sketch snapshot for 53" name="sketch parser should match md-components-cards-homes.sketch snapshot for 53" time="0.026">
+    </testcase>
+    <testcase classname="sketch parser should match md-components-cards-pooch.sketch snapshot for 53" name="sketch parser should match md-components-cards-pooch.sketch snapshot for 53" time="0.022">
+    </testcase>
+    <testcase classname="sketch parser should match md-components-cards-safari.sketch snapshot for 53" name="sketch parser should match md-components-cards-safari.sketch snapshot for 53" time="0.031">
+    </testcase>
+    <testcase classname="sketch parser should match md-components-cards-welcome-back.sketch snapshot for 53" name="sketch parser should match md-components-cards-welcome-back.sketch snapshot for 53" time="0.037">
+    </testcase>
+    <testcase classname="sketch parser should match md-components-chips-open-chip.sketch snapshot for 53" name="sketch parser should match md-components-chips-open-chip.sketch snapshot for 53" time="0.031">
+    </testcase>
+    <testcase classname="sketch parser should match md-components-date-picker.sketch snapshot for 53" name="sketch parser should match md-components-date-picker.sketch snapshot for 53" time="0.041">
+    </testcase>
+    <testcase classname="sketch parser should match md-components-notifications-heads-up.sketch snapshot for 53" name="sketch parser should match md-components-notifications-heads-up.sketch snapshot for 53" time="0.033">
+    </testcase>
+    <testcase classname="sketch parser should match md-components-tabs-status-bar.sketch snapshot for 53" name="sketch parser should match md-components-tabs-status-bar.sketch snapshot for 53" time="0.035">
+    </testcase>
+  </testsuite>
+</testsuites>

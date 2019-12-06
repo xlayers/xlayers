@@ -1,4 +1,4 @@
-import { cmd, runTask } from './utils';
+import { cmd, runTask, packages } from './utils';
 
 export async function buildAllLibrarys() {
     // ORDER IS NEEDED FOR DEPS
@@ -17,5 +17,5 @@ export async function buildAllLibrarys() {
 
 }
 
-runTask('Building library', () => buildAllLibrarys());
+runTask('Building library', async () => await buildAllLibrarys());
 
