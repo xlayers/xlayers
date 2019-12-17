@@ -2,7 +2,7 @@
   "preRelease": "beta",
   "git": {
     "commitMessage": "chore(sketch-ingestor): release ${version}",
-    "push": false,
+    "push": true,
     "tag": false,
     "commit": true,
     "requireUpstream": false
