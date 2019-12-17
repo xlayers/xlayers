@@ -1,7 +1,7 @@
 {
   "preRelease": "beta",
   "git": {
-    "commitMessage": "chore(angular-codegen): release ${version}",
+    "commitMessage": "chore(react-codegen): release ${version}",
     "push": false,
     "tag": false,
     "commit": true,
