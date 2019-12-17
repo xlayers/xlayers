@@ -1,0 +1,13 @@
+{
+  "preRelease": "beta",
+  "git": {
+    "commitMessage": "chore(angular-codegen): release ${version}",
+    "push": false,
+    "tag": false,
+    "commit": false,
+    "requireUpstream": false
+  },
+  "npm": {
+    "publish": false
+  }
+}

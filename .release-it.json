@@ -1,6 +1,11 @@
 {
   "preRelease": "beta",
-  "increment": "conventional:angular",
+  "plugins": {
+    "@release-it/conventional-changelog": {
+      "preset": "angular",
+      "infile": "CHANGELOG.md"
+    }
+  },
   "script": {
     "changelog": "npm run changelog",
     "beforeStage": "npm run changelog.write",
