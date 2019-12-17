@@ -29,7 +29,6 @@
     "deploy.ci": "run-s -l deploy.prod.ci.setup deploy.prod.ci",
     "deploy": "run-s -l lint test build deploy.prod",
     "--release--": "",
-    "release:librarys": "ts-node ./scripts/publish-stable-librarys.ts",
     "release": "release-it --config .release-it.json",
     "--misc--": "",
     "quality": "run-s -l lint test",
