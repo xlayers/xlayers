@@ -1,6 +1,6 @@
 import { cmd, runTask, packages } from './utils';
 
-export async function buildAllLibrarys() {
+export async function publishLibrary() {
     const pkg = process.argv[2];
     if (!pkg) {
         throw new Error('There is no package specified');
@@ -12,5 +12,5 @@ export async function buildAllLibrarys() {
     await cmd('npx', [`release-it --ci`]);
 }
 
-runTask('Publish library', async () => await buildAllLibrarys());
+runTask('Publish library', async () => await publishLibrary());
 

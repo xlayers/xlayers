@@ -51,7 +51,7 @@ jobs:
       - restore_cache:
           key: *cache_key
       - run:
-          command: npm run build.library.all
+          command: npm run build.all.libraries
       - persist_to_workspace:
           root: dist
           paths:

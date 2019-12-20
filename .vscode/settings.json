@@ -26,7 +26,5 @@
     "**/bower_components": true,
     "**/bazel-out": true,
     "**/dist": true
-  },
-  "peacock.color": "#ff2c70",
-  "terminal.integrated.shell.windows": "C:\\Program Files\\Git\\bin\\bash.exe"
+  }
 }

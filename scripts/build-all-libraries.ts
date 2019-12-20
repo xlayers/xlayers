@@ -1,6 +1,6 @@
 import { cmd, runTask, packages } from './utils';
 
-export async function buildAllLibrarys() {
+export async function buildAllLibraries() {
     // ORDER IS NEEDED FOR DEPS
     await cmd('ng', [`build sketch-ingestor`]);
     await cmd('ng', [`build sketch-lib`]);
@@ -17,5 +17,5 @@ export async function buildAllLibrarys() {
 
 }
 
-runTask('Building library', async () => await buildAllLibrarys());
+runTask('Building library', async () => await buildAllLibraries());
 
