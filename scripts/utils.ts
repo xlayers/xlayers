@@ -9,13 +9,13 @@ export async function runTask(name: string, taskFn: () => Promise<any>) {
     const spinner = ora(name);
 
     try {
-        spinner.start();
+        // spinner.start();
 
         await taskFn();
 
-        spinner.succeed();
+        // spinner.succeed();
     } catch (e) {
-        spinner.stop();
+        // spinner.stop();
 
         throw e;
     }
@@ -52,6 +52,10 @@ export function exec(
 
 export function cmd(command: string, args: string[]): Promise<string> {
     return exec(command, args, (runCommand: string) => runCommand);
+}
+
+export function git(args: string[]) {
+    cmd('git', args);
 }
 // ORDER IS NEEDED FOR DEPS
 export const packages = [
