@@ -18,9 +18,17 @@
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "src/tsconfig.app.json",
-            "assets": ["src/favicon.ico", "src/assets", "src/manifest.json"],
-            "styles": ["src/styles.css"],
-            "scripts": ["node_modules/jszip/dist/jszip.min.js"]
+            "assets": [
+              "src/favicon.ico",
+              "src/assets",
+              "src/manifest.json"
+            ],
+            "styles": [
+              "src/styles.css"
+            ],
+            "scripts": [
+              "node_modules/jszip/dist/jszip.min.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -83,8 +91,13 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": ["src/tsconfig.app.json", "src/tsconfig.spec.json"],
-            "exclude": ["**/node_modules/**"]
+            "tsConfig": [
+              "src/tsconfig.app.json",
+              "src/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         }
       }
@@ -109,7 +122,9 @@
               "projects/web-codegen/tsconfig.lib.json",
               "projects/web-codegen/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         }
       }
@@ -134,7 +149,9 @@
               "projects/sketch-lib/tsconfig.lib.json",
               "projects/sketch-lib/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         }
       }
@@ -159,7 +176,9 @@
               "projects/svg-codegen/tsconfig.lib.json",
               "projects/svg-codegen/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         }
       }
@@ -184,7 +203,9 @@
               "projects/css-codegen/tsconfig.lib.json",
               "projects/css-codegen/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         }
       }
@@ -209,7 +230,9 @@
               "projects/sketch-ingestor/tsconfig.lib.json",
               "projects/sketch-ingestor/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         }
       }
@@ -460,5 +483,8 @@
       }
     }
   },
-  "defaultProject": "xlayers"
+  "defaultProject": "xlayers",
+  "cli": {
+    "packageManager": "npm"
+  }
 }
