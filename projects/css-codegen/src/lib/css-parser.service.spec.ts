@@ -9,7 +9,7 @@ describe('CssParserService', () => {
             providers: [CssParserService]
         });
 
-        service = TestBed.get(CssParserService);
+        service = TestBed.inject(CssParserService);
     });
 
     it('should create', () => {

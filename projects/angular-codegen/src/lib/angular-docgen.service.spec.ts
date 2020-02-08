@@ -9,7 +9,7 @@ describe('AngularDocGenService', () => {
             providers: [AngularDocGenService]
         });
 
-        service = TestBed.get(AngularDocGenService);
+        service = TestBed.inject(AngularDocGenService);
     });
 
     it('should create', () => {

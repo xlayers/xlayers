@@ -1,8 +1,10 @@
 module.exports = {
   roots: ["<rootDir>/tests/integration", "<rootDir>/projects", "<rootDir>/src"],
   globals: {
-    "ts-jest": { tsConfig: "src/tsconfig.spec.json" },
-    __TRANSFORM_HTML__: true
+    "ts-jest": {
+      tsConfig: "src/tsconfig.spec.json",
+      stringifyContentPathRegex: "\\.html?$"
+    }
   },
   preset: "jest-preset-angular",
   setupFilesAfterEnv: ["./jest.ts"],

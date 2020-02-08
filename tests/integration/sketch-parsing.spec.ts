@@ -14,7 +14,7 @@ describe('sketch parser', () => {
       providers: [WebCodeGenService],
       declarations: []
     }).compileComponents();
-    webCodeGen = TestBed.get(WebCodeGenService);
+    webCodeGen = TestBed.inject(WebCodeGenService);
   }));
 
   VERSION_LIST.forEach(version => {

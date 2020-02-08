@@ -35,7 +35,7 @@ describe('ViewerCanvasComponent', () => {
         }
       ]
     }).compileComponents();
-    store = TestBed.get(Store);
+    store = TestBed.inject(Store);
   }));
 
   beforeEach(async () => {

@@ -9,7 +9,7 @@ describe('WebContextService', () => {
             providers: [WebContextService]
         });
 
-        service = TestBed.get(WebContextService);
+        service = TestBed.inject(WebContextService);
     });
 
     it('should create', () => {

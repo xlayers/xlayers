@@ -9,7 +9,7 @@ describe('ReactCodeGenService', () => {
             providers: [CssAggregatorService]
         });
 
-        service = TestBed.get(CssAggregatorService);
+        service = TestBed.inject(CssAggregatorService);
     });
 
     it('should create', () => {

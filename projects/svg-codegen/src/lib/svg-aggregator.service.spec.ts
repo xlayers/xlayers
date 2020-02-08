@@ -9,7 +9,7 @@ describe('SvgAggregatorService', () => {
             providers: [SvgAggregatorService]
         });
 
-        service = TestBed.get(SvgAggregatorService);
+        service = TestBed.inject(SvgAggregatorService);
     });
 
     it('should create', () => {

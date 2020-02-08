@@ -9,7 +9,7 @@ describe('ReactDocGenService', () => {
             providers: [ReactDocGenService]
         });
 
-        service = TestBed.get(ReactDocGenService);
+        service = TestBed.inject(ReactDocGenService);
     });
 
     it('should create', () => {

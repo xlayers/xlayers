@@ -9,7 +9,7 @@ describe('StencilAggregatorService', () => {
             providers: [StencilAggregatorService]
         });
 
-        service = TestBed.get(StencilAggregatorService);
+        service = TestBed.inject(StencilAggregatorService);
     });
 
     it('should create', () => {

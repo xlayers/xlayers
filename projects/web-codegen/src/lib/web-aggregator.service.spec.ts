@@ -8,7 +8,7 @@ describe('WebAggregatorService', () => {
             providers: [WebAggregatorService]
         });
 
-        service = TestBed.get(WebAggregatorService);
+        service = TestBed.inject(WebAggregatorService);
     });
 
     it('should create', () => {

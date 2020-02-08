@@ -9,7 +9,7 @@ describe('VueDocGenService', () => {
             providers: [VueDocGenService]
         });
 
-        service = TestBed.get(VueDocGenService);
+        service = TestBed.inject(VueDocGenService);
     });
 
     it('should create', () => {

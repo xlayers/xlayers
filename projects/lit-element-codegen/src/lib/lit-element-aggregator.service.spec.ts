@@ -9,7 +9,7 @@ describe('ReactCodeGenService', () => {
             providers: [LitElementAggregatorService]
         });
 
-        service = TestBed.get(LitElementAggregatorService);
+        service = TestBed.inject(LitElementAggregatorService);
     });
 
     it('should create', () => {

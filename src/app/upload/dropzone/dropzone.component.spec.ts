@@ -41,8 +41,8 @@ describe('SketchDropZone', () => {
   });
 
   describe('when drop file', () => {
-    it('should emit file change', (done: DoneFn) => {
-      const dataTransfer = {
+    it('should emit file change', (done: Function) => {
+      const dragEvent = {
         preventDefault() {},
         dataTransfer: {
           items: [{
@@ -54,26 +54,26 @@ describe('SketchDropZone', () => {
         }
       };
       component.changed.subscribe((element) => {
-        expect(element).toEqual(dataTransfer.dataTransfer.items[0].getAsFile());
+        expect(element).toEqual(dragEvent.dataTransfer.items[0].getAsFile());
         done();
       });
-      component.onFileDrop(dataTransfer);
+      component.onFileDrop(dragEvent as any);
     });
 
     it('should do nothing for no item', () => {
-      const dataTransfer = {
+      const dragEvent = {
         preventDefault() {},
         dataTransfer: {
           items: []
         }
       };
       spyOn<any>(component, 'removeDragData').and.stub();
-      const res = component.onFileDrop(dataTransfer);
+      const res = component.onFileDrop(dragEvent as any);
       expect(res).toEqual(undefined);
     });
 
-    it('should fallback to file when no items', (done: DoneFn) => {
-      const dataTransfer = {
+    it('should fallback to file when no items', (done: Function) => {
+      const dragEvent = {
         preventDefault() {},
         dataTransfer: {
           files: [{
@@ -82,10 +82,10 @@ describe('SketchDropZone', () => {
         }
       };
       component.changed.subscribe((element) => {
-        expect(element).toEqual(dataTransfer.dataTransfer.files[0]);
+        expect(element).toEqual(dragEvent.dataTransfer.files[0]);
         done();
       });
-      component.onFileDrop(dataTransfer);
+      component.onFileDrop(dragEvent as any);
     });
   });
 });
