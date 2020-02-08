@@ -149,7 +149,7 @@ export class WebAggregatorService {
         indent,
         [
           this.renderAttributeTag(current, options.textTagName, options),
-          this.textService.lookup(current),
+          this.textService.lookup(current as SketchMSTextLayer),
           `</${options.textTagName}>`
         ].join('')
       )

@@ -13,6 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "aot": true,
             "outputPath": "dist/html",
             "index": "src/index.html",
             "main": "src/main.ts",
@@ -54,10 +55,20 @@
                   "name": "vendor",
                   "baseline": "700kb",
                   "warning": "100kb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
                 }
               ]
             },
             "hmr": {
+              "budgets": [
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
+                }
+              ],
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
@@ -113,6 +124,11 @@
           "options": {
             "tsConfig": "projects/web-codegen/tsconfig.lib.json",
             "project": "projects/web-codegen/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/web-codegen/tsconfig.lib.prod.json"
+            }
           }
         },
         "lint": {
@@ -140,6 +156,11 @@
           "options": {
             "tsConfig": "projects/sketch-lib/tsconfig.lib.json",
             "project": "projects/sketch-lib/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/sketch-lib/tsconfig.lib.prod.json"
+            }
           }
         },
         "lint": {
@@ -167,6 +188,11 @@
           "options": {
             "tsConfig": "projects/svg-codegen/tsconfig.lib.json",
             "project": "projects/svg-codegen/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/svg-codegen/tsconfig.lib.prod.json"
+            }
           }
         },
         "lint": {
@@ -194,6 +220,11 @@
           "options": {
             "tsConfig": "projects/css-codegen/tsconfig.lib.json",
             "project": "projects/css-codegen/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/css-codegen/tsconfig.lib.prod.json"
+            }
           }
         },
         "lint": {
@@ -221,6 +252,11 @@
           "options": {
             "tsConfig": "projects/sketch-ingestor/tsconfig.lib.json",
             "project": "projects/sketch-ingestor/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/sketch-ingestor/tsconfig.lib.prod.json"
+            }
           }
         },
         "lint": {
@@ -248,6 +284,11 @@
           "options": {
             "tsConfig": "projects/xaml-codegen/tsconfig.lib.json",
             "project": "projects/xaml-codegen/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/xaml-codegen/tsconfig.lib.prod.json"
+            }
           }
         },
         "test": {
@@ -283,6 +324,11 @@
           "options": {
             "tsConfig": "projects/angular-codegen/tsconfig.lib.json",
             "project": "projects/angular-codegen/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/angular-codegen/tsconfig.lib.prod.json"
+            }
           }
         },
         "test": {
@@ -318,6 +364,11 @@
           "options": {
             "tsConfig": "projects/vue-codegen/tsconfig.lib.json",
             "project": "projects/vue-codegen/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/vue-codegen/tsconfig.lib.prod.json"
+            }
           }
         },
         "test": {
@@ -353,6 +404,11 @@
           "options": {
             "tsConfig": "projects/react-codegen/tsconfig.lib.json",
             "project": "projects/react-codegen/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/react-codegen/tsconfig.lib.prod.json"
+            }
           }
         },
         "test": {
@@ -388,6 +444,11 @@
           "options": {
             "tsConfig": "projects/stencil-codegen/tsconfig.lib.json",
             "project": "projects/stencil-codegen/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/stencil-codegen/tsconfig.lib.prod.json"
+            }
           }
         },
         "test": {
@@ -423,6 +484,11 @@
           "options": {
             "tsConfig": "projects/lit-element-codegen/tsconfig.lib.json",
             "project": "projects/lit-element-codegen/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/lit-element-codegen/tsconfig.lib.prod.json"
+            }
           }
         },
         "test": {
@@ -458,6 +524,11 @@
           "options": {
             "tsConfig": "projects/web-component-codegen/tsconfig.lib.json",
             "project": "projects/web-component-codegen/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/web-component-codegen/tsconfig.lib.prod.json"
+            }
           }
         },
         "test": {
@@ -485,6 +556,7 @@
   },
   "defaultProject": "xlayers",
   "cli": {
-    "packageManager": "npm"
+    "packageManager": "npm",
+    "analytics": "ecf0e8f8-98dd-4548-b6e7-f80556509e48"
   }
 }

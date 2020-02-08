@@ -1,6 +1,7 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "module": "esnext",
     "skipLibCheck": true,
     "baseUrl": "",
     "rootDir": "./",

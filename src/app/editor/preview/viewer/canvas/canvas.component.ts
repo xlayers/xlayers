@@ -78,7 +78,7 @@ export class ViewerCanvasComponent implements OnInit {
 
   @ViewChildren('canvas') canvasRef: QueryList<ElementRef<HTMLElement>>;
 
-  currentPage: SketchMSPage;
+  currentPage: SketchMSPageLayer;
 
   currentZoomLevel = 1;
 
@@ -90,7 +90,7 @@ export class ViewerCanvasComponent implements OnInit {
 
   ngOnInit() {
     this.store.select(UiState.currentPage).subscribe(currentPage => {
-      this.currentPage = currentPage as SketchMSPage;
+      this.currentPage = currentPage as SketchMSPageLayer;
     });
 
     this.store.select(UiState.is3dView).subscribe(is3dView => {

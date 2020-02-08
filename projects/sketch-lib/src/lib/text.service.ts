@@ -11,14 +11,14 @@ export class TextService {
     return (current._class as string) === 'text';
   }
 
-  lookup(current: SketchMSLayer) {
+  lookup(current: SketchMSTextLayer) {
     return (
       current.attributedString.string ||
       this.extractAttributedStringText(current)
     );
   }
 
-  private extractAttributedStringText(current: SketchMSLayer) {
+  private extractAttributedStringText(current: SketchMSTextLayer) {
     const obj = current.attributedString;
 
     if (obj && obj.hasOwnProperty('archivedAttributedString')) {

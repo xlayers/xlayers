@@ -14,10 +14,10 @@ export interface LayerCSS {
 
 export interface UiSettings {
   currentData: SketchMSData;
-  currentPage?: SketchMSPage;
+  currentPage?: SketchMSPageLayer;
   currentLayer?: SketchMSLayer;
   previousLayer?: SketchMSLayer;
-  availablePages?: Array<SketchMSPage>;
+  availablePages?: Array<SketchMSPageLayer>;
   wireframe?: boolean;
   preview?: boolean;
   settingsEnabled?: boolean;
@@ -42,12 +42,12 @@ export class ToggleWireframe {
 
 export class AvailablePages {
   static readonly type = '[UiSettings] Available Pages';
-  constructor(public pages: SketchMSPage[]) {}
+  constructor(public pages: SketchMSPageLayer[]) {}
 }
 
 export class CurrentPage {
   static readonly type = '[UiSettings] Current Page';
-  constructor(public page: SketchMSPage) {}
+  constructor(public page: SketchMSPageLayer) {}
 }
 
 export class CurrentLayer {

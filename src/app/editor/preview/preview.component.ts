@@ -11,7 +11,7 @@ import { ViewerContainerComponent } from './viewer/container/container.component
   styleUrls: ['./preview.component.css']
 })
 export class PreviewComponent implements OnInit {
-  sketchPages: Array<SketchMSPage>;
+  sketchPages: Array<SketchMSPageLayer>;
   preview: boolean;
   currentLayer: SketchMSLayer;
   colors: {
@@ -75,7 +75,7 @@ export class PreviewComponent implements OnInit {
     }
   }
 
-  setCurrentPage(page: SketchMSPage) {
+  setCurrentPage(page: SketchMSPageLayer) {
     this.store.dispatch(new CurrentPage(page));
   }
 
@@ -83,7 +83,7 @@ export class PreviewComponent implements OnInit {
     this.store.dispatch(new CurrentLayer(null));
   }
 
-  pageName(page: SketchMSPage) {
+  pageName(page: SketchMSPageLayer) {
     return page && page.name;
   }
 }
