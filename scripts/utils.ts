@@ -50,12 +50,12 @@ export function exec(
     });
 }
 
-export function cmd(command: string, args: string[]): Promise<string> {
-    return exec(command, args, (runCommand: string) => runCommand);
+export  async function cmd(command: string, args: string[]): Promise<string> {
+    return await exec(command, args, (runCommand: string) => runCommand);
 }
 
-export function git(args: string[]) {
-    cmd('git', args);
+export async function git(args: string[]) {
+  await   cmd('git', args);
 }
 // ORDER IS NEEDED FOR DEPS
 export const packages = [

@@ -27,9 +27,9 @@ export async function publishLibrary() {
   ]);
 
   // clean temp dir and make temp dir
-  await rm("-rf", "dist");
-  await rm("-rf", "tmp/*");
-  await rm("-rf", "tmp");
+  await rm("-rf", "./dist");
+  await rm("-rf", "./tmp/*");
+  await rm("-rf", "./tmp");
 
   await mkdir(`tmp`);
   await process.chdir("tmp");
@@ -41,9 +41,8 @@ export async function publishLibrary() {
   // add remote
   await git([`remote add origin ${DESTINATION_REPO}`]);
   // fetch master
-  await git([`fetch origin master`]);
-  await git(["checkout origin/master"]);
-  await git(["checkout -b master"]);
+  await git([`fetch`]);
+  await git(['checkout master']);
 
   // // go to project folder
   await process.chdir("../../");
