@@ -78,23 +78,21 @@ workflows:
       - lint:
           requires:
             - install
+      - build-libs:
+          requires:
+            - lint
+          filters:
+            tags:
+              only: /.*/
       - test:
           requires:
-            - install
+            - build-libs
           filters:
             tags:
               only: /.*/
       - test-e2e:
           requires:
-            - test
-          filters:
-            tags:
-              only: /.*/
-      - build-libs:
-          requires:
-            - install
-            - test
-            - test-e2e
+            - build-libs
           filters:
             tags:
               only: /.*/
