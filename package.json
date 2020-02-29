@@ -67,6 +67,7 @@
     "core-js": "^3.6.4",
     "file-saver": "^2.0.0",
     "highlight.js": "^9.18.1",
+    "jest-junit": "^10.0.0",
     "jszip": "^3.2.2",
     "ngx-color": "^4.1.1",
     "ngx-highlightjs": "^4.0.2",

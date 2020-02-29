@@ -65,15 +65,13 @@ jobs:
             - v2-dependencies-
 
       - run: npm install
-      - run:
-          name: Install JUnit coverage reporter
-          command: npm i -D jest-junit
 
       - save_cache:
           paths:
             - ~/.cache
           key: v2-dependencies-{{ checksum "package.json" }}
 
+      - run: npm run build.library.all
       - run: npm run test.ci -- --reporters=default --reporters=jest-junit --maxWorkers=2
       - run: npm run e2e
 
