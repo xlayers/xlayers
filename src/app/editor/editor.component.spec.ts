@@ -16,7 +16,13 @@ describe('EditorComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       schemas: [NO_ERRORS_SCHEMA],
-      imports: [MatMenuModule, MatSnackBarModule, NgxsModule.forRoot([UiState]), RouterTestingModule.withRoutes([]),  TranslateModule.forRoot()],
+      imports: [
+        MatMenuModule,
+        MatSnackBarModule,
+        NgxsModule.forRoot([UiState]),
+        RouterTestingModule.withRoutes([]),
+        TranslateModule.forRoot()
+      ],
       declarations: [EditorComponent],
       providers: [WINDOW_PROVIDERS]
     }).compileComponents();
@@ -25,7 +31,6 @@ describe('EditorComponent', () => {
     fixture = TestBed.createComponent(EditorComponent);
     component = fixture.debugElement.componentInstance;
     jest.setTimeout(10);
-
   });
 
   it('should create the component', () => {
@@ -63,7 +68,6 @@ describe('EditorComponent', () => {
     component.ZoomReset();
     expect(component.zoomOut).toBeFalsy();
   });
-
 
   it('should unset highlighting options when we are on reset level', () => {
     component.zoomIn = true;

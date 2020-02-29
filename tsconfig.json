@@ -14,6 +14,7 @@
     "target": "es5",
     "esModuleInterop": true,
     "lib": ["esnext", "es2017", "dom"],
+    "types": ["cypress", "@types/testing-library__cypress"],
     "paths": {
       "@env/*": ["src/environments/*"],
       "@app/*": ["src/app/*"],
