@@ -95,6 +95,7 @@
     "@types/jest": "^25.1.2",
     "@types/node": "^12.11.1",
     "@types/sketchapp": "^56.0.0",
+    "codelyzer": "^5.2.1",
     "conventional-changelog-cli": "^2.0.31",
     "cypress-file-upload": "^3.5.3",
     "husky": "^4.2.1",
