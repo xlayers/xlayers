@@ -343,7 +343,14 @@ interface SketchMSLayer {
 
     // xLayers custom property
     css?: string;
+    web?: XLayersWebCodeGenContext;
+
 }
+interface XLayersWebCodeGenContext {
+  components?: string[];
+  attributes?: string[];
+}
+
 interface SketchMSSharedStyle {
     _class: 'sharedStyle';
     value: SketchMSStyle;

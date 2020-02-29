@@ -1,22 +1,53 @@
 import { TestBed } from '@angular/core/testing';
 import { ReactAggregatorService } from './react-aggregator.service';
+import { FormatService } from '@xlayers/sketch-lib/public_api';
+import { WebCodeGenService } from '@xlayers/web-codegen/public_api';
 
 describe('ReactCodeGenService', () => {
   let service: ReactAggregatorService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [ReactAggregatorService]
+      providers: [
+        ReactAggregatorService,
+        {
+          provide: FormatService,
+          useValue: {
+            normalizeName: () => 'abc',
+            className: (name: string) => name,
+            indentFile: (n: number, contents: string) => [contents]
+          }
+        },
+        {
+          provide: WebCodeGenService,
+          useValue: {
+            context: (current: SketchMSLayer) => current,
+            aggregate: () => [
+              {
+                kind: 'web',
+                value: '.aclass {width: 20px;}',
+                language: 'css',
+                uri: 'components/abc.css'
+              },
+              {
+                kind: 'web',
+                value: '<span>attr</span>',
+                language: 'html',
+                uri: 'components/abc.html'
+              }
+            ]
+          }
+        }
+      ]
     });
+    service = TestBed.inject(ReactAggregatorService);
   });
 
   it('should create', () => {
-    service = TestBed.inject(ReactAggregatorService);
     expect(service).toBeTruthy();
   });
 
   it('should have three files for a basic react component', () => {
-    service = TestBed.inject(ReactAggregatorService);
     const data = {
       _class: 'rectangle',
       name: 'abc',
@@ -52,9 +83,8 @@ describe('ReactCodeGenService', () => {
     const [component, test, css] = aggregated;
     expect(component.kind).toEqual('react');
     expect(component.language).toEqual('javascript');
-    expect(component.value.indexOf('<span >attr</span>') >= 0).toBeTruthy();
+    expect(component.value.includes('<span>attr</span>')).toBeTruthy();
     expect(component.uri).toEqual('components/abc.jsx');
-    expect(component.value.indexOf('span >attr</span>') >= 0).toEqual(true);
     expect(test.kind).toEqual('react');
     expect(test.uri).toEqual('components/abc.spec.js');
     expect(test.language).toEqual('javascript');

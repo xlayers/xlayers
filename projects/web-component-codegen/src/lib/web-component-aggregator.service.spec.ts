@@ -1,12 +1,43 @@
 import { TestBed } from '@angular/core/testing';
 import { WebComponentAggregatorService } from './web-component-aggregator.service';
+import { FormatService } from '@xlayers/sketch-lib/public_api';
+import { WebCodeGenService } from '@xlayers/web-codegen/public_api';
 
 describe('WebComponentAggregatorService', () => {
   let service: WebComponentAggregatorService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [WebComponentAggregatorService]
+      providers: [
+        WebComponentAggregatorService,
+        {
+          provide: FormatService,
+          useValue: {
+            normalizeName: () => 'abc',
+            className: (name: string) => name,
+            indentFile: (n: number, contents: string) => [contents]
+          }
+        },
+        {
+          provide: WebCodeGenService,
+          useValue: {
+            aggregate: () => [
+              {
+                kind: 'web',
+                value: '.aclass {width: 20px;}',
+                language: 'css',
+                uri: 'components/abc.css'
+              },
+              {
+                kind: 'web',
+                value: '<span>attr</span>',
+                language: 'html',
+                uri: 'components/abc.html'
+              }
+            ]
+          }
+        }
+      ]
     });
 
     service = TestBed.inject(WebComponentAggregatorService);
@@ -51,7 +82,10 @@ describe('WebComponentAggregatorService', () => {
     const [component] = aggregated;
     expect(component.kind).toEqual('wc');
     expect(component.language).toEqual('javascript');
-    expect(component.value.indexOf('<span >attr</span>') >= 0).toBeTruthy();
+    expect(component.value.includes('<span>attr</span>')).toBeTruthy();
+    expect(
+      component.value.includes('customElements.define(abc.is , abc);')
+    ).toBeTruthy();
     expect(component.uri).toEqual('components/abc.js');
   });
 });

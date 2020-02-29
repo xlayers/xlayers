@@ -7,24 +7,24 @@ import {
   TextService
 } from '@xlayers/sketch-lib';
 import { WebContextService } from './web-context.service';
-import { WebCodeGenOptions } from './web-codegen';
 import { CssCodeGenService } from '@xlayers/css-codegen';
 import { SvgCodeGenService } from '@xlayers/svg-codegen';
+import { WebCodeGenOptions } from './web-codegen';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'any'
 })
 export class WebAggregatorService {
   constructor(
     private readonly textService: TextService,
     private readonly symbolService: SymbolService,
     private readonly imageService: ImageService,
-    private readonly formatService: FormatService,
     private readonly layerService: LayerService,
-    private readonly webContext: WebContextService,
     private readonly cssCodeGen: CssCodeGenService,
+    private readonly formatService: FormatService,
+    private readonly webContext: WebContextService,
     private readonly svgCodeGen: SvgCodeGenService
-  ) { }
+  ) {}
 
   aggregate(current: SketchMSLayer, options: WebCodeGenOptions) {
     const fileName = this.formatService.normalizeName(current.name);
@@ -61,7 +61,7 @@ export class WebAggregatorService {
     options: WebCodeGenOptions
   ) {
     if (this.layerService.identify(current)) {
-      current.layers.forEach(layer => {
+      current?.layers?.forEach(layer => {
         this.visit(layer, template, indent, options);
       });
     }
@@ -111,12 +111,13 @@ export class WebAggregatorService {
     options: WebCodeGenOptions
   ) {
     const context = this.webContext.of(current);
-    if (context && context.components && context.components.lenght > 1) {
+
+    if (context?.components?.length > 1) {
       const tagName = options.jsx
         ? this.formatService.className(current.name)
         : `${options.xmlPrefix}${this.formatService.normalizeName(
-          current.name
-        )}`;
+            current.name
+          )}`;
       template.push(
         this.formatService.indent(indent, `<${tagName}></${tagName}>`)
       );
@@ -189,9 +190,9 @@ export class WebAggregatorService {
     tagName: string,
     options: WebCodeGenOptions
   ) {
-    const attributes = this.webContext.of(current).attributes;
+    const attributes = this.webContext.of(current)?.attributes;
     if (options.jsx) {
-      const attributIndex = attributes.findIndex(attribute =>
+      const attributIndex = attributes?.findIndex((attribute: string) =>
         attribute.startsWith('class=')
       );
       if (attributIndex > 0) {

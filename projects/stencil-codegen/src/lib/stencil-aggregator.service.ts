@@ -20,7 +20,7 @@ export class StencilAggregatorService {
   ) {
     const fileName = this.formatService.normalizeName(current.name);
     const files = this.webCodeGenService.aggregate(current, data, options);
-    const context = this.webCodeGenService.context(current);
+    // const context = this.webCodeGenService.context(current);
     const html = files.find(file => file.language === 'html');
     return [
       {
@@ -87,7 +87,8 @@ describe('${className}', () => {
 
   private renderImportStatements(current: SketchMSLayer) {
     return [
-      'import { Component } from \'@stencil/core\';',
+      // tslint:disable-next-line: quotemark
+      "import { Component } from '@stencil/core';",
       ...this.generateDynamicImport(current)
     ].join('\n');
   }

@@ -1,12 +1,42 @@
 import { TestBed } from '@angular/core/testing';
 import { AngularAggregatorService } from './angular-aggregator.service';
+import { WebCodeGenService } from '@xlayers/web-codegen/public_api';
+import { FormatService } from '@xlayers/sketch-lib/public_api';
 
 describe('AngularAggregatorService', () => {
   let service: AngularAggregatorService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [AngularAggregatorService]
+      providers: [
+        AngularAggregatorService,
+        {
+          provide: FormatService,
+          useValue: {
+            normalizeName: () => 'abc',
+            className: (name: string) => name,
+            indentFile: (n: number, contents: string) => [contents]
+          }
+        },
+        {
+          provide: WebCodeGenService,
+          useValue: {
+            context: (current: SketchMSLayer) => current,
+            aggregate: () => [
+              {
+                kind: 'angular',
+                value: '<span>attr</span>',
+                language: 'html'
+              },
+              {
+                kind: 'angular',
+                value: '.aclass {width: 20px;}',
+                language: 'css'
+              }
+            ]
+          }
+        }
+      ]
     });
   });
 
@@ -48,22 +78,24 @@ describe('AngularAggregatorService', () => {
 
     expect(aggregated.length).toEqual(4);
 
+    // Note: content is returned in the following order:
+    // html, css, component, test
     const [html, css, component, test] = aggregated;
     expect(html.kind).toEqual('angular');
     expect(html.language).toEqual('html');
-    expect(html.value.indexOf('<span >attr</span>') >= 0).toBeTruthy();
+    expect(html.value.includes('<span>attr</span>')).toBeTruthy();
     expect(html.uri).toEqual('components/abc.component.html');
-    expect(html.value.indexOf('span >attr</span>') >= 0).toEqual(true);
+    expect(html.value.includes('<span>attr</span>')).toEqual(true);
     expect(css.kind).toEqual('angular');
     expect(css.uri).toEqual('components/abc.component.css');
     expect(css.language).toEqual('css');
     expect(component.kind).toEqual('angular');
     expect(component.language).toEqual('typescript');
     expect(component.uri).toEqual('components/abc.component.ts');
-    expect(component.value.indexOf(`selector: 'xly-abc',`) >= 0).toEqual(true);
+    expect(component.value.includes(`selector: 'xly-abc',`)).toEqual(true);
     expect(test.kind).toEqual('angular');
     expect(test.language).toEqual('typescript');
     expect(test.uri).toEqual('components/abc.spec.ts');
-    expect(test.value.indexOf(`it('should create',`) >= 0).toEqual(true);
+    expect(test.value.includes(`it('should create',`)).toEqual(true);
   });
 });
