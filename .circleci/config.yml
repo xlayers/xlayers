@@ -34,6 +34,8 @@ jobs:
       - checkout
       - restore_cache:
           key: *cache_key
+      - attach_workspace:
+          at: dist
       - run: npm run test.ci -- --reporters=default --reporters=jest-junit --maxWorkers=2
   test-e2e:
     <<: *run_cypress
@@ -42,6 +44,8 @@ jobs:
       - run: npm install
       - restore_cache:
           key: *cache_key
+      - attach_workspace:
+          at: dist
       - run: npm run e2e
 
   build-libs:
