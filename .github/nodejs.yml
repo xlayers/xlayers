@@ -1,0 +1,37 @@
+name: Build and Test
+
+on:
+  pull_request:
+    types: [assigned, opened, synchronize, reopened, edited]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [12.x]
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - run: npm ci
+      - run: npm run ng build -- sketch-lib
+      - run: npm run ng build -- sketch-ingestor
+      - run: npm run ng build -- css-codegen
+      - run: npm run ng build -- svg-codegen
+      - run: npm run ng build -- xaml-codegen
+      - run: npm run ng build -- web-codegen
+      - run: npm run ng build -- web-component-codegen
+      - run: npm run ng build -- angular-codegen
+      - run: npm run ng build -- vue-codegen
+      - run: npm run ng build -- stencil-codegen
+      - run: npm run ng build -- lit-element-codegen
+      - run: npm run ng build -- react-codegen
+      - run: npm run ng build -- xlayers
+      - run: npm test.ci
+        env:
+          CI: true
