@@ -5,6 +5,6 @@
     "module": "commonjs",
     "types": ["jest", "node", "sketchapp"]
   },
-  "files": ["polyfills.ts", "typing.d.ts"],
+  "files": ["polyfills.ts"],
   "include": ["**/*.spec.ts", "**/*.d.ts"]
 }
