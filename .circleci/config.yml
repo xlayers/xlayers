@@ -1,5 +1,5 @@
 version: 2
-var_1: &cache_key v1-dependencies-{{ checksum "package.json" }}
+var_1: &cache_key v1-dependencies-{{ checksum "package-lock.json" }}
 var_2: &run_node
   docker:
     - image: circleci/node:12.13.0
