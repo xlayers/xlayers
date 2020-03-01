@@ -1,0 +1,194 @@
+name: xLayers
+
+on:
+  pull_request:
+    types: [assigned, opened, synchronize, reopened, edited]
+
+jobs:
+  install:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Using Node.js 12.13.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: "12.13.x"
+      - name: Installing dependencies
+        run: npm ci
+      - name: Cache node modules
+        uses: actions/cache@v1
+        env:
+          cache-name: cache-node-modules
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
+
+  lint:
+    runs-on: ubuntu-latest
+    needs: install
+    steps:
+      - uses: actions/checkout@v2
+      - name: Using Node.js 12.13.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: "12.13.x"
+      - name: Cache node modules
+        uses: actions/cache@v1
+        env:
+          cache-name: cache-node-modules
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
+
+      - name: Installing dependencies
+        run: npm ci
+      - name: Linting "sketch-lib"
+        run: npm run lint -- "sketch-lib"
+      - name: Linting "sketch-ingestor"
+        run: npm run lint -- "sketch-ingestor"
+      - name: Linting "css-codegen"
+        run: npm run lint -- "css-codegen"
+      - name: Linting "svg-codegen"
+        run: npm run lint -- "svg-codegen"
+      - name: Linting "xaml-codegen"
+        run: npm run lint -- "xaml-codegen"
+      - name: Linting "web-codegen"
+        run: npm run lint -- "web-codegen"
+      - name: Linting "web-component-codegen"
+        run: npm run lint -- "web-component-codegen"
+      - name: Linting "angular-codegen"
+        run: npm run lint -- "angular-codegen"
+      - name: Linting "vue-codegen"
+        run: npm run lint -- "vue-codegen"
+      - name: Linting "stencil-codegen"
+        run: npm run lint -- "stencil-codegen"
+      - name: Linting "lit-element-codegen"
+        run: npm run lint -- "lit-element-codegen"
+      - name: Linting "react-codegen"
+        run: npm run lint -- "react-codegen"
+      - name: Linting "xlayers"
+        run: npm run lint -- "xlayers"
+    env:
+      CI: true
+
+  build:
+    runs-on: ubuntu-latest
+    needs: install
+    steps:
+      - uses: actions/checkout@v2
+      - name: Using Node.js 12.13.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: "12.13.x"
+      - name: Cache node modules
+        uses: actions/cache@v1
+        env:
+          cache-name: cache-node-modules
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
+
+      - name: Installing dependencies
+        run: npm ci
+      - name: Building "sketch-lib"
+        run: npm run ng build -- "sketch-lib"
+      - name: Building "sketch-ingestor"
+        run: npm run ng build -- "sketch-ingestor"
+      - name: Building "css-codegen"
+        run: npm run ng build -- "css-codegen"
+      - name: Building "svg-codegen"
+        run: npm run ng build -- "svg-codegen"
+      - name: Building "xaml-codegen"
+        run: npm run ng build -- "xaml-codegen"
+      - name: Building "web-codegen"
+        run: npm run ng build -- "web-codegen"
+      - name: Building "web-component-codegen"
+        run: npm run ng build -- "web-component-codegen"
+      - name: Building "angular-codegen"
+        run: npm run ng build -- "angular-codegen"
+      - name: Building "vue-codegen"
+        run: npm run ng build -- "vue-codegen"
+      - name: Building "stencil-codegen"
+        run: npm run ng build -- "stencil-codegen"
+      - name: Building "lit-element-codegen"
+        run: npm run ng build -- "lit-element-codegen"
+      - name: Building "react-codegen"
+        run: npm run ng build -- "react-codegen"
+      - name: Building "xlayers"
+        run: npm run ng build -- "xlayers"
+
+      - name: Store dist
+        uses: actions/upload-artifact@v1
+        with:
+          name: dist
+          path: dist
+    env:
+      CI: true
+
+  test:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - uses: actions/checkout@v2
+      - name: Using Node.js 12.13.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: "12.13.x"
+      - name: Restore dist
+        uses: actions/download-artifact@v1
+        with:
+          name: dist
+      - name: Cache node modules
+        uses: actions/cache@v1
+        env:
+          cache-name: cache-node-modules
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
+
+      - name: Installing dependencies
+        run: npm ci
+      - name: Testing "packages/sketch-lib"
+        run: npm run test.ci -- --passWithNoTests "packages/sketch-lib"
+      - name: Testing "packages/sketch-ingestor"
+        run: npm run test.ci -- --passWithNoTests "packages/sketch-ingestor"
+      - name: Testing "packages/css-codegen"
+        run: npm run test.ci -- --passWithNoTests "packages/css-codegen"
+      - name: Testing "packages/svg-codegen"
+        run: npm run test.ci -- --passWithNoTests "packages/svg-codegen"
+      - name: Testing "packages/xaml-codegen"
+        run: npm run test.ci -- --passWithNoTests "packages/xaml-codegen"
+      - name: Testing "packages/web-codegen"
+        run: npm run test.ci -- --passWithNoTests "packages/web-codegen"
+      - name: Testing "packages/web-component-codegen"
+        run: npm run test.ci -- --passWithNoTests "packages/web-component-codegen"
+      - name: Testing "packages/angular-codegen"
+        run: npm run test.ci -- --passWithNoTests "packages/angular-codegen"
+      - name: Testing "packages/vue-codegen"
+        run: npm run test.ci -- --passWithNoTests "packages/vue-codegen"
+      - name: Testing "packages/stencil-codegen"
+        run: npm run test.ci -- --passWithNoTests "packages/stencil-codegen"
+      - name: Testing "packages/lit-element-codegen"
+        run: npm run test.ci -- --passWithNoTests "packages/lit-element-codegen"
+      - name: Testing "packages/react-codegen"
+        run: npm run test.ci -- --passWithNoTests "packages/react-codegen"
+      - name: Testing "src/app"
+        run: npm run test.ci -- --passWithNoTests "src/app"
+    env:
+      CI: true
