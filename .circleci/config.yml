@@ -37,6 +37,8 @@ jobs:
       - attach_workspace:
           at: dist
       - run: npm run test.ci -- --reporters=default --reporters=jest-junit --maxWorkers=2
+      - store_test_results:
+          path: ./junit.xml
   test-e2e:
     <<: *run_cypress
     steps:
