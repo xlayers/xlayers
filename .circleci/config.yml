@@ -14,7 +14,7 @@ jobs:
       - checkout
       - restore_cache:
           key: *cache_key
-      - run: npm install
+      - run: npm ci
       - save_cache:
           key: *cache_key
           paths:
@@ -43,6 +43,7 @@ jobs:
     <<: *run_cypress
     steps:
       - checkout
+      - run: npm ci
       - restore_cache:
           key: *cache_key
       - attach_workspace:
