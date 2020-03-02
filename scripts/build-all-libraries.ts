@@ -1,20 +1,15 @@
-import { cmd, runTask } from './utils';
+import { cmd, runTask, packages } from "./utils";
 
 export async function buildAllLibraries() {
-    // ORDER IS NEEDED FOR DEPS
-    await cmd('ng', [`build sketch-ingestor`]);
-    await cmd('ng', [`build sketch-lib`]);
-    await cmd('ng', [`build css-codegen`]);
-    await cmd('ng', [`build svg-codegen`]);
-    await cmd('ng', [`build xaml-codegen`]);
-    await cmd('ng', [`build web-codegen`]);
-    await cmd('ng', [`build web-component-codegen`]);
-    await cmd('ng', [`build angular-codegen`]);
-    await cmd('ng', [`build vue-codegen`]);
-    await cmd('ng', [`build stencil-codegen`]);
-    await cmd('ng', [`build lit-element-codegen`]);
-    await cmd('ng', [`build react-codegen`]);
-
+  for (const pkg of packages) {
+    try {
+      // ORDER IS NEEDED FOR DEPS
+      await cmd("ng", [`build ${pkg}`]);
+      console.log(`BUILD DONE FOR: ${pkg}`);
+    } catch (ex) {
+      console.error(ex);
+      process.exit(1);
+    }
+  }
+  console.log("Done building!");
 }
-
-runTask('Building library', async () => await buildAllLibraries());

@@ -1,6 +1,7 @@
 {
   "preRelease": "beta",
   "git": {
+    "requireCleanWorkingDir": false,
     "commitMessage": "chore(angular-codegen): release ${version}",
     "push": true,
     "tag": false,

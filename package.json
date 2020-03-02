@@ -10,7 +10,7 @@
     "app.build.dev": "ng build",
     "app.build.prod": "ng build --prod",
     "app.build.stamp": "bash scripts/stamp-build.bash",
-    "build.all.libraries": "ts-node ./scripts/build-all-libraries.ts",
+    "build.all.libraries": "ts-node ./scripts/task-build-all.ts",
     "build": "run-s -l build.all.libraries app.build.prod app.build.stamp",
     "--test--": "",
     "test": "jest",
