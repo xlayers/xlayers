@@ -7,7 +7,7 @@ import { WINDOW_PROVIDERS } from '@app/core/window.service';
 import { NgxsModule } from '@ngxs/store';
 import { EditorComponent } from './editor.component';
 import { RouterTestingModule } from '@angular/router/testing';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 
 describe('EditorComponent', () => {
   let fixture: ComponentFixture<EditorComponent>;
@@ -21,7 +21,9 @@ describe('EditorComponent', () => {
         MatSnackBarModule,
         NgxsModule.forRoot([UiState]),
         RouterTestingModule.withRoutes([]),
-        TranslateModule.forRoot()
+        TranslateModule.forRoot({
+          loader: { provide: TranslateLoader, useValue: {} }
+        })
       ],
       declarations: [EditorComponent],
       providers: [WINDOW_PROVIDERS]
