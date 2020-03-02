@@ -9,7 +9,7 @@ describe('WebComponentDocGenService', () => {
             providers: [WebComponentDocGenService]
         });
 
-        service = TestBed.get(WebComponentDocGenService);
+        service = TestBed.inject(WebComponentDocGenService);
     });
 
     it('should create', () => {

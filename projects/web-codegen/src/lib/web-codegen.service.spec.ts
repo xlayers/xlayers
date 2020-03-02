@@ -11,7 +11,7 @@ describe('WebCodeGenService', () => {
             providers: [WebCodeGenService]
         });
 
-        service = TestBed.get(WebCodeGenService);
+        service = TestBed.inject(WebCodeGenService);
     });
 
     it('should create', () => {

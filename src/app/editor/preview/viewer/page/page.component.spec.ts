@@ -48,7 +48,7 @@ describe('ViewerPageComponent', () => {
       })),
       frame: getFrameMock(824, 918),
       name: `page-layer`
-    } as SketchMSPage;
+    } as SketchMSPageLayer;
     fixture.detectChanges();
     const layerElements = fixture.debugElement.queryAll(By.css('.layer'));
     expect(layerElements.length).toBe(3);

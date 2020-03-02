@@ -9,7 +9,7 @@ describe('ShapeService', () => {
             providers: [ShapeService]
         });
 
-        service = TestBed.get(ShapeService);
+        service = TestBed.inject(ShapeService);
     });
 
     it('should create', () => {

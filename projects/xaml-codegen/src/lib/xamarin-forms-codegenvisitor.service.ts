@@ -41,7 +41,7 @@ export class XamarinFormsCodeGenVisitor extends XmlCodeGenVisitor {
     return `<Image Source="${(ast as any).image._ref}">`;
   }
 
-  protected visitText(ast: SketchMSLayer): string {
+  protected visitText(ast: SketchMSTextLayer): string {
     const attr: any = {};
     const string = ast.attributedString;
     const fontAttribute =

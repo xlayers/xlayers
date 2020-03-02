@@ -27,5 +27,6 @@
     "**/bazel-out": true,
     "**/dist": true
   },
-  "peacock.color": "#ff2c70"
+  "peacock.color": "#ff2c70",
+  "prettier.singleQuote": true
 }

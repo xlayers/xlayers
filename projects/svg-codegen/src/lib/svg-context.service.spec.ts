@@ -10,7 +10,7 @@ describe('SvgContextService', () => {
             providers: [SvgContextService]
         });
 
-        service = TestBed.get(SvgContextService);
+        service = TestBed.inject(SvgContextService);
     });
 
     it('should create', () => {

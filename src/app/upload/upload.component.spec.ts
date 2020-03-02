@@ -25,10 +25,10 @@ describe('UploadComponent', () => {
       imports: [NgxsModule.forRoot([]), HttpClientTestingModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot()],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
-    sketchService = TestBed.get(SketchService);
+    sketchService = TestBed.inject(SketchService);
     mockSketchData = getSketchDataMock();
     mockFile = getFileMock();
-    store = TestBed.get(Store);
+    store = TestBed.inject(Store);
   }));
 
   beforeEach(() => {

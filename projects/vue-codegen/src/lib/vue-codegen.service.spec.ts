@@ -11,7 +11,7 @@ describe('VueCodeGenService', () => {
             providers: [VueCodeGenService]
         });
 
-        service = TestBed.get(VueCodeGenService);
+        service = TestBed.inject(VueCodeGenService);
     });
 
     it('should create', () => {

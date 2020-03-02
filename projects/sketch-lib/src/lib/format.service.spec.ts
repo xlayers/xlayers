@@ -11,7 +11,7 @@ describe('FormatService', () => {
             providers: [FormatService]
         });
 
-        service = TestBed.get(FormatService);
+        service = TestBed.inject(FormatService);
     });
 
     it('should create', () => {

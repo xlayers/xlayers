@@ -11,7 +11,7 @@ describe('AngularCodeGenService', () => {
             providers: [AngularCodeGenService]
         });
 
-        service = TestBed.get(AngularCodeGenService);
+        service = TestBed.inject(AngularCodeGenService);
     });
 
     it('should create', () => {

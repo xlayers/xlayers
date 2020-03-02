@@ -9,7 +9,7 @@ describe('CssContextService', () => {
             providers: [CssContextService]
         });
 
-        service = TestBed.get(CssContextService);
+        service = TestBed.inject(CssContextService);
     });
 
     it('should create', () => {

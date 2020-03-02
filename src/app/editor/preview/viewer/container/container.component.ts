@@ -50,12 +50,12 @@ import { ViewerSelectedLayerDirective } from '../layer/selected-layer.directive'
   ]
 })
 export class ViewerContainerComponent implements OnInit {
-  @ViewChild(ViewerSelectedLayerDirective, { static: false })
+  @ViewChild(ViewerSelectedLayerDirective)
   ref: ViewerSelectedLayerDirective;
   is3dView: boolean;
 
   data: SketchMSData;
-  currentPage: SketchMSPage;
+  currentPage: SketchMSPageLayer;
 
   constructor(private readonly store: Store) {}
 

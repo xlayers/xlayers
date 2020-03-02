@@ -11,7 +11,7 @@ describe('StencilCodeGenService', () => {
             providers: [StencilCodeGenService]
         });
 
-        service = TestBed.get(StencilCodeGenService);
+        service = TestBed.inject(StencilCodeGenService);
     });
 
     it('should create', () => {

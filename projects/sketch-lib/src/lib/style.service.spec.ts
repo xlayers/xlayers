@@ -8,7 +8,7 @@ describe('StyleService', () => {
             providers: [StyleService]
         });
 
-        service = TestBed.get(StyleService);
+        service = TestBed.inject(StyleService);
     });
 
     it('should create', () => {

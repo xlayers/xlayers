@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import paramCase from 'param-case';
-import pascalCase from 'pascal-case';
+import { paramCase } from 'param-case';
+import { pascalCase } from 'pascal-case';
 
 @Injectable({
   providedIn: 'root'

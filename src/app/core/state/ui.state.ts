@@ -1,6 +1,7 @@
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Action, Selector, State, StateContext } from '@ngxs/store';
 import { iif, patch } from '@ngxs/store/operators';
+import { Injectable } from '@angular/core';
 
 export interface LayerCSS {
   transform: string;
@@ -14,10 +15,10 @@ export interface LayerCSS {
 
 export interface UiSettings {
   currentData: SketchMSData;
-  currentPage?: SketchMSPage;
+  currentPage?: SketchMSPageLayer;
   currentLayer?: SketchMSLayer;
   previousLayer?: SketchMSLayer;
-  availablePages?: Array<SketchMSPage>;
+  availablePages?: Array<SketchMSPageLayer>;
   wireframe?: boolean;
   preview?: boolean;
   settingsEnabled?: boolean;
@@ -42,12 +43,12 @@ export class ToggleWireframe {
 
 export class AvailablePages {
   static readonly type = '[UiSettings] Available Pages';
-  constructor(public pages: SketchMSPage[]) {}
+  constructor(public pages: SketchMSPageLayer[]) {}
 }
 
 export class CurrentPage {
   static readonly type = '[UiSettings] Current Page';
-  constructor(public page: SketchMSPage) {}
+  constructor(public page: SketchMSPageLayer) {}
 }
 
 export class CurrentLayer {
@@ -58,6 +59,7 @@ export class CurrentLayer {
 export class SettingsEnabled {
   static readonly type = '[UiSettings] Enable Settings';
 }
+
 export class LayerPosition {
   static readonly type = '[UiSettings] Set Layer Position';
   public left: number;
@@ -69,6 +71,7 @@ export class LayerPosition {
     this.top = top;
   }
 }
+
 export class ZoomIn {
   static readonly type = '[UiSettings] Zoom In';
   constructor(public value: number = 0.1) {}
@@ -77,10 +80,12 @@ export class ZoomOut {
   static readonly type = '[UiSettings] Zoom Out';
   constructor(public value: number = 0.1) {}
 }
+
 export class ZoomReset {
   static readonly type = '[UiSettings] Zoom Reset';
   constructor() {}
 }
+
 export class Toggle3D {
   static readonly type = '[UiSettings] Toggle 3D';
   constructor(public value: boolean) {}
@@ -119,6 +124,7 @@ const DEFAULT_UI_STATE = {
   name: 'ui',
   defaults: DEFAULT_UI_STATE
 })
+@Injectable()
 export class UiState {
   constructor(private snackBar: MatSnackBar) {}
 

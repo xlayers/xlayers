@@ -7,7 +7,7 @@ import { WINDOW_PROVIDERS } from '@app/core/window.service';
 import { NgxsModule } from '@ngxs/store';
 import { EditorComponent } from './editor.component';
 import { RouterTestingModule } from '@angular/router/testing';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 
 describe('EditorComponent', () => {
   let fixture: ComponentFixture<EditorComponent>;
@@ -16,7 +16,15 @@ describe('EditorComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       schemas: [NO_ERRORS_SCHEMA],
-      imports: [MatMenuModule, MatSnackBarModule, NgxsModule.forRoot([UiState]), RouterTestingModule.withRoutes([]),  TranslateModule.forRoot()],
+      imports: [
+        MatMenuModule,
+        MatSnackBarModule,
+        NgxsModule.forRoot([UiState]),
+        RouterTestingModule.withRoutes([]),
+        TranslateModule.forRoot({
+          loader: { provide: TranslateLoader, useValue: {} }
+        })
+      ],
       declarations: [EditorComponent],
       providers: [WINDOW_PROVIDERS]
     }).compileComponents();
@@ -25,7 +33,6 @@ describe('EditorComponent', () => {
     fixture = TestBed.createComponent(EditorComponent);
     component = fixture.debugElement.componentInstance;
     jest.setTimeout(10);
-
   });
 
   it('should create the component', () => {
@@ -63,7 +70,6 @@ describe('EditorComponent', () => {
     component.ZoomReset();
     expect(component.zoomOut).toBeFalsy();
   });
-
 
   it('should unset highlighting options when we are on reset level', () => {
     component.zoomIn = true;

@@ -9,7 +9,7 @@ describe('LayerService', () => {
             providers: [LayerService]
         });
 
-        service = TestBed.get(LayerService);
+        service = TestBed.inject(LayerService);
     });
 
     it('should create', () => {

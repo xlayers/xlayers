@@ -2,8 +2,8 @@
   "name": "@xlayers/sketch-lib",
   "version": "0.0.1",
   "peerDependencies": {
-    "@angular/common": "^8.0.0",
-    "@angular/core": "^8.0.0",
+    "@angular/common": "^9.0.0",
+    "@angular/core": "^9.0.0",
     "param-case": "^2.1.1",
     "pascal-case": "^2.0.1"
   }

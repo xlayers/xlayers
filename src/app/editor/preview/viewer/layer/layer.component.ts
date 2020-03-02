@@ -128,7 +128,7 @@ export class ViewerLayerComponent implements OnInit, AfterContentInit {
 
   loadText() {
     if (this.text.identify(this.layer)) {
-      const content = this.text.lookup(this.layer);
+      const content = this.text.lookup(this.layer as SketchMSTextLayer);
       if (content) {
         this.texts.push(content);
       }

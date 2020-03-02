@@ -21,7 +21,7 @@ describe('PreviewBadgeService', () => {
     TestBed.overrideProvider(WINDOW, {
       useValue: { location: { hostname: 'localhost' } }
     });
-    const service: PreviewBadgeService = TestBed.get(PreviewBadgeService);
+    const service: PreviewBadgeService = TestBed.inject(PreviewBadgeService);
     const badge = service.computeBadge();
     expect(badge).toBe('BADGE_SERVICE.LOCAL');
   });
@@ -30,7 +30,7 @@ describe('PreviewBadgeService', () => {
     TestBed.overrideProvider(WINDOW, {
       useValue: { location: { hostname: 'next.' } }
     });
-    const service: PreviewBadgeService = TestBed.get(PreviewBadgeService);
+    const service: PreviewBadgeService = TestBed.inject(PreviewBadgeService);
     const badge = service.computeBadge();
     expect(badge).toBe('BADGE_SERVICE.MASTER');
   });
@@ -39,7 +39,7 @@ describe('PreviewBadgeService', () => {
     TestBed.overrideProvider(WINDOW, {
       useValue: { location: { hostname: 'netlify' } }
     });
-    const service: PreviewBadgeService = TestBed.get(PreviewBadgeService);
+    const service: PreviewBadgeService = TestBed.inject(PreviewBadgeService);
     const badge = service.computeBadge();
     expect(badge).toBe('BADGE_SERVICE.PR');
   });
@@ -48,7 +48,7 @@ describe('PreviewBadgeService', () => {
     TestBed.overrideProvider(WINDOW, {
       useValue: { location: { hostname: 'xlayers' } }
     });
-    const service: PreviewBadgeService = TestBed.get(PreviewBadgeService);
+    const service: PreviewBadgeService = TestBed.inject(PreviewBadgeService);
     const badge = service.computeBadge();
     expect(badge).toBe('BETA');
   });

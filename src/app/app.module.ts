@@ -9,19 +9,14 @@ import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
 import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
 import { NgxsRouterPluginModule } from '@ngxs/router-plugin';
 import { NgxsModule } from '@ngxs/store';
-import * as javascript from 'highlight.js/lib/languages/javascript';
-import * as scss from 'highlight.js/lib/languages/scss';
-import * as typescript from 'highlight.js/lib/languages/typescript';
-import * as xml from 'highlight.js/lib/languages/xml';
-import { HighlightModule } from 'ngx-highlightjs';
+import { HighlightModule, HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
 import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
 import { UiState } from './core/state';
 import { CodeGenState } from './core/state/page.state';
 import { EditorGuardService } from './editor-guard.service';
-import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
-import {TranslateHttpLoader} from '@ngx-translate/http-loader';
-
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 export const routes: Route[] = [
   {
@@ -31,17 +26,19 @@ export const routes: Route[] = [
   },
   {
     path: 'home',
-    loadChildren: '../home/home.module#HomeModule'
+    loadChildren: () => import('../home/home.module').then(m => m.HomeModule)
   },
   {
     path: 'editor',
     canActivate: [EditorGuardService],
     canActivateChild: [EditorGuardService],
-    loadChildren: './editor/editor.module#EditorModule'
+    loadChildren: () =>
+      import('./editor/editor.module').then(m => m.EditorModule)
   },
   {
     path: 'upload',
-    loadChildren: './upload/upload.module#UploadModule'
+    loadChildren: () =>
+      import('./upload/upload.module').then(m => m.UploadModule)
   },
   {
     path: '**',
@@ -49,13 +46,13 @@ export const routes: Route[] = [
   }
 ];
 
-export function hljsLanguages() {
-  return [
-    { name: 'typescript', func: typescript },
-    { name: 'javascript', func: javascript },
-    { name: 'scss', func: scss },
-    { name: 'vue', func: xml }
-  ];
+export function getHighlightLanguages() {
+  return {
+    typescript: () => import('highlight.js/lib/languages/typescript'),
+    javascript: () => import('highlight.js/lib/languages/javascript'),
+    scss: () => import('highlight.js/lib/languages/scss'),
+    xml: () => import('highlight.js/lib/languages/xml')
+  };
 }
 
 const StoreDebugModule = [
@@ -65,7 +62,7 @@ const StoreDebugModule = [
      * ENABLING THIS, WILL THROW: TypeError: Cannot assign to read only property 'microTask' of object '[object Object]'
      * See similar issue in NgRx: https://github.com/brandonroberts/ngrx-store-freeze/issues/17
      */
-    // developmentMode: !environment.production
+    developmentMode: !environment.production
   }),
   NgxsLoggerPluginModule.forRoot({ disabled: environment.production }),
   NgxsReduxDevtoolsPluginModule.forRoot({ disabled: environment.production }),
@@ -77,7 +74,6 @@ export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
 }
 
-
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -86,23 +82,31 @@ export function HttpLoaderFactory(http: HttpClient) {
     BrowserAnimationsModule,
     StoreDebugModule,
     CoreModule,
-    TranslateModule.forRoot({ loader: {
-      provide: TranslateLoader,
-      useFactory: HttpLoaderFactory,
-      deps: [HttpClient]
-  }}),
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
+    }),
     RouterModule.forRoot(routes, {
       useHash: true,
       enableTracing: !environment.production,
       preloadingStrategy: PreloadAllModules
     }),
-    HighlightModule.forRoot({
-      languages: hljsLanguages
-    })
+    HighlightModule
     // TODO(manekinekko): enable SW support when it's stable
     // ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production })
   ],
-  providers: [WINDOW_PROVIDERS],
+  providers: [
+    WINDOW_PROVIDERS,
+    {
+      provide: HIGHLIGHT_OPTIONS,
+      useValue: {
+        languages: getHighlightLanguages()
+      }
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

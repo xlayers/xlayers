@@ -11,7 +11,7 @@ describe('WebParserService', () => {
             providers: [WebParserService]
         });
 
-        service = TestBed.get(WebParserService);
+        service = TestBed.inject(WebParserService);
     });
 
     it('should create', () => {

@@ -20,7 +20,7 @@ export class CodeGen {
   ) {}
 }
 
-@State<SketchMSPage>({
+@State<SketchMSPageLayer>({
   name: 'codegen'
 })
 export class CodeGenState {

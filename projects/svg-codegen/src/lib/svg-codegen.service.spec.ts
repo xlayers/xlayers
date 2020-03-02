@@ -11,7 +11,7 @@ describe('SvgCodeGenService', () => {
             providers: [SvgCodeGenService]
         });
 
-        service = TestBed.get(SvgCodeGenService);
+        service = TestBed.inject(SvgCodeGenService);
     });
 
     it('should create', () => {

@@ -18,5 +18,5 @@ export function getFlatLayerMock(layer_number: number = 1) {
     })),
     frame: getFrameMock(824, 918),
     name: `page-layer`
-  } as SketchMSPage;
+  } as SketchMSPageLayer;
 }
