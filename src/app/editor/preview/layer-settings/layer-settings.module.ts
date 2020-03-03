@@ -5,6 +5,7 @@ import { SettingsLayerColorsComponent } from './settings-layer-colors/settings-l
 import { SettingsLayerPositionComponent } from './settings-layer-position/settings-layer-position.component';
 import { SettingsLayerPropertiesComponent } from './settings-layer-properties/settings-layer-properties.component';
 import { SettingsPreviewComponent } from './settings-preview/settings-preview.component';
+import { SettingsHtmlMapperComponent } from './settings-html-mapper/settings-html-mapper.component';
 
 @NgModule({
   imports: [CoreModule],
@@ -13,7 +14,8 @@ import { SettingsPreviewComponent } from './settings-preview/settings-preview.co
     SettingsLayerPositionComponent,
     SettingsLayerPropertiesComponent,
     SettingsLayerColorsComponent,
-    SettingsPreviewComponent
+    SettingsPreviewComponent,
+    SettingsHtmlMapperComponent
   ],
   exports: [SettingsContainerComponent]
 })

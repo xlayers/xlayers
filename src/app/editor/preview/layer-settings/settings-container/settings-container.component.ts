@@ -8,6 +8,7 @@ import { Component } from '@angular/core';
       <xly-settings-layer-position></xly-settings-layer-position>
       <xly-settings-layer-properties></xly-settings-layer-properties>
       <xly-settings-layer-colors></xly-settings-layer-colors>
+      <xly-settings-html-mapper></xly-settings-html-mapper>
     </section>
   `,
   styles: [

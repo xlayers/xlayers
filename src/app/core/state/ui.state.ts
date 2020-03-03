@@ -107,6 +107,11 @@ export class InformUser {
   ) {}
 }
 
+export class LayerHtmlTagName {
+  static readonly type = '[UiSettings] HTML Tag Name';
+  constructor(public name: string = 'div') {}
+}
+
 const DEFAULT_UI_STATE = {
   wireframe: false,
   preview: false,
@@ -259,6 +264,18 @@ export class UiState {
     );
   }
 
+  @Action(LayerHtmlTagName)
+  layerTagName(
+    { getState, setState, patchState }: StateContext<UiSettings>,
+    action: LayerHtmlTagName
+  ) {
+    const state = getState();
+    state.currentLayer.web.TAG_NAME = action.name;
+    setState({
+      ...state
+    });
+  }
+
   @Action(ZoomReset)
   zoomReset({ patchState }: StateContext<UiSettings>, action: ZoomReset) {
     patchState({
@@ -335,9 +352,7 @@ export class UiState {
       .onAction()
       .subscribe(() => {
         if (action.errorType !== ErrorType.None) {
-          const githubIssueUrl = `template=bug_report.md&title=${
-            action.message
-          }`;
+          const githubIssueUrl = `template=bug_report.md&title=${action.message}`;
           window.open(
             `https://github.com/xlayers/xlayers/issues/new?${githubIssueUrl}`,
             '__blank'

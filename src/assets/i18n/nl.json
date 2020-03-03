@@ -84,6 +84,9 @@
     "name": "Naam",
     "kind": "Type"
   },
+  "SETTINGS_HTML_MAPPER": {
+    "title": "HTML"
+  },
   "SETTINGS_SIZE": {
     "title": "Grote",
     "height": "Hoogte",

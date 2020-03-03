@@ -84,6 +84,9 @@
     "name": "Name",
     "kind": "Kind"
   },
+  "SETTINGS_HTML_MAPPER": {
+    "title": "HTML"
+  },
   "SETTINGS_SIZE": {
     "title": "Size",
     "height": "Heigth",

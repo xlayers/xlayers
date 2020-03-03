@@ -23,6 +23,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatTreeModule } from '@angular/material/tree';
 import { ColorSketchModule } from 'ngx-color/sketch';
 import { SketchService } from './sketch.service';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { WINDOW_PROVIDERS } from './window.service';
 
 const MATERIAL = [
@@ -44,7 +45,8 @@ const MATERIAL = [
   MatMenuModule,
   MatTooltipModule,
   MatSelectModule,
-  DragDropModule
+  DragDropModule,
+  MatAutocompleteModule
 ];
 
 const PROVIDERS = [...WINDOW_PROVIDERS, SketchService];
@@ -56,4 +58,4 @@ const ExtraModules = [FormsModule, ColorSketchModule];
   exports: [CommonModule, ...MATERIAL, ...ExtraModules, TranslateModule],
   providers: [...PROVIDERS]
 })
-export class CoreModule { }
+export class CoreModule {}
