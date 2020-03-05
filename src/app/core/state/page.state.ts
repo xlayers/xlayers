@@ -4,6 +4,7 @@ import {
   XlayersExporterNavBar,
   XlayersNgxEditorModel
 } from '@app/editor/code/editor-container/codegen/codegen.service';
+import { Injectable } from '@angular/core';
 
 export interface CodeGenSettings {
   content: XlayersNgxEditorModel[];
@@ -23,6 +24,7 @@ export class CodeGen {
 @State<SketchMSPageLayer>({
   name: 'codegen'
 })
+@Injectable()
 export class CodeGenState {
   @Selector()
   static codegen(codegen: CodeGenSettings) {
