@@ -8,7 +8,7 @@ export class LayerService {
     return current.layers && Array.isArray(current.layers);
   }
 
-  lookup(current: SketchMSLayer) {
-    return current.layers as any;
+  lookup(current: SketchMSLayer): SketchMSLayer[] {
+    return current.layers;
   }
 }

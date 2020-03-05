@@ -367,7 +367,13 @@ interface XLayersCSSContext {
 interface XLayersWebCodeGenContext {
   components?: string[];
   attributes?: string[];
-  TAG_NAME?: string;
+  tag?: XLayersWebCodeGenTag;
+}
+interface XLayersWebCodeGenTag {
+  name: string;
+  empty?: boolean;
+  description?: string;
+  attributes?: { [key: string]: string }[];
 }
 
 interface SketchMSSharedStyle {

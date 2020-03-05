@@ -1,7 +1,5 @@
 export interface WebCodeGenOptions {
-  textTagName?: string;
-  bitmapTagName?: string;
-  blockTagName?: string;
+  tagName?: string;
   generateClassName?: boolean;
   xmlNamespace?: boolean;
   mode?: string;
@@ -11,9 +9,4 @@ export interface WebCodeGenOptions {
   componentDir?: string;
   assetDir?: string;
   force?: boolean;
-}
-
-export interface WebCodeGenContext {
-  components?: string[];
-  attributes?: string[];
 }

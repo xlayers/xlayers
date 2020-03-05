@@ -23,7 +23,7 @@ export class SketchService {
   ) {}
 
   async loadSketchFile(file: File) {
-    const data = await this.sketchIngestor.process(file);
+    const data: SketchMSData = await this.sketchIngestor.process(file);
     data.pages.forEach(page => {
       this.webCodeGen.compute(page, data);
     });
