@@ -58,9 +58,7 @@ describe('ImageService', () => {
       name: 'test'
     };
     const options = {
-      textTagName: 'span',
-      bitmapTagName: 'img',
-      blockTagName: 'div',
+      tagName: 'div',
       xmlPrefix: 'xly-',
       cssPrefix: 'xly_',
       componentDir: 'components',

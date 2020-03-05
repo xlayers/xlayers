@@ -73,6 +73,13 @@ export class WebAggregatorService {
     indent: number,
     options: WebCodeGenOptions
   ) {
+    if (current.web?.tag?.name) {
+      options = {
+        ...options,
+        tagName: current.web.tag.name
+      };
+    }
+
     if (this.symbolService.identify(current)) {
       this.visitSymbol(current, template, indent, options);
     } else if (this.imageService.identify(current)) {
@@ -92,12 +99,8 @@ export class WebAggregatorService {
     indent: number,
     options: WebCodeGenOptions
   ) {
-    const openTag = this.renderAttributeTag(
-      current,
-      options.blockTagName,
-      options
-    );
-    const closeTag = `</${options.blockTagName}>`;
+    const openTag = this.renderAttributeTag(current, options.tagName, options);
+    const closeTag = `</${options.tagName}>`;
 
     template.push(this.formatService.indent(indent, openTag));
     this.walk(current, template, indent + 1, options);
@@ -130,11 +133,11 @@ export class WebAggregatorService {
     indent: number,
     options: WebCodeGenOptions
   ) {
-    const attributes = this.webContext.of(current).attributes;
+    const attributes = this.webContext.of(current)?.attributes ?? [];
     template.push(
       this.formatService.indent(
         indent,
-        [`<${options.bitmapTagName}`, ...attributes].join(' ') + ' />'
+        [`<${options.tagName}`, ...attributes].join(' ') + ' />'
       )
     );
   }
@@ -149,9 +152,9 @@ export class WebAggregatorService {
       this.formatService.indent(
         indent,
         [
-          this.renderAttributeTag(current, options.textTagName, options),
+          this.renderAttributeTag(current, options.tagName, options),
           this.textService.lookup(current as SketchMSTextLayer),
-          `</${options.textTagName}>`
+          `</${options.tagName}>`
         ].join('')
       )
     );
@@ -166,7 +169,7 @@ export class WebAggregatorService {
     template.push(
       this.formatService.indent(
         indent,
-        this.renderAttributeTag(current, options.blockTagName, options)
+        this.renderAttributeTag(current, options.tagName, options)
       )
     );
     template.push(
@@ -180,9 +183,7 @@ export class WebAggregatorService {
         )
         .join('\n')
     );
-    template.push(
-      this.formatService.indent(indent, `</${options.blockTagName}>`)
-    );
+    template.push(this.formatService.indent(indent, `</${options.tagName}>`));
   }
 
   private renderAttributeTag(

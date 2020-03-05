@@ -110,9 +110,7 @@ export class AngularCodeGenService {
 
   private compileOptions(options: WebCodeGenOptions) {
     return {
-      textTagName: 'span',
-      bitmapTagName: 'img',
-      blockTagName: 'div',
+      tagName: 'div',
       xmlPrefix: 'xly-',
       cssPrefix: 'xly_',
       componentDir: 'components',
@@ -160,8 +158,8 @@ export class XlayersModule {}`;
 
   private renderImports(files) {
     return [
-      'import { NgModule } from \'@angular/core\';',
-      'import { CommonModule } from \'@angular/common\';'
+      "import { NgModule } from '@angular/core';",
+      "import { CommonModule } from '@angular/common';"
     ]
       .concat(
         files

@@ -88,9 +88,7 @@ export class VueCodeGenService {
 
   private compileOptions(options: WebCodeGenOptions) {
     return {
-      textTagName: 'span',
-      bitmapTagName: 'img',
-      blockTagName: 'div',
+      tagName: 'div',
       xmlPrefix: 'xly-',
       cssPrefix: 'xly_',
       componentDir: 'components',

@@ -2,8 +2,6 @@ import { Injectable } from '@angular/core';
 import { ImageService, LayerService, TextService } from '@xlayers/sketch-lib';
 import { SvgCodeGenService } from '@xlayers/svg-codegen';
 
-import { WebCodeGenContext } from './web-codegen.d';
-
 @Injectable({
   providedIn: 'root'
 })
@@ -28,19 +26,26 @@ export class WebContextService {
         'group',
         'symbolMaster',
         'shapeGroup'
-      ].includes(current._class as string)
+      ].includes(current._class)
     );
   }
 
-  of(current: SketchMSLayer) {
-    return (current as any).web;
+  of(current: SketchMSLayer): XLayersWebCodeGenContext {
+    return current.web;
   }
 
-  put(current: SketchMSLayer, nextContext: WebCodeGenContext) {
-    (current as any).web = { ...this.of(current), ...nextContext };
+  put(current: SketchMSLayer, nextContext: XLayersWebCodeGenContext): void {
+    current.web = {
+      ...this.of(current),
+      ...nextContext,
+      tag: {
+        name: '',
+        empty: false
+      }
+    };
   }
 
-  clear(current: SketchMSLayer) {
-    delete (current as any).web;
+  clear(current: SketchMSLayer): void {
+    delete current.web;
   }
 }

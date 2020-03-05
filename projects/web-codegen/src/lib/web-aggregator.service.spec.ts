@@ -90,9 +90,7 @@ describe('WebAggregatorService', () => {
     } as any;
 
     const aggregated = webAggregatorService.aggregate(currentLayer, {
-      textTagName: 'span',
-      bitmapTagName: 'img',
-      blockTagName: 'div',
+      tagName: 'span',
       xmlPrefix: 'xly-',
       cssPrefix: 'xly_',
       componentDir: 'components',

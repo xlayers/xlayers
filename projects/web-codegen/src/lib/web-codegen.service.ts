@@ -91,9 +91,7 @@ export class WebCodeGenService {
 
   private compileOptions(options: WebCodeGenOptions) {
     return {
-      textTagName: 'span',
-      bitmapTagName: 'img',
-      blockTagName: 'div',
+      tagName: 'div',
       mode: 'web',
       jsx: false,
       xmlPrefix: 'xly-',
