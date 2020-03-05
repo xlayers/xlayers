@@ -6,6 +6,7 @@ import { SettingsLayerPositionComponent } from './settings-layer-position/settin
 import { SettingsLayerPropertiesComponent } from './settings-layer-properties/settings-layer-properties.component';
 import { SettingsPreviewComponent } from './settings-preview/settings-preview.component';
 import { SettingsHtmlMapperComponent } from './settings-html-mapper/settings-html-mapper.component';
+import { SettingsHtmlMapperService } from './settings-html-mapper/settings-html-mapper.service';
 
 @NgModule({
   imports: [CoreModule],
@@ -17,6 +18,7 @@ import { SettingsHtmlMapperComponent } from './settings-html-mapper/settings-htm
     SettingsPreviewComponent,
     SettingsHtmlMapperComponent
   ],
+  providers: [SettingsHtmlMapperService],
   exports: [SettingsContainerComponent]
 })
 export class LayerSettingsModule {}

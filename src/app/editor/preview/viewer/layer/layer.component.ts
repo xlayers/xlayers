@@ -20,6 +20,13 @@ import { CssCodeGenService } from '@xlayers/css-codegen';
       [style.width.px]="layer?.frame?.width"
       [style.height.px]="layer?.frame?.height"
     >
+      <span
+        class="layerTagInfo"
+        *ngIf="layer.web?.tag?.name"
+        [title]="layer.web?.tag?.description"
+        >{{ layer.web.tag.name }}</span
+      >
+
       <xly-viewer-layer
         xlySelectedLayer
         *ngFor="let layer of layers"
@@ -71,6 +78,20 @@ import { CssCodeGenService } from '@xlayers/css-codegen';
 
       :host * {
         position: absolute;
+      }
+
+      .layerTagInfo {
+        display: none;
+      }
+      :host(.isCurrentLayer) .layerTagInfo {
+        box-shadow: 0 0 0 1px #ee4743 !important;
+        position: absolute;
+        right: 0;
+        top: 0;
+        display: inline-block;
+        font-size: 10px;
+        padding: 2px;
+        color: #ee4743;
       }
     `
   ]

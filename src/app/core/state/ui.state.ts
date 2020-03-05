@@ -107,9 +107,9 @@ export class InformUser {
   ) {}
 }
 
-export class LayerHtmlTagName {
+export class LayerHtmlCustomTage {
   static readonly type = '[UiSettings] HTML Tag Name';
-  constructor(public name: string = 'div') {}
+  constructor(public tag: XLayersWebCodeGenTag = null) {}
 }
 
 const DEFAULT_UI_STATE = {
@@ -264,13 +264,13 @@ export class UiState {
     );
   }
 
-  @Action(LayerHtmlTagName)
+  @Action(LayerHtmlCustomTage)
   layerTagName(
     { getState, setState, patchState }: StateContext<UiSettings>,
-    action: LayerHtmlTagName
+    action: LayerHtmlCustomTage
   ) {
     const state = getState();
-    state.currentLayer.web.TAG_NAME = action.name;
+    state.currentLayer.web.tag = action.tag;
     setState({
       ...state
     });
