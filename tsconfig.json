@@ -44,5 +44,6 @@
       "@xlayers/web-component-codegen": ["dist/web-component-codegen"],
       "@xlayers/web-component-codegen/*": ["dist/web-component-codegen/*"]
     }
-  }
+  },
+  "exclude": ["**/*.spec.ts"]
 }
