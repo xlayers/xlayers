@@ -62,10 +62,14 @@ const StoreDebugModule = [
      * ENABLING THIS, WILL THROW: TypeError: Cannot assign to read only property 'microTask' of object '[object Object]'
      * See similar issue in NgRx: https://github.com/brandonroberts/ngrx-store-freeze/issues/17
      */
-    developmentMode: !environment.production
+    // developmentMode: !environment.production
   }),
-  NgxsLoggerPluginModule.forRoot({ disabled: environment.production }),
-  NgxsReduxDevtoolsPluginModule.forRoot({ disabled: environment.production }),
+  NgxsLoggerPluginModule.forRoot({
+    disabled: environment.production
+  }),
+  NgxsReduxDevtoolsPluginModule.forRoot({
+    disabled: environment.production
+  }),
   NgxsRouterPluginModule.forRoot()
 ];
 
@@ -91,7 +95,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     }),
     RouterModule.forRoot(routes, {
       useHash: true,
-      enableTracing: !environment.production,
+      // enableTracing: !environment.production,
       preloadingStrategy: PreloadAllModules
     }),
     HighlightModule
