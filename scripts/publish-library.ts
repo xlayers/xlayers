@@ -16,7 +16,7 @@ export async function publishLibrary() {
   const PROJECT_FOLDER = `./projects/${pkg}`;
   const DIST_PROJECT_FOLDER = `./dist/${pkg}`;
   const TMP_FOLDER = String.raw`${pkg}`;
-  const DESTINATION_REPO = `git@github.com:xlayers/r${pkg}-build.git`;
+  const DESTINATION_REPO = `git@github.com:xlayers/${pkg}-build.git`;
 
   const COMMITTER_USER_NAME = await git([
     `--no-pager show -s --format='%cN' HEAD`
@@ -25,7 +25,11 @@ export async function publishLibrary() {
     `--no-pager show -s --format='%cE' HEAD`
   ]);
 
-  await mkdir(`tmp`);
+  await rm('-rf', 'dist');
+  await rm('-rf', 'tmp/*');
+  await rm('-rf', 'tmp');
+
+  await mkdir('-p', `tmp`);
   await process.chdir('tmp');
   await cmd('mkdir ', [`${TMP_FOLDER}`]);
   // git init
@@ -63,9 +67,9 @@ export async function publishLibrary() {
 
   await git(['push origin master --force']);
   // clean temp dir and make temp dir
-  await rm('-rf', './dist');
-  await rm('-rf', './tmp/*');
-  await rm('-rf', './tmp');
+  await rm('-rf', 'dist');
+  await rm('-rf', 'tmp/*');
+  await rm('-rf', 'tmp');
   await process.exit(0);
 }
 
