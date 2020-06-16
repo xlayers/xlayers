@@ -47,7 +47,7 @@ export async function publishLibrary() {
   await process.chdir(PROJECT_FOLDER);
 
   // run release-it for bump version
-  await cmd('npx', [`release-it --ci --dry-run`]);
+  await cmd('npx', [`release-it --ci`]);
   // // after version bump we need to rebuild our library
   await buildAllLibraries();
 
