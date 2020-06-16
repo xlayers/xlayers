@@ -9,7 +9,7 @@ describe('StencilDocGenService', () => {
             providers: [StencilDocGenService]
         });
 
-        service = TestBed.get(StencilDocGenService);
+        service = TestBed.inject(StencilDocGenService);
     });
 
     it('should create', () => {

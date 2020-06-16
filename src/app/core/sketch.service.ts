@@ -5,11 +5,11 @@ import { WebCodeGenService } from '@xlayers/web-codegen';
 import { SketchIngestorService } from '@xlayers/sketch-ingestor';
 
 export interface SketchMSData {
-  pages: SketchMSPage[];
+  pages: SketchMSPageLayer[];
   previews: SketchMSPreview[];
-  document: SketchMSDocumentData;
-  user: SketchMSUserData;
-  meta: SketchMSMetadata;
+  document: SketchMSDocument;
+  user: SketchMSUser;
+  meta: SketchMSMeta;
 }
 
 @Injectable({

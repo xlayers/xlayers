@@ -11,11 +11,11 @@ export const routes: Route[] = [
     children: [
       {
         path: 'code',
-        loadChildren: './code/code.module#CodeModule'
+        loadChildren: () => import('./code/code.module').then(m => m.CodeModule)
       },
       {
         path: 'preview',
-        loadChildren: './preview/preview.module#PreviewModule'
+        loadChildren: () => import('./preview/preview.module').then(m => m.PreviewModule)
       }
     ]
   }

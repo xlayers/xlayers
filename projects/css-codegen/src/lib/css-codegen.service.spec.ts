@@ -12,7 +12,7 @@ describe('CssCodeGenService', () => {
             providers: [CssCodeGenService]
         });
 
-        service = TestBed.get(CssCodeGenService);
+        service = TestBed.inject(CssCodeGenService);
         const version = VERSION_LIST[0];
         const fileNames = readdirSync(`${SKETCH_PATH}/${version}`);
 

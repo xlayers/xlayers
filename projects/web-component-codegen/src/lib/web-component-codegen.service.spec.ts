@@ -11,7 +11,7 @@ describe('WebComponentCodeGenService', () => {
             providers: [WebComponentCodeGenService]
         });
 
-        service = TestBed.get(WebComponentCodeGenService);
+        service = TestBed.inject(WebComponentCodeGenService);
     });
 
     it('should create', () => {

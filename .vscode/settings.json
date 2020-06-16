@@ -12,7 +12,10 @@
     "titleBar.inactiveForeground": "#e7e7e799",
     "statusBar.background": "#ff2c70",
     "statusBarItem.hoverBackground": "#ff5f93",
-    "statusBar.foreground": "#e7e7e7"
+    "statusBar.foreground": "#e7e7e7",
+    "activityBar.activeBackground": "#ff5f93",
+    "statusBar.border": "#ff2c70",
+    "titleBar.border": "#ff2c70"
   },
   "files.watcherExclude": {
     "**/.git/objects/**": true,
@@ -26,5 +29,7 @@
     "**/bower_components": true,
     "**/bazel-out": true,
     "**/dist": true
-  }
+  },
+  "peacock.color": "#ff2c70",
+  "prettier.singleQuote": true
 }

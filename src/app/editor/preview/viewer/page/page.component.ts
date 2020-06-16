@@ -37,7 +37,7 @@ import { UiState } from '@app/core/state';
 })
 export class ViewerPageComponent implements OnInit {
   @Input() data: SketchMSData;
-  @Input() page: SketchMSPage;
+  @Input() page: SketchMSPageLayer;
 
   @Input() wireframe = false;
   @Input() level = 0;

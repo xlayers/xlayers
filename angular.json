@@ -13,14 +13,23 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "aot": true,
             "outputPath": "dist/html",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "src/tsconfig.app.json",
-            "assets": ["src/favicon.ico", "src/assets", "src/manifest.json"],
-            "styles": ["src/styles.css"],
-            "scripts": ["node_modules/jszip/dist/jszip.min.js"]
+            "assets": [
+              "src/favicon.ico",
+              "src/assets",
+              "src/manifest.json"
+            ],
+            "styles": [
+              "src/styles.css"
+            ],
+            "scripts": [
+              "node_modules/jszip/dist/jszip.min.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -46,10 +55,20 @@
                   "name": "vendor",
                   "baseline": "700kb",
                   "warning": "100kb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
                 }
               ]
             },
             "hmr": {
+              "budgets": [
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
+                }
+              ],
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
@@ -83,8 +102,13 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": ["src/tsconfig.app.json", "src/tsconfig.spec.json"],
-            "exclude": ["**/node_modules/**"]
+            "tsConfig": [
+              "src/tsconfig.app.json",
+              "src/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         }
       }
@@ -100,6 +124,11 @@
           "options": {
             "tsConfig": "projects/web-codegen/tsconfig.lib.json",
             "project": "projects/web-codegen/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/web-codegen/tsconfig.lib.prod.json"
+            }
           }
         },
         "lint": {
@@ -109,7 +138,9 @@
               "projects/web-codegen/tsconfig.lib.json",
               "projects/web-codegen/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         }
       }
@@ -125,6 +156,11 @@
           "options": {
             "tsConfig": "projects/sketch-lib/tsconfig.lib.json",
             "project": "projects/sketch-lib/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/sketch-lib/tsconfig.lib.prod.json"
+            }
           }
         },
         "lint": {
@@ -134,7 +170,9 @@
               "projects/sketch-lib/tsconfig.lib.json",
               "projects/sketch-lib/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         }
       }
@@ -150,6 +188,11 @@
           "options": {
             "tsConfig": "projects/svg-codegen/tsconfig.lib.json",
             "project": "projects/svg-codegen/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/svg-codegen/tsconfig.lib.prod.json"
+            }
           }
         },
         "lint": {
@@ -159,7 +202,9 @@
               "projects/svg-codegen/tsconfig.lib.json",
               "projects/svg-codegen/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         }
       }
@@ -175,6 +220,11 @@
           "options": {
             "tsConfig": "projects/css-codegen/tsconfig.lib.json",
             "project": "projects/css-codegen/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/css-codegen/tsconfig.lib.prod.json"
+            }
           }
         },
         "lint": {
@@ -184,7 +234,9 @@
               "projects/css-codegen/tsconfig.lib.json",
               "projects/css-codegen/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         }
       }
@@ -200,6 +252,11 @@
           "options": {
             "tsConfig": "projects/sketch-ingestor/tsconfig.lib.json",
             "project": "projects/sketch-ingestor/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/sketch-ingestor/tsconfig.lib.prod.json"
+            }
           }
         },
         "lint": {
@@ -209,7 +266,9 @@
               "projects/sketch-ingestor/tsconfig.lib.json",
               "projects/sketch-ingestor/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         }
       }
@@ -225,6 +284,11 @@
           "options": {
             "tsConfig": "projects/xaml-codegen/tsconfig.lib.json",
             "project": "projects/xaml-codegen/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/xaml-codegen/tsconfig.lib.prod.json"
+            }
           }
         },
         "test": {
@@ -260,6 +324,11 @@
           "options": {
             "tsConfig": "projects/angular-codegen/tsconfig.lib.json",
             "project": "projects/angular-codegen/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/angular-codegen/tsconfig.lib.prod.json"
+            }
           }
         },
         "test": {
@@ -295,6 +364,11 @@
           "options": {
             "tsConfig": "projects/vue-codegen/tsconfig.lib.json",
             "project": "projects/vue-codegen/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/vue-codegen/tsconfig.lib.prod.json"
+            }
           }
         },
         "test": {
@@ -330,6 +404,11 @@
           "options": {
             "tsConfig": "projects/react-codegen/tsconfig.lib.json",
             "project": "projects/react-codegen/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/react-codegen/tsconfig.lib.prod.json"
+            }
           }
         },
         "test": {
@@ -365,6 +444,11 @@
           "options": {
             "tsConfig": "projects/stencil-codegen/tsconfig.lib.json",
             "project": "projects/stencil-codegen/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/stencil-codegen/tsconfig.lib.prod.json"
+            }
           }
         },
         "test": {
@@ -400,6 +484,11 @@
           "options": {
             "tsConfig": "projects/lit-element-codegen/tsconfig.lib.json",
             "project": "projects/lit-element-codegen/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/lit-element-codegen/tsconfig.lib.prod.json"
+            }
           }
         },
         "test": {
@@ -435,6 +524,11 @@
           "options": {
             "tsConfig": "projects/web-component-codegen/tsconfig.lib.json",
             "project": "projects/web-component-codegen/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/web-component-codegen/tsconfig.lib.prod.json"
+            }
           }
         },
         "test": {
@@ -460,5 +554,9 @@
       }
     }
   },
-  "defaultProject": "xlayers"
+  "defaultProject": "xlayers",
+  "cli": {
+    "packageManager": "npm",
+    "analytics": "ecf0e8f8-98dd-4548-b6e7-f80556509e48"
+  }
 }

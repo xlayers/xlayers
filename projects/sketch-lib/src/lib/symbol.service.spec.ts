@@ -9,7 +9,7 @@ describe('SymbolService', () => {
             providers: [SymbolService]
         });
 
-        service = TestBed.get(SymbolService);
+        service = TestBed.inject(SymbolService);
     });
 
     it('should create', () => {

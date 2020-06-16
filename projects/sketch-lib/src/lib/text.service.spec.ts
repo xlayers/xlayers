@@ -9,7 +9,7 @@ describe('TextService', () => {
             providers: [TextService]
         });
 
-        service = TestBed.get(TextService);
+        service = TestBed.inject(TextService);
     });
 
     it('should create', () => {

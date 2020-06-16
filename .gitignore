@@ -35,6 +35,7 @@ testem.log
 /typings
 tls.*
 .firebase
+junit.xml
 
 # System Files
 .DS_Store

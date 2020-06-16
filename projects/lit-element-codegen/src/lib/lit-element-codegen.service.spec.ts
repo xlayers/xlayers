@@ -11,7 +11,7 @@ describe.only('LitElementCodeGenService', () => {
             providers: [LitElementCodeGenService]
         });
 
-        service = TestBed.get(LitElementCodeGenService);
+        service = TestBed.inject(LitElementCodeGenService);
     });
 
     it('should create', () => {
