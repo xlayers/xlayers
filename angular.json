@@ -1,42 +1,38 @@
 {
-  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "version": 1,
-  "newProjectRoot": "projects",
   "projects": {
     "xlayers": {
-      "root": "",
-      "sourceRoot": "src",
       "projectType": "application",
-      "prefix": "xly",
       "schematics": {},
+      "root": "apps/xlayers",
+      "sourceRoot": "apps/xlayers/src",
+      "prefix": "xlayers-nx",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "outputPath": "dist/apps/xlayers",
+            "index": "apps/xlayers/src/index.html",
+            "main": "apps/xlayers/src/main.ts",
+            "polyfills": "apps/xlayers/src/polyfills.ts",
+            "tsConfig": "apps/xlayers/tsconfig.app.json",
             "aot": true,
-            "outputPath": "dist/html",
-            "index": "src/index.html",
-            "main": "src/main.ts",
-            "polyfills": "src/polyfills.ts",
-            "tsConfig": "src/tsconfig.app.json",
             "assets": [
-              "src/favicon.ico",
-              "src/assets",
-              "src/manifest.json"
+              "apps/xlayers/src/favicon.ico",
+              "apps/xlayers/src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "./node_modules/@angular/material/prebuilt-themes/pink-bluegrey.css",
+              "apps/xlayers/src/styles.css"
             ],
-            "scripts": [
-              "node_modules/jszip/dist/jszip.min.js"
-            ]
+            "scripts": ["node_modules/jszip/dist/jszip.min.js"]
           },
           "configurations": {
             "production": {
               "fileReplacements": [
                 {
-                  "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.prod.ts"
+                  "replace": "apps/xlayers/src/environments/environment.ts",
+                  "with": "apps/xlayers/src/environments/environment.prod.ts"
                 }
               ],
               "optimization": true,
@@ -44,35 +40,19 @@
               "sourceMap": false,
               "extractCss": true,
               "namedChunks": false,
-              "aot": true,
               "extractLicenses": true,
-              "vendorChunk": true,
+              "vendorChunk": false,
               "buildOptimizer": true,
-              "serviceWorker": true,
               "budgets": [
                 {
-                  "type": "bundle",
-                  "name": "vendor",
-                  "baseline": "700kb",
-                  "warning": "100kb"
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "6kb"
-                }
-              ]
-            },
-            "hmr": {
-              "budgets": [
-                {
-                  "type": "anyComponentStyle",
-                  "maximumWarning": "6kb"
-                }
-              ],
-              "fileReplacements": [
-                {
-                  "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.hmr.ts"
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
                 }
               ]
             }
@@ -86,10 +66,6 @@
           "configurations": {
             "production": {
               "browserTarget": "xlayers:build:production"
-            },
-            "hmr": {
-              "hmr": true,
-              "browserTarget": "xlayers:build:hmr"
             }
           }
         },
@@ -103,460 +79,589 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "src/tsconfig.app.json",
-              "src/tsconfig.spec.json"
+              "apps/xlayers/tsconfig.app.json",
+              "apps/xlayers/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
-          }
-        }
-      }
-    },
-    "web-codegen": {
-      "root": "projects/web-codegen",
-      "sourceRoot": "projects/web-codegen/src",
-      "projectType": "library",
-      "prefix": "lib",
-      "architect": {
-        "build": {
-          "builder": "@angular-devkit/build-ng-packagr:build",
-          "options": {
-            "tsConfig": "projects/web-codegen/tsconfig.lib.json",
-            "project": "projects/web-codegen/ng-package.json"
-          },
-          "configurations": {
-            "production": {
-              "tsConfig": "projects/web-codegen/tsconfig.lib.prod.json"
-            }
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "projects/web-codegen/tsconfig.lib.json",
-              "projects/web-codegen/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
-          }
-        }
-      }
-    },
-    "sketch-lib": {
-      "root": "projects/sketch-lib",
-      "sourceRoot": "projects/sketch-lib/src",
-      "projectType": "library",
-      "prefix": "lib",
-      "architect": {
-        "build": {
-          "builder": "@angular-devkit/build-ng-packagr:build",
-          "options": {
-            "tsConfig": "projects/sketch-lib/tsconfig.lib.json",
-            "project": "projects/sketch-lib/ng-package.json"
-          },
-          "configurations": {
-            "production": {
-              "tsConfig": "projects/sketch-lib/tsconfig.lib.prod.json"
-            }
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "projects/sketch-lib/tsconfig.lib.json",
-              "projects/sketch-lib/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
-          }
-        }
-      }
-    },
-    "svg-codegen": {
-      "root": "projects/svg-codegen",
-      "sourceRoot": "projects/svg-codegen/src",
-      "projectType": "library",
-      "prefix": "lib",
-      "architect": {
-        "build": {
-          "builder": "@angular-devkit/build-ng-packagr:build",
-          "options": {
-            "tsConfig": "projects/svg-codegen/tsconfig.lib.json",
-            "project": "projects/svg-codegen/ng-package.json"
-          },
-          "configurations": {
-            "production": {
-              "tsConfig": "projects/svg-codegen/tsconfig.lib.prod.json"
-            }
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "projects/svg-codegen/tsconfig.lib.json",
-              "projects/svg-codegen/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
-          }
-        }
-      }
-    },
-    "css-codegen": {
-      "root": "projects/css-codegen",
-      "sourceRoot": "projects/css-codegen/src",
-      "projectType": "library",
-      "prefix": "lib",
-      "architect": {
-        "build": {
-          "builder": "@angular-devkit/build-ng-packagr:build",
-          "options": {
-            "tsConfig": "projects/css-codegen/tsconfig.lib.json",
-            "project": "projects/css-codegen/ng-package.json"
-          },
-          "configurations": {
-            "production": {
-              "tsConfig": "projects/css-codegen/tsconfig.lib.prod.json"
-            }
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "projects/css-codegen/tsconfig.lib.json",
-              "projects/css-codegen/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
-          }
-        }
-      }
-    },
-    "sketch-ingestor": {
-      "root": "projects/sketch-ingestor",
-      "sourceRoot": "projects/sketch-ingestor/src",
-      "projectType": "library",
-      "prefix": "lib",
-      "architect": {
-        "build": {
-          "builder": "@angular-devkit/build-ng-packagr:build",
-          "options": {
-            "tsConfig": "projects/sketch-ingestor/tsconfig.lib.json",
-            "project": "projects/sketch-ingestor/ng-package.json"
-          },
-          "configurations": {
-            "production": {
-              "tsConfig": "projects/sketch-ingestor/tsconfig.lib.prod.json"
-            }
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "projects/sketch-ingestor/tsconfig.lib.json",
-              "projects/sketch-ingestor/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
-          }
-        }
-      }
-    },
-    "xaml-codegen": {
-      "projectType": "library",
-      "root": "projects/xaml-codegen",
-      "sourceRoot": "projects/xaml-codegen/src",
-      "prefix": "lib",
-      "architect": {
-        "build": {
-          "builder": "@angular-devkit/build-ng-packagr:build",
-          "options": {
-            "tsConfig": "projects/xaml-codegen/tsconfig.lib.json",
-            "project": "projects/xaml-codegen/ng-package.json"
-          },
-          "configurations": {
-            "production": {
-              "tsConfig": "projects/xaml-codegen/tsconfig.lib.prod.json"
-            }
+            "exclude": ["**/node_modules/**", "!apps/xlayers/**/*"]
           }
         },
         "test": {
-          "builder": "@angular-devkit/build-angular:karma",
+          "builder": "@nrwl/jest:jest",
           "options": {
-            "main": "projects/xaml-codegen/src/test.ts",
-            "tsConfig": "projects/xaml-codegen/tsconfig.spec.json",
-            "karmaConfig": "projects/xaml-codegen/karma.conf.js"
+            "jestConfig": "apps/xlayers/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "stamp": {
+          "builder": "@nrwl/workspace:run-commands",
+          "options": {
+            "commands": [
+              "chmod u+x ./scripts/stamp.bash",
+              "./scripts/stamp.bash"
+            ]
+          }
+        }
+      }
+    },
+    "xlayers-e2e": {
+      "root": "apps/xlayers-e2e",
+      "sourceRoot": "apps/xlayers-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/xlayers-e2e/cypress.json",
+            "tsConfig": "apps/xlayers-e2e/tsconfig.e2e.json",
+            "devServerTarget": "xlayers:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "xlayers:serve:production"
+            }
           }
         },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "projects/xaml-codegen/tsconfig.lib.json",
-              "projects/xaml-codegen/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "tsConfig": ["apps/xlayers-e2e/tsconfig.e2e.json"],
+            "exclude": ["**/node_modules/**", "!apps/xlayers-e2e/**/*"]
           }
         }
       }
     },
     "angular-codegen": {
       "projectType": "library",
-      "root": "projects/angular-codegen",
-      "sourceRoot": "projects/angular-codegen/src",
-      "prefix": "lib",
+      "root": "libs/angular-codegen",
+      "sourceRoot": "libs/angular-codegen/src",
+      "prefix": "xlayers",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-ng-packagr:build",
+          "builder": "@nrwl/angular:package",
           "options": {
-            "tsConfig": "projects/angular-codegen/tsconfig.lib.json",
-            "project": "projects/angular-codegen/ng-package.json"
+            "tsConfig": "libs/angular-codegen/tsconfig.lib.json",
+            "project": "libs/angular-codegen/ng-package.json"
           },
           "configurations": {
             "production": {
-              "tsConfig": "projects/angular-codegen/tsconfig.lib.prod.json"
+              "tsConfig": "libs/angular-codegen/tsconfig.lib.prod.json"
             }
-          }
-        },
-        "test": {
-          "builder": "@angular-devkit/build-angular:karma",
-          "options": {
-            "main": "projects/angular-codegen/src/test.ts",
-            "tsConfig": "projects/angular-codegen/tsconfig.spec.json",
-            "karmaConfig": "projects/angular-codegen/karma.conf.js"
           }
         },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "projects/angular-codegen/tsconfig.lib.json",
-              "projects/angular-codegen/tsconfig.spec.json"
+              "libs/angular-codegen/tsconfig.lib.json",
+              "libs/angular-codegen/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**", "!libs/angular-codegen/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/angular-codegen/jest.config.js",
+            "passWithNoTests": true
           }
         }
-      }
+      },
+      "schematics": {}
     },
-    "vue-codegen": {
+    "css-codegen": {
       "projectType": "library",
-      "root": "projects/vue-codegen",
-      "sourceRoot": "projects/vue-codegen/src",
-      "prefix": "lib",
+      "root": "libs/css-codegen",
+      "sourceRoot": "libs/css-codegen/src",
+      "prefix": "xlayers",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-ng-packagr:build",
+          "builder": "@nrwl/angular:package",
           "options": {
-            "tsConfig": "projects/vue-codegen/tsconfig.lib.json",
-            "project": "projects/vue-codegen/ng-package.json"
+            "tsConfig": "libs/css-codegen/tsconfig.lib.json",
+            "project": "libs/css-codegen/ng-package.json"
           },
           "configurations": {
             "production": {
-              "tsConfig": "projects/vue-codegen/tsconfig.lib.prod.json"
+              "tsConfig": "libs/css-codegen/tsconfig.lib.prod.json"
             }
-          }
-        },
-        "test": {
-          "builder": "@angular-devkit/build-angular:karma",
-          "options": {
-            "main": "projects/vue-codegen/src/test.ts",
-            "tsConfig": "projects/vue-codegen/tsconfig.spec.json",
-            "karmaConfig": "projects/vue-codegen/karma.conf.js"
           }
         },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "projects/vue-codegen/tsconfig.lib.json",
-              "projects/vue-codegen/tsconfig.spec.json"
+              "libs/css-codegen/tsconfig.lib.json",
+              "libs/css-codegen/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
-          }
-        }
-      }
-    },
-    "react-codegen": {
-      "projectType": "library",
-      "root": "projects/react-codegen",
-      "sourceRoot": "projects/react-codegen/src",
-      "prefix": "lib",
-      "architect": {
-        "build": {
-          "builder": "@angular-devkit/build-ng-packagr:build",
-          "options": {
-            "tsConfig": "projects/react-codegen/tsconfig.lib.json",
-            "project": "projects/react-codegen/ng-package.json"
-          },
-          "configurations": {
-            "production": {
-              "tsConfig": "projects/react-codegen/tsconfig.lib.prod.json"
-            }
+            "exclude": ["**/node_modules/**", "!libs/css-codegen/**/*"]
           }
         },
         "test": {
-          "builder": "@angular-devkit/build-angular:karma",
+          "builder": "@nrwl/jest:jest",
           "options": {
-            "main": "projects/react-codegen/src/test.ts",
-            "tsConfig": "projects/react-codegen/tsconfig.spec.json",
-            "karmaConfig": "projects/react-codegen/karma.conf.js"
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "projects/react-codegen/tsconfig.lib.json",
-              "projects/react-codegen/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "jestConfig": "libs/css-codegen/jest.config.js",
+            "passWithNoTests": true
           }
         }
-      }
-    },
-    "stencil-codegen": {
-      "projectType": "library",
-      "root": "projects/stencil-codegen",
-      "sourceRoot": "projects/stencil-codegen/src",
-      "prefix": "lib",
-      "architect": {
-        "build": {
-          "builder": "@angular-devkit/build-ng-packagr:build",
-          "options": {
-            "tsConfig": "projects/stencil-codegen/tsconfig.lib.json",
-            "project": "projects/stencil-codegen/ng-package.json"
-          },
-          "configurations": {
-            "production": {
-              "tsConfig": "projects/stencil-codegen/tsconfig.lib.prod.json"
-            }
-          }
-        },
-        "test": {
-          "builder": "@angular-devkit/build-angular:karma",
-          "options": {
-            "main": "projects/stencil-codegen/src/test.ts",
-            "tsConfig": "projects/stencil-codegen/tsconfig.spec.json",
-            "karmaConfig": "projects/stencil-codegen/karma.conf.js"
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "projects/stencil-codegen/tsconfig.lib.json",
-              "projects/stencil-codegen/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
-          }
-        }
-      }
+      },
+      "schematics": {}
     },
     "lit-element-codegen": {
       "projectType": "library",
-      "root": "projects/lit-element-codegen",
-      "sourceRoot": "projects/lit-element-codegen/src",
-      "prefix": "lib",
+      "root": "libs/lit-element-codegen",
+      "sourceRoot": "libs/lit-element-codegen/src",
+      "prefix": "xlayers",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-ng-packagr:build",
+          "builder": "@nrwl/angular:package",
           "options": {
-            "tsConfig": "projects/lit-element-codegen/tsconfig.lib.json",
-            "project": "projects/lit-element-codegen/ng-package.json"
+            "tsConfig": "libs/lit-element-codegen/tsconfig.lib.json",
+            "project": "libs/lit-element-codegen/ng-package.json"
           },
           "configurations": {
             "production": {
-              "tsConfig": "projects/lit-element-codegen/tsconfig.lib.prod.json"
+              "tsConfig": "libs/lit-element-codegen/tsconfig.lib.prod.json"
             }
-          }
-        },
-        "test": {
-          "builder": "@angular-devkit/build-angular:karma",
-          "options": {
-            "main": "projects/lit-element-codegen/src/test.ts",
-            "tsConfig": "projects/lit-element-codegen/tsconfig.spec.json",
-            "karmaConfig": "projects/lit-element-codegen/karma.conf.js"
           }
         },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "projects/lit-element-codegen/tsconfig.lib.json",
-              "projects/lit-element-codegen/tsconfig.spec.json"
+              "libs/lit-element-codegen/tsconfig.lib.json",
+              "libs/lit-element-codegen/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/lit-element-codegen/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/lit-element-codegen/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "schematics": {}
+    },
+    "react-codegen": {
+      "projectType": "library",
+      "root": "libs/react-codegen",
+      "sourceRoot": "libs/react-codegen/src",
+      "prefix": "xlayers",
+      "architect": {
+        "build": {
+          "builder": "@nrwl/angular:package",
+          "options": {
+            "tsConfig": "libs/react-codegen/tsconfig.lib.json",
+            "project": "libs/react-codegen/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "libs/react-codegen/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/react-codegen/tsconfig.lib.json",
+              "libs/react-codegen/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/react-codegen/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/react-codegen/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "schematics": {}
+    },
+    "stencil-codegen": {
+      "projectType": "library",
+      "root": "libs/stencil-codegen",
+      "sourceRoot": "libs/stencil-codegen/src",
+      "prefix": "xlayers",
+      "architect": {
+        "build": {
+          "builder": "@nrwl/angular:package",
+          "options": {
+            "tsConfig": "libs/stencil-codegen/tsconfig.lib.json",
+            "project": "libs/stencil-codegen/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "libs/stencil-codegen/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/stencil-codegen/tsconfig.lib.json",
+              "libs/stencil-codegen/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/stencil-codegen/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/stencil-codegen/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "schematics": {}
+    },
+    "svg-codegen": {
+      "projectType": "library",
+      "root": "libs/svg-codegen",
+      "sourceRoot": "libs/svg-codegen/src",
+      "prefix": "xlayers",
+      "architect": {
+        "build": {
+          "builder": "@nrwl/angular:package",
+          "options": {
+            "tsConfig": "libs/svg-codegen/tsconfig.lib.json",
+            "project": "libs/svg-codegen/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "libs/svg-codegen/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/svg-codegen/tsconfig.lib.json",
+              "libs/svg-codegen/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/svg-codegen/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/svg-codegen/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "schematics": {}
+    },
+    "vue-codegen": {
+      "projectType": "library",
+      "root": "libs/vue-codegen",
+      "sourceRoot": "libs/vue-codegen/src",
+      "prefix": "xlayers",
+      "architect": {
+        "build": {
+          "builder": "@nrwl/angular:package",
+          "options": {
+            "tsConfig": "libs/vue-codegen/tsconfig.lib.json",
+            "project": "libs/vue-codegen/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "libs/vue-codegen/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/vue-codegen/tsconfig.lib.json",
+              "libs/vue-codegen/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/vue-codegen/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/vue-codegen/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "schematics": {}
+    },
+    "web-codegen": {
+      "projectType": "library",
+      "root": "libs/web-codegen",
+      "sourceRoot": "libs/web-codegen/src",
+      "prefix": "xlayers",
+      "architect": {
+        "build": {
+          "builder": "@nrwl/angular:package",
+          "options": {
+            "tsConfig": "libs/web-codegen/tsconfig.lib.json",
+            "project": "libs/web-codegen/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "libs/web-codegen/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/web-codegen/tsconfig.lib.json",
+              "libs/web-codegen/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/web-codegen/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/web-codegen/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "schematics": {}
+    },
+    "web-component-codegen": {
+      "projectType": "library",
+      "root": "libs/web-component-codegen",
+      "sourceRoot": "libs/web-component-codegen/src",
+      "prefix": "xlayers",
+      "architect": {
+        "build": {
+          "builder": "@nrwl/angular:package",
+          "options": {
+            "tsConfig": "libs/web-component-codegen/tsconfig.lib.json",
+            "project": "libs/web-component-codegen/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "libs/web-component-codegen/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/web-component-codegen/tsconfig.lib.json",
+              "libs/web-component-codegen/tsconfig.spec.json"
             ],
             "exclude": [
-              "**/node_modules/**"
+              "**/node_modules/**",
+              "!libs/web-component-codegen/**/*"
             ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/web-component-codegen/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "schematics": {}
+    },
+    "xaml-codegen": {
+      "projectType": "library",
+      "root": "libs/xaml-codegen",
+      "sourceRoot": "libs/xaml-codegen/src",
+      "prefix": "xlayers",
+      "architect": {
+        "build": {
+          "builder": "@nrwl/angular:package",
+          "options": {
+            "tsConfig": "libs/xaml-codegen/tsconfig.lib.json",
+            "project": "libs/xaml-codegen/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "libs/xaml-codegen/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/xaml-codegen/tsconfig.lib.json",
+              "libs/xaml-codegen/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/xaml-codegen/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/xaml-codegen/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "schematics": {}
+    },
+    "sketch-lib": {
+      "projectType": "library",
+      "root": "libs/sketch-lib",
+      "sourceRoot": "libs/sketch-lib/src",
+      "prefix": "xlayers",
+      "architect": {
+        "build": {
+          "builder": "@nrwl/angular:package",
+          "options": {
+            "tsConfig": "libs/sketch-lib/tsconfig.lib.json",
+            "project": "libs/sketch-lib/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "libs/sketch-lib/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/sketch-lib/tsconfig.lib.json",
+              "libs/sketch-lib/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/sketch-lib/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/sketch-lib/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "schematics": {}
+    },
+    "sketch-ingestor": {
+      "projectType": "library",
+      "root": "libs/sketch-ingestor",
+      "sourceRoot": "libs/sketch-ingestor/src",
+      "prefix": "xlayers",
+      "architect": {
+        "build": {
+          "builder": "@nrwl/angular:package",
+          "options": {
+            "tsConfig": "libs/sketch-ingestor/tsconfig.lib.json",
+            "project": "libs/sketch-ingestor/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "libs/sketch-ingestor/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/sketch-ingestor/tsconfig.lib.json",
+              "libs/sketch-ingestor/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/sketch-ingestor/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/sketch-ingestor/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "schematics": {}
+    },
+    "sketchtypes": {
+      "root": "libs/sketchtypes",
+      "sourceRoot": "libs/sketchtypes/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/sketchtypes/tsconfig.lib.json",
+              "libs/sketchtypes/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/sketchtypes/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/sketchtypes/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "build": {
+          "builder": "@nrwl/node:package",
+          "options": {
+            "outputPath": "dist/libs/sketchtypes",
+            "tsConfig": "libs/sketchtypes/tsconfig.lib.json",
+            "packageJson": "libs/sketchtypes/package.json",
+            "main": "libs/sketchtypes/src/index.ts",
+            "assets": ["libs/sketchtypes/*.md"],
+            "srcRootForCompilationRoot": "libs\\sketchtypes\\src"
           }
         }
       }
     },
-    "web-component-codegen": {
+    "test-helpers": {
+      "root": "libs/test-helpers",
+      "sourceRoot": "libs/test-helpers/src",
       "projectType": "library",
-      "root": "projects/web-component-codegen",
-      "sourceRoot": "projects/web-component-codegen/src",
-      "prefix": "lib",
+      "schematics": {},
       "architect": {
-        "build": {
-          "builder": "@angular-devkit/build-ng-packagr:build",
-          "options": {
-            "tsConfig": "projects/web-component-codegen/tsconfig.lib.json",
-            "project": "projects/web-component-codegen/ng-package.json"
-          },
-          "configurations": {
-            "production": {
-              "tsConfig": "projects/web-component-codegen/tsconfig.lib.prod.json"
-            }
-          }
-        },
-        "test": {
-          "builder": "@angular-devkit/build-angular:karma",
-          "options": {
-            "main": "projects/web-component-codegen/src/test.ts",
-            "tsConfig": "projects/web-component-codegen/tsconfig.spec.json",
-            "karmaConfig": "projects/web-component-codegen/karma.conf.js"
-          }
-        },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "projects/web-component-codegen/tsconfig.lib.json",
-              "projects/web-component-codegen/tsconfig.spec.json"
+              "libs/test-helpers/tsconfig.lib.json",
+              "libs/test-helpers/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**", "!libs/test-helpers/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/test-helpers/jest.config.js",
+            "passWithNoTests": true
           }
         }
       }
     }
   },
-  "defaultProject": "xlayers",
   "cli": {
-    "packageManager": "npm",
-    "analytics": "ecf0e8f8-98dd-4548-b6e7-f80556509e48"
-  }
+    "defaultCollection": "@nrwl/angular"
+  },
+  "schematics": {
+    "@nrwl/angular:application": {
+      "unitTestRunner": "jest",
+      "e2eTestRunner": "cypress"
+    },
+    "@nrwl/angular:library": {
+      "unitTestRunner": "jest"
+    }
+  },
+  "defaultProject": "xlayers"
 }

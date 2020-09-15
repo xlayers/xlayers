@@ -1,8 +1,0 @@
-steps:
-- name: 'gcr.io/cloud-builders/docker'
-  args: [ 'build', '-t', 'gcr.io/$PROJECT_ID/ngcontainer', '.' ]
-images:
-- 'gcr.io/$PROJECT_ID/ngcontainer'
-
-# 15 min 
-timeout: 900s

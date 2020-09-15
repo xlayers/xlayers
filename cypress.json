@@ -1,4 +1,0 @@
-{
-  "baseUrl": "http://localhost:4200",
-  "pluginsFile": "tests/e2e/plugins/index.js"
-}
