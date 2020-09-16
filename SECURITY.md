@@ -32,9 +32,9 @@ We are currently supporting security updates for:
 
 | Version                 | Supported |
 | ----------------------- | --------- |
-| https://xlayes.dev      | ✅        |
-| https://next.xlayes.dev | ✅        |
-| https://xlayes.app      | ✅        |
-| https://xlayes.design   | ✅        |
+| https://xlayers.dev      | ✅        |
+| https://next.xlayers.dev | ✅        |
+| https://xlayers.app      | ✅        |
+| https://xlayers.design   | ✅        |
 
 – Thank you, xLayers Team.
