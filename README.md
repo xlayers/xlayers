@@ -49,7 +49,7 @@
 </p>
 
 <p align="center">Preview and Convert SketchApp Design Files Into ANY Framework And Library.</p>
-<img align="center" src="https://github.com/xlayers/xlayers/raw/master/src/assets/xlayers-ui-1.png?raw=true"/>
+<img align="center" src="https://raw.githubusercontent.com/xlayers/xlayers/main/apps/xlayers/src/assets/xlayers-ui-1.png?raw=true"/>
 
 ## What is xLayers?
 
@@ -75,7 +75,7 @@ Thank you to all our backers! 🙏 [[Become a backer](https://opencollective.com
 
 ## Sponsors
 
-Support this project by becoming a sponsor. Your logo will show up here with a link to your website. [[Become a sponsor](https://opencollective.com/xlayers#sponsor)][<img src="https://pbs.twimg.com/profile_images/481333142238679040/erykrvbg_400x400.png" width="50">](https://www.centigrade.de/en)
+Support this project by becoming a sponsor. Your logo will show up here with a link to your website. [[Become a sponsor](https://opencollective.com/xlayers#sponsor)][<img src="https://pbs.twimg.com/profile_images/481333142238679040/ErykRvBG_200x200.png" width="50">](https://www.centigrade.de/en)
 <a href="https://opencollective.com/xlayers/sponsor/2/website" target="_blank"><img src="https://opencollective.com/xlayers/sponsor/2/avatar.svg"></a>
 <a href="https://opencollective.com/xlayers/sponsor/3/website" target="_blank"><img src="https://opencollective.com/xlayers/sponsor/3/avatar.svg"></a>
 <a href="https://opencollective.com/xlayers/sponsor/4/website" target="_blank"><img src="https://opencollective.com/xlayers/sponsor/4/avatar.svg"></a>
