@@ -1,0 +1,29 @@
+import { Injectable } from '@angular/core';
+import {
+  WebComponentCodeGenService,
+  WebComponentDocGenService,
+} from '@xlayers/web-component-codegen';
+import { XlayersNgxEditorModel } from './codegen.service';
+import { SketchMSData } from '@xlayers/sketchtypes';
+
+@Injectable({
+  providedIn: 'root',
+})
+export class WebComponentCodeGenFacadeService {
+  constructor(
+    private readonly webCodeGen: WebComponentCodeGenService,
+    private readonly webDocGen: WebComponentDocGenService
+  ) {}
+
+  buttons() {
+    return {
+      stackblitz: true,
+    };
+  }
+
+  generate(data: SketchMSData) {
+    return this.webDocGen
+      .aggregate(data)
+      .concat(this.webCodeGen.aggregate(data)) as XlayersNgxEditorModel[];
+  }
+}

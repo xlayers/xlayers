@@ -1,0 +1,22 @@
+mat-tree-node {
+  cursor: pointer;
+}
+mat-tree-node.selected {
+  background-color: #ff4f81;
+}
+
+mat-tree-node button {
+  width: auto;
+}
+
+.kind-icon {
+  font-size: 20px;
+}
+
+.mat-button-wrapper {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  width: 150px;
+  white-space: nowrap;
+  display: inline-block;
+}

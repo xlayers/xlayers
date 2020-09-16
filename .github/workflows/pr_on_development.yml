@@ -1,0 +1,53 @@
+name: affected_on_development
+
+on:
+  pull_request:
+    branches:
+      - master
+    types: [opened, reopened, synchronize]
+
+jobs:
+    build:
+      name: install, test and build
+      runs-on: ubuntu-latest
+      strategy:
+        matrix:
+          node-version: [13.x]
+      steps:
+        - uses: actions/checkout@v2
+          with:
+            ref: ${{ github.event.pull_request.head.ref }}
+            fetch-depth: 0
+        - name: Use Node.js ${{ matrix.node-version }}
+          uses: actions/setup-node@v1
+          with:
+            node-version: ${{ matrix.node-version }}
+        - name: Fetch other branches
+          run: git fetch --no-tags --prune --depth=5 origin master
+
+        - name: Cache node modules
+          uses: actions/cache@v1
+          env:
+            cache-name: cache-node-modules
+          with:
+            path: |
+              ~/.npm
+              *node_modules
+            key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('package-lock.json') }}
+            restore-keys: |
+              ${{ runner.os }}-build-${{ env.cache-name }}-
+              ${{ runner.os }}-build-
+              ${{ runner.os }}-
+        - name: Install environment
+          run: npm install
+        - name: Run lint
+          run: npm run affected:lint -- --base=origin/master --head=  ${{ github.event.pull_request.head.ref }}
+        - name: Tests coverage
+          run: npm run affected:test -- --base=origin/master --head=  ${{ github.event.pull_request.head.ref }} --codeCoverage
+        - name: Tests E2e
+          run: npm run nx affected:e2e --base=origin/master~1  --head=  ${{ github.event.pull_request.head.ref }} --parallel=true --with-deps=true
+        - name: Build
+          run: npm run affected:build -- --base=origin/master --head=  ${{ github.event.pull_request.head.ref }}
+        - name: Stamp
+          run: npm run stamp
+

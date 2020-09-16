@@ -1,0 +1,43 @@
+name: mainworkflow
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+    build:
+      name: install, test and build
+      runs-on: ubuntu-latest
+      strategy:
+        matrix:
+          node-version: [13.x]
+      steps:
+        - uses: actions/checkout@v2
+        - name: Use Node.js ${{ matrix.node-version }}
+          uses: actions/setup-node@v1
+          with:
+            node-version: ${{ matrix.node-version }}
+        - name: Cache node modules
+          uses: actions/cache@v1
+          env:
+            cache-name: cache-node-modules
+          with:
+            path: |
+              ~/.npm
+              node_modules
+            key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('package-lock.json') }}
+            restore-keys: |
+              ${{ runner.os }}-build-${{ env.cache-name }}-
+              ${{ runner.os }}-build-
+              ${{ runner.os }}-
+        - name: Install environment
+          run: npm install
+        - name: Tests coverage
+          run: npm run nx run-many -- --target=test --all --codeCoverage
+        - name: Tests E2e
+          run: npm run nx affected:e2e --base=origin/master~1 --head=origin/master --parallel=true --with-deps=true
+        - name: Build
+          run: npm run nx affected:build --base=origin/master~1 --head=origin/master --parallel=true --with-deps=true --prod
+        - name: Stamp
+          run: npm run stamp
+ 
