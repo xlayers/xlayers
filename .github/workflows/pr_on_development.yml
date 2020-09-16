@@ -3,7 +3,7 @@ name: affected_on_development
 on:
   pull_request:
     branches:
-      - master
+      - main
     types: [opened, reopened, synchronize]
 
 jobs:
@@ -23,7 +23,7 @@ jobs:
           with:
             node-version: ${{ matrix.node-version }}
         - name: Fetch other branches
-          run: git fetch --no-tags --prune --depth=5 origin master
+          run: git fetch --no-tags --prune --depth=5 origin main
 
         - name: Cache node modules
           uses: actions/cache@v1
@@ -41,13 +41,13 @@ jobs:
         - name: Install environment
           run: npm install
         - name: Run lint
-          run: npm run affected:lint -- --base=origin/master --head=  ${{ github.event.pull_request.head.ref }}
+          run: npm run affected:lint -- --base=origin/main --head=  ${{ github.event.pull_request.head.ref }}
         - name: Tests coverage
-          run: npm run affected:test -- --base=origin/master --head=  ${{ github.event.pull_request.head.ref }} --codeCoverage
+          run: npm run affected:test -- --base=origin/main --head=  ${{ github.event.pull_request.head.ref }} --codeCoverage
         - name: Tests E2e
-          run: npm run nx affected:e2e --base=origin/master~1  --head=  ${{ github.event.pull_request.head.ref }} --parallel=true --with-deps=true
+          run: npm run nx affected:e2e --base=origin/main~1  --head=  ${{ github.event.pull_request.head.ref }} --parallel=true --with-deps=true
         - name: Build
-          run: npm run affected:build -- --base=origin/master --head=  ${{ github.event.pull_request.head.ref }}
+          run: npm run affected:build -- --base=origin/main --head=  ${{ github.event.pull_request.head.ref }}
         - name: Stamp
           run: npm run stamp
 
