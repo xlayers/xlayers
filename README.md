@@ -35,10 +35,6 @@
   <a href="https://github.com/xlayers/xlayers/actions">
     <img src="https://github.com/xlayers/xlayers/workflows/mainworkflow/badge.svg" />
   </a>
-
-  <a href="https://app.netlify.com/sites/xlayers/deploys">
-    <img src="https://api.netlify.com/api/v1/badges/3f01ff90-945c-4a5c-9ecd-58e24f3a3ef3/deploy-status" />
-  </a>
   
 </p>
 
