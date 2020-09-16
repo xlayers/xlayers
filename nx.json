@@ -1,0 +1,78 @@
+{
+  "npmScope": "xlayers",
+  "implicitDependencies": {
+    "angular.json": "*",
+    "package.json": {
+      "dependencies": "*",
+      "devDependencies": "*"
+    },
+    "tslint.json": "*",
+    "nx.json": "*",
+    "tsconfig.base.json": "*"
+  },
+  "tasksRunnerOptions": {
+    "default": {
+      "runner": "@nrwl/nx-cloud",
+      "options": {
+        "accessToken": "ZjkwMTBjMjEtMjNkMi00MDQwLThlYmEtZWU2NDBlOTE3YTQ0fHJlYWQtd3JpdGU=",
+        "cacheableOperations": ["build", "test", "lint", "e2e"],
+        "canTrackAnalytics": false,
+        "showUsageWarnings": true
+      }
+    }
+  },
+  "projects": {
+    "xlayers": {
+      "tags": []
+    },
+    "xlayers-e2e": {
+      "tags": [],
+      "implicitDependencies": ["xlayers"]
+    },
+    "angular-codegen": {
+      "tags": []
+    },
+    "css-codegen": {
+      "tags": []
+    },
+    "lit-element-codegen": {
+      "tags": []
+    },
+    "react-codegen": {
+      "tags": []
+    },
+    "stencil-codegen": {
+      "tags": []
+    },
+    "svg-codegen": {
+      "tags": []
+    },
+    "vue-codegen": {
+      "tags": []
+    },
+    "web-codegen": {
+      "tags": []
+    },
+    "web-component-codegen": {
+      "tags": []
+    },
+    "xaml-codegen": {
+      "tags": []
+    },
+    "sketch-lib": {
+      "tags": []
+    },
+    "sketch-ingestor": {
+      "tags": []
+    },
+    "sketchtypes": {
+      "tags": []
+    },
+    "test-helpers": {
+      "tags": []
+    }
+  },
+  "affected": {
+    "defaultBase": "master"
+  }
+}

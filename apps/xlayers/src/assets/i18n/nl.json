@@ -1,0 +1,100 @@
+{
+  "APP": {
+    "preview": "Bekijk en converteer SketchApp Design Files in een willekeurig framework",
+    "get_started": "Aan de slag",
+    "explore_viewer": "Bekijk de Designer interface",
+    "explore_codegen": "Bekijk de Codegen interface",
+    "designers_sketch": "Designers maken gebruik van de SketchApp<sup>1</sup> om gebruiksvriendelijke UI componenten te maken...",
+    "designer_drag": "Nu kunnen Designers hun Sketch bestanden in xLayers zetten om hun creatie te zien in de browser.",
+    "3d_view": "xLayers heeft een 3D weergave waar Designers en Ontwikkelaars de mogelijkheid hebben om een voorbeeld krijgen van de UI, de verschillende grotes te kunnen inspecteren net als de positie en kleur.",
+    "developer_opt": "Developers zullen xLayers gebruiken om de UI componenten, gemaakt in Sketch, te exporteren naar Angular, Vue of React componenten en deze gebruiken in de applicaties.",
+    "xlayers_oss": "xLayers is volledig Open Source en beschikbaar op GitHub.",
+    "madeBy": "Gemaakt met ♡ door",
+    "xlayers_bunch": "met hulp van",
+    "great_contributers": "contributors",
+    "xlayers_dev_design": "voor Designers en Ontwikkelaars.",
+    "xlayers_release": "xLayers is nog in een ALPHA release, de UI en UX kunnen nog aangepast worden voor een officiele release.",
+    "xlayers_support": "Ondersteund SketchApp versie",
+    "sketch_version": "v50 en hoger",
+    "xlayers_logo": "xLayers logo is aangeboden door",
+    "warranty": "Dit project is aangeboden zonder garanties. Gebruik is op basis van eigen risico. Door gebruik te maken van xLayers.app ga je hiermee akkoord",
+    "privacy_policy": "Privacy Policy",
+    "license": "Licentie",
+    "join": "Help ons via GitHub",
+    "and": "en",
+    "build": "Versie"
+  },
+  "LANDING": {
+    "quick_access_toolbar": "Snelle toegang om de verschillende lagen te kunnen bekijken, zoomfuncties, 3D-modues en de codegen-editor",
+    "quick_access_preview_download": "Eenvoudig het orginele ontwerp, zoals het werd geëxporteerd door de SkechtApp downloaden",
+    "design_editor_info": "Een editor met zowel 2D- als 3D modus waarmee u toegang heeft tot alle ontwerp lagen.",
+    "sketch_layer_list": "Krijg snel toegang tot de verschillende lagen van het schetsontwerp en inspecteer deze.",
+    "property_panel": "De eigenschappen van elke laag, inclusief groote en afmetingen, stijlinformatie en nog veel meer",
+    "code_editor_options": "Extra exportopties voor externe editors, IDE's en een handige download functie voor lokale ontwikkeling.",
+    "code_editor_tech_list": "De mogelijkheid om naar een aantal verschillende frameworks te kunnen exporteren",
+    "code_editor_content": "Een code-editor om snel de gegenereerde code van het huidige ontwerp voor de geselecteerde technologie te bekijken."
+  },
+  "DROPZONE": {
+    "text": "Sleep je sketch bestanden hierin"
+  },
+  "FILEBROWSE": {
+    "text": "Upload een design vanaf je computer"
+  },
+  "SELECTDEMO": {
+    "text": "Selecteer een demo bestand",
+    "version": "SketchApp v",
+    "error": "Fout: selecteer een ander bestand",
+    "legacy": "legacy versie"
+  },
+  "UPLOAD": {
+    "OR": "OF"
+  },
+  "BADGE_SERVICE": {
+    "LOCAL": "LOKAAL PREVIEW",
+    "MASTER": "MASTER PREVIEW",
+    "PR": "PR PREVIEW"
+  },
+  "PREVIEW": {
+    "settings": "Instellingen",
+    "pages": "Pagina's",
+    "layers": "Lagen",
+    "canvas_color": "Canvas kleur"
+  },
+  "EDITOR": {
+    "preview_mode": "Ga naar editor modes",
+    "zoom_in": "Zoom In",
+    "zoom_out": "Zoom uit",
+    "zoom_reset": "Reset zoom",
+    "toggle_rotate": "Wissel 3D – Hou SHIFT vast om te roteren",
+    "codegeneration": "Code generatie",
+    "back": "Ga terug naar de editor",
+    "stackblitz": "Open het project in Stackblitz",
+    "download_zip": "Download als zip",
+    "close_project": "Sluit het project",
+    "feedback": "Geef ons feedback",
+    "support": "Steun ons",
+    "twitter": "Volg ons op twitter",
+    "github": "Je kan ons vinden op Github"
+  },
+  "SETTINGS_PREVIEW": {
+    "preview": "Preview"
+  },
+  "SETTINGS_PROPERTIES": {
+    "properties": "Eigenschappen",
+    "name": "Naam",
+    "kind": "Type"
+  },
+  "SETTINGS_SIZE": {
+    "title": "Grote",
+    "height": "Hoogte",
+    "width": "Breedte"
+  },
+  "SETTINGS_POSITION": {
+    "title": "Positie",
+    "left": "Links",
+    "top": "Top"
+  },
+  "SETTINGS_COLORS": {
+    "title": "Stijl & Kleuren"
+  }
+}
