@@ -23,7 +23,7 @@ export class PreviewBadgeService {
       ) {
         return this.translateService.instant('BADGE_SERVICE.LOCAL');
       } else if (hostname.startsWith('next.')) {
-        return this.translateService.instant('BADGE_SERVICE.MASTER');
+        return this.translateService.instant('BADGE_SERVICE.MAIN');
       } else if (hostname.includes('netlify')) {
         return this.translateService.instant('BADGE_SERVICE.PR');
       }

@@ -26,13 +26,13 @@ describe('PreviewBadgeService', () => {
     expect(badge).toBe('BADGE_SERVICE.LOCAL');
   });
 
-  it('should set badge to MASTER PREVIEW when running on next', () => {
+  it('should set badge to MAIN PREVIEW when running on next', () => {
     TestBed.overrideProvider(WINDOW, {
       useValue: { location: { hostname: 'next.' } },
     });
     const service: PreviewBadgeService = TestBed.inject(PreviewBadgeService);
     const badge = service.computeBadge();
-    expect(badge).toBe('BADGE_SERVICE.MASTER');
+    expect(badge).toBe('BADGE_SERVICE.MAIN');
   });
 
   it('should set badge to PR PREVIEW when running on netlify', () => {

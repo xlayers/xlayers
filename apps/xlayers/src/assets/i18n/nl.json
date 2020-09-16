@@ -51,7 +51,7 @@
   },
   "BADGE_SERVICE": {
     "LOCAL": "LOKAAL PREVIEW",
-    "MASTER": "MASTER PREVIEW",
+    "MAIN": "MAIN PREVIEW",
     "PR": "PR PREVIEW"
   },
   "PREVIEW": {

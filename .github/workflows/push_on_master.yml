@@ -2,7 +2,7 @@ name: mainworkflow
 
 on:
   push:
-    branches: [ master ]
+    branches: [ main ]
 
 jobs:
     build:
@@ -35,9 +35,9 @@ jobs:
         - name: Tests coverage
           run: npm run nx run-many -- --target=test --all --codeCoverage
         - name: Tests E2e
-          run: npm run nx affected:e2e --base=origin/master~1 --head=origin/master --parallel=true --with-deps=true
+          run: npm run nx e2e
         - name: Build
-          run: npm run nx affected:build --base=origin/master~1 --head=origin/master --parallel=true --with-deps=true --prod
+          run: npm run nx affected:build --base=origin/main~1 --head=origin/main --parallel=true --with-deps=true --prod
         - name: Stamp
           run: npm run stamp
- 
+
