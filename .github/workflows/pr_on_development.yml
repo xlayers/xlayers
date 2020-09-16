@@ -45,7 +45,7 @@ jobs:
         - name: Tests coverage
           run: npm run affected:test -- --base=main --head=${{ github.event.pull_request.head.ref }} --codeCoverage
         - name: Tests E2e
-          run: npm run affected:e2e -- --base=main --head=${{ github.event.pull_request.head.ref }} --parallel=true --with-deps=true
+          run: npm run affected:e2e
         - name: Build
           run: npm run affected:build -- --base=main --head=${{ github.event.pull_request.head.ref }}
         - name: Stamp
