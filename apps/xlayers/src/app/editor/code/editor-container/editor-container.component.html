@@ -63,14 +63,16 @@
         </div>
       </ng-template>
     </mat-tab>
-    <mat-tab disabled>
+
+    <!-- See https://github.com/xlayers/xlayers/issues/359 -->
+    <!-- <mat-tab disabled>
       <ng-template mat-tab-label>
         <div class="flex-container" (click)="generateXamarinForms()">
           <mat-icon svgIcon="xamarinForms"></mat-icon>
           Xamarin.Forms
         </div>
       </ng-template>
-    </mat-tab>
+    </mat-tab> -->
   </mat-tab-group>
 </section>
 
