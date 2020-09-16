@@ -1,0 +1,6 @@
+{
+  "hosting": {
+    "public": "dist/apps/xlayers",
+    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"]
+  }
+}
