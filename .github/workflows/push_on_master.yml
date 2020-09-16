@@ -35,7 +35,7 @@ jobs:
         - name: Tests coverage
           run: npm run nx run-many -- --target=test --all --codeCoverage
         - name: Tests E2e
-          run: npm run nx affected:e2e --base=origin/main~1 --head=origin/main --parallel=true --with-deps=true
+          run: npm run nx e2e
         - name: Build
           run: npm run nx affected:build --base=origin/main~1 --head=origin/main --parallel=true --with-deps=true --prod
         - name: Stamp
