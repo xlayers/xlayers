@@ -19,7 +19,8 @@
             "aot": true,
             "assets": [
               "apps/xlayers/src/favicon.ico",
-              "apps/xlayers/src/assets"
+              "apps/xlayers/src/assets",
+              "apps/xlayers/src/manifest.json"
             ],
             "styles": [
               "./node_modules/@angular/material/prebuilt-themes/pink-bluegrey.css",
