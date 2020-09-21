@@ -3,14 +3,9 @@
 set -o errexit
 set -o pipefail
 
-if [[ -n "$BUILD_ID" ]]; then
-    echo "Cloud Build environment detected!"
-    version="${BUILD_ID}"
-else
-    b=`git rev-parse --abbrev-ref HEAD`
-    v=`git rev-parse --short HEAD`
-    version="$b+sha.$v"
-fi
+b=`git rev-parse --abbrev-ref HEAD`
+v=`git rev-parse --short HEAD`
+version="$b+sha.$v"
 
 ## replease _BUILD_HASH_ with the current build number
 perl -i -pe "s/_BUILD_HASH_/$version/g" dist/**/**/*.js

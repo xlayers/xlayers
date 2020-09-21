@@ -27,6 +27,7 @@
     "dep-graph": "nx dep-graph",
     "stamp": "nx run xlayers:stamp",
     "release": "release-it --config .release-it.json",
+    "deploy": "npm run build -- --prod && npm run stamp && firebase deploy --only hosting",
     "help": "nx help"
   },
   "private": true,
