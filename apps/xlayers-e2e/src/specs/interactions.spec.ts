@@ -120,7 +120,10 @@ describe('Editor page', () => {
     cy.get('[data-cy=zoomReset]').click();
   });
 
-  it('when using the toolbar buttons 3d the design canvas should react accordingly', () => {
+  it('when using the toolbar buttons 3d the design canvas should react accordingly', 
+    // See https://github.com/electron/electron/issues/20944
+    { browser: '!electron' },
+    () => {
     cy.get('[data-cy=toggle3D]').click();
     cy.get('[data-cy=toggle3D]').then((button) => {
       expect(button).to.have.attr('ng-reflect-color', 'warn');
