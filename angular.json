@@ -396,6 +396,44 @@
       },
       "schematics": {}
     },
+    "vue3-codegen": {
+      "projectType": "library",
+      "root": "libs/vue3-codegen",
+      "sourceRoot": "libs/vue3-codegen/src",
+      "prefix": "xlayers",
+      "architect": {
+        "build": {
+          "builder": "@nrwl/angular:package",
+          "options": {
+            "tsConfig": "libs/vue3-codegen/tsconfig.lib.json",
+            "project": "libs/vue3-codegen/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "libs/vue3-codegen/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/vue3-codegen/tsconfig.lib.json",
+              "libs/vue3-codegen/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/vue3-codegen/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/vue3-codegen/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "schematics": {}
+    },
     "web-codegen": {
       "projectType": "library",
       "root": "libs/web-codegen",

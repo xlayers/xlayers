@@ -60,6 +60,11 @@ export class EditorContainerComponent implements OnInit, AfterContentInit {
     this.updateState();
   }
 
+  generateVue3() {
+    this.codeSetting = this.codegen.generate(CodeGenKind.Vue3);
+    this.updateState();
+  }
+
   generateWc() {
     this.codeSetting = this.codegen.generate(CodeGenKind.WC);
     this.updateState();
