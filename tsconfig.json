@@ -24,6 +24,7 @@
       "@xlayers/stencil-codegen": ["libs/stencil-codegen/src/index.ts"],
       "@xlayers/svg-codegen": ["libs/svg-codegen/src/index.ts"],
       "@xlayers/vue-codegen": ["libs/vue-codegen/src/index.ts"],
+      "@xlayers/vue3-codegen": ["libs/vue3-codegen/src/index.ts"],
       "@xlayers/web-codegen": ["libs/web-codegen/src/index.ts"],
       "@xlayers/web-component-codegen": [
         "libs/web-component-codegen/src/index.ts"
