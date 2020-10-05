@@ -3,6 +3,7 @@ import { CssContextService } from './css-context.service';
 import { CssCodeGenOptions } from './css-codegen';
 import { FormatService } from '@xlayers/sketch-lib';
 import { SketchMSLayer } from '@xlayers/sketchtypes';
+import { convertValue } from './style-utils';
 
 interface StyleList {
   className: string;
@@ -121,49 +122,6 @@ export class CssAggregatorService {
 
     computeStyle(current);
   }
-  
-    /**
-   * This cleans the 'number part' of a length value (ex: 5px) to obtain 1 digit rounded values
-   * @param value css value to be converted
-   */
-  private convertValue(value: any) {
-    const lengthUnits = [
-      'em',
-      'rem',
-      '%',
-      'ch',
-      'ex',
-      'vw',
-      'vh',
-      'vmin',
-      'vmax',
-      'cm',
-      'mm',
-      'in',
-      'px',
-      'pt',
-      'pc',
-    ];
-
-    const convertibleUnit = lengthUnits.find(
-      (unit) => value.indexOf(unit) > -1
-    );
-    if (convertibleUnit) {
-      let extractedNumber = value.replace(convertibleUnit, '');
-      if (extractedNumber.includes('e')) {
-        extractedNumber = Math.exp(parseFloat(extractedNumber));
-      } else {
-        extractedNumber = parseFloat(extractedNumber);
-      }
-      if (extractedNumber % 1 != 0) {
-        // if float number
-        extractedNumber = Math.round(extractedNumber * 10) / 10; //round & set 1 digit
-      }
-      extractedNumber += 0; // avoid -0 value
-      return `${extractedNumber}${convertibleUnit}`;
-    }
-    return value;
-  }
 
   /**
    * This is the main ast parser to go from sketch to css
@@ -187,7 +145,7 @@ export class CssAggregatorService {
             const rules: string[] = [];
             Object.entries((layer.css as any).rules).forEach(
               ([prop, value]) => {
-                rules.push(`${prop}: ${this.convertValue(value)};`);
+                rules.push(`${prop}: ${convertValue(value)};`);
               }
             );
             content(name, rules);
