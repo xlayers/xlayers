@@ -32,20 +32,24 @@ function convert(value: any): string {
   const convertibleUnit = lengthUnits.find((unit) => value.indexOf(unit) > -1);
   if (convertibleUnit) {
     let extractedNumber = value.replace(convertibleUnit, '');
-    if (!isNaN(extractedNumber)) {
-      if (extractedNumber.includes('e')) {
-        extractedNumber = Math.exp(parseFloat(extractedNumber));
-      } else {
-        extractedNumber = parseFloat(extractedNumber);
-      }
-      if (extractedNumber % 1 != 0) {
-        // if float number
-        extractedNumber = Math.round(extractedNumber * 10) / 10; //round & set 1 digit
-      }
-      extractedNumber += 0; // avoid -0 value
-      return `${extractedNumber}${convertibleUnit}`;
-    }
-    return value;
+    return `${getCleanNumber(extractedNumber)}${convertibleUnit}`;
   }
   return value;
+}
+
+function getCleanNumber(number: any) {
+  debugger;
+  if (!isNaN(number)) {
+    if (number.includes('e')) {
+      number = Math.exp(parseFloat(number));
+    } else {
+      number = parseFloat(number);
+    }
+    if (number % 1 != 0) {
+      // if float number
+      number = Math.round(number * 10) / 10; //round & set 1 digit
+    }
+    number += 0; // avoid -0 value
+  }
+  return number;
 }
