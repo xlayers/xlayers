@@ -16,5 +16,10 @@ describe('style-utils', () => {
     it('should convert a negative 0 value', () => {
       expect(utilsToTest.convertValue('-0px')).toBe('0px');
     });
+    it('', () => {
+      const initialValue = '5.67543px solid rgba(0,500.034,5,5)';
+      const expectedValue = '5.7px solid rgba(0,500,5,5)';
+      expect(utilsToTest.convertValue(initialValue)).toBe(expectedValue);
+    });
   });
 });

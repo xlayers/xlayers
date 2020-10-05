@@ -10,35 +10,20 @@ export function convertValue(value: any): string {
  * This cleans the 'number part' of a length value (ex: 5px) to obtain 1 digit rounded values
  * @param value css value to be converted
  */
-function convert(value: any): string {
-  const lengthUnits = [
-    'rem',
-    'em',
-    '%',
-    'ch',
-    'ex',
-    'vw',
-    'vh',
-    'vmin',
-    'vmax',
-    'cm',
-    'mm',
-    'in',
-    'px',
-    'pt',
-    'pc',
-  ];
-
-  const convertibleUnit = lengthUnits.find((unit) => value.indexOf(unit) > -1);
-  if (convertibleUnit) {
-    let extractedNumber = value.replace(convertibleUnit, '');
-    return `${getCleanNumber(extractedNumber)}${convertibleUnit}`;
+function convert(value: string): string {
+  const numberMatches = value.match(/[-+]?[0-9]*\.?[0-9]+([eE][-+]?[0-9]+)?/g);
+  if (numberMatches) {
+    let convertedValue = value.slice();
+    numberMatches.forEach(
+      (found) =>
+        (convertedValue = convertedValue.replace(found, getCleanNumber(found)))
+    );
+    return convertedValue;
   }
   return value;
 }
 
 function getCleanNumber(number: any) {
-  debugger;
   if (!isNaN(number)) {
     if (number.includes('e')) {
       number = Math.exp(parseFloat(number));
