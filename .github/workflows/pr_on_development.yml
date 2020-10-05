@@ -1,4 +1,4 @@
-name: affected_on_development
+name: pr
 
 on:
   pull_request:
