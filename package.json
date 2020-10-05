@@ -25,7 +25,7 @@
     "update": "ng update @nrwl/workspace",
     "workspace-schematic": "nx workspace-schematic",
     "dep-graph": "nx dep-graph",
-    "stamp": "node scripts/stamp.js",
+    "stamp": "node tools/stamp.js",
     "release": "release-it --config .release-it.json",
     "deploy": "npm run build -- --prod && npm run stamp && firebase deploy --only hosting",
     "help": "nx help"
