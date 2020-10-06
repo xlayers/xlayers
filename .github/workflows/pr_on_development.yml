@@ -115,7 +115,7 @@ jobs:
           key: ${{ runner.os }}-${{ matrix.node }}-xlayers-workspace-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-${{ matrix.node }}-xlayers-workspace-
-      - name: Run lint
+      - name: Run e2e
         run: npm run affected:e2e -- --base=origin/main --head=HEAD --parallel
   build:
     runs-on: ${{ matrix.os }}
