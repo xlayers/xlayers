@@ -18,6 +18,9 @@ jobs:
           uses: actions/setup-node@v1
           with:
             node-version: ${{ matrix.node-version }}
+        - name: Get origin master
+          run: |
+            git fetch --no-tags --prune --depth=1 origin +refs/heads/main:refs/remotes/origin/main            
         - name: Cache node modules
           uses: actions/cache@v1
           env:
