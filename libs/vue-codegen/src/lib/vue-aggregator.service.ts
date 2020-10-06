@@ -92,10 +92,7 @@ describe("${className}", () => {
   }
 
   private renderImportStatements(current: SketchMSLayer) {
-    return [
-      "import { Component } from '@stencil/core';",
-      ...this.generateDynamicImport(current),
-    ].join('\n');
+    return [...this.generateDynamicImport(current)].join('\n');
   }
 
   private generateDynamicImport(current: SketchMSLayer) {

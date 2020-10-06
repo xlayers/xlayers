@@ -91,15 +91,6 @@
             "jestConfig": "apps/xlayers/jest.config.js",
             "passWithNoTests": true
           }
-        },
-        "stamp": {
-          "builder": "@nrwl/workspace:run-commands",
-          "options": {
-            "commands": [
-              "chmod u+x ./scripts/stamp.bash",
-              "./scripts/stamp.bash"
-            ]
-          }
         }
       }
     },
