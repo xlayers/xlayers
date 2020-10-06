@@ -329,14 +329,14 @@ export class UiState {
 
   @Action(InformUser)
   informUser({}, action: InformUser) {
-    let errorNessage = action.message;
+    let errorMessage = action.message;
     if ((action.message as any) instanceof Event) {
-      errorNessage = (action?.message as any)?.target?.error.message;
+      errorMessage = (action?.message as any)?.target?.error.message;
     }
 
     this.snackBar
       .open(
-        errorNessage,
+        errorMessage,
         action.errorType === ErrorType.None ? 'CLOSE' : 'REPORT',
         {
           duration: action.errorType === ErrorType.None ? 5000 : 0,
@@ -345,7 +345,7 @@ export class UiState {
       .onAction()
       .subscribe(() => {
         if (action.errorType !== ErrorType.None) {
-          const githubIssueUrl = `template=bug_report.md&title=${errorNessage}`;
+          const githubIssueUrl = `template=bug_report.md&title=${errorMessage}`;
           window.open(
             `https://github.com/xlayers/xlayers/issues/new?${githubIssueUrl}`,
             '__blank'
