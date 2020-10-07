@@ -8,6 +8,9 @@ on:
 
 jobs:
   setup:
+    env:
+      NX_BRANCH: ${{ github.event.number }}
+      NX_RUN_GROUP: ${{ github.run_id }}
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
@@ -34,6 +37,9 @@ jobs:
       - name: Install Dependencies
         run: npm install --frozen-lockfile
   lint:
+    env:
+      NX_BRANCH: ${{ github.event.number }}
+      NX_RUN_GROUP: ${{ github.run_id }}
     runs-on: ${{ matrix.os }}
 
     needs: [setup]
@@ -62,6 +68,9 @@ jobs:
       - name: Run lint
         run: npm run affected:lint -- --base=origin/main --head=HEAD --parallel
   test:
+    env:
+      NX_BRANCH: ${{ github.event.number }}
+      NX_RUN_GROUP: ${{ github.run_id }}
     runs-on: ${{ matrix.os }}
 
     needs: [setup]
@@ -90,6 +99,9 @@ jobs:
       - name: Run lint
         run: npm run affected:test -- --base=origin/main --head=HEAD --parallel
   e2e:
+    env:
+      NX_BRANCH: ${{ github.event.number }}
+      NX_RUN_GROUP: ${{ github.run_id }}
     runs-on: ${{ matrix.os }}
 
     needs: [setup]
@@ -118,6 +130,9 @@ jobs:
       - name: Run e2e
         run: npm run affected:e2e -- --base=origin/main --head=HEAD --parallel
   build:
+    env:
+      NX_BRANCH: ${{ github.event.number }}
+      NX_RUN_GROUP: ${{ github.run_id }}
     runs-on: ${{ matrix.os }}
 
     needs: [setup, lint, test]
