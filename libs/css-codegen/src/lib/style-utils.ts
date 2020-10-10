@@ -27,7 +27,10 @@ function convert(value: string): string {
 function getCleanNumber(number: any) {
   if (!isNaN(number)) {
     if (number.includes('e')) {
-      number = 0; //values including exponential 'e' symbol have always 0 as value
+      number = 0; //values including exponential 'e' symbol have always 0 as value.
+      // In .sketch files' conversion, values that have exponential format on the generated CSS (including the 'e'), are displayed on the editor with a 0 value, they are always position-related values (top, left, right, bottom).
+      // If we tried to convert these values using mathematical formulas, we won't  get 0 values.
+      // This is why this method returns systematically 0 for exponential values, as it corresponds to reality
     } else {
       number = parseFloat(number);
     }
