@@ -11,6 +11,7 @@ export function convertValue(value: any): string {
  * @param value css value to be converted
  */
 function convert(value: string): string {
+  // this regex matches positive or negative decimals with positive or negative exponential constants e.g. -2432.3435E-987
   const numberMatches = value.match(/[-+]?[0-9]*\.?[0-9]+([eE][-+]?[0-9]+)?/g);
   if (numberMatches) {
     let convertedValue = value.slice();
@@ -26,11 +27,11 @@ function convert(value: string): string {
 function getCleanNumber(number: any) {
   if (!isNaN(number)) {
     if (number.includes('e')) {
-      number = Math.exp(parseFloat(number));
+      number = 0; //values including exponential 'e' symbol have always 0 as value
     } else {
       number = parseFloat(number);
     }
-    if (number % 1 != 0) {
+    if (number % 1 !== 0) {
       // if float number
       number = Math.round(number * 10) / 10; //round & set 1 digit
     }
