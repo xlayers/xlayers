@@ -97,7 +97,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-${{ matrix.node }}-xlayers-workspace-
       - name: Run lint
-        run: npm run affected:test -- --base=origin/main --head=HEAD --parallel
+        run: npm run affected:test -- --base=origin/main --head=HEAD --parallel --with-deps
   e2e:
     env:
       NX_BRANCH: ${{ github.event.number }}
@@ -128,7 +128,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-${{ matrix.node }}-xlayers-workspace-
       - name: Run e2e
-        run: npm run affected:e2e -- --base=origin/main --head=HEAD --parallel
+        run: npm run affected:e2e -- --base=origin/main --head=HEAD --parallel --with-deps
   build:
     env:
       NX_BRANCH: ${{ github.event.number }}
@@ -158,5 +158,5 @@ jobs:
           key: ${{ runner.os }}-${{ matrix.node }}-xlayers-workspace-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-${{ matrix.node }}-xlayers-workspace-
-      - name: Run lint
-        run: npm run affected:build -- --base=origin/main --head=HEAD --parallel
+      - name: Run build
+        run: npm run affected:build -- --base=origin/main --head=HEAD --parallel --with-deps
