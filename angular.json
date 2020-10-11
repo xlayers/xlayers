@@ -580,42 +580,6 @@
       },
       "schematics": {}
     },
-    "sketchtypes": {
-      "root": "libs/sketchtypes",
-      "sourceRoot": "libs/sketchtypes/src",
-      "projectType": "library",
-      "schematics": {},
-      "architect": {
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "libs/sketchtypes/tsconfig.lib.json",
-              "libs/sketchtypes/tsconfig.spec.json"
-            ],
-            "exclude": ["**/node_modules/**", "!libs/sketchtypes/**/*"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/sketchtypes/jest.config.js",
-            "passWithNoTests": true
-          }
-        },
-        "build": {
-          "builder": "@nrwl/node:package",
-          "options": {
-            "outputPath": "dist/libs/sketchtypes",
-            "tsConfig": "libs/sketchtypes/tsconfig.lib.json",
-            "packageJson": "libs/sketchtypes/package.json",
-            "main": "libs/sketchtypes/src/index.ts",
-            "assets": ["libs/sketchtypes/*.md"],
-            "srcRootForCompilationRoot": "libs\\sketchtypes\\src"
-          }
-        }
-      }
-    },
     "test-helpers": {
       "root": "libs/test-helpers",
       "sourceRoot": "libs/test-helpers/src",

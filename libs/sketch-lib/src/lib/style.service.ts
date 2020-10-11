@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { SketchMSColor } from '@xlayers/sketchtypes';
+import FileFormat from '@sketch-hq/sketch-file-format-ts';
 @Injectable({
   providedIn: 'root',
 })
 export class StyleService {
-  parseColor(color: SketchMSColor) {
+  parseColor(color: FileFormat.Color) {
     return {
       red: this.percentToRgba(color.red),
       green: this.percentToRgba(color.green),
@@ -13,13 +13,13 @@ export class StyleService {
     };
   }
 
-  parseColorAsRgba(color: SketchMSColor) {
+  parseColorAsRgba(color: FileFormat.Color) {
     const c = this.parseColor(color);
     const colorString = [c.red, c.green, c.blue, c.alpha.toFixed(2)].join(',');
     return `rgba(${colorString})`;
   }
 
-  parseColorAsHex(color: SketchMSColor) {
+  parseColorAsHex(color: FileFormat.Color) {
     const c = this.parseColor(color);
 
     return (

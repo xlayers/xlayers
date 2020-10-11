@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BplistService } from './bplist.service';
-import { SketchMSLayer, SketchMSTextLayer } from '@xlayers/sketchtypes';
+import FileFormat from '@sketch-hq/sketch-file-format-ts';
 
 @Injectable({
   providedIn: 'root',
@@ -8,23 +8,23 @@ import { SketchMSLayer, SketchMSTextLayer } from '@xlayers/sketchtypes';
 export class TextService {
   constructor(private binaryHelperService: BplistService) {}
 
-  identify(current: SketchMSLayer) {
+  identify(current: FileFormat.AnyLayer) {
     return (current._class as string) === 'text';
   }
 
-  lookup(current: SketchMSTextLayer) {
+  lookup(current: FileFormat.Text) {
     return (
       current.attributedString.string ||
       this.extractAttributedStringText(current)
     );
   }
 
-  private extractAttributedStringText(current: SketchMSTextLayer) {
+  private extractAttributedStringText(current: FileFormat.Text) {
     const obj = current.attributedString;
 
     if (obj && obj.hasOwnProperty('archivedAttributedString')) {
       const archive = this.binaryHelperService.parse64Content(
-        obj.archivedAttributedString._archive
+        (obj as any).archivedAttributedString._archive
       );
 
       if (archive) {

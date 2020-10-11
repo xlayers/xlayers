@@ -1,15 +1,15 @@
 import { Injectable } from '@angular/core';
-import { SketchMSLayer } from '@xlayers/sketchtypes';
+import FileFormat from '@sketch-hq/sketch-file-format-ts';
 
 @Injectable({
   providedIn: 'root',
 })
 export class LayerService {
-  identify(current: SketchMSLayer) {
+  identify(current: FileFormat.SymbolMaster) {
     return current.layers && Array.isArray(current.layers);
   }
 
-  lookup(current: SketchMSLayer) {
+  lookup(current: FileFormat.SymbolMaster) {
     return current.layers as any;
   }
 }

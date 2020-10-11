@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-import { SketchMSLayer } from '@xlayers/sketchtypes';
+import FileFormat from '@sketch-hq/sketch-file-format-ts';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ShapeService {
-  parsePoint(point: string, offset: number, current: SketchMSLayer) {
+  parsePoint(point: string, offset: number, current: FileFormat.SymbolMaster) {
     const parsedPoint = point.slice(1, -1).split(', ');
     return {
       x: Number.parseFloat(

@@ -1,15 +1,15 @@
 import { Injectable } from '@angular/core';
-import { SketchMSData, SketchMSLayer } from '@xlayers/sketchtypes';
+import FileFormat from '@sketch-hq/sketch-file-format-ts';
 
 @Injectable({
   providedIn: 'root',
 })
 export class SymbolService {
-  identify(current: SketchMSLayer) {
+  identify(current: FileFormat.AnyLayer) {
     return (current._class as string) === 'symbolInstance';
   }
 
-  lookup(current: SketchMSLayer, data: SketchMSData) {
+  lookup(current: FileFormat.AnyLayer, data: FileFormat.Contents) {
     const foreignSymbol = data.document.foreignSymbols.find(
       (x) => x.symbolMaster.symbolID === (current as any).symbolID
     );

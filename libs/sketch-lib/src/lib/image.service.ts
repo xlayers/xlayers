@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { FormatService } from './format.service';
-import { SketchMSData, SketchMSLayer } from '@xlayers/sketchtypes';
+import FileFormat from '@sketch-hq/sketch-file-format-ts';
 
 @Injectable({
   providedIn: 'root',
@@ -8,15 +8,19 @@ import { SketchMSData, SketchMSLayer } from '@xlayers/sketchtypes';
 export class ImageService {
   constructor(private readonly formatService: FormatService) {}
 
-  identify(current: SketchMSLayer) {
+  identify(current: FileFormat.AnyLayer) {
     return (current._class as string) === 'bitmap';
   }
 
-  lookup(current: SketchMSLayer, data: SketchMSData) {
+  lookup(current: FileFormat.AnyLayer, data: FileFormat.Contents) {
     return this.getImageDataFromRef(data, (current as any).image._ref);
   }
 
-  aggregate(current: SketchMSLayer, data: SketchMSData, options: any) {
+  aggregate(
+    current: FileFormat.AnyLayer,
+    data: FileFormat.Contents,
+    options: any
+  ) {
     return [
       {
         kind: 'png',
@@ -29,7 +33,7 @@ export class ImageService {
     ];
   }
 
-  private getImageDataFromRef(data: SketchMSData, reference: string) {
+  private getImageDataFromRef(data: FileFormat.Contents, reference: string) {
     console.error(reference);
     return (data as any).images[reference];
   }

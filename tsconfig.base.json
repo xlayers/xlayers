@@ -32,7 +32,6 @@
       "@xlayers/sketch-lib": ["libs/sketch-lib/src/index.ts"],
       "@xlayers/sketch-ingestor": ["libs/sketch-ingestor/src/index.ts"],
       "@xlayers/sketchapps": ["libs/sketchapps/src/index.ts"],
-      "@xlayers/sketchtypes": ["libs/sketchtypes/src/index.ts"],
       "@xlayers/test-helpers": ["libs/test-helpers/src/index.ts"]
     }
   },

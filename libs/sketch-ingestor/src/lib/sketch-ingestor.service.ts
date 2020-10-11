@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { SketchMSData } from '@xlayers/sketchtypes';
+import FileFormat from '@sketch-hq/sketch-file-format-ts';
 const entryAsyncCheck = (entry: any): entry is { async: Function } => {
   return !!entry && typeof entry === 'object' && 'async' in entry;
 };
@@ -86,7 +86,7 @@ export class SketchIngestorService {
   }
 
   private async addConfiguration(
-    data: SketchMSData,
+    data: FileFormat.Contents,
     relativePath: string,
     entry: unknown
   ) {
@@ -95,20 +95,20 @@ export class SketchIngestorService {
   }
 
   private async addPage(
-    data: SketchMSData,
+    data: FileFormat.Contents,
     relativePath: string,
     entry: unknown
   ) {
     try {
       const content = await this.extractJson(relativePath, entry);
-      data.pages.push(content);
+      data.document.pages.push(content);
     } catch (e) {
       throw new Error(`Could not load page "${relativePath}"`);
     }
   }
 
   private async addImage(
-    data: SketchMSData,
+    data: FileFormat.Contents,
     relativePath: string,
     entry: unknown
   ) {
@@ -117,12 +117,12 @@ export class SketchIngestorService {
   }
 
   private async addPreviewImage(
-    data: SketchMSData,
+    data: FileFormat.Contents,
     relativePath: string,
     entry: unknown
   ) {
     const imageData = await this.extractBase64(relativePath, entry);
-    data.previews.push(imageData);
+    (data.document as any).previews.push(imageData);
   }
 
   private async extractJson(_relativePath: string, entry: unknown) {
