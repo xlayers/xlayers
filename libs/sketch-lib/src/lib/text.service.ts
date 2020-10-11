@@ -2,24 +2,26 @@ import { Injectable } from '@angular/core';
 import { BplistService } from './bplist.service';
 import FileFormat from '@sketch-hq/sketch-file-format-ts';
 
+type TextLayers = Extract<FileFormat.AnyLayer, FileFormat.Text>;
+
 @Injectable({
   providedIn: 'root',
 })
 export class TextService {
   constructor(private binaryHelperService: BplistService) {}
 
-  identify(current: FileFormat.AnyLayer) {
+  identify(current: TextLayers) {
     return (current._class as string) === 'text';
   }
 
-  lookup(current: FileFormat.Text) {
+  lookup(current: TextLayers) {
     return (
       current.attributedString.string ||
       this.extractAttributedStringText(current)
     );
   }
 
-  private extractAttributedStringText(current: FileFormat.Text) {
+  private extractAttributedStringText(current: TextLayers) {
     const obj = current.attributedString;
 
     if (obj && obj.hasOwnProperty('archivedAttributedString')) {

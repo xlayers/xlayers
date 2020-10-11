@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import FileFormat from '@sketch-hq/sketch-file-format-ts';
+
 @Injectable({
   providedIn: 'root',
 })
