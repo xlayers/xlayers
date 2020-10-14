@@ -55,6 +55,10 @@ export function getHighlightLanguages() {
   };
 }
 
+export function getHighlightCoreLibraryLoader() {
+  return () => import('highlight.js/lib/core');
+}
+
 const StoreDebugModule = [
   NgxsModule.forRoot([UiState, CodeGenState], {
     /**
@@ -103,6 +107,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     {
       provide: HIGHLIGHT_OPTIONS,
       useValue: {
+        coreLibraryLoader: getHighlightCoreLibraryLoader(),
         languages: getHighlightLanguages(),
       },
     },
