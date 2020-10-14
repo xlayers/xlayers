@@ -11,6 +11,12 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "allowedCommonJsDependencies": [
+              "@angularclass/hmr",
+              "file-saver",
+              "buffer",
+              "highlight.js"
+            ],
             "outputPath": "dist/apps/xlayers",
             "index": "apps/xlayers/src/index.html",
             "main": "apps/xlayers/src/main.ts",
