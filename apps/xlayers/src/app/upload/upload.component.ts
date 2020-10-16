@@ -30,13 +30,24 @@ export class UploadComponent implements OnInit {
   async onFileSelected(file: File) {
     try {
       const data = await this.sketchService.loadSketchFile(file);
-      this.isDragging$.next(false);
-      // Note: these actions need to be run in sequence!
-      this.store.dispatch([
-        new ResetUiSettings(),
-        new CurrentData(data),
-        new Navigate(['/editor/preview']),
-      ]);
+      //check if there are pages, if so show the ui elements.
+      if (data.pages.length > 0) {
+        this.isDragging$.next(false);
+        // Note: these actions need to be run in sequence!
+        this.store.dispatch([
+          new ResetUiSettings(),
+          new CurrentData(data),
+          new Navigate(['/editor/preview']),
+        ]);
+        return;
+      }
+
+      this.store.dispatch(
+        new InformUser(
+          'It looks like we cannot parse this Sketch file',
+          ErrorType.Runtime
+        )
+      );
     } catch (error) {
       this.store.dispatch(new InformUser(error, ErrorType.Runtime));
       throw error;
