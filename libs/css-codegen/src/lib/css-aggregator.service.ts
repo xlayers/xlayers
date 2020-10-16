@@ -3,6 +3,7 @@ import { CssContextService } from './css-context.service';
 import { CssCodeGenOptions } from './css-codegen';
 import { FormatService } from '@xlayers/sketch-lib';
 import { SketchMSLayer } from '@xlayers/sketchtypes';
+import { convertValue } from './style-utils';
 
 interface StyleList {
   className: string;
@@ -144,7 +145,7 @@ export class CssAggregatorService {
             const rules: string[] = [];
             Object.entries((layer.css as any).rules).forEach(
               ([prop, value]) => {
-                rules.push(`${prop}: ${value};`);
+                rules.push(`${prop}: ${convertValue(value)};`);
               }
             );
             content(name, rules);
