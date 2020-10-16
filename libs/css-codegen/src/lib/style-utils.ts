@@ -12,6 +12,7 @@ export function convertValue(value: any): string {
  */
 function convert(value: string): string {
   // this regex matches positive or negative decimals with positive or negative exponential constants e.g. -2432.3435E-987
+  // this regex matches positive or negative decimals with positive or negative exponential constants e.g. -2432.3435E-987
   const numberMatches = value.match(/[-+]?[0-9]*\.?[0-9]+([eE][-+]?[0-9]+)?/g);
   if (numberMatches) {
     let convertedValue = value.slice();
