@@ -10,17 +10,17 @@ jobs:
       runs-on: ${{ matrix.os }}
       strategy:
         matrix:
-          os: [macos-latest, windows-latest, ubuntu-18.04]
-          node: [12, 13, 14]
+          os: [macos-latest, windows-latest]
+          node: [13, 14]
       steps:
         - uses: actions/checkout@v2
         - name: Use Node.js ${{ matrix.node-version }}
           uses: actions/setup-node@v1
           with:
             node-version: ${{ matrix.node-version }}
-        - name: Get origin master
+        - name: Get origin main
           run: |
-            git fetch --no-tags --prune --depth=1 origin +refs/heads/main:refs/remotes/origin/main            
+            git fetch --no-tags --prune --depth=1 origin +refs/heads/main:refs/remotes/origin/main
         - name: Cache node modules
           uses: actions/cache@v1
           env:
@@ -38,7 +38,7 @@ jobs:
           run: npm install
         - name: Tests coverage
           run: npm run nx run-many -- --target=test --all --codeCoverage
-        - name: Tests E2e
+        - name: Tests e2e
           run: npm run nx e2e
         - name: Build
           run: npm run nx affected:build --base=origin/main~1 --head=origin/main --parallel=true --with-deps=true --prod

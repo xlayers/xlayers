@@ -14,8 +14,8 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [macos-latest, windows-latest, ubuntu-18.04]
-        node-version: [12, 13, 14]
+        os: [macos-latest, windows-latest]
+        node-version: [13, 14]
     steps:
       - name: Use Node.js ${{ matrix.node }}
         uses: actions/setup-node@v1
@@ -45,8 +45,8 @@ jobs:
     needs: [setup]
     strategy:
       matrix:
-        os: [macos-latest, windows-latest, ubuntu-18.04]
-        node-version: [12, 13, 14]
+        os: [macos-latest, windows-latest]
+        node-version: [13, 14]
     steps:
       - name: Use Node.js ${{ matrix.node }}
         uses: actions/setup-node@v1
@@ -76,8 +76,8 @@ jobs:
     needs: [setup]
     strategy:
       matrix:
-        os: [macos-latest, windows-latest, ubuntu-18.04]
-        node-version: [12, 13, 14]
+        os: [macos-latest, windows-latest]
+        node-version: [13, 14]
     steps:
       - name: Use Node.js ${{ matrix.node }}
         uses: actions/setup-node@v1
@@ -107,8 +107,8 @@ jobs:
     needs: [setup]
     strategy:
       matrix:
-        os: [macos-latest, windows-latest, ubuntu-18.04]
-        node-version: [12, 13, 14]
+        os: [macos-latest, windows-latest]
+        node-version: [13, 14]
     steps:
       - name: Use Node.js ${{ matrix.node }}
         uses: actions/setup-node@v1
@@ -138,8 +138,8 @@ jobs:
     needs: [setup, lint, test]
     strategy:
       matrix:
-        os: [macos-latest, windows-latest, ubuntu-18.04]
-        node-version: [12, 13, 14]
+        os: [macos-latest, windows-latest]
+        node-version: [13, 14]
     steps:
       - name: Use Node.js ${{ matrix.node }}
         uses: actions/setup-node@v1
