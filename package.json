@@ -100,7 +100,9 @@
     "ts-jest": "26.1.4",
     "ts-node": "~7.0.0",
     "tslint": "~6.0.0",
-    "typescript": "3.9.7"
+    "typescript": "3.9.7",
+    "url-parse": ">=1.4.3",
+    "adm-zip": ">=0.4.11"
   },
   "lint-staged": {
     "*.{ts,json,md}": [
