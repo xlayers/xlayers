@@ -24,7 +24,7 @@ function convert(value: string): string {
   return value;
 }
 
-function getCleanNumber(number: any) {
+function getCleanNumber(number: string) {
   if (!isNaN(number)) {
     if (number.includes('e')) {
       number = 0; //values including exponential 'e' symbol have always 0 as value.
