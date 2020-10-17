@@ -63,6 +63,20 @@
   flex: 1 1 auto;
 }
 
+.file-data {
+  display: flex;
+  align-items: baseline;
+  font-weight: 400;
+  font-style: italic;
+  margin-left: 115px;
+}
+
+.file-data img{
+  width: 15px;
+  height: 15px;
+  margin-right: 4px;
+}
+
 .logo {
   font-size: 1.2em;
   position: relative;
