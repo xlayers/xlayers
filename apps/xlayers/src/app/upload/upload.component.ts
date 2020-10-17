@@ -4,6 +4,7 @@ import { Navigate } from '@ngxs/router-plugin';
 import { Store } from '@ngxs/store';
 import { BehaviorSubject } from 'rxjs';
 import { SketchService } from '../core/sketch.service';
+import { getFileData } from '../supported-files';
 import {
   ResetUiSettings,
   CurrentData,
@@ -36,7 +37,7 @@ export class UploadComponent implements OnInit {
         // Note: these actions need to be run in sequence!
         this.store.dispatch([
           new ResetUiSettings(),
-          new CurrentData(data),
+          new CurrentData({ ...data, fileData: getFileData(file.name) }),
           new Navigate(['/editor/preview']),
         ]);
         return;
