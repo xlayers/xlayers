@@ -471,6 +471,12 @@ export interface SketchMSUserPages {
     zoomValue: number;
   };
 }
+
+export interface SketchFile {
+  name: string;
+  logo: string;
+}
+
 export type SketchMSUser = SketchMSUserPages | SketchMSUserDocument;
 export interface SketchMSPreview {
   source: string;
@@ -483,4 +489,5 @@ export interface SketchMSData {
   document: SketchMSDocument;
   user: SketchMSUser;
   meta: SketchMSMeta;
+  fileData: SketchFile;
 }
