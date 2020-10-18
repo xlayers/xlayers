@@ -69,12 +69,20 @@
   font-weight: 400;
   font-style: italic;
   margin-left: 115px;
+  max-width: calc(115px + 22rem);
 }
 
 .file-data img{
   width: 15px;
   height: 15px;
   margin-right: 4px;
+}
+
+.file-data .file-name{
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  z-index: 5;
 }
 
 .logo {
