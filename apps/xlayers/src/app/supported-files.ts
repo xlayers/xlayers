@@ -15,7 +15,9 @@ const compatibleFiles = [
  * @param fileName the file's complete name (extension included)
  */
 export function getFileData(fileName: string) {
-  const fileExtension = `.${fileName.split('.').pop()}`; // get file's extension with a point at the begining
+  const fileExtension = fileName.includes('.')
+    ? `.${fileName.split('.').pop()}`
+    : ''; // get file's extension with a point at the begining
   const name = fileName.replace(fileExtension, ''); // extract file's name without the extension
   const compatible = compatibleFiles.find(
     ({ extension }) => fileExtension === extension
