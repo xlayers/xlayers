@@ -7,7 +7,7 @@
       </a>
     </div>
     <div class="file-data">
-      <img src={{fileData.logo}}/>
+      <img *ngIf="fileData.logo" src={{fileData.logo}}/>
       <div class="file-name">{{fileData.name}}</div>
     </div>
     <div class="header-spacer">
