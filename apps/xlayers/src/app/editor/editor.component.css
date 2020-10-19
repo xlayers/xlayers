@@ -85,6 +85,12 @@
   z-index: 5;
 }
 
+@media (max-width: 1382px) {
+  .file-data{
+    display: none;
+  }
+}
+
 .logo {
   font-size: 1.2em;
   position: relative;
