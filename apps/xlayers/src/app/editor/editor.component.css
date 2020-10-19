@@ -63,7 +63,7 @@
   flex: 1 1 auto;
 }
 
-.file-data {
+.header-file-data {
   display: flex;
   align-items: baseline;
   font-weight: 400;
@@ -72,13 +72,13 @@
   max-width: calc(115px + 22rem);
 }
 
-.file-data img{
+.header-file-data img{
   width: 15px;
   height: 15px;
   margin-right: 4px;
 }
 
-.file-data .file-name{
+.header-file-data .file-name{
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -86,7 +86,7 @@
 }
 
 @media (max-width: 1382px) {
-  .file-data{
+  .header-file-data{
     display: none;
   }
 }
