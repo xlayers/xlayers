@@ -28,7 +28,8 @@
     "stamp": "node tools/stamp.js",
     "release": "release-it --config .release-it.json",
     "deploy": "npm run build -- --prod && npm run stamp && firebase deploy --only hosting",
-    "help": "nx help"
+    "help": "nx help",
+    "changelog": " conventional-changelog -p angular -i CHANGELOG.md -s"
   },
   "private": true,
   "dependencies": {
@@ -83,7 +84,9 @@
     "@types/jest": "26.0.8",
     "@types/node": "^8.10.64",
     "@types/sketchapp": "^56.0.0",
+    "adm-zip": ">=0.4.11",
     "codelyzer": "~5.0.1",
+    "conventional-changelog-cli": "^2.1.0",
     "cypress": "^4.1.0",
     "cypress-file-upload": "^4.0.7",
     "dotenv": "6.2.0",
@@ -101,8 +104,7 @@
     "ts-node": "~7.0.0",
     "tslint": "~6.0.0",
     "typescript": "3.9.7",
-    "url-parse": ">=1.4.3",
-    "adm-zip": ">=0.4.11"
+    "url-parse": ">=1.4.3"
   },
   "lint-staged": {
     "*.{ts,json,md}": [
