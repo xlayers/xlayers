@@ -30,7 +30,10 @@ jobs:
       - uses: actions/cache@v1
         id: workspace-xlayers-cache
         with:
-          path: node_modules
+          path: |
+              ~/cache
+              !~/cache/exclude
+              **/node_modules
           key: ${{ runner.os }}-${{ matrix.node }}-xlayers-workspace-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-${{ matrix.node }}-xlayers-workspace-
@@ -61,7 +64,10 @@ jobs:
       - uses: actions/cache@v1
         id: workspace-xlayers-cache
         with:
-          path: node_modules
+          path: |
+              ~/cache
+              !~/cache/exclude
+              **/node_modules
           key: ${{ runner.os }}-${{ matrix.node }}-xlayers-workspace-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-${{ matrix.node }}-xlayers-workspace-
@@ -92,11 +98,14 @@ jobs:
       - uses: actions/cache@v1
         id: workspace-xlayers-cache
         with:
-          path: node_modules
+          path: |
+              ~/cache
+              !~/cache/exclude
+              **/node_modules
           key: ${{ runner.os }}-${{ matrix.node }}-xlayers-workspace-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-${{ matrix.node }}-xlayers-workspace-
-      - name: Run lint
+      - name: Run test
         run: npm run affected:test -- --base=origin/main --head=HEAD --parallel --with-deps
   e2e:
     env:
@@ -123,7 +132,10 @@ jobs:
       - uses: actions/cache@v1
         id: workspace-xlayers-cache
         with:
-          path: node_modules
+          path: |
+              ~/cache
+              !~/cache/exclude
+              **/node_modules
           key: ${{ runner.os }}-${{ matrix.node }}-xlayers-workspace-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-${{ matrix.node }}-xlayers-workspace-
@@ -154,7 +166,10 @@ jobs:
       - uses: actions/cache@v1
         id: workspace-xlayers-cache
         with:
-          path: node_modules
+          path: |
+            ~/cache
+            !~/cache/exclude
+            **/node_modules
           key: ${{ runner.os }}-${{ matrix.node }}-xlayers-workspace-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-${{ matrix.node }}-xlayers-workspace-
