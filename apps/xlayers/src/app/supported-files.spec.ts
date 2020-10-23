@@ -6,24 +6,24 @@ describe('supported-files', () => {
       const expected = {
         name: 'my-wonderful-design',
         extension: '.sketch',
-        logo: '/assets/supported/sketch.svg',
+        icon: '/assets/supported/sketch.svg',
       };
       expect(toTest.getFileData('my-wonderful-design.sketch')).toEqual(
         expected
       );
     });
-    it('should return name and extension, without logo, if file type not supported', () => {
+    it('should return name and extension, without icon, if file type not supported', () => {
       expect(toTest.getFileData('slides.ppt')).toEqual({
         name: 'slides',
         extension: '.ppt',
-        logo: '',
+        icon: '',
       });
     });
     it('should return only the name if extension is not precised on the fileName', () => {
       expect(toTest.getFileData('notes')).toEqual({
         name: 'notes',
         extension: '',
-        logo: '',
+        icon: '',
       });
     });
   });
