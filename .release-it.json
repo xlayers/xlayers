@@ -3,7 +3,6 @@
   "increment": "conventional:angular",
   "script": {
     "changelog": "npm run changelog",
-    "beforeStage": "npm run changelog.write",
     "afterRelease": "npm run deploy"
   },
   "git": {
