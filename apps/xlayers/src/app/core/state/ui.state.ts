@@ -18,6 +18,11 @@ export interface LayerCSS {
   background: string;
 }
 
+export interface DesignFile {
+  name: string;
+  icon: string;
+}
+
 export interface UiSettings {
   currentData: SketchMSData;
   currentPage?: SketchMSPageLayer;
@@ -30,6 +35,7 @@ export interface UiSettings {
   zoomLevel: number;
   is3dView: boolean;
   isCodeEditor: boolean;
+  sourceFileData: DesignFile;
 }
 
 export enum ErrorType {
@@ -41,6 +47,12 @@ export class CurrentData {
   static readonly type = '[UiSettings] Current File';
   constructor(public data: SketchMSData) {}
 }
+
+export class SourceFileData {
+  static readonly type = '[UiSettings] Source File Data';
+  constructor(public data: DesignFile) {}
+}
+
 export class ToggleWireframe {
   static readonly type = '[UiSettings] Toggle Wireframe';
   constructor(public value: boolean) {}
@@ -123,6 +135,7 @@ const DEFAULT_UI_STATE = {
   zoomLevel: 1,
   is3dView: false,
   isCodeEditor: false,
+  sourceFileData: null,
 };
 
 @State<UiSettings>({
@@ -137,6 +150,12 @@ export class UiState {
   static currentData(ui: UiSettings) {
     return ui.currentData;
   }
+
+  @Selector()
+  static sourceFileData(ui: UiSettings) {
+    return ui.sourceFileData;
+  }
+
   @Selector()
   static isWireframe(ui: UiSettings) {
     return ui.wireframe;
@@ -200,6 +219,16 @@ export class UiState {
     ]);
     patchState({
       currentData: { ...action.data },
+    });
+  }
+
+  @Action(SourceFileData)
+  sourceFileData(
+    { patchState, dispatch }: StateContext<UiSettings>,
+    action: SourceFileData
+  ) {
+    patchState({
+      sourceFileData: { ...action.data },
     });
   }
 

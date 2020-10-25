@@ -17,8 +17,9 @@ import {
   ZoomOut,
   ZoomReset,
   ToggleCodeEditor,
+  DesignFile,
 } from '../core/state';
-import { SketchFile, SketchMSLayer } from '@xlayers/sketchtypes';
+import { SketchMSLayer } from '@xlayers/sketchtypes';
 
 @Component({
   selector: 'xly-editor',
@@ -39,7 +40,7 @@ export class EditorComponent implements OnInit {
   isCodeEditor = false;
   enabled = false;
   editorTranslations: Observable<any>;
-  fileData: SketchFile;
+  sourceFileData: DesignFile;
 
   version = environment.version;
   badge = '';
@@ -80,8 +81,8 @@ export class EditorComponent implements OnInit {
       this.wireframe = isWireframe;
     });
 
-    this.store.select(UiState.currentData).subscribe((currentData) => {
-      this.fileData = currentData.fileData;
+    this.store.select(UiState.sourceFileData).subscribe((sourceFileData) => {
+      this.sourceFileData = sourceFileData;
     });
 
     this.store

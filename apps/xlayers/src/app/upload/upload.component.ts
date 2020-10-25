@@ -8,6 +8,7 @@ import { getFileData } from '../supported-files';
 import {
   ResetUiSettings,
   CurrentData,
+  SourceFileData,
   InformUser,
   ErrorType,
 } from '../core/state';
@@ -37,7 +38,8 @@ export class UploadComponent implements OnInit {
         // Note: these actions need to be run in sequence!
         this.store.dispatch([
           new ResetUiSettings(),
-          new CurrentData({ ...data, fileData: getFileData(file.name) }),
+          new CurrentData(data),
+          new SourceFileData(getFileData(file.name)),
           new Navigate(['/editor/preview']),
         ]);
         return;
