@@ -98,6 +98,10 @@
             "jestConfig": "apps/xlayers/jest.config.js",
             "passWithNoTests": true
           }
+        },
+        "stamp": {
+          "builder": "@xlayers/version-stamp:stamp",
+          "options": {}
         }
       }
     },
