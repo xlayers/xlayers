@@ -1,3 +1,5 @@
+import { environment } from '../environments/environment';
+
 /**
  * Object that contains information about file types xlayers is compatible with
  */
@@ -6,7 +8,7 @@ const compatibleFiles = [
     name: 'Sketch App',
     extension: '.sketch',
     icon: '/assets/supported/sketch.svg',
-    supportedVersions: [49, 50, 51, 52, 53, 59],
+    supportedVersions: environment.demoFiles.map(({ value }) => value),
   },
 ];
 
@@ -22,5 +24,5 @@ export function getFileData(fileName: string) {
   const compatible = compatibleFiles.find(
     ({ extension }) => fileExtension === extension
   ) || { icon: '' }; // get information related to the file based on the extension
-  return { name, icon: compatible.icon, extension: fileExtension }; //for the moment, minimum data is returned
+  return { name, icon: compatible.icon }; //for the moment, minimum data is returned
 }

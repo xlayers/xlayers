@@ -5,7 +5,6 @@ describe('supported-files', () => {
     it('should return file information for a supported file type', () => {
       const expected = {
         name: 'my-wonderful-design',
-        extension: '.sketch',
         icon: '/assets/supported/sketch.svg',
       };
       expect(toTest.getFileData('my-wonderful-design.sketch')).toEqual(
@@ -15,14 +14,12 @@ describe('supported-files', () => {
     it('should return name and extension, without icon, if file type not supported', () => {
       expect(toTest.getFileData('slides.ppt')).toEqual({
         name: 'slides',
-        extension: '.ppt',
         icon: '',
       });
     });
     it('should return only the name if extension is not precised on the fileName', () => {
       expect(toTest.getFileData('notes')).toEqual({
         name: 'notes',
-        extension: '',
         icon: '',
       });
     });
