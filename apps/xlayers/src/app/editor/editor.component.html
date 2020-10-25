@@ -6,7 +6,7 @@
         >xLayers<span>{{ badge }}</span>
       </a>
     </div>
-     <div class="header-file-data">
+     <div  data-cy="fileData" class="header-file-data">
       <ng-container *ngIf="sourceFileData as _data" >
         <img [src]="_data.icon" />
         <div class="file-name">{{_data.name}}</div>
