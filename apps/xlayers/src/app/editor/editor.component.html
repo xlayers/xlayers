@@ -7,9 +7,9 @@
       </a>
     </div>
      <div  data-cy="fileData" class="header-file-data">
-      <ng-container *ngIf="sourceFileData as _data" >
-        <img [src]="_data.icon" />
-        <div class="file-name">{{_data.name}}</div>
+      <ng-container *ngIf="sourceFileData as fileData" >
+        <img [src]="fileData.icon" />
+        <div class="file-name">{{fileData.name}}</div>
       </ng-container>
     </div>
     <div class="header-spacer">
