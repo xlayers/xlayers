@@ -471,6 +471,7 @@ export interface SketchMSUserPages {
     zoomValue: number;
   };
 }
+
 export type SketchMSUser = SketchMSUserPages | SketchMSUserDocument;
 export interface SketchMSPreview {
   source: string;

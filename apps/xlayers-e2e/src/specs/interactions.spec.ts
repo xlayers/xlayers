@@ -120,20 +120,34 @@ describe('Editor page', () => {
     cy.get('[data-cy=zoomReset]').click();
   });
 
-  it('when using the toolbar buttons 3d the design canvas should react accordingly', 
+  it(
+    'when using the toolbar buttons 3d the design canvas should react accordingly',
     // See https://github.com/electron/electron/issues/20944
     { browser: '!electron' },
     () => {
-    cy.get('[data-cy=toggle3D]').click();
-    cy.get('[data-cy=toggle3D]').then((button) => {
-      expect(button).to.have.attr('ng-reflect-color', 'warn');
-    });
-    cy.wait(1000);
-    cy.get("[data-id='6D287BF2-0FE7-43CC-AA85-84EB6F8B4ED2']").then((layer) => {
-      expect(layer).to.have.css(
-        'transform',
-        'matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 60, 1)'
+      cy.get('[data-cy=toggle3D]').click();
+      cy.get('[data-cy=toggle3D]').then((button) => {
+        expect(button).to.have.attr('ng-reflect-color', 'warn');
+      });
+      cy.wait(1000);
+      cy.get("[data-id='6D287BF2-0FE7-43CC-AA85-84EB6F8B4ED2']").then(
+        (layer) => {
+          expect(layer).to.have.css(
+            'transform',
+            'matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 60, 1)'
+          );
+        }
       );
-    });
+    }
+  );
+
+  it('when loading a design file, if the screen size is big enough, the file data should be displayed', () => {
+    cy.viewport(1900, 750);
+    cy.get('[data-cy="fileData"]')
+      .children()
+      .then((fileData) => {
+        expect(fileData[0]).to.have.attr('src', '/assets/supported/sketch.svg'),
+          cy.wrap(fileData[1]).contains('md-components-cards-welcome-back');
+      });
   });
 });

@@ -17,6 +17,7 @@ import {
   ZoomOut,
   ZoomReset,
   ToggleCodeEditor,
+  DesignFile,
 } from '../core/state';
 import { SketchMSLayer } from '@xlayers/sketchtypes';
 
@@ -39,6 +40,7 @@ export class EditorComponent implements OnInit {
   isCodeEditor = false;
   enabled = false;
   editorTranslations: Observable<any>;
+  sourceFileData: DesignFile;
 
   version = environment.version;
   badge = '';
@@ -77,6 +79,10 @@ export class EditorComponent implements OnInit {
 
     this.store.select(UiState.isWireframe).subscribe((isWireframe) => {
       this.wireframe = isWireframe;
+    });
+
+    this.store.select(UiState.sourceFileData).subscribe((sourceFileData) => {
+      this.sourceFileData = sourceFileData;
     });
 
     this.store

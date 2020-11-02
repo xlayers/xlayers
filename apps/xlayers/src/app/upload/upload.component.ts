@@ -4,9 +4,11 @@ import { Navigate } from '@ngxs/router-plugin';
 import { Store } from '@ngxs/store';
 import { BehaviorSubject } from 'rxjs';
 import { SketchService } from '../core/sketch.service';
+import { getFileData } from '../supported-files';
 import {
   ResetUiSettings,
   CurrentData,
+  SourceFileData,
   InformUser,
   ErrorType,
 } from '../core/state';
@@ -37,6 +39,7 @@ export class UploadComponent implements OnInit {
         this.store.dispatch([
           new ResetUiSettings(),
           new CurrentData(data),
+          new SourceFileData(getFileData(file.name)),
           new Navigate(['/editor/preview']),
         ]);
         return;

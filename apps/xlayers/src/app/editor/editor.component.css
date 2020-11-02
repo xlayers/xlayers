@@ -63,6 +63,34 @@
   flex: 1 1 auto;
 }
 
+.header-file-data {
+  display: flex;
+  align-items: baseline;
+  font-weight: 400;
+  font-style: italic;
+  margin-left: 115px;
+  max-width: calc(115px + 22rem);
+}
+
+.header-file-data img{
+  width: 15px;
+  height: 15px;
+  margin-right: 4px;
+}
+
+.header-file-data .file-name{
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  z-index: 5;
+}
+
+@media (max-width: 1382px) {
+  .header-file-data{
+    display: none;
+  }
+}
+
 .logo {
   font-size: 1.2em;
   position: relative;

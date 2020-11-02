@@ -6,6 +6,12 @@
         >xLayers<span>{{ badge }}</span>
       </a>
     </div>
+     <div  data-cy="fileData" class="header-file-data">
+      <ng-container *ngIf="sourceFileData as fileData" >
+        <img [src]="fileData.icon" />
+        <div class="file-name">{{fileData.name}}</div>
+      </ng-container>
+    </div>
     <div class="header-spacer">
       <div
         [hidden]="!enabled"
