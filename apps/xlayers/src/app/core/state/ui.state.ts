@@ -21,6 +21,7 @@ export interface LayerCSS {
 export interface DesignFile {
   name: string;
   icon: string;
+  version: string;
 }
 
 export interface UiSettings {

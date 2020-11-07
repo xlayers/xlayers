@@ -13,10 +13,10 @@ const compatibleFiles = [
 ];
 
 /**
- * It returns information related to file, based on it's extension
+ * It returns information related to file, based on it's extension and version
  * @param fileName the file's complete name (extension included)
  */
-export function getFileData(fileName: string) {
+export function getFileData(fileName: string, appVersion: string) {
   const fileExtension = fileName.includes('.')
     ? `.${fileName.split('.').pop()}`
     : ''; // get file's extension with a point at the begining
@@ -24,5 +24,5 @@ export function getFileData(fileName: string) {
   const compatible = compatibleFiles.find(
     ({ extension }) => fileExtension === extension
   ) || { icon: '' }; // get information related to the file based on the extension
-  return { name, icon: compatible.icon }; //for the moment, minimum data is returned
+  return { name, icon: compatible.icon, version: appVersion }; //for the moment, minimum data is returned
 }
