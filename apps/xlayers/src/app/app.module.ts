@@ -97,6 +97,7 @@ export function HttpLoaderFactory(http: HttpClient) {
       useHash: true,
       enableTracing: !environment.production,
       preloadingStrategy: PreloadAllModules,
+      relativeLinkResolution: 'legacy',
     }),
     HighlightModule,
     // TODO(manekinekko): enable SW support when it's stable
