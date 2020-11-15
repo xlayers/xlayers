@@ -120,13 +120,8 @@ jobs:
       - name: Get origin main
         run: |
           git fetch --no-tags --prune --depth=1 origin +refs/heads/main:refs/remotes/origin/main
-      - uses: actions/cache@v1
-        id: workspace-xlayers-cache
-        with:
-          path: node_modules
-          key: ${{ runner.os }}-${{ matrix.node }}-xlayers-workspace-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-${{ matrix.node }}-xlayers-workspace-
+      - name: Install Dependencies
+        run: npm install --frozen-lockfile
       - name: Run e2e
         run: npm run affected:e2e -- --base=origin/main --head=HEAD --parallel --with-deps
   build:
