@@ -70,7 +70,7 @@ export const environment = {
     },
     {
       value: 69,
-      disabled: true,
+      disabled: false,
       files: [
         'md-components-notifications-heads-up',
         'md-components-cards-welcome-back',
