@@ -101,7 +101,9 @@
         },
         "stamp": {
           "builder": "@xlayers/version-stamp:stamp",
-          "options": {}
+          "options": {
+            "outputPath": "dist/apps/xlayers"
+          }
         }
       }
     },
