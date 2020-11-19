@@ -1,7 +1,9 @@
 describe('Editor page', () => {
   beforeEach(() => {
     cy.visit('/');
-    cy.contains(/^get started$/i).click();
+    cy.get('.icon_wrapper').spread((firstFramework) => {
+      firstFramework.click();
+    });
   });
 
   it('the editor should open demo file', () => {
