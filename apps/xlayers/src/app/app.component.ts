@@ -71,6 +71,10 @@ export class AppComponent {
         'assets/codegen/xamarinForms.svg'
       )
     );
+    iconRegistry.addSvgIcon(
+      'arrows',
+      sanitizer.bypassSecurityTrustResourceUrl('assets/codegen/arrows.svg')
+    );
 
     router.events
       .pipe(filter((event) => event instanceof NavigationEnd))

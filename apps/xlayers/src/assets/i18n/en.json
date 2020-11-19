@@ -1,6 +1,8 @@
 {
   "APP": {
     "preview": "Preview and Convert SketchApp Design Files Into ANY Framework And Library.",
+    "choose_framework_1": "Choose",
+    "choose_framework_2": "your framework",
     "get_started": "Get Started",
     "explore_viewer": "Explore the Viewer interface",
     "explore_codegen": "Explore the Codegen interface",

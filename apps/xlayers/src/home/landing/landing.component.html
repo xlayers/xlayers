@@ -13,16 +13,30 @@
     <h3>{{ 'APP.preview' | translate }}</h3>
   </nav>
 
-  <picture>
-    <source srcset="/assets/xlayers-ui-1.webp" type="image/webp" />
-    <source srcset="/assets/xlayers-ui-1.png" type="image/png" />
-    <img src="/assets/xlayers-ui-1.png" alt="xlayers screenshot" />
-  </picture>
+  <div class="frameworks-wrapper">
+    <h2 class="choose_framework">
+      <span>{{ 'APP.choose_framework_1' | translate }}</span>
+      {{ 'APP.choose_framework_2' | translate }}
+    </h2>
+    <mat-icon class="arrows" svgIcon="arrows"></mat-icon>
+    <div class="frameworks">
+      <div
+        *ngFor="let framework of frameworks"
+        class="icon_wrapper"
+        (click)="selectFramework(framework.value)"
+      >
+        <mat-icon
+          color="white"
+          [inline]="true"
+          svgIcon="{{ framework.svgIcon }}"
+        ></mat-icon>
+      </div>
+    </div>
+  </div>
+  <div class="arrow_down">
+    <mat-icon inline="true">keyboard_arrow_down</mat-icon>
+  </div>
 </header>
-
-<section class="try-it">
-  <a routerLink="/upload" class="button">{{ 'APP.get_started' | translate }}</a>
-</section>
 
 <section class="bg interactive">
   <h1>{{ 'APP.explore_viewer' | translate }}</h1>
