@@ -1,15 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngxs/store';
-import { SelectCodegenKind } from '../../app/core/state/page.state';
-import { CodeGenKind } from '../../app/editor/code/editor-container/codegen/codegen.service';
+import { SelectCodegenKind } from '@xlayers-apps/app/core/state/page.state';
+import { CodeGenKind } from '@xlayers-apps/app/editor/code/editor-container/codegen/codegen.service';
 import { environment } from '../../environments/environment';
-
-interface Framework {
-  value: string;
-  svgIcon: string;
-}
-
+import { codeGenList, UICodeGen } from '@xlayers-apps/shared/codegen-list';
 @Component({
   selector: 'xly-landing',
   templateUrl: './landing.component.html',
@@ -168,43 +163,15 @@ export class LandingComponent implements OnInit {
     },
   ];
 
-  public frameworks: Framework[] = [
-    {
-      value: 'Angular',
-      svgIcon: 'angular',
-    },
-    {
-      value: 'AngularElement',
-      svgIcon: 'angularElement',
-    },
-    {
-      value: 'Vue',
-      svgIcon: 'vue',
-    },
-    {
-      value: 'React',
-      svgIcon: 'react',
-    },
-    {
-      value: 'WC',
-      svgIcon: 'wc',
-    },
-    {
-      value: 'Stencil',
-      svgIcon: 'stencil',
-    },
-    {
-      value: 'LitElement',
-      svgIcon: 'litElement',
-    },
-  ];
+  public frameworks: UICodeGen[] = codeGenList;
 
   constructor(private router: Router, private readonly store: Store) {}
 
   ngOnInit() {}
 
-  selectFramework(framework: string) {
-    this.store.dispatch(new SelectCodegenKind(CodeGenKind[framework]));
+  selectFramework(framework: CodeGenKind) {
+    console.log(framework);
+    this.store.dispatch(new SelectCodegenKind(framework));
     this.router.navigateByUrl('/upload');
   }
 }
