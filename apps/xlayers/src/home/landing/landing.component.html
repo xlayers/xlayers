@@ -23,7 +23,7 @@
       <div
         *ngFor="let framework of frameworks"
         class="icon_wrapper"
-        (click)="selectFramework(framework.value)"
+        (click)="selectFramework(framework.codegenType)"
       >
         <mat-icon
           color="white"
