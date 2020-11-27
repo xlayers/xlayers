@@ -6,6 +6,7 @@ import { ExportStackblitzVueService } from './stackblitz.vue.service';
 import { ExportStackblitzWCService } from './stackblitz.wc.service';
 import { ExportStackblitzStencilService } from './stackblitz.stencil.service';
 import { ExportStackblitzLitElementService } from './stackblitz.lit-element.service';
+import { ExportStackblitzSvelteService } from './stackblitz.svelte.service';
 import { CodeGenSettings } from '../../../../core/state/page.state';
 import { CodeGenKind } from '../../editor-container/codegen/codegen.service';
 
@@ -35,7 +36,8 @@ export class ExportStackblitzService {
     private vueExport: ExportStackblitzVueService,
     private wcExport: ExportStackblitzWCService,
     private stencilExport: ExportStackblitzStencilService,
-    private litElementExport: ExportStackblitzLitElementService
+    private litElementExport: ExportStackblitzLitElementService,
+    private svelteExport: ExportStackblitzSvelteService
   ) {}
 
   async export(codegen: CodeGenSettings) {
@@ -56,6 +58,9 @@ export class ExportStackblitzService {
         break;
       case CodeGenKind.LitElement:
         project = this.litElementExport.prepare(content);
+        break;
+      case CodeGenKind.Svelte:
+        project = this.svelteExport.prepare(content);
         break;
       case CodeGenKind.Angular:
       default:
