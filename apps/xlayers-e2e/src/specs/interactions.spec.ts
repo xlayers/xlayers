@@ -149,5 +149,11 @@ describe('Editor page', () => {
         expect(fileData[0]).to.have.attr('src', '/assets/supported/sketch.svg'),
           cy.wrap(fileData[1]).contains('md-components-cards-welcome-back');
       });
+    cy.get('[data-cy="fileData"]').trigger('mouseenter');
+    cy.get('.cdk-overlay-container')
+      .children()
+      .then((data) => {
+        cy.wrap(data[0]).contains('59.1');
+      });
   });
 });
