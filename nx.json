@@ -50,6 +50,9 @@
     "vue-codegen": {
       "tags": []
     },
+    "vue3-codegen": {
+      "tags": []
+    },
     "web-codegen": {
       "tags": []
     },
