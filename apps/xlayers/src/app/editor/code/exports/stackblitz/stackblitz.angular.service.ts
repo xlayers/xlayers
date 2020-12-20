@@ -39,8 +39,6 @@ import { XlayersModule } from './xlayers/xlayers.module';
 })
 export class AppModule { }`;
     files['src/main.ts'] = `\
-import 'core-js/es6/reflect';
-import 'core-js/es7/reflect';
 import 'zone.js/dist/zone';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { AppModule } from './app/app.module';
