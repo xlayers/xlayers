@@ -153,7 +153,7 @@ describe('Editor page', () => {
     cy.get('.cdk-overlay-container')
       .children()
       .then((data) => {
-        cy.wrap(data[0]).contains('59.1');
+        cy.wrap(data[0]).contains('69');
       });
   });
 });
