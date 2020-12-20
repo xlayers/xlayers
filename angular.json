@@ -45,7 +45,6 @@
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
-              "extractCss": true,
               "namedChunks": false,
               "extractLicenses": true,
               "vendorChunk": false,
@@ -63,7 +62,8 @@
                 }
               ]
             }
-          }
+          },
+          "outputs": ["{options.outputPath}"]
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
@@ -97,7 +97,8 @@
           "options": {
             "jestConfig": "apps/xlayers/jest.config.js",
             "passWithNoTests": true
-          }
+          },
+          "outputs": ["coverage/apps/xlayers"]
         },
         "stamp": {
           "builder": "@xlayers/version-stamp:stamp",
@@ -144,7 +145,8 @@
           "builder": "@nrwl/angular:package",
           "options": {
             "tsConfig": "libs/angular-codegen/tsconfig.lib.json",
-            "project": "libs/angular-codegen/ng-package.json"
+            "project": "libs/angular-codegen/ng-package.json",
+            "buildableProjectDepsInPackageJsonType": "dependencies"
           },
           "configurations": {
             "production": {
@@ -167,7 +169,8 @@
           "options": {
             "jestConfig": "libs/angular-codegen/jest.config.js",
             "passWithNoTests": true
-          }
+          },
+          "outputs": ["coverage/libs/angular-codegen"]
         }
       },
       "schematics": {}
@@ -182,7 +185,8 @@
           "builder": "@nrwl/angular:package",
           "options": {
             "tsConfig": "libs/css-codegen/tsconfig.lib.json",
-            "project": "libs/css-codegen/ng-package.json"
+            "project": "libs/css-codegen/ng-package.json",
+            "buildableProjectDepsInPackageJsonType": "dependencies"
           },
           "configurations": {
             "production": {
@@ -205,7 +209,8 @@
           "options": {
             "jestConfig": "libs/css-codegen/jest.config.js",
             "passWithNoTests": true
-          }
+          },
+          "outputs": ["coverage/libs/css-codegen"]
         }
       },
       "schematics": {}
@@ -220,7 +225,8 @@
           "builder": "@nrwl/angular:package",
           "options": {
             "tsConfig": "libs/lit-element-codegen/tsconfig.lib.json",
-            "project": "libs/lit-element-codegen/ng-package.json"
+            "project": "libs/lit-element-codegen/ng-package.json",
+            "buildableProjectDepsInPackageJsonType": "dependencies"
           },
           "configurations": {
             "production": {
@@ -243,7 +249,8 @@
           "options": {
             "jestConfig": "libs/lit-element-codegen/jest.config.js",
             "passWithNoTests": true
-          }
+          },
+          "outputs": ["coverage/libs/lit-element-codegen"]
         }
       },
       "schematics": {}
@@ -258,7 +265,8 @@
           "builder": "@nrwl/angular:package",
           "options": {
             "tsConfig": "libs/react-codegen/tsconfig.lib.json",
-            "project": "libs/react-codegen/ng-package.json"
+            "project": "libs/react-codegen/ng-package.json",
+            "buildableProjectDepsInPackageJsonType": "dependencies"
           },
           "configurations": {
             "production": {
@@ -281,7 +289,8 @@
           "options": {
             "jestConfig": "libs/react-codegen/jest.config.js",
             "passWithNoTests": true
-          }
+          },
+          "outputs": ["coverage/libs/react-codegen"]
         }
       },
       "schematics": {}
@@ -296,7 +305,8 @@
           "builder": "@nrwl/angular:package",
           "options": {
             "tsConfig": "libs/stencil-codegen/tsconfig.lib.json",
-            "project": "libs/stencil-codegen/ng-package.json"
+            "project": "libs/stencil-codegen/ng-package.json",
+            "buildableProjectDepsInPackageJsonType": "dependencies"
           },
           "configurations": {
             "production": {
@@ -319,7 +329,8 @@
           "options": {
             "jestConfig": "libs/stencil-codegen/jest.config.js",
             "passWithNoTests": true
-          }
+          },
+          "outputs": ["coverage/libs/stencil-codegen"]
         }
       },
       "schematics": {}
@@ -334,7 +345,8 @@
           "builder": "@nrwl/angular:package",
           "options": {
             "tsConfig": "libs/svg-codegen/tsconfig.lib.json",
-            "project": "libs/svg-codegen/ng-package.json"
+            "project": "libs/svg-codegen/ng-package.json",
+            "buildableProjectDepsInPackageJsonType": "dependencies"
           },
           "configurations": {
             "production": {
@@ -357,7 +369,8 @@
           "options": {
             "jestConfig": "libs/svg-codegen/jest.config.js",
             "passWithNoTests": true
-          }
+          },
+          "outputs": ["coverage/libs/svg-codegen"]
         }
       },
       "schematics": {}
@@ -372,7 +385,8 @@
           "builder": "@nrwl/angular:package",
           "options": {
             "tsConfig": "libs/vue-codegen/tsconfig.lib.json",
-            "project": "libs/vue-codegen/ng-package.json"
+            "project": "libs/vue-codegen/ng-package.json",
+            "buildableProjectDepsInPackageJsonType": "dependencies"
           },
           "configurations": {
             "production": {
@@ -395,7 +409,8 @@
           "options": {
             "jestConfig": "libs/vue-codegen/jest.config.js",
             "passWithNoTests": true
-          }
+          },
+          "outputs": ["coverage/libs/vue-codegen"]
         }
       },
       "schematics": {}
@@ -410,7 +425,8 @@
           "builder": "@nrwl/angular:package",
           "options": {
             "tsConfig": "libs/web-codegen/tsconfig.lib.json",
-            "project": "libs/web-codegen/ng-package.json"
+            "project": "libs/web-codegen/ng-package.json",
+            "buildableProjectDepsInPackageJsonType": "dependencies"
           },
           "configurations": {
             "production": {
@@ -433,7 +449,8 @@
           "options": {
             "jestConfig": "libs/web-codegen/jest.config.js",
             "passWithNoTests": true
-          }
+          },
+          "outputs": ["coverage/libs/web-codegen"]
         }
       },
       "schematics": {}
@@ -448,7 +465,8 @@
           "builder": "@nrwl/angular:package",
           "options": {
             "tsConfig": "libs/web-component-codegen/tsconfig.lib.json",
-            "project": "libs/web-component-codegen/ng-package.json"
+            "project": "libs/web-component-codegen/ng-package.json",
+            "buildableProjectDepsInPackageJsonType": "dependencies"
           },
           "configurations": {
             "production": {
@@ -474,7 +492,8 @@
           "options": {
             "jestConfig": "libs/web-component-codegen/jest.config.js",
             "passWithNoTests": true
-          }
+          },
+          "outputs": ["coverage/libs/web-component-codegen"]
         }
       },
       "schematics": {}
@@ -489,7 +508,8 @@
           "builder": "@nrwl/angular:package",
           "options": {
             "tsConfig": "libs/xaml-codegen/tsconfig.lib.json",
-            "project": "libs/xaml-codegen/ng-package.json"
+            "project": "libs/xaml-codegen/ng-package.json",
+            "buildableProjectDepsInPackageJsonType": "dependencies"
           },
           "configurations": {
             "production": {
@@ -512,7 +532,8 @@
           "options": {
             "jestConfig": "libs/xaml-codegen/jest.config.js",
             "passWithNoTests": true
-          }
+          },
+          "outputs": ["coverage/libs/xaml-codegen"]
         }
       },
       "schematics": {}
@@ -527,7 +548,8 @@
           "builder": "@nrwl/angular:package",
           "options": {
             "tsConfig": "libs/sketch-lib/tsconfig.lib.json",
-            "project": "libs/sketch-lib/ng-package.json"
+            "project": "libs/sketch-lib/ng-package.json",
+            "buildableProjectDepsInPackageJsonType": "dependencies"
           },
           "configurations": {
             "production": {
@@ -550,7 +572,8 @@
           "options": {
             "jestConfig": "libs/sketch-lib/jest.config.js",
             "passWithNoTests": true
-          }
+          },
+          "outputs": ["coverage/libs/sketch-lib"]
         }
       },
       "schematics": {}
@@ -565,7 +588,8 @@
           "builder": "@nrwl/angular:package",
           "options": {
             "tsConfig": "libs/sketch-ingestor/tsconfig.lib.json",
-            "project": "libs/sketch-ingestor/ng-package.json"
+            "project": "libs/sketch-ingestor/ng-package.json",
+            "buildableProjectDepsInPackageJsonType": "dependencies"
           },
           "configurations": {
             "production": {
@@ -588,7 +612,8 @@
           "options": {
             "jestConfig": "libs/sketch-ingestor/jest.config.js",
             "passWithNoTests": true
-          }
+          },
+          "outputs": ["coverage/libs/sketch-ingestor"]
         }
       },
       "schematics": {}
@@ -614,7 +639,8 @@
           "options": {
             "jestConfig": "libs/sketchtypes/jest.config.js",
             "passWithNoTests": true
-          }
+          },
+          "outputs": ["coverage/libs/sketchtypes"]
         },
         "build": {
           "builder": "@nrwl/node:package",
@@ -625,7 +651,8 @@
             "main": "libs/sketchtypes/src/index.ts",
             "assets": ["libs/sketchtypes/*.md"],
             "srcRootForCompilationRoot": "libs\\sketchtypes\\src"
-          }
+          },
+          "outputs": ["{options.outputPath}"]
         }
       }
     },
@@ -650,7 +677,8 @@
           "options": {
             "jestConfig": "libs/test-helpers/jest.config.js",
             "passWithNoTests": true
-          }
+          },
+          "outputs": ["coverage/libs/test-helpers"]
         }
       }
     }
