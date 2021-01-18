@@ -24,9 +24,12 @@ export class EditorContainerComponent implements OnInit {
 
   public frameworks: UICodeGen[] = codeGenList;
 
-  public selectedFramework: UICodeGen = codeGenList[0];
+  public selectedFramework: UICodeGen = this.frameworks[0];
 
-  constructor(private codegen: CodeGenService, private readonly store: Store) {}
+  constructor(
+    private readonly codegen: CodeGenService,
+    private readonly store: Store
+  ) {}
 
   ngOnInit() {
     this.store.select(CodeGenState.codegen).subscribe((codegen) => {
@@ -34,8 +37,8 @@ export class EditorContainerComponent implements OnInit {
         this.selectedFramework = this.frameworks.find(
           (framework) => framework.codegenType === codegen.kind
         );
+        this.codeSetting = this.codegen.generate(codegen.kind);
       }
-      this.codeSetting = this.codegen.generate(codegen.kind);
     });
   }
 
