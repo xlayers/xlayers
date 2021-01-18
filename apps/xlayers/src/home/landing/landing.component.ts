@@ -170,7 +170,6 @@ export class LandingComponent implements OnInit {
   ngOnInit() {}
 
   selectFramework(framework: CodeGenKind) {
-    console.log(framework);
     this.store.dispatch(new SelectCodegenKind(framework));
     this.router.navigateByUrl('/upload');
   }
