@@ -1,16 +1,13 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- Generator: Adobe Illustrator 19.1.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
-<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 viewBox="0 0 250 250" style="enable-background:new 0 0 250 250;" xml:space="preserve">
-<style type="text/css">
-	.st0angular{fill:#DD0031;}
-	.st1angular{fill:#C3002F;}
-	.st2angular{fill:#FFFFFF;}
-</style>
-<g>
-	<polygon class="st0angular" points="125,30 125,30 125,30 31.9,63.2 46.1,186.3 125,230 125,230 125,230 203.9,186.3 218.1,63.2 	"/>
-	<polygon class="st1angular" points="125,30 125,52.2 125,52.1 125,153.4 125,153.4 125,230 125,230 203.9,186.3 218.1,63.2 125,30 	"/>
-	<path class="st2angular" d="M125,52.1L66.8,182.6h0h21.7h0l11.7-29.2h49.4l11.7,29.2h0h21.7h0L125,52.1L125,52.1L125,52.1L125,52.1
-		L125,52.1z M142,135.4H108l17-40.9L142,135.4z"/>
-</g>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="186px" height="200px" viewBox="0 0 186 200" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.6 (67491) - http://www.bohemiancoding.com/sketch -->
+    <title>angular</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="angular">
+            <polygon id="Path" fill="#DD0031" points="93 0 93 0 93 0 0 33.2 14.1847476 156.3 93 200 93 200 93 200 171.815252 156.3 186 33.2"></polygon>
+            <polygon id="Path" fill="#C3002F" points="93 0 93 22.2 93 22.1 93 123.4 93 123.4 93 200 93 200 171.815252 156.3 186 33.2"></polygon>
+            <path d="M93.0998279,22 L35,153 L56.6626506,153 L68.3425129,123.688123 L117.657487,123.688123 L129.337349,153 L151,153 L93.0998279,22 Z M110.070568,105.619157 L76.1290878,105.619157 L93.0998279,64.5624521 L110.070568,105.619157 Z" id="Shape" fill="#FFFFFF" fill-rule="nonzero"></path>
+        </g>
+    </g>
 </svg>
