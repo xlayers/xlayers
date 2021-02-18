@@ -3,7 +3,11 @@ import { LayerService, StyleService, SymbolService } from '@xlayers/sketch-lib';
 
 import { CssCodeGenOptions } from './css-codegen';
 import { CssContextService } from './css-context.service';
-import { SketchMSLayer, SketchMSData } from '@xlayers/sketchtypes';
+import {
+  SketchMSLayer,
+  SketchMSData,
+  SketchMSStyleFill,
+} from '@xlayers/sketchtypes';
 
 @Injectable({
   providedIn: 'root',
@@ -166,7 +170,7 @@ export class CssParserService {
   }
 
   private extractTextColor(current: SketchMSLayer) {
-    const obj = current.style.textStyle.encodedAttributes;
+    const obj = current.style?.textStyle?.encodedAttributes;
 
     if (obj.hasOwnProperty('MSAttributedStringColorAttribute')) {
       return {
@@ -187,7 +191,7 @@ export class CssParserService {
   }
 
   private extractParagraphStyle(current: SketchMSLayer) {
-    const obj = current.style.textStyle.encodedAttributes;
+    const obj = current.style?.textStyle?.encodedAttributes;
 
     if (obj.hasOwnProperty('NSParagraphStyle')) {
       // TODO: Handle legacy
@@ -203,7 +207,8 @@ export class CssParserService {
 
   private extractTextFont(current: SketchMSLayer) {
     const obj =
-      current.style.textStyle.encodedAttributes.MSAttributedStringFontAttribute;
+      current.style?.textStyle?.encodedAttributes
+        ?.MSAttributedStringFontAttribute;
 
     if (obj.hasOwnProperty('_class') && obj._class === 'fontDescriptor') {
       return {
@@ -232,17 +237,17 @@ export class CssParserService {
   }
 
   private extractBorderRadius(current: SketchMSLayer) {
-    const obj = (current as any).fixedRadius;
-    return obj ? { 'border-radius': `${obj.fixedRadius}px` } : {};
+    const obj = current.fixedRadius;
+    return obj ? { 'border-radius': `${obj}px` } : {};
   }
 
   private extractRotation(current: SketchMSLayer) {
-    const obj = (current as any).rotation;
-    return obj ? { transform: `rotate(${current.rotation}deg)` } : {};
+    const obj = current.rotation;
+    return obj ? { transform: `rotate(${obj}deg)` } : {};
   }
 
   private extractBlurPseudoElement(current: SketchMSLayer) {
-    const obj = (current as any).style.blur;
+    const obj = current.style?.blur;
     if (obj && obj.hasOwnProperty('radius') && obj.radius > 0) {
       const objFill = (current as any).style.fills;
 
@@ -285,7 +290,7 @@ export class CssParserService {
       CENTER = 0,
     }
 
-    const obj = (current as any).style.borders;
+    const obj = current.style?.borders;
 
     if (obj && obj.length > 0) {
       const bordersStyles = obj.reduce((acc, border) => {
@@ -314,7 +319,7 @@ export class CssParserService {
   }
 
   private extractFills(current: SketchMSLayer) {
-    const obj = (current as any).style.fills;
+    const obj = current.style?.fills;
 
     if (obj && obj.length > 0) {
       // we only support one fill: take the first one!
@@ -326,7 +331,7 @@ export class CssParserService {
           firstFill.color
         );
 
-        const blurObj = (current as any).style.blur;
+        const blurObj = current.style?.blur;
         if (blurObj && blurObj.hasOwnProperty('radius') && blurObj.radius > 0) {
           return {
             ...this.extractFillGradient(firstFill),
@@ -346,7 +351,7 @@ export class CssParserService {
     return {};
   }
 
-  private extractFillGradient(fill) {
+  private extractFillGradient(fill: SketchMSStyleFill) {
     if (fill.gradient) {
       const fillsStyles = fill.gradient.stops.map((stop) => {
         const position =
@@ -380,30 +385,32 @@ export class CssParserService {
   }
 
   private extractInnerShadow(current: SketchMSLayer) {
-    const innerShadows = (current as any).style.innerShadows;
+    const innerShadows = current.style?.innerShadows;
 
     if (innerShadows) {
-      return innerShadows.map((innerShadow) => {
-        const shadowColor = this.styleHelperService.parseColorAsRgba(
-          innerShadow.color
-        );
+      return innerShadows
+        .map((innerShadow) => {
+          const shadowColor = this.styleHelperService.parseColorAsRgba(
+            innerShadow.color
+          );
 
-        return [
-          `${innerShadow.offsetX}px`,
-          `${innerShadow.offsetY}px`,
-          `${innerShadow.blurRadius}px`,
-          `${innerShadow.spread}px`,
-          `${shadowColor}`,
-          `inset`,
-        ].join(' ');
-      });
+          return [
+            `${innerShadow.offsetX}px`,
+            `${innerShadow.offsetY}px`,
+            `${innerShadow.blurRadius}px`,
+            `${innerShadow.spread}px`,
+            `${shadowColor}`,
+            `inset`,
+          ].join(' ');
+        })
+        .join(' ');
     }
 
     return '';
   }
 
   private extractOuterShadow(current: SketchMSLayer) {
-    const outerShadows = (current as any).style.shadows;
+    const outerShadows = current.style?.shadows;
     if (outerShadows) {
       return outerShadows.map((shadow) => {
         const shadowColor = this.styleHelperService.parseColorAsRgba(
