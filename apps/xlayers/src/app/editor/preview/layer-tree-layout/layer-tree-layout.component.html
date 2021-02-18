@@ -3,7 +3,7 @@
     *matTreeNodeDef="let node"
     matTreeNodeToggle
     matTreeNodePadding
-    matTreeNodePaddingIndent="20"
+    [matTreeNodePaddingIndent]="20"
     (click)="selectLayer(node)"
     [attr.data-id]="node.id"
     [attr.data-class]="node.kind"
@@ -20,7 +20,7 @@
   <mat-tree-node
     *matTreeNodeDef="let node; when: hasChild"
     matTreeNodePadding
-    matTreeNodePaddingIndent="20"
+    [matTreeNodePaddingIndent]="20"
     [ngClass]="{ selected: node.id === currentLayer?.do_objectID }"
     [attr.data-id]="node.id"
     [attr.data-class]="node.kind"

@@ -14,7 +14,7 @@ export class InteractiveBgComponent implements OnInit {
 
   backgroundImageSrc;
 
-  lastUiSection: ElementRef;
+  lastUiSection: HTMLDivElement;
   lastbtn: HTMLButtonElement;
 
   constructor(private renderer: Renderer2) {}
@@ -37,7 +37,7 @@ export class InteractiveBgComponent implements OnInit {
     }
   }
 
-  show(event: MouseEvent, uiSectionRef: ElementRef) {
+  show(event: MouseEvent, uiSectionRef: HTMLDivElement) {
     this.reset();
 
     this.lastUiSection = uiSectionRef;
