@@ -1,1 +1,33 @@
-<svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 230 160"><style>.st0a{fill:#fff}.st1a{opacity:.8}.st1a,.st2,.st3{fill:#f52757}.st2{opacity:.7}.st3{opacity:.6}.st4{opacity:.68;fill:#1e88e5}.st5{opacity:.76}.st5,.st6,.st7{fill:#1e88e5}.st6{opacity:.84}.st7{opacity:.94}.st8{opacity:.65}.st8,.st9{fill:#f52757}.st1a0{fill:#1e88e5}.st1a1{opacity:.92}.st1a1,.st1a2{fill:#0d47a1}</style><path class="st0a" d="M93.1 4.3H49.4L5.7 80l43.7 75.7h43.7l65.6-113.6L180.6 80l-43.7 75.7h43.7L224.3 80 180.6 4.3h-43.7L71.3 117.9 49.4 80z"/><path class="st1a" d="M115 42.1l21.8-37.8 21.9 37.8z"/><path class="st2" d="M115 42.1L136.8 80l21.9-37.9z"/><path class="st3" d="M93.1 80L115 42.1 136.8 80z"/><path class="st4" d="M49.4 4.3l21.9 37.8L93.1 4.3z"/><path class="st5" d="M27.6 42.1L49.4 4.3l21.9 37.8z"/><path class="st6" d="M27.6 42.1L49.4 80l21.9-37.9z"/><path class="st7" d="M5.7 80l21.9-37.9L49.4 80z"/><path class="st8" d="M93.1 80l21.9 37.9L136.8 80z"/><path class="st2" d="M71.3 117.9L93.1 80l21.9 37.9z"/><path class="st1a" d="M71.3 117.9l21.8 37.8 21.9-37.8z"/><path class="st9" d="M49.4 155.7l21.9-37.8 21.8 37.8z"/><path class="st1a0" d="M5.7 80l21.9 37.9L49.4 80z"/><path class="st4" d="M180.6 155.7l-21.9-37.8-21.8 37.8z"/><path class="st5" d="M202.4 117.9l-21.8 37.8-21.9-37.8z"/><path class="st6" d="M202.4 117.9L180.6 80l-21.9 37.9z"/><path class="st7" d="M224.3 80l-21.9 37.9L180.6 80z"/><path class="st1a0" d="M224.3 80l-21.9-37.9L180.6 80z"/><path class="st1a1" d="M71.3 117.9L49.4 80l-21.8 37.9z"/><path class="st1a2" d="M71.3 117.9l-21.9 37.8-21.8-37.8z"/><path class="st9" d="M136.8 4.3l21.9 37.8 21.9-37.8z"/><path class="st1a2" d="M202.4 42.1L180.6 4.3l-21.9 37.8z"/><path class="st1a1" d="M202.4 42.1L180.6 80l-21.9-37.9z"/></svg>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="289px" height="200px" viewBox="0 0 289 200" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.6 (67491) - http://www.bohemiancoding.com/sketch -->
+    <title>litElement</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="litElement">
+            <polygon id="Path" fill="#FFFFFF" points="115.547118 0 57.773559 0 0 100 57.773559 200 115.547118 200 202.273559 49.9339498 231.226441 100 173.452882 200 231.226441 200 289 100 231.226441 0 173.452882 0 86.726441 150.06605 57.773559 100"></polygon>
+            <polygon id="Path" fill="#F52757" opacity="0.8" points="144 50 172.933638 1 202 50"></polygon>
+            <polygon id="Path" fill="#F52757" opacity="0.7" points="144 50 172.933638 101 202 50"></polygon>
+            <polygon id="Path" fill="#F52757" opacity="0.6" points="115 101 144.066362 50 173 101"></polygon>
+            <polygon id="Path" fill="#1E88E5" opacity="0.68" points="57 1 86.0663616 50 115 1"></polygon>
+            <polygon id="Path" fill="#1E88E5" opacity="0.76" points="29 50 57.9336384 1 87 50"></polygon>
+            <polygon id="Path" fill="#1E88E5" opacity="0.84" points="29 50 57.9336384 101 87 50"></polygon>
+            <polygon id="Path" fill="#1E88E5" opacity="0.94" points="0 101 29.0663616 50 58 101"></polygon>
+            <polygon id="Path" fill="#F52757" opacity="0.65" points="115 100 144.066362 151 173 100"></polygon>
+            <polygon id="Path" fill="#F52757" opacity="0.7" points="87 151 115.933638 100 145 151"></polygon>
+            <polygon id="Path" fill="#F52757" opacity="0.8" points="87 151 115.933638 200 145 151"></polygon>
+            <polygon id="Path" fill="#F52757" points="57 200 86.0663616 151 115 200"></polygon>
+            <polygon id="Path" fill="#1E88E5" points="0 100 29.0663616 151 58 100"></polygon>
+            <polygon id="Path" fill="#1E88E5" opacity="0.68" points="232 200 202.933638 151 174 200"></polygon>
+            <polygon id="Path" fill="#1E88E5" opacity="0.76" points="260 151 231.066362 200 202 151"></polygon>
+            <polygon id="Path" fill="#1E88E5" opacity="0.84" points="260 151 231.066362 100 202 151"></polygon>
+            <polygon id="Path" fill="#1E88E5" opacity="0.94" points="289 100 259.933638 151 231 100"></polygon>
+            <polygon id="Path" fill="#1E88E5" points="289 101 259.933638 50 231 101"></polygon>
+            <polygon id="Path" fill="#0D47A1" opacity="0.92" points="87 151 57.9336384 100 29 151"></polygon>
+            <polygon id="Path" fill="#0D47A1" points="87 151 57.9336384 200 29 151"></polygon>
+            <polygon id="Path" fill="#F52757" points="174 1 203 50 232 1"></polygon>
+            <polygon id="Path" fill="#0D47A1" points="260 50 231.066362 1 202 50"></polygon>
+            <polygon id="Path" fill="#0D47A1" opacity="0.92" points="260 50 231.066362 101 202 50"></polygon>
+        </g>
+    </g>
+</svg>

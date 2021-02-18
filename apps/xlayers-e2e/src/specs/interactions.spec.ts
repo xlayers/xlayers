@@ -1,7 +1,9 @@
 describe('Editor page', () => {
   beforeEach(() => {
     cy.visit('/');
-    cy.contains(/^get started$/i).click();
+    cy.get('.icon_wrapper').spread((firstFramework) => {
+      firstFramework.click();
+    });
     cy.contains('Select A Demo File').click();
     cy.wait(500);
     cy.contains('md-components-cards-welcome-back').click();

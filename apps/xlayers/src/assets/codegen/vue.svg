@@ -1,29 +1,18 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg
-   xmlns:dc="http://purl.org/dc/elements/1.1/"
-   xmlns:cc="http://creativecommons.org/ns#"
-   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-   xmlns:svg="http://www.w3.org/2000/svg"
-   xmlns="http://www.w3.org/2000/svg"
-   viewBox="0 0 400 400"
-   height="400"
-   width="400"
-   xml:space="preserve"
-   id="svg2"
-   version="1.1"><metadata
-     id="metadata8"><rdf:RDF><cc:Work
-         rdf:about=""><dc:format>image/svg+xml</dc:format><dc:type
-           rdf:resource="http://purl.org/dc/dcmitype/StillImage" /></cc:Work></rdf:RDF></metadata><defs
-     id="defs6" /><g
-     transform="matrix(1.3333333,0,0,-1.3333333,0,400)"
-     id="g10"><g
-       transform="translate(178.0626,235.0086)"
-       id="g12"><path
-         id="path14"
-         style="fill:#4dba87;fill-opacity:1;fill-rule:nonzero;stroke:none"
-         d="M 0,0 -22.669,-39.264 -45.338,0 h -75.491 L -22.669,-170.017 75.491,0 Z" /></g><g
-       transform="translate(178.0626,235.0086)"
-       id="g16"><path
-         id="path18"
-         style="fill:#435466;fill-opacity:1;fill-rule:nonzero;stroke:none"
-         d="M 0,0 -22.669,-39.264 -45.338,0 H -81.565 L -22.669,-102.01 36.227,0 Z" /></g></g></svg>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="229px" height="197px" viewBox="0 0 229 197" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.6 (67491) - http://www.bohemiancoding.com/sketch -->
+    <title>vue</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="vue" transform="translate(0.000000, -1.000000)">
+            <g id="g10" transform="translate(115.000000, 99.000000) scale(-1, 1) rotate(-180.000000) translate(-115.000000, -99.000000) ">
+                <g id="g12" transform="translate(0.072717, 0.009950)" fill="#4DBA87">
+                    <polygon id="path14" points="140.555556 196.843023 114.222879 151.415488 87.890202 196.843023 0.198636364 196.843023 114.222879 0.13730814 228.247121 196.843023"></polygon>
+                </g>
+                <g id="g16" transform="translate(45.375747, 78.684369)" fill="#435466">
+                    <polygon id="path18" points="95.2525253 118.168605 68.9198485 72.7410698 42.5871717 118.168605 0.50530303 118.168605 68.9198485 0.145406977 137.334394 118.168605"></polygon>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
