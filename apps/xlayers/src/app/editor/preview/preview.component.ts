@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, TrackByFunction, ViewChild } from '@angular/core';
 import { MatExpansionPanel } from '@angular/material/expansion';
 import { MatDrawerContainer } from '@angular/material/sidenav';
 import { Store } from '@ngxs/store';
@@ -88,7 +88,7 @@ export class PreviewComponent implements OnInit {
     this.store.dispatch(new CurrentLayer(null));
   }
 
-  pageName(page: SketchMSPageLayer) {
+  pageName(index: number, page: SketchMSPageLayer) {
     return page && page.name;
   }
 }
