@@ -351,6 +351,7 @@ export interface SketchMSLayer {
   resizingConstraint: number;
   resizingType: SketchMSLayerResizingType;
   rotation: number;
+  fixedRadius: number;
   shouldBreakMaskChain: boolean;
   clippingMaskMode: SketchMSLayerClippingMaskMode;
   hasClippingMask: boolean;
