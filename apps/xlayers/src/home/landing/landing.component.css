@@ -10,7 +10,7 @@ header {
   justify-content: space-evenly;
   align-items: center;
   border-bottom: 1px solid rgba(255, 108, 95, 0.7);
-  height: 400px;
+  height: 280px;
 }
 
 header, section {
@@ -275,6 +275,13 @@ footer i {
 @media only screen and (max-width: 600px) {
   .bg-2:before,
   .bg-3:before {
+    display: none;
+  }
+}
+
+
+@media (max-width: 1060px) {
+  .bg.interactive {
     display: none;
   }
 }

@@ -1,10 +1,13 @@
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngxs/store';
+import { InformUser } from '@xlayers-apps/app/core/state';
 import { SelectCodegenKind } from '@xlayers-apps/app/core/state/page.state';
 import { CodeGenKind } from '@xlayers-apps/app/editor/code/editor-container/codegen/codegen.service';
-import { environment } from '../../environments/environment';
 import { codeGenList, UICodeGen } from '@xlayers-apps/shared/codegen-list';
+import { environment } from '../../environments/environment';
+
 @Component({
   selector: 'xly-landing',
   templateUrl: './landing.component.html',
@@ -12,6 +15,7 @@ import { codeGenList, UICodeGen } from '@xlayers-apps/shared/codegen-list';
 })
 export class LandingComponent implements OnInit {
   version = environment.version;
+  isHandsetLayout = false;
 
   viewerSections = [
     {
@@ -165,12 +169,28 @@ export class LandingComponent implements OnInit {
 
   public frameworks: UICodeGen[] = codeGenList;
 
-  constructor(private router: Router, private readonly store: Store) {}
+  constructor(
+    private router: Router,
+    private readonly store: Store,
+    private breakpointObserver: BreakpointObserver
+  ) {
+    this.breakpointObserver
+      .observe([Breakpoints.Small, Breakpoints.XSmall])
+      .subscribe((result) => {
+        this.isHandsetLayout = result.matches;
+      });
+  }
 
   ngOnInit() {}
 
   selectFramework(framework: CodeGenKind) {
-    this.store.dispatch(new SelectCodegenKind(framework));
-    this.router.navigateByUrl('/upload');
+    if (this.isHandsetLayout) {
+      this.store.dispatch(
+        new InformUser(`xLayers isn't supported on this device.`)
+      );
+    } else {
+      this.store.dispatch(new SelectCodegenKind(framework));
+      this.router.navigateByUrl('/upload');
+    }
   }
 }

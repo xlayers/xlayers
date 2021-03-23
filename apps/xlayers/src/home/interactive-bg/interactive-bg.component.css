@@ -116,12 +116,6 @@ section {
   animation-iteration-count: infinite;
 }
 
-@media (max-width: 1060px) {
-  .xly-btn--pulse {
-    display: none;
-  }
-}
-
 @keyframes pulsate {
   0% {
     opacity: 0;
