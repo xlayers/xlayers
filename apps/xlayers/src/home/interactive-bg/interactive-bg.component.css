@@ -4,7 +4,7 @@
 }
 
 section {
-  background-position: 50% 0;
+  background-position: 50% 50%;
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -114,6 +114,12 @@ section {
   opacity: 0;
   animation: pulsate 1.5s ease-out;
   animation-iteration-count: infinite;
+}
+
+@media (max-width: 1060px) {
+  .xly-btn--pulse {
+    display: none;
+  }
 }
 
 @keyframes pulsate {
