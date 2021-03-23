@@ -1,22 +1,23 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { SettingsLayerPropertiesComponent } from './settings-layer-properties.component';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { NgxsModule } from '@ngxs/store';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
+import { NgxsModule } from '@ngxs/store';
 import { XStore } from '../../../../core/state/state.mock';
+import { SettingsLayerPropertiesComponent } from './settings-layer-properties.component';
 
 describe('SettingsLayerPropertiesComponent', () => {
   let component: SettingsLayerPropertiesComponent;
   let fixture: ComponentFixture<SettingsLayerPropertiesComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      schemas: [NO_ERRORS_SCHEMA],
-      imports: [NgxsModule.forRoot([XStore]), TranslateModule.forRoot()],
-      declarations: [SettingsLayerPropertiesComponent],
-    }).compileComponents();
-  }));
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        schemas: [NO_ERRORS_SCHEMA],
+        imports: [NgxsModule.forRoot([XStore]), TranslateModule.forRoot()],
+        declarations: [SettingsLayerPropertiesComponent],
+      }).compileComponents();
+    })
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(SettingsLayerPropertiesComponent);

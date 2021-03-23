@@ -74,7 +74,7 @@
     "@ngxs/logger-plugin": "^3.6.2",
     "@nrwl/cli": "11.0.15",
     "@nrwl/cypress": "11.0.15",
-    "@nrwl/jest": "11.0.15",
+    "@nrwl/jest": "^11.0.15",
     "@nrwl/node": "11.0.15",
     "@nrwl/tao": "11.0.15",
     "@nrwl/workspace": "11.0.15",

@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ViewerPageComponent } from './page.component';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
@@ -15,17 +15,19 @@ describe('ViewerPageComponent', () => {
   let component: ViewerPageComponent;
   let fixture: ComponentFixture<ViewerPageComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      schemas: [NO_ERRORS_SCHEMA],
-      imports: [
-        NgxsModule.forRoot([UiState, CodeGenState]),
-        MatSnackBarModule,
-        HttpClientTestingModule,
-      ],
-      declarations: [ViewerPageComponent],
-    }).compileComponents();
-  }));
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        schemas: [NO_ERRORS_SCHEMA],
+        imports: [
+          NgxsModule.forRoot([UiState, CodeGenState]),
+          MatSnackBarModule,
+          HttpClientTestingModule,
+        ],
+        declarations: [ViewerPageComponent],
+      }).compileComponents();
+    })
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(ViewerPageComponent);

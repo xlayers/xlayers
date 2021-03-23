@@ -1,26 +1,28 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { NgxsModule } from '@ngxs/store';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { MatMenuModule } from '@angular/material/menu';
-import { SettingsLayerColorsComponent } from './settings-layer-colors.component';
 import { TranslateModule } from '@ngx-translate/core';
+import { NgxsModule } from '@ngxs/store';
 import { XStore } from '../../../../core/state/state.mock';
+import { SettingsLayerColorsComponent } from './settings-layer-colors.component';
 
 describe('SettingsLayerColorsComponent', () => {
   let component: SettingsLayerColorsComponent;
   let fixture: ComponentFixture<SettingsLayerColorsComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      schemas: [NO_ERRORS_SCHEMA],
-      imports: [
-        MatMenuModule,
-        NgxsModule.forRoot([XStore]),
-        TranslateModule.forRoot(),
-      ],
-      declarations: [SettingsLayerColorsComponent],
-    }).compileComponents();
-  }));
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        schemas: [NO_ERRORS_SCHEMA],
+        imports: [
+          MatMenuModule,
+          NgxsModule.forRoot([XStore]),
+          TranslateModule.forRoot(),
+        ],
+        declarations: [SettingsLayerColorsComponent],
+      }).compileComponents();
+    })
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(SettingsLayerColorsComponent);

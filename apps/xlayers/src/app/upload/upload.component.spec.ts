@@ -1,5 +1,5 @@
 import { NO_ERRORS_SCHEMA } from '@angular/compiler/src/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { Store, NgxsModule } from '@ngxs/store';
 import { UploadComponent } from './upload.component';
 import { getFileMock } from './upload.component.mock';
@@ -18,23 +18,25 @@ describe('UploadComponent', () => {
   let mockSketchData: SketchMSData;
   let mockFile: File;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [UploadComponent],
-      providers: [SketchService],
-      imports: [
-        NgxsModule.forRoot([]),
-        HttpClientTestingModule,
-        RouterTestingModule.withRoutes([]),
-        TranslateModule.forRoot(),
-      ],
-      schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents();
-    sketchService = TestBed.inject(SketchService);
-    mockSketchData = getSketchDataMock();
-    mockFile = getFileMock();
-    store = TestBed.inject(Store);
-  }));
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        declarations: [UploadComponent],
+        providers: [SketchService],
+        imports: [
+          NgxsModule.forRoot([]),
+          HttpClientTestingModule,
+          RouterTestingModule.withRoutes([]),
+          TranslateModule.forRoot(),
+        ],
+        schemas: [NO_ERRORS_SCHEMA],
+      }).compileComponents();
+      sketchService = TestBed.inject(SketchService);
+      mockSketchData = getSketchDataMock();
+      mockFile = getFileMock();
+      store = TestBed.inject(Store);
+    })
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(UploadComponent);
@@ -46,14 +48,17 @@ describe('UploadComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should process selected file', async () => {
-    spyOn(sketchService, 'loadSketchFile').and.returnValue(
-      Promise.resolve(mockSketchData)
-    );
-    await component.onFileSelected(mockFile);
+  it(
+    'should process selected file',
+    waitForAsync(async () => {
+      spyOn(sketchService, 'loadSketchFile').and.returnValue(
+        Promise.resolve(mockSketchData)
+      );
+      await component.onFileSelected(mockFile);
 
-    store.selectOnce(UiState.currentData).subscribe((data) => {
-      expect(data).toEqual(mockSketchData);
-    });
-  });
+      store.selectOnce(UiState.currentData).subscribe((data) => {
+        expect(data).toEqual(mockSketchData);
+      });
+    })
+  );
 });

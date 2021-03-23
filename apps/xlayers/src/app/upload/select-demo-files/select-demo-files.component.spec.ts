@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { SelectDemoFilesComponent } from './select-demo-files.component';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { NgxsModule } from '@ngxs/store';
@@ -13,19 +13,21 @@ describe('SelectDemoFilesComponent', () => {
   let component: SelectDemoFilesComponent;
   let fixture: ComponentFixture<SelectDemoFilesComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      schemas: [NO_ERRORS_SCHEMA],
-      imports: [
-        NgxsModule.forRoot([UiState, CodeGenState]),
-        MatSnackBarModule,
-        HttpClientModule,
-        TranslateModule.forRoot(),
-      ],
-      providers: [SketchService],
-      declarations: [SelectDemoFilesComponent],
-    }).compileComponents();
-  }));
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        schemas: [NO_ERRORS_SCHEMA],
+        imports: [
+          NgxsModule.forRoot([UiState, CodeGenState]),
+          MatSnackBarModule,
+          HttpClientModule,
+          TranslateModule.forRoot(),
+        ],
+        providers: [SketchService],
+        declarations: [SelectDemoFilesComponent],
+      }).compileComponents();
+    })
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(SelectDemoFilesComponent);
