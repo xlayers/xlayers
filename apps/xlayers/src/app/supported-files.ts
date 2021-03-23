@@ -20,7 +20,8 @@ export function getFileData(fileName: string, appVersion: string) {
   const fileExtension = fileName.includes('.')
     ? `.${fileName.split('.').pop()}`
     : ''; // get file's extension with a point at the begining
-  const name = fileName.replace(fileExtension, ''); // extract file's name without the extension
+  let name = fileName.replace(fileExtension, ''); // extract file's name without the extension
+  name = name.split('/').pop(); // get file name only (without app version)
   const compatible = compatibleFiles.find(
     ({ extension }) => fileExtension === extension
   ) || { icon: '' }; // get information related to the file based on the extension
