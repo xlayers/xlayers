@@ -22,8 +22,13 @@ export class InteractiveBgComponent implements OnInit {
   ngOnInit() {
     this.backgroundImageSrc = {
       'background-image': `url( ${this.src} )`,
-      width: this.width,
-      height: this.height,
+      width: 'calc(100vw - 20px)',
+      height: `calc((100vw - 20px) / (${parseInt(this.width, 0)} / ${parseInt(
+        this.height,
+        0
+      )}))`,
+      'max-width': this.width,
+      'max-height': this.height,
     };
   }
 
