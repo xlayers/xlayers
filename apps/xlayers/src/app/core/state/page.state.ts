@@ -4,13 +4,17 @@ import {
   CodeGenKind,
   XlayersExporterNavBar,
 } from '../../editor/code/editor-container/codegen/codegen.service';
-import { SketchMSPageLayer } from '@xlayers/sketchtypes';
 import { Injectable } from '@angular/core';
 
 export interface CodeGenSettings {
-  content: XlayersNgxEditorModel[];
   kind: CodeGenKind;
-  buttons: XlayersExporterNavBar;
+  content?: XlayersNgxEditorModel[];
+  buttons?: XlayersExporterNavBar;
+}
+
+export class SelectCodegenKind {
+  static readonly type = '[CodeGen] Select Kind';
+  constructor(public kind: CodeGenKind) {}
 }
 
 export class CodeGen {
@@ -22,14 +26,29 @@ export class CodeGen {
   ) {}
 }
 
-@State<SketchMSPageLayer>({
+@State<CodeGenSettings>({
   name: 'codegen',
+  defaults: {
+    kind: 1,
+  },
 })
 @Injectable()
 export class CodeGenState {
   @Selector()
   static codegen(codegen: CodeGenSettings) {
     return codegen;
+  }
+
+  @Action(SelectCodegenKind)
+  selectKind(
+    { setState, getState }: StateContext<CodeGenSettings>,
+    action: SelectCodegenKind
+  ) {
+    const state = getState();
+    setState({
+      ...state,
+      kind: action.kind,
+    });
   }
 
   @Action(CodeGen)

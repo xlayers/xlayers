@@ -1,6 +1,8 @@
 {
   "APP": {
-    "preview": "Preview and Convert SketchApp Design Files Into ANY Framework And Library.",
+    "preview": "Preview and Convert Design Files Into ANY Web Framework And Library.",
+    "choose_framework_1": "Choose",
+    "choose_framework_2": "your Web framework or library",
     "get_started": "Get Started",
     "explore_viewer": "Explore the Viewer interface",
     "explore_codegen": "Explore the Codegen interface",
@@ -28,7 +30,7 @@
     "quick_access_toolbar": "Quick access to layers inspection, zooming functionalities and 3D mode, with the addition of the codegen editor (see below for more details).",
     "quick_access_preview_download": "Quick access and download the original design as it was exported by SketchApp.",
     "design_editor_info": "A fully fledged design viewer with both 2D and 3D inspection mode allowing you to access all the layers of your design.",
-    "sketch_layer_list": "Quickly access and inspect the layers hierarchy of the Sketch design.",
+    "sketch_layer_list": "Quickly access and inspect the layers hierarchy of the design file.",
     "property_panel": "Complementary property inspector of each layer including size and dimensions, style information and much more.",
     "code_editor_options": "Additional export options to external editors and IDEs, and a handy archive download feature for local development.",
     "code_editor_tech_list": "Many ouput Web technologies including but not limited to Angular, Vue.js, React, Web Components, etc...",

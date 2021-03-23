@@ -4,11 +4,13 @@ describe('Home page', () => {
   });
 
   it('the landing page should render the getting started button', () => {
-    cy.contains(/^get started$/i).should('be.visible');
+    cy.get('.icon_wrapper').should('be.visible');
   });
 
   it('the getting started button should open the editor', () => {
-    cy.contains(/^get started$/i).click();
+    cy.get('.icon_wrapper').spread((firstFramework) => {
+      firstFramework.click();
+    });
     cy.location('hash').should('eq', '#/upload');
   });
 });

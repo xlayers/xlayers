@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { Store } from '@ngxs/store';
+import { SelectCodegenKind } from '@xlayers-apps/app/core/state/page.state';
+import { CodeGenKind } from '@xlayers-apps/app/editor/code/editor-container/codegen/codegen.service';
 import { environment } from '../../environments/environment';
-
+import { codeGenList, UICodeGen } from '@xlayers-apps/shared/codegen-list';
 @Component({
   selector: 'xly-landing',
   templateUrl: './landing.component.html',
@@ -159,7 +163,14 @@ export class LandingComponent implements OnInit {
     },
   ];
 
-  constructor() {}
+  public frameworks: UICodeGen[] = codeGenList;
+
+  constructor(private router: Router, private readonly store: Store) {}
 
   ngOnInit() {}
+
+  selectFramework(framework: CodeGenKind) {
+    this.store.dispatch(new SelectCodegenKind(framework));
+    this.router.navigateByUrl('/upload');
+  }
 }

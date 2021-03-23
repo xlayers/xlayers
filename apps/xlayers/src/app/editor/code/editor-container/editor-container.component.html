@@ -1,102 +1,46 @@
-<section class="framework_selection">
+<section>
   <mat-tab-group
-    color="accent"
     selectedIndex="0"
-    mat-align-tabs="center"
     disableRipple="true"
     animationDuration="0ms"
     dynamicHeight="false"
   >
-    <mat-tab>
+    <mat-tab *ngFor="let file of codeSetting.content">
       <ng-template mat-tab-label>
-        <div class="flex-container" (click)="generateAngular()">
-          <mat-icon svgIcon="angular"></mat-icon>
-          Angular
-        </div>
+        <mat-icon [svgIcon]="file.kind"></mat-icon>
+        {{ file.uri }}
       </ng-template>
-    </mat-tab>
-    <mat-tab>
-      <ng-template mat-tab-label>
-        <div class="flex-container" (click)="generateAngularElement()">
-          <mat-icon svgIcon="angularElement"></mat-icon>
-          Angular Element
-        </div>
-      </ng-template>
-    </mat-tab>
-    <mat-tab>
-      <ng-template mat-tab-label>
-        <div class="flex-container" (click)="generateVue()">
-          <mat-icon svgIcon="vue"></mat-icon>
-          Vue
-        </div>
-      </ng-template>
-    </mat-tab>
-    <mat-tab>
-      <ng-template mat-tab-label>
-        <div class="flex-container" (click)="generateReact()">
-          <mat-icon svgIcon="react"></mat-icon>
-          React
-        </div>
-      </ng-template>
-    </mat-tab>
-    <mat-tab>
-      <ng-template mat-tab-label>
-        <div class="flex-container" (click)="generateWc()">
-          <mat-icon svgIcon="wc"></mat-icon>
-          WebComponents
-        </div>
-      </ng-template>
-    </mat-tab>
-    <mat-tab>
-      <ng-template mat-tab-label>
-        <div class="flex-container" (click)="generateStencil()">
-          <mat-icon svgIcon="stencil"></mat-icon>
-          Stencil
-        </div>
-      </ng-template>
-    </mat-tab>
-    <mat-tab>
-      <ng-template mat-tab-label>
-        <div class="flex-container" (click)="generateLitElement()">
-          <mat-icon svgIcon="litElement"></mat-icon>
-          LitElement
-        </div>
-      </ng-template>
-    </mat-tab>
 
-    <!-- See https://github.com/xlayers/xlayers/issues/359 -->
-    <!-- <mat-tab disabled>
-      <ng-template mat-tab-label>
-        <div class="flex-container" (click)="generateXamarinForms()">
-          <mat-icon svgIcon="xamarinForms"></mat-icon>
-          Xamarin.Forms
+      <ng-template matTabContent>
+        <div
+          #codeContentEditor
+          spellcheck="false"
+          class="code-highlight-editor"
+          (keydown)="simulateContentEditorScroll($event)"
+        >
+          <pre><code contentEditable="true" [highlight]="file.value" (highlighted)="onEditorInit($event, codeContentEditor)"></code></pre>
         </div>
       </ng-template>
-    </mat-tab> -->
+    </mat-tab>
   </mat-tab-group>
+  <mat-form-field class="framework_selection" appearance="fill">
+    <mat-label>Framework</mat-label>
+    <mat-select
+      [(ngModel)]="selectedFramework"
+      (selectionChange)="onChange($event)"
+    >
+      <mat-select-trigger>
+        <div class="flex-container">
+          <mat-icon svgIcon="{{ selectedFramework.svgIcon }}"></mat-icon
+          >{{ selectedFramework.label }}
+        </div>
+      </mat-select-trigger>
+      <mat-option *ngFor="let framework of frameworks" [value]="framework">
+        <div class="flex-container">
+          <mat-icon svgIcon="{{ framework.svgIcon }}"></mat-icon>
+          {{ framework.label }}
+        </div>
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
 </section>
-
-<mat-tab-group
-  selectedIndex="0"
-  disableRipple="true"
-  animationDuration="0ms"
-  dynamicHeight="false"
->
-  <mat-tab *ngFor="let file of codeSetting.content">
-    <ng-template mat-tab-label>
-      <mat-icon [svgIcon]="file.kind"></mat-icon>
-      {{ file.uri }}
-    </ng-template>
-
-    <ng-template matTabContent>
-      <div
-        #codeContentEditor
-        spellcheck="false"
-        class="code-highlight-editor"
-        (keydown)="simulateContentEditorScroll($event)"
-      >
-        <pre><code contentEditable="true" [highlight]="file.value" (highlighted)="onEditorInit($event, codeContentEditor)"></code></pre>
-      </div>
-    </ng-template>
-  </mat-tab>
-</mat-tab-group>

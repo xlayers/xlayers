@@ -1,14 +1,13 @@
-import {
-  AfterContentInit,
-  Component,
-  OnInit,
-  ViewChild,
-  ElementRef,
-} from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Store } from '@ngxs/store';
 import { CodeGenKind, CodeGenService } from './codegen/codegen.service';
 import { PAGE_DOWN, PAGE_UP } from '@angular/cdk/keycodes';
-import { CodeGenSettings, CodeGen } from '../../../core/state/page.state';
+import {
+  CodeGenSettings,
+  CodeGen,
+  CodeGenState,
+} from '../../../core/state/page.state';
+import { codeGenList, UICodeGen } from '@xlayers-apps/shared/codegen-list';
 
 const githubIssueLink =
   // tslint:disable-next-line:max-line-length
@@ -19,65 +18,40 @@ const githubIssueLink =
   templateUrl: './editor-container.component.html',
   styleUrls: ['./editor-container.component.css'],
 })
-export class EditorContainerComponent implements OnInit, AfterContentInit {
+export class EditorContainerComponent implements OnInit {
   codeSetting: CodeGenSettings;
   @ViewChild('codeContentEditor') codeEditor: ElementRef;
 
-  frameworks: Array<{
-    title: string;
-    logo: FunctionStringCallback;
-  }>;
+  public frameworks: UICodeGen[] = codeGenList;
 
-  constructor(private codegen: CodeGenService, private readonly store: Store) {}
+  public selectedFramework: UICodeGen = this.frameworks[0];
 
-  ngOnInit() {}
+  constructor(
+    private readonly codegen: CodeGenService,
+    private readonly store: Store
+  ) {}
 
-  ngAfterContentInit() {
-    this.generateAngular();
+  ngOnInit() {
+    this.store.select(CodeGenState.codegen).subscribe((codegen) => {
+      if (codegen.kind) {
+        this.selectedFramework = this.frameworks.find(
+          (framework) => framework.codegenType === codegen.kind
+        );
+        this.codeSetting = this.codegen.generate(codegen.kind);
+      }
+    });
+  }
+
+  onChange(event: any) {
+    const {
+      value: { codegenType },
+    } = event;
+    this.codeSetting = this.codegen.generate(codegenType);
+    this.updateState();
   }
 
   onEditorInit(editor: any, ctrl: HTMLElement) {
     ctrl.focus();
-  }
-
-  generateAngular() {
-    this.codeSetting = this.codegen.generate(CodeGenKind.Angular);
-    this.updateState();
-  }
-
-  generateAngularElement() {
-    this.codeSetting = this.codegen.generate(CodeGenKind.AngularElement);
-    this.updateState();
-  }
-
-  generateReact() {
-    this.codeSetting = this.codegen.generate(CodeGenKind.React);
-    this.updateState();
-  }
-
-  generateVue() {
-    this.codeSetting = this.codegen.generate(CodeGenKind.Vue);
-    this.updateState();
-  }
-
-  generateWc() {
-    this.codeSetting = this.codegen.generate(CodeGenKind.WC);
-    this.updateState();
-  }
-
-  generateStencil() {
-    this.codeSetting = this.codegen.generate(CodeGenKind.Stencil);
-    this.updateState();
-  }
-
-  generateLitElement() {
-    this.codeSetting = this.codegen.generate(CodeGenKind.LitElement);
-    this.updateState();
-  }
-
-  generateXamarinForms() {
-    this.codeSetting = this.codegen.generate(CodeGenKind.XamarinForms);
-    this.updateState();
   }
 
   updateState() {

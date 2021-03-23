@@ -6,13 +6,18 @@
 
 header {
   height: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
   border-bottom: 1px solid rgba(255, 108, 95, 0.7);
+  height: 400px;
 }
 
 header h1 {
   text-align: center;
   font-weight: 100;
-  font-size: 2.5em;
+  font-size: 3em;
   padding: 22px 0 0;
   margin: 0;
 }
@@ -50,11 +55,58 @@ nav a {
   color: white;
   text-decoration: none;
 }
-header img {
-  max-width: 750px;
-  display: block;
-  margin: auto;
-  width: 100%;
+
+header h2 {
+  text-align: center;
+  font-weight: 300;
+  font-size: 38px;
+  color: white;
+}
+
+header + svg {
+  margin-top: -1px;
+}
+
+.frameworks-section {
+  background-color: rgba(255, 255, 255, 0.31);
+}
+
+.choose_framework {
+  margin-bottom: 50px;
+}
+
+.frameworks-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 50px;
+}
+
+.frameworks {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 80vw;
+  justify-content: space-evenly;
+}
+
+.frameworks .icon_wrapper {
+  width: 100px;
+  height: 100px;
+  padding: 10px;
+  margin: 10px;
+  cursor: pointer;
+  opacity: 0.9;
+}
+
+.frameworks .icon_wrapper:hover {
+  transform: scale(1.2);
+  transition-duration: 0.2s;
+  transition-timing-function: ease-in-out;
+  cursor: pointer;
+  opacity: 1;
 }
 
 .try-it {
@@ -98,6 +150,7 @@ header img {
 }
 
 footer {
+  margin-top: -20px;
   padding: 30px;
   text-align: center;
   color: white;
@@ -164,7 +217,7 @@ footer i {
 
 @media (min-width: 500px) {
   header h1 {
-    font-size: 3em;
+    font-size: 6em;
   }
 
   .bg p {
