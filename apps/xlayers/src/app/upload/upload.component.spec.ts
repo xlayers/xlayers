@@ -1,14 +1,14 @@
-import { NO_ERRORS_SCHEMA } from '@angular/compiler/src/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { Store, NgxsModule } from '@ngxs/store';
-import { UploadComponent } from './upload.component';
-import { getFileMock } from './upload.component.mock';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { NO_ERRORS_SCHEMA } from '@angular/compiler/src/core';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
-import { SketchService, SketchMSData } from '../core/sketch.service';
+import { NgxsModule, Store } from '@ngxs/store';
+import { SketchMSData, SketchService } from '../core/sketch.service';
 import { getSketchDataMock } from '../core/sketch.service.mock';
 import { UiState } from '../core/state';
+import { UploadComponent } from './upload.component';
+import { getFileMock } from './upload.component.mock';
 
 describe('UploadComponent', () => {
   let component: UploadComponent;
@@ -18,23 +18,25 @@ describe('UploadComponent', () => {
   let mockSketchData: SketchMSData;
   let mockFile: File;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [UploadComponent],
-      providers: [SketchService],
-      imports: [
-        NgxsModule.forRoot([]),
-        HttpClientTestingModule,
-        RouterTestingModule.withRoutes([]),
-        TranslateModule.forRoot(),
-      ],
-      schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents();
-    sketchService = TestBed.inject(SketchService);
-    mockSketchData = getSketchDataMock();
-    mockFile = getFileMock();
-    store = TestBed.inject(Store);
-  }));
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        declarations: [UploadComponent],
+        providers: [SketchService],
+        imports: [
+          NgxsModule.forRoot([]),
+          HttpClientTestingModule,
+          RouterTestingModule.withRoutes([]),
+          TranslateModule.forRoot(),
+        ],
+        schemas: [NO_ERRORS_SCHEMA],
+      }).compileComponents();
+      sketchService = TestBed.inject(SketchService);
+      mockSketchData = getSketchDataMock();
+      mockFile = getFileMock();
+      store = TestBed.inject(Store);
+    })
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(UploadComponent);

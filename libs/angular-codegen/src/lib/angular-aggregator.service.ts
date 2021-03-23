@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { WebCodeGenService } from '@xlayers/web-codegen';
 import { FormatService } from '@xlayers/sketch-lib';
 import { SketchMSData, SketchMSLayer } from '@xlayers/sketchtypes';
+import { WebCodeGenService } from '@xlayers/web-codegen';
 
 type WebCodeGenOptions = any;
 
@@ -87,7 +87,7 @@ describe('${className}Component', () => {
   let component: ${className}Component;
   let fixture: ComponentFixture<${className}Component>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [${className}Component]
     })

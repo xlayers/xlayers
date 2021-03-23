@@ -1,13 +1,13 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { ViewerCanvasComponent } from './canvas.component';
 import { NO_ERRORS_SCHEMA, Renderer2 } from '@angular/core';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxsModule, Store } from '@ngxs/store';
 import { getSketchDataMock } from '../../../../core/sketch.service.mock';
-import { getFlatLayerMock } from '../layer/layer.component.mock';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { CurrentData, UiState } from '../../../../core/state';
 import { CodeGenState } from '../../../../core/state/page.state';
-import { UiState, CurrentData } from '../../../../core/state';
+import { getFlatLayerMock } from '../layer/layer.component.mock';
+import { ViewerCanvasComponent } from './canvas.component';
 
 const renderer2Value = {
   addClass(k, v) {},
@@ -19,24 +19,26 @@ describe('ViewerCanvasComponent', () => {
   let fixture: ComponentFixture<ViewerCanvasComponent>;
   let store: Store;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      schemas: [NO_ERRORS_SCHEMA],
-      imports: [
-        NgxsModule.forRoot([UiState, CodeGenState]),
-        MatSnackBarModule,
-        NoopAnimationsModule,
-      ],
-      declarations: [ViewerCanvasComponent],
-      providers: [
-        {
-          provide: Renderer2,
-          useValue: renderer2Value,
-        },
-      ],
-    }).compileComponents();
-    store = TestBed.inject(Store);
-  }));
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        schemas: [NO_ERRORS_SCHEMA],
+        imports: [
+          NgxsModule.forRoot([UiState, CodeGenState]),
+          MatSnackBarModule,
+          NoopAnimationsModule,
+        ],
+        declarations: [ViewerCanvasComponent],
+        providers: [
+          {
+            provide: Renderer2,
+            useValue: renderer2Value,
+          },
+        ],
+      }).compileComponents();
+      store = TestBed.inject(Store);
+    })
+  );
 
   beforeEach(async () => {
     fixture = TestBed.createComponent(ViewerCanvasComponent);

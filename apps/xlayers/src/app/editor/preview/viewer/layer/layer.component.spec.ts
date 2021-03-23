@@ -1,30 +1,37 @@
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {
+  async,
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { NgxsModule, Store } from '@ngxs/store';
-import { ViewerLayerComponent } from './layer.component';
-import { getFrameMock } from './layer.component.mock';
+import { SketchMSLayer } from '@xlayers/sketchtypes';
 import { UiState } from '../../../../core/state';
 import { CodeGenState } from '../../../../core/state/page.state';
-import { SketchMSLayer } from '@xlayers/sketchtypes';
+import { ViewerLayerComponent } from './layer.component';
+import { getFrameMock } from './layer.component.mock';
 
 describe('ViewerLayerComponent', () => {
   let component: ViewerLayerComponent;
   let fixture: ComponentFixture<ViewerLayerComponent>;
   let store: Store;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      schemas: [NO_ERRORS_SCHEMA],
-      imports: [
-        NgxsModule.forRoot([UiState, CodeGenState]),
-        MatSnackBarModule,
-        HttpClientTestingModule,
-      ],
-      declarations: [ViewerLayerComponent],
-    }).compileComponents();
-  }));
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        schemas: [NO_ERRORS_SCHEMA],
+        imports: [
+          NgxsModule.forRoot([UiState, CodeGenState]),
+          MatSnackBarModule,
+          HttpClientTestingModule,
+        ],
+        declarations: [ViewerLayerComponent],
+      }).compileComponents();
+    })
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(ViewerLayerComponent);
