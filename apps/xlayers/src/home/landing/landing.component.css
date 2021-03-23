@@ -5,13 +5,16 @@
 }
 
 header {
-  height: auto;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
   border-bottom: 1px solid rgba(255, 108, 95, 0.7);
   height: 400px;
+}
+
+header, section {
+  padding: 10px;
 }
 
 header h1 {
@@ -87,8 +90,9 @@ header + svg {
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: center;
   width: 80vw;
+  max-width: 100%;
+  flex-wrap: wrap;
   justify-content: space-evenly;
 }
 
@@ -175,7 +179,7 @@ footer i {
 
 .bg img {
   width: 600px;
-  max-width: 100%;
+  max-width: calc(100vw - 20px);
 }
 
 .bg.interactive {
@@ -185,6 +189,10 @@ footer i {
 
 .bg.interactive img {
   width: 1392px;
+}
+
+.bg.interactive h1:not(:first-of-type) {
+  padding: 60px 0 0;
 }
 
 .bg p {
