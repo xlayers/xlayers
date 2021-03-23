@@ -1,33 +1,35 @@
 import { TestBed, waitForAsync } from '@angular/core/testing';
-import { CssCodeGenService } from './css-codegen.service';
+import { SketchMSData } from '@xlayers/sketchtypes';
 import { loadSketch, SKETCH_PATH, VERSION_LIST } from '@xlayers/test-helpers';
 import { readdirSync } from 'fs';
-import { SketchMSData } from '@xlayers/sketchtypes';
+import { CssCodeGenService } from './css-codegen.service';
 
 describe('CssCodeGenService', () => {
   let service: CssCodeGenService;
   let sketch: SketchMSData;
   beforeEach(
-    waitForAsync(async () => {
+    waitForAsync(() => {
       TestBed.configureTestingModule({
         providers: [CssCodeGenService],
       });
-
-      service = TestBed.inject(CssCodeGenService);
-      const version = VERSION_LIST[0];
-      const fileNames = readdirSync(`${SKETCH_PATH}/${version}`);
-
-      const fileName = fileNames[1];
-      const data = await loadSketch(version, fileName);
-      data.pages.forEach((page) => {
-        service.compute(page, data, {
-          generateClassName: false,
-        });
-
-        sketch = data;
-      });
     })
   );
+
+  beforeEach(async () => {
+    service = TestBed.inject(CssCodeGenService);
+    const version = VERSION_LIST[0];
+    const fileNames = readdirSync(`${SKETCH_PATH}/${version}`);
+
+    const fileName = fileNames[1];
+    const data = await loadSketch(version, fileName);
+    data.pages.forEach((page) => {
+      service.compute(page, data, {
+        generateClassName: false,
+      });
+
+      sketch = data;
+    });
+  });
 
   it('should create', () => {
     expect(service).toBeTruthy();
