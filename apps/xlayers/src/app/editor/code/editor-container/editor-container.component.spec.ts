@@ -1,12 +1,12 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { NgxsModule, Store } from '@ngxs/store';
+import { CodeGenSettings } from '../../../core/state/page.state';
+import { XStore } from '../../../core/state/state.mock';
 import { CodeGenKind, CodeGenService } from './codegen/codegen.service';
 import { EditorContainerComponent } from './editor-container.component';
-import { XStore } from '../../../core/state/state.mock';
-import { CodeGenSettings } from '../../../core/state/page.state';
 
 const codeGenService = {
   generate() {
@@ -23,21 +23,27 @@ describe('EditorContainerComponent', () => {
   let fixture: ComponentFixture<EditorContainerComponent>;
   let store: Store;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      schemas: [NO_ERRORS_SCHEMA],
-      imports: [NgxsModule.forRoot([XStore]), MatMenuModule, MatSnackBarModule],
-      providers: [
-        {
-          provide: CodeGenService,
-          useValue: codeGenService,
-        },
-      ],
-      declarations: [EditorContainerComponent],
-    }).compileComponents();
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        schemas: [NO_ERRORS_SCHEMA],
+        imports: [
+          NgxsModule.forRoot([XStore]),
+          MatMenuModule,
+          MatSnackBarModule,
+        ],
+        providers: [
+          {
+            provide: CodeGenService,
+            useValue: codeGenService,
+          },
+        ],
+        declarations: [EditorContainerComponent],
+      }).compileComponents();
 
-    store = TestBed.inject(Store);
-  }));
+      store = TestBed.inject(Store);
+    })
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(EditorContainerComponent);

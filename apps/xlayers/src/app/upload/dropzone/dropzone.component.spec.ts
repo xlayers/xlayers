@@ -1,31 +1,33 @@
 import { HttpClientModule } from '@angular/common/http';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { NgxsModule } from '@ngxs/store';
-import { DropzoneComponent } from './dropzone.component';
 import { TranslateModule } from '@ngx-translate/core';
+import { NgxsModule } from '@ngxs/store';
+import { SketchService } from '../../core/sketch.service';
 import { UiState } from '../../core/state';
 import { CodeGenState } from '../../core/state/page.state';
-import { SketchService } from '../../core/sketch.service';
+import { DropzoneComponent } from './dropzone.component';
 
 describe('SketchDropZone', () => {
   let component: DropzoneComponent;
   let fixture: ComponentFixture<DropzoneComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      schemas: [NO_ERRORS_SCHEMA],
-      imports: [
-        NgxsModule.forRoot([UiState, CodeGenState]),
-        MatSnackBarModule,
-        HttpClientModule,
-        TranslateModule.forRoot(),
-      ],
-      providers: [SketchService],
-      declarations: [DropzoneComponent],
-    }).compileComponents();
-  }));
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        schemas: [NO_ERRORS_SCHEMA],
+        imports: [
+          NgxsModule.forRoot([UiState, CodeGenState]),
+          MatSnackBarModule,
+          HttpClientModule,
+          TranslateModule.forRoot(),
+        ],
+        providers: [SketchService],
+        declarations: [DropzoneComponent],
+      }).compileComponents();
+    })
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(DropzoneComponent);

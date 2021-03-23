@@ -1,17 +1,21 @@
-import { TestBed } from '@angular/core/testing';
-import { CssCodeGenService } from './css-codegen.service';
+import { TestBed, waitForAsync } from '@angular/core/testing';
+import { SketchMSData } from '@xlayers/sketchtypes';
 import { loadSketch, SKETCH_PATH, VERSION_LIST } from '@xlayers/test-helpers';
 import { readdirSync } from 'fs';
-import { SketchMSData } from '@xlayers/sketchtypes';
+import { CssCodeGenService } from './css-codegen.service';
 
 describe('CssCodeGenService', () => {
   let service: CssCodeGenService;
   let sketch: SketchMSData;
-  beforeEach(async () => {
-    TestBed.configureTestingModule({
-      providers: [CssCodeGenService],
-    });
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        providers: [CssCodeGenService],
+      });
+    })
+  );
 
+  beforeEach(async () => {
     service = TestBed.inject(CssCodeGenService);
     const version = VERSION_LIST[0];
     const fileNames = readdirSync(`${SKETCH_PATH}/${version}`);
