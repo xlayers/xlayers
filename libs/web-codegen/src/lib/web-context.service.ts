@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { ImageService, LayerService, TextService } from '@xlayers/sketch-lib';
 import { SvgCodeGenService } from '@xlayers/svg-codegen';
 
-import { WebCodeGenContext } from './web-codegen.d';
+import { WebCodeGenContext } from './web-codegen';
 import { SketchMSLayer } from '@xlayers/sketchtypes';
 
 @Injectable({

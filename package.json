@@ -77,6 +77,7 @@
     "@nrwl/jest": "11.0.15",
     "@nrwl/node": "11.0.15",
     "@nrwl/tao": "11.0.15",
+    "@nrwl/web": "^11.5.2",
     "@nrwl/workspace": "11.0.15",
     "@testing-library/cypress": "^6.0.0",
     "@types/cypress": "^1.1.3",

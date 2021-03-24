@@ -3,7 +3,7 @@ import { ImageService, SymbolService, LayerService } from '@xlayers/sketch-lib';
 import { WebContextService } from './web-context.service';
 import { WebParserService } from './web-parser.service';
 import { WebAggregatorService } from './web-aggregator.service';
-import { WebCodeGenOptions } from './web-codegen.d';
+import { WebCodeGenOptions } from './web-codegen';
 import { SketchMSLayer, SketchMSData } from '@xlayers/sketchtypes';
 
 @Injectable({

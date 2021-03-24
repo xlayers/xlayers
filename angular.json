@@ -9,7 +9,7 @@
       "prefix": "xlayers-nx",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "builder": "@nrwl/angular:webpack-browser",
           "options": {
             "allowedCommonJsDependencies": [
               "@angularclass/hmr",
@@ -66,13 +66,13 @@
           "outputs": ["{options.outputPath}"]
         },
         "serve": {
-          "builder": "@angular-devkit/build-angular:dev-server",
+          "builder": "@nrwl/web:file-server",
           "options": {
-            "browserTarget": "xlayers:build"
+            "buildTarget": "xlayers:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "xlayers:build:production"
+              "buildTarget": "xlayers:build:production"
             }
           }
         },
@@ -142,11 +142,10 @@
       "prefix": "xlayers",
       "architect": {
         "build": {
-          "builder": "@nrwl/angular:package",
+          "builder": "@nrwl/angular:ng-packagr-lite",
           "options": {
             "tsConfig": "libs/angular-codegen/tsconfig.lib.json",
-            "project": "libs/angular-codegen/ng-package.json",
-            "buildableProjectDepsInPackageJsonType": "dependencies"
+            "project": "libs/angular-codegen/ng-package.json"
           },
           "configurations": {
             "production": {
@@ -182,11 +181,10 @@
       "prefix": "xlayers",
       "architect": {
         "build": {
-          "builder": "@nrwl/angular:package",
+          "builder": "@nrwl/angular:ng-packagr-lite",
           "options": {
             "tsConfig": "libs/css-codegen/tsconfig.lib.json",
-            "project": "libs/css-codegen/ng-package.json",
-            "buildableProjectDepsInPackageJsonType": "dependencies"
+            "project": "libs/css-codegen/ng-package.json"
           },
           "configurations": {
             "production": {
@@ -222,11 +220,10 @@
       "prefix": "xlayers",
       "architect": {
         "build": {
-          "builder": "@nrwl/angular:package",
+          "builder": "@nrwl/angular:ng-packagr-lite",
           "options": {
             "tsConfig": "libs/lit-element-codegen/tsconfig.lib.json",
-            "project": "libs/lit-element-codegen/ng-package.json",
-            "buildableProjectDepsInPackageJsonType": "dependencies"
+            "project": "libs/lit-element-codegen/ng-package.json"
           },
           "configurations": {
             "production": {
@@ -262,11 +259,10 @@
       "prefix": "xlayers",
       "architect": {
         "build": {
-          "builder": "@nrwl/angular:package",
+          "builder": "@nrwl/angular:ng-packagr-lite",
           "options": {
             "tsConfig": "libs/react-codegen/tsconfig.lib.json",
-            "project": "libs/react-codegen/ng-package.json",
-            "buildableProjectDepsInPackageJsonType": "dependencies"
+            "project": "libs/react-codegen/ng-package.json"
           },
           "configurations": {
             "production": {
@@ -302,11 +298,10 @@
       "prefix": "xlayers",
       "architect": {
         "build": {
-          "builder": "@nrwl/angular:package",
+          "builder": "@nrwl/angular:ng-packagr-lite",
           "options": {
             "tsConfig": "libs/stencil-codegen/tsconfig.lib.json",
-            "project": "libs/stencil-codegen/ng-package.json",
-            "buildableProjectDepsInPackageJsonType": "dependencies"
+            "project": "libs/stencil-codegen/ng-package.json"
           },
           "configurations": {
             "production": {
@@ -342,11 +337,10 @@
       "prefix": "xlayers",
       "architect": {
         "build": {
-          "builder": "@nrwl/angular:package",
+          "builder": "@nrwl/angular:ng-packagr-lite",
           "options": {
             "tsConfig": "libs/svg-codegen/tsconfig.lib.json",
-            "project": "libs/svg-codegen/ng-package.json",
-            "buildableProjectDepsInPackageJsonType": "dependencies"
+            "project": "libs/svg-codegen/ng-package.json"
           },
           "configurations": {
             "production": {
@@ -382,11 +376,10 @@
       "prefix": "xlayers",
       "architect": {
         "build": {
-          "builder": "@nrwl/angular:package",
+          "builder": "@nrwl/angular:ng-packagr-lite",
           "options": {
             "tsConfig": "libs/vue-codegen/tsconfig.lib.json",
-            "project": "libs/vue-codegen/ng-package.json",
-            "buildableProjectDepsInPackageJsonType": "dependencies"
+            "project": "libs/vue-codegen/ng-package.json"
           },
           "configurations": {
             "production": {
@@ -422,11 +415,10 @@
       "prefix": "xlayers",
       "architect": {
         "build": {
-          "builder": "@nrwl/angular:package",
+          "builder": "@nrwl/angular:ng-packagr-lite",
           "options": {
             "tsConfig": "libs/web-codegen/tsconfig.lib.json",
-            "project": "libs/web-codegen/ng-package.json",
-            "buildableProjectDepsInPackageJsonType": "dependencies"
+            "project": "libs/web-codegen/ng-package.json"
           },
           "configurations": {
             "production": {
@@ -462,11 +454,10 @@
       "prefix": "xlayers",
       "architect": {
         "build": {
-          "builder": "@nrwl/angular:package",
+          "builder": "@nrwl/angular:ng-packagr-lite",
           "options": {
             "tsConfig": "libs/web-component-codegen/tsconfig.lib.json",
-            "project": "libs/web-component-codegen/ng-package.json",
-            "buildableProjectDepsInPackageJsonType": "dependencies"
+            "project": "libs/web-component-codegen/ng-package.json"
           },
           "configurations": {
             "production": {
@@ -505,11 +496,10 @@
       "prefix": "xlayers",
       "architect": {
         "build": {
-          "builder": "@nrwl/angular:package",
+          "builder": "@nrwl/angular:ng-packagr-lite",
           "options": {
             "tsConfig": "libs/xaml-codegen/tsconfig.lib.json",
-            "project": "libs/xaml-codegen/ng-package.json",
-            "buildableProjectDepsInPackageJsonType": "dependencies"
+            "project": "libs/xaml-codegen/ng-package.json"
           },
           "configurations": {
             "production": {
@@ -545,11 +535,10 @@
       "prefix": "xlayers",
       "architect": {
         "build": {
-          "builder": "@nrwl/angular:package",
+          "builder": "@nrwl/angular:ng-packagr-lite",
           "options": {
             "tsConfig": "libs/sketch-lib/tsconfig.lib.json",
-            "project": "libs/sketch-lib/ng-package.json",
-            "buildableProjectDepsInPackageJsonType": "dependencies"
+            "project": "libs/sketch-lib/ng-package.json"
           },
           "configurations": {
             "production": {
@@ -585,11 +574,10 @@
       "prefix": "xlayers",
       "architect": {
         "build": {
-          "builder": "@nrwl/angular:package",
+          "builder": "@nrwl/angular:ng-packagr-lite",
           "options": {
             "tsConfig": "libs/sketch-ingestor/tsconfig.lib.json",
-            "project": "libs/sketch-ingestor/ng-package.json",
-            "buildableProjectDepsInPackageJsonType": "dependencies"
+            "project": "libs/sketch-ingestor/ng-package.json"
           },
           "configurations": {
             "production": {

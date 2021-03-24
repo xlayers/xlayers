@@ -9,7 +9,7 @@ import {
 import { TextService } from '@xlayers/sketch-lib';
 import { SvgCodeGenService } from '@xlayers/svg-codegen';
 
-import { WebCodeGenOptions } from './web-codegen.d';
+import { WebCodeGenOptions } from './web-codegen';
 import { WebContextService } from './web-context.service';
 import { SketchMSLayer, SketchMSData } from '@xlayers/sketchtypes';
 
