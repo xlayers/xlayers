@@ -70,6 +70,9 @@
     },
     "test-helpers": {
       "tags": []
+    },
+    "ingestor": {
+      "tags": ["shared"]
     }
   },
   "affected": {

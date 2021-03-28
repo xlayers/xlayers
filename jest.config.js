@@ -15,5 +15,6 @@ module.exports = {
     '<rootDir>/libs/sketch-ingestor',
     '<rootDir>/libs/sketchtypes',
     '<rootDir>/libs/test-helpers',
+    '<rootDir>/libs/ingestor',
   ],
 };

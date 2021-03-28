@@ -15,7 +15,8 @@
               "@angularclass/hmr",
               "file-saver",
               "buffer",
-              "highlight.js"
+              "highlight.js",
+              "@xlayers/ingestor"
             ],
             "outputPath": "dist/apps/xlayers",
             "index": "apps/xlayers/src/index.html",
@@ -668,6 +669,38 @@
             "passWithNoTests": true
           },
           "outputs": ["coverage/libs/test-helpers"]
+        }
+      }
+    },
+    "ingestor": {
+      "root": "libs/ingestor",
+      "sourceRoot": "libs/ingestor/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/ingestor/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/ingestor"],
+          "options": {
+            "jestConfig": "libs/ingestor/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "build": {
+          "builder": "@nrwl/node:package",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/libs/ingestor",
+            "tsConfig": "libs/ingestor/tsconfig.lib.json",
+            "packageJson": "libs/ingestor/package.json",
+            "main": "libs/ingestor/src/index.ts",
+            "assets": ["libs/ingestor/*.md"]
+          }
         }
       }
     }

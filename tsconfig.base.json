@@ -34,7 +34,8 @@
       "@xlayers/sketchapps": ["libs/sketchapps/src/index.ts"],
       "@xlayers/sketchtypes": ["libs/sketchtypes/src/index.ts"],
       "@xlayers/test-helpers": ["libs/test-helpers/src/index.ts"],
-      "@xlayers-apps/*": ["apps/xlayers/src/*"]
+      "@xlayers-apps/*": ["apps/xlayers/src/*"],
+      "@xlayers/ingestor": ["libs/ingestor/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"],
