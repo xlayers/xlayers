@@ -42,7 +42,7 @@ jobs:
       NX_RUN_GROUP: ${{ github.run_id }}
     runs-on: ${{ matrix.os }}
 
-    needs: [setup]
+    needs: [setup, build]
     strategy:
       matrix:
         os: [macos-latest, windows-latest]
@@ -73,7 +73,7 @@ jobs:
       NX_RUN_GROUP: ${{ github.run_id }}
     runs-on: ${{ matrix.os }}
 
-    needs: [setup]
+    needs: [setup, build]
     strategy:
       matrix:
         os: [macos-latest, windows-latest]
@@ -104,7 +104,7 @@ jobs:
       NX_RUN_GROUP: ${{ github.run_id }}
     runs-on: ${{ matrix.os }}
 
-    needs: [setup]
+    needs: [setup, build]
     strategy:
       matrix:
         os: [macos-latest, windows-latest]
@@ -130,7 +130,7 @@ jobs:
       NX_RUN_GROUP: ${{ github.run_id }}
     runs-on: ${{ matrix.os }}
 
-    needs: [setup, lint, test]
+    needs: [setup]
     strategy:
       matrix:
         os: [macos-latest, windows-latest]
