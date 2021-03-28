@@ -103,6 +103,7 @@
         "stamp": {
           "builder": "@xlayers/version-stamp:stamp",
           "options": {
+            "noBuild": true,
             "outputPath": "dist/apps/xlayers"
           }
         }
