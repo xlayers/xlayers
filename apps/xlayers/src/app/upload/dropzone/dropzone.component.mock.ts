@@ -4,7 +4,7 @@ export function getDataTransfertMock(kind: string = 'file') {
     dataTransfer: {
       items: [
         {
-          kind: kind,
+          kind,
           getAsFile: () => ({
             name: 'mock.sketch',
           }),

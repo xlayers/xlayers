@@ -83,13 +83,12 @@
           }
         },
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@angular-eslint/builder:lint",
           "options": {
-            "tsConfig": [
-              "apps/xlayers/tsconfig.app.json",
-              "apps/xlayers/tsconfig.spec.json"
-            ],
-            "exclude": ["**/node_modules/**", "!apps/xlayers/**/*"]
+            "lintFilePatterns": [
+              "apps/xlayers/**/*.ts",
+              "apps/xlayers/**/*.html"
+            ]
           }
         },
         "test": {
