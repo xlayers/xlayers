@@ -30,7 +30,7 @@
     "help": "nx help",
     "changelog": " conventional-changelog -p angular -i CHANGELOG.md -s",
     "workspace-generator": "nx workspace-generator",
-    "lint-package": "ng lint xlayers-e2e"
+    "lint-package": "ng lint angular-codegen"
   },
   "private": true,
   "dependencies": {

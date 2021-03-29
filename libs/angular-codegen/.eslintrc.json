@@ -1,0 +1,36 @@
+{
+  "extends": "../../.eslintrc.json",
+  "ignorePatterns": ["!**/*"],
+  "overrides": [
+    {
+      "files": ["*.ts"],
+      "parserOptions": {
+        "project": [
+          "libs/angular-codegen/tsconfig.lib.prod.json",
+          "libs/angular-codegen/tsconfig.lib.json",
+          "libs/angular-codegen/tsconfig.spec.json"
+        ],
+        "createDefaultProgram": true
+      },
+      "rules": {
+        "@typescript-eslint/consistent-type-definitions": "error",
+        "@typescript-eslint/dot-notation": "off",
+        "@typescript-eslint/explicit-member-accessibility": [
+          "off",
+          {
+            "accessibility": "explicit"
+          }
+        ],
+        "id-blacklist": "off",
+        "id-match": "off",
+        "no-bitwise": "off",
+        "no-underscore-dangle": "off",
+        "max-len": ["error", 150]
+      }
+    },
+    {
+      "files": ["*.html"],
+      "rules": {}
+    }
+  ]
+}
