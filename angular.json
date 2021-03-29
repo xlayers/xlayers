@@ -126,10 +126,12 @@
           }
         },
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@angular-eslint/builder:lint",
           "options": {
-            "tsConfig": ["apps/xlayers-e2e/tsconfig.e2e.json"],
-            "exclude": ["**/node_modules/**", "!apps/xlayers-e2e/**/*"]
+            "lintFilePatterns": [
+              "apps/xlayers-e2e/**/*.ts",
+              "apps/xlayers-e2e/**/*.html"
+            ]
           }
         }
       }

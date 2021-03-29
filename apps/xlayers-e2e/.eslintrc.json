@@ -1,35 +1,27 @@
 {
   "extends": "../../.eslintrc.json",
   "ignorePatterns": ["!**/*"],
+  "parserOptions": {
+    "ecmaVersion": 2020
+  },
+  "env": {
+    "es6": true,
+    "node": true
+  },
   "overrides": [
     {
       "files": ["*.ts"],
       "parserOptions": {
         "project": [
-          "apps/xlayers/tsconfig.json",
-          "apps/xlayers/tsconfig.editor.json",
-          "apps/xlayers/tsconfig.app.json",
-          "apps/xlayers/tsconfig.spec.json"
+          "apps/xlayers-e2e/tsconfig.json",
+          "apps/xlayers-e2e/tsconfig.e2e.json"
         ],
         "createDefaultProgram": true
       },
       "rules": {
-        "@angular-eslint/component-selector": [
-          "error",
-          {
-            "type": "element",
-            "prefix": "xly",
-            "style": "kebab-case"
-          }
-        ],
-        "@angular-eslint/directive-selector": [
-          "error",
-          {
-            "type": "attribute",
-            "prefix": "xly",
-            "style": "camelCase"
-          }
-        ],
+        "@typescript-eslint/quotes": "off",
+        "@typescript-eslint/no-unused-expressions": "off",
+        "@typescript-eslint/no-namespace": "off",
         "@typescript-eslint/consistent-type-definitions": "error",
         "@typescript-eslint/dot-notation": "off",
         "@typescript-eslint/explicit-member-accessibility": [
@@ -41,9 +33,7 @@
         "id-blacklist": "off",
         "id-match": "off",
         "no-bitwise": "off",
-        "no-underscore-dangle": "off",
-        "no-var": "off",
-        "no-shadow": "off"
+        "no-underscore-dangle": "off"
       }
     },
     {
