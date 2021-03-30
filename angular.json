@@ -312,13 +312,12 @@
           }
         },
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@angular-eslint/builder:lint",
           "options": {
-            "tsConfig": [
-              "libs/stencil-codegen/tsconfig.lib.json",
-              "libs/stencil-codegen/tsconfig.spec.json"
-            ],
-            "exclude": ["**/node_modules/**", "!libs/stencil-codegen/**/*"]
+            "lintFilePatterns": [
+              "libs/stencil-codegen/**/*.ts",
+              "libs/stencil-codegen/**/*.html"
+            ]
           }
         },
         "test": {
