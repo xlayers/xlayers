@@ -351,13 +351,12 @@
           }
         },
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@angular-eslint/builder:lint",
           "options": {
-            "tsConfig": [
-              "libs/svg-codegen/tsconfig.lib.json",
-              "libs/svg-codegen/tsconfig.spec.json"
-            ],
-            "exclude": ["**/node_modules/**", "!libs/svg-codegen/**/*"]
+            "lintFilePatterns": [
+              "libs/svg-codegen/**/*.ts",
+              "libs/svg-codegen/**/*.html"
+            ]
           }
         },
         "test": {
