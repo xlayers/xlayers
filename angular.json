@@ -620,13 +620,12 @@
       "schematics": {},
       "architect": {
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@angular-eslint/builder:lint",
           "options": {
-            "tsConfig": [
-              "libs/sketchtypes/tsconfig.lib.json",
-              "libs/sketchtypes/tsconfig.spec.json"
-            ],
-            "exclude": ["**/node_modules/**", "!libs/sketchtypes/**/*"]
+            "lintFilePatterns": [
+              "libs/sketchtypes/**/*.ts",
+              "libs/sketchtypes/**/*.html"
+            ]
           }
         },
         "test": {
