@@ -44,3 +44,4 @@ Thumbs.db
 tests/e2e/videos
 tests/e2e/screenshots
 migrations.json
+.vscode/settings.json

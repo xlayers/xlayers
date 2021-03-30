@@ -1,0 +1,40 @@
+{
+  "extends": "../../.eslintrc.json",
+  "ignorePatterns": ["!**/*"],
+  "parserOptions": {
+    "ecmaVersion": 2020
+  },
+  "env": {
+    "es6": true,
+    "node": true
+  },
+  "overrides": [
+    {
+      "files": ["*.ts"],
+      "parserOptions": {
+        "project": [
+          "apps/xlayers-e2e/tsconfig.json",
+          "apps/xlayers-e2e/tsconfig.e2e.json"
+        ],
+        "createDefaultProgram": true
+      },
+      "rules": {
+        "@typescript-eslint/quotes": "off",
+        "@typescript-eslint/no-unused-expressions": "off",
+        "@typescript-eslint/no-namespace": "off",
+        "@typescript-eslint/consistent-type-definitions": "error",
+        "@typescript-eslint/dot-notation": "off",
+        "@typescript-eslint/explicit-member-accessibility": [
+          "off",
+          {
+            "accessibility": "explicit"
+          }
+        ]
+      }
+    },
+    {
+      "files": ["*.html"],
+      "rules": {}
+    }
+  ]
+}

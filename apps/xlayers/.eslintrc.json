@@ -1,0 +1,51 @@
+{
+  "extends": "../../.eslintrc.json",
+  "ignorePatterns": ["!**/*"],
+  "overrides": [
+    {
+      "files": ["*.ts"],
+      "parserOptions": {
+        "project": [
+          "apps/xlayers/tsconfig.json",
+          "apps/xlayers/tsconfig.editor.json",
+          "apps/xlayers/tsconfig.app.json",
+          "apps/xlayers/tsconfig.spec.json"
+        ],
+        "createDefaultProgram": true
+      },
+      "rules": {
+        "@angular-eslint/component-selector": [
+          "error",
+          {
+            "type": "element",
+            "prefix": "xly",
+            "style": "kebab-case"
+          }
+        ],
+        "@angular-eslint/directive-selector": [
+          "error",
+          {
+            "type": "attribute",
+            "prefix": "xly",
+            "style": "camelCase"
+          }
+        ],
+        "@typescript-eslint/consistent-type-definitions": "error",
+        "@typescript-eslint/dot-notation": "off",
+        "@typescript-eslint/explicit-member-accessibility": [
+          "off",
+          {
+            "accessibility": "explicit"
+          }
+        ],
+        "no-var": "off",
+        "no-shadow": "off",
+        "radix": "off"
+      }
+    },
+    {
+      "files": ["*.html"],
+      "rules": {}
+    }
+  ]
+}

@@ -1,5 +1,5 @@
-import { getFlatLayerMock } from '../editor/preview/viewer/layer/layer.component.mock';
 import { SketchMSData } from '@xlayers/sketchtypes';
+import { getFlatLayerMock } from '../editor/preview/viewer/layer/layer.component.mock';
 
 export function getSketchDataMock() {
   return {

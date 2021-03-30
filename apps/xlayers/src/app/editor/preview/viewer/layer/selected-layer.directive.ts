@@ -16,7 +16,7 @@ import { SketchMSLayer } from '@xlayers/sketchtypes';
   selector: '[xlySelectedLayer]',
 })
 export class ViewerSelectedLayerDirective implements OnInit, OnDestroy {
-  // tslint:disable-next-line: no-output-rename
+  // eslint-disable-next-line @angular-eslint/no-output-rename
   @Output('selectedLayer') selectedLayer = new EventEmitter<SketchMSLayer>();
 
   constructor(
