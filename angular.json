@@ -555,13 +555,12 @@
           }
         },
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@angular-eslint/builder:lint",
           "options": {
-            "tsConfig": [
-              "libs/sketch-lib/tsconfig.lib.json",
-              "libs/sketch-lib/tsconfig.spec.json"
-            ],
-            "exclude": ["**/node_modules/**", "!libs/sketch-lib/**/*"]
+            "lintFilePatterns": [
+              "libs/sketch-lib/**/*.ts",
+              "libs/sketch-lib/**/*.html"
+            ]
           }
         },
         "test": {
