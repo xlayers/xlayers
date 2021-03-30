@@ -429,13 +429,12 @@
           }
         },
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@angular-eslint/builder:lint",
           "options": {
-            "tsConfig": [
-              "libs/web-codegen/tsconfig.lib.json",
-              "libs/web-codegen/tsconfig.spec.json"
-            ],
-            "exclude": ["**/node_modules/**", "!libs/web-codegen/**/*"]
+            "lintFilePatterns": [
+              "libs/web-codegen/**/*.ts",
+              "libs/web-codegen/**/*.html"
+            ]
           }
         },
         "test": {
