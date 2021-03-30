@@ -390,13 +390,12 @@
           }
         },
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@angular-eslint/builder:lint",
           "options": {
-            "tsConfig": [
-              "libs/vue-codegen/tsconfig.lib.json",
-              "libs/vue-codegen/tsconfig.spec.json"
-            ],
-            "exclude": ["**/node_modules/**", "!libs/vue-codegen/**/*"]
+            "lintFilePatterns": [
+              "libs/vue-codegen/**/*.ts",
+              "libs/vue-codegen/**/*.html"
+            ]
           }
         },
         "test": {
