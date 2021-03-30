@@ -39,7 +39,8 @@
           }
         ],
         "no-var": "off",
-        "no-shadow": "off"
+        "no-shadow": "off",
+        "radix": "off"
       }
     },
     {
