@@ -1,12 +1,10 @@
 import { Injectable } from '@angular/core';
 import { SketchMSData } from '@xlayers/sketchtypes';
-const entryAsyncCheck = (entry: any): entry is { async: Function } => {
-  return !!entry && typeof entry === 'object' && 'async' in entry;
-};
+const entryAsyncCheck = (entry: any): entry is { async: Function } =>
+  !!entry && typeof entry === 'object' && 'async' in entry;
 
-const jszipLoadAsync = (jszip: any): jszip is { loadAsync: Function } => {
-  return !!jszip && typeof jszip === 'object' && 'loadAsync' in jszip;
-};
+const jszipLoadAsync = (jszip: any): jszip is { loadAsync: Function } =>
+  !!jszip && typeof jszip === 'object' && 'loadAsync' in jszip;
 
 @Injectable({
   providedIn: 'root',

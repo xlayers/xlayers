@@ -595,13 +595,12 @@
           }
         },
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@angular-eslint/builder:lint",
           "options": {
-            "tsConfig": [
-              "libs/sketch-ingestor/tsconfig.lib.json",
-              "libs/sketch-ingestor/tsconfig.spec.json"
-            ],
-            "exclude": ["**/node_modules/**", "!libs/sketch-ingestor/**/*"]
+            "lintFilePatterns": [
+              "libs/sketch-ingestor/**/*.ts",
+              "libs/sketch-ingestor/**/*.html"
+            ]
           }
         },
         "test": {
