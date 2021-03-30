@@ -20,11 +20,7 @@
           {
             "accessibility": "explicit"
           }
-        ],
-        "id-blacklist": "off",
-        "id-match": "off",
-        "no-bitwise": "off",
-        "no-underscore-dangle": "off"
+        ]
       }
     },
     {

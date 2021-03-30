@@ -7,7 +7,7 @@
       "parserOptions": {
         "project": [
           "libs/web-component-codegen/tsconfig.lib.json",
-          "libs/web-component-codegen/tsconfig.prod.json",
+          "libs/web-component-codegen/tsconfig.lib.prod.json",
           "libs/web-component-codegen/tsconfig.spec.json"
         ],
         "createDefaultProgram": true
@@ -20,11 +20,7 @@
           {
             "accessibility": "explicit"
           }
-        ],
-        "id-blacklist": "off",
-        "id-match": "off",
-        "no-bitwise": "off",
-        "no-underscore-dangle": "off"
+        ]
       }
     },
     {
