@@ -655,13 +655,12 @@
       "schematics": {},
       "architect": {
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@angular-eslint/builder:lint",
           "options": {
-            "tsConfig": [
-              "libs/test-helpers/tsconfig.lib.json",
-              "libs/test-helpers/tsconfig.spec.json"
-            ],
-            "exclude": ["**/node_modules/**", "!libs/test-helpers/**/*"]
+            "lintFilePatterns": [
+              "libs/test-helpers/**/*.ts",
+              "libs/test-helpers/**/*.html"
+            ]
           }
         },
         "test": {
