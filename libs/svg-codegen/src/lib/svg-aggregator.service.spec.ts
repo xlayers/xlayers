@@ -27,6 +27,7 @@ describe('SvgAggregatorService', () => {
             type: 'path',
             attributes: [
               'fill="none"',
+              // eslint-disable-next-line max-len
               'd="M54 34,S 53.566 36, 53.036 36,S 0.964 36, 0.964 36,S 0 35.1, 0 34,S 0 2, 0 2,S 0.434 0, 0.964 0,S 53.036 0, 53.036 0,S 54 0.9, 54 2,L 54 34,z"',
             ],
           },
@@ -60,9 +61,9 @@ describe('SvgAggregatorService', () => {
     expect(svg.kind).toEqual('svg');
     expect(svg.language).toEqual('svg');
     expect(svg.uri).toEqual('abc.svg');
-    // tslint:disable-next-line: max-line-length
     expect(
       svg.value.indexOf(
+        // eslint-disable-next-line max-len
         '<path fill="none" d="M54 34,S 53.566 36, 53.036 36,S 0.964 36, 0.964 36,S 0 35.1, 0 34,S 0 2, 0 2,S 0.434 0, 0.964 0,S 53.036 0, 53.036 0,S 54 0.9, 54 2,L 54 34,z"/>'
       ) >= 0
     ).toEqual(true);

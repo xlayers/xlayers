@@ -10,7 +10,7 @@ import {
 import { codeGenList, UICodeGen } from '@xlayers-apps/shared/codegen-list';
 
 const githubIssueLink =
-  // tslint:disable-next-line:max-line-length
+  // eslint-disable-next-line max-len
   'https://github.com/xlayers/xlayers/issues/new?assignees=&labels=Priority%3A+Low%2C+Scope%3A+CodeGen%2C+community-help%2C+effort2%3A+medium+%28days%29%2C+good+first+issue%2C+type%3A+discussion+%2F+RFC&template=codegen--add---technology---support.md&title=CodeGen%3A+add+%5B%5Btechnology%5D%5D+support';
 
 @Component({

@@ -1,7 +1,7 @@
-import { readFile } from 'fs';
-import * as path from 'path';
-import * as jszip from 'jszip';
 import { SketchMSData } from '@xlayers/sketchtypes';
+import { readFile } from 'fs';
+import * as jszip from 'jszip';
+import * as path from 'path';
 
 export const VERSION_LIST = [52, 53, 59];
 export const SKETCH_PATH = path.join(
@@ -37,25 +37,26 @@ export async function loadSketch(version, fileName) {
   });
 
   await Promise.all(
-    zips.map(({ relativePath, zipEntry }) => {
-      return new Promise((resolve) => {
-        if (relativePath.startsWith('pages/')) {
-          zipEntry.async('string').then((content) => {
-            _data.pages.push(JSON.parse(content));
+    zips.map(
+      ({ relativePath, zipEntry }) =>
+        new Promise((resolve) => {
+          if (relativePath.startsWith('pages/')) {
+            zipEntry.async('string').then((content) => {
+              _data.pages.push(JSON.parse(content));
+              resolve();
+            });
+          } else if (
+            ['meta.json', 'document.json', 'user.json'].includes(relativePath)
+          ) {
+            zipEntry.async('string').then((content) => {
+              _data[relativePath.replace('.json', '')] = JSON.parse(content);
+              resolve();
+            });
+          } else {
             resolve();
-          });
-        } else if (
-          ['meta.json', 'document.json', 'user.json'].includes(relativePath)
-        ) {
-          zipEntry.async('string').then((content) => {
-            _data[relativePath.replace('.json', '')] = JSON.parse(content);
-            resolve();
-          });
-        } else {
-          resolve();
-        }
-      });
-    })
+          }
+        })
+    )
   );
 
   return _data;

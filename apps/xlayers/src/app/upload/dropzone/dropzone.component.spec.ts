@@ -40,7 +40,7 @@ describe('SketchDropZone', () => {
   });
 
   describe('when drop file', () => {
-    it('should emit file change', (done: Function) => {
+    it('should emit file change', (done: () => void) => {
       const dragEvent = {
         preventDefault() {},
         dataTransfer: {
@@ -73,7 +73,7 @@ describe('SketchDropZone', () => {
       expect(res).toEqual(undefined);
     });
 
-    it('should fallback to file when no items', (done: Function) => {
+    it('should fallback to file when no items', (done: () => void) => {
       const dragEvent = {
         preventDefault() {},
         dataTransfer: {

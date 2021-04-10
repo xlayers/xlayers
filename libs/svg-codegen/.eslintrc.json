@@ -1,0 +1,31 @@
+{
+  "extends": "../../.eslintrc.json",
+  "ignorePatterns": ["!**/*"],
+  "overrides": [
+    {
+      "files": ["*.ts"],
+      "parserOptions": {
+        "project": [
+          "libs/svg-codegen/tsconfig.lib.json",
+          "libs/svg-codegen/tsconfig.lib.prod.json",
+          "libs/svg-codegen/tsconfig.spec.json"
+        ],
+        "createDefaultProgram": true
+      },
+      "rules": {
+        "@typescript-eslint/consistent-type-definitions": "error",
+        "@typescript-eslint/dot-notation": "off",
+        "@typescript-eslint/explicit-member-accessibility": [
+          "off",
+          {
+            "accessibility": "explicit"
+          }
+        ]
+      }
+    },
+    {
+      "files": ["*.html"],
+      "rules": {}
+    }
+  ]
+}
