@@ -74,6 +74,10 @@ export class ExportStackblitzService {
   }
 
   private normalizeBase64Image(codegen: CodeGenSettings) {
+    if (!codegen.content) {
+      return [];
+    }
+
     return codegen.content.map((file) => {
       if (file.language === 'base64') {
         if (file.kind === 'png') {
