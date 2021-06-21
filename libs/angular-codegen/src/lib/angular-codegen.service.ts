@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import {
-  ImageService,
-  SymbolService,
-  LayerService,
   FormatService,
+  ImageService,
+  LayerService,
+  SymbolService,
 } from '@xlayers/sketch-lib';
+import { SketchMSData, SketchMSLayer } from '@xlayers/sketchtypes';
 import { WebCodeGenService } from '@xlayers/web-codegen';
 import { AngularAggregatorService } from './angular-aggregator.service';
-import { SketchMSLayer, SketchMSData } from '@xlayers/sketchtypes';
 
 type WebCodeGenOptions = any;
 
@@ -161,8 +161,8 @@ export class XlayersModule {}`;
 
   private renderImports(files) {
     return [
-      "import { NgModule } from '@angular/core';",
-      "import { CommonModule } from '@angular/common';",
+      `import { NgModule } from '@angular/core';`,
+      `import { CommonModule } from '@angular/common';`,
     ]
       .concat(
         files

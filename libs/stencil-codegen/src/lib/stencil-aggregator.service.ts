@@ -88,7 +88,7 @@ describe('${className}', () => {
 
   private renderImportStatements(current: SketchMSLayer) {
     return [
-      // tslint:disable-next-line: quotemark
+      // eslint-disable-next-line @typescript-eslint/quotes
       "import { Component } from '@stencil/core';",
       ...this.generateDynamicImport(current),
     ].join('\n');

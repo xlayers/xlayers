@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { XmlCodeGenVisitor } from './xmlcodegenvisitor.service';
-import { Shape } from './shape.service';
-import { SvgCodeGenService } from '@xlayers/svg-codegen';
 import { SketchMSLayer, SketchMSTextLayer } from '@xlayers/sketchtypes';
+import { SvgCodeGenService } from '@xlayers/svg-codegen';
+import { Shape } from './shape.service';
+import { XmlCodeGenVisitor } from './xmlcodegenvisitor.service';
 
 /**
  * @see XmlCodeGenVisitor implementation that can be used to generate Xamarin.Forms code.
@@ -65,6 +65,7 @@ export class XamarinFormsCodeGenVisitor extends XmlCodeGenVisitor {
     return (
       '<Label ' +
       Object.keys(attr)
+        // eslint-disable-next-line space-before-function-paren
         .map(function (key) {
           return key + '="' + attr[key] + '"';
         })

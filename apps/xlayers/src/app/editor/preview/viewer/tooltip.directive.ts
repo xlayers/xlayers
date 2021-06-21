@@ -10,7 +10,7 @@ import {
   selector: '[xlyTooltilp]',
 })
 export class TooltilDirective {
-  // tslint:disable-next-line:no-input-rename
+  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input('sketchTooltilp') name = '';
   tooltipInfo = '';
 

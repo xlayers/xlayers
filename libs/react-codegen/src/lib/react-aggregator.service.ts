@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { FormatService } from '@xlayers/sketch-lib';
+import { SketchMSData, SketchMSLayer } from '@xlayers/sketchtypes';
 import { WebCodeGenService } from '@xlayers/web-codegen';
-import { SketchMSLayer, SketchMSData } from '@xlayers/sketchtypes';
 
 type WebCodeGenOptions = any;
 
@@ -79,7 +79,7 @@ it('renders without crashing', () => {
   private renderImportStatements(current: SketchMSLayer) {
     const fileName = this.formatService.normalizeName(current.name);
     return [
-      "import React, { Component } from 'react';",
+      `import React, { Component } from 'react';`,
       ...this.generateDynamicImport(current),
       `import \'./${fileName}.css\';`,
     ].join('\n');
