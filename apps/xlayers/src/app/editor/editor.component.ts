@@ -20,6 +20,7 @@ import {
   DesignFile,
 } from '../core/state';
 import { SketchMSLayer } from '@xlayers/sketchtypes';
+import { CodeGenService } from './code/editor-container/codegen/codegen.service';
 
 @Component({
   selector: 'xly-editor',
@@ -48,7 +49,8 @@ export class EditorComponent implements OnInit {
     private readonly store: Store,
     private readonly badgeService: PreviewBadgeService,
     private readonly exporter: ExportStackblitzService,
-    private readonly translateService: TranslateService
+    private readonly translateService: TranslateService,
+    private readonly codeGenService: CodeGenService
   ) {
     this.editorTranslations = this.translateService.get('EDITOR');
   }
@@ -61,10 +63,13 @@ export class EditorComponent implements OnInit {
     });
 
     this.store.select(CodeGenState.codegen).subscribe((codegen) => {
-      if (this.codegen) {
-        this.isStackblitzEnabled = codegen.buttons.stackblitz;
+      if (codegen.kind) {
+        this.codegen = this.codeGenService.generate(codegen.kind);
       }
-      this.codegen = codegen;
+      if (this.codegen) {
+        this.isStackblitzEnabled = !!this.codegen.buttons?.stackblitz;
+      }
+      this.codegen = this.codegen || codegen;
     });
 
     this.store.select(UiState.is3dView).subscribe((is3dView) => {
