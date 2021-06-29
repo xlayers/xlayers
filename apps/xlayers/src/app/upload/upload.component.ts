@@ -39,7 +39,7 @@ export class UploadComponent implements OnInit {
         this.store.dispatch([
           new ResetUiSettings(),
           new CurrentData(data),
-          new SourceFileData(getFileData(file.name, '')),
+          new SourceFileData(getFileData(file.name, data.meta.appVersion)),
           new Navigate(['/editor/preview']),
         ]);
         return;
