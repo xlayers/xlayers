@@ -70,6 +70,7 @@
   font-style: italic;
   margin-left: 115px;
   max-width: calc(115px + 22rem);
+  align-items: center;
 }
 
 .header-file-data img{
@@ -83,6 +84,7 @@
   overflow: hidden;
   text-overflow: ellipsis;
   z-index: 5;
+  font-size: 14px;
 }
 
 @media (max-width: 1382px) {

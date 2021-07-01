@@ -6,9 +6,9 @@
       "files": ["*.ts"],
       "parserOptions": {
         "project": [
-          "libs/vue-codegen/tsconfig.lib.json",
-          "libs/vue-codegen/tsconfig.lib.prod.json",
-          "libs/vue-codegen/tsconfig.spec.json"
+          "libs/svelte-codegen/tsconfig.lib.json",
+          "libs/svelte-codegen/tsconfig.lib.prod.json",
+          "libs/svelte-codegen/tsconfig.spec.json"
         ],
         "createDefaultProgram": true
       },

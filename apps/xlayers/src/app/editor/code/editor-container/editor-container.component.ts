@@ -54,11 +54,6 @@ export class EditorContainerComponent implements OnInit {
     ctrl.focus();
   }
 
-  generateSvelte() {
-    this.codeSetting = this.codegen.generate(CodeGenKind.Svelte);
-    this.updateState();
-  }
-
   updateState() {
     this.store.dispatch(
       new CodeGen(

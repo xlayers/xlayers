@@ -40,7 +40,7 @@ export class UploadComponent implements OnInit {
           new ResetUiSettings(),
           new CurrentData(data),
           new SourceFileData(
-            getFileData(file.name, (data.meta && data.meta.appVersion) || '')
+            getFileData(file.name, data.meta?.appVersion || '')
           ),
           new Navigate(['/editor/preview']),
         ]);
@@ -48,10 +48,7 @@ export class UploadComponent implements OnInit {
       }
 
       this.store.dispatch(
-        new InformUser(
-          'It looks like we cannot parse this Sketch file',
-          ErrorType.Runtime
-        )
+        new InformUser('Sketch file cannot be processed!', ErrorType.Runtime)
       );
     } catch (error) {
       this.store.dispatch(new InformUser(error, ErrorType.Runtime));

@@ -9,7 +9,7 @@
     <ng-container *ngIf="sourceFileData as fileData">
       <div  data-cy="fileData" class="header-file-data" mat-div matTooltip={{fileData.version}}>
         <img [src]="fileData.icon" />
-        <div class="file-name">{{fileData.name}}</div>
+        <div [title]="fileData.name" class="file-name">{{fileData.name}}</div>
       </div>
     </ng-container>
     <div class="header-spacer">
