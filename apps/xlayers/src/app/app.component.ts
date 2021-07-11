@@ -75,6 +75,10 @@ export class AppComponent {
       'arrows',
       sanitizer.bypassSecurityTrustResourceUrl('assets/codegen/arrows.svg')
     );
+    iconRegistry.addSvgIcon(
+      'svelte',
+      sanitizer.bypassSecurityTrustResourceUrl('assets/codegen/svelte.svg')
+    );
 
     router.events
       .pipe(filter((event) => event instanceof NavigationEnd))

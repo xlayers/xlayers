@@ -8,6 +8,7 @@ import { AngularCodeGenFacadeService } from './angular-codegen.service';
 import { LitElementCodeGenFacadeService } from './lit-element-codegen.service';
 import { XamarinCodeGenService } from './xamarin-codegen.service';
 import { AngularElementCodeGenFacadeService } from './angular-element-codegen.service';
+import { SvelteCodeGenFacadeService } from './svelte-codegen.service';
 
 @NgModule({
   providers: [
@@ -20,6 +21,7 @@ import { AngularElementCodeGenFacadeService } from './angular-element-codegen.se
     StencilCodeGenFacadeService,
     LitElementCodeGenFacadeService,
     XamarinCodeGenService,
+    SvelteCodeGenFacadeService,
   ],
 })
 export class CodeGenModule {}
