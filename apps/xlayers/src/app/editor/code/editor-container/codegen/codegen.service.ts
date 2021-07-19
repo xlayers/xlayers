@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularCodeGenFacadeService } from './angular-codegen.service';
 import { ReactCodeGenFacadeService } from './react-codegen.service';
 import { VueCodeGenFacadeService } from './vue-codegen.service';
+import { Vue3CodeGenFacadeService } from './vue3-codegen.service';
 import { WebComponentCodeGenFacadeService } from './web-component-codegen.service';
 import { StencilCodeGenFacadeService } from './stencil-codegen.service';
 import { LitElementCodeGenFacadeService } from './lit-element-codegen.service';
@@ -50,6 +51,7 @@ export enum CodeGenKind {
   AngularElement,
   React,
   Vue,
+  Vue3,
   WC,
   Stencil,
   LitElement,
@@ -69,6 +71,7 @@ export class CodeGenService {
     private readonly angularElement: AngularElementCodeGenFacadeService,
     private readonly react: ReactCodeGenFacadeService,
     private readonly vue: VueCodeGenFacadeService,
+    private readonly vue3: Vue3CodeGenFacadeService,
     private readonly wc: WebComponentCodeGenFacadeService,
     private readonly stencil: StencilCodeGenFacadeService,
     private readonly litElement: LitElementCodeGenFacadeService,
@@ -175,6 +178,14 @@ export class CodeGenService {
           kind,
           content: this.addHeaderInfo(this.vue.generate(this.data)),
           buttons: this.vue.buttons(),
+        };
+
+      case CodeGenKind.Vue3:
+        this.trackFrameworkKind(CodeGenKind.Vue3);
+        return {
+          kind,
+          content: this.addHeaderInfo(this.vue3.generate(this.data)),
+          buttons: this.vue3.buttons(),
         };
 
       case CodeGenKind.WC:
