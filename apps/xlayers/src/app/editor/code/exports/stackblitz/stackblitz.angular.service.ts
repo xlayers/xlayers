@@ -13,6 +13,8 @@ export class ExportStackblitzAngularService {
         if (prop === 'uri') {
           if (content[i].language === 'base64') {
             files[`src/app/` + content[i].uri] = content[i].value;
+          } else if (content[i].language === 'markdown') {
+            files[content[i].uri] = content[i].value;
           } else {
             files[`src/app/xlayers/` + content[i].uri] = content[i].value;
           }

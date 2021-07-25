@@ -42,4 +42,9 @@ export const codeGenList: UICodeGen[] = [
     svgIcon: 'litElement',
     codegenType: CodeGenKind.LitElement,
   },
+  {
+    label: 'Svelte',
+    svgIcon: 'svelte',
+    codegenType: CodeGenKind.Svelte
+  }
 ];

@@ -9,6 +9,7 @@ import { LitElementCodeGenFacadeService } from './lit-element-codegen.service';
 import { XamarinCodeGenService } from './xamarin-codegen.service';
 import { Store } from '@ngxs/store';
 import { AngularElementCodeGenFacadeService } from './angular-element-codegen.service';
+import { SvelteCodeGenFacadeService } from './svelte-codegen.service';
 import { UiState } from '../../../../core/state';
 import { environment } from '../../../../../environments/environment';
 import { CodeGenSettings } from '../../../../core/state/page.state';
@@ -28,7 +29,8 @@ export interface XlayersNgxEditorModel {
     | 'litElement'
     | 'html'
     | 'text'
-    | 'xamarinForms';
+    | 'xamarinForms'
+    | 'svelte';
   uri: string;
   value: any;
   language: string;
@@ -54,6 +56,7 @@ export enum CodeGenKind {
   Stencil,
   LitElement,
   XamarinForms,
+  Svelte,
 }
 
 @Injectable({
@@ -73,6 +76,7 @@ export class CodeGenService {
     private readonly stencil: StencilCodeGenFacadeService,
     private readonly litElement: LitElementCodeGenFacadeService,
     private readonly xamarinForms: XamarinCodeGenService,
+    private readonly svelte: SvelteCodeGenFacadeService,
     private readonly store: Store
   ) {
     this.store
@@ -212,6 +216,12 @@ export class CodeGenService {
           kind,
           content: this.addHeaderInfo(this.xamarinForms.generate(this.ast)),
           buttons: this.xamarinForms.buttons(),
+        };
+      case CodeGenKind.Svelte:
+        return {
+          kind,
+          content: this.addHeaderInfo(this.svelte.generate(this.data)),
+          buttons: this.svelte.buttons(),
         };
     }
   }

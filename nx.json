@@ -73,6 +73,9 @@
     },
     "test-helpers": {
       "tags": []
+    },
+    "svelte-codegen": {
+      "tags": []
     }
   },
   "affected": {
