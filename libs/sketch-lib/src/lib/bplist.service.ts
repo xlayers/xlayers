@@ -10,8 +10,7 @@ type BufferEncoding =
   | 'base64'
   | 'ucs2'
   | 'ucs-2'
-  | 'utf16le'
-  | 'utf-16le';
+  | 'utf16le';
 
 declare class Error {
   public name: string;

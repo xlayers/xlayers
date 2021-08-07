@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Store } from '@ngxs/store';
-import { CodeGenKind, CodeGenService } from './codegen/codegen.service';
+import { CodeGenService } from './codegen/codegen.service';
 import { PAGE_DOWN, PAGE_UP } from '@angular/cdk/keycodes';
 import {
   CodeGenSettings,
@@ -8,10 +8,6 @@ import {
   CodeGenState,
 } from '../../../core/state/page.state';
 import { codeGenList, UICodeGen } from '@xlayers-apps/shared/codegen-list';
-
-const githubIssueLink =
-  // eslint-disable-next-line max-len
-  'https://github.com/xlayers/xlayers/issues/new?assignees=&labels=Priority%3A+Low%2C+Scope%3A+CodeGen%2C+community-help%2C+effort2%3A+medium+%28days%29%2C+good+first+issue%2C+type%3A+discussion+%2F+RFC&template=codegen--add---technology---support.md&title=CodeGen%3A+add+%5B%5Btechnology%5D%5D+support';
 
 @Component({
   selector: 'xly-editor-container',
