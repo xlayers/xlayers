@@ -19,7 +19,7 @@ import { SketchMSPageLayer, SketchMSData } from '@xlayers/sketchtypes';
       cdkDrag
       *ngFor="let page of data.pages"
       class="canvas"
-      [class.selected]="page.do_objectID == currentPage.do_objectID"
+      [class.selected]="page.do_objectID === currentPage.do_objectID"
       (cdkDragMoved)="onDragStarted($event)"
       (cdkDragStarted)="onDragStarted($event)"
       (cdkDragEnded)="onDragEnded($event)"
@@ -116,7 +116,8 @@ export class ViewerCanvasComponent implements OnInit {
   }
 
   formatTransformStyle(existingTransformStyle: string, zoomLevel) {
-    const scaleStyleRegex = /(\([ ]?[\d]+(\.[\d]+)?[ ]?(,[ ]?[\d]+(\.[\d]+)?[ ]?)?\))/gim;
+    const scaleStyleRegex =
+      /(\([ ]?[\d]+(\.[\d]+)?[ ]?(,[ ]?[\d]+(\.[\d]+)?[ ]?)?\))/gim;
     return scaleStyleRegex.test(existingTransformStyle)
       ? existingTransformStyle.replace(
           scaleStyleRegex,
@@ -131,17 +132,19 @@ export class ViewerCanvasComponent implements OnInit {
    * drag started & ended event
    */
   onDragStarted(event: CdkDragStart) {
-    event.source.element.nativeElement.style.transform = this.formatTransformStyle(
-      event.source.element.nativeElement.style.transform,
-      this.currentZoomLevel
-    );
+    event.source.element.nativeElement.style.transform =
+      this.formatTransformStyle(
+        event.source.element.nativeElement.style.transform,
+        this.currentZoomLevel
+      );
   }
 
   onDragEnded(event: CdkDragEnd) {
-    event.source.element.nativeElement.style.transform = this.formatTransformStyle(
-      event.source.element.nativeElement.style.transform,
-      this.currentZoomLevel
-    );
+    event.source.element.nativeElement.style.transform =
+      this.formatTransformStyle(
+        event.source.element.nativeElement.style.transform,
+        this.currentZoomLevel
+      );
   }
 
   /**
@@ -150,9 +153,10 @@ export class ViewerCanvasComponent implements OnInit {
    */
   onDragMoved(event: CdkDragMove<any>) {
     const sourceElement: any = event.source;
-    sourceElement.element.nativeElement.style.transform = this.formatTransformStyle(
-      sourceElement.element.nativeElement.style.transform,
-      this.currentZoomLevel
-    );
+    sourceElement.element.nativeElement.style.transform =
+      this.formatTransformStyle(
+        sourceElement.element.nativeElement.style.transform,
+        this.currentZoomLevel
+      );
   }
 }

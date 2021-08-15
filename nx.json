@@ -22,13 +22,6 @@
     }
   },
   "projects": {
-    "xlayers": {
-      "tags": []
-    },
-    "xlayers-e2e": {
-      "tags": [],
-      "implicitDependencies": ["xlayers"]
-    },
     "angular-codegen": {
       "tags": []
     },
@@ -41,10 +34,25 @@
     "react-codegen": {
       "tags": []
     },
+    "sketch-ingestor": {
+      "tags": []
+    },
+    "sketch-lib": {
+      "tags": []
+    },
+    "sketchtypes": {
+      "tags": []
+    },
     "stencil-codegen": {
       "tags": []
     },
+    "svelte-codegen": {
+      "tags": []
+    },
     "svg-codegen": {
+      "tags": []
+    },
+    "test-helpers": {
       "tags": []
     },
     "vue-codegen": {
@@ -59,23 +67,23 @@
     "xaml-codegen": {
       "tags": []
     },
-    "sketch-lib": {
+    "xlayers": {
       "tags": []
     },
-    "sketch-ingestor": {
-      "tags": []
-    },
-    "sketchtypes": {
-      "tags": []
-    },
-    "test-helpers": {
-      "tags": []
-    },
-    "svelte-codegen": {
-      "tags": []
+    "xlayers-e2e": {
+      "tags": [],
+      "implicitDependencies": ["xlayers"]
     }
   },
   "affected": {
     "defaultBase": "main"
+  },
+  "targetDependencies": {
+    "build": [
+      {
+        "target": "build",
+        "projects": "dependencies"
+      }
+    ]
   }
 }

@@ -1,141 +1,6 @@
 {
   "version": 1,
   "projects": {
-    "xlayers": {
-      "projectType": "application",
-      "schematics": {},
-      "root": "apps/xlayers",
-      "sourceRoot": "apps/xlayers/src",
-      "prefix": "xlayers-nx",
-      "architect": {
-        "build": {
-          "builder": "@angular-devkit/build-angular:browser",
-          "options": {
-            "allowedCommonJsDependencies": [
-              "@angularclass/hmr",
-              "file-saver",
-              "buffer",
-              "highlight.js"
-            ],
-            "outputPath": "dist/apps/xlayers",
-            "index": "apps/xlayers/src/index.html",
-            "main": "apps/xlayers/src/main.ts",
-            "polyfills": "apps/xlayers/src/polyfills.ts",
-            "tsConfig": "apps/xlayers/tsconfig.app.json",
-            "aot": true,
-            "assets": [
-              "apps/xlayers/src/favicon.ico",
-              "apps/xlayers/src/assets",
-              "apps/xlayers/src/manifest.json"
-            ],
-            "styles": [
-              "./node_modules/@angular/material/prebuilt-themes/pink-bluegrey.css",
-              "apps/xlayers/src/styles.css"
-            ],
-            "scripts": ["node_modules/jszip/dist/jszip.min.js"]
-          },
-          "configurations": {
-            "production": {
-              "fileReplacements": [
-                {
-                  "replace": "apps/xlayers/src/environments/environment.ts",
-                  "with": "apps/xlayers/src/environments/environment.prod.ts"
-                }
-              ],
-              "optimization": true,
-              "outputHashing": "all",
-              "sourceMap": false,
-              "namedChunks": false,
-              "extractLicenses": true,
-              "vendorChunk": false,
-              "buildOptimizer": true,
-              "budgets": [
-                {
-                  "type": "initial",
-                  "maximumWarning": "2mb",
-                  "maximumError": "5mb"
-                },
-                {
-                  "type": "anyComponentStyle",
-                  "maximumWarning": "6kb",
-                  "maximumError": "10kb"
-                }
-              ]
-            }
-          },
-          "outputs": ["{options.outputPath}"]
-        },
-        "serve": {
-          "builder": "@angular-devkit/build-angular:dev-server",
-          "options": {
-            "browserTarget": "xlayers:build"
-          },
-          "configurations": {
-            "production": {
-              "browserTarget": "xlayers:build:production"
-            }
-          }
-        },
-        "extract-i18n": {
-          "builder": "@angular-devkit/build-angular:extract-i18n",
-          "options": {
-            "browserTarget": "xlayers:build"
-          }
-        },
-        "lint": {
-          "builder": "@angular-eslint/builder:lint",
-          "options": {
-            "lintFilePatterns": [
-              "apps/xlayers/**/*.ts",
-              "apps/xlayers/**/*.html"
-            ]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "apps/xlayers/jest.config.js",
-            "passWithNoTests": true
-          },
-          "outputs": ["coverage/apps/xlayers"]
-        },
-        "stamp": {
-          "builder": "@xlayers/version-stamp:stamp",
-          "options": {
-            "outputPath": "dist/apps/xlayers"
-          }
-        }
-      }
-    },
-    "xlayers-e2e": {
-      "root": "apps/xlayers-e2e",
-      "sourceRoot": "apps/xlayers-e2e/src",
-      "projectType": "application",
-      "architect": {
-        "e2e": {
-          "builder": "@nrwl/cypress:cypress",
-          "options": {
-            "cypressConfig": "apps/xlayers-e2e/cypress.json",
-            "tsConfig": "apps/xlayers-e2e/tsconfig.e2e.json",
-            "devServerTarget": "xlayers:serve"
-          },
-          "configurations": {
-            "production": {
-              "devServerTarget": "xlayers:serve:production"
-            }
-          }
-        },
-        "lint": {
-          "builder": "@angular-eslint/builder:lint",
-          "options": {
-            "lintFilePatterns": [
-              "apps/xlayers-e2e/**/*.ts",
-              "apps/xlayers-e2e/**/*.html"
-            ]
-          }
-        }
-      }
-    },
     "angular-codegen": {
       "projectType": "library",
       "root": "libs/angular-codegen",
@@ -292,6 +157,121 @@
       },
       "schematics": {}
     },
+    "sketch-ingestor": {
+      "projectType": "library",
+      "root": "libs/sketch-ingestor",
+      "sourceRoot": "libs/sketch-ingestor/src",
+      "prefix": "xlayers",
+      "architect": {
+        "build": {
+          "builder": "@nrwl/angular:package",
+          "options": {
+            "tsConfig": "libs/sketch-ingestor/tsconfig.lib.json",
+            "project": "libs/sketch-ingestor/ng-package.json",
+            "buildableProjectDepsInPackageJsonType": "dependencies"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "libs/sketch-ingestor/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/sketch-ingestor/**/*.ts",
+              "libs/sketch-ingestor/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/sketch-ingestor/jest.config.js",
+            "passWithNoTests": true
+          },
+          "outputs": ["coverage/libs/sketch-ingestor"]
+        }
+      },
+      "schematics": {}
+    },
+    "sketch-lib": {
+      "projectType": "library",
+      "root": "libs/sketch-lib",
+      "sourceRoot": "libs/sketch-lib/src",
+      "prefix": "xlayers",
+      "architect": {
+        "build": {
+          "builder": "@nrwl/angular:package",
+          "options": {
+            "tsConfig": "libs/sketch-lib/tsconfig.lib.json",
+            "project": "libs/sketch-lib/ng-package.json",
+            "buildableProjectDepsInPackageJsonType": "dependencies"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "libs/sketch-lib/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/sketch-lib/**/*.ts",
+              "libs/sketch-lib/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/sketch-lib/jest.config.js",
+            "passWithNoTests": true
+          },
+          "outputs": ["coverage/libs/sketch-lib"]
+        }
+      },
+      "schematics": {}
+    },
+    "sketchtypes": {
+      "root": "libs/sketchtypes",
+      "sourceRoot": "libs/sketchtypes/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/sketchtypes/**/*.ts",
+              "libs/sketchtypes/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/sketchtypes/jest.config.js",
+            "passWithNoTests": true
+          },
+          "outputs": ["coverage/libs/sketchtypes"]
+        },
+        "build": {
+          "builder": "@nrwl/node:package",
+          "options": {
+            "outputPath": "dist/libs/sketchtypes",
+            "tsConfig": "libs/sketchtypes/tsconfig.lib.json",
+            "packageJson": "libs/sketchtypes/package.json",
+            "main": "libs/sketchtypes/src/index.ts",
+            "assets": ["libs/sketchtypes/*.md"],
+            "srcRootForCompilationRoot": "libs\\sketchtypes\\src"
+          },
+          "outputs": ["{options.outputPath}"]
+        }
+      }
+    },
     "stencil-codegen": {
       "projectType": "library",
       "root": "libs/stencil-codegen",
@@ -331,6 +311,44 @@
       },
       "schematics": {}
     },
+    "svelte-codegen": {
+      "root": "libs/svelte-codegen",
+      "sourceRoot": "libs/svelte-codegen/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "build": {
+          "builder": "@nrwl/angular:package",
+          "options": {
+            "tsConfig": "libs/svelte-codegen/tsconfig.lib.json",
+            "project": "libs/svelte-codegen/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "libs/svelte-codegen/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/svelte-codegen/tsconfig.lib.json",
+              "libs/svelte-codegen/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/svelte-codegen/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/svelte-codegen/jest.config.js",
+            "passWithNoTests": true
+          },
+          "outputs": ["coverage/libs/svelte-codegen"]
+        }
+      }
+    },
     "svg-codegen": {
       "projectType": "library",
       "root": "libs/svg-codegen",
@@ -369,6 +387,31 @@
         }
       },
       "schematics": {}
+    },
+    "test-helpers": {
+      "root": "libs/test-helpers",
+      "sourceRoot": "libs/test-helpers/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/test-helpers/**/*.ts",
+              "libs/test-helpers/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/test-helpers/jest.config.js",
+            "passWithNoTests": true
+          },
+          "outputs": ["coverage/libs/test-helpers"]
+        }
+      }
     },
     "vue-codegen": {
       "projectType": "library",
@@ -526,181 +569,138 @@
       },
       "schematics": {}
     },
-    "sketch-lib": {
-      "projectType": "library",
-      "root": "libs/sketch-lib",
-      "sourceRoot": "libs/sketch-lib/src",
-      "prefix": "xlayers",
-      "architect": {
-        "build": {
-          "builder": "@nrwl/angular:package",
-          "options": {
-            "tsConfig": "libs/sketch-lib/tsconfig.lib.json",
-            "project": "libs/sketch-lib/ng-package.json",
-            "buildableProjectDepsInPackageJsonType": "dependencies"
-          },
-          "configurations": {
-            "production": {
-              "tsConfig": "libs/sketch-lib/tsconfig.lib.prod.json"
-            }
-          }
-        },
-        "lint": {
-          "builder": "@angular-eslint/builder:lint",
-          "options": {
-            "lintFilePatterns": [
-              "libs/sketch-lib/**/*.ts",
-              "libs/sketch-lib/**/*.html"
-            ]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/sketch-lib/jest.config.js",
-            "passWithNoTests": true
-          },
-          "outputs": ["coverage/libs/sketch-lib"]
-        }
-      },
-      "schematics": {}
-    },
-    "sketch-ingestor": {
-      "projectType": "library",
-      "root": "libs/sketch-ingestor",
-      "sourceRoot": "libs/sketch-ingestor/src",
-      "prefix": "xlayers",
-      "architect": {
-        "build": {
-          "builder": "@nrwl/angular:package",
-          "options": {
-            "tsConfig": "libs/sketch-ingestor/tsconfig.lib.json",
-            "project": "libs/sketch-ingestor/ng-package.json",
-            "buildableProjectDepsInPackageJsonType": "dependencies"
-          },
-          "configurations": {
-            "production": {
-              "tsConfig": "libs/sketch-ingestor/tsconfig.lib.prod.json"
-            }
-          }
-        },
-        "lint": {
-          "builder": "@angular-eslint/builder:lint",
-          "options": {
-            "lintFilePatterns": [
-              "libs/sketch-ingestor/**/*.ts",
-              "libs/sketch-ingestor/**/*.html"
-            ]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/sketch-ingestor/jest.config.js",
-            "passWithNoTests": true
-          },
-          "outputs": ["coverage/libs/sketch-ingestor"]
-        }
-      },
-      "schematics": {}
-    },
-    "sketchtypes": {
-      "root": "libs/sketchtypes",
-      "sourceRoot": "libs/sketchtypes/src",
-      "projectType": "library",
+    "xlayers": {
+      "projectType": "application",
       "schematics": {},
+      "root": "apps/xlayers",
+      "sourceRoot": "apps/xlayers/src",
+      "prefix": "xlayers-nx",
       "architect": {
-        "lint": {
-          "builder": "@angular-eslint/builder:lint",
-          "options": {
-            "lintFilePatterns": [
-              "libs/sketchtypes/**/*.ts",
-              "libs/sketchtypes/**/*.html"
-            ]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/sketchtypes/jest.config.js",
-            "passWithNoTests": true
-          },
-          "outputs": ["coverage/libs/sketchtypes"]
-        },
         "build": {
-          "builder": "@nrwl/node:package",
+          "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/libs/sketchtypes",
-            "tsConfig": "libs/sketchtypes/tsconfig.lib.json",
-            "packageJson": "libs/sketchtypes/package.json",
-            "main": "libs/sketchtypes/src/index.ts",
-            "assets": ["libs/sketchtypes/*.md"],
-            "srcRootForCompilationRoot": "libs\\sketchtypes\\src"
+            "allowedCommonJsDependencies": [
+              "@angularclass/hmr",
+              "file-saver",
+              "buffer",
+              "highlight.js"
+            ],
+            "outputPath": "dist/apps/xlayers",
+            "index": "apps/xlayers/src/index.html",
+            "main": "apps/xlayers/src/main.ts",
+            "polyfills": "apps/xlayers/src/polyfills.ts",
+            "tsConfig": "apps/xlayers/tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "apps/xlayers/src/favicon.ico",
+              "apps/xlayers/src/assets",
+              "apps/xlayers/src/manifest.json"
+            ],
+            "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/pink-bluegrey.css",
+              "apps/xlayers/src/styles.css"
+            ],
+            "scripts": ["node_modules/jszip/dist/jszip.min.js"]
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/xlayers/src/environments/environment.ts",
+                  "with": "apps/xlayers/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
           },
           "outputs": ["{options.outputPath}"]
-        }
-      }
-    },
-    "test-helpers": {
-      "root": "libs/test-helpers",
-      "sourceRoot": "libs/test-helpers/src",
-      "projectType": "library",
-      "schematics": {},
-      "architect": {
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "xlayers:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "xlayers:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "xlayers:build"
+          }
+        },
         "lint": {
           "builder": "@angular-eslint/builder:lint",
           "options": {
             "lintFilePatterns": [
-              "libs/test-helpers/**/*.ts",
-              "libs/test-helpers/**/*.html"
+              "apps/xlayers/**/*.ts",
+              "apps/xlayers/**/*.html"
             ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "libs/test-helpers/jest.config.js",
+            "jestConfig": "apps/xlayers/jest.config.js",
             "passWithNoTests": true
           },
-          "outputs": ["coverage/libs/test-helpers"]
+          "outputs": ["coverage/apps/xlayers"]
+        },
+        "stamp": {
+          "builder": "@xlayers/version-stamp:stamp",
+          "options": {
+            "outputPath": "dist/apps/xlayers"
+          }
         }
       }
     },
-    "svelte-codegen": {
-      "root": "libs/svelte-codegen",
-      "sourceRoot": "libs/svelte-codegen/src",
-      "projectType": "library",
-      "schematics": {},
+    "xlayers-e2e": {
+      "root": "apps/xlayers-e2e",
+      "sourceRoot": "apps/xlayers-e2e/src",
+      "projectType": "application",
       "architect": {
-        "build": {
-          "builder": "@nrwl/angular:package",
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
           "options": {
-            "tsConfig": "libs/svelte-codegen/tsconfig.lib.json",
-            "project": "libs/svelte-codegen/ng-package.json"
+            "cypressConfig": "apps/xlayers-e2e/cypress.json",
+            "tsConfig": "apps/xlayers-e2e/tsconfig.e2e.json",
+            "devServerTarget": "xlayers:serve"
           },
           "configurations": {
             "production": {
-              "tsConfig": "libs/svelte-codegen/tsconfig.lib.prod.json"
+              "devServerTarget": "xlayers:serve:production"
             }
           }
         },
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@angular-eslint/builder:lint",
           "options": {
-            "tsConfig": [
-              "libs/svelte-codegen/tsconfig.lib.json",
-              "libs/svelte-codegen/tsconfig.spec.json"
-            ],
-            "exclude": ["**/node_modules/**", "!libs/svelte-codegen/**/*"]
+            "lintFilePatterns": [
+              "apps/xlayers-e2e/**/*.ts",
+              "apps/xlayers-e2e/**/*.html"
+            ]
           }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/svelte-codegen/jest.config.js",
-            "passWithNoTests": true
-          },
-          "outputs": ["coverage/libs/svelte-codegen"]
         }
       }
     }
