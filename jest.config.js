@@ -8,6 +8,7 @@ module.exports = {
     '<rootDir>/libs/stencil-codegen',
     '<rootDir>/libs/svg-codegen',
     '<rootDir>/libs/vue-codegen',
+    '<rootDir>/libs/vue3-codegen',
     '<rootDir>/libs/web-codegen',
     '<rootDir>/libs/web-component-codegen',
     '<rootDir>/libs/xaml-codegen',
