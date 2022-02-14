@@ -233,7 +233,9 @@ export class BplistService {
     endIndex: number,
     encoding: BufferEncoding = 'utf-8'
   ) {
-    return this.copyOfRange(bytes, startIndex, endIndex).toString(encoding);
+    return this.copyOfRange(bytes, startIndex, endIndex).toString(
+      encoding as any
+    );
   }
 
   /**

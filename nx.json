@@ -17,65 +17,34 @@
         "accessToken": "ZjkwMTBjMjEtMjNkMi00MDQwLThlYmEtZWU2NDBlOTE3YTQ0fHJlYWQtd3JpdGU=",
         "cacheableOperations": ["build", "test", "lint", "e2e"],
         "canTrackAnalytics": false,
-        "showUsageWarnings": true
+        "showUsageWarnings": true,
+        "parallel": 1
       }
-    }
-  },
-  "projects": {
-    "xlayers": {
-      "tags": []
-    },
-    "xlayers-e2e": {
-      "tags": [],
-      "implicitDependencies": ["xlayers"]
-    },
-    "angular-codegen": {
-      "tags": []
-    },
-    "css-codegen": {
-      "tags": []
-    },
-    "lit-element-codegen": {
-      "tags": []
-    },
-    "react-codegen": {
-      "tags": []
-    },
-    "stencil-codegen": {
-      "tags": []
-    },
-    "svg-codegen": {
-      "tags": []
-    },
-    "vue-codegen": {
-      "tags": []
-    },
-    "web-codegen": {
-      "tags": []
-    },
-    "web-component-codegen": {
-      "tags": []
-    },
-    "xaml-codegen": {
-      "tags": []
-    },
-    "sketch-lib": {
-      "tags": []
-    },
-    "sketch-ingestor": {
-      "tags": []
-    },
-    "sketchtypes": {
-      "tags": []
-    },
-    "test-helpers": {
-      "tags": []
-    },
-    "svelte-codegen": {
-      "tags": []
     }
   },
   "affected": {
     "defaultBase": "main"
+  },
+  "targetDependencies": {
+    "build": [
+      {
+        "target": "build",
+        "projects": "dependencies"
+      }
+    ]
+  },
+  "cli": {
+    "defaultCollection": "@nrwl/angular",
+    "analytics": "ea47d17b-b8ec-424f-b06c-30496be5af51"
+  },
+  "defaultProject": "xlayers",
+  "generators": {
+    "@nrwl/angular:application": {
+      "unitTestRunner": "jest",
+      "e2eTestRunner": "cypress"
+    },
+    "@nrwl/angular:library": {
+      "unitTestRunner": "jest"
+    }
   }
 }

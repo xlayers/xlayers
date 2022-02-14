@@ -17,25 +17,25 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@xlayers-apps/*": ["apps/xlayers/src/*"],
       "@xlayers/angular-codegen": ["libs/angular-codegen/src/index.ts"],
       "@xlayers/css-codegen": ["libs/css-codegen/src/index.ts"],
       "@xlayers/lit-element-codegen": ["libs/lit-element-codegen/src/index.ts"],
       "@xlayers/react-codegen": ["libs/react-codegen/src/index.ts"],
+      "@xlayers/sketch-ingestor": ["libs/sketch-ingestor/src/index.ts"],
+      "@xlayers/sketch-lib": ["libs/sketch-lib/src/index.ts"],
+      "@xlayers/sketchapps": ["libs/sketchapps/src/index.ts"],
+      "@xlayers/sketchtypes": ["libs/sketchtypes/src/index.ts"],
       "@xlayers/stencil-codegen": ["libs/stencil-codegen/src/index.ts"],
+      "@xlayers/svelte-codegen": ["libs/svelte-codegen/src/index.ts"],
       "@xlayers/svg-codegen": ["libs/svg-codegen/src/index.ts"],
+      "@xlayers/test-helpers": ["libs/test-helpers/src/index.ts"],
       "@xlayers/vue-codegen": ["libs/vue-codegen/src/index.ts"],
       "@xlayers/web-codegen": ["libs/web-codegen/src/index.ts"],
       "@xlayers/web-component-codegen": [
         "libs/web-component-codegen/src/index.ts"
       ],
-      "@xlayers/xaml-codegen": ["libs/xaml-codegen/src/index.ts"],
-      "@xlayers/sketch-lib": ["libs/sketch-lib/src/index.ts"],
-      "@xlayers/sketch-ingestor": ["libs/sketch-ingestor/src/index.ts"],
-      "@xlayers/sketchapps": ["libs/sketchapps/src/index.ts"],
-      "@xlayers/sketchtypes": ["libs/sketchtypes/src/index.ts"],
-      "@xlayers/test-helpers": ["libs/test-helpers/src/index.ts"],
-      "@xlayers-apps/*": ["apps/xlayers/src/*"],
-      "@xlayers/svelte-codegen": ["libs/svelte-codegen/src/index.ts"]
+      "@xlayers/xaml-codegen": ["libs/xaml-codegen/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"],
