@@ -15,7 +15,7 @@ jobs:
     strategy:
       matrix:
         os: [macos-latest, windows-latest]
-        node: [13, 14]
+        node: [14,16]
     steps:
       - name: Use Node.js ${{ matrix.node }}
         uses: actions/setup-node@v1
@@ -35,7 +35,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-${{ matrix.node }}-xlayers-workspace-
       - name: Install Dependencies
-        run: npm install --frozen-lockfile
+        run: npm install --force
   lint:
     env:
       NX_BRANCH: ${{ github.event.number }}
