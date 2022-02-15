@@ -1,4 +1,4 @@
-import { CodeGenKind } from '@xlayers-apps/app/editor/code/editor-container/codegen/codegen.service';
+import { CodeGenKind } from '../app/editor/code/editor-container/codegen/codegen.service';
 
 export interface UICodeGen {
   label: string;
@@ -45,6 +45,6 @@ export const codeGenList: UICodeGen[] = [
   {
     label: 'Svelte',
     svgIcon: 'svelte',
-    codegenType: CodeGenKind.Svelte
-  }
+    codegenType: CodeGenKind.Svelte,
+  },
 ];

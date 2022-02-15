@@ -7,7 +7,7 @@ import {
   CodeGen,
   CodeGenState,
 } from '../../../core/state/page.state';
-import { codeGenList, UICodeGen } from '@xlayers-apps/shared/codegen-list';
+import { codeGenList, UICodeGen } from '../../../../shared/codegen-list';
 
 const githubIssueLink =
   // eslint-disable-next-line max-len

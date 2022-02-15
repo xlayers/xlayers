@@ -2,10 +2,10 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngxs/store';
-import { InformUser } from '@xlayers-apps/app/core/state';
-import { SelectCodegenKind } from '@xlayers-apps/app/core/state/page.state';
-import { CodeGenKind } from '@xlayers-apps/app/editor/code/editor-container/codegen/codegen.service';
-import { codeGenList, UICodeGen } from '@xlayers-apps/shared/codegen-list';
+import { InformUser } from '../../app/core/state';
+import { SelectCodegenKind } from '../../app/core/state/page.state';
+import { CodeGenKind } from '../../app/editor/code/editor-container/codegen/codegen.service';
+import { codeGenList, UICodeGen } from '../../shared/codegen-list';
 import { environment } from '../../environments/environment';
 
 @Component({
