@@ -43,27 +43,27 @@ describe('WebComponentCodeGenService', () => {
     expect(actual).toBe('a_context');
   });
 
-  VERSION_LIST.forEach((version) => {
-    const fileNames = readdirSync(`${SKETCH_PATH}/${version}`);
+  // VERSION_LIST.forEach((version) => {
+  //   const fileNames = readdirSync(`${SKETCH_PATH}/${version}`);
 
-    fileNames.forEach((fileName) => {
-      it(`should match ${fileName} snapshot for ${version} on wc`, (done) => {
-        loadSketch(version, fileName)
-          .then((data) => {
-            data.pages.forEach((page) => {
-              service.compute(page, data, {
-                generateClassName: false,
-              });
-            });
+  //   fileNames.forEach((fileName) => {
+  //     it(`should match ${fileName} snapshot for ${version} on wc`, (done) => {
+  //       loadSketch(version, fileName)
+  //         .then((data) => {
+  //           data.pages.forEach((page) => {
+  //             service.compute(page, data, {
+  //               generateClassName: false,
+  //             });
+  //           });
 
-            return data;
-          })
-          .then((sketch) => {
-            expect(sketch).toMatchSnapshot();
-            done();
-          })
-          .catch(done);
-      });
-    });
-  });
+  //           return data;
+  //         })
+  //         .then((sketch) => {
+  //           expect(sketch).toMatchSnapshot();
+  //           done();
+  //         })
+  //         .catch(done);
+  //     });
+  //   });
+  // });
 });

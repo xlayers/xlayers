@@ -39,7 +39,7 @@ export async function loadSketch(version, fileName) {
   await Promise.all(
     zips.map(
       ({ relativePath, zipEntry }) =>
-        new Promise((resolve) => {
+        new Promise<void>((resolve) => {
           if (relativePath.startsWith('pages/')) {
             zipEntry.async('string').then((content) => {
               _data.pages.push(JSON.parse(content));

@@ -35,7 +35,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-${{ matrix.node }}-xlayers-workspace-
       - name: Install Dependencies
-        run: npm install --force
+        run: npm install --force --legacy-peers
   lint:
     env:
       NX_BRANCH: ${{ github.event.number }}
