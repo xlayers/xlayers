@@ -41,7 +41,7 @@ jobs:
         - name: Tests e2e
           run: npm run nx e2e
         - name: Build
-          run: npm run nx affected:build --base=origin/main~1 --head=origin/main --parallel=true --with-deps=true --prod
+          run: npm run nx affected:build --base=origin/main~1 --head=origin/main --parallel --prod
         - name: Stamp
           run: npm run stamp
 
