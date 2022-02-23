@@ -1,5 +1,5 @@
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { NO_ERRORS_SCHEMA } from '@angular/compiler/src/core';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
@@ -49,9 +49,9 @@ describe('UploadComponent', () => {
   });
 
   it('should process selected file', async () => {
-    spyOn(sketchService, 'loadSketchFile').and.returnValue(
-      Promise.resolve(mockSketchData)
-    );
+    jest
+      .spyOn(sketchService, 'loadSketchFile')
+      .mockResolvedValue(Promise.resolve(mockSketchData));
     await component.onFileSelected(mockFile);
 
     store.selectOnce(UiState.currentData).subscribe((data) => {

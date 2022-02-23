@@ -30,7 +30,6 @@ export class ImageService {
   }
 
   private getImageDataFromRef(data: SketchMSData, reference: string) {
-    console.error(reference);
     return (data as any).images[reference];
   }
 }

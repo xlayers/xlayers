@@ -68,7 +68,7 @@ describe('SketchDropZone', () => {
           items: [],
         },
       };
-      spyOn<any>(component, 'removeDragData').and.stub();
+      jest.spyOn(component, 'removeDragData' as any).mockReturnThis();
       const res = component.onFileDrop(dragEvent as any);
       expect(res).toEqual(undefined);
     });
