@@ -634,6 +634,14 @@
                   "maximumError": "10kb"
                 }
               ]
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
             }
           },
           "outputs": ["{options.outputPath}"]
@@ -646,6 +654,9 @@
           "configurations": {
             "production": {
               "browserTarget": "xlayers:build:production"
+            },
+            "development": {
+              "browserTarget": "xlayers:build:development"
             }
           }
         },
