@@ -18,7 +18,7 @@
         "cacheableOperations": ["build", "test", "lint", "e2e"],
         "canTrackAnalytics": false,
         "showUsageWarnings": true,
-        "parallel": 1
+        "parallel": 3
       }
     }
   },
