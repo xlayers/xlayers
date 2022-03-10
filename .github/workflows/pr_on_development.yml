@@ -121,7 +121,7 @@ jobs:
         run: |
           git fetch --no-tags --prune --depth=1 origin +refs/heads/main:refs/remotes/origin/main
       - name: Install Dependencies
-        run: npm install --frozen-lockfile
+        run: npm install --force --legacy-peers
       - name: Run e2e
         run: npm run affected:e2e -- --base=origin/main --head=HEAD --parallel --devServerTarget=xlayers:serve:development
   build:
