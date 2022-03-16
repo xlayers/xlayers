@@ -123,7 +123,7 @@ jobs:
       - name: Install Dependencies
         run: npm install --force --legacy-peers
       - name: Run e2e
-        run: npm run affected:e2e -- --base=origin/main --head=HEAD --parallel --devServerTarget=xlayers:serve:development
+        run: npm run nx e2e -- --devServerTarget=xlayers:serve:development
   build:
     env:
       NX_BRANCH: ${{ github.event.number }}

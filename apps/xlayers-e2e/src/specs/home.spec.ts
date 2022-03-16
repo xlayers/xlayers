@@ -9,7 +9,7 @@ describe('Home page', () => {
 
   it('the getting started button should open the editor', () => {
     cy.get('.icon_wrapper').spread((firstFramework) => {
-      firstFramework.click();
+      firstFramework.click({ force: true });
     });
     cy.location('hash').should('eq', '#/upload');
   });
